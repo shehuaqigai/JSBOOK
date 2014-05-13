@@ -1,0 +1,4 @@
+<p>
+	document.open()  打开一个新的空白文档，在IE下，open有两个默认参数，相当于document.open("text/html",'"")，第二个参数只有一个值可选：replace，如果启用了该值，则新建的文档会覆盖当前页面的文档（相当于清空了原文档里的所有元素，且不能后退即，浏览器的后退按钮不可用）； 
+	平常都不写document.open() 与 document.close()，因为浏览器会在write之前先open一个文档，再把write的内容输出到原文档里面。write结束后，默认是不会有close的，否则第二行document.write的时候就会覆盖之前的write。 
+</p>

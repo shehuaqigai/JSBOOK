@@ -1,0 +1,30 @@
+<p>
+	定义和用法
+lastModified 属性可返回文档最后被修改的日期和时间。
+语法
+document.lastModified
+说明
+该值来自于 Last-Modified HTTP 头部，它是由 Web 服务器发送的可选项。
+</p>
+<pre>
+	概述
+
+返回一个字符串,其中包含了当前文档的最后修改日期和时间.
+
+语法
+
+var string = document.lastModified; 
+例子
+
+dump(document.lastModified); 
+// 返回: Tuesday, July 10, 2001 10:19:42
+备注
+
+需要注意的是,作为一个字符串,lastModified 不能很容易的被用于与该文档的修改日期做比较.
+
+Webkit返回的时间为UTC时间;Gecko和IE返回的时间为本地时区时间.
+
+规范
+
+DOM Level 0 不属于任何标准.
+</pre>

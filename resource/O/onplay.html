@@ -1,0 +1,103 @@
+<div class="left"> 
+  <!-- 当前位置 -->
+  	<div class="position"><a href="http://www.e800.com.cn">e800</a> &gt; <a href="/tech/">开发频道</a> &gt; <a href="/tech/web/">WEB开发</a> &gt; <a href="/tech/web/webfont/">前端开发</a></div>
+	<div class="artbox ">HTML5开发类：媒体事件</div>
+	<div class="art_time">2012-04-11 09:32:30&nbsp;&nbsp;来源:www.e800.com.cn&nbsp;&nbsp;&nbsp;&nbsp;编辑:葛正荣&nbsp;&nbsp;<span class="f_blue">
+		
+	</span></div>	<div class="artinfo">围绕HTML5的媒体功能已经有很多讨论，它将如何影响flash？我们仍然需要像QuickTime和Windows Media Player这样的媒体播放器吗？HTML5会怎样规范网络媒体标准？而所有这些讨论，都将在可预见的未来得以实现，本文将为您介绍HTML5的媒体事件以及媒体元素工作原理。
+	</div>
+	<div class="art_con">
+		<p><span style="font-weight: bold;">【E800编译】</span>围绕<a href="http://search.e800.com.cn/HTML5" target="_blank" title="HTML5\" alt="HTML5"><u><strong>HTML5</strong></u></a>的媒体功能已经有很多讨论，它将如何影响flash？我们仍然需要像QuickTime和Windows
+Media Player这样的媒体播放器吗？HTML5会怎样规范网络媒体标准？</p>
+<p>而所有这些讨论，都将在可预见的未来得以实现，本文将为您介绍HTML5的媒体事件以及媒体元素工作原理。</p>
+<p style="font-weight: bold;">关于媒体事件</p>
+<p>
+不同于其他，如鼠标和键盘事件，是新的HTML5事件或者从HTML4移植到HTML5的，HTML5的媒体事件都是全新的。因此所有的开发人员都要了解HTML5媒体元素，属性以及事件是如何工作的。</p>
+<p>
+对于新手来说，一旦你掌握了其基本概念，HTML元素，属性和事件，就可以很快上手使用HTML5媒体。经验丰富的开发人员应该了解HTML5媒体功能的直观的设计。</p>
+<p>
+现在，在我们接触事件之前，让我们先来了解如何构造一个媒体元素。在这篇文章中，我将在实例中使用音频，但许多事件同样也适用于视频，内嵌，IMG以及对象元素等等。不过，这些事件使用得最频繁的还是在音频和视频方面。</p>
+<p>
+注：目前对于音频和视频文件类型的支持是极其有限的。在HTML5中目前支持的文件类型包括OGG（音频），MP3（音频），WAV（音频），OGG（视频）和MP4（视频）。此外，目前浏览器对于媒体功能的支持同样有限，在IE8上几乎无法执行，而谷歌Chrome3.0可完美实现。</p>
+<p>下面是一个音频元素例子，其中包含音频元素和控件属性。</p>
+<p>&lt;audio controls="controls"&gt;</p>
+<p>&nbsp; &lt;source src="HtmlGoodiesThemeSong.ogg"
+type="audio/ogg"&gt;</p>
+<p>&nbsp; &lt;source src="HtmlGoodiesThemeSong.mp3"
+type="audio/mpeg"&gt;</p>
+<p>Sorry, your browser does not support the audio element.</p>
+<p>&lt;/audio&gt;</p>
+<p>若上述元素的简要功能崩溃，将会：</p>
+<p>1.尝试播放.OGG音频文件</p>
+<p>2.如果第1项失败，尝试播放.MP3文件</p>
+<p>3.如果第2项失败，显示“浏览器不支持”的消息</p>
+<p>
+如果浏览器无法识别音频标签，就应该简单地忽略标签，并显示“浏览器不支持”的提示。这种“默认消息”概念是出于最新的HTML5元素向后兼容的目的。</p>
+<p style="font-weight: bold;">媒体事件分析</p>
+<p>
+开始使用HTML5中的媒体功能时，你首先会发现相同的事件会适用于不同类型的标准媒体。无论您所提供的是视频或者音频，事件是相同的。其次，你会发现事件的全面性，事件涵盖了开发人员将要执行的操作上所有最常见的点</p>
+<p>·oncanplay -当一个文件已准备就绪开始播放时触发此事件，前提是它已经完成足够缓冲。</p>
+<p>·oncanplaythrough -在可以不暂停缓冲的情况下完成文件的完整播放时触发此事件。</p>
+<p>·ondurationchange -当媒体的长度发生变化时此事件被触发。</p>
+<p>·onemptied – 当有意外发生或者文件突然无法访问时触发此事件。</p>
+<p>·onended - 当媒体快结束时触发此事件，犹如一个“谢谢收听”的提示。</p>
+<p>·onerror的 - 正如您所想象的一样，此事件是当文件在加载过程中出现错误时被触发。</p>
+<p>·onloadeddata -
+媒体数据被加载时触发。假设没有发生错误的情况下，它遵循以下onloadedmetadata事件。</p>
+<p>·onloadedmetadata -当加载元数据，如尺寸和持续时间时触发该事件。</p>
+<p>·onloadstart - 此事件会在初始加载过程中的第一步，它触发于文件开始准备加载。</p>
+<p>·onpause – 不管是用户还是程序暂停媒体播放，此事件即触发。而onplay事件是在媒体准备开始播放时触发。</p>
+<p>·onplaying - 此事件触发于媒体开始播放。</p>
+<p>·onprogress - 浏览器开始获取媒体数据的过程中触发此事件。</p>
+<p>·onratechange -每当如用户有切换慢动作或快进模式的播放变化时触发。</p>
+<p>·onreadystatechange - 此事件触发于每次媒体就绪状态的变化。就绪状态通常跟踪媒体数据的状态。</p>
+<p>·onseeked – 搜索属性设置为false即搜索结束时触发此事件。</p>
+<p>·onseeking – 搜索属性设置为true即搜索被激活时此事件被触发。</p>
+<p>·onstalled - 浏览器无法正常获取媒体数据时触发。该事件对于处理在缓冲过程中出现的连接中断问题非常有效。</p>
+<p>·onsuspend - 此事件与onstalled非常相似，在媒体数据完全加载成功之前停止获取数据即触发。</p>
+<p>·ontimeupdate – 当播放点发生了变化，如用户跳转至媒体上的不同点时触发。</p>
+<p>·onvolumechange – 音量属性发生变化时触发，其中包括设置静音。</p>
+<p>·onwaiting - 媒体暂停，直至更多数据完成缓冲后即可恢复播放的情况下触发。</p>
+<p style="font-weight: bold;">结论</p>
+<p>
+正如你可以看到，上面一长串的事件只是开发者执行一些动作时的每一关键点。即使你强烈反对HTML5的媒体功能，你也必须承认，它可以非常容易地向您的网页中添加媒体内容。需要注意的是，HTML5在各大浏览器上的支持仍有差异，所以我建议在谷歌Chrome上测试你的脚本，因为它能提供较完整的支持！</p>
+<p>原文链接：<a style="font-style: italic;" title="" alt="" href="http://www.htmlgoodies.com/html5/tutorials/HTML5-Development-Class-Media-Events-3883356.htm">http://www.htmlgoodies.com/HTML5/tutorials/HTML5-Development-Class-Media-Events-3883356.htm</a></p>
+
+	</div>
+	<div class="quotes"></div>
+	<div class="clearbox"></div>
+	<div class="list list1">
+	<ul>
+		</ul>
+	</div>
+	<div class="clearbox"></div>
+
+	<div class="share" style="margin-left:435px;"><b>分享到：</b><div class="bshare-custom" style="float:left"><div class="bsPromo bsPromo2"></div><a class="bshare-sinaminiblog" title="分享到新浪微博" href="javascript:;"></a><a class="bshare-qqmb" title="分享到腾讯微博" href="javascript:;"></a><a class="bshare-renren" title="分享到人人网" href="javascript:;"></a><a class="bshare-qzone" title="分享到QQ空间" href="javascript:;"></a><a class="bshare-kaixin001" title="分享到开心网" href="javascript:;"></a><a class="bshare-more bshare-more-icon" title="更多平台" href="javascript:;"></a></div>
+<script language="javascript" type="text/javascript" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=7fbe9080-d411-4996-9a88-dfb70b1631ea&amp;pophcol=1&amp;lang=zh"></script>
+<script language="javascript" type="text/javascript" src="http://static.bshare.cn/b/bshareC1.js"></script>
+	</div>	
+<div class="position" style="border:0">本文关键字：
+		<a href="http://search.e800.com.cn/tagname/HTML5" target="_blank" title="HTML5">HTML5</a>
+			<a href="http://search.e800.com.cn/tagname/video" target="_blank" title="video">video</a>
+			<a href="http://search.e800.com.cn/tagname/多媒体" target="_blank" title="多媒体">多媒体</a>
+			<a href="http://search.e800.com.cn/tagname/Web开发" target="_blank" title="Web开发">Web开发</a>
+	</div>
+	<div class="art_tl">相关文章</div>
+	<div class="art_wz">
+	<ul class="news_list2">
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0410/506729.shtml" title="HTML5视频字幕与WebVTT" target="_blank">HTML5视频字幕与WebVTT</a></li>
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0410/506716.shtml" title="HTML5视频标准" target="_blank">HTML5视频标准</a></li>
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0405/506386.shtml" title="Web开发基础：HTML5多媒体" target="_blank">Web开发基础：HTML5多媒体</a></li>
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0409/506613.shtml" title="W3C公布HTML5的10项草案更新" target="_blank">W3C公布HTML5的10项草案更新</a></li>
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0409/506611.shtml" title="详解HTML5的7个传说" target="_blank">详解HTML5的7个传说</a></li>
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0409/506595.shtml" title="HTML5开发：摄像机、投影、3D旋转、缩放" target="_blank">HTML5开发：摄像机、投影、3D旋转、缩放</a></li>
+			</ul>
+	</div>
+	<div class="art_wz">
+	<ul class="news_list2">
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0409/506591.shtml" title="WordPress实现HTML5预加载" target="_blank">WordPress实现HTML5预加载</a></li>
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0409/506588.shtml" title="使用HTML5开发新的可视化UI特性" target="_blank">使用HTML5开发新的可视化UI特性</a></li>
+			<li class="f_blue"><a href="http://www.e800.com.cn/articles/2012/0406/506481.shtml" title="可退回到Flash的HTML5视频方案" target="_blank">可退回到Flash的HTML5视频方案</a></li>
+			</ul>
+	</div>
+  </div>

@@ -1,0 +1,288 @@
+<div class="_content"><div class="_page _mdn"><h1>DeviceOrientationEvent</h1><div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div>  <p>The <code>DeviceOrientationEvent</code> provides web developers with information from the physical orientation of the device running the web page.</p> <div class="warning"> <p><strong>Warning:</strong> Currently, Firefox and Chrome does not handle the coordinates the same way. Take care about this while using them.</p> </div> <h2 id="Properties">Properties</h2> <dl>
+<dt> <a href="deviceorientationevent.absolute" title="Indicates whether or not the device is providing orientation data absolutely (that is, in reference to the Earth's coordinate frame) or using some arbitrary frame determined by the device. See Orientation and motion data explained for details."><code>DeviceOrientationEvent.absolute</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A boolean that indicates whether or not the device is providing orientation data absolutely.</dd> <dt> <a href="deviceorientationevent.alpha" title="Returns the rotation of the device around the Z axis; that is, the number of degrees by which the device is being twisted around the center of the screen. See Orientation and motion data explained for details."><code>DeviceOrientationEvent.alpha</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A number representing the motion of the device around the z axis, express in degrees with values ranging from 0 to 360</dd> <dt> <a href="deviceorientationevent.beta" title="Returns the rotation of the device around the X axis; that is, the number of degrees, ranged between -180 and 180,&nbsp; by which the device is tipped forward or backward. See Orientation and motion data explained for details."><code>DeviceOrientationEvent.beta</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A number representing the motion of the device around the x axis, express in degrees with values ranging from -180 to 180. This represents a front to back motion of the device.</dd> <dt> <a href="deviceorientationevent.gamma" title="Returns the rotation of the device around the Y axis; that is, the number of degrees, ranged between -90 and 90, by which the device is turned left or right. See Orientation and motion data explained for details."><code>DeviceOrientationEvent.gamma</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A number representing the motion of the device around the y axis, express in degrees with values ranging from -90 to 90. This represents a left to right motion of the device.</dd> </dl><h2 id="Example">Example</h2> <pre class=" language-javascript">window<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'deviceorientation'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>event<span class="token punctuation">.</span>alpha <span class="token operator">+</span> <span class="token string">' : '</span> <span class="token operator">+</span> event<span class="token punctuation">.</span>beta <span class="token operator">+</span> <span class="token string">' : '</span> <span class="token operator">+</span> event<span class="token punctuation">.</span>gamma<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre> <h2 id="Specifications">Specifications</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr></thead>
+<tbody><tr>
+<td><a class="external" href="http://dev.w3.org/geo/api/spec-source-orientation.html" lang="en" title="The 'Device Orientation Events' specification">Device Orientation Events</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Initial specification.</td> </tr></tbody>
+</table><h2 id="Browser_compatibility">Browser compatibility</h2> <p>Compatibility for DeviceOrientationEvent:</p>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>7.0</td> <td>3.6 (mozOrientation),<br> 6</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>3.0</td> <td>3.6 (mozOrientation),<br> 6</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td>4.2</td> </tr>
+</tbody></table>
+</div> <h3 id="Gecko-specific_notes">Gecko-specific notes</h3> <p>Firefox 3.6, 4, and 5 supported <a href="https://developer.mozilla.org/en-US/DOM/MozOrientation" title="MozOrientation">mozOrientation </a>instead of the standard <code>DeviceOrientationEvent</code> interface</p> <h2 id="See_also">See also</h2> <ul>
+<li><code><a href="globaleventhandlers.deviceorientation" title="/en-US/docs/Web/API/GlobalEventHandlers.deviceorientation">deviceorientation</a></code></li> <li><a href="devicemotionevent" title="The DeviceMotionEvent provides web developers with information about the speed of changes for the device's position and orientation."><code>DeviceMotionEvent</code></a></li> <li><code><a href="globaleventhandlers.devicemotion" title="/en-US/docs/Web/API/GlobalEventHandlers.devicemotion">devicemotion</a></code></li> <li><a href="https://developer.mozilla.org/en-US/docs/WebAPI/Detecting_device_orientation" title="/en-US/docs/WebAPI/Detecting_device_orientation">Detecting device orientation</a></li> <li><a href="https://developer.mozilla.org/en/DOM/Orientation_and_motion_data_explained" title="Orientation and motion data explained">Orientation and motion data explained</a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent</a>
+  </p>
+</div>
+</div></div>
+
+
+
+
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/hursing/article/details/9046837">
+        iOS Safari/WebKit对DeviceOrientationEvent的实现
+        </a></span>
+    </h3>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/hursing/article/category/1370200">iOS</a> 
+            <a href="/hursing/article/category/1370201">WebKit</a> 
+        </span>
+    <span class="link_postdate">2013-06-08 18:00</span>
+    <span class="link_view" title="阅读次数">854人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('iOS Safari/WebKit对DeviceOrientationEvent的实现','9046837');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(9046837,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://www.csdn.net/tag/UIWebView" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">UIWebView</a><a href="http://www.csdn.net/tag/deviceorientation" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">deviceorientation</a><a href="http://www.csdn.net/tag/iOS%20WebKit" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">iOS WebKit</a><a href="http://www.csdn.net/tag/%e7%a7%81%e6%9c%89API" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">私有API</a><a href="http://www.csdn.net/tag/Mobile%20Safari" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">Mobile Safari</a></div>
+
+    
+<div id="article_content" class="article_content">
+
+<p>背景知识：</p>
+<p>Apple官方只发现一个文档：</p>
+<p><a target="_blank" href="https://developer.apple.com/library/safari/#documentation/SafariDOMAdditions/Reference/DeviceOrientationEventClassRef/DeviceOrientationEvent/DeviceOrientationEvent.html">https://developer.apple.com/library/safari/#documentation/SafariDOMAdditions/Reference/DeviceOrientationEventClassRef/DeviceOrientationEvent/DeviceOrientationEvent.html</a></p>
+<p>连个例子都没有，还是自己实践吧。<a target="_blank" href="https://code.csdn.net/hursing/pagetest/blob/master/deviceorientationevent.html">https://code.csdn.net/hursing/pagetest/blob/master/deviceorientationevent.html</a></p>
+<p></p>
+<pre name="code" class="html">&lt;html&gt;
+    &lt;head&gt;
+ 	   &lt;title&gt;DeviceOrientationEvent&lt;/title&gt;
+	   &lt;meta charset="UTF-8" /&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;p&gt;左右：&lt;span id="alpha"&gt;0&lt;/span&gt;&lt;/p&gt;
+		&lt;p&gt;前后：&lt;span id="beta"&gt;0&lt;/span&gt;&lt;/p&gt;
+		&lt;p&gt;扭转：&lt;span id="gamma"&gt;0&lt;/span&gt;&lt;/p&gt;
+		&lt;p&gt;指北针指向：&lt;span id="heading"&gt;0&lt;/span&gt;度&lt;/p&gt;
+		&lt;p&gt;指北针精度：&lt;span id="accuracy"&gt;0&lt;/span&gt;度&lt;/p&gt;
+		&lt;script type="text/javascript"&gt;
+		function orientationHandler(event) {
+			document.getElementById("alpha").innerHTML = event.alpha;
+			document.getElementById("beta").innerHTML = event.beta;
+			document.getElementById("gamma").innerHTML = event.gamma;
+			document.getElementById("heading").innerHTML = event.webkitCompassHeading;
+			document.getElementById("accuracy").innerHTML = event.webkitCompassAccuracy;
+		}
+		
+		if (window.DeviceOrientationEvent) {
+		  window.addEventListener("deviceorientation", orientationHandler, false);
+		} else {
+		  document.body.innerHTML = "What user agent u r using???";
+		}
+   	 	&lt;/script&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p>用MobileSafari或UIWebView打开以上网页，可以看到5个数值的实时变化。</p>
+<a target="_blank" href="http://img.blog.csdn.net/20130608155628781"><img src="http://img.blog.csdn.net/20130608155628781" width="256" height="192" alt=""></a>（点击看大图）<br>
+<p>在handler的event参数中可以获得5个属性，其中两个：</p>
+<p>webkitCompassHeading：与正北方向的角度差值。正北为0度，正东为90度，正南为180度，正西为270度。因为0度是正北，所以叫指北针，不是指南针。</p>
+<p>webkitCompassAccuracy：指北针的精确度，表示偏差为正负多少度。一般是10。</p>
+<p>下面对另外三个属性的介绍引用一个转自<a target="_blank" href="http://www.tfan.org/wp-content/slides/deviceaccess.html">http://www.tfan.org/wp-content/slides/deviceaccess.html</a>的slides：</p>
+<p></p>
+<pre name="code" class="plain">deviceorientation 事件对象
+事件对象包含着每个轴相对于设备静止状态下发生变化的信息。
+
+设备坐标系的概念：x 轴方向是从左往右，y 轴方向是从下往上，z 轴方向是从后往前。当设备静止放在水平桌面时，这三个值都是 0。
+
+其中三个主要的属性：
+
+alpha: 在围绕 z 轴旋转时（即左右旋转时），y 轴的度数差。
+beta: 在围绕 x 轴旋转时（即前后旋转时），z 轴的度数差。
+gamma: 在围绕 y 轴旋转时（即扭转设备时），z 轴的度数差。</pre>
+<pre name="code" class="plain">围绕 z 轴旋转会引起 alpha 旋转角度发生变化。
+
+当设备顶部指向地球正北方向时，alpha 角是 0 度，设备向左边旋转时增大，介于 0 - 360 度之间。</pre>
+<div style="margin-top:-118px; height:345px; overflow:hidden"><img src="http://img.blog.csdn.net/20130608194449734" alt=""></div>
+<pre name="code" class="plain">围绕 x 轴旋转，也就是前后翻转（朝着用户或者远离用户)时，会引起 beta 旋转角度变化。
+
+设备水平放置时，beta 角度是 0 度；向上翻逐步增加到 180 度；向下翻减少到 -180 度。</pre>
+<img src="http://img.blog.csdn.net/20130608175847671" alt=""><br>
+<p></p>
+<pre name="code" class="plain">围绕 y 轴旋转，会引起 gamma 角度值的变化。
+
+水平放置角度是 0，向右拧增加到 90 度；向左拧减少到 -90 度。</pre>
+<img src="http://img.blog.csdn.net/20130608152717484" alt=""><br>
+<br>
+<p></p>
+<hr>
+<p>在《<a target="_blank" href="http://blog.csdn.net/hursing/article/details/8721465">Mac Safari VS Mobile Safari开启的宏</a>》中已确认，DeviceOrientationEvent是iOS Safari特有的feature。</p>
+<p><a target="_blank" href="http://blog.csdn.net/hursing/article/details/8910731">iOS Safari开源码</a>的Document.h中，与DeviceOrientationEvent有关的是比Mac开源码多了这10行：</p>
+<p></p>
+<pre name="code" class="cpp">#if ENABLE(DEVICE_ORIENTATION)
+    DeviceMotionController* deviceMotionController() const;
+    DeviceOrientationController* deviceOrientationController() const;
+#endif</pre>
+<p></p>
+<p></p>
+<pre name="code" class="cpp">#if ENABLE(DEVICE_ORIENTATION)
+    OwnPtr&lt;DeviceMotionClient&gt; m_deviceMotionClient;
+    OwnPtr&lt;DeviceMotionController&gt; m_deviceMotionController;
+    OwnPtr&lt;DeviceOrientationClient&gt; m_deviceOrientationClient;
+    OwnPtr&lt;DeviceOrientationController&gt; m_deviceOrientationController;
+#endif</pre>
+其中DeviceMotionXXX是重力感应相关的，既有联系又有区别，请查看《<a target="_blank" href="http://blog.csdn.net/hursing/article/details/9061991">iOS Safari/WebKit对DeviceMotionEvent的实现</a>》。
+<p></p>
+<p>还有一个类叫DeviceOrientationClientMock，Mock是仿制品的意思。这个类只用在自动化测试，模拟设备的转动。</p>
+<p><br>
+</p>
+<p>下图是相关类之间的关系概貌：</p>
+<p><img src="http://img.blog.csdn.net/20130608172544671" alt=""><br>
+</p>
+<p>其中CMMotionManager是系统SDK，功能和使用方法请参见：</p>
+<p><a target="_blank" href="http://developer.apple.com/library/ios/#documentation/CoreMotion/Reference/CMMotionManager_Class/Reference/Reference.html">http://developer.apple.com/library/ios/#documentation/CoreMotion/Reference/CMMotionManager_Class/Reference/Reference.html</a><br>
+</p>
+<p>DeviceOrientationClient是个抽象类，在iOS由子类DeviceOrientationClientIOS（这是6.0的名字，在5.0叫做DeviceOrientationClientIPhone）来实现，直接与MotionManager交互。</p>
+<p>与CMMotionManager的名字类似的CoreMotionManager是个C++类，在关系链中主要充当编程语言adapter的角色，即对外是C++接口，内部实现会使用Objective-C。</p>
+<p>xcode文档里没看到必须在主线程操作CMMotionManager的字眼，但CoreMotionManager都是在主线程操作（包括创建、销毁、调用函数）CMMotionmanager的，收到回调后，通过GCD或performSelector在MainThread和WebThread间传递消息。</p>
+<p><br>
+</p>
+<p>当执行JavaScript遇到addEventListener时，浏览器堆栈为：</p>
+<p></p>
+<pre name="code" class="cpp">Thread 5 WebThread, Queue : (null)
+#0	0x389740f8 in -[CoreMotionManager checkClientStatus] ()
+#1	0x38973fa0 in -[CoreMotionManager addOrientationClient:] ()
+#2	0x389a9b04 in WebCore::DeviceOrientationClientIOS::startUpdating() ()
+#3	0x389aa000 in WebCore::DeviceOrientationController::addListener(WebCore::DOMWindow*) ()
+#4	0x3873df36 in WebCore::DOMWindow::addEventListener(WTF::AtomicString const&amp;, WTF::PassRefPtr&lt;WebCore::EventListener&gt;, bool) ()
+#5	0x3873dc26 in WebCore::JSDOMWindow::addEventListener(JSC::ExecState*) ()
+#6	0x3873da78 in WebCore::jsDOMWindowPrototypeFunctionAddEventListener(JSC::ExecState*) ()</pre>
+第0层函数如果检测到自身不在主线程执行，会使用performSelectorOnMainThread本Selector到主线程再继续，主要操作是创建一个repeat的NSTimer不断查询CMMotionManager的相关属性，然后通过<br>
+<p></p>
+<pre name="code" class="cpp">void orientationChanged(double, double, double, double, double);</pre>
+函数，把文章开头提到的5个参数值封装成类WebCore::DeviceOrientation，
+<pre name="code" class="cpp">class DeviceOrientation : public RefCounted&lt;DeviceOrientation&gt; {
+public:
+    static PassRefPtr&lt;DeviceOrientation&gt; create();
+    static PassRefPtr&lt;DeviceOrientation&gt; create(bool canProvideAlpha, double alpha, bool canProvideBeta, double beta, bool canProvideGamma, double gamma, bool canProvideCompassHeading, double compassHeading, bool canProvideCompassAccuracy, double compassAccuracy);
+
+    double alpha() const;
+    double beta() const;
+    double gamma() const;
+    bool absolute() const;
+    bool canProvideAlpha() const;
+    bool canProvideBeta() const;
+    bool canProvideGamma() const;
+    bool canProvideAbsolute() const;
+
+    double compassHeading() const;
+    double compassAccuracy() const;
+    bool canProvideCompassHeading() const;
+    bool canProvideCompassAccuracy() const;
+
+private:
+    DeviceOrientation();
+    DeviceOrientation(bool canProvideAlpha, double alpha, bool canProvideBeta, double beta, bool canProvideGamma, double gamma, bool canProvideCompassHeading, double compassHeading, bool canProvideCompassAccuracy, double compassAccuracy);
+
+    bool m_canProvideAlpha;
+    bool m_canProvideBeta;
+    bool m_canProvideGamma;
+    double m_alpha;
+    double m_beta;
+    double m_gamma;
+
+    bool m_canProvideCompassHeading;
+    bool m_canProvideCompassAccuracy;
+    double m_compassHeading;
+    double m_compassAccuracy;
+};</pre>
+最后通过WebCore::EventTarget的标准流程传递到JavaScript的函数。<br>
+<p></p>
+<pre name="code" class="cpp">Thread 5 WebThread, Queue : (null)
+#0	0x387bec96 in WebCore::EventTarget::dispatchEvent(WTF::PassRefPtr&lt;WebCore::Event&gt;) ()
+#1	0x389aa1d4 in WebCore::DeviceOrientationController::didChangeDeviceOrientation(WebCore::DeviceOrientation*) ()
+#2	0x389a9b4c in WebCore::DeviceOrientationClientIOS::orientationChanged(double, double, double, double, double) ()
+#3	0x38974b0a in __48-[CoreMotionManager sendMotionData:withHeading:]_block_invoke_0 ()</pre>
+<br>
+另外两个值得留意的地方是：
+<p></p>
+<p>当Document需要suspend或resume时，会同时挂起或恢复 orientation或motion的监听。</p>
+<p></p>
+<pre name="code" class="cpp">void Document::suspendActiveDOMObjects(ActiveDOMObject::ReasonForSuspension why)
+{
+    ScriptExecutionContext::suspendActiveDOMObjects(why);
+
+#if ENABLE(DEVICE_ORIENTATION)
+    if (m_deviceMotionController)
+        m_deviceMotionController-&gt;suspendUpdates();
+    if (m_deviceOrientationController)
+        m_deviceOrientationController-&gt;suspendUpdates();
+#endif
+
+    ...
+}
+
+void Document::resumeActiveDOMObjects()
+{
+    ScriptExecutionContext::resumeActiveDOMObjects();
+    
+#if ENABLE(DEVICE_ORIENTATION)
+    if (m_deviceMotionController)
+        m_deviceMotionController-&gt;resumeUpdates();
+    if (m_deviceOrientationController)
+        m_deviceOrientationController-&gt;resumeUpdates();
+#endif
+
+    ...
+}</pre>
+当网页正在监听orientation或motion时，这个Page不能Cache<br>
+<p></p>
+<pre name="code" class="cpp">bool PageCache::canCache(Page* page)
+{
+    ...
+    
+    return canCachePageContainingThisFrame(page-&gt;mainFrame())
+        &amp;&amp; page-&gt;backForward()-&gt;isActive()
+        &amp;&amp; page-&gt;settings()-&gt;usesPageCache()
+#if ENABLE(DEVICE_ORIENTATION)
+        &amp;&amp; !(page-&gt;mainFrame()-&gt;document()-&gt;deviceMotionController() &amp;&amp; page-&gt;mainFrame()-&gt;document()-&gt;deviceMotionController()-&gt;isActive())
+        &amp;&amp; !(page-&gt;mainFrame()-&gt;document()-&gt;deviceOrientationController() &amp;&amp; page-&gt;mainFrame()-&gt;document()-&gt;deviceOrientationController()-&gt;isActive())
+#endif
+        &amp;&amp; loadType != FrameLoadTypeReload
+        &amp;&amp; loadType != FrameLoadTypeReloadFromOrigin
+        &amp;&amp; loadType != FrameLoadTypeSame;
+}</pre>
+<p><br>
+</p>
+<p>《<a target="_blank" href="http://blog.csdn.net/hursing/article/details/9061991">iOS Safari/WebKit对DeviceMotionEvent的实现</a>》还会对本文有补充，请点击继续查看。<br>
+</p>
+<p><br>
+</p>
+
+</div>
+
+
+
+
+
+
+
+
+</div>

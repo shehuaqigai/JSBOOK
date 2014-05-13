@@ -1,0 +1,36 @@
+<article id="post-1144" class="post-1144 post type-post status-publish format-standard hentry category-sunny tag-html5 tag-17">
+		<header class="entry-header">
+			<div class="entry-title"><h2>HTML5之语音输入</h2></div>
+					</header><!-- .entry-header -->
+		<div class="entry-content"><p>谷歌的网站是时逛时新啊，今天在他们首页发现了HTML5的新玩法——语音搜索。可惜的是只有webkit核心的浏览器才能使用。用法很简单<br>
+只需要在input添加属性<code>x-webkit-speech</code>即可，例子如下：<br>
+&lt;<code>"input type="text" x-webkit-speech  /"</code>&gt;<br>
+这样你的输入框右边里就多了个「小话筒」，点击的时候就会提示<a href="http://mengzhuo.org/blog/wp-content/uploads/2011/08/2011-08-15-180326_1280x800_scrot1.png"><img src="http://mengzhuo.org/blog/wp-content/uploads/2011/08/2011-08-15-180326_1280x800_scrot1-300x145.png" alt="" title="2011-08-15-180326_1280x800_scrot" width="300" height="145" class="alignnone size-medium wp-image-1166"></a></p>
+<p>这时说出来识别后就可以了，我测试下来，中文英语的识别率还挺高的。</p>
+<p>语音输入其他属性：
+</p><ul>
+<li>
+<h4><code>lang</code></h4>
+<p>这玩意可以强制输入框里面的语音的语言种类，例如<br>
+&lt;<code>"input type="text" x-webkit-speech  lang="zh-CN"/"</code>&gt;
+</p></li>
+<li>
+<h4>语音事件</h4>
+<p>目前已知的只有<code>onwebkitspeechchange</code>，顾名思义，就是语音发生变化时触发的事件，一般可以作为提交<br>
+&lt;<code>"input type="text" x-webkit-speech  onwebkitspeechchange="$(this).cloest('form').submit()"/"</code>&gt;<br>
+这样说完以后就自动搜索了
+</p></li>
+<li>
+<h4>x-webkit-grammar</h4>
+<p>这个不是语音搜索用的属性，但是可以控制这个输入的语法，例如在做搜索框的话就可以用<br>
+&lt;<code>"input type="text" x-webkit-speech  x-webkit-grammar="builtin:search" /"</code>&gt;<br>
+使得语音输入的内容尽量靠近搜索内容，去除多余的字符，例如「的」</p></li>
+</ul>
+<p>这个功能相当有趣，实用就不敢恭维了，主要是因为适用范围太小啊，所以只能希望HTML5尽快统一并应用了。</p>
+</div>
+				<footer class="entry-meta">
+									<p class="tags">Tagged as: <a href="http://mengzhuo.org/blog/tag/html5" rel="tag">html5</a>, <a href="http://mengzhuo.org/blog/tag/%e7%bd%91%e7%ab%99" rel="tag">网站</a></p>
+			<p class="categories">Categorized in: <a href="http://mengzhuo.org/blog/category/sunny" title="查看晴中的全部文章" rel="category tag">晴</a></p>
+							<p class="date"><span class="posted-on">Posted on <a href="http://mengzhuo.org/blog/html5%e4%b9%8b%e8%af%ad%e9%9f%b3%e8%be%93%e5%85%a5.html" title="18:51" rel="bookmark"><time class="entry-date published" datetime="2011-08-15T18:51:45+00:00">2011年08月15日</time></a></span><span class="byline"> by <span class="vcard author"><a class="url fn n" href="http://mengzhuo.org/blog/author/admin" title="View all posts by mz" rel="author">mz</a></span></span></p>
+					</footer><!-- .entry-meta -->
+	</article>

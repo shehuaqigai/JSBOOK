@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS em</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:15.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/units/length/em.htm">http://www.phpstudy.net/css3/units/length/em.htm</a><br>
+<b>Title:</b> CSS em &nbsp;&bull;&nbsp; <b>Size:</b> 4930 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">单位列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">长度单位</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/units/length/?" class="target">
+				<strong>其它长度单位参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="em.htm">em</a></li>
+					<li><a href="ex.htm">ex</a></li>
+					<li><a href="ch.htm">ch</a></li>
+					<li><a href="rem.htm">rem</a></li>
+					<li><a href="vw.htm">vw</a></li>
+					<li><a href="vh.htm">vh</a></li>
+					<li><a href="vm.htm">vm</a></li>
+					<li><a href="percent.htm">%</a></li>
+					<li><a href="cm.htm">cm</a></li>
+					<li><a href="mm.htm">mm</a></li>
+					<li><a href="in.htm">in</a></li>
+					<li><a href="pt.htm">pt</a></li>
+					<li><a href="pc.htm">pc</a></li>
+					<li><a href="px.htm">px</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">em</h1>
+	<ul class="info">
+		<li><strong>版本：CSS1</strong></li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>相对长度单位。相对于当前对象内文本的字体尺寸。</strong>
+			<ul>
+				<li>如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="support">6.0</td>
+						<td class="support">4.0</td>
+						<td class="support">5.1</td>
+						<td class="support">13.0</td>
+						<td class="support">11.50</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS em_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+body{font-size:14px;}
+h1{font-size:16px;}
+.size1 p{font-size:1em;}
+.size2 p{font-size:2em;}
+.size3 p{font-size:3em;}
+</style>
+</head>
+<body>
+<h1>假定当前默认字体尺寸是14px，n em即为14px字体尺寸的n倍：</h1>
+<ul>
+	<li class="size1">
+		<strong>1em</strong>:
+		<p>1em大小的文字</p>
+	</li>
+	<li class="size2">
+		<strong>2em</strong>:
+		<p>2em大小的文字</p>
+	</li>
+	<li class="size3">
+		<strong>3em</strong>:
+		<p>3em大小的文字</p>
+	</li>
+</ul>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

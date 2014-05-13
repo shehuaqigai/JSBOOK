@@ -1,0 +1,34 @@
+<pre>
+	定义和用法
+getUTCSeconds() 方法可根据世界时返回时间的秒。
+语法
+dateObject.getUTCSeconds()
+返回值
+当 dateObject 用世界时表示时，返回它的秒字段，该值是一个 0 ~ 59 之间的整数。
+提示和注释：
+注释：由 getUTCSeconds() 返回的值是一个两位的数字。
+不过返回值不总是两位的，如果该值小于 10，则仅返回一位数字。
+注释：该方法总是结合一个 Date 对象来使用。
+提示：有关通用协调时间 (UTC) 的更多资料，请参阅百度百科。
+实例
+例子 1
+在本例中，我们将取得当前时间的 UTC 秒：
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.getUTCSeconds())
+
+&lt/script>
+输出：
+39
+例子 2
+在此处，我们将从具体的日期和时间中提取 UTC 秒：
+&ltscript type="text/javascript">
+
+var Birthday = new Date("July 21, 1983 01:15:00")
+document.write(Birthday.getUTCSeconds())
+
+&lt/script>
+输出：
+0
+</pre>

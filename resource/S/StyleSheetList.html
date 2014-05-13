@@ -1,0 +1,175 @@
+他是document.styleSheets的构造函数，是一个样式表集合，是一个json对象,里面每个元素代表一个外联样式表!
+根据 W3C DOM Level2 Style 规范中的描述，document.styleSheets 返回一个 StyleSheetList 抽象接口对象，StyleSheetList 是一组类似 collection 的 StyleSheet 接口对象的集合，可以通过以 0 起始的整数作为下标来获取其内的每一个 StyleSheet。
+
+
+<div id="main">
+                <div class="main">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://bbs.csdn.net/topics/390693728" target="_blank">
+<font color="blue">新年新气象------CSDN2014新版导航就要跟大家见面了
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://bbs.csdn.net/topics/390693540" target="_blank"><font color="red">2014年1月微软MVP当选名单揭晓！
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/17356319" target="_blank">
+<font color="red">“我的2013”年度征文获奖名单已公布
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://www.csdn.net/article/2014-01-22/2818223" target="_blank">
+<font color="red">专访宋海涛：我们在做一款比Google Glass更酷的设备 </font></a>
+
+
+</div>                    <link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet">
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet">
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/zhchaoo/article/details/9033513">
+        WebKit中CSS处理流程（三）
+        </a></span>
+    </h3>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/zhchaoo/article/category/1367058">WebKit</a> 
+        </span>
+    <span class="link_postdate">2013-06-05 23:54</span>
+    <span class="link_view" title="阅读次数">865人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(1)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('WebKit中CSS处理流程（三）','9033513');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(9033513,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://www.csdn.net/tag/WebKit" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">WebKit</a><a href="http://www.csdn.net/tag/%e6%b5%8f%e8%a7%88%e5%99%a8" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">浏览器</a><a href="http://www.csdn.net/tag/CSS" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">CSS</a><a href="http://www.csdn.net/tag/HTML" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">HTML</a></div>
+
+    
+<div id="article_content" class="article_content">
+
+<p class="p1"><span style="font-weight:bold">注：<span style="font-size:10px">WebKit在115097版本中将CSSStyleSelector重命名<span style="font-family:Verdana,Arial,Bitstream Vera Sans,Helvetica,sans-serif"><span style="line-height:16px">为StyleResolver</span></span></span></span></p>
+<p class="p1"><strong>http://trac.webkit.org/changeset/115097<br>
+</strong></p>
+<p class="p1"><strong><br>
+</strong></p>
+<p class="p1"><strong>3 &nbsp;样式表的收集和处理</strong></p>
+<p class="p2"><img src="http://img.blog.csdn.net/20130605193431703" alt=""><br>
+</p>
+<p class="p3">图<span class="s1">3.2&nbsp;</span>样式表的收集等处理相关的类图</p>
+<p class="p4"><strong>3.1 &nbsp;样式表的收集</strong></p>
+<p class="p5"><span class="s2">&nbsp;&nbsp;&nbsp;&nbsp;在</span>m_sheet<span class="s2">生成完毕之后，都会调用</span>checkLoaded<span class="s2">方法，这个过程会通知拥有</span>m_sheet<span class="s2">的节点（即</span>HTMLLinkElement<span class="s2">或者</span>HTMLStyleElement<span class="s2">）表单读取完成</span>sheetLoaded<span class="s2">。之后相关的节点会通知</span>Document<span class="s2">移除正在读取的</span>sheet<span class="s2">，即</span>removePendingSheet<span class="s2">方法。如果所有样式都加载完毕则会在</span>removePendingSheet<span class="s2">方法内使用</span>styleSelectorChanged<span class="s2">方法，</span>styleSelectorChanged<span class="s2">方法又会去调用</span>recalcStyleSelector<span class="s2">方法收集生成好的</span>CSSStyleSheet<span class="s2">对象（包括之前生成好的）将它们保存在</span>StyleSheetList<span class="s2">变量</span>m_styleSheets<span class="s2">中，然后会去调用</span>recalcStyle(Force)<span class="s2">更新</span>Style<span class="s2">，最后会决定是否需要重排版。</span></p>
+<p class="p6">相关函数</p>
+<p class="p7"><span class="s3">1．</span>void&nbsp;Document::styleSelectorChanged(StyleSelectorUpdateFlag&nbsp;updateFlag)</p>
+<p class="p8">在样式加载完毕，忽略加载样式排版，清除页面样式时调用，它会去判断是否需要重绘，调用样式收集函数，样式计算函数和排版函数。</p>
+<p class="p9"><span class="s3">2．</span>void&nbsp;Document::recalcStyleSelector(StyleChange&nbsp;change)</p>
+<p class="p5"><span class="s2">收集之前解析好的</span>HTMLStyleElement<span class="s2">和</span>HTMLLinkElement<span class="s2">中的样式表，清除之前的</span>CSSStyleSelector<span class="s2">。</span></p>
+<p class="p4"><strong>3.2 &nbsp;样式表的处理</strong></p>
+<p class="p5"><span class="s2">&nbsp;&nbsp;&nbsp;&nbsp;Document::recalcStyle函数会调用</span>CSSStyleSelector::styleForDocument<span class="s2">为整个文档生成一个</span>RenderStyle<span class="s2">然后将其设置给</span>render<span class="s2">树的根节点，然后会去调用它的每一个子节点</span>Element<span class="s2">的</span>recalcStyle<span class="s2">函数，</span>Element::recalcStyle<span class="s2">函数会调用</span>styleForRenderer<span class="s2">（最终会调到</span>CSSStyleSelector::styleForElement<span class="s2">）来创建一个新的</span>RenderStyle<span class="s2">，然后调用</span>setRenderStyle<span class="s2">函数将新创建的</span>RenderStyle<span class="s2">设置给该节点对应的</span>Render<span class="s2">节点。</span>Element::recalcStyle<span class="s2">还会继续调用它的每一个子节点的</span>Element<span class="s2">的</span>recalcStyle<span class="s2">函数，最终会以广度优先遍历的顺序更新</span>render<span class="s2">树中每个节点的</span>RenderStyle<span class="s2">。</span></p>
+<p class="p8">&nbsp;&nbsp;&nbsp;&nbsp;前面提到样式解析过程获取的结构<span class="s3">CSSStyleSheet</span>并不适合样式计算，我们需要根据样式规则中选择器的匹配类型将样式声明重新散列到便于处理的<span class="s3">RuleSet</span>结构中，这个过程是由<span class="s3">CSSStyleSelector</span>的构造函数来完成。</p>
+<p class="p5"><span class="s2">&nbsp;&nbsp;&nbsp;&nbsp;每个</span>Document<span class="s2">有一个</span>CSSStyleSelector<span class="s2">，通常会在第一次需要使用</span>CSSStyleSelector<span class="s2">时创建，在</span>collectActiveStylesheets<span class="s2">方法中会重新收集生成好的</span>CSSStyleSheet<span class="s2">，之后会清除</span>CSSStyleSelector<span class="s2">对象。在</span>CSSStyleSelector<span class="s2">构造函数中首先会对</span>Document<span class="s2">中的</span>m_pageGroupUserSheets<span class="s2">，</span>m_userSheets<span class="s2">规则集中的每一条规则调用</span>RuleSet<span class="s2">::addRulesFromSheet的方法添加到</span>RuleSet<span class="s2">的对象</span>m_userStyle<span class="s2">或者</span>m_authorStyle<span class="s2">中。然后会将</span>Document<span class="s2">中的</span>m_styleSheets<span class="s2">规则集中的每一条规则都添加到</span>m_authorStyle<span class="s2">中。在添加到</span>RuleSet<span class="s2">集合时会根据每条样式规则的选择器组中最右侧一个选择器的匹配类型将规则添加到</span>RuleSet<span class="s2">中对应的</span>HashMap<span class="s2">或者向量表中。</span></p>
+<p class="p6">相关函数</p>
+<p class="p9"><span class="s3">1．</span>void&nbsp;Document::recalcStyle(StyleChange&nbsp;change)</p>
+<p class="p5"><span class="s2">调用</span>CSSStyleSelector::styleForDocument<span class="s2">为整个文档生成一个</span>RenderStyle<span class="s2">然后将其设置给</span>render<span class="s2">树的根节点，然后会去调用它的每一个子节点</span>Element<span class="s2">的</span>recalcStyle<span class="s2">函数，最终计算出整棵树的</span>RenderStyle<span class="s2">。</span></p>
+<p class="p9"><span class="s3">2．</span>void&nbsp;Element::recalcStyle(StyleChange&nbsp;change)</p>
+<p class="p5"><span class="s2">调用</span>CSSStyleSelector::styleForElement<span class="s2">计算每一个元素子节点的样式信息。</span></p>
+<p class="p9"><span class="s3">3．void&nbsp;RuleSet</span>::addRulesFromSheet(CSSStyleSheet*&nbsp;sheet,&nbsp;const&nbsp;MediaQueryEvaluator&amp;&nbsp;medium,&nbsp;CSSStyleSelector*&nbsp;styleSelector)</p>
+<p class="p5"><span class="s2">该方法主要是根据样式表</span>StyleSheet<span class="s2">中的每一个</span>CSSRule<span class="s2">的类型调用不同的处理函数进行处理，对普通的</span>style<span class="s2">类型，会调用</span>addStyleRule<span class="s2">做进一步处理，对</span>@import<span class="s2">类型会对其中保存的</span>styleSheet()<span class="s2">继续调用</span>addRulesFromSheet<span class="s2">方法，对</span>@page<span class="s2">类型会调用</span>addPageRule<span class="s2">将其添加到向量表</span>m_pageRules<span class="s2">中，对</span>@media<span class="s2">类型对其中的所有子</span>StyleSheet<span class="s2">做如上处理。</span></p>
+<p class="p9"><span class="s3">4．</span>void&nbsp;RuleSet::addStyleRule(CSSStyleRule*&nbsp;rule)</p>
+<p class="p5"><span class="s2">该方法对</span>CSSStyleRule<span class="s2">中的</span>selectorList()<span class="s2">的每一个</span>CSSSelector<span class="s2">调用</span>addRule<span class="s2">方法。</span></p>
+<p class="p9"><span class="s3">5．</span>void&nbsp;RuleSet::addRule(CSSStyleRule*&nbsp;rule,&nbsp;CSSSelector*&nbsp;sel)</p>
+<p class="p5"><span class="s2">该方法会根据</span>CSSSelector<span class="s2">中的匹配类型，如果是</span>id<span class="s2">，</span>class<span class="s2">，</span>unknownpseudo<span class="s2">，</span>tag<span class="s2">则将以</span>CSSSelector<span class="s2">中的字符串为</span>key<span class="s2">，将</span>CSSStyleRule<span class="s2">封装成</span>RuleData<span class="s2">分别保存到</span>RuleSet<span class="s2">的四个</span>HashMap<span class="s2">变量中</span>m_idRules<span class="s2">，</span>m_classRules<span class="s2">，</span>m_shadowPseudoElementRules<span class="s2">，</span>m_tagRules<span class="s2">；如果是伪类类型则保存到</span>m_linkPseudoClassRules<span class="s2">或者</span>m_focusPseudoClassRules<span class="s2">变量中。譬如：</span></p>
+<p class="p3">#id1{color:red;}&nbsp;&nbsp;&nbsp;&nbsp;<span class="s4"> </span>--&gt;存放在<span class="s5">m_idRules</span>中。</p>
+<p class="p3">.class1{color:red;}&nbsp;--&gt;存放在<span class="s5">m_classRules</span>中。</p>
+<p class="p3">div&nbsp;.class1{color:red;}&nbsp;--&gt;同上。</p>
+<p class="p3">p{color:red;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s4"> </span>--&gt;在<span class="s5">m_tagRules</span>中。</p>
+<p class="p3">*{color:red;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="s4"> </span>--&gt;在<span class="s5">m_universalRules</span>中。</p>
+<p class="p8">RuleSet和<span class="s3">RuleData</span>的组织结构如下图所示：</p>
+<p class="p10"><img src="http://img.blog.csdn.net/20130605193452640" alt=""><br>
+</p>
+<p class="p11"><span class="s6">图</span>3.2&nbsp;RuleSet<span class="s6">的组织结构</span></p>
+<p class="p8">CSSStyleSheet和<span class="s3">RuleSet</span>之间的联系如下图所示：</p>
+<p class="p10"><img src="http://img.blog.csdn.net/20130605193530109" alt=""><br>
+</p>
+<p class="p11"><span class="s6">图</span>3.3&nbsp;CSSStyleSheet<span class="s6">和</span>RuleSet<span class="s6">之间的联系</span></p>
+<p class="p7">注意：</p>
+<p class="p7">1.一条样式声明以<span class="s3">RuleData</span>的形式，根据其选择器组中最右侧的选择器的匹配方式，被散列到<span class="s3">RuleSet</span>中的一个<span class="s3">hashmap</span>或者向量表中，不会同时被散列到其中两个之中，也即是说，一个声明对应的<span class="s3">RuleData</span>不会即存在于<span class="s3">m_idRules</span>中又存在于<span class="s3">m_tagRules</span>中。</p>
+<p class="p7">2.以逗号隔开的选择器列表在<span class="s3">RuleSet</span>中会为其创建多个<span class="s3">RuleData</span>，并分别散列到逗号分隔的每一个选择器组对应的<span class="s3">hashmap</span>或者向量表中。</p>
+<p class="p7"><br>
+</p>
+<p class="p7">转载请注明出处：http://blog.csdn.net/zhchaoo/article/details/9033513</p>
+
+</div>
+
+
+
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float: right;">
+<a class="bds_qzone" title="分享到QQ空间" href="#"></a>
+<a class="bds_tsina" title="分享到新浪微博" href="#"></a>
+<a class="bds_tqq" title="分享到腾讯微博" href="#"></a>
+<a class="bds_renren" title="分享到人人网" href="#"></a>
+<a class="bds_t163" title="分享到网易微博" href="#"></a>
+<span class="bds_more">更多</span>
+<a class="shareCount" href="#" title="累计分享0次">0</a>
+</div>
+<!-- Baidu Button END -->
+
+
+<!--192.168.100.33-->
+<div class="article_next_prev">
+            <li class="prev_article"><span>上一篇：</span><a href="/zhchaoo/article/details/9025273" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">WebKit中CSS处理流程（二）</a></li>
+            <li class="next_article"><span>下一篇：</span><a href="/zhchaoo/article/details/9050517" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">WebKit中CSS处理流程（四）</a></li>
+</div>
+
+<!-- Baidu Button BEGIN -->
+
+
+<!-- Baidu Button END -->
+
+        <div id="digg" articleid="9033513">
+            <dl id="btnDigg" class="digg digg_disable">
+                <dt onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_ding'])">顶</dt>
+                <dd>2</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+                <dt onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_cai'])">踩</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+</div>
+    <div id="ad_cen">
+
+        <div id="BAIDU_DUP_wrapper_117306_0"></div>
+
+<ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+    </div>
+<div id="comment_title" class="panel_head">
+    查看评论<a name="comments"></a></div>
+<div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_2659701"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="/suannai0314" target="_blank">鹳狸媛</a> <span class="ptime">2013-06-07 11:11发表</span>  <a href="#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2659701" username="suannai0314"> <a href="#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="/suannai0314" target="_blank"><img src="http://avatar.csdn.net/1/8/4/3_suannai0314.jpg" width="40" height="40"></a></dd><dd class="comment_body">您的文章已被推荐到博客首页和个人页侧边栏推荐文章，感谢您的分享。</dd></dl><div class="clear"></div></div>
+<div id="comment_bar" style="display: none;">
+</div>
+<div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:csdn.showLogin(function (dat) {js_logined(dat.data.userName);});">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fzhchaoo%2Farticle%2Fdetails%2F9033513">[注册]</a></div></div>
+<div class="announce">
+    * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+    <div id="ad_bot">
+    <iframe id="ad_frm_0" frameborder="0" scrolling="no" src="http://blog.csdn.net/common/ad.html?t=5&amp;containerId=ad_bot&amp;frmId=ad_frm_0" style="border-width: 0px; overflow: hidden; width: 738px; height: 170px;"></iframe></div>
+    
+<div id="report_dialog">
+</div>
+<div id="d-top" style="display: none;">
+    <a id="d-top-a" href="#" title="回到顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])">
+        <img src="http://static.blog.csdn.net/images/top.png" alt="TOP"></a>
+</div>
+
+  

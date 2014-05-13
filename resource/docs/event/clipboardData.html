@@ -1,0 +1,17 @@
+<p>
+	很多网站当复制粘贴的时候，都会出现有关剪贴板的相关提示，在刚刚入行前端工程师的时候，我还在一直纳闷，这是怎么实现的呢。如今，咱们再也不用纳闷了，因为已经有浏览器把剪贴板相关事件纳入标准了。
+　　IE是最早支持与剪贴板相关的事件，以及通过JavaScript访问剪贴板数据的浏览器。IE的实现成为了事实上的标准，随后Firefox 3+ 、 Chrome和Safari 2+都支持类似的事件和剪贴板的访问，但是Opera不支持通过JavaScript访问剪贴板。直到HTML5的到来，将剪贴板相关事件纳入了HTML5规范。下面就是6个剪贴板事件。
+
+　　beforecopy：在发生复制操作前触发;
+　　copy：在发生复制操作的时候触发;
+　　beforecut：在发生剪切操作前触发;
+　　cut：在发生剪切操作的时候触发;
+　　beforepaste：在发生粘贴操作前触发;
+　　paste：在发生粘贴操作的时候触发。
+
+　　因为没有针对剪贴板操作的标准，这些事件及相关对象会因为浏览器而不一样。在Firefox、Chrome和Safari中，beforecopy、beforecut和beforepaste事件只会在显示针对文本框的上下文菜单(预期将发生剪贴板事件)的情况下触发。但是IE则会在触发copy、cut和paste事件之前先触发这些事件。至于copy、cut和paste事件，只要是在上下文菜单(右键菜单)中选择了相应选项，或者使用了相应的键盘组合键如(ctrl+v)，所有浏览器都会触发他们。
+　　在实际的事件发生之前，通过beforecopy、beforecut和beforepaste事件可以在向剪贴板发送数据，或者从剪贴板取得数据之前修改数据。不过，取消这些事件并不会取消对剪贴板的操作，只有取消copy、cut和paste事件，才能阻止相应的操作发生。
+　　要访问剪贴板中的数据，可以通过clipboardData对象：在IE中，clipboardData对象是window对象的属性;而在Chrome、Safari和Firefox 4+中，clipboardData对象是相应event对的属性。但是，在Chrome、Safari和Firefox 4+中，只有在处理剪贴板事件期间，clipboardData对象才有效，这是为了防止对剪贴板的未授权访问;在IE中，则可以随时访问clipboardData对象。为了确保跨浏览器兼容，最好只在发生剪贴板事件期间使用这个对象。
+　　这个clipboardData对象有三个方法：getData()方法、setData()方法和clearData()方法。其中，getData()方法用于从剪贴板中获取数据，它接收一个参数，即要取得的数据格式。在IE中，有两种数据格式：’text”和”URL”。在Chrome、Safari和Firefox 4+中，这个参数是一种MIME类型;不过，可以用”text”代表”text/plain”。
+　　setData()方法的第一个参数也是数据类型，第二个参数是要放在剪贴板中的文字。对于第一个参数，IE照样是支持”text”和”URL”，而在Chrome、Safari中，仍然支持MIME类型。但是与getData()方法不同的是，在Chrome、Safari中的setData()方法不能识别”text”类型。这两个浏览器在成功将文本放到剪贴板中后，都会返回true;否则返回false。
+</p>

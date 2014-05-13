@@ -1,0 +1,13 @@
+<p>
+	<pre>
+	// test.js 
+window.onload = function () { 
+var sourceNode = document.getElementById("div-0"); // 获得被克隆的节点对象 
+for (var i = 1; i < 5; i++) { 
+var clonedNode = sourceNode.cloneNode(true); // 克隆节点 
+clonedNode.setAttribute("id", "div-" + i); // 修改一下id 值，避免id 重复 
+sourceNode.parentNode.appendChild(clonedNode); // 在父节点插入克隆的节点 
+} 
+}
+</pre> 
+</p>

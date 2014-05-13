@@ -1,0 +1,87 @@
+<div id="maincontent">
+
+<h1>SVG &lt;ellipse&gt;</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_circle.asp" title="SVG &lt;circle&gt;">SVG 圆形</a></li>
+<li class="next"><a href="/svg/svg_line.asp" title="SVG &lt;line&gt;">SVG 线条</a></li>
+</ul>
+</div>
+
+<div class="intro">
+<p><strong>&lt;ellipse&gt; 标签可用来创建椭圆。</strong></p>
+</div>
+
+<div>
+<h2>&lt;ellipse&gt; 标签</h2>
+
+<p>&lt;ellipse&gt; 标签可用来创建椭圆。椭圆与圆很相似。不同之处在于椭圆有不同的 x 和 y 半径，而圆的 x 和 y 半径是相同的。</p>
+<p>请把下面的代码拷贝到记事本，然后把文件保存为 "ellipse1.svg"。把此文件放入您的 web 目录：</p>
+<pre>&lt;?xml version="1.0" standalone="no"?&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+
+&lt;svg width="100%" height="100%" version="1.1"
+xmlns="http://www.w3.org/2000/svg"&gt;
+
+&lt;ellipse cx="300" cy="150" rx="200" ry="80"
+style="fill:rgb(200,100,50);
+stroke:rgb(0,0,100);stroke-width:2"/&gt;
+
+&lt;/svg&gt;</pre>
+
+<h3>代码解释：</h3>
+<ul>
+<li>cx 属性定义圆点的 x 坐标</li>
+<li>cy 属性定义圆点的 y 坐标</li>
+<li>rx 属性定义水平半径</li>
+<li>ry 属性定义垂直半径</li>
+</ul>
+<p><a href="/svg/ellipse1.svg">查看例子</a></p>
+
+<p>下面的例子创建了三个累叠而上的椭圆：</p>
+<pre>&lt;?xml version="1.0" standalone="no"?&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+
+&lt;svg width="100%" height="100%" version="1.1"
+xmlns="http://www.w3.org/2000/svg"&gt;
+
+&lt;ellipse cx="240" cy="100" rx="220" ry="30"
+style="fill:purple"/&gt;
+
+&lt;ellipse cx="220" cy="70" rx="190" ry="20"
+style="fill:lime"/&gt;
+
+&lt;ellipse cx="210" cy="45" rx="170" ry="15"
+style="fill:yellow"/&gt;
+
+&lt;/svg&gt;</pre>
+<p><a href="/svg/ellipse2.svg">查看例子</a></p>
+
+<p>下面的例子组合了两个椭圆（一个黄的和一个白的）：</p>
+<pre>&lt;?xml version="1.0" standalone="no"?&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+
+&lt;svg width="100%" height="100%" version="1.1"
+xmlns="http://www.w3.org/2000/svg"&gt;
+
+&lt;ellipse cx="240" cy="100" rx="220" ry="30"
+style="fill:yellow"/&gt;
+
+&lt;ellipse cx="220" cy="100" rx="190" ry="20"
+style="fill:white"/&gt;
+
+&lt;/svg&gt;</pre>
+<p><a href="/svg/ellipse3.svg">查看例子</a></p>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_circle.asp" title="SVG &lt;circle&gt;">SVG 圆形</a></li>
+<li class="next"><a href="/svg/svg_line.asp" title="SVG &lt;line&gt;">SVG 线条</a></li>
+</ul>
+</div>
+</div>

@@ -1,0 +1,232 @@
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/sq_201067/article/details/8902637">
+        Javascript中事件的理解
+        </a></span>
+    </h3>
+</div>
+
+    
+
+    
+<div id="article_content" class="article_content">
+
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">在javascript中，event事件是一个必不可少的讨论话题，它在和用户的交互中起到了很重要的作用。今天我们就来讨论一下JavaScript中的事件处理，并且结合它来阐叙Ajax框架实现拖动效果的原理了。</span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">一、 Event对象</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp; Event对象的主要属性和方法</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">event代表事件的状态，专门负责对事件的处理，它的属性和方法能帮助我们完成很多和用户交互的操作，下面我们就来看看它的一些属性和方法。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; type：事件的类型，就是HTML标签属性中，没有“on”前缀之后的字符串，例如“Click”就代表单击事件。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">srcElement：事件源，就是发生事件的元素。比如&lt;a onclick="check()"&gt;&lt;/a&gt; a这个链接是事件发生的源头，也就是该事件的srcElement。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">button：声明了被按下的鼠标键，是一个整数。0代表没有按键，1代表鼠标左键，2代表鼠标右键，4代表鼠标的中间键，如果按下了多个鼠标键，就把这些值加在一起，所以3就代表左右键同时按下。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">clientX/clientY：是指事件发生的时候，鼠标的横、纵坐标，返回的是整数，它们的值是相对于包容窗口的左上角生成的。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">offsetX/offsetY：鼠标指针相对于源元素的位置，可以确定单击Image对象的哪个象素。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">altKey，ctrlKey，shiftKey：顾名思义，这些属性是指鼠标事件发生的时候，是否同时按住了Alt、Ctrl或者Shift键，返回的是一个布尔值。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">keyCode：返回keydown和keyup事件发生的时候，按键的代码以及keypress事件的Unicode字符。比如event.keyCode=13代表按下了回车键；</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">fromElement、toElement前者是指代mouseover事件移动过的文档元素，后者指代mouseout事件中鼠标移动到的文档元素。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">cancelBubble：一个布尔属性，把它设置为true的时候，将停止事件进一步起泡到包容层次的元素，它用于检测是否接受上层元素的事件的控制。true代表不被上层元素的事件控制，false代表允许被上层元素的事件控制。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">returnValue：一个布尔值属性，设置为false的时候可以阻止浏览器执行默认的事件动作，相当于&lt;a href=”#” onclick=”ProcessMethod();return false;” /&gt;。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attachEvent()和detachEvent()方法：为制定DOM对象事件类型注册多个事件处理函数的方法，它们有两个参数，第一个是事件类型，第二个是事件处理函数。在attachEvent()事件执行的时候，this关键字指向的是window对象，而不是发生事件的那个元素。</span><br>
+</span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">2&nbsp;&nbsp;&nbsp;&nbsp;
+ IE Event对象的一些说明</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">Event对象是一个全局属性</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">在IE中，不能把Event对象作为参数传递给事件处理程序，只能用window.event或者event来引用Event对象。因为在IE中，Event是window的一个属性，也就是说event是一个全局变量，这个变量提供了事件的细节。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">3 关于事件的起泡的概念</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IE中事件的起泡：IE中事件可以沿着包容层次一点点起泡到上层，也就是说，下层的DOM节点定义的事件处理函数，到了上层的节点如果还有和下层相同事件类型的事件处理函数，那么上层的事件处理函数也会执行。例如，&lt;div&gt;标签包含了&lt;a&gt;，如果这两个标签都有 onclick事件的处理函数，那么执行的情况就是先执行&lt;a&gt;标签的onclick事件处理函数，再执行&lt;div&gt;的事件处理函数。如果希望&lt;a&gt;的事件处理函数执行完毕之后，不希望执行上层的&lt;div&gt;的onclick的事件处理函数了，那么就把
+ cancelBubble设置为false即可。</span><br>
+</span></span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">二、
+ IE中拖动DOM元素的例子</span><br>
+</span></span></span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"></span></span></span></span></p><div class="dp-highlighter bg_html"><div class="bar"><div class="tools"><b>[html]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 531px; top: 1775px; width: 21px; height: 11px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="21" height="11" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=21&amp;height=11" wmode="transparent"></div></div></div><ol start="1" class="dp-xml"><li class="alt"><span><span>/*&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;该函数由mousedown事件处理调用&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;它为随后发生的mousemove和mouseup事件注册了临时的捕捉事件处理程序&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;并用这些事件处理程序拖动指定的文档元素&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;第二个参数必须是mousedown事件的事件对象&nbsp;&nbsp;</span></li><li class=""><span>*/&nbsp;&nbsp;</span></li><li class="alt"><span>function&nbsp;beginDrag(elementToDrag,event)&nbsp;&nbsp;</span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;//该元素当前位于何处&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;//该元素的样式性质必须具有left和top&nbsp;css属性&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;//此外，我们假定他们用象素做单位&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;//var&nbsp;<span class="attribute">x</span><span>=</span><span class="attribute-value">parseInt</span><span>(elementToDrag.style.left);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;//var&nbsp;<span class="attribute">y</span><span>=</span><span class="attribute-value">parseInt</span><span>(elementToDrag.style.top);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;//计算一个点和鼠标点击之间的距离，下面的嵌套的moveHandler函数需要这些值&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;var&nbsp;<span class="attribute">deltaX</span><span>=</span><span class="attribute-value">event</span><span>.clientX-parseInt(elementToDrag.style.left);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;var&nbsp;<span class="attribute">deltaY</span><span>=</span><span class="attribute-value">event</span><span>.clientY-parseInt(elementToDrag.style.top);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>//&nbsp;&nbsp;&nbsp;注册mousedown事件后发生的mousemove和mouseup事件的处理程序&nbsp;&nbsp;</span></li><li class=""><span>//&nbsp;&nbsp;&nbsp;注意，它们被注册为文档的捕捉事件处理程序&nbsp;&nbsp;</span></li><li class="alt"><span>//&nbsp;&nbsp;&nbsp;在鼠标按钮保持按下的状态的时候，这些事件处理程序保持活动的状态&nbsp;&nbsp;</span></li><li class=""><span>//&nbsp;&nbsp;&nbsp;在按钮被释放的时候，它们被删除&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;document.attachEvent("onmousemove",moveHandler);&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;document.attachEvent("onmouseup",upHandler);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;//我们已经处理了该事件，不要让别的元素看到它&nbsp;&nbsp;</span></li><li class="alt"><span><span class="attribute">event.cancelBubble</span><span>=</span><span class="attribute-value">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="attribute">event.returnValue</span><span>=</span><span class="attribute-value">false</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;/*&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是在元素被拖动时候捕捉mousemove事件的处理程序，它响应移动的元素&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;*/&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;function&nbsp;moveHandler(e)&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//把元素移动到当前的鼠标位置&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">e</span><span>=</span><span class="attribute-value">window</span><span>.event;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">elementToDrag.style.left</span><span>=(event.clientX-deltaX)+"px";&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">elementToDrag.style.top</span><span>=(event.clientY-deltaY)+"px";&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//不要让别的元素看到该事件&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">event.cancelBubble</span><span>=</span><span class="attribute-value">true</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;/*&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该事件将捕捉拖动结束的时候发生的mouseup事件&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;*/&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;function&nbsp;upHandler(e)&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//注销事件处理程序&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.detachEvent("onmouseup",upHandler);&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.detachEvent("onmousemove",moveHandler);}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">event.cancelBubble</span><span>=</span><span class="attribute-value">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;调用它的HTML文件代码：&nbsp;&nbsp;</span></li><li class=""><span><span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span><span>Untitled&nbsp;Page</span><span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">script</span><span>&nbsp;</span><span class="attribute">type</span><span>=</span><span class="attribute-value">"text/javascript"</span><span>&nbsp;</span><span class="attribute">src</span><span>=</span><span class="attribute-value">"dragIE.js"</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="tag">&lt;</span><span class="tag-name">div</span><span>&nbsp;</span><span class="attribute">style</span><span>=</span><span class="attribute-value">"position:absolute;left:100px;top:100px;background-color:White;border:solid&nbsp;black;"</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">div</span><span>&nbsp;</span><span class="attribute">style</span><span>=</span><span class="attribute-value">"background-color:Gray;border-bottom:solid&nbsp;black;padding:3px;font-family:Sans-Serif;font-weight:bold;"</span><span>&nbsp;</span><span class="attribute">onmousedown</span><span>=</span><span class="attribute-value">"beginDrag(this.parentNode,event);"</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;拖动我&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/</span><span class="tag-name">div</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">div</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">p</span><span class="tag">&gt;</span><span>This&nbsp;is&nbsp;a&nbsp;test.Testing,testing</span><span class="tag">&lt;/</span><span class="tag-name">p</span><span class="tag">&gt;</span><span class="tag">&lt;/</span><span class="tag-name">div</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="tag">&lt;/</span><span class="tag-name">div</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="html" style="display: none;">/*
+   该函数由mousedown事件处理调用
+   它为随后发生的mousemove和mouseup事件注册了临时的捕捉事件处理程序
+   并用这些事件处理程序拖动指定的文档元素
+   第二个参数必须是mousedown事件的事件对象
+*/
+function beginDrag(elementToDrag,event)
+{
+   //该元素当前位于何处
+   //该元素的样式性质必须具有left和top css属性
+   //此外，我们假定他们用象素做单位
+   //var x=parseInt(elementToDrag.style.left);
+   //var y=parseInt(elementToDrag.style.top);
+
+   //计算一个点和鼠标点击之间的距离，下面的嵌套的moveHandler函数需要这些值
+   var deltaX=event.clientX-parseInt(elementToDrag.style.left);
+   var deltaY=event.clientY-parseInt(elementToDrag.style.top);
+
+//   注册mousedown事件后发生的mousemove和mouseup事件的处理程序
+//   注意，它们被注册为文档的捕捉事件处理程序
+//   在鼠标按钮保持按下的状态的时候，这些事件处理程序保持活动的状态
+//   在按钮被释放的时候，它们被删除
+   document.attachEvent("onmousemove",moveHandler);
+   document.attachEvent("onmouseup",upHandler);
+   
+   //我们已经处理了该事件，不要让别的元素看到它
+event.cancelBubble=true;
+event.returnValue=false;
+
+   /*
+     这是在元素被拖动时候捕捉mousemove事件的处理程序，它响应移动的元素
+    
+   */
+   function moveHandler(e) 
+   {
+     //把元素移动到当前的鼠标位置
+     e=window.event;
+     elementToDrag.style.left=(event.clientX-deltaX)+"px";
+     elementToDrag.style.top=(event.clientY-deltaY)+"px";
+    
+     //不要让别的元素看到该事件
+     event.cancelBubble=true;
+    
+   }
+
+   /*
+     该事件将捕捉拖动结束的时候发生的mouseup事件
+   */
+   function upHandler(e)
+   {
+     //注销事件处理程序
+       document.detachEvent("onmouseup",upHandler);
+       document.detachEvent("onmousemove",moveHandler);}
+   
+       event.cancelBubble=true;
+     } 
+    调用它的HTML文件代码：
+&lt;html&gt;
+&lt;head&gt;
+     &lt;title&gt;Untitled Page&lt;/title&gt;
+     &lt;script type="text/javascript" src="dragIE.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style="position:absolute;left:100px;top:100px;background-color:White;border:solid black;"&gt;
+   &lt;div style="background-color:Gray;border-bottom:solid black;padding:3px;font-family:Sans-Serif;font-weight:bold;" onmousedown="beginDrag(this.parentNode,event);"&gt;
+   拖动我&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   &lt;/div&gt;
+   &lt;div&gt;
+   &lt;p&gt;This is a test.Testing,testing&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;</pre><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">三、
+ DOM中的高级事件处理</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">IE 6中的事件处理，并不是W3C DOM标准的事件处理模型，所以如果上述代码运行在Mozilla Firefox的浏览器中，就会失去作用，同时即将发布的IE 7也将支持W3C DOM的二级标准，所以掌握DOM的高级事件处理显得就很重要了，因为W3C DOM二级标准是未来Web的发展方向，同时W3C
+ DOM的API非常常用，为未来更加复杂的Web开发提供了良好的基础。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">（一）事件处理程序的作用域和事件的传播</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">在正式讨论DOM高级事件处理之前，我们有必要了解一下事件处理程序的作用域。事件处理程序的作用域要比普通的函数作用域复杂很多。普通的函数作用域链比较容易，例如在一个普通函数中查找一个变量a，那么JavaScript解释器会先在该函数的调用对象中查找是否有a这个变量，如果没有，将会在作用域链的下一个对象，一般是全局对象中查找。但是事件处理程序没这么简单，特别是用HTML的属性定义的，它们的作用域链的头部是调用它们的对象，而下一个对象并不是全局对象，而是触发事件处理程序的对象。这样就会出现一个问题，window和document都有一个方法open()，如果open()前面不加修饰，那么在事件处理的函数中将会调用document.open()方法，而不是常用的window.open()方法，所以使用的时候应该明确指明是
+ window.open()。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">（二）事件传播和注册事件处理程序</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">1.事件传播</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">在二级DOM标准中，事件处理程序比较复杂，当事件发生的时候，目标节点的事件处理程序就会被触发执行，但是目标节点的父节点也有机会来处理这个事件。事件的传播分为三个阶段，首先是捕捉阶段，事件从 Document对象沿着DOM树向下传播到目标节点，如果目标的任何一个父节点注册了捕捉事件的处理程序，那么事件在传播的过程中就会首先运行这个程序。下一个阶段就是发生在目标节点自身了，注册在目标节点上的相应的事件处理程序就会执行；最后是起泡阶段，事件将从目标节点向上传回给父节点，同样，如果父节点有相应的事件处理程序也会处理。在IE中，没有捕捉的阶段，但是有起泡的阶段。可以用stopPropagating()方法来停止事件传播，也就是让其他元素对这个事件不可见，在IE
+ 6中，就是把cancelBubble设置为true。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">2.注册事件处理程序</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">和IE一样， DOM标准也有自己的事件处理程序，不过DOM二级标准的事件处理程序比IE的强大一些，事件处理程序的注册用addEventListner方法，该方法有三个参数，第一个是事件类型，第二个是处理的函数，第三个是一个布尔值，true表示制定的事件处理程序将在事件传播的阶段用于捕捉事件，否则就不捕捉，当事件发生在对象上才触发执行这个事件处理的函数，或者发生在该对象的字节点上，并且向上起泡到这个对象上的时候，触发执行这个事件处理的函数。例如：document.addEventListener("mousemove",moveHandler,true);就是在mousemove事件发生的时候，调用moveHandler函数，并且可以捕捉事件。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">可以用addEventListener为一个事件注册多个事件处理的程序，但是这些函数的执行顺序是不确定，并不像C#那样按照注册的顺序执行。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">在Mozilla Firefox中用addEventListener注册一个事件处理程序的时候，this关键字就表示调用事件处理程序的文档元素，但是其他浏览器并不一定是这样，因为这不是DOM标准，正确的做法是用currentTarget属性来引用调用事件处理程序的文档元素。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">3.二级DOM标准中的Event</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">和IE不同的是，W3C DOM中的Event对象并不是window全局对象下面的属性，换句话说，event不是全局变量。通常在DOM二级标准中，event作为发生事件的文档对象的属性。Event含有两个子接口，分别是UIEvent和MutationEvent，这两个子接口实现了Event的所有方法和属性，而
+ MouseEvent接口又是UIEvent的子接口，所以实现了UIEvent和Event的所有方法和属性。下面，我们就看看Event、 UIEvent和MouseEvent的主要属性和方法。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">1.Event</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; type：事件类型，和IE类似，但是没有“on”前缀，例如单击事件只是“click”。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; target：发生事件的节点。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; currentTarget：发生当前正在处理的事件的节点，可能是Target属性所指向的节点，也可能由于捕捉或者起泡，指向Target所指节点的父节点。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; eventPhase：指定了事件传播的阶段。是一个数字。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; timeStamp：事件发生的时间。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; bubbles：指明该事件是否起泡。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; cancelable：指明该事件是否可以用preventDefault()方法来取消默认的动作。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; preventDefault()方法：取消事件的默认动作；</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; stopPropagation()方法：停止事件传播。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">2.UIEvent</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; view：发生事件的window对象。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">&nbsp;&nbsp; detail：提供事件的额外信息，对于单击事件、mousedown和mouseup事件都代表的是点击次数。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">3.MouseEvent</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">button：一个数字，指明在mousedown、mouseup和单击事件中，鼠标键的状态，和IE中的button属性类似，但是数字代表的意义不一样，0代表左键，1代表中间键，2代表右键。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">altKey、ctrlKey、shiftKey、metaKey：和IE相同，但是IE没有最后一个。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">clientX、clientY：和IE的含义相同，但是在DOM标准中，这两个属性值都不考虑文档的滚动情况，也就是说，无论文档滚动到哪里，只要事件发生在窗口左上角，clientX和clientY都是0，所以在IE中，要想得到事件发生的坐标相对于文档开头的位置，要加上 document.body.scrollLeft和document.body.scrollTop。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">screenX、screenY：鼠标指针相对于显示器左上角的位置，如果你想打开新的窗口，这两个属性很重要。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">relatedTarget：和IE中的fromElement、toElement类似，除了对于mouseover和mouseout有意义外，其他的事件没什么意义。</span><br>
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">三）兼容于两种主流浏览器的拖动DOM元素的例子</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">好了，刚才讲了这么多DOM编程和IE中的事件，那么如何编写兼容IE和Mozilla Firefox两种主流浏览器的拖拽程序呢？代码如下：</span><br>
+<p></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"></span></span></p><div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 557px; top: 4826px; width: 21px; height: 11px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="21" height="11" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=21&amp;height=11" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">function</span><span>&nbsp;beginDrag(elementToDrag,event)&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="keyword">var</span><span>&nbsp;deltaX=event.clientX-parseInt(elementToDrag.style.left);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">var</span><span>&nbsp;deltaY=event.clientY-parseInt(elementToDrag.style.top);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span><span class="keyword">if</span><span>(document.addEventListener)&nbsp;&nbsp;</span></span></li><li class="alt"><span>{&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;document.addEventListener(<span class="string">"mousemove"</span><span>,moveHandler,</span><span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;document.addEventListener(<span class="string">"mouseup"</span><span>,upHandler,</span><span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">else</span><span>&nbsp;</span><span class="keyword">if</span><span>(document.attachEvent)&nbsp;&nbsp;</span></span></li><li class=""><span>{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;document.attachEvent(<span class="string">"onmousemove"</span><span>,moveHandler);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;document.attachEvent(<span class="string">"onmouseup"</span><span>,upHandler);&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>}&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(event.stopPropagation)&nbsp;&nbsp;&nbsp;&nbsp;event.stopPropagation();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;event.cancelBubble=</span><span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(event.preventDefault)&nbsp;&nbsp;&nbsp;event.preventDefault();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;event.returnValue=</span><span class="keyword">false</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="keyword">function</span><span>&nbsp;moveHandler(e)&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span><span class="keyword">if</span><span>&nbsp;(!e)&nbsp;e=window.event;&nbsp;</span><span class="comment">//如果是IE的事件对象，那么就用window.event</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//全局属性，否则就用DOM二级标准的Event对象。</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elementToDrag.style.left=(event.clientX-deltaX)+<span class="string">"px"</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elementToDrag.style.top=(event.clientY-deltaY)+<span class="string">"px"</span><span>;&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(event.stopPropagation)&nbsp;&nbsp;&nbsp;&nbsp;event.stopPropagation();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;event.cancelBubble=</span><span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;<span class="keyword">function</span><span>&nbsp;upHandler(e)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(document.removeEventListener)&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.removeEventListener(<span class="string">"mouseup"</span><span>,upHandler,</span><span class="keyword">true</span><span>);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.removeEventListener(<span class="string">"mousemove"</span><span>,moveHandler,</span><span class="keyword">true</span><span>);}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.detachEvent(<span class="string">"onmouseup"</span><span>,upHandler);&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.detachEvent(<span class="string">"onmousemove"</span><span>,moveHandler);}&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span><span>(event.stopPropagation)&nbsp;&nbsp;&nbsp;&nbsp;event.stopPropagation();&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">else</span><span>&nbsp;event.cancelBubble=</span><span class="keyword">true</span><span>;&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="javascript" style="display: none;">function beginDrag(elementToDrag,event)
+{
+   var deltaX=event.clientX-parseInt(elementToDrag.style.left);
+   var deltaY=event.clientY-parseInt(elementToDrag.style.top);
+
+if(document.addEventListener)
+{
+   document.addEventListener("mousemove",moveHandler,true);
+   document.addEventListener("mouseup",upHandler,true);
+}
+else if(document.attachEvent)
+{
+   document.attachEvent("onmousemove",moveHandler);
+   document.attachEvent("onmouseup",upHandler);
+
+}
+
+   if(event.stopPropagation)    event.stopPropagation();
+   else event.cancelBubble=true;
+   if(event.preventDefault)   event.preventDefault();
+   else event.returnValue=false;
+
+   function moveHandler(e) 
+   {
+if (!e) e=window.event; //如果是IE的事件对象，那么就用window.event
+//全局属性，否则就用DOM二级标准的Event对象。
+     elementToDrag.style.left=(event.clientX-deltaX)+"px";
+     elementToDrag.style.top=(event.clientY-deltaY)+"px";
+    
+      if(event.stopPropagation)    event.stopPropagation();
+     else event.cancelBubble=true;
+    
+   }
+
+   function upHandler(e)
+   {
+        if(document.removeEventListener)
+     {
+       document.removeEventListener("mouseup",upHandler,true);
+       document.removeEventListener("mousemove",moveHandler,true);}
+       else
+     {
+       document.detachEvent("onmouseup",upHandler);
+       document.detachEvent("onmousemove",moveHandler);}
+     }
+       if(event.stopPropagation)    event.stopPropagation();
+     else event.cancelBubble=true;</pre><br>
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">最后我们来回顾一下事件执行过程中的三个阶段：</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">1 捕捉阶段，事件从Document对象沿Dom解析的树向下传播给目标节点。</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">2 目标节点触发阶段 事件处理程序在目标上的运行阶段</span><br style="line-height:25px; color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px">
+<span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px">3 起泡阶段 事件从目标元素向上传播或者起泡回Document对象的文档层次。</span><br>
+<p></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><br>
+</span></span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><br>
+</span></span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><br>
+</span></span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><br>
+</span></span></p>
+<p><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><span style="color:rgb(51,51,51); font-family:Arial,Helvetica,simsun,u5b8bu4f53; font-size:14px; line-height:25px"><br>
+</span></span></p>
+
+</div>
+
+
+
+</div>

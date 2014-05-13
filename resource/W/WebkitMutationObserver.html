@@ -1,0 +1,296 @@
+<div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p><code>MutationObserver</code>给开发者们提供了一种能在某个范围内的<a href="/zh-CN/docs/DOM">DOM</a>树发生变化时作出适当反应的能力.该API设计用来替换掉在DOM3事件规范中引入的<a class="new" href="/zh-CN/docs/DOM/Mutation_events">Mutation事件</a>.</p>
+<h2 id="Constructor" name="Constructor">构造函数</h2>
+<h3 id="MutationObserver()" name="MutationObserver()"><code>MutationObserver()</code></h3>
+<p>该构造函数用来实例化一个新的Mutation观察者对象.</p>
+<pre class="eval language-html">MutationObserver(
+  function callback
+);
+</pre>
+<h6 id="Parameters" name="Parameters">参数</h6>
+<dl>
+  <dt>
+    <code>callback</code></dt>
+  <dd>
+    该回调函数会在指定的DOM节点(目标节点)发生变化时被调用.在调用时,观察者对象会传给该函数两个参数,第一个参数是个包含了若干个<a href="#MutationRecord"><code>MutationRecord</code></a>对象的数组,第二个参数则是这个观察者对象本身.</dd>
+</dl>
+<h2 id="Instance_methods" name="Instance_methods">实例方法</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td><code>void <a href="#observe()">observe</a>( <a href="/zh-CN/docs/DOM/Node" title="Node是一个接口,有很多种类型的DOM元素继承于它. 下面这些类型的元素继承了该接口的所有属性和方法:"><code>Node</code></a> target, optional <a href="#MutationObserverInit">MutationObserverInit</a> options );</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a href="#disconnect()">disconnect</a>();</code></td>
+    </tr>
+    <tr>
+      <td><code>Array <a href="#takeRecords()">takeRecords</a>();</code></td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="observe()" name="observe()"><code>observe()</code></h3>
+<p>给当前观察者对象注册需要观察的目标节点,在目标节点(还可以同时观察其后代节点)发生DOM变化时收到通知.</p>
+<pre class="eval language-html">void observe(
+  <a href="/zh-CN/docs/DOM/Node" title="Node是一个接口,有很多种类型的DOM元素继承于它. 下面这些类型的元素继承了该接口的所有属性和方法:"><code class=" language-html">Node</code></a> target,
+  optional <a href="#MutationObserverInit"><code class=" language-html">MutationObserverInit</code></a> options
+);
+</pre>
+<h6 id="Parameters" name="Parameters">参数</h6>
+<dl>
+  <dt>
+    <code>target</code></dt>
+  <dd>
+    观察该节点是否会发生DOM变化.</dd>
+  <dt>
+    <code>options</code></dt>
+  <dd>
+    一个<a href="#MutationObserverInit"><code>MutationObserverInit</code></a>对象,指定要观察的DOM变化类型.</dd>
+</dl>
+<h3 id="disconnect()" name="disconnect()"><code>disconnect()</code></h3>
+<p>让该观察者对象停止观察指定目标的DOM变化.直到再次调用其<a href="#observe()"><code>observe()</code></a>方法,该观察者对象包含的回调函数都不会再被调用.</p>
+<pre class="eval language-html">void disconnect();
+</pre>
+<h3 id="takeRecords()" name="takeRecords()"><code>takeRecords()</code></h3>
+<p>清空<code>观察者对象的</code>记录队列,并返回里面的内容.</p>
+<pre class="eval language-html">Array takeRecords();
+</pre>
+<h6 id="Return_value" name="Return_value">返回值</h6>
+<p>返回一个包含了<a href="#MutationRecord"><code>MutationRecord</code>s</a>对象的数组.</p>
+<h2 id="MutationObserverInit" name="MutationObserverInit"><code>MutationObserverInit</code></h2>
+<p><code>MutationObserverInit是一个用来配置观察者对象行为的对象,该对象可以拥有下面这些属性</code>:</p>
+<div class="note">
+  注:&nbsp; <code>childList</code>, <code>attributes</code>, 或者<code>characterData</code>三个属性中必须至少有一个为<code>true</code>.否则,会抛出异常"An invalid or illegal string was specified".</div>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td class="header">属性</td>
+      <td class="header">描述</td>
+    </tr>
+    <tr>
+      <td><code>childList</code></td>
+      <td>如果需要观察目标节点的子节点(新增了某个子节点,或者移除了某个子节点),则设置为<code>true</code>.</td>
+    </tr>
+    <tr>
+      <td><code>attributes</code></td>
+      <td>如果需要观察目标节点的属性节点(新增或删除了某个属性,以及某个属性的属性值发生了变化),则设置为<code>true</code>.</td>
+    </tr>
+    <tr>
+      <td><code>characterData</code></td>
+      <td>如果目标节点为<code>characterData节点(一种抽象接口,具体可以为文本节点</code>,注释节点,以及处理指令节点<code>)</code>时,也要观察该节点的文本内容是否发生变化,则设置为<code>true</code>.</td>
+    </tr>
+    <tr>
+      <td><code>subtree</code></td>
+      <td>除了目标节点,如果还需要观察目标节点的所有后代节点(观察目标节点所包含的整棵DOM树上的上述三种节点变化),则设置为<code>true</code>.</td>
+    </tr>
+    <tr>
+      <td><code>attributeOldValue</code></td>
+      <td>
+        <p>在<code>attributes</code>属性已经设为<code>true的前提下,如果需要将发生变化的</code>属性节点之前的属性值记录下来(记录到下面MutationRecord对象的oldValue属性中),则设置为<code>true</code>.</p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>characterDataOldValue</code></td>
+      <td>在<code>characterData</code>属性已经设为<code>true的前提下,如果需要将发生变化的</code><code>characterData</code><code>节点之前的</code>文本内容记录下来(记录到下面MutationRecord对象的oldValue属性中),则设置为<code>true</code>.</td>
+    </tr>
+    <tr>
+      <td><code>attributeFilter</code></td>
+      <td>一个属性名数组(不需要指定命名空间),只有该数组中包含的属性名发生变化时才会被观察到,其他名称的属性发生变化后会被忽略.</td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="MutationRecord" name="MutationRecord"><code>MutationRecord</code></h2>
+<p><code>MutationRecord</code>对象会作为第一个参数传递给观察者对象包含的回调函数,该对象有下面这些属性:</p>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td class="header">属性</td>
+      <td class="header">类型</td>
+      <td class="header">描述</td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td><code>String</code></td>
+      <td>如果是属性发生变化,则返回<code>attributes</code>.如果是<code>一个CharacterData</code>节点发生变化,则返回<code>characterData</code>,如果是目标节点的某个子节点发生了变化,则返回<code>childList.</code></td>
+    </tr>
+    <tr>
+      <td><code>target</code></td>
+      <td><code><a href="/zh-CN/docs/DOM/Node" title="Node是一个接口,有很多种类型的DOM元素继承于它. 下面这些类型的元素继承了该接口的所有属性和方法:"><code>Node</code></a></code></td>
+      <td>返回此次变化影响到的节点,具体返回那种节点类型是根据<code>type值的不同而不同的</code>. 如果<code>type</code>为<code>attributes</code>,则返回发生变化的属性节点所在的元素节点,如果<code>type</code>值为<code>characterData</code>,则返回发生变化的这个<code>characterData</code>节点.如果<code>type</code>为<code>childList</code>,则返回发生变化的子节点的父节点.</td>
+    </tr>
+    <tr>
+      <td><code>addedNodes</code></td>
+      <td><code><a href="/zh-CN/docs/DOM/NodeList" title="NodeList对象是一个节点的集合,通常是由getElementsByTagName, getElementsByTagNameNS, Node.childNodes, querySelectorAll, getElementsByClassName等方法返回的."><code>NodeList</code></a></code></td>
+      <td>返回被添加的节点,或者为<code>null</code>.</td>
+    </tr>
+    <tr>
+      <td><code>removedNodes</code></td>
+      <td><code><a href="/zh-CN/docs/DOM/NodeList" title="NodeList对象是一个节点的集合,通常是由getElementsByTagName, getElementsByTagNameNS, Node.childNodes, querySelectorAll, getElementsByClassName等方法返回的."><code>NodeList</code></a></code></td>
+      <td>返回被删除的节点,或者为<code>null</code>.</td>
+    </tr>
+    <tr>
+      <td><code>previousSibling</code></td>
+      <td><code><a href="/zh-CN/docs/DOM/Node" title="Node是一个接口,有很多种类型的DOM元素继承于它. 下面这些类型的元素继承了该接口的所有属性和方法:"><code>Node</code></a></code></td>
+      <td>返回被添加或被删除的节点的前一个兄弟节点,或者为<code>null</code>.</td>
+    </tr>
+    <tr>
+      <td><code>nextSibling</code></td>
+      <td><code><a href="/zh-CN/docs/DOM/Node" title="Node是一个接口,有很多种类型的DOM元素继承于它. 下面这些类型的元素继承了该接口的所有属性和方法:"><code>Node</code></a></code></td>
+      <td>返回被添加或被删除的节点的后一个兄弟节点,或者为<code>null</code>.</td>
+    </tr>
+    <tr>
+      <td><code>attributeName</code></td>
+      <td><code>String</code></td>
+      <td>返回变更属性的本地名称,或者为<code>null</code>.</td>
+    </tr>
+    <tr>
+      <td><code>attributeNamespace</code></td>
+      <td><code>String</code></td>
+      <td>返回变更属性的命名空间,或者为<code>null</code>.</td>
+    </tr>
+    <tr>
+      <td><code>oldValue</code></td>
+      <td><code>String</code></td>
+      <td>
+        <p>根据<code>type值的不同,返回的值也会不同</code>.如果type为 <code>attributes</code>,则返回该属性变化之前的属性值.如果type为<code>characterData</code>,则返回该节点变化之前的文本数据.如果type为<code>childList</code>,则返回<code>null</code>.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Example_usage" name="Example_usage">例子</h2>
+<p>下面的例子来自<a class="external" href="http://hacks.mozilla.org/2012/05/dom-mutationobserver-reacting-to-dom-changes-without-killing-browser-performance/" rel="freelink">这篇博文</a>.</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token comment" spellcheck="true">// Firefox和Chrome早期版本中带有前缀
+</span><span class="token keyword">var</span> MutationObserver <span class="token operator">=</span> window<span class="token punctuation">.</span>MutationObserver <span class="token operator">||</span> window<span class="token punctuation">.</span>WebKitMutationObserver <span class="token operator">||</span> window<span class="token punctuation">.</span>MozMutationObserver
+<span class="token comment" spellcheck="true">
+// 选择目标节点
+</span><span class="token keyword">var</span> target <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector<span class="token punctuation">(</span></span><span class="token string">'#some-id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment" spellcheck="true">
+// 创建观察者对象
+</span><span class="token keyword">var</span> observer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MutationObserver</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>mutations<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  mutations<span class="token punctuation">.</span><span class="token function">forEach<span class="token punctuation">(</span></span><span class="token keyword">function</span><span class="token punctuation">(</span>mutation<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>mutation<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment" spellcheck="true">
+// 配置观察选项:
+</span><span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span> attributes<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> childList<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> characterData<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span>
+ <span class="token comment" spellcheck="true">
+// 传入目标节点和观察选项
+</span>observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token comment" spellcheck="true">
+// 随后,你还可以停止观察
+</span>observer<span class="token punctuation">.</span><span class="token function">disconnect<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div></code></pre>
+<p>假设<code>target</code>为当前文档中某个已知的节点,<code>observer</code>为某个已经实例化的<code>MutationObserver</code>观察者对象,则:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js">observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> <span class="token punctuation">{</span>childList<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>                             <span class="token comment" spellcheck="true"> //childList属性只观察子节点的新建与删除,子节点本身的任何变化都不会去理会  
+</span>target<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                      <span class="token comment" spellcheck="true"> //添加了一个元素子节点,触发回调函数.
+</span>target<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">createTextNode<span class="token punctuation">(</span></span><span class="token string">"foo"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                     <span class="token comment" spellcheck="true"> //添加了一个文本子节点,触发回调函数.
+</span>target<span class="token punctuation">.</span><span class="token function">removeChild<span class="token punctuation">(</span></span>target<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>                               <span class="token comment" spellcheck="true"> //移除第一个子节点,触发回调函数.
+</span>target<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment" spellcheck="true"> //为第一个子节点添加一个子节点,不会触发回调函数,如果需要触发,则需要设置subtree属性为true.
+</span>
+
+observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> <span class="token punctuation">{</span>childList<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>subtree<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>                <span class="token comment" spellcheck="true"> //subtree属性让观察行为进行"递归",这时,以target节点为根节点的整棵DOM树发生的变化都可能会被观察到 
+</span>observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>document<span class="token punctuation">,</span> <span class="token punctuation">{</span>childList<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>subtree<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>              <span class="token comment" spellcheck="true"> //如果target为document或者document.documentElement,则当前文档中所有的节点添加与删除操作都会被观察到
+</span>observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>document<span class="token punctuation">,</span> <span class="token punctuation">{</span>childList<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>attributes<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>characterData<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>subtree<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"> //当前文档中几乎所有类型的节点变化都会被观察到(包括属性节点的变化和文本节点的变化等)
+</span>
+
+observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> <span class="token punctuation">{</span>childList<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>                             <span class="token comment" spellcheck="true"> //假设此时target的outHTML内容为&lt;div&gt;foo&lt;div&gt;,则: 
+</span>target<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token string">"bar"</span>                                      <span class="token comment" spellcheck="true"> //不会触发回调函数,因为childList只观察节点的新建与删除,而这里target节点的子节点仍然只有一个,没有多,没有少
+</span>observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> <span class="token punctuation">{</span>childList<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>characterData<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>          <span class="token comment" spellcheck="true"> //加上characterData属性,允许观察文本节点的变化,行不行? 
+</span>target<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token string">"bar"</span>                                      <span class="token comment" spellcheck="true"> //还是不会触发回调函数,因为发生变化的是target节点的子节点,我们目前的目标节点只有一个,就是target.
+</span>observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> <span class="token punctuation">{</span>childList<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>characterData<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>subtree<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"> //加上subtree属性,观察所有后代节点 
+</span>target<span class="token punctuation">.</span>childNodes<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token string">"bar"</span>                                      <span class="token comment" spellcheck="true"> //触发了回调函数,发生变化的是target节点的文本子节点(必须同时有characterData和subtree属性,才能观察到一个元素目标节点里的文本内容的变化)
+</span>
+
+observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> <span class="token punctuation">{</span>attributes<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">)</span>                            <span class="token comment" spellcheck="true"> //只观察目标节点的属性节点
+</span>target<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">"foo"</span><span class="token punctuation">,</span><span class="token string">"bar"</span><span class="token punctuation">)</span>                                       <span class="token comment" spellcheck="true"> //不管foo属性存在不存在,都会触发回调函数
+</span>target<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">"foo"</span><span class="token punctuation">,</span><span class="token string">"bar"</span><span class="token punctuation">)</span>                                       <span class="token comment" spellcheck="true"> //即使前后两次的属性值一样,还是会触发回调函数
+</span>target<span class="token punctuation">.</span><span class="token function">removeAttribute<span class="token punctuation">(</span></span><span class="token string">"foo"</span><span class="token punctuation">)</span>                                          <span class="token comment" spellcheck="true"> //移除foo属性节点,触发回调函数
+</span>target<span class="token punctuation">.</span><span class="token function">removeAttribute<span class="token punctuation">(</span></span><span class="token string">"foo"</span><span class="token punctuation">)</span>                                          <span class="token comment" spellcheck="true"> //不会触发回调函数,因为已经没有属性节点可移除了
+</span>observer<span class="token punctuation">.</span><span class="token function">observe<span class="token punctuation">(</span></span>target<span class="token punctuation">,</span> <span class="token punctuation">{</span>attributes<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>attributeFilter<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">"bar"</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true"> //指定要观察的属性名
+</span>target<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">"foo"</span><span class="token punctuation">,</span><span class="token string">"bar"</span><span class="token punctuation">)</span>                                       <span class="token comment" spellcheck="true"> //不会触发回调函数,因为attributeFilter数组不包含"foo"
+</span>target<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">"bar"</span><span class="token punctuation">,</span><span class="token string">"foo"</span><span class="token punctuation">)</span>                                       <span class="token comment" spellcheck="true"> //触发了回调函数,因为attributeFilter数组包含了"bar"</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div></code></pre>
+<h2 id="Additional_reading" name="Additional_reading">外部链接</h2>
+<ul>
+  <li><a class="external" href="http://updates.html5rocks.com/2012/02/Detect-DOM-changes-with-Mutation-Observers" rel="freelink">A brief overview</a></li>
+  <li><a class="external" href="http://hacks.mozilla.org/2012/05/dom-mutationobserver-reacting-to-dom-changes-without-killing-browser-performance/" rel="freelink">A more in-depth discussion</a></li>
+  <li><a class="external" href="http://www.youtube.com/watch?v=eRZ4pO0gVWw" rel="freelink">A screencast by Chromium developer Rafael Weinstein</a></li>
+  <li><a class="external" href="http://code.google.com/p/mutation-summary/" rel="freelink">The mutation summary library</a></li>
+  <li><a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#mutation-observers" rel="freelink">The DOM4 specification</a> which defines the <code>MutationObserver</code> interface</li>
+</ul>
+<h2 id=".E6.B5.8F.E8.A7.88.E5.99.A8.E5.85.BC.E5.AE.B9.E6.80.A7">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>
+          <p>18 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span></p>
+          <p>27 (unprefixed)</p>
+        </td>
+        <td>14.0 (14)</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Chrome for Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE Mobile</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>14.0 (14)</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+
+
+<p>&nbsp;</p>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a>,
+                  <time datetime="2013-02-23T18:32:20-08:00">Feb 23, 2013 6:32:20 PM</time>
+                </div>
+                          </div>
+                  </div>

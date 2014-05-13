@@ -1,0 +1,71 @@
+
+
+
+
+
+<div class="_page _mdn"><h1>CSSKeyframesRule</h1> <div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div> <p>The <strong><code>CSSKeyframesRule</code></strong> interface describes an object representing a complete set of keyframes for a CSS animation. It corresponds to the contains of a whole <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" title=""><code>@keyframes</code></a> <a href="https://developer.mozilla.org/en-US/docs/CSS/At-rule" title="/en-US/docs/CSS/At-rule">at-rule</a>. It implements the <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a> interface with a type value of <code>7</code> (<code>CSSRule.KEYFRAMES_RULE</code>).</p> <h2 id="Properties" name="Properties">Syntax</h2> <p>The syntax is described using the <a href="http://dev.w3.org/2006/webapi/WebIDL/" title="http://dev.w3.org/2006/webapi/WebIDL/">WebIDL</a> format.</p> <pre>interface CSSKeyframesRule : CSSRule {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attribute DOMString&nbsp;&nbsp; name;
+&nbsp; readonly attribute CSSRuleList cssRules;
+
+&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; appendRule(in DOMString rule);
+&nbsp; void&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deleteRule(in DOMString key);
+&nbsp; CSSKeyframeRule findRule(in DOMString key);
+};
+</pre> <h2 id="Properties" name="Properties">Properties</h2> <p>As a <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a>, <code>CSSKeyframesRule</code> also implements the properties of these interfaces. It has two properties :</p> <dl>
+<dt> <code>name</code>
+</dt> <dd> Represents the name of the animation, used by the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name" title=""><code>animation-name</code></a> property.</dd> <dt id="cssRules"> <code>cssRules</code> <span class="inlineIndicator readOnly readOnlyInline" title="This">Read only </span>
+</dt> <dd> Returns a <code><a href="cssrulelist" title="/en-US/docs/DOM/CSSRuleList">CSSRuleList</a></code> of the CSS rules in the media rule.</dd> </dl><h2 id="Methods" name="Methods">Methods</h2> <p>As a <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a>, <code>CSSKeyframesRule</code> also implements the methods of that interface. It has three specific methods:</p> <dl>
+<dt id="appendRule"> <code>appendRule</code>
+</dt> <dd> Inserts a new keyframe rule into the current CSSKeyframesRule. The parameter is a <a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a> containing a keyframe in the same format as an entry of a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" title=""><code>@keyframes</code></a> at-rule. If it contains more than one keyframe rule, a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with a <code>SYNTAX_ERR</code> is thrown.</dd> <dt id="deleteRule"> <code>deleteRule</code>
+</dt> <dd> Deletes a keyframe rule from the current CSSKeyframesRule. The parameter is the index of the keyframe to be deleted, expressed as a <a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a> resolving as a number between <code>0</code> and <code>1</code>.</dd> <dt> <code><strong>findRule</strong></code>
+</dt> <dd> Returns a keyframe rule corresponding to the given key. The key is a <a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a> containing an index of the keyframe o be returned, resolving to a number between <code>0</code> and <code>1</code>. If no such keyframe exists, <code>findRule</code> returns <code>null</code>.</dd> </dl><h2 id="Specification" name="Specification">Specification</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr></thead>
+<tbody><tr>
+<td><a class="external" href="http://dev.w3.org/csswg/css-animations/#CSSKeyframesRule-interface" lang="en" title="The definition of 'CSSKeyframesRule' in that specification.">CSS Animations</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Initial definition.</td> </tr></tbody>
+</table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>5.0 (5.0)</td> <td>10</td> <td>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-o</span><br> 12.10 <a href="http://my.opera.com/ODIN/blog/2012/08/03/a-hot-opera-12-50-summer-time-snapshot" title="http://my.opera.com/ODIN/blog/2012/08/03/a-hot-opera-12-50-summer-time-snapshot">#</a>
+</td> <td>4.0</td> </tr>
+<tr>
+<td><code>appendRule</code></td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> with the non-standard name <code>insertRule</code>
+</td> <td>5.0 (5.0) with the non-standard name <code>insertRule</code><br> 22.0 (22.0)<br> </td> <td>10 with the non-standard name <code>insertRule</code>
+</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> with the non-standard name <code>insertRule</code>
+</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> with the non-standard name <code>insertRule</code>
+</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>5.0 (5.0)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-o</span><br> 12.10</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>appendRule</code></td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> with the non-standard name <code>insertRule</code>
+</td> <td>5.0 (5.0) as <code>insertRule</code><br> 22.0 (22.0)</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> with the non-standard name <code>insertRule</code>
+</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> with the non-standard name <code>insertRule</code>
+</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> with the non-standard name <code>insertRule</code>
+</td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li>CSS Object Model: <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a>, <a href="cssstylerule" title="CSSStyleRule represents a single CSS style rule. It implements the CSSRule interface with a type value of 1 (CSSRule.STYLE_RULE)."><code>CSSStyleRule</code></a>, <a href="cssmediarule" title="CSSMediaRule is an object representing a single CSS @media rule. It implements the CSSConditionRule interface, and therefore the CSSGroupingRule and the CSSRule interface with a type value of 4 (CSSRule.MEDIA_RULE)."><code>CSSMediaRule</code></a>, <a href="csspagerule" title="CSSPageRule is an object representing a single CSS @page rule. It implements the CSSRule interface with a type value of 6 (CSSRule.PAGE_RULE)."><code>CSSPageRule</code></a>, <a href="csskeyframesrule" title="The CSSKeyframesRule interface describes an object representing a complete set of keyframes for a CSS animation. It corresponds to the contains of a whole @keyframes at-rule. It implements the CSSRule interface with a type value of 7 (CSSRule.KEYFRAMES_RULE)."><code>CSSKeyframesRule</code></a>, <a href="csskeyframerule" title="The CSSKeyframeRule interface describes an object representing a set of style for a given keyframe. It corresponds to the contains of a single keyframe of a @keyframes at-rule. It implements the CSSRule interface with a type value of 8 (CSSRule.KEYFRAME_RULE)."><code>CSSKeyframeRule</code></a>, <a href="cssnamespacerule" title="The CSSNamespaceRule interface describes an object representing a single CSS @namespace at-rule. It implements the CSSRule interface, with a type value of 10 (CSSRule.NAMESPACE_RULE)."><code>CSSNamespaceRule</code></a>, <a href="csssupportsrule" title="The CSSSupportsRule interface describes an object representing a single CSS @supports at-rule. It implements the CSSConditionRule interface, and therefore the CSSRule and CSSGroupingRule interfaces with a type value of 12 (CSSRule.SUPPORTS_RULE)."><code>CSSSupportsRule</code></a>, <a href="cssgroupingrule" title="An object implementing the CSSGroupingRule DOM interface represents any CSS at-rule that contains other rules nested in it."><code>CSSGroupingRule</code></a>, <a href="cssconditionrule" title="An object implementing the CSSConditionRule DOM interface represents a single condition CSS at-rule, which consists of a condition and a statement block. It is a child of CSSGroupingRule."><code>CSSConditionRule</code></a>
+</li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" title=""><code>@keyframes</code></a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframesRule$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframesRule" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframesRule</a>
+  </p>
+</div>
+</div>

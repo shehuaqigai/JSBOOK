@@ -1,0 +1,115 @@
+onvolumechange	script	当媒介改变音量亦或当音量被设置为静音时运行脚本
+
+
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">volumechange | onvolumechange event</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Occurs when the volume is changed, or playback is muted or unmuted.</p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=221374" title="HTML5 A vocabulary and associated APIs for HTML and XHTML"><img id="badge_html5" alt="HTML5 A vocabulary and associated APIs for HTML and XHTML, Section 4.8.9.12" src="http://i.msdn.microsoft.com/dynimg/IC536200.png" title="HTML5 A vocabulary and associated APIs for HTML and XHTML, Section 4.8.9.12" xmlns=""></a><img id="badge_ie9" alt="Internet Explorer&nbsp;9" src="http://i.msdn.microsoft.com/dynimg/IC600833.png" title="Internet Explorer&nbsp;9" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<table>
+<tbody><tr><th>Event Property</th><td>
+          object.<strong>onvolumechange</strong> = <em>handler</em>;
+        </td></tr>
+<tr><th>addEventListener Method</th><td>
+          object.addEventListener("<strong>volumechange</strong>", handler, useCapture)
+        </td></tr>
+</tbody></table>
+
+<h2>Event information</h2>
+<table>
+<tbody><tr><td><strong>Synchronous</strong></td><th>No</th></tr>
+<tr><td><strong>Bubbles</strong></td><th>No</th></tr>
+<tr><td><strong>Cancelable</strong></td><th>No</th></tr>
+</tbody></table>
+<h2>Event handler parameters</h2>
+<dl>
+<dt><em>handler</em> [in]</dt>
+<dd>
+<p>Type: <strong>
+            function
+          </strong></p>
+<p>Event handler object. </p>
+</dd>
+</dl>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=221374" title="HTML5 A vocabulary and associated APIs for HTML and XHTML">HTML5 A vocabulary and associated APIs for HTML and XHTML</a>, Section 4.8.9.12</li>
+</ul>
+<h2>Remarks</h2>
+<p>The <a href="http://msdn.microsoft.com/en-us/library/ie/ff974764(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">volume</strong></a> property of the element represents the current volume level. </p>
+<p>The default playback volume is <code>1</code> (100 percent). The playback volume cannot be increased beyond 100 percent. </p>
+<p>To invoke this event, do one of the following:</p>
+<ul>
+<li>Increase or decrease the volume. </li>
+<li>Mute or unmute the playback. </li>
+</ul>
+<h2>Examples</h2>
+<p>The following example implements buttons that change the <a href="http://msdn.microsoft.com/en-us/library/ie/ff974764(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">volume</strong></a> of a video element (v1) by increments of .2 and turn mute on and off. These actions cause the <strong>onvolumechange</strong> event to be raised. </p>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>JavaScript</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_78e78a1f-ecae-4bf4-9558-8f1172f54e62');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_78e78a1f-ecae-4bf4-9558-8f1172f54e62" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;button onclick=<span style="color:#A31515;">"document.getElementById('v1').volume += 0.2"</span>&gt;Volume Up&lt;/button&gt;
+&lt;button onclick=<span style="color:#A31515;">"document.getElementById('v1').volume -= 0.2"</span>&gt;Volume Down&lt;/button&gt;
+&lt;button onclick=<span style="color:#A31515;">"document.getElementById('v1').muted = true;"</span>&gt;Mute&lt;/button&gt;
+&lt;button onclick=<span style="color:#A31515;">"document.getElementById('v1').muted = false"</span>&gt;Unmute&lt;/button&gt; 
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2><a id="see_also"></a>See also</h2>
+<dl>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh772923(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">audio</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975061(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">audio</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ms535862(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">document</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975070(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">source</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh772959(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">video element</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975073(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">video object</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ms535873(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">window</strong></a>
+</dt>
+<dt><strong>Reference</strong></dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974764(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">volume</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974754(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">muted</strong></a>
+</dt>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/17/2014</p>
+</div>
+</div>

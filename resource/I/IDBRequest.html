@@ -1,0 +1,69 @@
+<div class="_content"><div class="_page _mdn"><h1>IDBRequest</h1> <div class="summary"> <p>The <code>IDBRequest</code> interface of the IndexedDB API provides access to results of asynchronous requests to databases and database objects using event handler attributes. Each reading and writing operation on a database is done using a request.</p> </div> <p>The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a> instance.</p> <p>All asynchronous operations immediately return an <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a> instance. Each request has a <code>readyState</code> that is set to the <font face="Courier New, Andale Mono, monospace"><span style="line-height: normal;">pending</span></font> state, which then changes to <code><a href="#const_done">d</a>one</code> when the request is completed or fails. When the state is set to <code>done</code>, every request returns a <code>result</code> and an <code>error</code>, and an event is fired on the request. When the state is still <code>pending</code>, any attempt to access the <code>result</code> or <code>error</code> raises an <code>InvalidStateError</code> exception.</p> <p>All that is saying in plain English is that: All asynchronous methods return a request object. If the request has been completed successfully, the result is made available through the <code>result</code> property and an event indicating success is fired at the request. If an error occurs while performing the operation, the exception is made available through the <code>result</code> property and an error event is fired.</p> <p>Inherits from: <a href="eventtarget" title="en/DOM/EventTarget">EventTarget</a></p> <h2 id="Methods">Methods</h2> <p>No methods.</p> <h2 id="Properties">Properties</h2> <dl>
+<dt> <a href="idbrequest.result" title="An IDBObjectStore containing the result of the request."><code>IDBRequest.result</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> <p>Returns the result of the request. If the the request failed and the result is not available, the <span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;">InvalidStateError</span> exception is thrown.</p> </dd> <dt> <a href="idbrequest.error" title="A DOMError containing the relevant error. The following error codes are returned under certain conditions:"><code>IDBRequest.error</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Returns the error in the event of an unsuccessful request.</dd> <dt> <a href="idbrequest.source" title="An object representing the source of the request, such as an Index or an ObjectStore."><code>IDBRequest.source</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The source of the request, such as an Index or a ObjectStore. If no source exists (such as when calling <a href="idbfactory.open" title="The open operation—which is performed in a separate thread—consists of the following steps:"><code>IDBFactory.open</code></a>), it returns null.</dd> <dt> <a href="idbrequest.transaction" title="This property can be null for certain requests, such as for requests returned from IDBFactory.open — in this case you're just connecting to a database, so there is no transaction to return."><code>IDBRequest.transaction</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The transaction for the request. This property can be null for certain requests, such as for request returned from <a href="idbfactory.open" title="The open operation—which is performed in a separate thread—consists of the following steps:"><code>IDBFactory.open</code></a> (You're just connecting to a database, so there is no transaction to return).</dd> <dt> <a href="idbrequest.readystate" title="Every request starts in the pending&nbsp;state. The state changes to done when the request completes successfully or when an error occurs."><code>IDBRequest.readyState</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The state of the request. Every request starts in the <code>pending</code> state. The state changes to <code>done</code> when the request completes successfully or when an error occurs.</dd> </dl><h3 id="Event_handlers">Event handlers</h3> <dl>
+<dt> <a href="idbrequest.onerror" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBRequest.onerror</code></a>
+</dt> <dd> The event handler for the error event.</dd> <dt> <a href="idbrequest.onsuccess" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBRequest.onsuccess</code></a>
+</dt> <dd> The event handler for the success event.</dd> </dl><h2 id="Constants">Constants</h2> <h3 id="readyState_constants">
+<code>readyState</code> constants</h3> <div class="overheadIndicator obsolete obsoleteHeader"><p><strong>Obsolete since Gecko 25 (Firefox 25 / Thunderbird 25 / SeaMonkey 2.22)</strong><br>This feature is obsolete. Although it is still supported by browsers, its usage is discouraged in new projects. Try to avoid using it.</p></div> <div class="warning"> <p>These constants are no longer available. You should use the direct string constants instead. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=887524" title="FIXED: Move IDBRequest to WebIDL">bug 887524</a>)</p> </div> <table class="standard-table">
+<thead><tr>
+<th scope="col">Constant</th> <th scope="col">Value</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code><a name="const_done">DONE</a></code></td> <td>"done"</td> <td>The request has completed or an error has occurred. Initially false</td> </tr>
+<tr>
+<td><code><a name="const_loading">LOADING</a></code></td> <td>"pending"</td> <td>The request has been started, but its result is not yet available.</td> </tr>
+</tbody>
+</table><h2 id="Example">Example</h2> <p>In the following code snippet, we open a database asynchronously and make a request; here we can see usage of the <code>onerror</code> and <code>onsuccess</code> handlers:</p> <pre class=" language-javascript"><span class="token keyword">var</span> db<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Let us open our database
+</span><span class="token keyword">var</span> request <span class="token operator">=</span> window<span class="token punctuation">.</span>indexedDB<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// these two event handlers act on the database being opened successfully, or not
+</span>request<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Error loading database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+request<span class="token punctuation">.</span>onsuccess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Database initialised.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+ 
+ <span class="token comment" spellcheck="true"> // store the result of opening the database in the db variable.
+</span>  db <span class="token operator">=</span> request<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></pre> <h2 id="Derived_interface">Derived interface</h2> <ul>
+<li><a href="idbopendbrequest" title="Inherits from: IDBRequest"><code>IDBOpenDBRequest</code></a></li> </ul><h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/IndexedDB/raw-file/tip/Overview.html#idl-def-IDBRequest" lang="en" title="The definition of 'IDBRequest' in that specification.">Indexed Database API</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td> <p>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-webkit</span></p> <p>23</p> </td> <td> <p>4.0 (2.0)</p> <p>16</p> </td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>Firefox OS</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.4</td> <td>6.0 (6.0)</td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div class="warning"> <p>Be careful in Chrome as it still implements the old specification along the new one. Similarly it still has the prefixed <code>webkitIndexedDB</code> property even if the unprefixed <code>indexedDB</code> is present.</p> </div> <h2 id="See_also">See also</h2> <p>To learn more about various topics, see the following</p> <ul>
+<li>Starting transactions: <a href="idbdatabase" title="Everything you do in IndexedDB always happens in the context of a transaction, representing interactions with data in the database. All objects in IndexedDB—including object stores, indexes, and cursors—are tied to a particular transaction. Thus, you cannot execute commands, access data, or open anything outside of a transaction."><code>IDBDatabase</code></a>
+</li> <li>Setting transaction modes: <a href="idbtransaction" title="Inherits from: EventTarget"><code>IDBTransaction</code></a>
+</li> <li>Setting a range of keys: <a href="idbkeyrange" title="A key range can have a single value or a range with upper and lower bounds or endpoints. If the key range has both upper and lower bounds, then it is bounded; if it has no bounds, it is unbounded. A bounded key range can either be open (the endpoints are excluded) or closed (the endpoints are included). To retrieve all keys within a certain range, you can use the following code constructs:"><code>IDBKeyRange</code></a>
+</li> <li>Creating cursors: <a href="idbindex" title="You can retrieve records in an object store through their keys or by using an index (cursors provide a third way: see IDBCursor). An index lets you look up records in an object store using properties of the values in the object stores records."><code>IDBIndex</code></a>
+</li> <li>The reference application for the examples in this reference: <a class="external" href="https://github.com/chrisdavidmills/to-do-notifications/tree/gh-pages">To-do Notifications</a> (<a class="external" href="http://chrisdavidmills.github.io/to-do-notifications/">view example live</a>.) Not every snippet appears in this example, but every example uses the same data structure and syntax, and they will make sense in the context of this example.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBRequest$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBRequest" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/IDBRequest</a>
+  </p>
+</div>
+</div></div>

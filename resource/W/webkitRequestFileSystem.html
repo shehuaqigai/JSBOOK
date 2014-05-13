@@ -1,0 +1,610 @@
+<div class="content" id="article-content">
+
+        <section class="byline">
+
+          <div class="byline-content">
+            
+            <section class="author-images">
+              <a href="/profiles/#ericbidelman">
+                <img src="/static/images/profiles/ericbidelman.png" itemprop="photo" alt="Eric Bidelman" title="Eric Bidelman">
+              </a>
+
+              
+            </section>
+
+            <section class="meta">
+              <div class="authors">
+                <strong>By</strong> <a href="/profiles/#ericbidelman">Eric Bidelman</a>
+                
+              </div>
+
+              
+
+              <div class="date">
+                <time pubdate=""><strong>已发布:</strong> 一月 4th, 2011</time>
+                
+                <time class="updated"><strong>已更新:</strong> 七月 30th, 2013</time>
+                <span><strong>Comments:</strong> <a href="#disqus_thread" class="load-comments" data-disqus-identifier="http://www.html5rocks.com/tutorials/file/filesystem/">115</a></span>
+              </div>
+
+              <div id="notcompatible" class="hidden">
+                Your browser may not support the functionality in this article.
+              </div>
+            </section>
+            <div class="clear"></div>
+
+            
+          </div>
+        </section>
+
+        
+  <h2 id="toc-introduction">简介</h2>
+
+  <p>我常常想，如果网络应用能够读取和写入文件与目录，将会非常方便。从离线转移到在线后，应用变得更加复杂，而文件系统方面的 API 的缺乏也一直阻碍着网络前进。存储二进制数据或与其进行交互不应局限于桌面。令人欣慰的是，由于 <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/">FileSystem API</a> 的出现，这一现状终于得到了改变。有了 FileSystem API，网络应用就可以创建、读取、导航用户本地文件系统中的沙盒部分以及向其中写入数据。</p>
+
+  <p>API 被分为以下不同的主题：</p>
+  <ul>
+    <li>读取和处理文件：<code>File</code>/<code>Blob</code>、<code>FileList</code>、<code>FileReader</code></li>
+    <li>创建和写入：<code>BlobBuilder</code>、<code>FileWriter</code></li>
+    <li>目录和文件系统访问：<code>DirectoryReader</code>、<code>FileEntry</code>/<code>DirectoryEntry</code>、<code>LocalFileSystem</code>
+    </li>
+  </ul>
+
+  <h3 id="toc-support">浏览器支持与存储限制</h3>
+
+  <p>在写这篇文章时，只有 Google Chrome 浏览器可以实施此 FileSystem API。目前尚不存在专门用于文件/配额管理的浏览器用户界面。要在用户的系统上存储数据，您的应用可能需要<a href="#toc-requesting-quota">请求配额</a>。不过，可使用 <code>--unlimited-quota-for-files</code> 标记运行 Chrome 浏览器进行测试。此外，如果您要开发的是用于 Chrome 网上应用店的应用或扩展程序，可使用 <code>unlimitedStorage</code> <a href="http://code.google.com/chrome/extensions/manifest.html">清单文件</a>权限，而无需请求配额。最后，用户会收到授予、拒绝或为应用增加存储的权限对话框。</p>
+
+  <p>如果您要通过 <code>file://</code> 调试您的应用，可能需要 <code>--allow-file-access-from-files</code> 标记。不使用这些标记会导致 <code>SECURITY_ERR</code> 或 <code>QUOTA_EXCEEDED_ERR</code> FileError。</p>
+
+  <h2 id="toc-requesting">请求文件系统</h2>
+
+  <p>网络应用可通过调用 <code>window.requestFileSystem()</code> 请求对沙盒文件系统的访问权限：</p>
+
+  <pre class="prettyprint"><span class="com">// Note: The file system has been prefixed as of Google Chrome 12:</span><span class="pln">
+window</span><span class="pun">.</span><span class="pln">requestFileSystem  </span><span class="pun">=</span><span class="pln"> window</span><span class="pun">.</span><span class="pln">requestFileSystem </span><span class="pun">||</span><span class="pln"> window</span><span class="pun">.</span><span class="pln">webkitRequestFileSystem</span><span class="pun">;</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><var><span class="pln">type</span></var><span class="pun">,</span><span class="pln"> </span><var><span class="pln">size</span></var><span class="pun">,</span><span class="pln"> </span><var><span class="pln">successCallback</span></var><span class="pun">,</span><span class="pln"> </span><var><span class="pln">opt_errorCallback</span></var><span class="pun">)</span></pre>
+
+  <dl>
+    <dt><var>type</var></dt>
+    <dd>文件存储是否应该是持久的。可能的值包括 <code>window.TEMPORARY</code> 和 <code>window.PERSISTENT</code>。通过 <code>TEMPORARY</code> 存储的数据可由浏览器自行决定删除（例如在需要更多空间的情况下）。要清除 <code>PERSISTENT</code> 存储，必须获得用户或应用的明确授权，并且需要用户向您的应用授予配额。请参阅<a href="#toc-requesting-quota">请求配额</a>。</dd>
+    <dt><var>size</var></dt>
+    <dd>应用需要用于存储的大小（以字节为单位）。</dd>
+    <dt><var>successCallback</var></dt>
+    <dd>文件系统请求成功时调用的回调。其参数为 <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#idl-def-FileSystem"><code>FileSystem</code></a> 对象。</dd>
+    <dt><var>opt_errorCallback</var></dt>
+    <dd>用于处理错误或获取文件系统的请求遭到拒绝时可选的回调。其参数为 <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#idl-def-FileError"><code>FileError</code></a> 对象。</dd>
+  </dl>
+
+  <p>如果您是首次调用 <code>requestFileSystem()</code>，系统会为您的应用创建新的存储。请注意，这是沙箱文件系统，也就是说，一个网络应用无法访问另一个应用的文件。这也意味着您无法在用户硬盘上的任意文件夹（例如“我的图片”、“我的文档”等）中读/写文件。</p>
+
+  <p>用法示例：</p>
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> onInitFs</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'Opened file system: '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> fs</span><span class="pun">.</span><span class="pln">name</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><b><span class="pln">window</span><span class="pun">.</span><span class="pln">requestFileSystem</span></b><span class="pun">(</span><b><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span></b><span class="pun">,</span><span class="pln"> </span><span class="lit">5</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pln"> </span><span class="com">/*5MB*/</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <p>FileSystem 规范还定义了计划用于 <a href="/tutorials/#workers">Web Workers</a> 的同步 API (<code><a href="http://dev.w3.org/2009/dap/file-system/file-dir-sys.html#using-localfilesystemsync">LocalFileSystemSync</a></code>) 接口。不过，本教程不涉及该同步 API。</p>
+
+  <p>在本文档的其余部分中，我们将使用相同的处理程序处理异步调用引发的错误：</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> errorHandler</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">var</span><span class="pln"> msg </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+
+  </span><span class="kwd">switch</span><span class="pln"> </span><span class="pun">(</span><span class="pln">e</span><span class="pun">.</span><span class="pln">code</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> </span><b><span class="typ">FileError</span><span class="pun">.</span><span class="pln">QUOTA_EXCEEDED_ERR</span></b><span class="pun">:</span><span class="pln">
+      msg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'QUOTA_EXCEEDED_ERR'</span><span class="pun">;</span><span class="pln">
+      </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> </span><b><span class="typ">FileError</span><span class="pun">.</span><span class="pln">NOT_FOUND_ERR</span></b><span class="pun">:</span><span class="pln">
+      msg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'NOT_FOUND_ERR'</span><span class="pun">;</span><span class="pln">
+      </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> </span><b><span class="typ">FileError</span><span class="pun">.</span><span class="pln">SECURITY_ERR</span></b><span class="pun">:</span><span class="pln">
+      msg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'SECURITY_ERR'</span><span class="pun">;</span><span class="pln">
+      </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> </span><b><span class="typ">FileError</span><span class="pun">.</span><span class="pln">INVALID_MODIFICATION_ERR</span></b><span class="pun">:</span><span class="pln">
+      msg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'INVALID_MODIFICATION_ERR'</span><span class="pun">;</span><span class="pln">
+      </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">case</span><span class="pln"> </span><b><span class="typ">FileError</span><span class="pun">.</span><span class="pln">INVALID_STATE_ERR</span></b><span class="pun">:</span><span class="pln">
+      msg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'INVALID_STATE_ERR'</span><span class="pun">;</span><span class="pln">
+      </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">default</span><span class="pun">:</span><span class="pln">
+      msg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Unknown Error'</span><span class="pun">;</span><span class="pln">
+      </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">};</span><span class="pln">
+
+  console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'Error: '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> msg</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+  <p>当然，这种错误回调非常通用，能让您充分理解，但您提供给用户的应是易于一般人理解的讯息。</p>
+
+  <h3 id="toc-requesting-quota">请求存储配额</h3>
+
+  <p>要使用 <code>PERSISTENT</code> 存储，您必须向用户取得存储持久数据的许可。由于浏览器可自行决定删除临时存储的数据，因此这一限制不适用于 <code>TEMPORARY</code> 存储。</p>
+
+  <p>为了将 <code>PERSISTENT</code> 存储与 FileSystem API 配合使用，Chrome 浏览器使用基于 <code>window.webkitStorageInfo</code> 的新 API 以请求存储：</p>
+
+  <pre class="prettyprint"><span class="pln">window</span><span class="pun">.</span><span class="pln">webkitStorageInfo</span><span class="pun">.</span><span class="pln">requestQuota</span><span class="pun">(</span><span class="pln">PERSISTENT</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">grantedBytes</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">PERSISTENT</span><span class="pun">,</span><span class="pln"> grantedBytes</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'Error'</span><span class="pun">,</span><span class="pln"> e</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">});</span></pre>
+
+  <p>用户授予许可后，就不必再调用 <code>requestQuota()</code> 了。后续调用为无操作指令。</p>
+
+  <p>您还可以使用 <a href="https://groups.google.com/a/chromium.org/group/chromium-html5/browse_thread/thread/9be7a2dc04d9af67">API</a> 查询源的当前配额使用情况和分配情况：<code>window.webkitStorageInfo.queryUsageAndQuota()</code></p>
+
+  <h2 id="toc-file">使用文件</h2>
+
+  <p>沙盒环境中的文件通过 <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#the-fileentry-interface"><code>FileEntry</code></a> 接口表示。FileEntry 包含标准文件系统中会有的属性类型（<code>name</code>、<code>isFile</code>...）和方法（<code>remove</code>、<code>moveTo</code>、<code>copyTo</code>...）。</p>
+
+  <p id="toc-fileentry"><code>FileEntry</code> 的属性和方法：</p>
+  <pre class="prettyprint"><span class="pln">fileEntry</span><span class="pun">.</span><span class="pln">isFile </span><span class="pun">===</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">isDirectory </span><span class="pun">===</span><span class="pln"> </span><span class="kwd">false</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">name
+fileEntry</span><span class="pun">.</span><span class="pln">fullPath
+</span><span class="pun">...</span><span class="pln">
+
+fileEntry</span><span class="pun">.</span><span class="pln">getMetadata</span><span class="pun">(</span><span class="pln">successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">remove</span><span class="pun">(</span><span class="pln">successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">moveTo</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">,</span><span class="pln"> opt_newName</span><span class="pun">,</span><span class="pln"> opt_successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">copyTo</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">,</span><span class="pln"> opt_newName</span><span class="pun">,</span><span class="pln"> opt_successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">getParent</span><span class="pun">(</span><span class="pln">successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">toURL</span><span class="pun">(</span><span class="pln">opt_mimeType</span><span class="pun">);</span><span class="pln">
+
+fileEntry</span><span class="pun">.</span><span class="pln">file</span><span class="pun">(</span><span class="pln">successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+fileEntry</span><span class="pun">.</span><span class="pln">createWriter</span><span class="pun">(</span><span class="pln">successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">...</span></pre>
+
+  <p>为了更好地理解 <code>FileEntry</code>，本部分还提供了执行常规任务的众多技巧。
+
+  </p><h3 id="toc-file-creatingempty">创建文件</h3>
+
+  <p>您可以使用文件系统的 <code>getFile()</code>（<a href="#toc-direntry">DirectoryEntry</a> 接口的一种方法）查找或创建文件。请求文件系统后，系统会向成功回调传递 <code>FileSystem</code> 对象，其中包含指向该应用相应文件系统的根的 <code>DirectoryEntry</code> (<code>fs.root</code>)。</p>
+
+  <p>以下代码会在该应用相应文件系统的根中创建名为“log.txt”的空白文件：</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> onInitFs</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  </span><b><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span></b><span class="pun">(</span><span class="str">'log.txt'</span><span class="pun">,</span><span class="pln"> </span><b><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> exclusive</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">}</span></b><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="com">// fileEntry.isFile === true</span><span class="pln">
+    </span><span class="com">// fileEntry.name == 'log.txt'</span><span class="pln">
+    </span><span class="com">// fileEntry.fullPath == '/log.txt'</span><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <p>请求文件系统后，系统会向成功处理程序传递 <code>FileSystem</code> 对象。我们可以将回调中的 <code>fs.root.getFile()</code> 命名为要创建的文件的文件名。您可以传递绝对路径或相对路径，但该路径必须有效。例如，如果您尝试创建一个其直接父级文件不存在的文件，将会导致出错。<code>getFile()</code> 的第二个参数是在文件不存在时从字面上说明函数行为的对象。在此示例中，<code>create: true</code> 会在文件不存在时创建文件，并在文件存在时 (<code>exclusive: true</code>) 引发错误。如果 <code>create: false</code>，系统只会获取并返回文件。无论是哪种情况，系统都不会覆盖文件内容，因为我们只是获取相关文件的引用路径。</p>
+
+  <h3 id="toc-file-readingbyname">通过名称读取文件</h3>
+
+  <p>以下代码会检索名为“log.txt”的文件，并使用 <code>FileReader</code> API 读取文件内容，然后将其附加到页面上新的 &lt;textarea&gt;。如果 log.txt 不存在，系统将引发错误。</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> onInitFs</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  </span><b><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span></b><span class="pun">(</span><span class="str">'log.txt'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="com">// Get a File object representing the file,</span><span class="pln">
+    </span><span class="com">// then use FileReader to read its contents.</span><span class="pln">
+    fileEntry</span><span class="pun">.</span><b><span class="pln">file</span></b><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">file</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+       </span><span class="kwd">var</span><span class="pln"> reader </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">FileReader</span><span class="pun">();</span><span class="pln">
+
+       reader</span><span class="pun">.</span><span class="pln">onloadend </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+         </span><span class="kwd">var</span><span class="pln"> txtArea </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'textarea'</span><span class="pun">);</span><span class="pln">
+         txtArea</span><span class="pun">.</span><span class="pln">value </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">result</span><span class="pun">;</span><span class="pln">
+         document</span><span class="pun">.</span><span class="pln">body</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">txtArea</span><span class="pun">);</span><span class="pln">
+       </span><span class="pun">};</span><span class="pln">
+
+       reader</span><span class="pun">.</span><span class="pln">readAsText</span><span class="pun">(</span><span class="pln">file</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h3 id="toc-file-writing">写入到文件</h3>
+
+  <p>以下代码会创建名为“log.txt”的空白文件（如果该文件不存在），并在文件中填入“Lorem Ipsum”文字。</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> onInitFs</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  </span><b><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span></b><span class="pun">(</span><span class="str">'log.txt'</span><span class="pun">,</span><span class="pln"> </span><b><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">}</span></b><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="com">// Create a FileWriter object for our FileEntry (log.txt).</span><span class="pln">
+    </span><b><span class="pln">fileEntry</span><span class="pun">.</span><span class="pln">createWriter</span></b><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileWriter</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+      </span><b><span class="pln">fileWriter</span><span class="pun">.</span><span class="pln">onwriteend</span></b><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'Write completed.'</span><span class="pun">);</span><span class="pln">
+      </span><span class="pun">};</span><span class="pln">
+
+      </span><b><span class="pln">fileWriter</span><span class="pun">.</span><span class="pln">onerror</span></b><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'Write failed: '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> e</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">());</span><span class="pln">
+      </span><span class="pun">};</span><span class="pln">
+
+      </span><span class="com">// Create a new Blob and write it to log.txt.</span><span class="pln">
+      </span><span class="kwd">var</span><span class="pln"> bb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BlobBuilder</span><span class="pun">();</span><span class="pln"> </span><span class="com">// Note: window.WebKitBlobBuilder in Chrome 12.</span><span class="pln">
+      bb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">'Lorem Ipsum'</span><span class="pun">);</span><span class="pln">
+      </span><b><span class="pln">fileWriter</span><span class="pun">.</span><span class="pln">write</span></b><span class="pun">(</span><span class="pln">bb</span><span class="pun">.</span><span class="pln">getBlob</span><span class="pun">(</span><span class="str">'text/plain'</span><span class="pun">));</span><span class="pln">
+
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <p>此时，我们会调用 FileEntry 的 <code>createWriter()</code> 方法获取 <code>FileWriter</code> 对象。在成功回调中为 <code>error</code> 事件和 <code>writeend</code> 事件设置事件处理程序。通过以下操作将文字数据写入文件：创建 Blob，向 Blob 附加文字，然后将 Blob 传递到 <code>FileWriter.write()</code>。</p>
+
+  <h3 id="toc-file-appending">向文件附加文字</h3>
+
+  <p>以下代码会将“Hello World”文字附加到日志文件结尾。如果该文件不存在，系统将引发错误。</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> onInitFs</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  </span><b><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span></b><span class="pun">(</span><span class="str">'log.txt'</span><span class="pun">,</span><span class="pln"> </span><b><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">}</span></b><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="com">// Create a FileWriter object for our FileEntry (log.txt).</span><span class="pln">
+    fileEntry</span><span class="pun">.</span><span class="pln">createWriter</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileWriter</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+      </span><b><span class="pln">fileWriter</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="pln">fileWriter</span><span class="pun">.</span><span class="pln">length</span><span class="pun">);</span><span class="pln"> </span><span class="com">// Start write position at EOF.</span></b><span class="pln">
+
+      </span><span class="com">// Create a new Blob and write it to log.txt.</span><span class="pln">
+      </span><span class="kwd">var</span><span class="pln"> bb </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BlobBuilder</span><span class="pun">();</span><span class="pln"> </span><span class="com">// Note: window.WebKitBlobBuilder in Chrome 12.</span><span class="pln">
+      bb</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="str">'Hello World'</span><span class="pun">);</span><span class="pln">
+      </span><b><span class="pln">fileWriter</span><span class="pun">.</span><span class="pln">write</span></b><span class="pun">(</span><span class="pln">bb</span><span class="pun">.</span><span class="pln">getBlob</span><span class="pun">(</span><span class="str">'text/plain'</span><span class="pun">));</span><span class="pln">
+
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h3 id="toc-file-user-selected">复制用户选定的文件</h3>
+
+  <p>以下代码可让用户使用 <code>&lt;input type="file" multiple /&gt;</code> 选择多个文件，并在应用的沙盒文件系统中复制这些文件。</p>
+
+  <pre class="prettyprint"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"file"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"myfile"</span><span class="pln"> </span><b><span class="atn">multiple</span></b><span class="pln"> </span><span class="tag">/&gt;</span></pre>
+
+  <pre class="prettyprint"><span class="pln">document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#myfile'</span><span class="pun">).</span><span class="pln">onchange </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">var</span><span class="pln"> files </span><span class="pun">=</span><span class="pln"> </span><b><span class="kwd">this</span><span class="pun">.</span><span class="pln">files</span></b><span class="pun">;</span><span class="pln">
+
+  window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// Duplicate each file the user selected to the app's fs.</span><span class="pln">
+    </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> file</span><span class="pun">;</span><span class="pln"> file </span><span class="pun">=</span><span class="pln"> files</span><span class="pun">[</span><span class="pln">i</span><span class="pun">];</span><span class="pln"> </span><span class="pun">++</span><span class="pln">i</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+      </span><span class="com">// Capture current iteration's file in local scope for the getFile() callback.</span><span class="pln">
+      </span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">f</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span><span class="pun">(</span><b><span class="pln">file</span><span class="pun">.</span><span class="pln">name</span></b><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln"> exclusive</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          fileEntry</span><span class="pun">.</span><span class="pln">createWriter</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileWriter</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><b><span class="pln">fileWriter</span><span class="pun">.</span><span class="pln">write</span><span class="pun">(</span><span class="pln">f</span><span class="pun">);</span></b><span class="pln"> </span><span class="com">// Note: write() can take a File or Blob object.</span><span class="pln">
+          </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+        </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+      </span><span class="pun">})(</span><span class="pln">file</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">};</span></pre>
+
+  <p>虽然我们通过输入导入文件，您也可以使用 <a href="/tutorials/dnd/basics/#toc-desktop-dnd-into">HTML5 拖放</a>功能轻松实现相同的目标。</p>
+
+  <p>正如评论中所说的，<code>FileWriter.write()</code> 可接受 <code>Blob</code> 或 <code>File</code>。这是因为 <code>File</code> 继承自 <code>Blob</code>，所以文件对象也是 Blob。</p>
+
+  <h3 id="toc-file-removing">删除文件</h3>
+
+  <p>以下代码会删除“log.txt”文件。</p>
+
+  <pre class="prettyprint"><span class="pln">window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span><span class="pun">(</span><span class="str">'log.txt'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><b><span class="pln">fileEntry</span><span class="pun">.</span><span class="pln">remove</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'File removed.'</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></b><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h2 id="toc-dir">使用目录</h2>
+
+  <p>沙盒中的目录通过 <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#the-directoryentry-interface"><code>DirectoryEntry</code></a> 接口表示，该接口共享了 <a href="#toc-fileentry">FileEntry</a> 的大部分属性（继承自常用 <code>Entry</code> 接口）。不过，<code>DirectoryEntry</code> 还可使用其他方法处理目录。</p>
+
+  <p><code>DirectoryEntry</code> 的属性和方法：</p>
+  <pre class="prettyprint"><span class="pln">dirEntry</span><span class="pun">.</span><span class="pln">isDirectory </span><span class="pun">===</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+</span><span class="com">// See the section on </span><a href="#toc-fileentry"><span class="com">FileEntry</span></a><span class="com"> for other inherited properties/methods.</span><span class="pln">
+</span><span class="pun">...</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> dirReader </span><span class="pun">=</span><span class="pln"> dirEntry</span><span class="pun">.</span><span class="pln">createReader</span><span class="pun">();</span><span class="pln">
+dirEntry</span><span class="pun">.</span><span class="pln">getFile</span><span class="pun">(</span><span class="pln">path</span><span class="pun">,</span><span class="pln"> opt_flags</span><span class="pun">,</span><span class="pln"> opt_successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+dirEntry</span><span class="pun">.</span><span class="pln">getDirectory</span><span class="pun">(</span><span class="pln">path</span><span class="pun">,</span><span class="pln"> opt_flags</span><span class="pun">,</span><span class="pln"> opt_successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+dirEntry</span><span class="pun">.</span><span class="pln">removeRecursively</span><span class="pun">(</span><span class="pln">successCallback</span><span class="pun">,</span><span class="pln"> opt_errorCallback</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">...</span></pre>
+
+  <h3 id="toc-dir-creating">创建目录</h3>
+
+  <p>使用 <code>DirectoryEntry</code> 的 <code>getDirectory()</code> 方法读取或创建目录。您可以递交名称或路径作为查找或创建所用的目录。</p>
+
+  <p>例如，以下代码会在根目录中创建名为“MyPictures”的目录：</p>
+
+  <pre class="prettyprint"><span class="pln">window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><b><span class="pln">getDirectory</span></b><span class="pun">(</span><span class="str">'MyPictures'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">...</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+  </span></pre>
+
+  <h3 id="toc-dir-subirs">子目录</h3>
+
+  <p>创建子目录的方法与创建其他任何目录的方法完全相同。不过，如果您尝试创建其直接父目录不存在的目录，API 将引发错误。相应的解决方法是，依次创建各级目录，而这对异步 API 而言非常麻烦。</p>
+
+  <p>以下代码会在系统创建父文件夹后以递归方式添加各个子文件夹，从而在应用相应 FileSystem 的根中创建新的层次结构 (music/genres/jazz)。</p>
+
+  <pre class="prettyprint"><span class="kwd">var</span><span class="pln"> path </span><span class="pun">=</span><span class="pln"> </span><span class="str">'music/genres/jazz/'</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">function</span><span class="pln"> createDir</span><span class="pun">(</span><span class="pln">rootDirEntry</span><span class="pun">,</span><span class="pln"> folders</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// Throw out './' or '/' and move on to prevent something like '/foo/.//bar'.</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">folders</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="str">'.'</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> folders</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="str">''</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    folders </span><span class="pun">=</span><span class="pln"> folders</span><span class="pun">.</span><span class="pln">slice</span><span class="pun">(</span><span class="lit">1</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  rootDirEntry</span><span class="pun">.</span><b><span class="pln">getDirectory</span></b><span class="pun">(</span><span class="pln">folders</span><span class="pun">[</span><span class="lit">0</span><span class="pun">],</span><span class="pln"> </span><b><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">}</span></b><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// Recursively add the new subfolder (if we still have another to create).</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">folders</span><span class="pun">.</span><span class="pln">length</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      createDir</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">,</span><span class="pln"> folders</span><span class="pun">.</span><span class="pln">slice</span><span class="pun">(</span><span class="lit">1</span><span class="pun">));</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+
+</span><span class="kwd">function</span><span class="pln"> onInitFs</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  createDir</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">,</span><span class="pln"> path</span><span class="pun">.</span><span class="pln">split</span><span class="pun">(</span><span class="str">'/'</span><span class="pun">));</span><span class="pln"> </span><span class="com">// fs.root is a DirectoryEntry.</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <p>在“music/genres/jazz”处于合适的位置后，我们就可以将完整路径传递到 <code>getDirectory()</code>，然后在其下方创建新的子文件夹。例如：</p>
+
+  <pre class="prettyprint"><span class="pln">window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span><span class="pun">(</span><span class="str">'/music/genres/jazz/song.mp3'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">create</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="pun">...</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h3 id="toc-dir-reading">读取目录内容</h3>
+
+  <p>要读取目录的内容，可先创建 <code>DirectoryReader</code>，然后调用 <code>readEntries()</code> 方法。我们不能保证所有目录条目都能在仅调用一次 <code>readEntries()</code> 的情况下同时返回。也就是说，您需要一直调用 <code>DirectoryReader.readEntries()</code>，直到系统不再返回结果为止。以下代码对此作了说明：</p>
+
+  <pre class="prettyprint"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"filelist"</span><span class="tag">&gt;&lt;/ul&gt;</span></pre>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> toArray</span><span class="pun">(</span><span class="pln">list</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> </span><span class="typ">Array</span><span class="pun">.</span><span class="pln">prototype</span><span class="pun">.</span><span class="pln">slice</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">list </span><span class="pun">||</span><span class="pln"> </span><span class="pun">[],</span><span class="pln"> </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">function</span><span class="pln"> listResults</span><span class="pun">(</span><span class="pln">entries</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">// Document fragments can improve performance since they're only appended</span><span class="pln">
+  </span><span class="com">// to the DOM once. Only one browser reflow occurs.</span><span class="pln">
+  </span><span class="kwd">var</span><span class="pln"> fragment </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createDocumentFragment</span><span class="pun">();</span><span class="pln">
+
+  entries</span><span class="pun">.</span><span class="pln">forEach</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">entry</span><span class="pun">,</span><span class="pln"> i</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">var</span><span class="pln"> img </span><span class="pun">=</span><span class="pln"> </span><b><span class="pln">entry</span><span class="pun">.</span><span class="pln">isDirectory</span></b><span class="pln"> </span><span class="pun">?</span><span class="pln"> </span><span class="str">'&lt;img src="folder-icon.gif"&gt;'</span><span class="pln"> </span><span class="pun">:</span><span class="pln">
+                                  </span><span class="str">'&lt;img src="file-icon.gif"&gt;'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">var</span><span class="pln"> li </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'li'</span><span class="pun">);</span><span class="pln">
+    li</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="pln">img</span><span class="pun">,</span><span class="pln"> </span><span class="str">'&lt;span&gt;'</span><span class="pun">,</span><span class="pln"> entry</span><span class="pun">.</span><span class="pln">name</span><span class="pun">,</span><span class="pln"> </span><span class="str">'&lt;/span&gt;'</span><span class="pun">].</span><span class="pln">join</span><span class="pun">(</span><span class="str">''</span><span class="pun">);</span><span class="pln">
+    fragment</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">li</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">});</span><span class="pln">
+
+  document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#filelist'</span><span class="pun">).</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">fragment</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">function</span><span class="pln"> onInitFs</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  </span><span class="kwd">var</span><span class="pln"> dirReader </span><span class="pun">=</span><span class="pln"> </span><b><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">createReader</span><span class="pun">()</span></b><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">var</span><span class="pln"> entries </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[];</span><span class="pln">
+
+  </span><span class="com">// Call the reader.readEntries() until no more results are returned.</span><span class="pln">
+  </span><span class="kwd">var</span><span class="pln"> readEntries </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+     </span><b><span class="pln">dirReader</span><span class="pun">.</span><span class="pln">readEntries </span></b><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">results</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(!</span><span class="pln">results</span><span class="pun">.</span><span class="pln">length</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        listResults</span><span class="pun">(</span><span class="pln">entries</span><span class="pun">.</span><span class="pln">sort</span><span class="pun">());</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        entries </span><span class="pun">=</span><span class="pln"> entries</span><span class="pun">.</span><span class="pln">concat</span><span class="pun">(</span><span class="pln">toArray</span><span class="pun">(</span><span class="pln">results</span><span class="pun">));</span><span class="pln">
+        readEntries</span><span class="pun">();</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">};</span><span class="pln">
+
+  readEntries</span><span class="pun">();</span><span class="pln"> </span><span class="com">// Start reading dirs.</span><span class="pln">
+
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> onInitFs</span><span class="pun">,</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h3 id="toc-dir-removing">删除目录</h3>
+
+  <p><code>DirectoryEntry.remove()</code> 方法的行为与 <a href="#toc-file-removing"><code>FileEntry</code></a> 相应方法的行为非常相似。差别在于：尝试删除非空目录时会引发错误。</p>
+
+  <p>以下代码会从“/music/genres/”删除空的“jazz”目录：</p>
+
+  <pre class="prettyprint"><span class="pln">window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getDirectory</span><span class="pun">(</span><span class="str">'music/genres/jazz'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><b><span class="pln">dirEntry</span><span class="pun">.</span><span class="pln">remove</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'Directory removed.'</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></b><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h4 id="toc-dir-rremoving">以递归方式删除目录</h4>
+
+  <p>如果您不需要某个包含条目的目录，不妨使用 <code>removeRecursively()</code>。该方法将以递归方式删除目录及其内容。</p>
+
+  <p>以下代码会以递归方式删除“music”目录及其包含的所有文件和目录：</p>
+
+  <pre class="prettyprint"><span class="pln">window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getDirectory</span><span class="pun">(</span><span class="str">'/misc/../music'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><b><span class="pln">dirEntry</span><span class="pun">.</span><span class="pln">removeRecursively</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'Directory removed.'</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></b><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h2 id="toc-copy-rename-move">复制、重命名和移动</h2>
+
+  <p><code>FileEntry</code> 和 <code>DirectoryEntry</code> 享有共同的操作。</p>
+
+  <h3 id="toc-dir-move-copy">复制条目</h3>
+
+  <p><code>FileEntry</code> 和 <code>DirectoryEntry</code> 均可使用 <code>copyTo()</code> 复制现有条目。该方法会自动以递归方式复制文件夹。</p>
+
+  <p>以下代码示例会将“me.png”文件从一个目录复制到另一个目录：</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> copy</span><span class="pun">(</span><span class="pln">cwd</span><span class="pun">,</span><span class="pln"> src</span><span class="pun">,</span><span class="pln"> dest</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  cwd</span><span class="pun">.</span><span class="pln">getFile</span><span class="pun">(</span><span class="pln">src</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    cwd</span><span class="pun">.</span><span class="pln">getDirectory</span><span class="pun">(</span><span class="pln">dest</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><b><span class="pln">fileEntry</span><span class="pun">.</span><span class="pln">copyTo</span></b><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  copy</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">,</span><span class="pln"> </span><span class="str">'/folder1/me.png'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'folder2/mypics/'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h3 id="toc-dir-move-rename">移动或重命名条目</h3>
+
+  <p><code>FileEntry</code> 和 <code>DirectoryEntry</code> 的 <code>moveTo()</code> 方法可让您移动或重命名文件或目录。其第一个参数是文件要移动到的目标父目录，其第二个参数是文件可选的新名称。如未提供新名称，系统将使用文件的原名称。</p>
+
+  <p>以下示例将“me.png”重命名为“you.png”，但并不移动该文件：</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> rename</span><span class="pun">(</span><span class="pln">cwd</span><span class="pun">,</span><span class="pln"> src</span><span class="pun">,</span><span class="pln"> newName</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  cwd</span><span class="pun">.</span><span class="pln">getFile</span><span class="pun">(</span><span class="pln">src</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><b><span class="pln">fileEntry</span><span class="pun">.</span><span class="pln">moveTo</span></b><span class="pun">(</span><span class="pln">cwd</span><span class="pun">,</span><span class="pln"> newName</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  rename</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">,</span><span class="pln"> </span><span class="str">'me.png'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'you.png'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <p>以下示例将“me.png”（位于根目录中）移动到名为“newfolder”的文件夹。</p>
+
+  <pre class="prettyprint"><span class="kwd">function</span><span class="pln"> move</span><span class="pun">(</span><span class="pln">src</span><span class="pun">,</span><span class="pln"> dirName</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getFile</span><span class="pun">(</span><span class="pln">src</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    fs</span><span class="pun">.</span><span class="pln">root</span><span class="pun">.</span><span class="pln">getDirectory</span><span class="pun">(</span><span class="pln">dirName</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{},</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><b><span class="pln">fileEntry</span><span class="pun">.</span><span class="pln">moveTo</span></b><span class="pun">(</span><span class="pln">dirEntry</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+window</span><span class="pun">.</span><span class="pln">requestFileSystem</span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">TEMPORARY</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1024</span><span class="pun">*</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fs</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  move</span><span class="pun">(</span><span class="str">'/me.png'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'newfolder/'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> errorHandler</span><span class="pun">);</span></pre>
+
+  <h2 id="toc-filesystemurls">filesystem: 网址</h2>
+
+  <p>FileSystem API 使用新的网址机制，（即 <code>filesystem:</code>），可用于填充 <code>src</code> 或 <code>href</code> 属性。例如，如果您要显示某幅图片且拥有相应的 <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#the-fileentry-interface"><code>fileEntry</code></a>，您可以调用 <code>toURL()</code> 获取该文件的 <code>filesystem:</code> 网址：</p>
+
+<pre class="prettyprint"><span class="kwd">var</span><span class="pln"> img </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'img'</span><span class="pun">);</span><span class="pln">
+img</span><span class="pun">.</span><span class="pln">src </span><span class="pun">=</span><span class="pln"> </span><b><span class="pln">fileEntry</span><span class="pun">.</span><span class="pln">toURL</span></b><span class="pun">();</span><span class="pln"> </span><span class="com">// filesystem:http://example.com/temporary/myfile.png</span><span class="pln">
+document</span><span class="pun">.</span><span class="pln">body</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">img</span><span class="pun">);</span></pre>
+
+  <p>另外，如果您已具备 <code>filesystem:</code> 网址，可使用 <code>resolveLocalFileSystemURL()</code> 找回 <a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/#the-fileentry-interface"><code>fileEntry</code></a>：</p>
+
+<pre class="prettyprint"><span class="pln">window</span><span class="pun">.</span><span class="pln">resolveLocalFileSystemURL </span><span class="pun">=</span><span class="pln"> window</span><span class="pun">.</span><span class="pln">resolveLocalFileSystemURL </span><span class="pun">||</span><span class="pln">
+                                   window</span><span class="pun">.</span><span class="pln">webkitResolveLocalFileSystemURL</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">var</span><span class="pln"> url </span><span class="pun">=</span><span class="pln"> </span><span class="str">'filesystem:http://example.com/temporary/myfile.png'</span><span class="pun">;</span><span class="pln">
+</span><b><span class="pln">window</span><span class="pun">.</span><span class="pln">resolveLocalFileSystemURL</span></b><span class="pun">(</span><span class="pln">url</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">fileEntry</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="pun">...</span><span class="pln">
+</span><span class="pun">});</span></pre>
+
+  <h2 id="toc-dir-fullexample">将所有内容汇总到一起</h2>
+
+  <h3 id="toc-samples-basic">基本示例</h3>
+  <p>该演示列出了文件系统中的文件/文件夹。</p>
+
+  
+  <iframe src="http://playground.html5rocks.com/?mode=frame&amp;hu=180&amp;hl=160#filesystem_apis" style="border: none; width: 100%; height: 460px;"></iframe>
+  
+
+  <h3 id="toc-samples-terminal">HTML5 终端</h3>
+  <p>该 Shell 会提取 FileSystem API，以复制 UNIX 文件系统中的一些常用操作（例如 <code>cd</code>、<code>mkdir</code>、<code>rm</code>、<code>open</code> 和 <code>cat</code>）。要添加文件，可将文件从桌面拖放到下方的终端。</p>
+  <iframe id="terminal-iframe" src="terminal.html" style="display: block;"></iframe>
+
+  <h2 id="toc-usecases">使用案例</h2>
+
+  <p>HTML5 中提供了若干个<a href="/tutorials#offline,storage">存储选项</a>，但 FileSystem 的目标在于满足没能从数据库获得很好服务的客户端存储使用案例。这些应用一般处理大型二进制 Blob 和/或与浏览器外部环境的应用共享数据。</p>
+
+  <p>该规范列出了几个使用案例：</p>
+  <ol>
+    <li>持久型上传器
+      <ul>
+      <li>选中要上传的文件或目录后，系统会将文件复制到本地沙盒并批次上传。</li>
+      <li>即使发生浏览器崩溃、网络中断等状况，也可在之后重新开始上传。</li>
+      </ul>
+    </li>
+    <li>视频游戏、音乐或其他具有大量媒体资产的应用
+      <ul>
+      <li>下载一个或几个大的压缩包，然后将其本地解压缩到目录结构。</li>
+      <li>任何操作系统均可使用相同的下载模式。</li>
+      <li>对预先抓取即将使用的资产的功能进行后台管理，因此转到下一个游戏级别或激活新功能无需等待下载过程。</li>
+      <li>直接读取文件或将本地 URI 移交至图片标记、视频标记、WebGL 资产加载器等，从而直接通过本地缓存使用这些资产。</li>
+      <li>文件可使用任意二进制格式。</li>
+      <li>在服务器端，压缩后的压缩包通常远远小于单独压缩的文件合集。另外，在其他条件相同的情况下，1 个压缩包涉及的搜索将小于 1000 个小文件。</li>
+      </ul>
+    </li>
+    <li>可使用离线访问权限或本地存储的高速音频/照片编辑器
+      <ul>
+      <li>数据 Blob 很可能是可读写的超大文件。</li>
+      <li>可能需要向文件写入局部内容（例如，仅覆盖 ID3/EXIF 标记）。</li>
+      <li>通过创建目录来整理项目文件这一功能非常有用。</li>
+      <li>修改后的文件应可供客户端应用 [iTunes、Picasa] 访问。
+      </li></ul>
+    </li>
+    <li>离线视频观看者
+      <ul>
+      <li>下载大文件（1 GB 以上）以供今后观看。</li>
+      <li>需要有效的搜索和流式传输。</li>
+      <li>必须能够将 URI 移交至视频标记。</li>
+      <li>应该允许访问部分下载的文件，例如即使您在登机前尚未完成下载，也可以观看 DVD 的第一集。</li>
+      <li>应该能够在下载期间抽取单个剧集，然后将该剧集单独移交至视频标记。</li>
+      </ul>
+    </li>
+    <li>离线网络右键客户端
+      <ul>
+      <li>下载并本地存储附件</li>
+      <li>缓存用户选择的附件以供今后上传。</li>
+      <li>需要能够引用缓存的附件和图片缩略图以供展示和上传。</li>
+      <li>应该能够像与服务器交谈一样触发 UA 的下载管理器。</li>
+      <li>应该能够将带附件的电子邮件视作由多个部分组成的邮件进行上传，而不是通过 XHR 一次发送一个文件。</li>
+      </ul>
+    </li>
+  </ol>
+
+  <h2 id="toc-references">参考规范</h2>
+  <ul>
+    <li><a href="http://dev.w3.org/2009/dap/file-system/pub/FileSystem/">FileSystem</a></li>
+    <li><a href="http://dev.w3.org/2009/dap/file-system/file-writer.html">FileWriter</a></li>
+    <li><a href="http://dev.w3.org/2009/dap/file-system/file-writer.html#idl-def-BlobBuilder">BlobBuilder</a></li>
+    <li><a href="http://dev.w3.org/2006/webapi/FileAPI/#dfn-filereader">FileReader</a></li>
+    <li><a href="http://dev.w3.org/2006/webapi/FileAPI/">File</a></li>
+    <li><a href="http://dev.w3.org/2006/webapi/FileAPI/#dfn-Blob">Blob</a></li>
+  </ul>
+
+
+
+
+      </div>

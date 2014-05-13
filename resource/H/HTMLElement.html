@@ -1,0 +1,386 @@
+
+<div id="maincontent">
+
+<h1>XML DOM HTMLElement 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_htmldocument.asp" title="XML DOM HTMLDocument 对象">DOM HTMLDocument</a></li>
+<li class="next"><a href="/xmldom/dom_namednodemap.asp" title="XML DOM NamedNodeMap 对象">DOM NamedNodeMap</a></li>
+</ul>
+</div>
+
+
+<div>
+<p><strong>HTMLElement 对象表示 HTML 中的一个元素。</strong></p>
+</div>
+
+
+<div>
+<h2>HTMLElement 对象的属性</h2>
+
+<p>一个 HTML 文档中的每个元素都有和元素的 HTML 属性对应的属性。这里列出了所有 HTML 标记都支持的属性。其他的属性，都特定于某种具体的 HTML 标记。HTMLElement 对象继承了 <a href="/xmldom/dom_node.asp" title="XML DOM Node 对象">Node</a> 和 <a href="/xmldom/dom_element.asp" title="XML DOM Element 对象">Element</a> 对象的标准属性，也实现了下面所描述的几个非标准属性：</p>
+
+<table class="dataintable">
+
+</table>
+
+<dl class="define">
+<dt>className</dt>
+<dd>
+<p>规定元素的 class 属性。注意：该属性名不是 "class"，因为 "class" 是 JavaScript 中的保留字。</p>
+<p>类型：String。状态：可写。</p>
+</dd>
+
+<dt>currentStyle</dt>
+<dd>
+<p>这一特定于 IE 的属性应用于元素的所有 CSS 属性的级联组。它是 Window.getComputedStyle() 的仅用于 IE 的替代。</p>
+<p>类型：String。状态：可写。</p>
+</dd>
+
+<dt>dir</dt>
+<dd>
+<p>规定元素的 dir 属性，声明了文档文本的方向。</p>
+<p>类型：String。状态：可写。</p>
+</dd>
+
+<dt>id</dt>
+<dd>
+<p>规定元素的 id 属性。在一个文档中，没有两个元素具有相同的 id 值。</p>
+<p>类型：String。状态：可写。</p>
+</dd>
+
+<dt>innerHTML</dt>
+<dd>
+<p>规定了元素所包含的字符串，不包括元素自身的开始标记和结束标记。查询这一属性会将元素的内容作为一个 HTML 文本串返回。将这个属性设置为一个 HTML 文本串，则可以用 HTML 的解析表示来替换元素的内容。在文档载入的时候，不能设置这个属性。这个一个源自于 IE4 的非标准属性，已经得到所有现代浏览器的支持。</p>
+<p>类型：String。状态：可写。</p>
+</dd>
+
+<dt>lang</dt>
+<dd>
+<p>规定元素的 lang 属性，声明了元素内容的语言代码。</p>
+<p>类型：String。状态：可写。</p>
+</dd>
+
+<dt>offsetHeight, offsetWidth</dt>
+<dd>
+<p>返回元素的高度和宽度，以像素为单位。这是非标准的但却得到很好支持的属性。</p>
+<p>类型：int。状态：只读。</p>
+</dd>
+
+<dt>offsetLeft</dt>
+<dd>
+<p>返回当前元素的左边界到它的包含元素的左边界的偏移量，以像素为单位。</p>
+<p>类型：int。状态：只读。</p>
+</dd>
+
+<dt>offsetTop</dt>
+<dd>
+<p>返回当前元素的上边界到它的包含元素的上边界的偏移量，以像素为单位。</p>
+<p>类型：int。状态：只读。</p>
+</dd>
+
+<dt>offsetParent</dt>
+<dd>
+<p>返回对最近的动态定位的包含元素的引用，所有的偏移量都根据该元素来决定。如果元素的 style.display 设置为 none，则该属性返回 null。这是非标准的但却得到很好支持的属性。</p>
+<p>类型：<a href="/xmldom/dom_node.asp" title="XML DOM Node 对象">Node</a>。状态：只读。</p>
+</dd>
+
+<dt>scrollHeight, scrollWidth</dt>
+<dd>
+<p>返回元素的完整的高度和宽度，以像素为单位。当一个元素拥有滚动条时（比如由于 CSS 的 overflow 属性），这些属性和 offsetHeight 与 offsetWidth 不同，offsetHeight 和 offsetWidth 只是报告元素的可见部分的大小。这是非标准的但却得到很好支持的属性。</p>
+<p>类型：int。状态：只读。</p>
+</dd>
+
+<dt>scrollTop, scrollLeft</dt>
+<dd>
+<p>设置或返回已经滚动到元素的左边界或上边界的像素数。只有在元素有滚动条的时候，例如，元素的 CSS overflow 属性设置为 auto 的时候，这些像素才有用。这些属性也只在文档的 &lt;body&gt; 或 &lt;html&gt; 标记上定义（这和浏览器有关），并且一起来制定滚动文档的位置。注意，这些属性并不会指定一个 &lt;iframe&gt; 标记的滚动量。这是非标准的但却得到很好支持的属性。</p>
+<p>类型：int。状态：可写。</p>
+</dd>
+
+<dt>style</dt>
+<dd>
+<p>返回为当前元素设置内联 CSS 样式的 style 属性的值。注意，这个属性的值不是一个字符串。</p>
+<p>类型：<a href="/xmldom/dom_css2properties.asp" title="XML DOM CSS2Properties 对象">CSS2Properties</a>。状态：只读。</p>
+</dd>
+
+<dt>title</dt>
+<dd>
+<p>规定元素的 title 属性。当鼠标悬停在元素上的时候，很多浏览器在元素的“工具提示”中显示这一属性的值。</p>
+<p>类型：String。状态：可写。</p>
+</dd>
+</dl>
+
+</div>
+
+
+<div>
+<h2>HTMLElement 对象的方法</h2>
+
+<p>HTMLElement 对象继承了 <a href="/xmldom/dom_node.asp" title="XML DOM Node 对象">Node</a> 和 <a href="/xmldom/dom_element.asp" title="XML DOM Element 对象">Element</a> 对象的标准方法。某些类型的元素实现了特定于标记的方法，W3School 在 <a href="/htmldom/htmldom_reference.asp" title="HTML DOM 参考手册">HTML DOM 参考手册</a>的各标记参考页中提供了这些方法的信息。</p>
+
+<p>大部分现代浏览器也都实现了如下的非标准方法：</p>
+
+<table class="dataintable">
+<tbody><tr>
+    <th style="width:30%">方法</th>
+    <th>描述</th>
+</tr>
+<tr>
+	<td>scrollIntoView()</td>
+	<td>滚动文档。使该元素出现在窗口的顶部或底部。</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>HTMLElement 对象的事件句柄</h2>
+
+<p>响应鼠标和键盘事件的所有 HTML 元素都可以触发这里列出的事件句柄。某些元素，如链接和按钮，当这些事件发生的时候执行默认操作。对于像这样的元素，更多细节可以在<a href="/tags/index.asp" title="HTML 4.01 / XHTML 1.0 参考手册">具体元素的参考页</a>中找到。</p>
+
+<p>请参阅 <a href="/tags/html_ref_eventattributes.asp" title="HTML 事件属性">HTML 事件属性参考手册</a>，了解更多有关 HTML 事件句柄的知识。</p>
+</div>
+
+
+<div>
+<h2>如何获得有关 HTMLElement 对象更详细的信息</h2>
+
+<p>在 W3School 的 HTML DOM 参考手册中，我们为 HTML 标记对应的 DOM 对象制作了专门的参考页：</p>
+
+<p><a href="/htmldom/htmldom_reference.asp" title="HTML DOM 参考手册">HTML DOM 参考手册</a></p>
+</div>
+
+
+<div>
+<h2>相关页面</h2>
+<p>XML DOM 参考手册：<a href="/xmldom/dom_document.asp" title="XML DOM Document 对象">Document 对象</a></p>
+<p>XML DOM 参考手册：<a href="/xmldom/met_document_getelementbyid.asp" title="XML DOM getElementById() 方法">Document.getElementById()</a></p>
+<p>XML DOM 参考手册：<a href="/xmldom/met_document_getelementsbytagname.asp" title="XML DOM getElementsByTagName() 方法">Document.getElementsByTagName()</a></p>
+</div>
+
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_htmldocument.asp" title="XML DOM HTMLDocument 对象">DOM HTMLDocument</a></li>
+<li class="next"><a href="/xmldom/dom_namednodemap.asp" title="XML DOM NamedNodeMap 对象">DOM NamedNodeMap</a></li>
+</ul>
+</div>
+</div>
+
+<div class="_content"><div class="_page _mdn"><h1>HTMLElement</h1> <p>The <strong><code>HTMLElement</code></strong> interface represents any <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" title="/en-US/docs/Web/HTML">HTML</a> element. Some elements directly implement this interface, other implement it via an interface that inherit it.</p> <h2 id="Properties">Properties</h2> <p><em>Inherits properties from its parent, <a href="element" title="The Element interface represents part of the document. This interface describes methods and properties common to each kind of elements. Specific behaviors are described in the specific interfaces, inheriting from Element: the HTMLElement interface for HTML elements, or the SVGElement interface for SVG elements."><code>Element</code></a>, and from <a href="globaleventhandlers" title="The GlobalEventHandlers interface describes the event handlers common to several interfaces like HTMLElement, Document, or Window. Each of these interfaces can implement more event handlers."><code>GlobalEventHandlers</code></a>.</em></p> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name</th> <th scope="col">Type</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><a href="htmlelement.accesskey" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.accessKey</code></a></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The access key assigned to the element.</td> </tr>
+<tr>
+<td><a href="htmlelement.accesskeylabel" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.accessKeyLabel</code></a></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>A string that represents the element's assigned access key.</td> </tr>
+<tr>
+<td><a href="htmlelement.contenteditable" title="contentEditable is used to indicate whether or not the element is editable. This enumerated attribute can have the following values:"><code>HTMLElement.contentEditable</code></a></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Gets/sets whether or not the element is editable.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.iscontenteditable" title="isContentEditable returns true if the contents of the element are editable; otherwise it returns false."><code>HTMLElement.isContentEditable</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>Indicates whether or not the content of the element can be edited.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.dataset" title="Allows access, both in reading and writing mode, to all the custom data attributes (data-*) set on the element. It is a map of DOMString, one entry for each custom data attribute."><code>HTMLElement.dataset</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="domstringmap" title="Used by the dataset&nbsp;HTML&nbsp;attribute to represent data for custom attributes added to elements."><code>DOMStringMap</code></a></td> <td>Allows access to read and write custom data attributes (<code>data-*</code>) of the element.</td> </tr>
+<tr>
+<td><a href="htmlelement.dir" title="The dir attribute gets or sets the text writing directionality of the content of the current element."><code>HTMLElement.dir</code></a></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Gets/sets the directionality of the element.</td> </tr>
+<tr>
+<td><a href="htmlelement.draggable" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.draggable</code></a></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td> </td> </tr>
+<tr>
+<td>
+<a href="htmlelement.dropzone" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.dropzone</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="domsettabletokenlist" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMSettableTokenList</code></a></td> <td> </td> </tr>
+<tr>
+<td><a href="htmlelement.hidden" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.hidden</code></a></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td> </td> </tr>
+<tr>
+<td>
+<a href="htmlelement.itemscope" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.itemScope</code></a> 
+</td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td> </td> </tr>
+<tr>
+<td>
+<a href="htmlelement.itemtype" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.itemType</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="domsettabletokenlist" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMSettableTokenList</code></a></td> <td> </td> </tr>
+<tr>
+<td>
+<a href="htmlelement.itemid" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.itemId</code></a> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td> </td> </tr>
+<tr>
+<td>
+<a href="htmlelement.itemref" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.itemRef</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="domsettabletokenlist" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMSettableTokenList</code></a></td> <td> </td> </tr>
+<tr>
+<td>
+<a href="htmlelement.itemprop" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.itemProp</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="domsettabletokenlist" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMSettableTokenList</code></a></td> <td> </td> </tr>
+<tr>
+<td>
+<a href="htmlelement.itemvalue" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.itemValue</code></a> 
+</td> <td><code>any</code></td> <td> </td> </tr>
+<tr>
+<td><a href="htmlelement.lang" title="This property gets or sets the base language of an element's attribute values and text content."><code>HTMLElement.lang</code></a></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Gets/sets the language of an element's attributes, text, and element contents.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.offsetheight" title="Height of an element relative to the element's offsetParent."><code>HTMLElement.offsetHeight</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><code>double</code></td> <td>The height of an element, relative to the layout.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.offsetleft" title="Returns the number of pixels that the upper left corner of the current element is offset to the left within the offsetParent node."><code>HTMLElement.offsetLeft</code></a><span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><code>double</code></td> <td>The distance from this element's left border to its <code>offsetParent</code>'s left border.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.offsetparent" title="offsetParent returns a reference to the object which is the closest (nearest in the containment hierarchy) positioned containing element. If the element is non-positioned, the nearest table cell or root element (html in standards compliant mode; body in quirks rendering mode) is the offsetParent. offsetParent returns null when the element has style.display set to &quot;none&quot;. The offsetParent is useful because offsetTop and offsetLeft are relative to its padding edge."><code>HTMLElement.offsetParent</code></a><span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="element" title="The Element interface represents part of the document. This interface describes methods and properties common to each kind of elements. Specific behaviors are described in the specific interfaces, inheriting from Element: the HTMLElement interface for HTML elements, or the SVGElement interface for SVG elements."><code>Element</code></a></td> <td>The element from which all offset calculations are currently computed.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.offsettop" title="offsetTop returns the distance of the current element relative to the top of the offsetParent node."><code>HTMLElement.offsetTop</code></a><span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><code>double</code></td> <td>The distance from this element's top border to its <code>offsetParent</code>'s top border.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.offsetwidth" title="Returns the layout width of an element."><code>HTMLElement.offsetWidth</code></a><span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><code>double</code></td> <td>The width of an element, relative to the layout.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.properties" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.properties</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="htmlpropertiescollection" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLPropertiesCollection</code></a></td> <td> </td> </tr>
+<tr>
+<td><a href="htmlelement.spellcheck" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.spellcheck</code></a></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>Controls <a href="https://developer.mozilla.org/en-US/docs/HTML/Controlling_spell_checking_in_HTML_forms" title="en/Controlling_spell_checking_in_HTML_forms">spell-checking</a> (present on all HTML elements)</td> </tr>
+<tr>
+<td><a href="htmlelement.style" title="Returns an object that represents the element's style attribute."><code>HTMLElement.style</code></a></td> <td><a href="cssstyledeclaration" title="A CSSStyleDeclaration is an interface to the declaration block returned by the style property of a cssRule in a stylesheet, when the&nbsp;rule is a CSSStyleRule."><code>CSSStyleDeclaration</code></a></td> <td>An object representing the declarations of an element's style attributes.</td> </tr>
+<tr>
+<td><a href="htmlelement.tabindex" title="Gets/sets the tab order of the current element."><code>HTMLElement.tabIndex</code></a></td> <td><code>long</code></td> <td>Gets/sets the position of the element in the tabbing order.</td> </tr>
+<tr>
+<td><a href="htmlelement.title" title="Establishes the text to be displayed in a 'tool tip' popup when the mouse is over the displayed node."><code>HTMLElement.title</code></a></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>A string that appears in a popup box when mouse is over the element.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.translate" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.translate</code></a> 
+</td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td> </td> </tr>
+</tbody>
+</table><h3 id="Event_handlers">Event handlers</h3> <p>The events properties, of the form <code>onXYZ</code>, are defined on the <a href="globaleventhandlers" title="The GlobalEventHandlers interface describes the event handlers common to several interfaces like HTMLElement, Document, or Window. Each of these interfaces can implement more event handlers."><code>GlobalEventHandlers</code></a>, implemented by <code>HTMLElement</code>. A few more are specific to <code>HTMLElement</code>.</p> <dl>
+<dt> <a href="htmlelement.ontouchstart" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.onTouchStart</code></a> 
+</dt> <dd> Returns the event handling code for the <code><a href="globaleventhandlers.touchstart" title="/en-US/docs/Web/API/GlobalEventHandlers.touchstart">touchstart</a></code> event.</dd> <dt> <a href="htmlelement.ontouchend" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.onTouchEnd</code></a> 
+</dt> <dd> Returns the event handling code for the <code><a href="globaleventhandlers.touchend" title="/en-US/docs/Web/API/GlobalEventHandlers.touchend">touchend</a></code> event.</dd> <dt> <a href="htmlelement.ontouchmove" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.onTouchMove</code></a> 
+</dt> <dd> Returns the event handling code for the <code><a href="globaleventhandlers.touchmove" title="/en-US/docs/Web/API/GlobalEventHandlers.touchmove">touchmove</a></code> event.</dd> <dt> <a href="htmlelement.ontouchenter" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.onTouchEnter</code></a> 
+</dt> <dd> Returns the event handling code for the <code><a href="globaleventhandlers.touchenter" title="/en-US/docs/Web/API/GlobalEventHandlers.touchenter">touchenter</a></code> event.</dd> <dt> <a href="htmlelement.ontouchleave" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.onTouchLeave</code></a> 
+</dt> <dd> Returns the event handling code for the <code><a href="globaleventhandlers.touchleave" title="/en-US/docs/Web/API/GlobalEventHandlers.touchleave">touchleave</a></code> event.</dd> <dt> <a href="htmlelement.ontouchcancel" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.onTouchCancel</code></a> 
+</dt> <dd> Returns the event handling code for the <code><a href="globaleventhandlers.touchcancel" title="/en-US/docs/Web/API/GlobalEventHandlers.touchcancel">touchcancel</a></code> event.</dd> </dl><h2 id="Methods">Methods</h2> <p><em>Inherits methods from its parent, <a href="element" title="The Element interface represents part of the document. This interface describes methods and properties common to each kind of elements. Specific behaviors are described in the specific interfaces, inheriting from Element: the HTMLElement interface for HTML elements, or the SVGElement interface for SVG elements."><code>Element</code></a>.</em></p> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name &amp; Arguments</th> <th scope="col">Return</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><a href="htmlelement.blur" title="The blur method removes keyboard focus from the current element."><code>HTMLElement.blur()</code></a></td> <td><code>void</code></td> <td>Removes keyboard focus from the currently focused element.</td> </tr>
+<tr>
+<td><a href="htmlelement.click" title="The click method simulates a mouse click on an element."><code>HTMLElement.click()</code></a></td> <td><code>void</code></td> <td>Sends a mouse click event to the element.</td> </tr>
+<tr>
+<td><a href="htmlelement.focus" title="Sets focus on the specified element, if it can be focused."><code>HTMLElement.focus()</code></a></td> <td><code>void</code></td> <td>Makes the element the current keyboard focus.</td> </tr>
+<tr>
+<td>
+<a href="htmlelement.forcespellcheck" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.forceSpellCheck()</code></a> 
+</td> <td><code>void</code></td> <td> </td> </tr>
+</tbody>
+</table><h2 id="Specifications">Specifications</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr></thead>
+<tbody>
+<tr>
+<td><a class="external" href="http://dev.w3.org/csswg/cssom-view/#extensions-to-the-htmlelement-interface" lang="en" title="The definition of 'HTMLElement' in that specification.">CSS Object Model (CSSOM) View Module</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Added the following properties: <code>offsetParent</code>, <code>offsetTop</code>, <code>offsetLeft</code>, <code>offsetWidth</code>, and <code>offsetHeight</code>.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#htmlelement" lang="en" title="The definition of 'HTMLElement' in that specification.">WHATWG HTML Living Standard</a></td> <td><span class="spec-Living">Living Standard</span></td> <td>Added the following properties: <code>translate</code>, <code>itemScope</code>, <code>itemType</code>, <code>itemId</code>, <code>itemRef</code>, <code>itemProp</code>, <code>properties</code>, and <code>itemValue</code>.<br> Added the following method: <code>forceSpellcheck()</code>.<br> Moved the <code>onXYZ</code> attributes to the <a href="globaleventhandlers" title="The GlobalEventHandlers interface describes the event handlers common to several interfaces like HTMLElement, Document, or Window. Each of these interfaces can implement more event handlers."><code>GlobalEventHandlers</code></a> interface and added an inheritance from it.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/html5/dom.html#htmlelement" lang="en" title="The definition of 'HTMLElement' in that specification.">HTML5</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td>Added the following properties: <code>dataset</code>, <code>hidden</code>, <code>tabindex</code>, <code>accessKey</code>, <code>accessKeyLabel</code>, <code>draggable</code>, <code>dropzone</code>, <code>contentEditable</code>, <code>isContentEditable</code>, <code>contextMenu</code>, <code>spellcheck</code>, <code>commandType</code>, <code>commandLabel</code>, <code>commandIcon</code>, <code>commandHidden</code>, <code>commandDisabled</code>, <code>commandChecked</code>, <code>style</code>, and all the <code>onXYZ</code> properties.<br> Moved the <code>id</code> and <code>className</code> properties to the <a href="element" title="The Element interface represents part of the document. This interface describes methods and properties common to each kind of elements. Specific behaviors are described in the specific interfaces, inheriting from Element: the HTMLElement interface for HTML elements, or the SVGElement interface for SVG elements."><code>Element</code></a> interface.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-011100101" lang="en" title="The definition of 'HTMLElement' in that specification.">Document Object Model (DOM) Level 2 HTML Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>No change from <a class="external" href="http://www.w3.org/TR/DOM-Level-2-HTML/" lang="en" title="The 'Document Object Model (DOM) Level 2 HTML Specification' specification">Document Object Model (DOM) Level 2 HTML Specification</a>
+</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/REC-DOM-Level-1/level-one-html.html#ID-011100101" lang="en" title="The definition of 'HTMLElement' in that specification.">Document Object Model (DOM) Level 1 Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>Initial definition.</td> </tr>
+</tbody>
+</table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Firefox (Gecko)</th> <th>Chrome</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td>1.0 (1.7 or earlier)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><a href="htmlelement.accesskey" title="The documentation about this has not yet been written; please consider contributing!"><code>accessKey</code></a></td> <td>5.0 (5.0)</td> <td>17.0</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span>(<a class="external" href="http://trac.webkit.org/changeset/107483">535.10</a>)</td> </tr>
+<tr>
+<td><a href="htmlelement.accesskeylabel" title="The documentation about this has not yet been written; please consider contributing!"><code>accessKeyLabel</code></a></td> <td>8.0 (8.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>
+<span style="color: #f00;">Not supported</span><a class="external" href="https://bugs.webkit.org/show_bug.cgi?id=72715" rel="external" title="">WebKit bug 72715</a>
+</td> </tr>
+<tr>
+<td><a href="htmlelement.blur" title="The blur method removes keyboard focus from the current element."><code>blur()</code></a></td> <td>5.0 (5.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><a href="htmlelement.click" title="The click method simulates a mouse click on an element."><code>click()</code></a></td> <td>5.0 (5.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span>(<a class="external" href="http://trac.webkit.org/changeset/107483">535.24</a>)</td> </tr>
+<tr>
+<td><a href="htmlelement.dataset" title="Allows access, both in reading and writing mode, to all the custom data attributes (data-*) set on the element. It is a map of DOMString, one entry for each custom data attribute."><code>dataset</code></a></td> <td>6.0 (6.0)</td> <td>9.0</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>11.10</td> <td>5.1</td> </tr>
+<tr>
+<td><a href="htmlelement.focus" title="Sets focus on the specified element, if it can be focused."><code>focus()</code></a></td> <td>5.0 (5.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><a href="htmlelement.contenteditable" title="contentEditable is used to indicate whether or not the element is editable. This enumerated attribute can have the following values:"><code>contentEditable</code></a></td> <td>3.0 (1.9)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>5.5</td> <td>9</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><a href="htmlelement.spellcheck" title="The documentation about this has not yet been written; please consider contributing!"><code>spellcheck</code></a></td> <td>2.0 (1.8.1)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<a href="htmlelement.forcespellcheck" title="The documentation about this has not yet been written; please consider contributing!"><code>forceSpellCheck()</code></a> 
+</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td><a href="htmlelement.dataset" title="Allows access, both in reading and writing mode, to all the custom data attributes (data-*) set on the element. It is a map of DOMString, one entry for each custom data attribute."><code>dataset</code></a></td> <td>6.0 (6.0)</td> <td>8.0</td> <td>11</td> <td>11.10</td> <td>6</td> </tr>
+<tr>
+<td><a href="htmlelement.draggable" title="The documentation about this has not yet been written; please consider contributing!"><code>draggable</code></a></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>12.0</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><a href="htmlelement.dropzone" title="The documentation about this has not yet been written; please consider contributing!"><code>dropzone</code></a></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td>12.0</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td>
+<a href="htmlelement.offsetleft" title="Returns the number of pixels that the upper left corner of the current element is offset to the left within the offsetParent node."><code>offsetLeft</code></a>, <a href="htmlelement.offsettop" title="offsetTop returns the distance of the current element relative to the top of the offsetParent node."><code>offsetTop</code></a>, <a href="htmlelement.offsetparent" title="offsetParent returns a reference to the object which is the closest (nearest in the containment hierarchy) positioned containing element. If the element is non-positioned, the nearest table cell or root element (html in standards compliant mode; body in quirks rendering mode) is the offsetParent. offsetParent returns null when the element has style.display set to &quot;none&quot;. The offsetParent is useful because offsetTop and offsetLeft are relative to its padding edge."><code>offsetParent</code></a>, <a href="htmlelement.offsetheight" title="Height of an element relative to the element's offsetParent."><code>offsetHeight</code></a> and <a href="htmlelement.offsetwidth" title="Returns the layout width of an element."><code>offsetWidth</code></a> 
+</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<a href="htmlelement.translate" title="The documentation about this has not yet been written; please consider contributing!"><code>translate</code></a> 
+</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td>
+<a href="htmlelement.itemscope" title="The documentation about this has not yet been written; please consider contributing!"><code>itemScope</code></a>, <a href="htmlelement.itemtype" title="The documentation about this has not yet been written; please consider contributing!"><code>itemType</code></a>, <a href="htmlelement.itemref" title="The documentation about this has not yet been written; please consider contributing!"><code>itemRef</code></a>, <a href="htmlelement.itemid" title="The documentation about this has not yet been written; please consider contributing!"><code>itemId</code></a>, <a href="htmlelement.itemprop" title="The documentation about this has not yet been written; please consider contributing!"><code>itemProp</code></a>, and <a href="htmlelement.itemvalue" title="The documentation about this has not yet been written; please consider contributing!"><code>itemValue</code></a> 
+</td> <td>6.0 (6.0)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td>11.60<br> (Removed in Opera 15)</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td>
+<a href="htmlelement.properties" title="The documentation about this has not yet been written; please consider contributing!"><code>properties</code></a> 
+</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<a href="htmlelement.ontouchstart" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.ontouchstart</code></a>, <a href="htmlelement.ontouchend" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.ontouchend</code></a>, <a href="htmlelement.ontouchmove" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.ontouchmove</code></a>, <a href="htmlelement.ontouchenter" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.ontouchenter</code></a>, <a href="htmlelement.ontouchleave" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.ontouchleave</code></a>, and <a href="htmlelement.ontouchcancel" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLElement.ontouchcancel</code></a>
+</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Firefox Mobile (Gecko)</th> <th>Android</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td> <p>1.0 (1.0)</p> </td> <td rowspan="7"><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td rowspan="7"><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td rowspan="7"><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td rowspan="7"><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><a href="htmlelement.accesskey" title="The documentation about this has not yet been written; please consider contributing!"><code>accessKey</code></a></td> <td>5.0 (5.0)</td> </tr>
+<tr>
+<td><a href="htmlelement.accesskeylabel" title="The documentation about this has not yet been written; please consider contributing!"><code>accessKeyLabel</code></a></td> <td>8.0 (8.0)</td> </tr>
+<tr>
+<td><a href="htmlelement.blur" title="The blur method removes keyboard focus from the current element."><code>blur()</code></a></td> <td>5.0 (5.0)</td> </tr>
+<tr>
+<td><a href="htmlelement.click" title="The click method simulates a mouse click on an element."><code>click()</code></a></td> <td>5.0 (5.0)</td> </tr>
+<tr>
+<td><a href="htmlelement.dataset" title="Allows access, both in reading and writing mode, to all the custom data attributes (data-*) set on the element. It is a map of DOMString, one entry for each custom data attribute."><code>dataset</code></a></td> <td>6.0 (6.0)</td> </tr>
+<tr>
+<td><a href="htmlelement.focus" title="Sets focus on the specified element, if it can be focused."><code>focus()</code></a></td> <td>5.0 (5.0)</td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li><a href="element" title="The Element interface represents part of the document. This interface describes methods and properties common to each kind of elements. Specific behaviors are described in the specific interfaces, inheriting from Element: the HTMLElement interface for HTML elements, or the SVGElement interface for SVG elements."><code>Element</code></a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement</a>
+  </p>
+</div>
+</div></div>

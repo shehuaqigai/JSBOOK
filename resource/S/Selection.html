@@ -1,0 +1,87 @@
+getSelection的构造函数  getSelection()方法创建Selection的一个实例对象
+
+<p>getSelection() instanceof Selection //true;</p>
+
+
+	之所以要看看这个方面，也是因为最近的项目里有关于文本选中的问题，搞不太清楚，虽然做的
+是ipad上的东西，但是想搞清楚其在各个浏览器上的兼容情况，所以花了一番功夫。selection 
+从字面意思上来讲，就是选中，也就是用鼠标选择一段文字的功能，只是这里我们需要用
+JavaScript来实现罢了。说到selection就不得不提到Range对象，实际上，Range对象才是真正
+实现选择的关键所在，selection的作用大多时候都是为了帮我们获取Range对象，对Range对象进
+行操作，从而达到选取的功能。自从iPhone，iPad流行起来之后，很多人都开始在用其原生的
+mobile Safari浏览器，值得一提的是，safari浏览器的确是现在对HTML5和CSS3支持最好的，所以
+开发iPhone和iPad上的网页应用，其实不用担心那么多的兼容性。但是Android系统也非常火的，
+而且其趋势直超iOS。但是不幸的就是Android电子产品开发的厂商太多了，对HTML5和CSS3的支
+持可谓参差不齐，所以兼容就变得很重要了，况且还有包括IE、Chrome、Opera浏览器等都支持
+程度各不一样。还要说明的一点是，这里的Selection和Range主要是来获取鼠标等的选中内容，而
+不是创造鼠标的选中内容，虽然在有些地方，比如新浪微博的话题插入中有这种需求。
+说到兼容性，对于Range现在主要有三种类型：
+<pre>
+（一）W3C Range    
+         可参看W3C Range的相关文档
+          1.  获取Range对象   
+             createRange()
+
+          2.  设置Range对象
+ 这里要理解Range对象的设置方法其实很简单，Range选中一段文字实际上是通过获取两
+ 个boundary-point临界点之间的内容来实现的，官方文档里把这两个临界点分别叫做
+ startContainer和endContainer那么它的方法里就会必然有对这两个临界点的设置了，如下：
+  setStart(Node parentNode, long offset)   offset为偏移量
+  setEnd(Node parentNode, long offset)   offset为偏移量
+ 上面是比较常用的方法，也可以通过下面的方式来设置临界点,只是单位是以节点来定位的：
+    setStartBefore(in Node node);
+    setStartAfter(in Node node);
+    setEndBefore(in Node node);
+    setEndAfter(in Node node);
+   以下还有方法比较帅气，可以直接选中某节点或此节点中的内容：
+  selectNode(Node node);   //选中此节点
+  selectNodeContents(Node node);//选中此节点中的内容
+
+3.  collapse()  用于折叠range的startContainer和endContainer
+
+4.  比较Range对象
+ 实际上呢，比较两个Range对象也没有什么实际的意义，只是这里也顺带提以下。比较
+ Range对象，就是比较Offset哪个在前边。
+  具体使用到的方法如下：
+  range.compareBoundaryPoints(string compareHow , Range anothorRange)
+ 【参数说明】（1）compareHow 可为 START_TO_START 、START_TO_END、
+         END_TO_START 、END_TO_END
+    （2） anotherRange为另外一个Range对象
+ 【返回说明】返回结果为三种情况：-1 、 0、1 ，其中-1表示offset在前，0表示
+    offset相等，1表示offset在后
+
+ 5.  删除Range内容，此方法是真实的删除选中的内容
+       range.deleteContents();
+
+  6.  提取内容，此方法实际就是剪切的功能
+     range.extractContents()
+
+ 7.  复制内容
+   range.cloneContents()
+ 关于复制，range还有一个方法是cloneRange()这个方法是复制出一个新的Range对象，
+  与cloneContents不同的地方在于，cloneRange返回的是一个Range对象，而
+   cloneContents返回的是一个RangeFragment，即range片段
+
+  8.   插入内容,这个方法，会将node节点插入到range的start boundary-point的位置
+     range.insertNode(Node node);
+     range.insertBefore(Node node);
+
+ 9.   将Range选中的内容作为parentNode的子节点，该方法只适用于文本节点，并且不能跨
+ 其他节点，如果此parentNode含有子节点，会在插入之前将parentNode里的子节点做
+   清空。range.surroundContents(Node parentNode);   
+     eg：  
+     Before: 
+  <BAR>AB<MOO>C</MOO>DE</BAR><FOO><CD></CD></FOO>
+  After surroundContents(FOO):  
+ <BAR>A<FOO>B<MOO>C</MOO>D</FOO>E</BAR>
+
+   10.  detach()        声明Range对象失效
+
+  11.  toString()          获得Range的选中文本
+
+    12.  相关属性
+  commonAncestorContainer   获得父容器元素
+ startOffset、endOffset 获得当前Range的开始和结束偏移量
+ collapse       是否可收缩（boolean）
+  startContainer、endContainer Range结束容器
+</pre>

@@ -1,0 +1,14 @@
+<p>
+	DOM createEvent() 方法
+定义和用法
+初始化新事件对象的属性
+语法
+event.initEvent(eventType,canBubble,cancelable)
+参数	 描述
+eventType	 字符串值。事件的类型。
+canBubble	 事件是否起泡。
+cancelable	 是否可以用 preventDefault() 方法取消事件。
+说明
+该方法将初始化 document_createEvent() 方法创建的合成 Event 对象的 type 属性、bubbles 属性和 cancelable 属性。只有在新创建的 Event 对象被 Document 对象或 Element 对象的 dispatchEvent() 方法分派之前，才能调用 Event.initEvent() 方法。
+ 
+</p>

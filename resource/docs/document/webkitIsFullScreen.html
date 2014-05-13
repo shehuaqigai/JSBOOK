@@ -1,0 +1,90 @@
+<p>
+	进入和退出全屏】  
+  
+// Webkit (works in Safari5.1 and Chrome 15)  
+  
+element.webkitRequestFullScreen();  
+  
+document.webkitCancelFullScreen();  
+  
+   
+  
+// Firefox 10  
+  
+element.mozRequestFullScreen();  
+  
+document.mozCancelFullScreen();  
+  
+   
+  
+// W3C 提议  
+  
+element.requestFullscreen();  
+  
+document.exitFullscreen();  
+  
+   
+  
+【事件监听】  
+  
+   
+  
+// Webkit-base: element.onwebkitfullscreenchange  
+  
+// Firefox: element.onmozfullscreenchange  
+  
+   
+  
+// W3C Method:  
+  
+element.addEventListener(‘fullscreenchange’, function(e) {  
+  
+if (document.fullScreen) {                     // document.webkitIsFullScreen  
+  
+/* make it look good for fullscreen */  
+  
+} else {  
+  
+/* return to the normal state in page */  
+  
+}  
+  
+}, true);  
+  
+   
+  
+【css伪类】  
+  
+:fullscreen – 当前全屏化的元素  
+  
+:fullscreen-ancestor – 所有全屏化元素的祖先元素  
+  
+   
+  
+【标签属性】  
+  
+   
+  
+&ltiframe width=”640″ height=”360″ src=”" allowfullscreen=”">&lt/iframe>  
+  
+   
+  
+  
+  
+=============================================================================  
+  
+全屏并非简单地去掉浏览器地址栏和状态栏而已，它和按f11进入全屏有不少区别。一点心得：  
+  
+1）在safari和chrome下，全屏后的元素全自动全屏居中，且背景色变为黑色。我尝试过通过给body设背景色来改变下背景色的颜色，失败。在firefox下，全屏后的背景色为全屏那个元素的背景色，且元素并不居中。如果给body调全屏，在webkit内核的浏览器下和按11进入的全屏效果差得很远，主要是背景色问题，而firefox下则效果接近于f11全屏——当然还是有区别，比如进入全屏的动画过程就不相同。  
+  
+2）退出全屏是通过给document来调来cancelFullScreen方法，但如果想让页面所有元素全部进入全屏的话，不能给document调requestFullScreen，只能给body调。  
+  
+3）onFullScreenChange事件的回调，在safari里不能写alert，如果写alert，点击后会自动退出全屏。  
+  
+4）按f11进入的全屏，onFullScreenChange事件不会响应。  
+  
+5）进入全屏一定要点击某个节点，不能直接调进入全屏api。mouseover、mousemove等接近onload的事件也不行。click、mousedown、mouseup事件可以。策略应该同window.open应该是一样的。  
+  
+6）ios暂不支持全屏api。  
+
+</p>

@@ -1,0 +1,111 @@
+<pre>
+QUnit是jQuery支持的一款JavaScript单页测试框架。
+简单易用。可以从QUnit的Github页面获取其代码。
+QUnit的使用与JUnit类似，相信有JUnit经验的开发者和测试人员可以很快上手。
+开始写测试用例
+test( name, expected, test )
+一个常规的测试用例。test里是测试用例的具体内容。
+
+
+asyncTest( name, expected, test )
+一个异步测试用例。默认的test都是同步的。
+内容中必须显示地调用start()，测试才会开始。
+
+
+
+expect( amount )
+用于测试代码中，表示在本测试里期待会执行amount个断言，
+大于或少于这个数量，测试都将失败。
+
+
+module( name, lifecycle )
+定义一个名为name的模块。在可选参数lifecycle中，
+可以定义模块开始和结束的测试内容。具体见文档。
+
+
+QUnit.init( )
+启动QUnit测试。如果测试在进行中，则会重新启动。基本不用。
+
+QUnit支持的断言
+ok( state, message )
+真假断言，state为true则通过。类似于JUnit的assertTrue。
+
+
+equal( actual, expected, message )
+相等断言，actual和expected相等（==）则通过。
+类似于JUnit的assertEquals。
+
+
+notEqual( actual, expected, message )
+不等断言，actual和expected不相等（!=）则通过。
+类似于JUnit的assertNotEquals。
+
+
+deepEqual( actual, expected, message )
+递归相等断言，actual和expected全相等（包括其子元素都相等，
+适用于基本类型，数组和对象）则通过。对于基本类型，相当于strictEqual。
+
+
+notDeepEqual( actual, expected, message )
+递归不相等断言，actual和expected不全相等（包括其子元素都相等，
+适用于基本类型，数组和对象）则通过。对于基本类型，相当于notStrictEqual。
+
+
+strictEqual( actual, expected, message )
+全相等断言，actual和expected全相等（===）则通过。
+
+
+notStrictEqual( actual, expected, message )
+不全相等断言，actual和expected不全相等（===）则通过。
+
+
+raises( block, expected, message )
+异常断言，block中抛出异常则通过，expected为可选参数，
+是所期待抛出异常名的正则表达式。
+
+
+把QUnit集成到现有工具
+QUnit在执行的过程中会调用一系列函数，告知外界运行状况，
+大家可以覆盖这些函数，达到集成的目的。
+
+QUnit.log({ result, actual, expected, message })
+每当断言执行结束后会调用此函数。
+
+
+QUnit.testStart({ name })
+每当一个测试执行开始时会调用此函数。
+
+
+QUnit.testDone({ name, failed, passed, total })
+每当一个测试执行结束后会调用此函数。
+
+
+QUnit.moduleStart({ name })
+每当一个模块执行开始时会调用此函数。
+
+
+QUnit.moduleDone({ name, failed, passed, total })
+每当一个模块执行结束后会调用此函数。
+
+
+QUnit.begin()
+当QUnit开始时会调用此函数。
+
+
+QUnit.done()
+当QUnit结束后会调用此函数。
+
+
+
+在后面的实例中，我写了一些覆盖，打印了执行过程。
+相信有了这些回调函数的帮助，写一个进度条出来也不是难事。
+
+QUnit的过滤器
+noglobals
+如果勾选，那么如果一个测试中引入了全局变量，则测试会失败。
+JavaScript中引入全局变量（window的属性）是不推荐的行为。
+
+notrycatch
+如果勾选，代码中的try-catch将不会生效，
+一旦程序中有异常发生，测试即刻终止。
+</pre>

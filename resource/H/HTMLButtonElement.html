@@ -1,0 +1,124 @@
+<div class="_content"><div class="_page _mdn"><h1>HTMLButtonElement</h1> <p>The <strong><code>HTMLButtonElement</code></strong> interface provides properties and methods (beyond the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button" title="The HTML &lt;button&gt; Element represents a clickable button."><code>&lt;button&gt;</code></a> object interface it also has available to them by inheritance) for manipulating the layout and presentation of button elements.</p> <h2 id="Properties">Properties</h2> <p><em>Inherits properties from its parent, <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a>.</em></p> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name</th> <th scope="col">Type</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>accessKey</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>A single-character keyboard key to give access to the button.</td> </tr>
+<tr>
+<td><code>autofocus</code></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>The control should have input focus when the page loads, unless the user overrides it, for example by typing in a different control. Only one form-associated element in a document can have this attribute specified.</td> </tr>
+<tr>
+<td><code>disabled</code></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>The control is disabled, meaning that it does not accept any clicks.</td> </tr>
+<tr>
+<td>
+<code>form</code> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="htmlformelement" title="The HTMLFormElement interface provides methods to create and modify &lt;form&gt; elements; it inherits from properties and methods of the HTMLElement interface."><code>HTMLFormElement</code></a></td> <td>The form that this button is associated with. If the button is a descendant of a form element, then this attribute is the ID of that form element.<br> If the button is not a descendant of a form element, then the attribute can be the ID of any form element in the same document it is related to, or the <code>null</code> value if none matches.</td> </tr>
+<tr>
+<td><code>formAction</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The URI of a resource that processes information submitted by the button. If specified, this attribute overrides the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-action">action</a></code> attribute of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form" title="The HTML &lt;form&gt; element represents a section of document that contains interactive controls that enable a user to submit information to a web server."><code>&lt;form&gt;</code></a> element that owns this element.</td> </tr>
+<tr>
+<td><code>formEncType</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The type of content that is used to submit the form to the server. If specified, this attribute overrides the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-enctype">enctype</a></code> attribute of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form" title="The HTML &lt;form&gt; element represents a section of document that contains interactive controls that enable a user to submit information to a web server."><code>&lt;form&gt;</code></a> element that owns this element.</td> </tr>
+<tr>
+<td><code>formMethod</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The HTTP method that the browser uses to submit the form. If specified, this attribute overrides the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-method">method</a></code> attribute of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form" title="The HTML &lt;form&gt; element represents a section of document that contains interactive controls that enable a user to submit information to a web server."><code>&lt;form&gt;</code></a> element that owns this element.</td> </tr>
+<tr>
+<td><code>formNoValidate</code></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>Indicates that the form is not to be validated when it is submitted. If specified, this attribute overrides the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-enctype">enctype</a></code> attribute of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form" title="The HTML &lt;form&gt; element represents a section of document that contains interactive controls that enable a user to submit information to a web server."><code>&lt;form&gt;</code></a> element that owns this element.</td> </tr>
+<tr>
+<td><code>formTarget</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>A name or keyword indicating where to display the response that is received after submitting the form. If specified, this attribute overrides the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-target">target</a></code> attribute of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form" title="The HTML &lt;form&gt; element represents a section of document that contains interactive controls that enable a user to submit information to a web server."><code>&lt;form&gt;</code></a> element that owns this element.</td> </tr>
+<tr>
+<td>
+<code>labels</code> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="nodelist" title="NodeList objects are collections of nodes such as those returned by Node.childNodes and the querySelectorAll method."><code>NodeList</code></a></td> <td>A list of <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label" title="The HTML &lt;label&gt; Element represents a caption for an item in a user interface. It can be associated with a control either by using the for attribute, or by placing the control element inside the label element. Such a control is called the labeled control of the label element."><code>&lt;label&gt;</code></a> elements that are labels for this button.</td> </tr>
+<tr>
+<td>
+<code>menu</code> 
+</td> <td><a href="htmlmenuelement" title="The documentation about this has not yet been written; please consider contributing!"><code>HTMLMenuElement</code></a></td> <td>The menu element to be displayed if the button is clicked and is of <code>type="menu"</code>.</td> </tr>
+<tr>
+<td><code>name</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The name of the object when submitted with a form. <span class="inlineIndicator htmlVer htmlVerInline"><a href="https://developer.mozilla.org/en-US/docs/HTML/HTML5">HTML5</a></span> If specified, it must not be the empty string.</td> </tr>
+<tr>
+<td><code>tabIndex</code></td> <td>long</td> <td>Number that represents this element's position in the tabbing order.</td> </tr>
+<tr>
+<td><code>type</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Indicates the behavior of the button. This is an enumerated attribute with the following possible values: <ul>
+<li>
+<code>"submit"</code>: The button submits the form. This is the default value if the attribute is not specified, <span class="inlineIndicator htmlVer htmlVerInline"><a href="https://developer.mozilla.org/en-US/docs/HTML/HTML5">HTML5</a></span> or if it is dynamically changed to an empty or invalid value.</li> <li>
+<code>"reset"</code>: The button resets the form.</li> <li>
+<code>"button"</code>: The button does nothing.</li> <li>
+<code>"menu"</code>: The button displays a menu. 
+</li> </ul>
+</td> </tr>
+<tr>
+<td>
+<code>validationMessage</code> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>A localized message that describes the validation constraints that the control does not satisfy (if any). This attribute is the empty string if the control is not a candidate for constraint validation (<code>willValidate</code> is <code>false</code>), or it satisfies its constraints.</td> </tr>
+<tr>
+<td>
+<code>validity</code> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="validitystate" title="The DOM ValidityState interface represents the validity states that an element can be in, with respect to constraint validation. Together, they help explain why an element's value fails to validate, if it's not valid."><code>ValidityState</code></a></td> <td>The validity states that this button is in.</td> </tr>
+<tr>
+<td><code>value</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The current form control value of the button.</td> </tr>
+<tr>
+<td><code>willValidate</code></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>Indicates whether the button is a candidate for constraint validation. It is <code>false</code> if any conditions bar it from constraint validation.</td> </tr>
+</tbody>
+</table><h2 id="Methods">Methods</h2> <p><em>Inherits methods from its parent, <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a>.</em></p> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name</th> <th scope="col">Return Type</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>checkValidity()</code></td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>Not supported for button elements.</td> </tr>
+<tr>
+<td><code>setCustomValidity(in DOMString error)</code></td> <td><code>void</code></td> <td>Not supported for button elements.</td> </tr>
+</tbody>
+</table><p>WIth Gecko-based browser, use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-submit-invalid" title=""><code>:-moz-submit-invalid</code></a> pseudo-class to style submit buttons based on the validation of a form.</p> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-a-element" lang="en" title="The definition of 'HTMLAnchorElement' in that specification.">WHATWG HTML Living Standard</a></td> <td><span class="spec-Living">Living Standard</span></td> <td>The following attribute has been added: <code>menu</code>.<br> The <code>type</code> attribute can take one more value, <code>"menu"</code>.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/html5/text-level-semantics.html#the-a-element" lang="en" title="The definition of 'HTMLAnchorElement' in that specification.">HTML5</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td>The attributes <code>tabindex</code> and <code>accesskey</code>, are now defined on <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a>.<br> The following attributes have been added: <code>autofocus</code>, <code>formAction</code>, <code>formEncType</code>, <code>formMethod</code>, <code>formNoValidate</code>, <code>formTarget</code>, <code>labels</code>, <code>validity</code>, <code>validationMessage</code>, and <code>willValidate</code>.<br> The following methods have been added: <code>checkValidity()</code>, <code>setCustomValidity()</code>.<br> The <code>type</code> attribute is no more read-only.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-ID-48250443" lang="en" title="The definition of 'HTMLAnchorElement' in that specification.">Document Object Model (DOM) Level 2 HTML Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>No change from <a class="external" href="http://www.w3.org/TR/REC-DOM-Level-1/" lang="en" title="The 'Document Object Model (DOM) Level 1 Specification' specification">Document Object Model (DOM) Level 1 Specification</a>.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/REC-DOM-Level-1/level-one-html.html#ID-48250443" lang="en" title="The definition of 'HTMLAnchorElement' in that specification.">Document Object Model (DOM) Level 1 Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>Initial definition.</td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>1.0 (1.7 or earlier)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td>Form-related attributes</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>4.0 (2.0)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>labels</code></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>
+<span style="color: #f00;">Not supported</span> <span class="inlineIndicator unimplemented unimplementedInline">Unimplemented (see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=556743" title="Implement the labels attribute">bug 556743</a>)</span>
+</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<code>menu</code> &amp; <code>type="menu"</code> 
+</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>1.0 (1.0)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td>Form-related attributes</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>4.0 (2.0)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>labels</code></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>
+<span style="color: #f00;">Not supported</span><span class="inlineIndicator unimplemented unimplementedInline">Unimplemented (see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=556743" title="Implement the labels attribute">bug 556743</a>)</span>
+</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<code>menu</code> &amp; <code>type="menu"</code> 
+</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li>HTML element implementing this interface: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button" title="The HTML &lt;button&gt; Element represents a clickable button."><code>&lt;button&gt;</code></a>
+</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/HTMLButtonElement</a>
+  </p>
+</div>
+</div></div>

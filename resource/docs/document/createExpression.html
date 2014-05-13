@@ -1,0 +1,62 @@
+<p>
+	XML DOM createExpression() 方法
+Document 对象参考手册
+定义和用法
+createExpression() 方法创建一个 XPath 表达式以供稍后计算。
+语法：
+createExpression(xpathText,namespaceURLMapper)
+参数	描述
+xpathText	表示要编译的 XPath 表达式的字符串。
+namespaceURLMapper	从一个名字空间前缀映射到一个全称名字空间 
+URL 的一个函数。
+如果不需要这样的映射，则为 null。
+返回值
+一个 XPathExpression 对象。
+抛出
+如果 xpathText 包含一个语法错误，或者它使用了 namespaceURLMapper 无法解析的一个名字空间前缀，这个方法会抛出一个异常。
+说明
+这个方法接受表示 XPath 表达式的一个字符串，并将其转换为一个编译过的表达式，即一个 XPathExpression。除了这个表达式，该方法还接受一个形如 function(prefix) 的函数，该函数解析一个名字空间前缀字符串，并返回一个全称名字空间 URL 字符串。
+IE 不支持这个 API。参阅 Node.selectNodes() 了解一种特定于 IE 的替代方法。
+</p>
+
+<pre>
+	ML DOM evaluate() 方法
+Document 对象参考手册
+定义和用法
+evaluate() 方法计算一个 XPath 表达式。
+语法：
+evaluate(xpathText,contextNode,namespaceURLMapper,resultType,result)
+参数	描述
+xpathText	表示要计算的 XPath 表达式的字符串。
+contextNode	文档中，对应要计算的表达式的节点。
+namespaceURLMapper	
+把一个命名空间前缀映射为一个全称命名空间 URL 的函数。
+如果不需要这样的映射，就为 null。
+resultType	
+指定了期待作为结果的对象的类型，使用 XPath 转换来强制结果类型。
+类型的可能的值是 XPathResult 对象所定义的常量。
+result	
+一个复用的 XPathResult 对象；
+如果你要创建一个新的 XPathResult 对象，则为 null。
+返回值
+表示根据给定的 Context 节点计算的表达式的一个 XPathResult 对象。
+抛出
+如果 xpathText 包含语法错误，
+或者如果表达式的结果无法转换为想要的 resultType，
+或者如果表达式包含了 namespaceURLMapper 无法解析的命名空间，
+或者如果 contextNode 具有错误的类型或它和这个文档不相关，
+该方法都会抛出一个异常。
+描述
+该方法根据给定的 Context 节点来计算指定的 XPath 表达式，
+并且返回一个 XPathResult 对象，该对象是 type 来确定结果类型应该是什么。
+如果你想多次计算一个表达式，使用 Document.createExpression() 
+来把表达式编译成一个 XPathExpression 对象，然后使用 XPathExpression 的 evaluate() 方法。
+IE 不支持这个 API。参阅 Node.selectNodes() 和
+ Node.selectSingleNode() 来了解一个特定于 IE 的替代方法。
+参阅
+Document.createExpression()
+Node.selectNodes()
+Node.selectSingleNode()
+XPathExpression
+XPathResult
+</pre>

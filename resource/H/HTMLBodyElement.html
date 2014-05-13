@@ -1,0 +1,103 @@
+<div class="_content"><div class="_page _mdn"><h1>HTMLBodyElement</h1> <p>The <strong><code>HTMLBodyElement</code></strong> interface provides special properties (beyond those of the regular <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a> interface they also inherit) for manipulating body elements.</p> <h2 id="Properties">Properties</h2> <p><em>Inherits properties from its parent, <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a> and from <a href="windoweventhandlers" title="The documentation about this has not yet been written; please consider contributing!"><code>WindowEventHandlers</code></a>.</em></p> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name</th> <th scope="col">Type</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td>
+<code>aLink</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Color of active hyperlinks.</td> </tr>
+<tr>
+<td>
+<code>background</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Description of the location of the background image resource. Note that this is not an URI, though some older version of some browsers do expect it. [1]</td> </tr>
+<tr>
+<td>
+<code>bgColor</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Background color for the document.</td> </tr>
+<tr>
+<td>
+<code>link</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Color of unvisited links.</td> </tr>
+<tr>
+<td><code>onafterprint</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onafterprint">onafterprint</a></code> HTML attribute value for a function to call after the user has printed the document.</td> </tr>
+<tr>
+<td><code>onbeforeprint</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onbeforeprint">onbeforeprint</a></code> HTML attribute value for a function to call when the user has requested printing the document.</td> </tr>
+<tr>
+<td><code>onbeforeunload</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onbeforeunload">onbeforeunload</a></code> HTML attribute value for a function to call when the document is about to be unloaded.</td> </tr>
+<tr>
+<td><code>onblur</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Exposes the <a href="window.onblur" title="The onblur property can be used to set the blur handler on the window, which is triggered when the window loses focus."><code>window.onblur</code></a> event handler to call when the window loses focus. <div class="note"> <strong>Note:</strong> This handler is triggered when the event reaches the window, not the body element. Use <a href="element.addeventlistener" title="The documentation about this has not yet been written; please consider contributing!"><code>addEventListener()</code></a> to attach an event listener to the body element.</div> </td> </tr>
+<tr>
+<td><code>onerror</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Exposes the <a href="window.onerror" title="An event handler for runtime script errors."><code>window.onerror</code></a> event handler to call when the document fails to load properly. <div class="note"> <strong>Note:</strong> This handler is triggered when the event reaches the window, not the body element. Use <a href="element.addeventlistener" title="The documentation about this has not yet been written; please consider contributing!"><code>addEventListener()</code></a> to attach an event listener to the body element.</div> </td> </tr>
+<tr>
+<td><code>onfocus</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Exposes the <a href="window.onfocus" title="An event handler for focus events sent to the window."><code>window.onfocus</code></a> event handler to call when the window gains focus. <div class="note"> <strong>Note:</strong> This handler is triggered when the event reaches the window, not the body element. Use <a href="element.addeventlistener" title="The documentation about this has not yet been written; please consider contributing!"><code>addEventListener()</code></a> to attach an event listener to the body element.</div> </td> </tr>
+<tr>
+<td><code>onhashchange</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onhashchange">onhashchange</a></code> HTML attribute value for a function to call when the fragment identifier in the address of the document changes.</td> </tr>
+<tr>
+<td><code>onload</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Exposes the <a href="window.onload" title="An event handler for the load event of a window."><code>window.onload</code></a> event handler to call when the window gains focus. <div class="note"> <strong>Note:</strong> This handler is triggered when the event reaches the window, not the body element. Use <a href="element.addeventlistener" title="The documentation about this has not yet been written; please consider contributing!"><code>addEventListener()</code></a> to attach an event listener to the body element.</div> </td> </tr>
+<tr>
+<td><code>onmessage</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onmessage">onmessage</a></code> HTML attribute value for a function to call when the document receives a message.</td> </tr>
+<tr>
+<td><code>onoffline</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onoffline">onoffline</a></code> HTML attribute value for a function to call when network communication fails.</td> </tr>
+<tr>
+<td><code>ononline</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-ononline">ononline</a></code> HTML attribute value for a function to call when network communication is restored.</td> </tr>
+<tr>
+<td><code>onpopstate</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onpopstate">onpopstate</a></code> HTML attribute value for a function to call when the user has navigated session history.</td> </tr>
+<tr>
+<td><code>onresize</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onresize">onresize</a></code> HTML attribute value for a function to call when the document has been resized.</td> </tr>
+<tr>
+<td><code>onstorage</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onpopstate">onpopstate</a></code> HTML attribute value for a function to call when the storage area has changed.</td> </tr>
+<tr>
+<td><code>onunload</code></td> <td><a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body#attr-onunload">onunload</a></code> HTML attribute value for a function to call when when the document is going away.</td> </tr>
+<tr>
+<td>
+<code>text</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Foreground color of text.</td> </tr>
+<tr>
+<td>
+<code>vLink</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Color of visited links.</td> </tr>
+</tbody>
+</table><h2 id="Methods">Methods</h2> <p><em>No specific method; inherits methods from its parent, <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a> and from <a href="windoweventhandlers" title="The documentation about this has not yet been written; please consider contributing!"><code>WindowEventHandlers</code></a>.</em></p> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-body-element" lang="en" title="The definition of 'HTMLBodyElement' in that specification.">WHATWG HTML Living Standard</a></td> <td><span class="spec-Living">Living Standard</span></td> <td>Technically, the event-related properties,<code>onafterprint</code>, <code>onbeforeprint</code>, <code>onbeforeunload</code>, <code>onblur</code>, <code>onerror</code>, <code>onfocus</code>, <code>onhashchange</code>, <code>onload</code>, <code>onmessage</code>, <code>onoffline</code>, <code>ononline</code>, <code>onpopstate</code>, <code>onresize</code>, <code>onstorage</code>, and <code>onunload</code>, have been moving to the <a href="windoweventhandlers" title="The documentation about this has not yet been written; please consider contributing!"><code>WindowEventHandlers</code></a> interface, and <code>HTMLBodyElement</code> implements this interface.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/html5/sections.html#the-body-element" lang="en" title="The definition of 'HTMLBodyElement' in that specification.">HTML5</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td>The following properties are now obsolete: <code>aLink</code>, <code>bgColor</code>, <code>background</code>, <code>link</code>, <code>text</code>, and <code>vLink</code>.<br> The following properties have been added: <code>onafterprint</code>, <code>onbeforeprint</code>, <code>onbeforeunload</code>, <code>onblur</code>, <code>onerror</code>, <code>onfocus</code>, <code>onhashchange</code>, <code>onload</code>, <code>onmessage</code>, <code>onoffline</code>, <code>ononline</code>, <code>onpopstate</code>, <code>onresize</code>, <code>onstorage</code>, and <code>onunload</code>.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-ID-62018039" lang="en" title="The definition of 'HTMLBodyElement' in that specification.">Document Object Model (DOM) Level 2 HTML Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>No change from <a class="external" href="http://www.w3.org/TR/REC-DOM-Level-1/" lang="en" title="The 'Document Object Model (DOM) Level 1 Specification' specification">Document Object Model (DOM) Level 1 Specification</a>.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/REC-DOM-Level-1/level-one-html.html#ID-62018039" lang="en" title="The definition of 'HTMLBodyElement' in that specification.">Document Object Model (DOM) Level 1 Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>Initial definition.</td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>1.0</td> <td>1.0 (1.7 or earlier) [1]</td> <td>4.0</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> [1]</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td>
+<code>onXYZ</code> event handlers</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>1.0 (1.0)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td>
+<code>onXYZ</code> event handlers</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <p>[1] Firefox prior to Firefox 7.0 and some older versions of Opera did returned an URI for the <code>HTMLBodyElement.background</code> attribute.</p> <h2 id="See_also">See also</h2> <ul>
+<li>HTML element implementing this interface: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body" title="The HTML &lt;body&gt; element represents the content of an HTML&nbsp;document. There is only one &lt;body&gt; element in a document."><code>&lt;body&gt;</code></a>
+</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLBodyElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLBodyElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/HTMLBodyElement</a>
+  </p>
+</div>
+</div></div>

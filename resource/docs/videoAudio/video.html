@@ -1,0 +1,877 @@
+
+<style type="text/css">
+	h5{
+		margin-bottom:20px;
+		border-bottom:3px solid red;
+	}
+	p{
+
+color:gray;
+
+	}
+	table.dataintable {
+margin-top: 10px;
+border-collapse: collapse;
+border: 1px solid #aaa;
+width: 100%;
+display: table;
+color:gray;
+}
+</style>
+<h2>video元素是HTMLVideoElement的一个实例</h2>
+<h2>HTMLVideoElement继承HTMLMediaElement</h2>
+<h2>HTMLMediaElement继承HTMLElement</h2>
+<h2>HTMLElement继承Element</h2>
+<h2>Element继承Node</h2>
+<h2>Node继承Object</h2>
+<h4 style="color:red;">video间接继承了HTMLMediaElement,HTMLElement,Element,Node,Object</h4>
+<h4>video元素对象属性</h4>
+<h5>accessKey://设置快捷键
+<p style="color:gray;">
+	
+
+IE浏览器
+
+按住Alt键，点击accesskey定义的快捷键(焦点将移动到链接)，再按回车.
+
+FireFox浏览器
+
+按住Alt+Shift键，点击accesskey定义的快捷键.
+
+Chrome浏览器
+
+按住Alt键，点击accesskey定义的快捷键.
+
+Opera浏览器
+
+按住Shift键，点击esc，出现本页定义的accesskey快捷键列表可供选择.
+
+Safari浏览器
+
+按住Alt键，点击accesskey定义的快捷键.
+</p>
+</h5>
+<h5>attributes元素所有属性的集合是一个json对象是NamedNodeMap的一个实例如果元素有属性，通过attributes都能拿到！
+
+	<pre style="color:red">
+		举个案例:button attr="aaa" attr2="bbbb"   button
+		访问button元素对象的attributes会得到{0:attr,1:attr2,length:2,__proto__:NamedNodeMap}
+
+	</pre>
+<p>
+
+NamedNodeMap有以下方法：<br/>
+length:返回属性个数<br/>
+getNamedItem()//返回指定名字的属性<br/>
+getNamedItemNS()  //可返回指定的节点（通过名称和命名空间） <br/>
+item()//用数字来访问属性[n]<br/>
+removeNamedItem()//删除指定名字的属性返回被删属性<br/>
+removeNamedItemNS() // 可删除指定的节点（根据名称和命名空间 <br/>
+setNamedItem() //增加属性 注意直接写不行的需要用var attr=document.createAttribute;attr.nodeValue=""创建一个属性然后setNamedItem(attr);因为属性也是一个对象，是Attr的一个实例<br/>
+setNamedItemNS()  设置指定的节点（通过名称和命名空间） 注意直接写不行的需要用var attr=document.createAttributeNS;因为属性也是一个对象，是Attr的一个实例 <br/>
+
+</p>
+
+
+
+
+
+
+</h5>
+<h5>autoplay://是否自动播放</h5>
+<h5>baseURI: baseURI 属性返回 XML 文档的位置</h5>
+<h5>buffered    buffered 属性返回 TimeRanges 对象。<br/>
+   获得视频的缓冲范围<br/>
+   <p>
+   	TimeRanges 对象表示用户的音视频缓冲范围。
+缓冲范围指的是已缓冲音视频的时间范围。如果用户在音视频中跳跃播放，会得到多个缓冲范围
+表示音视频的已缓冲部分。
+TimeRanges 对象属性：<br/>
+length - 获得音视频中已缓冲范围的数量<br/>
+start(index) - 获得某个已缓冲范围的开始位置<br/>
+end(index) - 获得某个已缓冲范围的结束位置返回秒数<br/>
+注释：首个缓冲范围的下表是 0。<br/>
+
+   </p>
+
+
+
+
+
+</h5>
+<h5>childElementCount: //子元素个数不包括子元素的子元素</h5>
+<h5>childNodes://返回子节点列表 是NodeList实例对象
+<p>
+	NodeList包括item()方法和length属性<br/>
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%">节点类型</th>
+<th style="width:40%">描述</th>
+<th>子元素</th>
+</tr>
+
+<tr>
+<td>Document</td>
+<td>表示整个文档（DOM 树的根节点）</td>
+<td>
+<ul>
+<li>Element (max. one)</li>
+<li>ProcessingInstruction</li>
+<li>Comment</li>
+<li>DocumentType</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>DocumentFragment</td>
+<td>表示轻量级的 Document 对象，其中容纳了一部分文档。</td>
+<td>
+<ul>
+<li>ProcessingInstruction</li>
+<li>Comment</li>
+<li>Text</li>
+<li>CDATASection</li>
+<li>EntityReference</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>DocumentType</td>
+<td>向为文档定义的实体提供接口。</td>
+<td>None</td>
+</tr>
+
+<tr>
+<td>ProcessingInstruction</td>
+<td>表示处理指令。</td>
+<td>None</td>
+</tr>
+
+<tr>
+<td>EntityReference</td>
+<td>表示实体引用元素。</td>
+<td>
+<ul>
+<li>ProcessingInstruction</li>
+<li>Comment</li>
+<li>Text</li>
+<li>CDATASection</li>
+<li>EntityReference</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>Element</td>
+<td>表示 element（元素）元素</td>
+<td>
+<ul>
+<li>Text</li>
+<li>Comment</li>
+<li>ProcessingInstruction</li>
+<li>CDATASection</li>
+<li>EntityReference</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>Attr</td>
+<td>表示属性。</td>
+<td>
+<ul>
+<li>Text</li>
+<li>EntityReference</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>Text</td>
+<td>表示元素或属性中的文本内容。</td>
+<td>None</td>
+</tr>
+
+<tr>
+<td>CDATASection</td>
+<td>表示文档中的 CDATA 区段（文本不会被解析器解析）</td>
+<td>None</td>
+</tr>
+
+<tr>
+<td>Comment</td>
+<td>表示注释。</td>
+<td>None</td>
+</tr>
+
+<tr>
+<td>Entity</td>
+<td>表示实体。</td>
+<td>
+<ul>
+<li>ProcessingInstruction</li>
+<li>Comment</li>
+<li>Text</li>
+<li>CDATASection</li>
+<li>EntityReference</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>Notation</td>
+<td>表示在 DTD 中声明的符号。</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<div>
+<h2>节点类型 - 所返回的值</h2>
+<p>下面的表格列出了对每个节点类型来说，nodeName 和 nodeValue 属性可返回的值：</p>
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%">节点类型</th>
+<th style="width:40%">nodeName 的返回值</th>
+<th>nodeValue 的返回值</th>
+</tr>
+<tr>
+	<td>Document</td>
+	<td>#document</td>
+	<td>null</td>
+</tr>
+<tr>
+	<td>DocumentFragment</td>
+	<td>#document fragment</td>
+	<td>null</td>
+</tr>
+<tr>
+	<td>DocumentType</td>
+	<td>doctype 名称</td>
+	<td>null</td>
+</tr>
+<tr>
+	<td>EntityReference</td>
+	<td>实体引用名称</td>
+	<td>null</td>
+</tr>
+<tr>
+	<td>Element</td>
+	<td>element name</td>
+	<td>null</td>
+</tr>
+<tr>
+	<td>Attr</td>
+	<td>属性名称</td>
+	<td>属性值</td>
+</tr>
+<tr>
+	<td>ProcessingInstruction</td>
+	<td>target</td>
+	<td>节点的内容</td>
+</tr>
+<tr>
+	<td>Comment</td>
+	<td>#comment</td>
+	<td>注释文本</td>
+</tr>
+<tr>
+	<td>Text</td>
+	<td>#text</td>
+	<td>节点内容</td>
+</tr>
+<tr>
+	<td>CDATASection</td>
+	<td>#cdata-section</td>
+	<td>节点内容</td>
+</tr>
+<tr>
+	<td>Entity</td>
+	<td>实体名称</td>
+	<td>null</td>
+</tr>
+<tr>
+	<td>Notation</td>
+	<td>符号名称</td>
+	<td>null</td>
+</tr>
+</tbody></table>
+</div>
+
+<table class="dataintable">
+<tbody>
+<tr>
+<th style="width:25%">NodeType</th>
+<th>Named Constant</th>
+</tr>
+<tr>
+	<td>1</td>
+	<td>ELEMENT_NODE</td>
+</tr>
+<tr>
+	<td>2</td>
+	<td>ATTRIBUTE_NODE</td>
+</tr>
+<tr>
+	<td>3</td>
+	<td>TEXT_NODE</td>
+</tr>
+<tr>
+	<td>4</td>
+	<td>CDATA_SECTION_NODE</td>
+</tr>
+<tr>
+	<td>5</td>
+	<td>ENTITY_REFERENCE_NODE</td>
+</tr>
+<tr>
+	<td>6</td>
+	<td>ENTITY_NODE</td>
+</tr>
+<tr>
+	<td>7</td>
+	<td>PROCESSING_INSTRUCTION_NODE</td>
+</tr>
+<tr>
+	<td>8</td>
+	<td>COMMENT_NODE</td>
+</tr>
+<tr>
+	<td>9</td>
+	<td>DOCUMENT_NODE</td>
+</tr>
+<tr>
+	<td>10</td>
+	<td>DOCUMENT_TYPE_NODE</td>
+</tr>
+<tr>
+	<td>11</td>
+	<td>DOCUMENT_FRAGMENT_NODE</td>
+</tr>
+<tr>
+	<td>12</td>
+	<td>NOTATION_NODE</td>
+</tr>
+</tbody>
+</table>
+</p>
+</h5>
+<h5>children//返回HTMLCollection子元素对象集合的实例
+<p>
+	item() 返回集合中指定位置的元素（节点）。<br/>
+    namedItem()	返回集合中 name 属性或 id 属性具有指定值的元素（节点）。
+
+</p>
+
+</h5>
+<h5>classList//返回DOMTokenList的实例对象
+<p>
+	DomTokenList是元素中class名个数的集合<br/>
+	length表示类名个数<br/>
+	add();// 追加类名 <br/>
+	contains();//  判断class属性中是否有指定的类名          <br/>
+	item();//    数字下标查找类名       <br/>
+	remove();//         删除类名  <br/>
+	toString();//   返回class属性字符串的形式      <br/>
+	toggle();//    类名有效性开关如果是真就关，如果是假就开启，可以控制样式是否引入 <br/>
+</p></h5>
+<h5>className: //取得元素的类名</h5>
+<h5>clientHeight//元素的高度，不算没展示的部分</h5>
+<h5>clientLeft//定位后左边的距离</h5>
+<h5>clientTop: //定位后顶部的距离</h5>
+<h5>clientWidth:可见区域的元素的宽</h5>
+<h5>contentEditable 属性规定是否可编辑元素的内容  如果是true可以编辑如果是false不可以  默认继承父元素的属性值 "inherit"</h5>
+<h5>controller属性返回音视频的当前媒体控制器。默认地，音视频元素不会有媒体控制器。如果规定了媒体控制器，controller 属性将以 MediaController 的形式返回它。<span style="color:red">所有主流浏览器都不支持 controller 属性。</span>
+<p>
+	
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>MediaController 对象</td>
+<td>
+	<p>表示音视频的媒体控制器。</p>
+	<p>MediaController 对象属性/方法：</p>
+	<ul class="listintable">
+	<li>buffered - 获得音视频的缓冲范围</li>
+	<li>seekable - 或者音视频的可寻址范围</li>
+	<li>duration - 获得音视频的时长</li>
+	<li>currentTime - 获得或设置音视频的当前播放位置</li>
+	<li>paused - 检测音视频是否已暂停</li>
+	<li>play() - 播放音视频</li>
+	<li>pause() - 暂停音视频</li>
+	<li>played - 检测音视频是否已播放过</li>
+	<li>defaultPlaybackRate - 获得或设置音视频的默认播放速率</li>
+	<li>playbackRate - 获得或设置音视频的当前播放速率</li>
+	<li>volume - 获得或设置音视频的音量</li>
+	<li>muted - 获得或设置音视频是否已静音</li>
+	</ul>
+</td>
+</tr>
+</tbody></table>
+
+
+</p>
+
+
+</h5>
+<h5>controls:没有就为false
+<p>
+	定义和用法
+controls 属性规定浏览器应该为音频提供播放控件。
+如果设置了该属性，则规定不存在作者设置的脚本控件。
+浏览器控件应该包括：
+播放
+暂停
+定位
+音量
+全屏切换
+字幕（如果可用）
+音轨（如果可用）
+</p>
+</h5>
+<h5>currentSrc//跟src属性一样可能有细微差别</h5>
+<h5>currentTime//当前流媒体的时长，秒单位</h5>
+<h5>dataset:
+ DOMStringMap
+<p>
+	
+自定义属性，可以在标签部分添加一些自定义属性，不用刻意有一些前缀的。但是HTML5新添加的自定义数据属性和以往的自定义属性不一样。HTML5中可以为元素添加非标准的属性，但是要添加data-前缀，目的就是为元素提供与渲染无关的信息，或者语义信息。给标签添加data-开头的属性，”-”后面名字可以随便起。小例子如下。
+添加了自定义数据属性之后，可以通过元素的dataset属性来访问自定义属性的值。dataset属性的值是DOMStringMap的一个实例。DOMStringMap是名值对儿的映射。在这个映射中，每个data-name形式的属性都会有一个对应的属性，只不过属性名没有data-前缀(比如，自定义属性是data-myname，那映射中对应的属性就是myname
+如果需要给元素添加一些不可见的数据以便进行其他处理，那就要用到自定义数据属性。在跟踪链接或者混搭应用中，通过自定义数据属性能够方便地知道点击来自页面中的哪个部分。dataset属性支持的浏览器有Firefox 6+ 和 Chrome。
+
+
+</p>
+
+
+</h5>
+<h5>defaultMuted: false
+<p>
+	defaultMuted 属性设置或返回音频/视频是否默认静音。
+设置该属性仅会改变默认的静音状态，而不是当前的。要改变当前的静音状态，请使用 muted 属性。
+只有 Google Chrome 支持 defaultMuted 属性。
+
+</p>
+
+</h5>
+<h5>defaultPlaybackRate: 1默认为1
+<p>
+	defaultPlaybackRate 属性设置或返回音频/视频的默认播放速度。
+设置该属性仅会改变默认的播放速度，而不是当前的。要改变当前的播放速度，请使用 playbackRate 属性。
+只有 Google Chrome 支持 defaultPlaybackRate 属性。
+指示音频/视频的默认播放速度。
+例值：
+1.0 正常速度
+0.5 半速（更慢）
+2.0 倍速（更快）
+-1.0 向后，正常速度
+-0.5 向后，半速
+
+
+</p>
+
+</h5>
+<h5>dir: ""dir 属性设置或返回元素的文字方向。(rtl,ltr);
+
+<p>
+	
+
+
+</p>
+</h5>
+<h5>draggable: false//draggable 属性规定元素是否可拖动。
+<p>
+	目前只有 Firefox、Chrome 以及 Safari 支持 draggable 属性
+true	规定元素是可拖动的。
+false	规定元素是不可拖动的。
+auto	使用浏览器的默认特性。
+
+</p>
+
+
+</h5>
+<h5>duration: 时长</h5>
+<h5>ended: false //检查视频播放是否已结束：</h5>
+<h5>error: null //error 属性返回一个 MediaError 对象。
+MediaError 对象的 code 属性包含了音频/视频的错误状态。只有 Internet Explorer 9 支持 error 属性。
+<p>
+	
+	MediaError 对象的 code 属性返回一个数字值，它表示音频/视频的错误状态：
+1 = MEDIA_ERR_ABORTED - 取回过程被用户中止
+2 = MEDIA_ERR_NETWORK - 当下载时发生错误
+3 = MEDIA_ERR_DECODE - 当解码时发生错误
+4 = MEDIA_ERR_SRC_NOT_SUPPORTED - 不支持音频/视频
+</p>
+
+</h5>
+<h5>firstChild: null
+<p>
+	
+	firstChild 属性返回被选节点的第一个子节点。
+如果选定的节点没有子节点，则该属性返回 NULL。
+提示和注释
+注释：Internet Explorer 会忽略节点之间生成的空白文本节点（比如换行字符），而 Mozilla 不这么做。因此，在下面的例子中，我们用一个函数来检测第一个子节点的节点类型。
+元素节点的节点类型是 1，因此假如第一个子节点不是元素节点，则移动到下一个节点，并检测该节点是否是元素节点。这个过程一直持续到找到第一个子节点为止。这种方法可以确保在 Internet Explorer 和 Mozilla 都获得正确的结果。
+如需更多有关 IE 与 Mozilla 浏览器差异的内容，请访问 W3School 的 XML DOM 教程中的 DOM 浏览器 这一节。
+</p>
+
+
+</h5>
+<h5>firstElementChild: null//firstElementChild返回当前元素的第一个子元素节点,如果没有子元素节点,则返回null.该属性是只读的.</h5>
+<h5>hidden: false
+
+<p>
+	定义和用法
+hidden 属性规定对元素进行隐藏。
+隐藏的元素不会被显示。
+如果使用该属性，则会隐藏元素。
+可以对 hidden 属性进行设置，使用户在满足某些条件时才能看到某个元素（比如选中复选框，等等）。然后，可使用 JavaScript 来删除 hidden 属性，使该元素变得可见。
+</p>
+</h5>
+<h5>id: //获取元素ＩＤ</h5>
+<h5>initialTime: 0//返回初始播放的位置</h5>
+<h5>innerHTML: //innerHTML 属性设置或返回开始和结束标签之间的 HTML。</h5>
+<h5>innerText: //　从起始位置到终止位置的内容, 但它去除Html标签 </h5>
+<h5>isContentEditable: false//如果当前元素的内容为可编辑状态,则它的isContentEditable属性会返回true,否则返回false.备注
+该属性为只读属性.</h5>
+<h5>lang: //lang 属性设置或返回元素的语言。</h5>
+<h5>lastChild: null//lastChild 属性可返回包含节点的最后一个子节点。</h5>
+<h5>lastElementChild: null//lastElementChild返回当前元素的最后一个子元素节点,如果没有子元素节点,则返回null.该属性是只读的.</h5>
+<h5>localName: "audio" //localName 属性返回被选元素的本地名称（元素名称）。
+如果选定的节点不是元素或属性，则该属性返回 NULL。</h5>
+<h5>loop: false//oop 属性规定当视频结束后将重新开始播放。
+如果设置该属性，则视频将循环播放。&lt video loop="loop"&gt </h5>
+<h5>mediaGroup: ""//mediaGroup 属性设置或返回音频/视频所属的媒体组合的名称。
+媒体分组允许两个或更多音频/视频元素保持同步。
+浏览器支持
+没有主流浏览器支持 mediaGroup 属性。</h5>
+<h5>muted: false//muted 属性设置或返回音频/视频是否应该被静音（关闭声音）。</h5>
+<h5>namespaceURI: "http://www.w3.org/1999/xhtml"//namespaceURI 属性为被选节点返回命名空间的 URI。
+如果选定的节点不是元素或属性，则该属性返回 NULL。</h5>
+<h5>networkState: 0//networkState 属性返回音频/视频的当前网络状态（activity）。
+<p>
+	
+表示音频/视频元素的当前网络状态：<br/>
+0 = NETWORK_EMPTY - 音频/视频尚未初始化<br/>
+1 = NETWORK_IDLE - 音频/视频是活动的且已选取资源，但并未使用网络<br/>
+2 = NETWORK_LOADING - 浏览器正在下载数据<br/>
+3 = NETWORK_NO_SOURCE - 未找到音频/视频来源
+
+</p></h5>
+<h5>nextElementSibling: null//下一个兄弟元素</h5>
+<h5>nextSibling: null//nextSibling 属性可返回某个元素之后紧跟的节点（处于同一树层级中）。
+如果无此节点，则属性返回 null。</h5>
+<h5>nodeName: "AUDIO"//nodeName 属性可依据节点的类型返回其名称。</h5>
+<h5>nodeType: 1//nodeType 属性返回被选节点的节点类型
+
+<p>
+	
+<table class="dataintable">
+	<tbody><tr>
+		<th style="width:30%">节点编号：</th>
+		<th style="width:70%">节点名称：</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>Element</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>Attribute</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>Text</td>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>CDATA Section</td>
+	</tr>
+	<tr>
+		<td>5</td>
+		<td>Entity Reference</td>
+	</tr>
+	<tr>
+		<td>6</td>
+		<td>Entity</td>
+	</tr>
+	<tr>
+		<td>7</td>
+		<td>Processing Instrucion</td>
+	</tr>
+	<tr>
+		<td>8</td>
+		<td>Comment</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td>Document</td>
+	</tr>
+	<tr>
+		<td>10</td>
+		<td>Document Type</td>
+	</tr>
+	<tr>
+		<td>11</td>
+		<td>Document Fragment</td>
+	</tr>
+	<tr>
+		<td>12</td>
+		<td>Notation</td>
+	</tr>
+</tbody></table>
+
+
+</p>
+</h5>
+<h5>nodeValue: null//nodeValue属性可根据节点的类型来设置或返回某个节点的值。</h5>
+<h5>offsetHeight: 0
+参考<a href="http://www.cnblogs.com/dragonstreak_1/archive/2011/10/29/2228615.html" target="_blank">这里</a>
+
+</h5>
+<h5>offsetLeft: 0//参考<a href="http://www.cnblogs.com/dragonstreak_1/archive/2011/10/29/2228615.html" target="_blank">这里</a>
+</h5>
+<h5>offsetParent: null//参考<a href="http://www.cnblogs.com/dragonstreak_1/archive/2011/10/29/2228615.html" target="_blank">这里</a>
+</h5>
+<h5>offsetTop: 0//参考<a href="http://www.cnblogs.com/dragonstreak_1/archive/2011/10/29/2228615.html" target="_blank">这里</a>
+</h5>
+<h5>offsetWidth: 0//参考<a href="http://www.cnblogs.com/dragonstreak_1/archive/2011/10/29/2228615.html" target="_blank">这里</a>
+</h5>
+<h5>onabort: null
+<p>
+	定义和用法
+onabort 事件会在图像加载被中断时发生。
+当用户在图像完成载入之前放弃图像的装载（如单击了 stop 按钮）时，就会调用该句柄。
+语法
+onabort="SomeJavaScriptCode"
+参数	描述
+SomeJavaScriptCode	必需。规定该事件发生时执行的 JavaScript。
+支持该事件的 HTML 标签：
+<img>
+支持该事件的 JavaScript 对象：
+image
+</p>
+</h5>
+<h5>onbeforecopy: null//当选中区复制到系统剪贴板之前在源对象触发</h5>
+<h5>onbeforecut: null//当选中区剪切到系统剪贴板之前在源对象触发</h5>
+<h5>onbeforepaste: null//系统剪贴板传送[粘贴]到页面中时触发此事件</h5>
+<h5>onblur: null//在对象失去输入焦点时触发。</h5>
+<h5>onchange: null//当前元素失去焦点并且元素的内容发生改变而触发此事件</h5>
+<h5>onclick: null//鼠标点击时触发此事件</h5>
+<h5>oncontextmenu: null//浏览者按下鼠标右键出现菜单时或者通过键盘的按键触发页面菜单时触发的事件</h5>
+<h5>oncopy: null//当页面当前的被选择内容被复制后触发此事件</h5>
+<h5>oncut: null//当页面当前的被选择内容被剪切时触发此事件</h5>
+<h5>ondblclick: null//鼠标双击时触发此事件</h5>
+<h5>ondrag: null//当某个对象被拖动时触发此事件 [活动事件]</h5>
+<h5>ondragend: null//当鼠标拖动结束时触发此事件，即鼠标的按钮被释放了</h5>
+<h5>ondragenter: null// 当对象被鼠标拖动的对象进入其容器范围内时触发此事件</h5>
+<h5>ondragleave: null//当对象被鼠标拖动的对象离开其容器范围内时触发此事件</h5>
+<h5>ondragover: null// 当某被拖动的对象在另一对象容器范围内拖动时触发此事件</h5>
+<h5>ondragstart: null//当某对象将被拖动时触发此事件</h5>
+<h5>ondrop: null//在一个拖动过程中，释放鼠标键时触发此事件</h5>
+<h5>onerror: null//出现错误时触发此事件</h5>
+<h5>onfocus: null//当某个元素获得焦点时触发此事件</h5>
+<h5>oninput: null//当元素获得用户输入时运行脚本</h5>
+<h5>oninvalid: null//当元素无效时运行脚本</h5>
+<h5>onkeydown: null//当按下按键时运行脚本</h5>
+<h5>onkeypress: null//当按下并松开按键时运行脚本</h5>
+<h5>onkeyup: null//当松开按键时运行脚本</h5>
+<h5>onload: null//当文档加载时运行脚本</h5>
+<h5>onmousedown: null//当按下鼠标按钮时运行脚本</h5>
+<h5>onmousemove: null//当鼠标指针移动时运行脚本</h5>
+<h5>onmouseout: null//当鼠标指针移出元素时运行脚本</h5>
+<h5>onmouseover: null//当鼠标指针移至元素之上时运行脚本</h5>
+<h5>onmouseup: null//当松开鼠标按钮时运行脚本</h5>
+<h5>onmousewheel: null//当转动鼠标滚轮时运行脚本</h5>
+<h5>onpaste: null//s中有个禁止粘贴的事件onpaste；主要在用户填写信息，注册等地方使用，用户填写一些非常重要的信息的时候，比如手机号码，确认邮箱等，防止用户第一次输入错误，第二次直接粘贴，这种情况也比较常见。</h5>
+<h5>onreset: null//当表单重置时运行脚本。HTML 5 不支持。</h5>
+<h5>onscroll: null//当滚动元素滚动元素的滚动条时运行脚本</h5>
+<h5>onsearch: null//input的search</h5>
+<h5>onselect: null//当选取元素时运行脚本</h5>
+<h5>onselectstart: null//  onselectstart几乎可以用于所有对象，其触发时间为目标对象被开始选中时（即选中动作刚开始，尚未实质性被选中）。该事件常使用
+于使目标对象“禁止变蓝”，比如在很多地方当用户双击时，一些元素会变成蓝色（选中状态），而当我们要避免这种情况时就可以使用该事</h5>
+<h5>onsubmit: null//当提交表单时运行脚本</h5>
+<h5>onwebkitfullscreenchange: null//全屏的时候触发事件</h5>
+<h5>onwebkitfullscreenerror: null//全屏出错促发事件</h5>
+<h5>outerHTML: "//设置或获取对象及其内容的 HTML 形式<audio></audio>"</h5>
+<h5>outerText: ""//设置(包括标签)或获取(不包括标签)对象的文本</h5>
+<h5>ownerDocument: document//ownerDocument 可返回某元素的根元素。</h5>
+<h5>parentElement: null//父元素</h5>
+<h5>parentNode: null//父节点</h5>
+<h5>paused: true//检查视频是否已暂停：</h5>
+<h5>playbackRate: 1//将视频设置为慢速播放：
+
+<p>
+	
+	指示音频/视频的当前播放速度。
+例值：
+1.0 正常速度
+0.5 半速（更慢）
+2.0 倍速（更快）
+-1.0 向后，正常速度
+-0.5 向后，半速
+</p>
+
+</h5>
+<h5>played: TimeRanges//获得视频中以秒计的首段已播放的范围（部分）：played 属性返回 TimeRanges 对象。
+TimeRanges 对象表示用户已经播放或看到的音频/视频范围。
+已播范围指的是被播放音频/视频的时间范围。如果用户在音频/视频中跳跃，则会获得多个播放范围。
+<p>
+	
+	imeRanges 对象的属性：
+length - 获得音频/视频中已播范围的数量
+start(index) - 获得某个已播范围的开始位置
+end(index) - 获得某个已播范围的结束位置
+注释：首段已播范围的下标是 0。
+</p>
+</h5>
+<h5>prefix: null//prefix 属性返回选定的节点的命名空间前缀。
+如果选定的节点不是元素或属性，则该属性返回 NULL。</h5>
+<h5>preload: "auto"//preload 属性规定是否在页面加载后载入视频。
+如果设置了 autoplay 属性，则忽略该属性。
+<p>
+	规定是否预加载视频。
+可能的值：
+auto - 当页面加载后载入整个视频
+meta - 当页面加载后只载入元数据
+none - 当页面加载后不载入视频
+</p>
+</h5>
+<h5>previousElementSibling: null//上面元素的第一个兄弟元素</h5>
+<h5>previousSibling: null//上面的第一个节点</h5>
+<h5>readyState: 0//readyState 属性返回音频/视频的当前就绪状态。
+就绪状态指示音频/视频是否已准备好播放。</h5>
+<h5>scrollHeight: 0</h5>
+<h5>scrollLeft: 0</h5>
+<h5>scrollTop: 0</h5>
+<h5>scrollWidth: 0</h5>
+<h5>seekable: TimeRanges//seekable 属性返回 TimeRanges 对象。
+TimeRanges 对象表示音频/视频中用户可寻址的范围。
+可寻址范围指的是用户在音频/视频中可寻址（移动播放位置）的时间范围。
+对于流视频，通常可以寻址到视频中的任何位置，即使其尚未完成缓冲。
+
+<p>
+	
+
+	表示音频/视频中的可寻址部分。
+TimeRanges 对象的属性：
+length - 获得音频/视频中可寻址范围的数量
+start(index) - 获得可寻址范围的开始位置
+end(index) - 获得可寻址范围的结束位置
+注释：第一个可寻址范围的下标是 index 0。
+</p>
+</h5>
+<h5>seeking: false//seeking 属性返回用户目前是否在音频/视频中寻址。
+寻址中（Seeking）指的是用户在音频/视频中移动/跳跃到新的位置。</h5>
+<h5>spellcheck: true//spellcheck 属性规定是否对元素内容进行拼写检查。
+可对以下文本进行拼写检查：
+类型为 text 的 input 元素中的值（非密码）
+textarea 元素中的值
+可编辑元素中的值</h5>
+<h5>src: ""//资源路径</h5>
+<h5>startTime: 0//开始时间</h5>
+<h5>style: CSSStyleDeclaration//样式</h5>
+<h5>tabIndex: -1//tabIndex 属性可设置或返回按钮的 tab 键控制次序</h5>
+<h5>tagName: "AUDIO"//tagName 属性返回被选元素的标签名。</h5>
+<h5>textContent: ""//textContent 属性返回或设置选定元素的文本。
+如果返回文本，则该属性返回元素节点内所有文本节点的值。
+如果设置文本，则该属性删除所有子节点，并用单个文本节点来替换它们。</h5>
+<h5>textTracks: TextTrackList//textTracks 属性返回 TextTrackList 对象。
+TextTrackList 对象表示音频/视频的可用文本轨道。
+每条可用的文本轨道是由 TextTrack 对象表示的。
+<p>
+	
+	<div>
+<h2>语法</h2>
+
+<pre><i>audio</i>|<i>video</i>.textTracks</pre>
+
+<h3>返回值</h3>
+
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%;">类型</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>TextTrackList 对象</td>
+<td>
+	<p>表示音频/视频的可用文本轨道。</p>
+	<p>TextioTrackList 对象的属性：</p>
+	<ul class="listintable">
+	<li>length - 获得音频/视频中可用的文本轨道的数量</li>
+	<li>[index] - 根据下标来获得 TextTrack 对象</li>
+	</ul>
+	<p class="note"><span>注释：</span>第一条可用文本轨道的下标是 0。</p>
+</td>
+</tr>
+
+<tr>
+<td>TextTrack 对象</td>
+<td>
+	<p>表示一条文本轨道。</p>
+	<p>TextTrack 对象的属性：</p>
+	<ul class="listintable">
+	<li>kind - 获得文本轨道的类型（可以是 "subtitles", "caption", "descriptions", "chapters" 或者 "metadata")</li>
+	<li>label - 获得文本轨道的标签</li>
+	<li>language - 获得文本轨道的语言</li>
+	<li>mode - 获得或设置该轨道是否是活动的 ("disabled"|"hidden"|"showing")</li>
+	<li>cues - 获得 TextTrackCueList 对象的 cues 列表</li>
+	<li>activeCues - 获得 TextTrackCueList 对象形式的当前活动文本轨道 cues</li>
+	<li>addCue(cue) - 向 cues 列表添加一个 cue</li>
+	<li>removeCue(cue) - 从 cues 列表删除一个 cue</li>
+	</ul>
+</td>
+</tr>
+</tbody></table>
+</div>
+</p></h5>
+<h5>title: ""//title 属性设置或返回元素的（咨询性质的）标题</h5>
+<h5>translate: true//以下解析器规则指定具有属性值 对“translate=yes”的所有元素，并确保显示这些元素供译员翻译：</h5>
+<h5>volume: 1//volume 属性设置或返回音频/视频的当前音量。
+
+<p>
+	
+	规定音频/视频的当前音量。必须是介于 0.0 与 1.0 之间的数字。
+例值：
+1.0 是最高音量（默认）
+0.5 是一半音量 （50%）
+0.0 是静音
+</p></h5>
+<h5>webkitAudioDecodedByteCount://音频解码后的比特数</h5>
+<h5>webkitClosedCaptionsVisible: false//是否关闭字幕显示</h5>
+<h5>webkitHasClosedCaptions: false//判断是否关闭了字幕</h5>
+<h5>webkitPreservesPitch: true//是否保存音高</h5>
+<h5>webkitPseudo: ""</h5>
+<h5>webkitShadowRoot: null</h5>
+<h5>webkitVideoDecodedByteCount: 0//视频解码比特流</h5>
+<h5>webkitdropzone: ""//属性规定当被拖动的数据在拖放到元素上时，是否被复制、移动或链接dropzone 属性是 HTML5 中的新属性。
+
+<p>
+
+draggable="copy|move|link"
+
+	
+	copy	拖动数据会导致被拖数据产生副本。
+move	拖动数据会导致被拖数据移动到新位置。
+link	拖动数据会生成指向原始数据的链接。
+</p>
+</h5>
+
+webkitEnterFullScreen://video.addEventListener("click", function() {
+            video.webkitEnterFullscreen();
+        });<br/>
+webkitEnterFullscreen://不能直接调用要放在事件里进入全屏<br/>
+webkitExitFullScreen:<br/>
+webkitExitFullscreen:<br/>
+
+
+
+
+
+

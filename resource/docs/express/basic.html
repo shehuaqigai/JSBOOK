@@ -1,0 +1,63 @@
+<h1>简介</h1>
+<p>
+Express是目前最流行的基于Node.js的Web开发框架。它可以快速地搭建网站原型。
+Express是一个node.js模块，采用npm全局模块。
+</p>
+<h1>安装(window版)</h1>
+<p>
+npm install -g express<br/>
+安装完成后，切换到工作目录。
+</p>
+<p>express JSBook这个命令创建一个叫JSBook的项目</p>
+<p>执行安装express的依赖包 npm install或者npm install -d安装packjson里的配置信息包括默认模板jade</p>
+<p>Error: SELF_SIGNED_CERT_IN_CHAIN，怎么办？试试npm config set strict-ssl=false</p>
+<p>安装成功会有以下结构</p>
+<pre>
+node_modules子目录：用于安装本地模块。
+public子目录：用于存放用户可以下载到的文件，比如图片、脚本、样式表等。静态文件(css,js,img)
+routes子目录：用于存放路由文件。路由文件(MVC中的C,controller)
+views子目录：用于存放网页的模板。页面文件(jade模板)
+app.js文件：应用程序的启动脚本。
+package.json文件：项目的配置文件。
+</pre>
+<p>
+然后，在命令行下运行下面的命令，就可以在浏览器中访问项目网站了。<br/>
+node app<br/>
+<p>通过node启动程序，每次代码修改都需要重新启动。 有一个工具supervisor，每次修改代码后会自动重启，会我们开发省很多的时间。npm install supervisor -g一定要安装到全局</p>
+<p>
+	再启动服务 项目目录 supervisor app.js
+</p>
+默认情况下，网站运行在本机的3000端口，网页显示Welcome to Express。
+</p>
+<p>
+特性一：路由
+路由的功能就是处理不同的请求。在上面的很多例子中，我们分别有首页，关于和404页面。我们是通过 if 来判断并处理不同请求地址。
+</p>
+
+
+
+
+<p>
+nodejs在线调试工具node-inspector<br/>
+nodejs有三种调试方法<br/>
+我目前用的是借助node-inspector插件在chrome浏览器上调试，调试页面和控制台式一样的，可以设置断点，可以单步调试等等<br/>
+首先利用npm安装node-inspector插件<br/>
+备注：这里网上直接说输入npm install –g node-inspector <br/> 就可以了，但是我在mac上面无法成功，需要获取到root权限才能正常安装，获取办法，终端输入 sudo -i 然后npm install –g node-inspector<br/>
+终端输入： npm install –g node-inspector  <br/>
+安装完成后开始调试：<br/>
+打开一个终端输入：node --debug-brk app.js （这个app.js是需要调试的代码,<br/>这里会默认强制在第一行断点，可以查看node内部是如何运行的）<br/>
+或者打开一个终端输入：node --debug app.js （没有默认断点）<br/>
+然后新开一个终端运行：node-inspector<br/>
+最后在chrome中打开：http://localhost:8080/debug?port=5858<br/>
+就可以开始调试了。<br/>
+页面中可以设置断点，刷新正在执行的页面，就和在前端调试js是一样的方法设置断点，单步调试等等<br/> 
+结合supervisor避免重新启动的调试：<br/>
+参考nodejs调试避免重新启动的supervisor插件用法<br/>
+将node --debug-brk app.js改为<br/>
+supervisor --debug-brk app.js 即可<br/>
+</p>
+
+
+
+
+

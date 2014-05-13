@@ -1,0 +1,16 @@
+<pre>
+	定义和用法
+source 属性用于返回模式匹配所用的文本。
+该文本不包括正则表达式直接量使用的定界符，也不包括标志 g、i、m。
+语法
+RegExpObject.source
+实例
+在下面的例子中，我们将获得用于模式匹配的文本：
+
+&ltscript type="text/javascript">
+var str = "Visit W3School.com.cn";
+var patt1 = new RegExp("W3S","g");
+
+document.write("The regular expression is: " + patt1.source);
+&lt/script>
+</pre>

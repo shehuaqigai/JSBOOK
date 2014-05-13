@@ -1,0 +1,32 @@
+<pre>
+	定义和用法
+getUTCDate() 方法可根据世界时返回一个月 (UTC) 中的某一天。
+语法
+dateObject.getUTCDate()
+返回值
+dateObject 用世界时表示时，返回该月中的某一天 （是 1 ~ 31 中的一个值）。
+提示和注释：
+注释：该方法总是结合一个 Date 对象来使用。
+提示：有关通用协调时间 (UTC) 的更多资料，请参阅百度百科。
+实例
+例子 1
+在本例中，我们将根据 UTC 来输出此约的当前一天：
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.getUTCDate())
+
+&lt/script>
+输出：
+22
+例子 2
+我们在此处定义了一个带有具体日期的变量，然后根据 UTC 输出变量中的月中的那一天：
+&ltscript type="text/javascript">
+
+var birthday = new Date("July 21, 1983 01:15:00")
+document.write(birthday.getUTCDate())
+
+&lt/script>
+输出：
+21
+</pre>

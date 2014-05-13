@@ -1,0 +1,29 @@
+<p>
+	定义和用法
+toString() 方法可把数组转换为字符串，并返回结果。
+语法
+arrayObject.toString()
+返回值
+arrayObject 的字符串表示。返回值与没有参数的 join() 方法返回的字符串相同。
+说明
+当数组用于字符串环境时，JavaScript 会调用这一方法将数组自动转换成字符串。但是在某些情况下，需要显式地调用该方法。
+提示和注释
+注释：数组中的元素之间用逗号分隔。
+实例
+<pre>
+	
+
+&ltscript type="text/javascript">
+
+var arr = new Array(3)
+arr[0] = "George"
+arr[1] = "John"
+arr[2] = "Thomas"
+
+document.write(arr.toString())
+
+&lt/script>
+输出：
+George,John,Thomas
+</pre>
+</p>

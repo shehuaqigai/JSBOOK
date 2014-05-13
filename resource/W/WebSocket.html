@@ -1,0 +1,411 @@
+
+<div class="row">
+    <div class="twelve columns">
+
+<h1> WebSocket </h1>
+
+<aside class="right"><p>来自<a href="/">《JavaScript 标准参考教程（alpha）》</a>，by 阮一峰</p></aside>
+
+<h2>目录</h2><div id="toc" class="panel callout radius"><ul><li class="toc-h2"><a href="#toc0">概述</a></li><li class="toc-h2"><a href="#toc1">客户端</a></li><li class="toc-h3"><a href="#toc2">建立连接和断开连接</a></li><li class="toc-h3"><a href="#toc3">发送数据和接收数据</a></li><li class="toc-h3"><a href="#toc4">处理错误</a></li><li class="toc-h2"><a href="#toc5">服务器端</a></li><li class="toc-h2"><a href="#toc6">Socket.io简介</a></li><li class="toc-h2 toc-active"><a href="#toc7">参考链接</a></li></ul></div>
+
+
+<span id="toc0"></span><div class="chapter"><h2>概述</h2></div>
+
+<p>HTTP协议是一种无状态协议，服务器端本身不具有识别客户端的能力，必须借助外部机制，比如session和cookie，才能与特定客户端保持对话。这多多少少带来一些不便，尤其在服务器端与客户端需要持续交换数据的场合（比如网络聊天），更是如此。为了解决这个问题，HTML5提出了浏览器的<a href="http://dev.w3.org/html5/websockets/">WebSocket API</a>。</p>
+
+<p>WebSocket的主要作用是，允许服务器端与客户端进行全双工（full-duplex）的通信。举例来说，HTTP协议有点像发电子邮件，发出后必须等待对方回信；WebSocket则是像打电话，服务器端和客户端可以同时向对方发送数据，它们之间存着一条持续打开的数据通道。</p>
+
+<p>WebSocket协议完全可以取代Ajax方法，用来向服务器端发送文本和二进制数据，而且还没有“同域限制”。</p>
+
+<p>WebSocket不使用HTTP协议，而是使用自己的协议。浏览器发出的WebSocket请求类似于下面的样子：</p>
+
+<div class="highlight"><pre><code class="http"><span class="nf">GET</span> <span class="nn">/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Upgrade</span>
+<span class="na">Upgrade</span><span class="o">:</span> <span class="l">websocket</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Origin</span><span class="o">:</span> <span class="l">null</span>
+<span class="na">Sec-WebSocket-Key</span><span class="o">:</span> <span class="l">sN9cRrP/n9NdMgdcy2VJFQ==</span>
+<span class="na">Sec-WebSocket-Version</span><span class="o">:</span> <span class="l">13</span>
+</code></pre></div>
+
+
+<p>上面的头信息显示，有一个HTTP头是Upgrade。HTTP1.1协议规定，Upgrade头信息表示将通信协议从HTTP/1.1转向该项所指定的协议。“Connection: Upgrade”就表示浏览器通知服务器，如果可以，就升级到webSocket协议。Origin用于验证浏览器域名是否在服务器许可的范围内。Sec-WebSocket-Key则是用于握手协议的密钥，是base64编码的16字节随机字符串。</p>
+
+<p>服务器端的WebSocket回应则是</p>
+
+<div class="highlight"><pre><code class="http"><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">101</span> <span class="ne">Switching Protocols</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Upgrade</span>
+<span class="na">Upgrade</span><span class="o">:</span> <span class="l">websocket</span>
+<span class="na">Sec-WebSocket-Accept</span><span class="o">:</span> <span class="l">fFBooB7FAkLlXgRSz0BT3v4hq5s=</span>
+<span class="na">Sec-WebSocket-Origin</span><span class="o">:</span> <span class="l">null</span>
+<span class="na">Sec-WebSocket-Location</span><span class="o">:</span> <span class="l">ws://example.com/</span>
+</code></pre></div>
+
+
+<p>服务器端同样用“Connection: Upgrade”通知浏览器，需要改变协议。Sec-WebSocket-Accept是服务器在浏览器提供的Sec-WebSocket-Key字符串后面，添加“258EAFA5-E914-47DA-95CA-C5AB0DC85B11” 字符串，然后再取sha-1的hash值。浏览器将对这个值进行验证，以证明确实是目标服务器回应了webSocket请求。Sec-WebSocket-Location表示进行通信的WebSocket网址。</p>
+
+<blockquote><p>请注意，WebSocket协议用ws表示。此外，还有wss协议，表示加密的WebSocket协议，对应HTTPs协议。</p></blockquote>
+
+<p>完成握手以后，WebSocket协议就在TCP协议之上，开始传送数据。</p>
+
+<p>WebSocket协议需要服务器支持，目前比较流行的实现是基于node.js的<a href="http://socket.io/">socket.io</a>，更多的实现可参阅<a href="http://en.wikipedia.org/wiki/WebSocket#Server_side">Wikipedia</a>。至于浏览器端，目前主流浏览器都支持WebSocket协议（包括IE 10+），仅有的例外是手机端的Opera Mini和Android Browser。</p>
+
+<span id="toc1"></span><div class="chapter"><h2>客户端</h2></div>
+
+<p>浏览器端对WebSocket协议的处理，无非就是三件事：</p>
+
+<ul>
+<li>建立连接和断开连接</li>
+<li>发送数据和接收数据</li>
+<li>处理错误</li>
+</ul>
+
+
+<span id="toc2"></span><h3>建立连接和断开连接</h3>
+
+<p>首先，客户端要检查浏览器是否支持WebSocket，使用的方法是查看window对象是否具有WebSocket属性。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">WebSocket</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// WebSocket代码</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>然后，开始与服务器建立连接（这里假定服务器就是本机的1740端口，需要使用ws协议）。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">WebSocket</span> <span class="o">!=</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">connection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s1">'ws://localhost:1740'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>建立连接以后的WebSocket实例对象（即上面代码中的connection），有一个readyState属性，表示目前的状态，可以取4个值：</p>
+
+<ul>
+<li><strong>0</strong>： 正在连接</li>
+<li><strong>1</strong>： 连接成功</li>
+<li><strong>2</strong>： 正在关闭</li>
+<li><strong>3</strong>： 连接关闭</li>
+</ul>
+
+
+<p>握手协议成功以后，readyState就从0变为1，并触发open事件，这时就可以向服务器发送信息了。我们可以指定open事件的回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">connection</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="nx">wsOpen</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">wsOpen</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Connected"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>关闭WebSocket连接，会触发close事件。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">connection</span><span class="p">.</span><span class="nx">onclose</span> <span class="o">=</span> <span class="nx">wsClose</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">onClose</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Closed"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">connection</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+</code></pre></div>
+
+
+<span id="toc3"></span><h3>发送数据和接收数据</h3>
+
+<p>连接建立后，客户端通过send方法向服务器端发送数据。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">connection</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>除了发送字符串，也可以使用 Blob 或 ArrayBuffer 对象发送二进制数据。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// 使用ArrayBuffer发送canvas图像数据</span>
+<span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="nx">canvas_context</span><span class="p">.</span><span class="nx">getImageData</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">320</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">binary</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">img</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">img</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">binary</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">img</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="nx">connection</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">binary</span><span class="p">.</span><span class="nx">buffer</span><span class="p">);</span>
+
+<span class="c1">// 使用Blob发送文件</span>
+<span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'input[type="file"]'</span><span class="p">).</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">connection</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>客户端收到服务器发送的数据，会触发message事件。可以通过定义message事件的回调函数，来处理服务端返回的数据。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">connection</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="nx">wsMessage</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">wsMessage</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>上面代码的回调函数wsMessage的参数为事件对象event，该对象的data属性包含了服务器返回的数据。</p>
+
+<span id="toc4"></span><h3>处理错误</h3>
+
+<p>如果出现错误，浏览器会触发WebSocket实例对象的error事件。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">connection</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="nx">wsError</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">wsError</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error: "</span> <span class="o">+</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<span id="toc5"></span><div class="chapter"><h2>服务器端</h2></div>
+
+<p>服务器端需要单独部署处理WebSocket的代码。下面用node.js搭建一个服务器环境。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{});</span>
+</code></pre></div>
+
+
+<p>假设监听1740端口。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">1740</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="k">new</span> <span class="nb">Date</span><span class="p">())</span> <span class="o">+</span> <span class="s1">' Server is listening on port 1740'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>接着启动WebSocket服务器。这需要加载websocket库，如果没有安装，可以先使用npm命令安装。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">WebSocketServer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'websocket'</span><span class="p">).</span><span class="nx">server</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">wsServer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocketServer</span><span class="p">({</span>
+    <span class="nx">httpServer</span><span class="o">:</span> <span class="nx">server</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>WebSocket服务器建立request事件的回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">connection</span><span class="p">;</span>
+
+<span class="nx">wsServer</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'request'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">){</span>
+    <span class="nx">connection</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">accept</span><span class="p">(</span><span class="s1">'echo-protocol'</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">origin</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>上面代码的回调函数接受一个参数req，表示request请求对象。然后，在回调函数内部，建立WebSocket连接connection。接着，就要对connection的message事件指定回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">wsServer</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'request'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">r</span><span class="p">){</span>
+    <span class="nx">connection</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">accept</span><span class="p">(</span><span class="s1">'echo-protocol'</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">origin</span><span class="p">);</span>
+
+    <span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'message'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">msgString</span> <span class="o">=</span> <span class="nx">message</span><span class="p">.</span><span class="nx">utf8Data</span><span class="p">;</span>
+        <span class="nx">connection</span><span class="p">.</span><span class="nx">sendUTF</span><span class="p">(</span><span class="nx">msgString</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>最后，监听用户的disconnect事件。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">connection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'close'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">reasonCode</span><span class="p">,</span> <span class="nx">description</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">connection</span><span class="p">.</span><span class="nx">remoteAddress</span> <span class="o">+</span> <span class="s1">' disconnected.'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<span id="toc6"></span><div class="chapter"><h2>Socket.io简介</h2></div>
+
+<p><a href="http://socket.io/">Socket.io</a>是目前最流行的WebSocket实现，包括服务器和浏览器两个部分。它不仅简化了接口，使得操作更容易，而且对于那些不支持WebSocket的浏览器，会自动降为Ajax连接，最大限度地保证了兼容性。</p>
+
+<p>第一步，在服务器端的项目根目录下，安装socket.io模块。</p>
+
+<div class="highlight"><pre><code class="bash">npm install socket.io
+</code></pre></div>
+
+
+<p>第二步，在根目录下建立app.js，并写入以下代码（假定使用了Express框架）。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">)();</span>
+<span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">).</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'socket.io'</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">server</span><span class="p">);</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">80</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendfile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">'/index.html'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>上面代码表示，先建立并运行HTTP服务器。Socket.io的运行建立在HTTP服务器之上。</p>
+
+<p>第三步，将Socket.io插入客户端网页。</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"/socket.io/socket.io.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+
+
+<p>然后，在客户端脚本中，建立WebSocket连接。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">'http://localhost'</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>由于本例假定WebSocket主机与客户端是同一台机器，所以connect方法的参数是http://localhost。接着，指定news事件（即服务器端发送news）的回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'news'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>最后，用emit方法向服务器端发送信号，触发服务器端的anotherNews事件。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'anotherNews'</span><span class="p">);</span>
+</code></pre></div>
+
+
+<blockquote><p>请注意，emit方法可以取代Ajax请求，而on方法指定的回调函数，也等同于Ajax的回调函数。</p></blockquote>
+
+<p>第四步，在服务器端的app.js，加入以下代码。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'connection'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'news'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">hello</span><span class="o">:</span> <span class="s1">'world'</span> <span class="p">});</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'anotherNews'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+
+<p>上面代码的io.sockets.on方法指定connection事件（WebSocket连接建立）的回调函数。在回调函数中，用emit方法向客户端发送数据，触发客户端的news事件。然后，再用on方法指定服务器端anotherNews事件的回调函数。</p>
+
+<span id="toc7"></span><div class="chapter"><h2 class="reference">参考链接</h2></div>
+
+<ul class="reference-list">
+<li>Ryan Stewart, <a href="http://www.adobe.com/devnet/html5/articles/real-time-data-exchange-in-html5-with-websockets.html">Real-time data exchange in HTML5 with WebSockets</a></li>
+<li>Malte Ubl &amp; Eiji Kitamura，<a href="http://www.html5rocks.com/zh/tutorials/websockets/basics/">WEBSOCKETS 简介：将套接字引入网络</a></li>
+<li>Jack Lawson, <a href="http://buildnewgames.com/websockets/">WebSockets: A Guide</a></li>
+<li>Michael W., <a href="http://codular.com/node-web-sockets">Starting with Node and Web Sockets</a></li>
+<li>Jesse Cravens, <a href="http://tech.pro/tutorial/1167/introduction-to-websockets">Introduction to WebSockets</a></li>
+<li>Matt West, <a href="http://blog.teamtreehouse.com/an-introduction-to-websockets">An Introduction to WebSockets</a></li>
+<li>Maciej Sopyło, <a href="http://net.tutsplus.com/tutorials/javascript-ajax/node-js-better-performance-with-socket-io-and-dot/">Node.js: Better Performance With Socket.IO and doT</a></li>
+<li>Jos Dirksen, <a href="http://www.smartjava.org/content/capture-canvas-and-webgl-output-video-using-websockets">Capture Canvas and WebGL output as video using websockets</a></li>
+</ul>
+
+
+
+</div></div>
+
+
+
+
+
+
+
+
+
+<div class="_page _mdn"><h1>WebSocket</h1><div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div> <p>The <code>WebSocket</code> object provides the API for creating and managing a <a href="https://developer.mozilla.org/en/WebSockets" title="en/WebSockets">WebSocket</a> connection to a server, as well as for sending and receiving data on the connection.</p> <h2 id="Method_overview" name="Method_overview">Method overview</h2> <table class="standard-table"><tbody>
+<tr>
+<td><code>void <a href="#close()">close</a>(in optional unsigned long code, in optional DOMString reason);</code></td> </tr>
+<tr>
+<td><code>void <a href="#send()">send</a>(in DOMString data);</code></td> </tr>
+</tbody></table><h2 id="Attributes" name="Attributes">Attributes</h2> <table class="standard-table"><tbody>
+<tr>
+<th class="header">Attribute</th> <th class="header">Type</th> <th class="header">Description</th> </tr>
+<tr>
+<td><code>binaryType</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>A string indicating the type of binary data being transmitted by the connection. This should be either "blob" if DOM <a href="blob" title="A Blob object represents a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. The File interface is based on Blob, inheriting blob functionality and expanding it to support files on the user's system."><code>Blob</code></a> objects are being used or "arraybuffer" if <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a> objects are being used.</td> </tr>
+<tr>
+<td><code>bufferedAmount</code></td> <td><code><a href="https://developer.mozilla.org/en/unsigned_long" title="en/unsigned long">unsigned long</a></code></td> <td>The number of bytes of data that have been queued using calls to <code><a href="http://developer.mozilla.org/en-US/docs/Web/API/WebSocket#send()">send()</a></code> but not yet transmitted to the network. This value does not reset to zero when the connection is closed; if you keep calling <code><a href="http://developer.mozilla.org/en-US/docs/Web/API/WebSocket#send()">send()</a></code>, this will continue to climb. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td><code>extensions</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The extensions selected by the server. This is currently only the empty string or a list of extensions as negotiated by the connection.</td> </tr>
+<tr>
+<td><code>onclose</code></td> <td><a href="eventlistener" title="This method is called whenever an event occurs of the type for which the EventListener interface was registered."><code>EventListener</code></a></td> <td>An event listener to be called when the WebSocket connection's <code>readyState</code> changes to <code>CLOSED</code>. The listener receives a <a href="https://developer.mozilla.org/en/WebSockets/WebSockets_reference/CloseEvent" title="en/WebSockets/WebSockets reference/CloseEvent"><code>CloseEvent</code></a> named "close".</td> </tr>
+<tr>
+<td><code>onerror</code></td> <td><a href="eventlistener" title="This method is called whenever an event occurs of the type for which the EventListener interface was registered."><code>EventListener</code></a></td> <td>An event listener to be called when an error occurs. This is a simple event named "error".</td> </tr>
+<tr>
+<td><code>onmessage</code></td> <td><a href="eventlistener" title="This method is called whenever an event occurs of the type for which the EventListener interface was registered."><code>EventListener</code></a></td> <td>An event listener to be called when a message is received from the server. The listener receives a <a href="https://developer.mozilla.org/en/WebSockets/WebSockets_reference/MessageEvent" title="en/WebSockets/WebSockets reference/MessageEvent"><code>MessageEvent</code></a> named "message".</td> </tr>
+<tr>
+<td><code>onopen</code></td> <td><a href="eventlistener" title="This method is called whenever an event occurs of the type for which the EventListener interface was registered."><code>EventListener</code></a></td> <td>An event listener to be called when the WebSocket connection's <code>readyState</code> changes to <code>OPEN</code>; this indicates that the connection is ready to send and receive data. The event is a simple one with the name "open".</td> </tr>
+<tr>
+<td><code>protocol</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>A string indicating the name of the sub-protocol the server selected; this will be one of the strings specified in the <code>protocols</code> parameter when creating the WebSocket object.</td> </tr>
+<tr>
+<td><code>readyState</code></td> <td><code><a href="https://developer.mozilla.org/en/unsigned_short" title="en/unsigned short">unsigned short</a></code></td> <td>The current state of the connection; this is one of the <a href="#Ready_state_constants">Ready state constants</a>. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td><code>url</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The URL as resolved by the constructor. This is always an absolute URL. <strong>Read only.</strong>
+</td> </tr>
+</tbody></table><h2 id="Constants" name="Constants">Constants</h2> <h3 id="Ready_state_constants">Ready state constants</h3> <p>These constants are used by the <code>readyState</code> attribute to describe the state of the WebSocket connection.</p> <table class="standard-table"><tbody>
+<tr>
+<th class="header">Constant</th> <th class="header">Value</th> <th class="header">Description</th> </tr>
+<tr>
+<td><code>CONNECTING</code></td> <td><code>0</code></td> <td>The connection is not yet open.</td> </tr>
+<tr>
+<td><code>OPEN</code></td> <td><code>1</code></td> <td>The connection is open and ready to communicate.</td> </tr>
+<tr>
+<td><code>CLOSING</code></td> <td><code>2</code></td> <td>The connection is in the process of closing.</td> </tr>
+<tr>
+<td><code>CLOSED</code></td> <td><code>3</code></td> <td>The connection is closed or couldn't be opened.</td> </tr>
+</tbody></table><h2 id="Methods" name="Methods">Methods</h2> <h3 id="close()" name="close()">close()</h3> <p>Closes the WebSocket connection or connection attempt, if any. If the connection is already <code>CLOSED</code>, this method does nothing.</p> <pre class="eval">void close(
+&nbsp; in optional unsigned short code,
+&nbsp;&nbsp;in optional DOMString reason
+);
+</pre> <h6 id="Parameters" name="Parameters">Parameters</h6> <dl>
+<dt> <code>code</code> <span class="inlineIndicator optional optionalInline">Optional</span>
+</dt> <dd> A numeric value indicating the status code explaining why the connection is being closed. If this parameter is not specified, a default value of 1000 (indicating a normal "transaction complete" closure) is assumed. See the <a href="https://developer.mozilla.org/en/WebSockets/WebSockets_reference/CloseEvent#Status_codes" title="en/WebSockets/WebSockets reference/CloseEvent#Status codes">list of status codes</a> on the <a href="https://developer.mozilla.org/en/WebSockets/WebSockets_reference/CloseEvent" title="en/WebSockets/WebSockets reference/CloseEvent"><code>CloseEvent</code></a> page for permitted values.</dd> <dt> <code>reason</code> <span class="inlineIndicator optional optionalInline">Optional</span>
+</dt> <dd> A human-readable string explaining why the connection is closing. This string must be no longer than 123 bytes of UTF-8 text (<strong>not</strong> characters).</dd> </dl><h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INVALID_ACCESS_ERR</code>
+</dt> <dd> An invalid <code>code</code> was specified.</dd> <dt> <code>SYNTAX_ERR</code>
+</dt> <dd> The <code>reason</code> string is too long or contains unpaired surrogates.</dd> </dl><h6 id="Notes">Notes</h6> <p>In Gecko, this method didn't support any parameters prior to Gecko 8.0 (Firefox 8.0 / Thunderbird 8.0 / SeaMonkey 2.5).</p> <h3 id="send()" name="send()">send()</h3> <p>Transmits data to the server over the WebSocket connection.</p> <pre class="eval">void send(
+  in DOMString data
+);
+
+void send(
+&nbsp; in ArrayBuffer data
+);
+
+void send(
+&nbsp; in Blob data
+); 
+</pre> <h6 id="Parameters" name="Parameters">Parameters</h6> <dl>
+<dt> <code>data</code>
+</dt> <dd> A text string to send to the server.</dd> </dl><h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INVALID_STATE_ERR</code>
+</dt> <dd> The connection is not currently <code>OPEN</code>.</dd> <dt> <code>SYNTAX_ERR</code>
+</dt> <dd> The data is a string that has unpaired surrogates.</dd> </dl><h6 id="Remarks">Remarks</h6> <div class="note"> <p><strong>Note:</strong> Gecko's implementation of the <code>send()</code> method differs somewhat from the specification in <span title="(Firefox 6.0 / Thunderbird 6.0 / SeaMonkey 2.3)">Gecko 6.0</span>; Gecko returns a <code>boolean</code> indicating whether or not the connection is still open (and, by extension, that the data was successfully queued or transmitted); this is corrected in <span title="(Firefox 8.0 / Thunderbird 8.0 / SeaMonkey 2.5)">Gecko 8.0</span>.</p> <p>As of <span title="(Firefox 11.0 / Thunderbird 11.0 / SeaMonkey 2.8)">Gecko 11.0</span>, support for <code><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer">ArrayBuffer</a></code> is implemented but not <a href="blob" title="A Blob object represents a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. The File interface is based on Blob, inheriting blob functionality and expanding it to support files on the user's system."><code>Blob</code></a> data types.</p> </div> <h2 id="See_also" name="See_also">See also</h2> <ul>
+<li><a href="https://developer.mozilla.org/en/WebSockets/Writing_WebSocket_client_applications" title="en/WebSockets/Writing WebSocket client applications">Writing WebSocket client applications</a></li> <li><a class="external" href="http://dev.w3.org/html5/websockets/" title="http://dev.w3.org/html5/websockets/">HTML5: WebSockets</a></li> </ul><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>4.0 (2.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>Sub-protocol support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>6.0 (6.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>7.0 (7.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>Sub-protocol support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>7.0 (7.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h3 id="Gecko_notes">Gecko notes</h3> <p>Starting in Gecko 6.0, the constructor is prefixed; you will need to use <code>MozWebSocket()</code>:</p> <pre>var mySocket = new MozWebSocket("<span class="plain">http://www.example.com/socketserver</span>");
+</pre> <p>The <code>extensions</code> attribute was not supported in Gecko until Gecko 8.0.</p> <div class="note"> <strong>Note:</strong> Prior to <span title="(Firefox 11.0 / Thunderbird 11.0 / SeaMonkey 2.8)">Gecko 11.0</span>, outbound messages sent using the <code><a href="http://developer.mozilla.org/en-US/docs/Web/API/WebSocket#send()">send()</a></code> method were limited to 16 MB. They can now be up to 2 GB in size.</div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSocket" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/WebSocket</a>
+  </p>
+</div>
+</div>
+
+
+

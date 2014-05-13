@@ -1,0 +1,85 @@
+<pre>
+	
+
+一句话，就是用来build项目的， 其目的和make一样。
+gyp: generate your project
+gypi:generate your project included
+</pre>
+<p>
+	
+
+	GYP使用技巧
+GYP简介
+Again，这又是一个Google创造的编程工具，现在已经用在了Chomium和其相关的工程中，使用是越来越广泛。GYP是Generate Your Projects的缩写，你可能会问，“又一个？，为什么？”，是的，这个世界上已经有很多的工程生成工具，Automake, make, CMake, Visual Studio, Scons。GYP对比这些工具有这些优点：
+
+各平台下使用主流的构建系统
+
+看似没什么，但这是一个相当重要的特性，程序员都是懒惰的，提供的工具链最好是相应平台主流的开发工具，比如Windows下必然要用Visual Studio，不要搞什么Cgywin，msys之类的编译链，也不要如Scons那样，编译还要用命令行，而且这样有一个好处，就是速度问题不用自己考虑了，由相关的构建系统负责。
+
+不用在特定平台上生成构建系统文件
+
+GYP生成相关的文件是不需要在特定的平台下，因为它文件格式，版本等信息都自己描述好了，比Automake生成Visual C++工程还要用调用Visual Studio好多了（没有核实过）
+
+生成的文件跟手工创建的文件没有区别
+
+这意味着你可以用到一半不用GYP了，直接用生成的工程文件继续项目，或者提交工程文件到版本库中，项目其他成员就不用学习GYP，Automake生成的工程就属于机器代码，各种间接调用，各种神秘的宏。
+
+生成工程后就无需GYP
+
+可以看出GYP就是以Automake为竞争对手，解决的也是Automake中设计失误，使得这个工具专注生成工程。
+
+chromium工程09年以前用的Scons构建工具，后来改成GYP的方法，当初开发者抱怨最多的就是不熟悉构建系统，使用不方便，速度慢，可以看出使用native的工具链是多么重要。
+
+git仓库
+官网给出的是SVN仓库，不过就如同chromium的其他工程，都有一个对应的git工程，git仓库比SVN仓库好就不说了，直接上地址http://git.chromium.org/external/gyp.git，博主上传了一份到github上https://github.com/lianliuwei/gyp (不保证是同步的)
+
+GYP结构
+GYP的输入是.gyp和.gypi文件，.gypi文件是用于.gyp文件include使用的。.gyp文件就是符合特定格式的json文件。
+
+gyp文件中包含target，Visual C++下，gyp生成sln，target生成vcproj或vxcproj。
+
+chromium中GYP结构是，通过命令行统一使用build/common.gypi的公共文件，工程的配置，选项的处理，编译选项的使用，都是在这个文件中配置，所有造成了这个文件超级大，129KB。生成一个总工程all.gyp，这个工程依赖于其他所有的工程，这个工程生成，所有工程都生成完成。而且有一个总工程也方便开发。
+
+如果要使用GYP，建议依照chromium的结构，common.gypi也用chromium的进行裁剪，毕竟各种选项的选择也是需要经验的。
+
+使用GYP
+chromium工程中的方法是使用build/gyp_chromium这个Python脚本来调用，这个脚本实现添加公共配置，侦测附加配置，添加需要的编译选项。
+
+一般使用没必要使用这么复杂的脚本，直接使用一个bat文件就都搞定。
+
+chromium_base工程示例
+
+build_proj.bat
+
+call setup_env.bat
+
+tools\gyp\gyp.bat --depth . -D component=shared_library --no-circular-check -G msvs_version=2008 -Ibuild/common.gypi build_add/all.gyp
+setup_env.bat
+
+:: This script adds python to the path
+@echo OFF
+
+set PATH=C:\Python\Python27;%PATH%
+setup_env.bat的作用就是设置Python路径，单独分离出来不但是为了更方便的修改，而且是以后工程中VS调用Python命令行用（这个之后再解释）
+
+关机的是build_proj.bat。使用了GYP调用的总入口，gyp/gyp.bat。--depth 是为了定义工程的根目录在哪里，需要给出。-D 设置GYP中的参数， --no-circular-check是chromium代码中的问题，一般GYP文件是不允许环形依赖的，但是由于历史原因chromium中的依赖关系还没有解决，如果你使用chromium中的GYP，建议加上这个选项，不然就得自己解决环形依赖。-Ibuild/common.gypi 用来加载所有工程的公用文件。build_add/all.gyp 是总的工程文件。
+
+定制生成工程
+现在默认GYP在Windows下生成Visual Studio 2010工程，但是使用2008的同学还是很多的，改变生成工程很简单。
+
+使用环境变量，GYP_MSVS_VERSION=2008
+
+使用命令行参数， -G msvs_version=2008
+
+相关的版本可以填2005, 2008, 2010, 2005e, 2008e等，（支持的版本还是很多的，连express版本都有！）
+
+定制相关参数
+构建系统的一大任务就是根据不同需要确定编译参数，需要编译的子工程，设置相关的宏参数使得C或者C++代码正确编译。GYP在选项相关的管理是自己做的，也就是说如果要改变相关的选项，就要更新生成的工程。不过看源代码可以知道，GYP选项这部分相当的弱，使用相当古怪的语法。这个之后慢慢说明，同样的，定制参数也有两种方法
+
+环境变量法， 如GYP_DEFINES=windows_sdk_path="path to sdk"，不过在cmd下环境变量的方法只能定义一个，而且不能包含空格，不推荐使用这个方法
+
+命令行参数，-D XXX -D YYY=ZZZ
+
+GYP代码分析
+博主尚未研究透，后续再说
+</p>

@@ -1,0 +1,78 @@
+<div id="maincontent">
+
+<h1>SVG 高斯模糊</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_filters_intro.asp" title="SVG 滤镜">SVG 滤镜简介</a></li>
+<li class="next"><a href="/svg/svg_grad_linear.asp" title="SVG 线性渐变">SVG 线性渐变</a></li>
+</ul>
+</div>
+
+<div class="intro">
+<p><strong>必须在 &lt;defs&gt; 标签中定义 SVG 滤镜。</strong></p>
+</div>
+
+<div>
+<h2>高斯模糊（Gaussian Blur）</h2>
+<p>&lt;filter&gt; 标签用来定义 SVG 滤镜。&lt;filter&gt; 标签使用必需的 id 属性来定义向图形应用哪个滤镜？</p>
+<p>&lt;filter&gt; 标签必须嵌套在 &lt;defs&gt; 标签内。&lt;defs&gt; 标签是 definitions 的缩写，它允许对诸如滤镜等特殊元素进行定义。</p>
+<p>请把下面的代码拷贝到记事本，然后把文件保存为 "filter1.svg"。把此文件放入您的 web 目录：</p>
+<pre>&lt;?xml version="1.0" standalone="no"?&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+
+&lt;svg width="100%" height="100%" version="1.1"
+xmlns="http://www.w3.org/2000/svg"&gt;
+
+&lt;defs&gt;
+&lt;filter id="Gaussian_Blur"&gt;
+&lt;feGaussianBlur in="SourceGraphic" stdDeviation="3" /&gt;
+&lt;/filter&gt;
+&lt;/defs&gt;
+
+&lt;ellipse cx="200" cy="150" rx="70" ry="40"
+style="fill:#ff0000;stroke:#000000;
+stroke-width:2;filter:url(#Gaussian_Blur)"/&gt;
+
+&lt;/svg&gt;</pre>
+
+<h3>代码解释：</h3>
+<ul>
+<li>&lt;filter&gt; 标签的 id 属性可为滤镜定义一个唯一的名称（同一滤镜可被文档中的多个元素使用）</li>
+<li>filter:url 属性用来把元素链接到滤镜。当链接滤镜 id 时，必须使用 # 字符</li>
+<li>滤镜效果是通过 &lt;feGaussianBlur&gt; 标签进行定义的。fe 后缀可用于所有的滤镜</li>
+<li>&lt;feGaussianBlur&gt; 标签的 stdDeviation 属性可定义模糊的程度</li>
+<li>in="SourceGraphic" 这个部分定义了由整个图像创建效果</li>
+</ul>
+<p><a href="/svg/filter1.svg">查看例子</a></p>
+
+<p>另一个 stdDeviation 值不同的例子</p>
+<pre>&lt;?xml version="1.0" standalone="no"?&gt;
+&lt;!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"&gt;
+
+&lt;svg width="100%" height="100%" version="1.1"
+xmlns="http://www.w3.org/2000/svg"&gt;
+
+&lt;defs&gt;
+&lt;filter id="Gaussian_Blur"&gt;
+&lt;feGaussianBlur in="SourceGraphic" stdDeviation="20"/&gt;
+&lt;/filter&gt;
+&lt;/defs&gt;
+
+&lt;ellipse cx="200" cy="150" rx="70" ry="40"
+style="fill:#ff0000;stroke:#000000;
+stroke-width:2;filter:url(#Gaussian_Blur)"/&gt;
+
+&lt;/svg&gt;</pre>
+<p><a href="/svg/filter2.svg">查看例子</a></p>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_filters_intro.asp" title="SVG 滤镜">SVG 滤镜简介</a></li>
+<li class="next"><a href="/svg/svg_grad_linear.asp" title="SVG 线性渐变">SVG 线性渐变</a></li>
+</ul>
+</div>
+</div>

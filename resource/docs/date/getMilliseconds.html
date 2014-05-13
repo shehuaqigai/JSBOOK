@@ -1,0 +1,34 @@
+<pre>
+	定义和用法
+getMilliseconds() 方法可返回时间的毫秒。
+语法
+dateObject.getMilliseconds()
+返回值
+dateObject 的毫秒字段，以本地时间显示。返回值是 0 ~ 999 之间的一个整数。
+提示和注释：
+注释：由 getMilliseconds() 返回的值是一个三位的数字。
+不过返回值不总是三位的，如果该值小于 100，
+则仅返回两位数字，如果该值小于 10，则仅返回一位数字。
+注释：该方法总是结合一个 Date 对象来使用。
+实例
+例子 1
+在本例中，我们可取得当前时间的毫秒：
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.getMilliseconds())
+
+&lt/script>
+输出：
+624
+例子 2
+在本例中，我们将从具体的日期和时间中提取出毫秒字段：
+&ltscript type="text/javascript">
+
+var born = new Date("July 21, 1983 01:15:00")
+document.write(born.getMilliseconds())
+
+&lt/script>
+输出：
+0
+</pre>

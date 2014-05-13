@@ -1,0 +1,58 @@
+<p>鼠标滚轮事件</p>
+<div class="_page _mdn"><h1>WheelEvent</h1> <p>The DOM <code>WheelEvent</code> represents events that occur due to the user moving a mouse wheel or similar input device.</p> <div class="note"> <p>This is really different event object from <a href="mousewheelevent" title="The DOM MouseWheelEvent represents events that occur due to the user turning a mouse wheel."><code>MouseWheelEvent</code></a>.</p> </div> <h2 id="Attributes">Attributes</h2> <table class="standard-table"><tbody>
+<tr>
+<th class="header">Attribute</th> <th class="header">Type</th> <th class="header">Description</th> </tr>
+<tr>
+<td><code>deltaX</code></td> <td><code>double</code></td> <td>Horizontal scroll amount. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td><code><code>de<code>ltaY</code></code></code></td> <td><code>double</code></td> <td>Vertical scroll amount. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td><code>deltaZ</code></td> <td><code>double</code></td> <td>Scroll amount for the z-axis. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td><code>deltaMode</code></td> <td><code>unsigned long</code></td> <td>Unit of delta values. See <a href="#Delta_modes">Delta modes</a> for a list of permitted values. <strong>Read only.</strong>
+</td> </tr>
+</tbody></table><div class="note"> <p>deltaX, deltaY and deltaZ was defined as <code>long</code> at first. Next, they were defined as <code>float</code>. Finally, they are defined as <code>double</code>. The type in IE9 is <code>long</code>.</p> </div> <h2 id="Constants">Constants</h2> <h3 id="Delta_modes">Delta modes</h3> <table class="standard-table"><tbody>
+<tr>
+<th class="header">Constant</th> <th class="header">Value</th> <th class="header">Description</th> </tr>
+<tr>
+<td><code>DOM_DELTA_PIXEL</code></td> <td><code>0x00</code></td> <td>The delta values are specified in pixels.</td> </tr>
+<tr>
+<td><code><code>D<code>OM_DELTA_LINE</code></code></code></td> <td><code>0x01</code></td> <td>The delta values are specified in lines.</td> </tr>
+<tr>
+<td><code>DOM_DELTA_PAGE</code></td> <td><code>0x02</code></td> <td>The delta values are specified in pages.</td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>31</td> <td>17.0 (17.0)</td> <td>9.0</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td><code>window.WheelEvent</code></td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> (<a href="#note1_in_compatibility_table" title="#note1_in_compatibility_table">*1</a>)</td> <td>17.0 (17.0)</td> <td>9.0</td> <td><span style="color: #f00;">Not supported</span></td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> (<a href="#note1_in_compatibility_table" title="#note1_in_compatibility_table">*1</a>)</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>17.0 (17.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><code>window.WheelEvent</code></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>17.0 (17.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <p>Note that Chrome and Safari don't support D3E's WheelEvent actually; nevertheless they return object for <code>window.WheelEvent</code>.</p> <h2 class="note" id="See_also">See also</h2> <ul>
+<li><code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/wheel">wheel</a></code></li> <li>Gecko's legacy mouse wheel event object: <a href="mousescrollevent" title="The DOM MouseScrollEvent represents events that occur due to the user moving a mouse wheel or similar input device."><code>MouseScrollEvent</code></a>
+</li> <li>Non-gecko browsers' legacy mouse wheel event object: <a href="mousewheelevent" title="The DOM MouseWheelEvent represents events that occur due to the user turning a mouse wheel."><code>MouseWheelEvent</code></a>
+</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent</a>
+  </p>
+</div>
+</div>

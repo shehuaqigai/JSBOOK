@@ -1,0 +1,280 @@
+<div class="forFlow">
+		
+
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/meteoric_cry/archive/2012/03/31/2426256.html">Chrome的桌面通知</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body">
+				<p>最近在使用朋友网(不加链接，避免有打广告的嫌疑)，发现会出现提示“是否允许网站显示桌面通知？”，如下图所示：</p> 
+				<p><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://images.cnblogs.com/cnblogs_com/meteoric_cry/201203/201203310059369469.png" width="620" height="104"> </p> 
+				<p>这种做法，在页面加载完时直接调用请求，比起开心网的这种提示感觉有些野蛮了。开心网的桌面通知提示如下：</p> 
+				<p>
+					<img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://images.cnblogs.com/cnblogs_com/meteoric_cry/201203/201203310059376895.png" width="404" height="131"> </p>
+					 <p>先检查用户是否已经允许了本站的桌面通知，在未允许的情况下：点击后Chrome才出现提示，感觉更人性化一些，起码这个通知出现是由用户主动触发的。</p> 
+					 <p><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://images.cnblogs.com/cnblogs_com/meteoric_cry/201203/201203310059386730.png" width="613" height="87"> </p> <p>&nbsp;</p>
+					  <p>这两个网站，发现桌面通知主要用于webIM的消息提醒。查了下资料，大概了解和掌握了Chrome桌面通知的。做了如下图所示的一个Demo：</p> 
+					  <p><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://images.cnblogs.com/cnblogs_com/meteoric_cry/201203/201203310059393076.png" width="325" height="299"> </p>
+					   <p>完整的示例代码如下：</p> 
+					   <div id="codeSnippetWrapper"> 
+					   	<div style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px" id="codeSnippet">
+
+					   		<pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px">
+					   		<span style="color: #606060" id="lnum1">   1:</span> 
+
+					   		<span style="color: #0000ff">&lt;!</span><span style="color: #800000">DOCTYPE</span> <span style="color: #ff0000">html</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum2">   2:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum3">   3:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum4">   4:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">title</span><span style="color: #0000ff">&gt;</span>Google 桌面通知<span style="color: #0000ff">&lt;/</span><span style="color: #800000">title</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum5">   5:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">meta</span> <span style="color: #ff0000">name</span><span style="color: #0000ff">="generator"</span> <span style="color: #ff0000">content</span><span style="color: #0000ff">="editplus"</span> <span style="color: #0000ff">/&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum6">   6:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">meta</span> <span style="color: #ff0000">name</span><span style="color: #0000ff">="author"</span> <span style="color: #ff0000">content</span><span style="color: #0000ff">=""</span> <span style="color: #0000ff">/&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum7">   7:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">meta</span> <span style="color: #ff0000">name</span><span style="color: #0000ff">="keywords"</span> <span style="color: #ff0000">content</span><span style="color: #0000ff">=""</span> <span style="color: #0000ff">/&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum8">   8:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">meta</span> <span style="color: #ff0000">name</span>
+
+
+					   		<span style="color: #0000ff">="description"</span> <span style="color: #ff0000">content</span><span style="color: #0000ff">=""</span> <span style="color: #0000ff">/&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum9">   9:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">meta</span> <span style="color: #ff0000">http-equiv</span><span style="color: #0000ff">='content-type'</span> <span style="color: #ff0000">content</span><span style="color: #0000ff">='text/html; charset=utf-8'</span> <span style="color: #0000ff">/&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum10">  10:</span> <span style="color: #0000ff">&lt;/</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum11">  11:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum12">  12:</span>&nbsp; </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum13">  13:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">button</span> 
+
+
+
+					   		<span style="color: #ff0000">id</span><span style="color: #0000ff">='btn'</span><span style="color: #0000ff">&gt;</span>显示桌面通知<span style="color: #0000ff">&lt;/</span><span style="color: #800000">button</span><span style="color: #0000ff">&gt;</span> </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum14">  14:</span>&nbsp; </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum15">  15:</span> <span style="color: #0000ff">&lt;</span><span style="color: #800000">script</span> <span style="color: #ff0000">type</span><span style="color: #0000ff">='text/javascript'</span><span style="color: #0000ff">&gt;</span>
+
+
+					   		<pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum1">   1:</span>&nbsp; </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum2">   2:</span> document.querySelector(<span style="color: #006080">"#btn"</span>).addEventListener(<span style="color: #006080">'click'</span>, notify, <span style="color: #0000ff">false</span>);</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum3">   3:</span>&nbsp; </pre><!--CRLF-->
+
+
+					   		<pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum4">   4:</span> <span style="color: #0000ff">function</span> notify() {</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum5">   5:</span>     <span style="color: #0000ff">if</span> (window.webkitNotifications) {</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum6">   6:</span>         <span style="color: #0000ff">if</span> (window.webkitNotifications.checkPermission() == 0) {</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum7">   7:</span>             <span style="color: #0000ff">var</span> notification_test = window.webkitNotifications.createNotification(<span style="color: #006080">"http://images.cnblogs.com/cnblogs_com/flyingzl/268702/r_1.jpg"</span>, <span style="color: #006080">'标题'</span>, 
+
+
+
+
+					   		<span style="color: #006080">'内容'</span>+<span style="color: #0000ff">new</span> Date().getTime());</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum8">   8:</span>             notification_test.display = <span style="color: #0000ff">function</span>() {}</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum9">   9:</span>             notification_test.onerror = <span style="color: #0000ff">function</span>() {}</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum10">  10:</span>             notification_test.onclose = <span style="color: #0000ff">function</span>() {}</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum11">  11:</span>             notification_test.onclick = <span style="color: #0000ff">function</span>() {<span style="color: #0000ff">this</span>.cancel();}</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum12">  12:</span>             </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum13">  13:</span>             notification_test.replaceId = <span style="color: #006080">'Meteoric'</span>;</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum14">  14:</span>&nbsp; </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum15">  15:</span>             notification_test.show();</pre>
+
+					   		<!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum16">  16:</span>                         </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum17">  17:</span>             <span style="color: #0000ff">var</span> tempPopup = window.webkitNotifications.createHTMLNotification([<span style="color: #006080">"http://www.baidu.com/"</span>, <span style="color: #006080">"http://www.soso.com"</span>][Math.random() &gt;= 0.5 ? 0 : 1]);</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum18">  18:</span>             tempPopup.replaceId = <span style="color: #006080">"Meteoric_cry"</span>;</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum19">  19:</span>             tempPopup.show();</pre><!--CRLF-->
+
+
+					   		<pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum20">  20:</span>         } <span style="color: #0000ff">else</span> {</pre><!--CRLF-->
+
+
+
+
+					   		<pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum21">  21:</span>             window.webkitNotifications.requestPermission(notify);</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum22">  22:</span>         }</pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: white; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum23">  23:</span>     } </pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum24">  24:</span> }</pre><!--CRLF-->
+
+
+					   		<span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF--><pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum16">  16:</span> <span style="color: #0000ff">&lt;/</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span></pre><!--CRLF-->
+
+					   		<pre style="border-bottom-style: none; text-align: left; padding-bottom: 0px; line-height: 12pt; border-right-style: none; background-color: #f4f4f4; margin: 0em; padding-left: 0px; width: 100%; padding-right: 0px; font-family: 'Courier New', courier, monospace; direction: ltr; border-top-style: none; color: black; font-size: 8pt; border-left-style: none; overflow: visible; padding-top: 0px"><span style="color: #606060" id="lnum17">  17:</span> 
+					   		<span style="color: #0000ff">&lt;/</span>
+					   		<span style="color: #800000">html</span>
+					   		<span style="color: #0000ff">&gt;</span></pre><!--CRLF--><
+					   		/div>
+					   	</div>
+
+
+
+
+
+
+<div>&nbsp;</div>
+<div>Setp：</div>
+<div>1、先判断当前的浏览器是否支持开启桌面通知 window.webkitNotifications；</div>
+<div>2、响应用户操作，如果用户之前已经允许本站的桌面通知，则window.webkitNotifications.checkPermission()会返回0；</div>
+<div>3、如果用户之前拒绝或是未允许开启桌面通知，可使用window.webkitNotifications.requestPermission(callback);再次弹出询问用户的提示，否则当用户之前拒绝过，按钮点击了也是不会有响应操作的。</div>
+<div>注：在给notification实例对象指定replaceId可防止弹出过多的桌面通知（类似唯一标识，弹出同名的replaceId通知实例时，后面的通知会覆盖之前的通知）。</div>
+<div>但我在查看W3C的文档时，发现它里面标有一个setReplaceId的方法，可实际上是没有这个方法，取而代之的是名为“replaceId”的属性。</div>
+<div>&nbsp;</div>
+<div>具体产品（如webIM）中如果实现的，可以参考这一篇文章：&lt;<a href="http://varnow.org/?p=351" target="_blank">HTML5实战之桌面通知</a>&gt;，如果去开心网查看实现的源码，可以看到如下的实现：</div>
+<div><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://images.cnblogs.com/cnblogs_com/meteoric_cry/201203/20120331005941402.png" width="752" height="427"> </div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>本文参考链接：</div>
+<div>1）、&lt;<a href="http://varnow.org/?p=351" target="_blank">HTML5实战之桌面通知</a>&gt;</div>
+<div>2）、<a href="http://dev.w3.org/2006/webapi/WebNotifications/publish/Notifications.html" target="_blank">W3C标准—Notifications</a></div>
+<div>3）、<a href="http://www.html5rocks.com/en/tutorials/notifications/quick/" target="_blank">html5rocks的实例&gt;&gt;</a></div>
+<div>4）、<a href="http://www.cnblogs.com/flyingzl/articles/1986070.html" target="_blank">&lt;google chrome下桌面提示&gt;</a></div>
+<div>&nbsp;</div>
+<div>桌面通知，也可以由用户在Chrome浏览器中自定义：板手 -&gt; 选项&nbsp; -&gt; 高级选项 –&gt; 通知 (管理例外情况…)。</div>
+<div><img style="border-bottom: 0px; border-left: 0px; display: inline; border-top: 0px; border-right: 0px" title="image" border="0" alt="image" src="http://images.cnblogs.com/cnblogs_com/meteoric_cry/201203/201203310059427413.png" width="851" height="280"> </div>
+<div>&nbsp;</div>
+<div>如有兴趣，也可以使用Chrome，直接运行并查看前面Demo的实现效果：</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<script type="text/javascript" src="http://files.cnblogs.com/meteoric_cry/code.js"></script><link rel="stylesheet" type="text/css" href="http://files.cnblogs.com/meteoric_cry/style_code.css"><textarea style="width: 100%; height: 560px" id="demo_1" rows="rows">
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Google 桌面通知&lt;/title&gt;
+&lt;meta name="generator" content="editplus" /&gt;
+&lt;meta name="author" content="" /&gt;
+&lt;meta name="keywords" content="" /&gt;
+&lt;meta name="description" content="" /&gt;
+&lt;meta http-equiv='content-type' content='text/html; charset=utf-8' /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;button id='btn'&gt;显示桌面通知&lt;/button&gt; 
+
+&lt;script type='text/javascript'&gt;
+document.querySelector("#btn").addEventListener('click', notify, false);
+
+function notify() {
+	if (window.webkitNotifications) {
+		if (window.webkitNotifications.checkPermission() == 0) {
+			var notification_test = window.webkitNotifications.createNotification("http://images.cnblogs.com/cnblogs_com/flyingzl/268702/r_1.jpg", '标题', '内容'+new Date().getTime());
+			notification_test.display = function() {}
+			notification_test.onerror = function() {}
+			notification_test.onclose = function() {}
+			notification_test.onclick = function() {this.cancel();}
+			
+			notification_test.replaceId = 'Meteoric';
+
+			notification_test.show();
+						
+			var tempPopup = window.webkitNotifications.createHTMLNotification(["http://www.baidu.com/", "http://www.soso.com"][Math.random() &gt;= 0.5 ? 0 : 1]);
+			tempPopup.replaceId = "Meteoric_cry";
+			tempPopup.show();
+		} else {
+			window.webkitNotifications.requestPermission(notify);
+		}
+	} 
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+
+</textarea><button onclick="runCode('demo_1');">预览代码</button></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/meteoric_cry/category/259039.html">Javascript</a>, <a href="http://www.cnblogs.com/meteoric_cry/category/302968.html">HTML5/CSS3</a></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/meteoric_cry" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="http://static.cnblogs.com/images/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/meteoric_cry/" target="_blank"><img src="http://pic.cnitblog.com/face/u47448.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/meteoric_cry/">meteoric_cry</a><br>
+<a href="http://home.cnblogs.com/u/meteoric_cry/followees">关注 - 47</a><br>
+<a href="http://home.cnblogs.com/u/meteoric_cry/followers">粉丝 - 75</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">1</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/meteoric_cry/archive/2012/03/20/2407626.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/meteoric_cry/archive/2012/03/20/2407626.html" title="发布于2012-03-20 11:33">Chrome滚动条透明的问题</a><br><a href="http://www.cnblogs.com/meteoric_cry/archive/2012/04/05/2433695.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/meteoric_cry/archive/2012/04/05/2433695.html" title="发布于2012-04-05 20:54">webgame开发中的文件解密</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2012-03-31 01:00</span> <a href="http://www.cnblogs.com/meteoric_cry/">meteoric_cry</a> 阅读(<span id="post_view_count">11434</span>) 评论(<span id="post_comment_count">5</span>)  <a href="http://www.cnblogs.com/meteoric_cry/admin/EditPosts.aspx?postid=2426256" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2426256);return false;">收藏</a></div>
+	</div>
+	
+</div><!--end: topics 文章、评论容器-->
+<a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2384911" class="layer">#1楼</a><a name="2384911" id="comment_anchor_2384911"></a>  <span class="comment_date">2012-05-24 16:15</span> <a id="a_comment_author_2384911" href="http://home.cnblogs.com/u/412350/" target="_blank">Elaine_Li</a> <a href="http://space.cnblogs.com/msg/send/Elaine_Li" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2384911" class="blog_comment_body">你好，刚接触html5，看到你的桌面提醒功能，我直接运行你的可以提示，但把代码copy到本地运行就不行，请问如何解决？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2384911,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2384911,'Bury',this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2410632" class="layer">#2楼</a><a name="2410632" id="comment_anchor_2410632"></a>  <span class="comment_date">2012-06-29 11:00</span> <a id="a_comment_author_2410632" href="http://www.cnblogs.com/gaoxu387/" target="_blank">旭日升</a> <a href="http://space.cnblogs.com/msg/send/%e6%97%ad%e6%97%a5%e5%8d%87" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2410632" class="blog_comment_body">绝对的好文章啊！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2410632,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2410632,'Bury',this)">反对(0)</a></div><span id="comment_2410632_avatar" style="display:none;">http://pic.cnitblog.com/face/u204688.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2577299" class="layer">#3楼</a><a name="2577299" id="comment_anchor_2577299"></a>  <span class="comment_date">2012-12-13 21:55</span> <a id="a_comment_author_2577299" href="http://home.cnblogs.com/u/376675/" target="_blank">边城君</a> <a href="http://space.cnblogs.com/msg/send/%e8%be%b9%e5%9f%8e%e5%90%9b" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2577299" class="blog_comment_body">我想问的是 怎么我放我本地的图标显示不出来，用你的图标就行。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2577299,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2577299,'Bury',this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2748284" class="layer">#4楼</a><a name="2748284" id="comment_anchor_2748284"></a>  <span class="comment_date">2013-08-11 10:40</span> <a id="a_comment_author_2748284" href="http://home.cnblogs.com/u/556817/" target="_blank">眉飞色舞 神采飞扬</a> <a href="http://space.cnblogs.com/msg/send/%e7%9c%89%e9%a3%9e%e8%89%b2%e8%88%9e+%e7%a5%9e%e9%87%87%e9%a3%9e%e6%89%ac" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2748284" class="blog_comment_body">必须网站访问。或者在：chrome://settings/contentExceptions#notifications中添加域名。或者在：chrome://settings/content 通知 更改为:允许所有网站显示桌面通知</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2748284,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2748284,'Bury',this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2833340" class="layer">#5楼</a><a name="2833340" id="comment_anchor_2833340"></a><span id="comment-maxId" style="display:none;">2833340</span><span id="comment-maxDate" style="display:none;">2013/12/9 15:23:56</span>  <span class="comment_date">2013-12-09 15:23</span> <a id="a_comment_author_2833340" href="http://www.cnblogs.com/libook/" target="_blank">书中叶</a> <a href="http://space.cnblogs.com/msg/send/%e4%b9%a6%e4%b8%ad%e5%8f%b6" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2833340" class="blog_comment_body">这东西好用。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2833340,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2833340,'Bury',this)">反对(0)</a></div><span id="comment_2833340_avatar" style="display:none;">http://pic.cnitblog.com/face/493034/20130705012920.png</span>
+			</div>
+		</div>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"><a target="_blank" href="http://q.cnblogs.com">程序员问答平台，解决您的技术难题</a></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    
+    <div id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px; vertical-align: bottom;"></iframe></div><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:&quot;<html><body style='background:transparent'></body></html>&quot;" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/199653/" target="_blank">互联网协会：七因素推动2014中国互联网发展</a><br> ·  <a href="http://news.cnblogs.com/n/199652/" target="_blank">盖茨或重返微软参与产品开发工作 每周工作一天</a><br> ·  <a href="http://news.cnblogs.com/n/199651/" target="_blank">为什么Google要出售摩托罗拉</a><br> ·  <a href="http://news.cnblogs.com/n/199650/" target="_blank">对比技术宅与高富帅，从追女神谈做产品！</a><br> ·  <a href="http://news.cnblogs.com/n/199649/" target="_blank">CNET春节特稿：大话初四习俗 盘点IT圈大咖们辞职风波</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/199251/" target="_blank">浏览器中关于事件的那点事儿</a><br> ·  <a href="http://kb.cnblogs.com/page/198974/" target="_blank">全栈工程师就是一棵歪脖子树</a><br> ·  <a href="http://kb.cnblogs.com/page/191744/" target="_blank">Linux上的基础网络设备详解</a><br> ·  <a href="http://kb.cnblogs.com/page/198414/" target="_blank">深入剖析阿里巴巴云梯YARN集群</a><br> ·  <a href="http://kb.cnblogs.com/page/196718/" target="_blank">关于技术团队管理的胡言乱语</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div></div>
+
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2011-03-31 <a href="http://www.cnblogs.com/meteoric_cry/archive/2011/03/31/2001365.html">Flex effects Explorer</a><br>2011-03-31 <a href="http://www.cnblogs.com/meteoric_cry/archive/2011/03/31/2000702.html">使用InjectProxy、InjectMediator简化Fabrication开发</a><br></div>
+
+</div>
+
+	</div>

@@ -1,0 +1,76 @@
+<div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Contains data returned by <a href="http://msdn.microsoft.com/en-us/library/ie/dn302405(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveAttrib</strong></a> or <a href="http://msdn.microsoft.com/en-us/library/ie/dn302406(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveUniform</strong></a> calls. </p>
+<table>
+<tbody><tr><td><img id="badge_ie11" alt="IE11" src="http://i.msdn.microsoft.com/dynimg/IC677945.png" title="IE11" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_520c0680-448e-4cea-834f-b4ff04903ebc');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_520c0680-448e-4cea-834f-b4ff04903ebc" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;body&gt;
+  &lt;canvas ⁯id="canvas"&gt;&lt;/canvas&gt;
+   ...
+&lt;script&gt;
+  var gl = document.getElementById("canvas").getContext("experimental-webgl");
+  ...
+  var activeInfo = gl.getActiveAttrib(program, index); 
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>The WebGLActiveInfo does not inherit from any class or interface.<h2>Members</h2>
+<p>The <strong>WebGLActiveInfo</strong> object has these types of members:</p>
+<ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>WebGLActiveInfo</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302345(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">name</strong></a>
+</p>
+                                </td><td>
+<p>Represents the name of the data variable requested with a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302406(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveUniform</strong></a> or <a href="http://msdn.microsoft.com/en-us/library/ie/dn302405(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveAttrib</strong></a> call. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302346(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">size</strong></a>
+</p>
+                                </td><td>
+<p>Represents the size of the data returned by <a href="http://msdn.microsoft.com/en-us/library/ie/dn302406(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveUniform</strong></a> or <a href="http://msdn.microsoft.com/en-us/library/ie/dn302405(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveAttrib</strong></a> calls. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302347(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">type</strong></a>
+</p>
+                                </td><td>
+<p>Represents the type of data returned by a 
+    <a href="http://msdn.microsoft.com/en-us/library/ie/dn302406(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveUniform</strong></a> or 
+    <a href="http://msdn.microsoft.com/en-us/library/ie/dn302405(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveAttrib</strong></a> 
+    call.</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/17/2014</p>
+</div>

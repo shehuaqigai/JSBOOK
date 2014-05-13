@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS font-stretch</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/font/font-stretch.htm">http://www.phpstudy.net/css3/properties/font/font-stretch.htm</a><br>
+<b>Title:</b> CSS font-stretch &nbsp;&bull;&nbsp; <b>Size:</b> 7158 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">字体属性</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/font/?" class="target">
+				<strong>其它字体属性参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="font.htm">font</a></li>
+					<li><a href="font-style.htm">font-style</a></li>
+					<li><a href="font-variant.htm">font-variant</a></li>
+					<li><a href="font-weight.htm">font-weight</a></li>
+					<li><a href="font-size.htm">font-size</a></li>
+					<li><a href="font-family.htm">font-family</a></li>
+					<li><a href="font-stretch.htm">font-stretch</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">font-stretch</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+		<li>继承性：有</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>font-stretch</strong>：ultra-condensed | extra-condensed | condensed | semi-condensed | normal | semi-expanded | expanded | extra-expanded | ultra-expanded</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">normal</mark></p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt>ultra-condensed：</dt>
+				<dd>比正常文字宽度窄4个基数。</dd>
+				<dt>extra-condensed：</dt>
+				<dd>比正常文字宽度窄3个基数。</dd>
+				<dt>condensed：</dt>
+				<dd>比正常文字宽度窄2个基数。</dd>
+				<dt>semi-condensed：</dt>
+				<dd>比正常文字宽度窄1个基数。</dd>
+				<dt>normal：</dt>
+				<dd>正常文字宽度</dd>
+				<dt>semi-expanded：</dt>
+				<dd>比正常文字宽度宽1个基数。</dd>
+				<dt>expanded：</dt>
+				<dd>比正常文字宽度宽2个基数。</dd>
+				<dt>extra-expanded：</dt>
+				<dd>比正常文字宽度宽3个基数。</dd>
+				<dt>ultra-expanded：</dt>
+				<dd>比正常文字宽度宽4个基数。</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>设置或检索对象中的文字是否横向拉伸变形。</strong>
+			<ul>
+				<li>文字的拉伸是相对于浏览器显示的字体的正常宽度。</li>
+				<li>对应的脚本特性为<strong>fontStretch</strong>。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="partsupport">6.0-9.0 <sup><a href="#support1">#1</a></sup></td>
+						<td class="partsupport">4.0-6.0 <sup><a href="#support1">#1</a></sup></td>
+						<td class="unsupport">5.1</td>
+						<td class="unsupport">13.0</td>
+						<td class="unsupport">11.50-11.51</td>
+					</tr>
+				</tbody>
+			</table>
+			<ol class="support-info">
+				<li id="support1">IE及Firefox已支持font-stretch，但显示效果与正常文字并无不同。</li>
+			</ol>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS font-stretch_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+p{margin:0;font-size:80px;font-weight:bold;background:#ddd;width:30px;}
+.test .normal p{font-stretch:normal;}
+.test .condensed p{font-stretch:condensed;}
+.test .ultra-condensed p{font-stretch:ultra-condensed;}
+.test .extra-condensed p{font-stretch:extra-condensed;}
+.test .semi-expanded p{font-stretch:semi-expanded;}
+.test .expanded p{font-stretch:expanded;}
+.test .ultra-expanded p{font-stretch:ultra-expanded;}
+.test .extra-expanded p{font-stretch:extra-expanded;}
+.test .semi-condensed p{font-stretch:semi-condensed;}
+</style>
+</head>
+<body>
+<ul class="test">
+	<li class="normal">
+		<strong>normal</strong>
+		<p>a</p>
+	</li>
+	<li class="condensed">
+		<strong>condensed</strong>
+		<p>a</p>
+	</li>
+	<li class="ultra-condensed">
+		<strong>ultra-condensed</strong>
+		<p>a</p>
+	</li>
+	<li class="extra-condensed">
+		<strong>extra-condensed</strong>
+		<p>a</p>
+	</li>
+	<li class="semi-expanded">
+		<strong>semi-expanded</strong>
+		<p>a</p>
+	</li>
+	<li class="expanded">
+		<strong>expanded</strong>
+		<p>a</p>
+	</li>
+	<li class="ultra-expanded">
+		<strong>ultra-expanded</strong>
+		<p>a</p>
+	</li>
+	<li class="extra-expanded">
+		<strong>extra-expanded</strong>
+		<p>a</p>
+	</li>
+	<li class="semi-condensed">
+		<strong>semi-condensed</strong>
+		<p>a</p>
+	</li>
+</ul>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<div id="maincontent">
+
+    <h1>HTML DOM CanvasPattern 对象</h1>
+
+
+    <div>
+        <p><strong>CanvasPattern 对象用在一个 Canvas 中的基于图像的模式。</strong></p>
+    </div>
+
+
+    <div>
+        <h2>CanvasPattern 对象</h2>
+
+        <p>CanvasPattern 对象由 <a href="/htmldom/dom_obj_canvasrenderingcontext2d.asp" title="HTML DOM CanvasRenderingContext2D 对象">CanvasRenderingContext2D 对象</a>的 <a href="/htmldom/met_canvasrenderingcontext2d_createpattern.asp" title="HTML DOM createPattern() 方法">createPattern() 方法</a>返回。</p>
+
+        <p>一个 CanvasPattern 对象可以用作 CanvasRenderingContext2D 对象的 strokeStyle 和 fillStyle 属性的值。</p>
+
+        <p>CanvasPattern 对象没有自己的属性和方法。请参阅 <a href="/htmldom/met_canvasrenderingcontext2d_createpattern.asp" title="HTML DOM createPattern() 方法">CanvasRenderingContext2D.createPattern()</a> 详细了解如何创建这个对象。</p>
+    </div>
+
+
+
+    <div>
+        <h2>参阅</h2>
+
+        <p><a href="/htmldom/met_canvasrenderingcontext2d_createpattern.asp" title="HTML DOM createPattern() 方法">CanvasRenderingContext2D.createPattern()</a></p>
+    </div>
+
+
+</div>
+
+CanvasPattern对象是html5 canvas API中用于给指定的图形铺上指定的图像的关键对象，
+这与CSS中background属性的作用有点类似。CanvasPattern对象就表示平铺图像所采用的模式(在指定的图形上以何种方式进行平铺)。
+
+CanvasPattern对象的用法非常简单。
+我们只需要使用CanvasRenderingContext2D对象的createPattern()方法创建一个新的CanvasPattern对象，
+并将该对象设为CanvasRenderingContext2D对象的strokeStyle或fillStyle属性值即可。
+
+下面，我们就来详细了解一下CanvasRenderingContext2D对象的createPattern()方法。
+
+createPattern(image, repetitionStyle)
+createPattern()方法用于创建一个表示将图像在当前图形上以什么样的方式进行重复平铺的CanvasPattern对象。
+参数image指定用于平铺的图像，该参数可以是一个Image对象，也可以是一个Canvas对象。
+参数repetitionStyle表示图像如何进行重复平铺，
+可能的值有repeat(在水平和垂直方向上均进行重复平铺，这也是默认值)、
+repeat-x(只在水平方向上重复平铺)、repeat-y(只在垂直方向上重复平铺)、no-repeat(只铺一次，不进行重复平铺)。

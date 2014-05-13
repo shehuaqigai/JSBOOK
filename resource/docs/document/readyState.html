@@ -1,0 +1,20 @@
+<p>
+	document.readyState:判断文档是否加载完成。firefox不支持。
+这个属性是只读的，传回值有以下的可能：
+0-UNINITIALIZED：XML 对象被产生，但没有任何文件被加载。
+1-LOADING：加载程序进行中，但文件尚未开始解析。
+2-LOADED：部分的文件已经加载且进行解析，但对象模型尚未生效。
+3-INTERACTIVE：仅对已加载的部分文件有效，在此情况下，对象模型是有效但只读的。
+4-COMPLETED：文件已完全加载，代表加载成功。
+document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
+function subSomething()
+{
+if(document.readyState == "complete"){ //当页面加载状态为完全结束时进入
+//你要做的操作。
+} 
+else if(document.readyState=="loading"){
+}
+}
+比较好的例子：http://www.jb51.net/article/20445.htm
+说明 ：onreadystatechange 事件能辨识readyState 属性的改变。
+</p>

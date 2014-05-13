@@ -1,0 +1,26 @@
+<p>
+	HTML5 Page Visibility API
+Posted on March 11, 2012
+说明
+HTML5的页面可见性API(暂时这么叫吧)可以用来检测页面对于用户的可见性，如果用户打开另一个tab上或者在其他窗口上，那么我们可以通过该API来检测变化并作出相应的操作。这个和android的生命周期有点相似。虽然IE只有在IE10才支持，不过给了个十分清晰的例子。链接见最后。
+
+然后我们想到在这个API出来前我们是怎么检测页面可见性的？
+在window上绑定onblur/onfocus可以检测页面是否处于激活状态(active)，但不能检测到可见状态。
+当然通过检测窗口最小化可以知道页面肯定是不可见了，但是似乎没有兼容所有浏览器的方法。
+参考：https://github.com/evilmartians/visibility.js
+
+它可以做什么
+减少内存使用
+停止或者暂停不可见页面的耗资源操作。
+
+节省服务器资源
+举例，当一个进行ajax轮询的页面不可见时，通过关闭轮询或者加大间隔时间可以节省一定的服务器资源。
+
+视频暂停和自动开始
+视频或者动画、游戏(不只是flash，包括html5动画)播放时如果需要切换到其他页面，用户不再需要点暂停，而且切换到该页面时自动从中断点播放。
+demo：http://www.samdutton.com/pageVisibility/
+
+属性
+document.hidden(document.webkitHidden)
+如果页面不可见，返回true,否则返回false.不支持返回undefined。
+</p>

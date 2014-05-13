@@ -1,0 +1,198 @@
+<p>
+    这是javascirpt内部使用的一个构造器,用来构造dom对象的属性，其实对象属性也是一个节点 </p>
+        <code style="color:red;font-size:2rem;">
+            var div = document.createElement('div');<br/>
+            div.setAttribute('id', 'foo'); <br/>
+            div.attributes[0] instanceof Attr; // true<br/>
+
+        </code>
+   <p>
+    You cannot call it as constructor function,
+    same as any other "constructor" functions of the DOM API (e.g. new HTMLDivElement()).
+    You can only create an attribute via setAttribute.
+   </p>
+
+<div id="maincontent">
+
+    <h1>XML DOM Attr 对象</h1>
+
+    <div id="tpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_nodetype.asp" title="XML DOM 节点类型（Node Types）">DOM 节点类型</a></li>
+            <li class="next"><a href="/xmldom/dom_cdatasection.asp" title="XML DOM CDATASection 对象">DOM CDATASection</a></li>
+        </ul>
+    </div>
+
+
+    <div id="intro">
+        <p><strong>Attr 对象表示 Element 对象的属性。</strong></p>
+    </div>
+
+
+    <div>
+        <h2>Attr 对象</h2>
+
+        <p>Attr 对象表示 Element 对象的属性。属性的容许值通常定义在 DTD 中。</p>
+        <p>由于 Attr  对象也是一种节点，因此它继承 Node 对象的属性和方法。不过属性无法拥有父节点，同时属性也不被认为是元素的子节点，对于许多 Node 对象的属性来说都将返回 null。</p>
+    </div>
+
+
+    <div>
+        <h2>Attr 对象的属性</h2>
+
+        <table class="dataintable">
+            <tbody><tr>
+                <th>属性</th>
+                <th>描述</th>
+                <th>IE</th>
+                <th>F</th>
+                <th>O</th>
+                <th>W3C</th>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_baseuri.asp" title="XML DOM baseURI 属性">baseURI</a></td>
+                <td>返回属性的绝对基准 URI。</td>
+                <td>No</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_isid.asp" title="XML DOM isId 属性">isId</a></td>
+                <td>如果属性是 id 类型，则返回 true，否则返回 false。</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_localname.asp" title="XML DOM localName 属性">localName</a></td>
+                <td>返回属性名称的本地部分。</td>
+                <td>No</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_name.asp" title="XML DOM name 属性">name</a></td>
+                <td>返回属性的名称。</td>
+                <td>5</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_namespaceuri.asp" title="XML DOM namespaceURI 属性">namespaceURI</a></td>
+                <td>返回属性的命名空间 URI。</td>
+                <td>No</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_nodename.asp" title="XML DOM nodeName 属性">nodeName</a></td>
+                <td>返回节点的名称，依据其类型。</td>
+                <td>5</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_nodetype.asp" title="XML DOM nodeType 属性">nodeType</a></td>
+                <td>返回节点的类型。</td>
+                <td>5</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_nodevalue.asp" title="XML DOM nodeValue 属性">nodeValue</a></td>
+                <td>设置或返回节点的值，依据其类型。</td>
+                <td>5</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_ownerdocument.asp" title="XML DOM ownerDocument 属性">ownerDocument</a></td>
+                <td>返回属性所属的根元素（document对象）。</td>
+                <td>5</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_ownerelement.asp" title="XML DOM ownerElement 属性">ownerElement</a></td>
+                <td>返回属性所附属的元素节点。</td>
+                <td>No</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_prefix.asp" title="XML DOM prefix 属性">prefix</a></td>
+                <td>设置或返回属性的命名空间前缀。</td>
+                <td>No</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>schemaTypeInfo</td>
+                <td>返回与属性相关联的类型信息。</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_specified.asp" title="XML DOM specified 属性">specified</a></td>
+                <td>如果属性值被设置在文档中，则返回 true，如果其默认值被设置在 DTD/Schema 中，则返回 false。</td>
+                <td>5</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_textcontent.asp" title="XML DOM textContent 属性">textContent</a></td>
+                <td>设置或返回属性的文本内容。</td>
+                <td>No</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_text.asp" title="XML DOM text 属性">text</a></td>
+                <td>返回属性的文本。IE-only。</td>
+                <td>5</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_value.asp" title="XML DOM value 属性">value</a></td>
+                <td>设置或返回属性的值。</td>
+                <td>5</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/prop_attr_xml.asp" title="XML DOM xml 属性">xml</a></td>
+                <td>返回属性的 XML。IE-only。</td>
+                <td>5</td>
+                <td>No</td>
+                <td>No</td>
+                <td>No</td>
+            </tr>
+            </tbody></table>
+    </div>
+
+    <div id="bpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_nodetype.asp" title="XML DOM 节点类型（Node Types）">DOM 节点类型</a></li>
+            <li class="next"><a href="/xmldom/dom_cdatasection.asp" title="XML DOM CDATASection 对象">DOM CDATASection</a></li>
+        </ul>
+    </div>
+
+</div>

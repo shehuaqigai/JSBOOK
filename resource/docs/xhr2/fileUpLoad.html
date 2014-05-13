@@ -1,0 +1,13 @@
+<pre>
+	
+	六、上传文件
+新版XMLHttpRequest对象，不仅可以发送文本信息，还可以上传文件。
+假定files是一个"选择文件"的表单元素（input[type="file"]），我们将它装入FormData对象。
+　　var formData = new FormData();
+　　for (var i = 0; i < files.length;i++) {
+　　　　formData.append('files[]', files[i]);
+　　}
+然后，发送这个FormData对象。
+　　xhr.send(formData);
+
+</pre>

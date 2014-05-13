@@ -1,0 +1,36 @@
+<div class="_content"><div class="_page _mdn"><h1>window.onclick</h1>  <p>Called when the user clicks the mouse button while the cursor is in the window. This event is fired for any mouse button pressed; you can look at the event properties to find out which button was pressed and where.</p> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="eval">window.onclick =<i>funcRef</i>;
+</pre> <h3 id="Parameters" name="Parameters">Parameters</h3> <ul>
+<li>
+<code>funcRef</code> is a reference to a function.</li> </ul><h2 id="Example" name="Example">Example</h2> <pre>window.onclick = doPopup;
+</pre> <pre>&lt;html&gt;
+&lt;head&gt;
+
+&lt;title&gt;onclick test&lt;/title&gt;
+
+&lt;script type="text/javascript"&gt;
+
+window.onclick = clickPage;
+
+function clickPage()
+{
+ alert("click event detected!");
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;p&gt;click and release the LH mouse button on this page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre> <h2 id="Notes" name="Notes">Notes</h2> <p>The click event is raised when the user clicks on the window.</p> <h2 id="Specification" name="Specification">Specification</h2> <p>Not part of specification.</p><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.onclick$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.onclick" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/window.onclick</a>
+  </p>
+</div>
+</div></div>

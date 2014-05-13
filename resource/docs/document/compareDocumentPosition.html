@@ -1,0 +1,89 @@
+<p>
+	1、DOMElement.contains(DOMNode)
+
+    这个方法起先用在 IE ，用来确定 DOM Node 是否包含在另一个 DOM Element 中。
+
+    当尝试优化 CSS 选择器遍历（像：“#id1 #id2”），这个方法很有用。你可以通过 getElementById 得到元素，然后使用 .contains() 确定 #id1 实际上是否包含 #id2。
+
+    注意点：如果 DOM Node 和 DOM Element 相一致，.contains() 将返回 true ，虽然，一个元素不能包含自己。
+
+    这里有一个简单的执行包装，可以运行在：Internet Explorer, Firefox, Opera, and Safari。
+
+ function contains(a, b) {
+ return a.contains ? a != b && a.contains(b) : !!(a.compareDocumentPosition(arg) & 16);
+}
+    2、NodeA.compareDocumentPosition(NodeB)
+
+    这个方法是 DOM Level 3 specification 的一部分，允许你确定 2 个 DOM Node 之间的相互位置。这个方法比 .contains() 强大。这个方法的一个可能应用是排序 DOM Node 成一个详细精确的顺序。
+
+    使用这个方法你可以确定关于一个元素位置的一连串的信息。所有的这些信息将返回一个比特码（Bit，比特，亦称二进制位）。
+
+    对于那些，人们知之甚少。比特码是将多重数据存储为一个简单的数字（译者注：0 或 1）。你最终打开 / 关闭个别数目（译者注：打开/关闭对应 0 /1），将给你一个最终的结果。
+
+    这里是从 NodeA.compareDocumentPosition(NodeB) 返回的结果，包含你可以得到的信息。
+
+ Bits          Number        Meaning 
+000000         0              元素一致 
+000001         1              节点在不同的文档（或者一个在文档之外） 
+000010         2              节点 B 在节点 A 之前 
+000100         4              节点 A 在节点 B 之前 
+001000         8              节点 B 包含节点 A 
+010000         16             节点 A 包含节点 B 
+100000         32             浏览器的私有使用
+    现在，这意味着一个可能的结果类似于：
+
+ &ltdiv id="a">
+ &ltdiv id="b">&lt/div>
+&lt/div>
+&ltscript>
+ alert( document.getElementById("a").compareDocumentPosition(document.getElementById("b")) == 20);
+&lt/script>
+    一旦一个节点 A 包含另一个节点 B，包含 B（+16） 且在 B 之前（+4），则最后的结果是数字 20 。如果你查看比特发生的变化，将增加你的理解。
+
+000100 (4) + 010000 (16) = 010100 (20)
+
+    这个，毫无疑问，有助于理解单个最混乱的 DOM API 方法。当然，他的价值当之无愧的。
+
+    现在，DOMNode.compareDocumentPosition 在 Firefox 和 Opera 中是可用的。然而，有一些技巧，我们可以用来在 IE 中执行他。
+
+ // Compare Position - MIT Licensed, John Resig
+function comparePosition(a, b){
+ return a.compareDocumentPosition ?
+ a.compareDocumentPosition(b) :
+ a.contains ?
+  ( a != b && a.contains(b) && 16 ) +
+  ( a != b && b.contains(a) && 8 ) +
+  ( a.sourceIndex >= 0 && b.sourceIndex >= 0 ?
+   (a.sourceIndex < b.sourceIndex && 4 ) +
+   (a.sourceIndex > b.sourceIndex && 2 ) :
+   1 ) :
+  0;
+}
+    IE 提供给我们一些可以使用的方法和属性。开始，使用 .contains() 方法（如我们前面所讨论的），以便给我们包含（+16）或者被包含（+8）的结果。IE 还有一个 .sourceIndex 属性在所有的 DOM Element 对应着元素在文档中的位置，例如：document.documentElement.sourceIndex == 0。因为我们有这个信息，我们可以完成两个 compareDocumentPosition 难题：在前面（+2）和在后面（+4）。另外，如果一个元素不在当前的文档，.sourceIndex 将等于 -1，这个给我们另外一个回答（+1）。最后，通过这个过程的推断，我们可以确定如果一个元素等于他本身，返回一个空的比特码（+0）。
+
+    这个函数可以在 Internet Explorer、Firefox 和 Opera 中运行。但在 Safari 中却有残缺功能（因为他只有 contains() 方法，而没有 .sourceIndex 属性。我们只能得到 包含（+16），被包含（+8），其他的所有结果都将返回（+1）代表一个断开）。
+
+    PPK 提供了一个关于通过创建一个 getElementsByTagNames 方法使新功能可以被使用的很棒的例子。让我们改编他到我们的新方法中：
+
+// Original by PPK quirksmode.org
+function getElementsByTagNames(list, elem) {
+        elem = elem || document;         
+        var tagNames = list.split(’,’), results = [];         
+
+        for ( var i = 0; i < tagNames.length; i++ ) {
+                var tags = elem.getElementsByTagName( tagNames[i] );
+                for ( var j = 0; j < tags.length; j++ )
+                        results.push( tags[j] );
+        }         
+
+        return results.sort(function(a, b){
+                return 3 - (comparePosition(a, b) & 6);
+        });
+}
+
+    我们现在可以使用他来按次序构建一个站点的目录：
+
+getElementsByTagNames("h1, h2, h3");
+
+    虽然 Firefox 和 Opera 都采取了一些主动落实这一方法。我依然期待看到更多的浏览器进入，以帮助向前推动
+</p>

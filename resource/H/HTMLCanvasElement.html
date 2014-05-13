@@ -1,0 +1,220 @@
+<article id="wikiArticle">
+                                          <p><span class="breadcrumbs domRef_breadcrumbs themeUpdated">«&nbsp;<a href="/zh-CN/docs/Gecko_DOM_Reference">DOM 参考</a></span> 
+ 
+ 
+</p><section class="Quick_links" id="Quick_Links"><!-- --></section><p></p>
+<p></p><div class="overheadIndicator htmlVer htmlMinVerHeader"> 
+  <p>引进于 <a href="/zh-CN/docs/HTML/HTML5">HTML5</a></p> 
+</div><p></p>
+<h2 id="HTML_canvas.E5.85.83.E7.B4.A0.E6.8E.A5.E5.8F.A3">HTML canvas元素接口</h2>
+<p>DOM canvas元素暴露了<code><a class="external" href="http://www.w3.org/TR/html5/the-canvas-element.html#htmlcanvaselement" title="http://www.w3.org/TR/html5/the-canvas-element.html#htmlcanvaselement">HTMLCanvasElement</a></code>接口,该接口提供了用来操作一个canvas元素布局和呈现的属性和方法.<code>HTMLCanvasElement</code>接口继承了<a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a>接口的属性和方法.</p>
+<h2 id=".E5.B1.9E.E6.80.A7">属性</h2>
+<table class="standard-table">
+  <thead>
+    <tr>
+      <th scope="col">属性名</th>
+      <th scope="col">类型</th>
+      <th scope="col">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>height</code></td>
+      <td><code>unsigned long</code></td>
+      <td>反应出HTML中对应标签的<code><a class="new" href="/zh-CN/docs/Web/HTML/Element/canvas#attr-height">height</a></code>属性的值,指定了该元素所占空间的高度,单位为像素.</td>
+    </tr>
+    <tr>
+      <td><code>width</code></td>
+      <td><code>unsigned long</code></td>
+      <td>反应出HTML中对应标签的<code><a class="new" href="/zh-CN/docs/Web/HTML/Element/canvas#attr-width">width</a></code>属性的值,指定了该元素所占空间的高度,单位为像素.</td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=".E6.96.B9.E6.B3.95">方法</h2>
+<table class="standard-table">
+  <thead>
+    <tr>
+      <th scope="col">方法名和参数</th>
+      <th scope="col">返回值</th>
+      <th scope="col">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>getContext(in <a href="/zh-CN/DOM/DOMString" title="zh-CN/DOM/DOMString">DOMString</a> contextId)</code></td>
+      <td><code>object</code></td>
+      <td>返回canvas的绘制上下文,如果指定的上下文ID不支持,则返回null.一个绘制上下文可以让你在canvas上绘图.目前可接受的参数有"2d"和"experimental-webgl"."experimental-webgl"上下文只在那些实现了<a href="/zh-CN/WebGL" title="zh-CN/WebGL">WebGL</a>的浏览器上可用.调用getContext("2d")会返回一个 <code><a href="../../../../zh-CN/DOM/CanvasRenderingContext2D">CanvasRenderingContext2D</a></code>对象,调用getContext("experimental-webgl")会返回一个<code>WebGLRenderingContext</code>对象.</td>
+    </tr>
+    <tr>
+      <td><code>toDataURL(in optional <a href="/zh-CN/DOM/DOMString" title="zh-CN/DOM/DOMString">DOMString</a> type, in any ...args)</code></td>
+      <td><code><a href="/zh-CN/DOM/DOMString" title="zh-CN/DOM/DOMString">DOMString</a></code></td>
+      <td>
+        <p>返回一个<code>data:</code> URL,根据<code>type参数</code>指定的类型将包含在canvas中的图片文件编码成字符串形式, <code>type参数的默认值为</code><code>image/png</code>.</p>
+        <ul>
+          <li>如果该canvas的宽度或长度是0,则会返回字符串<code>"data:,</code>".</li>
+          <li>如果指定的<code>type</code>参数不是<code>image/png</code>,但返回的字符串是以<code>data:image/png</code>开头的,则所请求的图片类型不支持.</li>
+          <li>Chrome支持<code>image/webp类型</code>.</li>
+          <li>如果<code>type</code>参数的值为<code>image/jpeg或</code><code>image/webp</code>,则第二个参数的值如果在0.0和1.0之间的话,会被看作是图片质量参数,如果第二个参数的值不在0.0和1.0之间,则会使用默认的图片质量.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p><code>toBlob(in </code><code>Function</code><code> callback, in optional </code><code><a href="/zh-CN/DOM/DOMString" title="zh-CN/DOM/DOMString">DOMString</a></code><code> type, in any ...args) </code>(<a class="external" href="http://crbug.com/67587" title="http://crbug.com/67587"><small>not implemented in Chromium</small></a><small>)</small></p>
+      </td>
+      <td><a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a></td>
+      <td>返回一个<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象,表示了包含在该canvas中的图片文件,这个文件可能缓存在硬盘上,也可能存储在内存中,这由浏览器决定.如果<code>没有指定type</code>参数,则默认使用<code>image/png</code>.</td>
+    </tr>
+    <tr>
+      <td><code>mozGetAsFile(in </code><code><a href="/zh-CN/DOM/DOMString" title="zh-CN/DOM/DOMString">DOMString</a></code><code> name, in optional </code><code><a href="/zh-CN/DOM/DOMString" title="zh-CN/DOM/DOMString">DOMString</a></code><code> type)</code>  <span title="This API has not been standardized."><i class="icon-warning-sign"> </i></span></td>
+      <td><a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a></td>
+      <td>返回一个<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象,表示了包含在该canvas中的图片文件,这个文件是存在于内存中的.还可以指定名称和图片类型,如果<code>没有指定type</code>参数,则默认使用<code>image/png</code>.</td>
+    </tr>
+    <tr>
+      <td><code>void mozFetchAsStream(in <code><a class="new" href="/zh-CN/docs/XPCOM_Interface_Reference/nsIInputStreamCallback" title="">nsIInputStreamCallback</a></code> callback, [optional] in DOMString type);</code>  <span title="This API has not been standardized."><i class="icon-warning-sign"> </i></span></td>
+      <td><code>void</code></td>
+      <td>
+        <p>当新的数据流准备好时,则会调用指定的回调函数<code><a class="external" href="http://developer.mozilla.org/zh-CN/docs/XPCOM_Interface_Reference/nsIInputStreamCallback#onInputStreamReady()">nsIInputStreamCallback.onInputStreamReady()</a></code>,如果<code>没有指定type</code>参数,则默认使用<code>image/png</code>.</p>
+        <div class="note">
+          <strong>注:</strong> 只能在chrome代码中使用.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=".E4.BE.8B.E5.AD.90.3A_.E4.BB.8Ecanvas.E5.AF.B9.E8.B1.A1.E4.B8.AD.E5.AF.BC.E5.87.BAdata.3A_URL">例子: 从canvas对象中导出data: URL</h2>
+<p>首先在canvas上绘出图形,然后调用<code>canvas.toDataURL(),就能</code>获取到该canvas对象中所包含图片编码后的data: URL字符串.</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">function</span> <span class="token function">test<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">var</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"canvas"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token keyword">var</span> url <span class="token operator">=</span> canvas<span class="token punctuation">.</span><span class="token function">toDataURL<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+ <span class="token keyword">var</span> newImg <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ newImg<span class="token punctuation">.</span>src <span class="token operator">=</span> url<span class="token punctuation">;</span>
+ document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>newImg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div></code></pre>
+<p></p><div> 
+    <span class="indicatorInHeadline minVer geckoMinVerMethod">(Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1)</span> 
+    <h1 id=".E4.BE.8B.E5.AD.90.3A.E4.BB.8Ecanvas.E5.AF.B9.E8.B1.A1.E4.B8.AD.E8.8E.B7.E5.BE.97.E6.96.87.E4.BB.B6">例子:从canvas对象中获得文件</h1> 
+</div><p></p>
+<p>你还可以从canvas元素中导出一个图片文件.下例就演示了:如何把一个canvas元素转换成图片,再把图片地址传给一个<a class="new" href="/zh-CN/docs/HTML/Element/img" title="This article hasn't been written yet. Please consider contributing!"><code>&lt;img&gt;</code></a>元素并显示出来.</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">function</span> <span class="token function">test<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">var</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"canvas"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ canvas<span class="token punctuation">.</span><span class="token function">toBlob<span class="token punctuation">(</span></span><span class="token keyword">function</span><span class="token punctuation">(</span>blob<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> newImg <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        url <span class="token operator">=</span> URL<span class="token punctuation">.</span><span class="token function">createObjectURL<span class="token punctuation">(</span></span>blob<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    newImg<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token comment" spellcheck="true"> // no longer need to read the blob so it's revoked
+</span>        URL<span class="token punctuation">.</span><span class="token function">revokeObjectURL<span class="token punctuation">(</span></span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    newImg<span class="token punctuation">.</span>src <span class="token operator">=</span> url<span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>newImg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div></code></pre>
+<p>你可以把这项技术和鼠标事件结合起来,从而可以动态的修改一张图片,下例中演示的是切换图片灰度化:</p>
+<pre class="brush: html  language-html" data-number=""><code class=" language-html">&lt;!doctype html&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Content-Type<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/html; charset<span class="token punctuation">=</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>MDC Example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">function</span> <span class="token function">showColorImg<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    this<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"none"</span><span class="token punctuation">;</span>
+    this<span class="token punctuation">.</span>nextSibling<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"inline"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">showGrayImg<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    this<span class="token punctuation">.</span>previousSibling<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"inline"</span><span class="token punctuation">;</span>
+    this<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"none"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">removeColors<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> aImages <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByClassName<span class="token punctuation">(</span></span><span class="token string">"grayscale"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> nImgsLen <span class="token operator">=</span> aImages<span class="token punctuation">.</span>length<span class="token punctuation">,</span> oCanvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"canvas"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> oCtx <span class="token operator">=</span> oCanvas<span class="token punctuation">.</span><span class="token function">getContext<span class="token punctuation">(</span></span><span class="token string">"2d"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> nWidth<span class="token punctuation">,</span> nHeight<span class="token punctuation">,</span> oImgData<span class="token punctuation">,</span> oGrayImg<span class="token punctuation">,</span> nPixel<span class="token punctuation">,</span> aPix<span class="token punctuation">,</span> nPixLen<span class="token punctuation">,</span> nImgId <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> nImgId <span class="token operator">&lt;</span> nImgsLen<span class="token punctuation">;</span> nImgId<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        oColorImg <span class="token operator">=</span> aImages<span class="token punctuation">[</span>nImgId<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nWidth <span class="token operator">=</span> oColorImg<span class="token punctuation">.</span>offsetWidth<span class="token punctuation">;</span>
+        nHeight <span class="token operator">=</span> oColorImg<span class="token punctuation">.</span>offsetHeight<span class="token punctuation">;</span>
+        oCanvas<span class="token punctuation">.</span>width <span class="token operator">=</span> nWidth<span class="token punctuation">;</span>
+        oCanvas<span class="token punctuation">.</span>height <span class="token operator">=</span> nHeight<span class="token punctuation">;</span>
+        oCtx<span class="token punctuation">.</span><span class="token function">drawImage<span class="token punctuation">(</span></span>oColorImg<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        oImgData <span class="token operator">=</span> oCtx<span class="token punctuation">.</span><span class="token function">getImageData<span class="token punctuation">(</span></span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> nWidth<span class="token punctuation">,</span> nHeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        aPix <span class="token operator">=</span> oImgData<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+        nPixLen <span class="token operator">=</span> aPix<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>nPixel <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> nPixel <span class="token operator">&lt;</span> nPixLen<span class="token punctuation">;</span> nPixel <span class="token operator">+</span><span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            aPix<span class="token punctuation">[</span>nPixel <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> aPix<span class="token punctuation">[</span>nPixel <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> aPix<span class="token punctuation">[</span>nPixel<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span>aPix<span class="token punctuation">[</span>nPixel<span class="token punctuation">]</span> <span class="token operator">+</span> aPix<span class="token punctuation">[</span>nPixel <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> aPix<span class="token punctuation">[</span>nPixel <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        oCtx<span class="token punctuation">.</span><span class="token function">putImageData<span class="token punctuation">(</span></span>oImgData<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        oGrayImg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        oGrayImg<span class="token punctuation">.</span>src <span class="token operator">=</span> oCanvas<span class="token punctuation">.</span><span class="token function">toDataURL<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        oGrayImg<span class="token punctuation">.</span>onmouseover <span class="token operator">=</span> showColorImg<span class="token punctuation">;</span>
+        oColorImg<span class="token punctuation">.</span>onmouseout <span class="token operator">=</span> showGrayImg<span class="token punctuation">;</span>
+        oCtx<span class="token punctuation">.</span><span class="token function">clearRect<span class="token punctuation">(</span></span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> nWidth<span class="token punctuation">,</span> nHeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        oColorImg<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"none"</span><span class="token punctuation">;</span>
+        oColorImg<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">insertBefore<span class="token punctuation">(</span></span>oGrayImg<span class="token punctuation">,</span> oColorImg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">onload</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>removeColors();<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>grayscale<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>chagall.jpg<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div><div class="line-number" data-start="31" style="top: 570px;"></div><div class="line-number" data-start="32" style="top: 589px;"></div><div class="line-number" data-start="33" style="top: 608px;"></div><div class="line-number" data-start="34" style="top: 627px;"></div><div class="line-number" data-start="35" style="top: 646px;"></div><div class="line-number" data-start="36" style="top: 665px;"></div><div class="line-number" data-start="37" style="top: 684px;"></div><div class="line-number" data-start="38" style="top: 703px;"></div><div class="line-number" data-start="39" style="top: 722px;"></div><div class="line-number" data-start="40" style="top: 741px;"></div><div class="line-number" data-start="41" style="top: 760px;"></div><div class="line-number" data-start="42" style="top: 779px;"></div><div class="line-number" data-start="43" style="top: 798px;"></div><div class="line-number" data-start="44" style="top: 817px;"></div><div class="line-number" data-start="45" style="top: 836px;"></div><div class="line-number" data-start="46" style="top: 855px;"></div><div class="line-number" data-start="47" style="top: 874px;"></div><div class="line-number" data-start="48" style="top: 893px;"></div></code></pre>
+<p>注意,这里我们得到的是一张PNG图片,你还可以在<code>toBlob()</code>方法的第二个参数中指定图片类型.例如,下面的代码会得到一张JPEG格式的图片:</p>
+<pre class="deki-transform language-html"> canvas.toBlob(function(blob){...}, "image/jpeg", 0.95); // JPEG 质量为95%</pre>
+<p><a class="button liveSample" href="/samples/domref/mozGetAsFile.html">查看在线演示</a> (<code>使用了mozGetAsFile()</code>)</p>
+<h2 id=".E6.B5.8F.E8.A7.88.E5.99.A8.E6.94.AF.E6.8C.81">浏览器支持</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>4.0</td>
+        <td>(3.6)</td>
+        <td>9.0</td>
+        <td>9.0</td>
+        <td>3.1</td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Chrome for Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE Mobile</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>2.1</td>
+        <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
+        <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>10.0</td>
+        <td>3.2</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>(Opera Mini 5.0-6.0 部分支持.)</p>
+</div></div><p></p>
+
+
+<p>&nbsp;</p>
+                                    </article>

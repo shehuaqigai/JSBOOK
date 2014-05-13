@@ -1,0 +1,126 @@
+<div id="maincontent">
+
+    <h1>XML DOM CharacterData 对象</h1>
+
+    <div id="tpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_cdatasection.asp" title="XML DOM CDATASection 对象">DOM CDATASection</a></li>
+            <li class="next"><a href="/xmldom/dom_css2properties.asp" title="XML DOM CSS2Properties 对象">DOM CSS2Properties</a></li>
+        </ul>
+    </div>
+
+    <div id="intro">
+        <p><strong>CharacterData 接口提供了 Text 和 Comment 节点的常用功能。</strong></p>
+    </div>
+
+
+    <div>
+        <h2>CharacterData 对象描述</h2>
+        <p>CharacterData 是 <a href="/xmldom/dom_text.asp">Text</a> 和 <a href="/xmldom/met_text_appenddata.asp">Comment</a> 节点的超接口。文档从不包含 CharacterData 节点，它们只包含 Text 节点和 Comment 节点。但由于这两种节点具有相似的功能，因此此处定义了这些函数，以便 Text 和 Comment 可以继承它。</p>
+
+        <p>注意，不一定要使用此接口定义的字符串操作方法。data 属性是一个普通的 JavaScript 字符串，您可以使用 + 运算符来操作它进行字符串连接，而且可以对它使用各种 String 和 RegExp 对象的方法。</p>
+    </div>
+
+
+    <div>
+        <h2>CharacterData 对象属性</h2>
+
+        <table class="dataintable">
+            <tbody><tr>
+                <th style="width:20%">属性</th>
+                <th>描述</th>
+                <th style="width:6%">IE</th>
+                <th style="width:6%">F</th>
+                <th style="width:6%">O</th>
+                <th style="width:7%">W3C</th>
+            </tr>
+            <tr>
+                <td>data</td>
+                <td>该节点包含的文本。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>length</td>
+                <td>该节点包含的字符数。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            </tbody></table>
+    </div>
+
+
+    <div>
+        <h2>CharacterData 对象方法</h2>
+        <table class="dataintable">
+            <tbody><tr>
+                <th style="width:20%">方法</th>
+                <th>描述</th>
+                <th style="width:6%">IE</th>
+                <th style="width:6%">F</th>
+                <th style="width:6%">O</th>
+                <th style="width:7%">W3C</th>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_characterdata_appenddata.asp">appendData()</a></td>
+                <td>把指定的字符串添加到该节点包含的文本上。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_characterdata_deletedata.asp">deleteData()</a></td>
+                <td>从该节点删除指定的文本。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_characterdata_insertdata.asp">insertData()</a></td>
+                <td>把指定的字符串插入指定位移量处的节点文本。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_characterdata_replacedata.asp">replaceData()</a></td>
+                <td>用指定的字符串替换从指定位置开始的指定数量的文本。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_characterdata_substringdata.asp">substringData()</a></td>
+                <td>返回从指定位移量处开始的指定数量的字符的文本副本。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>9</td>
+                <td>Yes</td>
+            </tr>
+            </tbody></table>
+    </div>
+
+
+    <div>
+        <h2>相关页面</h2>
+
+        <p>XML DOM 参考手册：<a href="/xmldom/dom_comment.asp">Comment 对象</a></p>
+        <p>XML DOM 参考手册：<a href="/xmldom/dom_text.asp">Text 对象</a></p>
+    </div>
+
+
+    <div id="bpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_cdatasection.asp" title="XML DOM CDATASection 对象">DOM CDATASection</a></li>
+            <li class="next"><a href="/xmldom/dom_css2properties.asp" title="XML DOM CSS2Properties 对象">DOM CSS2Properties</a></li>
+        </ul>
+    </div>
+</div>

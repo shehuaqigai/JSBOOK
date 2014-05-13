@@ -1,0 +1,31 @@
+<pre>
+	定义和用法
+compile() 方法用于在脚本执行过程中编译正则表达式。
+compile() 方法也可用于改变和重新编译正则表达式。
+语法
+RegExpObject.compile(regexp,modifier)
+参数	描述
+regexp	正则表达式。
+modifier	规定匹配的类型。"g" 用于全局匹配，"i" 用于区分大小写，
+"gi" 用于全局区分大小写的匹配。
+实例
+在字符串中全局搜索 "man"，并用 "person" 替换。
+然后通过 compile() 方法，改变正则表达式，用 "person" 替换 "man" 或 "woman"，：
+&ltscript type="text/javascript">
+
+var str="Every man in the world! Every woman on earth!";
+
+patt=/man/g;
+str2=str.replace(patt,"person");
+document.write(str2+"<br />");
+
+patt=/(wo)?man/g;
+patt.compile(patt);
+str2=str.replace(patt,"person");
+document.write(str2);
+
+&lt/script>
+输出：
+Every person in the world! Every woperson on earth!
+Every person in the world! Every person on earth!
+</pre>

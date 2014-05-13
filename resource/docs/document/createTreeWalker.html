@@ -1,0 +1,35 @@
+<p>
+	注意：createTreeWalker和createNodeIterator都不支持IE6
+</p>
+
+<p>
+TreeWalker有点向NodeIterator的大哥一样:它有NodeIterator所有的功能,并且添加了下面一些遍历方法:
+parentNode():进入当前节点的父节点;
+firstChild():进入当前节点的第一子节点;
+lastChild():进入当前节点的最后一个子节点
+nextSibling():进入当前节点的下一个兄弟节点
+previousSibling():进入当前节点的前一个兄弟节点
+要开始使用TreeWalker,其实完全可以向使用NodeIterator一样,只需要将createNodeIterator()改成createTreeWalker()即可,这个函数接收同样的参数:
+
+ 
+</p>
+<p>
+	TreeWalker对象用作一列节点的容器，这些节点符合document.createTreeWalker()方法定义的标准，该方法用于创建TreeWalker对象。TreeWalker对象包含的节点列表与引用它们的文档具有相同的层次结构。TreeWalker对象允许根据其内在的树型结构，浏览此节点列表。
+
+在某种程度上，可将TreeWalker对象看作遍历器对象，因为其主要作用是提供一种方式，来遍历列表中的节点。不过在这里，列表是层次树，而不是线性列表。TreeWalker对象在节点列表中保存了一个总是指向当前节点的指针。只要使用TreeWalker对象在列表中导航，该导航就总是相对于指针。例如，调用previousNode()或nextNode()方法来引用前一个或后一个节点时，该引用取决于节点指针在树中的当前位置。
+
+可以使用document.createTreeWalker()方法为文档创建TreeWalker对象。此方法需要一个用户函数作为筛选器，来选择节点，作为树的一部分，对此用户函数的引用是方法的第三个参数。此用户函数的返回值可以是表示当前节点状态的三个常量：NodeFilter.FILTER_ ACCEPT、NodeFilter.FILTER_REJECT和NodeFilter.FILTER_SKIP。NodeFilter.FILTER_REJECT和NodeFilter. FILTER_SKIP之间的区别在于：被跳过节点的后代仍然可以成为树的组成部分，而被拒绝节点及其后代都不能成为树的组成部分。如下代码是可用于创建TreeWalker对象的用户函数：
+
+function ratingAttrFilter(node)  
+{  
+if (node.hasAttribute("rating"))  
+{  
+return NodeFilter.FILTER_ACCEPT;  
+}  
+return NodeFilter.FILTER_REJECT;  
+}  
+在此示例函数中，只有包含rating特性的节点才能通过筛选，这意味着只有这些节点才能添加到列表(树)中。准备好这个函数后，调用document.createTreeWalker()方法来创建TreeWalker对象：
+var myTreeWalker = document.createTreeWalker(document, NodeFilter.SHOW_ELEMENT,  
+ratingAttrFilter, false); 
+创建TreeWalker对象后，就可以使用其属性和方法来访问单个节点，在列表中导航。
+</p>

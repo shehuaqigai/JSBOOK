@@ -1,0 +1,1708 @@
+<article id="wikiArticle">
+                                          <p><code>KeyboardEvent</code> objects describe a user interaction with the keyboard. Each event describes a key; the event type (<code>keydown</code>, <code>keypress</code>, or <code>keyup</code>) identifies what kind of activity was performed.</p>
+<div class="note">
+  <strong>Note:</strong> The <code>KeyboardEvent</code> indicates just what's happening on a key. When you need to handle text input, use HTML5 <code><a href="/en/DOM/DOM_event_reference/input">input</a></code> event instead. For example, if user inputs text from hand-writing system like tablet PC, key events may not be fired.</div>
+<h2 id="Method_overview">Method overview</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td><code>boolean <a href="/en/DOM/KeyboardEvent#getModifierState()" title="en/DOM/KeyboardEvent#getModifierState()">getModifierState</a>(in DOMString keyArg);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a href="/en/DOM/KeyboardEvent#initKeyboardEvent()" title="en/DOM/KeyboardEvent#initKeyboardEvent()">initKeyboardEvent</a>(in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in views::AbstractView viewArg, in DOMString charArg, in DOMString keyArg, in unsigned long locationArg, in DOMString modifiersListArg, in boolean repeat, in DOMString localeArg);</code></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Attributes">Attributes</h2>
+<table class="standard-table" style="width: auto;">
+  <tbody>
+    <tr>
+      <td class="header">Attribute</td>
+      <td class="header">Type</td>
+      <td class="header">Description</td>
+    </tr>
+    <tr>
+      <td><code>altKey</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code> if the Alt (or Option, on Mac) key was active when the key event was generated. <strong>Read only.</strong></td>
+    </tr>
+    <tr>
+      <td><code>char</code></td>
+      <td><a href="/en/DOMString" title="en/DOMString"><code>DOMString</code></a></td>
+      <td>
+        <p>The character value of the key. If the key corresponds to a printable character, this value is a non-empty Unicode string containing that character. If the key doesn't have a printable representation, this is an empty string. See <a href="/en/DOM/KeyboardEvent#Key_names_and_Char_values" title="en/DOM/KeyboardEvent#Key_names_and_Char_values">key names and char values</a> for the detail. <strong>Read only.</strong></p>
+        <div class="note">
+          <strong>Note:</strong> If the key is used as a macro that inserts multiple characters, this attribute's value is the entire string, not just the first character.</div>
+        <div class="geckoVersionNote" style="">
+          <p class="note"></p><div class="geckoVersionHeading">Gecko note: Not yet implemented; see <a class="external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=680830" title="Implement DOM3 KeyboardEvent.key">bug&nbsp;680830</a>.</div><p></p>
+          <p class="note">This attribute is not implemented in Gecko at this time.</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>charCode</code> <span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></td>
+      <td><code>unsigned long</code></td>
+      <td>
+        <p>The Unicode reference number of the key; this attribute is used only by the <code>keypress</code>&nbsp;event. For keys whose <code>char</code> attribute contains multiple characters, this is the Unicode value of the first character in that attribute. <strong>Read only.</strong></p>
+        <div class="warning">
+          <strong>Warning:</strong> This attribute is deprecated; you should use <code>char</code> instead, if available.</div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>ctrlKey</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code> if the Control key was active when the key event was generated. <strong>Read only.</strong></td>
+    </tr>
+    <tr>
+      <td><code>key</code></td>
+      <td><a href="/en/DOMString" title="en/DOMString"><code>DOMString</code></a></td>
+      <td>
+        <p>The key value of the key represented by the event. If the value has a printed representation, this attribute's value is the same as the <code>char</code> attribute. Otherwise, it's one of the key value strings specified in <a href="#Key_values">Key values</a>. If the key can't be identified, this is the string "Unidentified". See <a href="/en/DOM/KeyboardEvent#Key_names_and_Char_values" title="en/DOM/KeyboardEvent#Key_names_and_Char_values">key names and char values</a> for the detail. <strong>Read only.</strong></p>
+        <div class="geckoVersionNote" style="">
+          <p class="note"></p><div class="geckoVersionHeading">Gecko note: Not yet implemented; see <a class="external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=680830" title="Implement DOM3 KeyboardEvent.key">bug&nbsp;680830</a>.</div><p></p>
+          <p class="note">This attribute is not implemented in Gecko at this time.</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>keyCode</code> <span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></td>
+      <td>
+        <p><code>unsigned long</code></p>
+      </td>
+      <td>
+        <p>A system and implementation dependent numerical code identifying the unmodified value of the pressed key. This is usually the decimal ASCII (<a class="external" href="http://tools.ietf.org/html/20">RFC 20</a>) or Windows 1252 code corresponding to the key; see <a href="#Virtual_key_codes">Virtual key codes</a>&nbsp;for a list of common values. If the key can't be identified, this value is 0. <strong>Read only.</strong></p>
+        <div class="warning">
+          <strong>Warning:</strong> This attribute is deprecated; you should use <code>key</code> instead, if available.</div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>locale</code></td>
+      <td><a href="/en/DOMString" title="en/DOMString"><code>DOMString</code></a></td>
+      <td>
+        <p>A locale string indicating the locale the keyboard is configured for. This may be the empty string if the browser or device doesn't know the keyboard's locale. <strong>Read only.</strong></p>
+        <div class="note">
+          <strong>Note:</strong> This does not describe the locale of the data being entered. A user may be using one keyboard layout while typing text in a different language.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p><code><a></a></code><a><code>location </code><span class="inlineIndicator domLevel domLevelInline">DOM level 3</span> </a></p>
+      </td>
+      <td><code>unsigned long</code></td>
+      <td>
+        <p>The location of the key on the keyboard or other input device; see <a href="#Key_location_constants">Key location constants</a> below. <strong>Read only.</strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>metaKey</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code> if the Meta (or Command, on Mac) key was active when the key event was generated. <strong>Read only.</strong></td>
+    </tr>
+    <tr>
+      <td><code>repeat</code></td>
+      <td><code>boolean</code></td>
+      <td>
+        <p>true if the key is being held down such that it is automatically repeating. <strong>Read only.</strong></p>
+        <div class="geckoVersionNote" style="">
+          <p class="note"></p><div class="geckoVersionHeading">Gecko note: Not yet implemented; see <a class="external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=600117" title="FIXED: Implement DOM3 KeyboardEvent.repeat">bug&nbsp;600117</a>.</div><p></p>
+          <p class="note">This attribute is not implemented in Gecko at this time.</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>shiftKey</code></td>
+      <td><code>boolean</code></td>
+      <td><code>true</code> if the Shift key was active when the key event was generated. <strong>Read only.</strong></td>
+    </tr>
+    <tr>
+      <td><code>which</code> <span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span></td>
+      <td><code>unsigned long</code></td>
+      <td>
+        <p>A system and implementation dependent numeric code identifying the unmodified value of the pressed key; this is usually the same as <code>keyCode</code>. <strong>Read only.</strong></p>
+        <div class="warning">
+          <strong>Warning:</strong> This attribute is deprecated; you should use <code>key</code> instead, if available.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Constants">Constants</h2>
+<h3 id="Virtual_key_codes">Virtual key codes</h3>
+<p></p><div class="overheadIndicator deprecated deprecatedHeader"> 
+			<p><strong>不推荐</strong><br></p> 
+		</div><p></p>
+<p>These constants represent virtual key codes as reported by the deprecated <code>keyCode</code> attribute; that is, keys that do not correspond to printable characters. The diagram below represents a standard ANSI&nbsp;US&nbsp;keyboard; Mac and most PC keyboards have the same layout for the printable characters, and a similar layout for the remaining keys.</p>
+<p><img alt="" src="/@api/deki/files/5589/=KB_United_States.svg"></p>
+<p>Starting in Gecko 15 (Firefox 15.0 / Thunderbird 15.0 / SeaMonkey 2.12), Gecko decides keycode by following rules for printable keys:</p>
+<ol>
+  <li>If the system is Windows and native keycode of pressed key indicates that the key is a-z or 0-9, uses a keycode for it.</li>
+  <li>If the system is Mac and native keycode of pressed key indicates that the key is 0-9, uses a keycode for it.</li>
+  <li>If pressed key inputs an ASCII alphabet or numeric with no modifier key, uses a keycode for it.</li>
+  <li>If pressed key inputs an ASCII alphabet or numeric with Shift key, uses a keycode for it.</li>
+  <li>If pressed key inputs another ASCII character with no modifier key, uses a keycode for it.</li>
+  <li>If pressed key inputs another ASCII character with Shift key, users a keycode for it.</li>
+  <li>Otherwise, i.e., pressed key inputs a Unicode character:
+    <ol>
+      <li>If the keyboard layout is ASCII capable keyboard layout (i.e., can input ASCII alphabets), uses 0.</li>
+      <li>Otherwise, i.e., the keyboard layout isn't ASCII capable, using ASCII capable keyboard layout which is installed on the environment and has highest priority:
+        <ol>
+          <li>If pressed key on the alternative keyboard layout inputs an ASCII alphabet or numeric, uses a keycode for it.</li>
+          <li>Otherwise, uses 0.</li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+<div class="note">
+  <strong>Note:</strong> Web developers shouldn't use keycode attribute of printable keys in keydown and keyup event handlers. As described above, keycode is not usable for checking character which will be inputted especially when Shift key or AltGr key is pressed. When web developers implement shortcut key handler, keypress event is better event for that purpose on Gecko at least. See <a href="/en/Gecko_Keypress_Event" title="en/Gecko_Keypress_Event">Gecko Keypress Event</a> for the detail.</div>
+<table class="standard-table" style="width: auto;">
+  <tbody>
+    <tr>
+      <td class="header">Constant</td>
+      <td class="header">Value</td>
+      <td class="header">Description</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CANCEL</code></td>
+      <td>3</td>
+      <td>Cancel key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_HELP</code></td>
+      <td>6</td>
+      <td>Help key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_BACK_SPACE</code></td>
+      <td>8</td>
+      <td>退格键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_TAB</code></td>
+      <td>9</td>
+      <td>Tab键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CLEAR</code></td>
+      <td>12</td>
+      <td>"5" key on Numpad when NumLock is unlocked. Or on Mac, clear key which is positioned at NumLock key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_RETURN</code></td>
+      <td>13</td>
+      <td>Return/enter key on the main keyboard.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_ENTER</code></td>
+      <td>14</td>
+      <td>Reserved, but not used.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SHIFT</code></td>
+      <td>16</td>
+      <td>Shift 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CONTROL</code></td>
+      <td>17</td>
+      <td>Ctrl 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_ALT</code></td>
+      <td>18</td>
+      <td>Alt 键(Mac上为Option 键).</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PAUSE</code></td>
+      <td>19</td>
+      <td>Pause key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CAPS_LOCK</code></td>
+      <td>20</td>
+      <td>Caps lock.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_ESCAPE</code></td>
+      <td>27</td>
+      <td>Escape 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SPACE</code></td>
+      <td>32</td>
+      <td>空格键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PAGE_UP</code></td>
+      <td>33</td>
+      <td>Page Up key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PAGE_DOWN</code></td>
+      <td>34</td>
+      <td>Page Down key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_END</code></td>
+      <td>35</td>
+      <td>End key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_HOME</code></td>
+      <td>36</td>
+      <td>Home key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_LEFT</code></td>
+      <td>37</td>
+      <td>Left arrow.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_UP</code></td>
+      <td>38</td>
+      <td>Up arrow.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_RIGHT</code></td>
+      <td>39</td>
+      <td>Right arrow.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_DOWN</code></td>
+      <td>40</td>
+      <td>Down arrow.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SELECT</code></td>
+      <td>41</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PRINT</code></td>
+      <td>42</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_EXECUTE</code></td>
+      <td>43</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PRINTSCREEN</code></td>
+      <td>44</td>
+      <td>Print Screen key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_INSERT</code></td>
+      <td>45</td>
+      <td>Ins(ert) key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_DELETE</code></td>
+      <td>46</td>
+      <td>Del(ete)&nbsp;key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_0</code></td>
+      <td>48</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_1</code></td>
+      <td>49</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_2</code></td>
+      <td>50</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_3</code></td>
+      <td>51</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_4</code></td>
+      <td>52</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_5</code></td>
+      <td>53</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_6</code></td>
+      <td>54</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_7</code></td>
+      <td>55</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_8</code></td>
+      <td>56</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_9</code></td>
+      <td>57</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_COLON</code></td>
+      <td>58</td>
+      <td>Colon (":") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SEMICOLON</code></td>
+      <td>59</td>
+      <td>Semicolon (";") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_LESS_THAN</code></td>
+      <td>60</td>
+      <td>Less-than ("&lt;") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_EQUALS</code></td>
+      <td>61</td>
+      <td>Equals ("=") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_GREATER_THAN</code></td>
+      <td>62</td>
+      <td>Greater-than ("&gt;") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_QUESTION_MARK</code></td>
+      <td>63</td>
+      <td>Question mark ("?") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_AT</code></td>
+      <td>64</td>
+      <td>Atmark ("@") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_A</code></td>
+      <td>65</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_B</code></td>
+      <td>66</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_C</code></td>
+      <td>67</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_D</code></td>
+      <td>68</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_E</code></td>
+      <td>69</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F</code></td>
+      <td>70</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_G</code></td>
+      <td>71</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_H</code></td>
+      <td>72</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_I</code></td>
+      <td>73</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_J</code></td>
+      <td>74</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_K</code></td>
+      <td>75</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_L</code></td>
+      <td>76</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_M</code></td>
+      <td>77</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_N</code></td>
+      <td>78</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_O</code></td>
+      <td>79</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_P</code></td>
+      <td>80</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_Q</code></td>
+      <td>81</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_R</code></td>
+      <td>82</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_S</code></td>
+      <td>83</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_T</code></td>
+      <td>84</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_U</code></td>
+      <td>85</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_V</code></td>
+      <td>86</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_W</code></td>
+      <td>87</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_X</code></td>
+      <td>88</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_Y</code></td>
+      <td>89</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_Z</code></td>
+      <td>90</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CONTEXT_MENU</code></td>
+      <td>93</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD0</code></td>
+      <td>96</td>
+      <td>0 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD1</code></td>
+      <td>97</td>
+      <td>1 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD2</code></td>
+      <td>98</td>
+      <td>2 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD3</code></td>
+      <td>99</td>
+      <td>3 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD4</code></td>
+      <td>100</td>
+      <td>4 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD5</code></td>
+      <td>101</td>
+      <td>5 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD6</code></td>
+      <td>102</td>
+      <td>6 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD7</code></td>
+      <td>103</td>
+      <td>7 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD8</code></td>
+      <td>104</td>
+      <td>8 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUMPAD9</code></td>
+      <td>105</td>
+      <td>9 on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_MULTIPLY</code></td>
+      <td>106</td>
+      <td>* on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_ADD</code></td>
+      <td>107</td>
+      <td>+ on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SEPARATOR</code></td>
+      <td>108</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SUBTRACT</code></td>
+      <td>109</td>
+      <td>- on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_DECIMAL</code></td>
+      <td>110</td>
+      <td>Decimal point on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_DIVIDE</code></td>
+      <td>111</td>
+      <td>/ on the numeric keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F1</code></td>
+      <td>112</td>
+      <td>F1 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F2</code></td>
+      <td>113</td>
+      <td>F2 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F3</code></td>
+      <td>114</td>
+      <td>F3 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F4</code></td>
+      <td>115</td>
+      <td>F4 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F5</code></td>
+      <td>116</td>
+      <td>F5 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F6</code></td>
+      <td>117</td>
+      <td>F6 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F7</code></td>
+      <td>118</td>
+      <td>F7 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F8</code></td>
+      <td>119</td>
+      <td>F8 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F9</code></td>
+      <td>120</td>
+      <td>F9 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F10</code></td>
+      <td>121</td>
+      <td>F10 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F11</code></td>
+      <td>122</td>
+      <td>F11 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F12</code></td>
+      <td>123</td>
+      <td>F12 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F13</code></td>
+      <td>124</td>
+      <td>F13 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F14</code></td>
+      <td>125</td>
+      <td>F14 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F15</code></td>
+      <td>126</td>
+      <td>F15 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F16</code></td>
+      <td>127</td>
+      <td>F16 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F17</code></td>
+      <td>128</td>
+      <td>F17 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F18</code></td>
+      <td>129</td>
+      <td>F18 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F19</code></td>
+      <td>130</td>
+      <td>F19 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F20</code></td>
+      <td>131</td>
+      <td>F20 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F21</code></td>
+      <td>132</td>
+      <td>F21 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F22</code></td>
+      <td>133</td>
+      <td>F22 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F23</code></td>
+      <td>134</td>
+      <td>F23 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_F24</code></td>
+      <td>135</td>
+      <td>F24 键.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NUM_LOCK</code></td>
+      <td>144</td>
+      <td>Num Lock key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SCROLL_LOCK</code></td>
+      <td>145</td>
+      <td>Scroll Lock key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CIRCUMFLEX</code></td>
+      <td>160</td>
+      <td>Circumflex ("^") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_EXCLAMATION</code></td>
+      <td>161</td>
+      <td>Exclamation ("!") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_DOUBLE_QUOTE</code></td>
+      <td>162</td>
+      <td>Double quote (""") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_HASH</code></td>
+      <td>163</td>
+      <td>Hash ("#") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_DOLLAR</code></td>
+      <td>164</td>
+      <td>Dollar sign ("$") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PERCENT</code></td>
+      <td>165</td>
+      <td>Percent ("%") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_AMPERSAND</code></td>
+      <td>166</td>
+      <td>Ampersand ("&amp;") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_UNDERSCORE</code></td>
+      <td>167</td>
+      <td>Underscore ("_") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_OPEN_PAREN</code></td>
+      <td>168</td>
+      <td>Open parenthesis ("(") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CLOSE_PAREN</code></td>
+      <td>169</td>
+      <td>Close parenthesis (")") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_ASTERISK</code></td>
+      <td>170</td>
+      <td>Asterisk ("*") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PLUS</code></td>
+      <td>171</td>
+      <td>Plus ("+") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PIPE</code></td>
+      <td>172</td>
+      <td>Pipe ("|") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_HYPHEN_MINUS</code></td>
+      <td>173</td>
+      <td>Hyphen/Minus ("-") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_OPEN_CURLY_BRACKET</code></td>
+      <td>174</td>
+      <td>Open curly bracket ("{") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CLOSE_CURLY_BRACKET</code></td>
+      <td>175</td>
+      <td>Close curly bracket ("}") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_TILDE</code></td>
+      <td>176</td>
+      <td>Tilde ("~") key. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_COMMA</code></td>
+      <td>188</td>
+      <td>Comma (",") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PERIOD</code></td>
+      <td>190</td>
+      <td>Period (".") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SLASH</code></td>
+      <td>191</td>
+      <td>Slash ("/") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_BACK_QUOTE</code></td>
+      <td>192</td>
+      <td>Back tick ("`") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_OPEN_BRACKET</code></td>
+      <td>219</td>
+      <td>Open square bracket ("[") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_BACK_SLASH</code></td>
+      <td>220</td>
+      <td>Back slash ("\") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CLOSE_BRACKET</code></td>
+      <td>221</td>
+      <td>Close square bracket ("]") key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_QUOTE</code></td>
+      <td>222</td>
+      <td>Quote (''') key.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_META</code></td>
+      <td>224</td>
+      <td>Command key on Mac.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_ALTGR</code></td>
+      <td>225</td>
+      <td>AltGr key on Linux. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_WIN</code></td>
+      <td>91</td>
+      <td>Windows logo key on Windows. Or Super or Hyper key on Linux. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_KANA</code></td>
+      <td>21</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_HANGUL</code></td>
+      <td>21</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_EISU</code></td>
+      <td>22</td>
+      <td>"英数" key on Japanese Mac keyboard. </td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_JUNJA</code></td>
+      <td>23</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_FINAL</code></td>
+      <td>24</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_HANJA</code></td>
+      <td>25</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_KANJI</code></td>
+      <td>25</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_CONVERT</code></td>
+      <td>28</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_NONCONVERT</code></td>
+      <td>29</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_ACCEPT</code></td>
+      <td>30</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_MODECHANGE</code></td>
+      <td>31</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SELECT</code></td>
+      <td>41</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_PRINT</code></td>
+      <td>42</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_EXECUTE</code></td>
+      <td>43</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_VK_SLEEP</code></td>
+      <td>95</td>
+      <td>Linux support for this keycode was added in Gecko 4.0.</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="Key_location_constants">Key location constants</h3>
+<p>These constants describe the <code>location</code> on the keyboard of key events. <span class="inlineIndicator domLevel domLevelInline">DOM level 3</span> </p>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td class="header">Constant</td>
+      <td class="header">Value</td>
+      <td class="header">Description</td>
+    </tr>
+    <tr>
+      <td><code>DOM_KEY_LOCATION_STANDARD</code></td>
+      <td>0</td>
+      <td>The key must not be distinguished between the left and right versions of the key, and was not pressed on the numeric keypad or a key that is considered to be part of the keypad.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_KEY_LOCATION_LEFT</code></td>
+      <td>1</td>
+      <td>The key was the left-hand version of the key; for example, this is the value of the <code>location</code> attribute when the left-hand Control key is pressed on a standard 101 key US&nbsp;keyboard. This value is only used for keys that have more that one possible location on the keyboard.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_KEY_LOCATION_RIGHT</code></td>
+      <td>2</td>
+      <td>The key was the right-hand version of the key; for example, this is the value of the <code>location</code> attribute when the right-hand Control key is pressed on a standard 101 key US&nbsp;keyboard. This value is only used for keys that have more that one possible location on the keyboard.</td>
+    </tr>
+    <tr>
+      <td><code>DOM_KEY_LOCATION_NUMPAD</code></td>
+      <td>3</td>
+      <td>
+        <p>The key was on the numeric keypad, or has a virtual key code that corresponds to the numeric keypad.</p>
+        <div class="note">
+          <strong>Note:</strong> When NumLock is locked, Gecko always returns <code>DOM_KEY_LOCATION_NUMPAD</code> for the keys on NumPad.&nbsp; Otherwise, when NumLock is unlocked and the keyboard actually has a numeric keypad, Gecko always returns <code>DOM_KEY_LOCATION_NUMPAD</code> too. On the other hand, if the keyboard doesn't have a keypad, such as on a notebook computer, some keys become Numpad only when NumLock is locked. When such keys fires key events, the location attribute value depends on the key. That is, it must not be <code>DOM_KEY_LOCATION_NUMPAD</code>.</div>
+        <div class="note">
+          <strong>Note:</strong> NumLock key's key events indicate <code>DOM_KEY_LOCATION_STANDARD</code> both on Gecko and Internet Explorer.</div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>DOM_KEY_LOCATION_MOBILE</code></td>
+      <td>4</td>
+      <td>
+        <p>The key was on a mobile device; this can be on either a physical keypad or a virtual keyboard.</p>
+        <div class="note">
+          <strong>Note: </strong>Gecko always returns <code>DOM_KEY_LOCATION_MOBILE</code> on Android, Maemo, and <a href="/en/Mozilla/Boot_to_Gecko" title="Boot to Gecko">Boot to Gecko</a>.</div>
+      </td>
+    </tr>
+    <tr>
+      <td><code>DOM_KEY_LOCATION_JOYSTICK</code></td>
+      <td>5</td>
+      <td>
+        <p>The key was a button on a game controller or a joystick on a mobile device.</p>
+        <div class="note">
+          <strong>Note: </strong>Gecko never fires trusted key events with <code>DOM_KEY_LOCATION_JOYSTICK</code> (See <a class="external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=756504" title="FIXED: Android D-pad and game controller key events should specify DOM_KEY_LOCATION_JOYSTICK">bug&nbsp;756504</a> for Android).</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Methods">Methods</h2>
+<h3 id="getModifierState()">getModifierState()</h3>
+<p>返回指定的修饰键的当前状态.&nbsp; <span class="inlineIndicator domLevel domLevelInline">DOM level 3</span> </p>
+<pre class="language-html">boolean getModifierState(
+&nbsp;&nbsp;in DOMString keyArg
+);
+</pre>
+<h6 id=".E5.8F.82.E6.95.B0">参数</h6>
+<dl>
+  <dt>
+    <code>keyArg</code></dt>
+  <dd>
+    A string identifying the modifier key whose value you wish to determine. This may be an implementation-defined value or one of:&nbsp;"Alt", "AltGraph", "CapsLock", "Control", "Fn", "Meta", "NumLock", "ScrollLock", "Shift", "SymbolLock", or "OS". Note that IE9 uses "Scroll" for "ScrollLock" and "Win" for "OS". If you use these older draft's name, Gecko's <code>getModifierState()</code> always returns <code>false</code>.</dd>
+</dl>
+<h6 id=".E8.BF.94.E5.9B.9E.E5.80.BC">返回值</h6>
+<p>如果指定的修饰键处于按下状态,则返回<code>true,</code>否则返回<code>false</code>.</p>
+<div class="note">
+  <table style="width: 100%;">
+    <caption>
+      在Gecko中,getModifierState()什么时候返回true</caption>
+    <thead>
+      <tr>
+        <th scope="row">&nbsp;</th>
+        <th scope="col">Windows</th>
+        <th scope="col">Linux (GTK)</th>
+        <th scope="col">Mac</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">"Alt"</th>
+        <td>Either Alt key or AltGr key pressed</td>
+        <td>按下Alt键</td>
+        <td>option key pressed</td>
+      </tr>
+      <tr>
+        <th scope="row">"AltGraph"</th>
+        <td>
+          <p>Both Alt and Ctrl keys are pressed, or AltGr key is pressed</p>
+        </td>
+        <td>按下AltGr键</td>
+        <td>option key pressed</td>
+      </tr>
+      <tr>
+        <th scope="row">"CapsLock"</th>
+        <td colspan="3" style="text-align: center;">During LED for Caps Lock turned on</td>
+      </tr>
+      <tr>
+        <th scope="row">"Control"</th>
+        <td>按下Ctrl键或者AltGr键</td>
+        <td>按下Ctrl 键</td>
+        <td>按下control 键</td>
+      </tr>
+      <tr>
+        <th scope="row">"Fn"</th>
+        <td colspan="3" style="background-color: rgb(211, 211, 211); text-align: center;"><em>不支持</em></td>
+      </tr>
+      <tr>
+        <th scope="row">"Meta"</th>
+        <td colspan="2" style="background-color: rgb(211, 211, 211); text-align: center;"><em>不支持</em></td>
+        <td>command key pressed</td>
+      </tr>
+      <tr>
+        <th scope="row">"NumLock"</th>
+        <td colspan="2" style="text-align: center;">During LED for Num Lock turned on</td>
+        <td>A key on numpad pressed</td>
+      </tr>
+      <tr>
+        <th scope="row">"ScrollLock"</th>
+        <td>During LED for Scroll Lock turned on</td>
+        <td>During LED for Scroll Lock turned on, but typically this isn't supported by platform</td>
+        <td style="background-color: rgb(211, 211, 211);"><em>Not supported</em></td>
+      </tr>
+      <tr>
+        <th scope="row">"Shift"</th>
+        <td colspan="3" rowspan="1" style="text-align: center;">Shift key pressed</td>
+      </tr>
+      <tr>
+        <th scope="row">"SymbolLock"</th>
+        <td colspan="3" style="background-color: rgb(211, 211, 211); text-align: center;"><em>Not supported</em></td>
+      </tr>
+      <tr>
+        <th scope="row">"OS"</th>
+        <td>Windows Logo key</td>
+        <td>Super key or Hyper key pressed (typically, mapped to Windows Logo key)</td>
+        <td style="background-color: rgb(211, 211, 211);"><em>Not supported</em></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>On the other platforms, "Alt", "Control" and "Shift" may be supported.</p>
+  <p>All modifiers are always supported for untrusted events on Gecko. This doesn't depend on the platform.</p>
+</div>
+<h3 id="initKeyboardEvent()">initKeyboardEvent()</h3>
+<p></p><div class="overheadIndicator deprecated deprecatedHeader"> 
+			<p><strong>不推荐</strong><br></p> 
+		</div><p></p>
+<p>Initializes the attributes of a keyboard event object. This method was introduced in draft of DOM Level 3 Events, but deprecated in newer draft. Gecko doesn't implement this method but there is similar one, see <a href="/en/DOM/event.initKeyEvent" title="en/DOM/event.initKeyEvent">initKeyEvent()</a>.</p>
+<pre class="language-html">void initKeyboardEvent(
+&nbsp;&nbsp;in DOMString typeArg,
+&nbsp;&nbsp;in boolean canBubbleArg,
+&nbsp;&nbsp;in boolean cancelableArg,
+&nbsp;&nbsp;in views::AbstractView viewArg,
+&nbsp;&nbsp;in DOMString charArg,
+&nbsp;&nbsp;in DOMString keyArg,
+&nbsp;&nbsp;in unsigned long locationArg,
+&nbsp;&nbsp;in DOMString modifiersListArg,
+&nbsp;&nbsp;in boolean repeat,
+&nbsp;&nbsp;in DOMString localeArg
+);
+</pre>
+<h6 id=".E5.8F.82.E6.95.B0">参数</h6>
+<dl>
+  <dt>
+    <code>typeArg</code></dt>
+  <dd>
+    The type of keyboard event; this will be one of <code>keydown</code>, <code>keypress</code>, or <code>keyup</code>.</dd>
+  <dt>
+    <code>canBubbleArg</code></dt>
+  <dd>
+    Whether or not the event can bubble.</dd>
+  <dt>
+    <code>cancelableArg</code></dt>
+  <dd>
+    Whether or not the event can be canceled.</dd>
+  <dt>
+    <code>viewArg</code></dt>
+  <dd>
+    ?</dd>
+  <dt>
+    <code>charArg</code></dt>
+  <dd>
+    The value of the char attribute.</dd>
+  <dt>
+    <code>keyArg</code></dt>
+  <dd>
+    The value of the key attribute.</dd>
+  <dt>
+    <code>locationArg</code></dt>
+  <dd>
+    The value of the location attribute.</dd>
+  <dt>
+    <code>modifiersListArg</code></dt>
+  <dd>
+    A whitespace-delineated list of modifier keys that should be considered to be active on the event's key. For example, specifying "Control Shift" indicates that the user was holding down the Control and Shift keys when pressing the key described by the event.</dd>
+  <dt>
+    <code>repeatArg</code></dt>
+  <dd>
+    The value of the repeat attribute.</dd>
+  <dt>
+    <code>localeArg</code></dt>
+  <dd>
+    The value of the locale attribute.</dd>
+</dl>
+<h2 id="Processing_of_key_events">Processing of key events</h2>
+<p>There are <code>keydown</code>, <code>keypress</code>, and <code>keyup</code> events. For most keys, Gecko dispatches a sequence of key events like this:</p>
+<ol>
+  <li>When the key is first depressed, the <code>keydown</code> event is sent.</li>
+  <li>If the key is not a modifier key, the <code>keypress</code> event is sent.</li>
+  <li>When the user releases the key, the <code>keyup</code> event is sent.</li>
+</ol>
+<h3 id="Special_cases">Special cases</h3>
+<p>Certain keys toggle the state of an&nbsp;LED indicator, such as Caps Lock, Num Lock, and Scroll Lock. On Windows and Linux, these keys dispatch only the <code>keydown</code> and <code>keyup</code> events. Note that on Linux, Firefox 12 and earlier also dispatched the <code>keypress</code> event for these keys.</p>
+<p>On Mac, however, Caps Lock dispatches only the <code>keydown</code> event due to a platform event model limitation. Num Lock on an external keyboard (that is, without needing to press the Fn key to generate the Num Lock key code) dispatches <code>keydown</code>, <code>keypress</code>, and <code>keyup</code>, but Num Lock and Scroll Lock generated using the Fn key doesn't dispatch any events at all. This inconsistent behavior is a bug; see <a class="external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=602812" title="FIXED: Inconsistency whether keypress event is dispatched or not of CapsLock, NumLock and ScrollLock keys">bug&nbsp;602812</a>.</p>
+<h3 id="Auto-repeat_handling">Auto-repeat handling</h3>
+<p>When a key is pressed and held down, it begins to auto-repeat. This results in a sequence of events similar to the following being dispatched:</p>
+<ol>
+  <li><code>keydown</code></li>
+  <li><code>keypress</code></li>
+  <li><code>keydown</code></li>
+  <li><code>keypress</code></li>
+  <li>&lt;&lt;repeating until the user releases the key&gt;&gt;</li>
+  <li><code>keyup</code></li>
+</ol>
+<p>This is what the DOM Level 3 specification says should happen. There are some caveats, however, as described below.</p>
+<h4 id="Auto-repeat_on_some_GTK.C2.A0environments_such_as_Ubuntu_9.4">Auto-repeat on some GTK&nbsp;environments such as Ubuntu 9.4</h4>
+<p>In some GTK-based environments, auto-repeat dispatches a native key-up event automatically during auto-repeat, and there's no way for Gecko to know the difference between a repeated series of keypresses and an auto-repeat. On those platforms, then, an auto-repeat key will generate the following sequence of events:</p>
+<ol>
+  <li><code>keydown</code></li>
+  <li><code>keypress</code></li>
+  <li><code>keyup</code></li>
+  <li><code>keydown</code></li>
+  <li><code>keypress</code></li>
+  <li><code>keyup</code></li>
+  <li>&lt;&lt;repeating until the user releases the key&gt;&gt;</li>
+  <li><code>keyup</code></li>
+</ol>
+<p>In these environments, unfortunately, there's no way for web content to tell the difference between auto-repeating keys and keys that are just being pressed repeatedly.</p>
+<h4 id="Auto-repeat_handling_prior_to_Gecko_4.0">Auto-repeat handling prior to Gecko 4.0</h4>
+<p>Before Gecko 4.0 , keyboard handling was less consistent across platforms.</p>
+<dl>
+  <dt>
+    Windows</dt>
+  <dd>
+    Auto-repeat behavior is the same as in Gecko 4.0 and later.</dd>
+  <dt>
+    Mac</dt>
+  <dd>
+    After the initial keydown event, only keypress events are sent until the keyup event occurs; the inter-spaced keydown events are not sent.</dd>
+  <dt>
+    Linux</dt>
+  <dd>
+    The event behavior depends on the specific platform. It will either behave like Windows or Mac depending on what the native event model does.</dd>
+</dl>
+<h2 id="Key_names_and_Char_values">Key names and Char values</h2>
+<table style="width: 100%;">
+  <caption>
+    key names and char values on Windows</caption>
+  <thead>
+    <tr>
+      <th scope="row"><a class="external" href="http://msdn.microsoft.com/en-us/library/dd375731%28v=VS.85%29.aspx" title="http://msdn.microsoft.com/en-us/library/dd375731%28v=VS.85%29.aspx">Virtual-Key Codes</a></th>
+      <th colspan="2" rowspan="1" scope="col">IE 9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><code>VK_LBUTTON (0x01)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_RBUTTON (0x02)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_CANCEL (0x03)</code></th>
+      <td><code>""</code></td>
+      <td><code>0x03</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MBUTTON (0x04)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_XBUTTON1 (0x05)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_XBUTTON2 (0x06)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BACK (0x08)</code></th>
+      <td><code>"Backspace"</code></td>
+      <td><code>0x08</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_TAB (0x09)</code></th>
+      <td><code>"Tab"</code></td>
+      <td><code>0x09</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_CLEAR (0x0C)</code></th>
+      <td><code>"Clear"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_RETURN (0x0D)</code></th>
+      <td><code>"Enter"</code></td>
+      <td><code>0x0A</code> for <code>keydown</code>,<br>
+        <code>0x0D</code> for <code>keypress</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SHIFT (0x10)</code></th>
+      <td><code>"Shift"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_CONTROL (0x11)</code></th>
+      <td><code>"Control"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MENU (0x12)</code></th>
+      <td><code>"Alt"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_PAUSE (0x13)</code></th>
+      <td><code>"Pause"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_CAPITAL (0x14)</code></th>
+      <td><code>"CapsLock"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_KANA,<br>
+        VK_HANGUEL,<br>
+        VK_HANGUL (0x15)</code></th>
+      <td><code>"KanaMode"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_JUNJA (0x17)</code></th>
+      <td><code>"JunjaMode"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_FINAL (0x18)</code></th>
+      <td><code>"HanjaMode"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_HANJA,<br>
+        VK_KANJI (0x19)</code></th>
+      <td><code>"KanjiMode"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_ESCAPE (0x1B)</code></th>
+      <td><code>"Esc"</code></td>
+      <td><code>0x1B</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_CONVERT (0x1C)</code></th>
+      <td><code>"Convert"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_NONCONVERT (0x1D)</code></th>
+      <td><code>"Nonconvert"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_ACCEPT (0x1E)</code></th>
+      <td><code>"Accept"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MODECHANGE (0x1F)</code></th>
+      <td><code>"ModeChange"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SPACE (0x20)</code></th>
+      <td><code>"Spacebar"</code></td>
+      <td>Depends on actual inputted character</td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_PRIOR (0x21)</code></th>
+      <td><code>"PageUp"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_NEXT (0x22)</code></th>
+      <td><code>"PageDown"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_END (0x23)</code></th>
+      <td><code>"End"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_HOME (0x24)</code></th>
+      <td><code>"Home"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LEFT (0x25)</code></th>
+      <td><code>"Left"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_UP (0x26)</code></th>
+      <td><code>"Up"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_RIGHT (0x27)</code></th>
+      <td><code>"Right"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_DOWN (0x28)</code></th>
+      <td><code>"Down"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SELECT (0x29)</code></th>
+      <td><code>"Select"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_PRINT (0x2A)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_EXECUTE (0x2B)</code></th>
+      <td><code>"Execute"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SNAPSHOT (0x2C)</code></th>
+      <td><code>"PrintScreen"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_INSERT (0x2D)</code></th>
+      <td><code>"Insert"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_DELETE (0x2E)</code></th>
+      <td><code>"Del"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_HELP (0x2F)</code></th>
+      <td><code>"Help"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LWIN (0x5B)</code></th>
+      <td><code>"Win"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_RWIN (0x5C)</code></th>
+      <td><code>"Win"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_APPS (0x5D)</code></th>
+      <td><code>"Apps"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SLEEP (0x5F)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_NUMPAD0 (0x60)</code> ～ <code>VK_NUMPAD9 (0x69)</code></th>
+      <td><code>"0" ～ "9"</code></td>
+      <td><code>"0" ～ "9"</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MULTIPLY (0x6A)</code></th>
+      <td><code>"Multiply"</code></td>
+      <td><code>"*"</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_ADD (0x6B)</code></th>
+      <td><code>"Add"</code></td>
+      <td><code>"+"</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SEPARATOR (0x6C)</code></th>
+      <td><code>"Separator"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SUBTRACT (0x6D)</code></th>
+      <td><code>"Subtract"</code></td>
+      <td><code>"-"</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_DECIMAL (0x6E)</code></th>
+      <td><code>"Decimal"</code></td>
+      <td><code>"."</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_DIVIDE (0x6F)</code></th>
+      <td><code>"Divide"</code></td>
+      <td><code>"/"</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_F1 (0x70)</code> ～ <code>VK_F24 (0x87)</code></th>
+      <td><code>"F1" ～ "F24"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_NUMLOCK (0x90)</code></th>
+      <td><code>"NumLock"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_SCROLL (0x91)</code></th>
+      <td><code>"Scroll"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LSHIFT (0xA0)</code></th>
+      <td><code>"Shift"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_RSHIFT (0xA1)</code></th>
+      <td><code>"Shift"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LCONTROL (0xA2)</code></th>
+      <td><code>"Control"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_RCONTROL (0xA3)</code></th>
+      <td><code>"Control"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LMENU (0xA4)</code></th>
+      <td><code>"Alt"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_RMENU (0xA5)</code></th>
+      <td><code>"Alt"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BROWSER_BACK (0xA6)</code></th>
+      <td><code>"BrowserBack"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BROWSER_FORWARD (0xA7)</code></th>
+      <td><code>"BrowserForward"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BROWSER_REFRESH (0xA8)</code></th>
+      <td><code>"BrowserRefresh"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BROWSER_STOP (0xA9)</code></th>
+      <td><code>"BrowserStop"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BROWSER_SEARCH (0xAA)</code></th>
+      <td><code>"BrowserSearch"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BROWSER_FAVORITES (0xAB)</code></th>
+      <td><code>"BrowserFavorites"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_BROWSER_HOME (0xAC)</code></th>
+      <td><code>"BrowserHome"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_VOLUME_MUTE (0xAD)</code></th>
+      <td><code>"VolumeMute"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_VOLUME_DOWN (0xAE)</code></th>
+      <td><code>"VolumeDown"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_VOLUME_UP (0xAF)</code></th>
+      <td><code>"VolumeUp"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MEDIA_NEXT_TRACK (0xB0)</code></th>
+      <td><code>"MediaNextTrack"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MEDIA_PREV_TRACK (0xB1)</code></th>
+      <td><code>"MediaPreviousTrack"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MEDIA_STOP (0xB2)</code></th>
+      <td><code>"MediaStop"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_MEDIA_PLAY_PAUSE (0xB3)</code></th>
+      <td><code>"MediaPlayPause"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LAUNCH_MAIL (0xB4)</code></th>
+      <td><code>"LaunchMail"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LAUNCH_MEDIA_SELECT (0xB5)</code></th>
+      <td><code>"SelectMedia"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LAUNCH_APP1 (0xB6)</code></th>
+      <td><code>"LaunchApplication1"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_LAUNCH_APP2 (0xB7)</code></th>
+      <td><code>"LaunchApplication2"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_PROCESSKEY (0xE5)</code></th>
+      <td><code>"Unidentified"</code> (tested without IME)</td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_PACKET (0xE7)</code></th>
+      <td><code>0x00 </code>(<code>null</code> character at 1st, tested without <code>SendInput()</code> API)</td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_ATTN (0xF6)</code></th>
+      <td><code>"Attn"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_CRSEL (0xF7)</code></th>
+      <td><code>"Crsel"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_EXSEL (0xF8)</code></th>
+      <td><code>"Exsel"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_EREOF (0xF9)</code></th>
+      <td><code>"EraseEof"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_PLAY (0xFA)</code></th>
+      <td><code>"Play"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_ZOOM (0xFB)</code></th>
+      <td><code>"Zoom"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_NONAME (0xFC)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_PA1 (0xFD)</code></th>
+      <td><code>"Unidentified"</code></td>
+      <td><code>null</code></td>
+    </tr>
+    <tr>
+      <th scope="row"><code>VK_OEM_CLEAR (0xFE)</code></th>
+      <td><code>"Clear"</code></td>
+      <td><code>null</code></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=".E8.A7.84.E8.8C.83">规范</h2>
+<p><a class="external" href="http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent" title="http://www.w3.org/TR/DOM-Level-3-Events/#events-KeyboardEvent">DOM&nbsp;3 Events:&nbsp;KeyboardEvent</a></p>
+<h2 id=".E4.BE.8B.E5.AD.90">例子</h2>
+<pre class="brush: html  language-html" data-number=""><code class=" language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token keyword">var</span> metaChar <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> exampleKey <span class="token operator">=</span> <span class="token number">16</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">keyEvent<span class="token punctuation">(</span></span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> key <span class="token operator">=</span> event<span class="token punctuation">.</span>keyCode <span class="token operator">||</span> event<span class="token punctuation">.</span>which<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> keychar <span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode<span class="token punctuation">(</span></span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> exampleKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      metaChar <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">!</span><span class="token operator">=</span> exampleKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>metaChar<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"Combination of metaKey + "</span> <span class="token operator">+</span> keychar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        metaChar <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"Key pressed "</span> <span class="token operator">+</span> key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">function</span> metaKeyUp <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> key <span class="token operator">=</span> event<span class="token punctuation">.</span>keyCode <span class="token operator">||</span> event<span class="token punctuation">.</span>which<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>key<span class="token operator">==</span>exampleKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      metaChar <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">onkeydown</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>keyEvent(event)<span class="token punctuation">"</span></span> <span class="token attr-name">onkeyup</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>metaKeyUp(event)<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div><div class="line-number" data-start="31" style="top: 570px;"></div><div class="line-number" data-start="32" style="top: 589px;"></div><div class="line-number" data-start="33" style="top: 608px;"></div><div class="line-number" data-start="34" style="top: 627px;"></div></code></pre>
+                                    </article>

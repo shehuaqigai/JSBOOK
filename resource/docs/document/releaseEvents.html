@@ -1,0 +1,46 @@
+<div id="wiki-content" class="column-half wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <div>
+  <span class="breadcrumbs domRef_breadcrumbs themeUpdated">«&nbsp;<a href="/zh-CN/docs/Gecko_DOM_Reference">DOM 参考</a></span> 
+ 
+ 
+<section class="Quick_links" id="Quick_Links"><!-- --></section> <div class="overheadIndicator obsolete obsoleteHeader"><p><strong>已废弃 Gecko 24 (Firefox 24 / Thunderbird 24 / SeaMonkey 2.21)</strong><br></p></div></div>
+<h2 id="Summary" name="Summary">概述</h2>
+<p>Releases the window from trapping events of a specific type.</p>
+<div class="geckoVersionNote">
+  <p></p><div class="geckoVersionHeading"> 
+Gecko 24 note 
+<div style="font-size: 9px; line-height: 1; font-style: italic;">(Firefox 24 / Thunderbird 24 / SeaMonkey 2.21)</div> 
+</div><p></p>
+  <p>This method had been considered <a href="/zh-CN/docs/Gecko_1.9_Changes_affecting_websites">deprecated since Gecko 1.9</a> (Firefox 3) in favor of W3C DOM Events methods (see <a class="new" href="/zh-CN/docs/Web/API/EventTarget.removeEventListener"><code>removeEventListener</code></a>). The support for this method has been <a href="/zh-CN/docs/Site_Compatibility_for_Firefox_24">removed from Gecko 24</a> (Firefox 24).</p>
+</div>
+<h2 id="Syntax" name="Syntax">语法</h2>
+<pre class="syntaxbox language-html" data-prism-prevent-line-number="1">window.releaseEvents(<i>eventType</i>) 
+</pre>
+<p><code>eventType</code> is a combination of the following values: <code>Event.ABORT</code>, <code>Event.BLUR</code>, <code>Event.CLICK</code>, <code>Event.CHANGE</code>, <code>Event.DBLCLICK</code>, <code>Event.DRAGDDROP</code>, <code>Event.ERROR</code>, <code>Event.FOCUS</code>, <code>Event.KEYDOWN</code>, <code>Event.KEYPRESS</code>, <code>Event.KEYUP</code>, <code>Event.LOAD</code>, <code>Event.MOUSEDOWN</code>, <code>Event.MOUSEMOVE</code>, <code>Event.MOUSEOUT</code>, <code>Event.MOUSEOVER</code>, <code>Event.MOUSEUP</code>, <code>Event.MOVE</code>, <code>Event.RESET</code>, <code>Event.RESIZE</code>, <code>Event.SELECT</code>, <code>Event.SUBMIT</code>, <code>Event.UNLOAD</code>.</p>
+<h2 id="Example" name="Example">示例</h2>
+<pre class="brush:js  language-js" data-number=""><code class=" language-js">window<span class="token punctuation">.</span><span class="token function">releaseEvents<span class="token punctuation">(</span></span>Event<span class="token punctuation">.</span>KEYPRESS<span class="token punctuation">)</span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre>
+<h2 id="Notes" name="Notes">附注</h2>
+<p>Note that you can pass a list of events to this method using the following syntax: <code>window.releaseEvents(Event.KEYPRESS | Event.KEYDOWN | Event.KEYUP)</code>.</p>
+<p>See also <a class="new" href="/zh-CN/docs/Web/API/window.captureEvents"><code>window.captureEvents</code></a> (<span title="This is an obsolete API and is no longer guaranteed to work."><i class="icon-trash"> </i></span>).</p>
+<h2 id="Specification" name="Specification">规范</h2>
+<p>DOM0</p>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a>,
+                  <time datetime="2013-05-19T20:10:35-07:00">May 19, 2013 8:10:35 PM</time>
+                </div>
+                          </div>
+                  </div>

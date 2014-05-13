@@ -1,0 +1,86 @@
+<p>
+	曾经有次在一个jQuery交流群里，有人问，能不能自定义事件，然后监听事件，比如监听一个变量的变化，当时我屁颠屁颠的给别人说，这个不大可能。现在正是为我当时的无知和逞能感到羞耻，以后再也不轻易的否定一个事情，除非我有完全的理由否定，自己不知道，不是否定的理由.
+
+下面我就来实现那次别人说到的自定义事件，监听某个变量的变化：
+
+标准浏览器（firefox,chrome,safari,opera等）的实现非常简单，自然，有一个document.createEvent()的函数来专门创建自定义事件，使用起来也很简单，等会儿看代码一看就明白了。
+
+
+var event = document.createEvent(type);
+
+event is the created Event object.
+type is a string that represents the type of event to be created. Possible event types include “UIEvents”, “MouseEvents”, “MutationEvents”, and “HTMLEvents”. See Notes section for details.
+简单的说来，自定义事件到激发这个事件，需要document.createEvent()，event.initEvent()，element.dispatchEvent()这三部，分别是创建事件对象，初始化事件对象，触发事件。先给个简单的例子。
+
+
+	function foo1(){
+		console.log("foo1 is execute");
+	}
+	function foo2(){
+		console.log("foo2 is execute");
+	}
+	var ev=document.createEvent('HTMLEvents');
+	ev.initEvent('fakeEvent',false,false);
+	document.addEventListener("fakeEvent",foo1,false);
+	document.addEventListener("fakeEvent",foo2,false);
+
+在标准浏览器里的console里执行 document.dispatchEvent(ev); 就可以看到console里显示出来了 foo1 is execute和 foo2 is execute
+
+自定义事件已经实现了，那么怎么实现监听某个变量的变化呢？我们可以使用一个特定的函数来给变量赋值，在这个函数中，除了执行给变量赋值的操作外，还激发事件。为了约束程序员直接对变量复制，使用下面的代码来强制程序员不能直接对该变量赋值
+
+
+var idChange=function(){
+		var id=1;
+		return {getId:function(){return id;},
+				setId:function(a){id=a;
+							document.dispatchEvent(ev);
+		         }}
+	}();
+
+这样就只能通过idChange.setId()的方法对id赋值，通过 idChange.getId()来获得id的值，并且在赋值的过程中激发事件。
+
+在标准浏览器里，现在已经实现了目标，遗憾的是IE并不支持document.createEvent()的方法，在JavaScript权威指南第五版中，作者给出IE支持的 document.createEventObject()和event.fireEvent()方法，但是经过测试，fireEvent并不能用于自定义事件，传给它的参数只能是在IE已经定义了的事件（MSDN文档写的不明不白的，看的很恼火）。在Dean Edwards的博客中看到了一个方法这里就直接拿来用了，性能方面值得考虑，请阅读这篇博客下面的评论部分，就会知道怎么改进这个方法的性能，为了方便，我这里直接用他博客中给的方法了，为了更直观，也添加了一个addLog()函数，来直接在页面中记录事件的发生， 为了配合addLog函数，页面中要有一个id为 log 的div ,具体代码如下：
+
+
+function foo1(){
+		addLog("foo1 is excute");
+	}
+	function foo2(){
+		addLog("the id is "+idChange.getId()+" now!");
+	}
+	if(document.createEvent){ //This is for the stand browser.
+		var ev=document.createEvent('HTMLEvents');
+		ev.initEvent('fakeEvent',false,false);
+		document.addEventListener("fakeEvent",foo1,false);
+		document.addEventListener("fakeEvent",foo2,false);
+	}else if(document.attachEvent){ //This is for the damn IE
+		document.documentElement.fakeEvents = 0; // an expando property
+		document.documentElement.attachEvent("onpropertychange", function(event) {
+			if (event.propertyName == "fakeEvents") {
+				foo1();
+			}
+		});
+		document.documentElement.attachEvent("onpropertychange",function(event){
+			if(event.propertyName == "fakeEvents"){
+				foo2();
+			}
+		});
+	}
+	function addLog(log){
+		var logDiv=document.getElementById('log');
+		var p=document.createElement("p");
+		p.appendChild(document.createTextNode(log));
+		logDiv.appendChild(p);
+	}
+	var idChange=function(){
+		var id=1;
+		return {getId:function(){return id;},
+				setId:function(a){
+               id=a;
+               if(document.dispatchEvent) document.dispatchEvent(ev);
+	       else if(document.attachEvent)     document.documentElement.fakeEvents++; //This for IE
+					}}
+	}();
+
+现在我们就已经实现了文章开头想要达到的需求，在浏览器地址栏里执行javascript:idChange.setId(8)就可以看见效果了。监听某个变量的变化了，你可能会想到，干嘛不直接在idChange.setId()中直接执行 foo1(),foo2(),是的，这样也可以实现，但是这样不是真正的事件，如果你在代码中多处需要注册监听器到这个自定义事件，并且随时需要取消注册，显然这种事件的方法更容易管理一些，另外事件还有另外的好处，代码更稳定，请参看上面给出的Dean Edwards的那篇博客Callbacks vs Events
+</p>

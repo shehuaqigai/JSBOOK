@@ -1,0 +1,70 @@
+
+<style type="text/css">
+	
+h2{
+
+	color:red;
+	background:black;
+	height:40px;
+
+}
+pre{
+
+	background:pink;
+	font-size:18px;
+}
+
+</style>
+
+
+
+
+
+<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/_franky/archive/2011/11/07/2238980.html">HTML5 performance API 草案.</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><div>
+<p><strong>支持浏览器</strong><strong>: IE9+,Chrome11+,Firefox7+.</strong></p>
+</div>
+<p>宿主对象window.performance. &nbsp;</p>
+<div>
+<p>参考w3c的标准草案:<a href="http://w3c-test.org/webperf/specs/NavigationTiming/" target="_blank">http://w3c-test.org/webperf/specs/NavigationTiming/</a></p>
+</div>
+<div>
+<p>目前,IE9+和 chrome11+,Firefox7+已经实现了该草案定义的接口.</p>
+</div>
+
+<p>
+	
+为了得到程序运行的准确信息，开发者需要一个高精度时间戳。
+Date对象的精度只能到毫秒级别，而高精度时间戳的精度可以到1毫秒的千分之一，这对于衡量的程序的细微差别，提高程序运行速度很有好处。
+
+高精度时间戳部署在浏览器内置的performance对象上。Chrome 20+、Firefox 15+、IE 10+、Opera 15+支持这个A
+ performance,仅能对当前的html文档做检测，所有的对象都和当前文档有关.   如果我们想检测某个图片资源的网络状况,则不行.   比如我们想监控，用户访问我们服务的状况，就只能创建一个iframe, url为我们服务某个地址(除非用户访问的当前页，就是我们要监控的对象.). 然后才可以监控这次一次请求的网络状态等等.   所以建议如果可以考虑使用performance,做监控，则需要有 抽样、时间点等监控机制. 否则给服务器带来额外压力，得不偿失. 如果要监控其他资源，需要使用 ResourceTiming. 这套api. 
+
+</p>
+PI。
+
+<h2>performance有以下属性和方法</h2>
+
+<pre>
+memory: // MemoryInfo的实例对象
+navigation: // PerformanceNavigation实例对象
+onwebkitresourcetimingbufferfull: //缓存满时的事件
+timing: //PerformanceTiming实例对象
+now: //window.performance.now() 返回一个时间戳,以毫秒为单位,精确到千分之一毫秒.
+webkitClearMarks //clearMarks方法用于清除标记，如果不加参数，就表示清除所有标记。
+webkitClearMeasures  //删除measure关联
+webkitClearResourceTimings //清楚network的请求数据
+webkitGetEntries//performance.getEntries()方法返回一个resource timing objects
+webkitGetEntriesByName//返回指定名字的PerformanceResourceTiming 对象
+webkitGetEntriesByType ////返回指定类型的PerformanceResourceTiming 对象
+webkitMark //mark方法用于为相应的视点做标记
+webkitMeasure //设置measure关联
+webkitSetResourceTimingBufferSize//设置请求信息缓存大小
+toJSON//返回一个 对象，并抄写performance的可枚举成员到其中. 是的,timing,navigation都在上面. IE支持
+
+</pre>

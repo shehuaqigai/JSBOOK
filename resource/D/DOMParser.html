@@ -1,0 +1,47 @@
+<div id="maincontent">
+
+<h1>XML DOM - DOMParser 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_domimplementation.asp" title="XML DOM Implementation 对象">DOM Implementation</a></li>
+<li class="next"><a href="/xmldom/dom_element.asp" title="XML DOM Element 对象">DOM Element</a></li>
+</ul>
+</div>
+
+<div id="intro">
+<p><strong>解析 XML 标记来创建一个文档。</strong></p>
+</div>
+
+<div>
+<h3>构造函数</h3>
+<pre>new DOMParser()</pre>
+
+<h3>说明</h3>
+<p>DOMParser 对象解析 XML 文本并返回一个 <a href="/xmldom/dom_document.asp" title="XML DOM - Document 对象">XML Document 对象</a>。要使用 DOMParser，使用不带参数的构造函数来实例化它，然后调用其 parseFromString() 方法：</p>
+<pre>var doc = (new DOMParser()).parseFromString(<i>text</i>)</pre>
+<p>IE 不支持 DOMParser 对象。相反，它支持使用 <a href="/xmldom/met_document_loadxml.asp" title="XML DOM loadXML() 方法">Document.loadXML()</a> 的 XML 解析。</p>
+<p>注意，XMLHttpRequest 对象也可以解析 XML 文档。参阅 XMLHttpRequest 的 <a href="/xmldom/dom_http.asp#responseXML" title="responseXML">responseXML</a> 属性。</p>
+</div>
+
+<div>
+<h2><a id="parseFromString">DOMParser.parseFromString()</a></h2>
+<p>解析 XML 标记</p>
+
+<h3>语法</h3>
+<pre>parseFromString(text, contentType)</pre>
+
+<p>text 参数是要解析的 XML 标记。</p>
+<p>contentType 是文本的内容类型。可能是 "text/xml" 、"application/xml" 或 "application/xhtml+xml" 中的一个。注意，不支持 "text/html"。</p>
+
+<h3>返回值</h3>
+<p>保存 <i>text</i> 解析后表示的一个 <a href="/xmldom/dom_document.asp" title="XML DOM - Document 对象">Document 对象</a>。参阅 <a href="/xmldom/met_document_loadxml.asp" title="XML DOM loadXML() 方法">Document.loadXML()</a>，了解这个方法的一个特定于 IE 的替代。</p>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_domimplementation.asp" title="XML DOM Implementation 对象">DOM Implementation</a></li>
+<li class="next"><a href="/xmldom/dom_element.asp" title="XML DOM Element 对象">DOM Element</a></li>
+</ul>
+</div>
+</div>

@@ -1,0 +1,37 @@
+<article class="entry post clearfix">
+					<span class="post-meta">Tue<span>05</span></span>
+				
+		<h1 class="main_title">[译]JavaScript文件操作(4)-URL对象</h1>
+		
+		<p class="meta">Posted  by <a href="http://www.iunbug.com/archives/author/admin" title="Posts by unbug" rel="author">unbug</a> on Jun 5, 2012 in <a href="http://www.iunbug.com/archives/category/web/html5" title="View all posts in HTML5" rel="category tag">HTML5</a> | <span class="comments-number"><a href="http://www.iunbug.com/archives/2012/06/05/254.html#respond">0 comments</a></span></p>
+		<div class="post-content clearfix">
+									
+			<div class="entry_content">
+				<p>从这系列的以上文章中，你已经学到以传统的方式使用文件。你可以上传文件到服务器，可以从硬盘中读取文件。这些都是最普遍的操作文件的方式。然而，还有一个全新的方式让你能简化任务，就是使用 URL 对象。</p>
+<h2>何为 URL对象?</h2>
+<p>URL对象是硬盘上指向文件的URL。例如，你想在页面上显示用户系统里的一张图片，服务器不必知道对应文件，当然也不用上传它。你只需在页面中加载它即可。是的，前面的文章中提到，获取文件的引用，读取&nbsp;data URI，然后赋值给一个&nbsp;<code>&lt;img&gt;</code>&nbsp;元素。不过细想其中多浪费：图片原本就在硬盘上，还要转换成另一个格式再用之？如果你创建一个URL对象，你可以直接赋值给&nbsp;<code>&lt;img&gt;</code>&nbsp;元素而后直接加载文件。</p>
+<p><img title="More..." src="http://www.iunbug.com/wp-includes/js/tinymce/plugins/wordpress/img/trans.gif" alt=""><span id="more-254"></span></p>
+<h2>它是如何工作的?</h2>
+<p><cite>File API</cite><sup>[1]</sup>&nbsp;定义了一个全局的&nbsp;<code>URL 对象其有两个方法</code>&nbsp;。&nbsp;<code>createObjectURL()方法，是接收一个文件的引用返回一个URL对象。这是通知浏览器来创建和管理一个URL来加载文件。</code>&nbsp;<code>revokeObjectURL()方法，则是销毁创建的URL，有效果释放内存。当然，所有的URL对象将在浏览器重新载入时全部被销毁，也有助于释放它们占用的内存。</code></p>
+<p><code>要支持URL</code>&nbsp;对象目前并没有像<cite>File API&nbsp;</cite>的其他部分一样乐观。写此文的时候IE 10+ 和 Firefox 9+ 都支持全局&nbsp;<code>URL</code>&nbsp;对象。Chrome 则支持<code>webkitURL</code>， Safari 和Opera 尚未支持。</p>
+<h2>实例</h2>
+<p>那么，你如何不读取图片硬盘上的资源就直接显示呢?假设你有一种方式让用户选择了文件，然后你就有了文件的引用并保存到变量file中，然后你就可以使用下面的方法了：</p>
+<div><div id="highlighter_770666" class="syntaxhighlighter  jscript"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="jscript keyword">var</code> <code class="jscript plain">URL = window.URL || window.webkitURL,</code></div><div class="line number2 index1 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">imageUrl,</code></div><div class="line number3 index2 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">image;</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="jscript keyword">if</code> <code class="jscript plain">(URL) {</code></div><div class="line number6 index5 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">imageUrl = URL.createObjectURL(file);</code></div><div class="line number7 index6 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">image = document.createElement(</code><code class="jscript string">"img"</code><code class="jscript plain">);</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">image.onload = </code><code class="jscript keyword">function</code><code class="jscript plain">() {</code></div><div class="line number10 index9 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">URL.revokeObjectURL(imageUrl);</code></div><div class="line number11 index10 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">image.src = imageUrl;</code></div><div class="line number14 index13 alt1"><code class="jscript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">document.body.appendChild(image);</code></div><div class="line number15 index14 alt2"><code class="jscript plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>本例的&nbsp;<code>URL</code>&nbsp;变量是原生浏览器对象的一个引用，假设浏览器支持URL对象，URL通过file创建一个对象赋值给imageUrl变量。<code>&lt;img&gt;</code>&nbsp;元素的<code>onload</code>&nbsp;事件触发后将销毁URL 对象(一分钟内)，接着，给src属性赋值后将&lt;img&gt;追加到页面上（你也可以使用一个页面上已有的&lt;img&gt;元素的）。</p>
+<p>为什么要在图片加载完成后销毁URL对象呢？因为图片载入后URL对象已经无用了，如果还要用于其他元素则可以保留。本例中只用于一个&lt;img&gt;元素，没有其他用途了，所以图片加载完销毁它是最佳内存释放时机。</p>
+<h2>安全和其他问题</h2>
+<p>乍一看，这个功能有点可怕。事实上你是通过一个URL从用户的硬盘上加载的文件。没错，显然这个功能有安全隐患。URL由于是浏览动态产生的本身安全问题不大而且在其他电脑上无效。但是跨源（cross-origin）呢？</p>
+<p><cite>File API</cite>&nbsp;禁止不同源上使用URL对象。当创建一个URL后，它与执行JS的页面已经绑定，因此你不能将<code>www.wrox.com</code>&nbsp;上的URL对象应用到<code>p2p.wrox.com</code>&nbsp;(会报错)上。 不过，两个来自&nbsp;<code>www.wrox.com的页面，如果一个页面通过iframe被嵌在另一个页面中,则可以共享URL对象。</code></p>
+<p>URL对象的生命周期取决于页面，页面卸载后就会被销毁，因此，通过data storage将URL对象是没法保存在客户端供今后使用的，页面卸载后都被销毁掉的。</p>
+<p>当你使用URL对象时，浏览器会发出一个GET请求，类似于images, scripts, web workers, style sheets, audio, video。你是没法使用URL对象的同时让浏览器发出POST请求的。比如<code>&lt;form&gt;</code>&nbsp;设置<code>method</code>&nbsp;成 “post”的效果.</p>
+<h2>下期预告</h2>
+<p>创建URL对象来连接到本地文件是非常强大的功能。比起读到本的文件然后保存到JS里再显示到页面上，你已可以轻松的创建一个URL直接指向它即可。但是，用JS操作文件只是刚刚开始，下篇文章你将会学到其他有趣的方法来操作文件的数据。</p>
+<h2>参考资料</h2>
+<ol>
+<li><a href="http://www.w3.org/TR/FileAPI/">File API</a></li>
+</ol>
+<p>Disclaimer: Any viewpoints and opinions expressed in this article are those of Nicholas C. Zakas and do not, in any way, reflect those of my employer, my colleagues,&nbsp;<a href="http://www.wrox.com/">Wrox Publishing</a>,&nbsp;<a href="http://www.oreilly.com/">O’Reilly Publishing</a>, or anyone else. I speak only for myself, not for them.</p>
+<p><a href="http://www.nczonline.net/blog/2012/05/31/working-with-files-in-javascript-part-4-object-urls/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+nczonline+%28NCZOnline+-+The+Official+Web+Site+of+Nicholas+C.+Zakas%29">原文</a></p>
+											</div> <!-- end .entry_content -->
+		</div> <!-- end .post-content -->
+	</article>

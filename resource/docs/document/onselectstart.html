@@ -1,0 +1,37 @@
+<p>
+	
+
+今天做一个拖动效果，在网上找了个模板，作发后发现一拖动就会选择其它页面部分，需要去除这个效果，
+找了个模板看了下发现有如下方法：只能被IE识别，
+document.onselectstart=function(){return false}
+优化后：（可能选择下拉列表框架）
+</p>
+<pre>
+	
+
+document.onselectstart = function(event){
+if(window.event) {
+event =    window.event;
+}
+try {
+var the = event.srcElement ;
+if( !( ( the.tagName== "INPUT" && the.type.toLowerCase() == "text" )
+ || the.tagName== "TEXTAREA" ) )
+{
+return false;
+}
+return true ;
+} catch(e) {
+return false;
+}
+}
+接着以找到用样式控制：
+            body     
+            {     
+                    -moz-user-focus:   ignore;     
+                    -moz-user-input:   disabled;     
+                    -moz-user-select:   none;     
+            }     
+可以兼容FireFox.
+最终解决。
+</pre>

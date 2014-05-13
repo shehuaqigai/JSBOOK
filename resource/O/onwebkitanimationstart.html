@@ -1,0 +1,59 @@
+<p>
+    
+
+在CSS 3中，可以通过使用keyframe样式属性与animation样式属性实现animation动画，使用transition样式属性实现transition动画。
+
+在WebKit引擎的浏览器（包括Chrome浏览器与Safari浏览器）中，存在与这两种动画功能相关的webkitAnimationEnd事件与webkitTransitionEnd事件，本文对这两个事件进行详细介绍。本文中不对CSS 3中的animation动画功能以及transition动画功能进行详细介绍，如果想更多了解这方面的知识，可以参阅笔者所著《HTML 5与CSS 3权威指南》,或点击此处报名参加我们所办的面向企业(可赴企业现场培训)或面向个人的培训班,为了保证学员真正掌握所学知识，参加培训后一年内，凡学员上机时遇到所学课程内的各种问题，可在本站“技术论坛”栏目内提出后由本站专门回答。
+
+在WebKit引擎的浏览器中，当CSS 3的animation动画执行结束时，触发webkitAnimationEnd事件,当CSS 3的transition动画执行结束时，触发webkitTransitionEnd事件。可以通过如下所示的代码捕捉这两个事件。
+
+//捕捉webkitAnimationEnd事件
+element.addEventListener('webkitAnimationEnd', end, false);
+//捕捉webkitTransitionEnd事件
+element.addEventListener('webkitTransitionEnd', end, false); 
+webkitAnimationEnd事件
+
+在WebKit引擎的浏览器中，当CSS 3的animation动画执行结束时，触发webkitAnimationEnd事件。在CSS 3中，使用如下所示的样式代码定义animation动画。
+
+.element{ 
+    -webkit-animation: anime 0.5s ease-in;
+}
+@-webkit-keyframes anime {
+    0% {
+        -webkit-transform: translate(0,0);
+        opacity: 0.1;
+    }
+    50% {
+        -webkit-transform: translate(100px,0);
+        opacity: 0.5;
+    }
+    100% {
+        -webkit-transform: translate(0,0);
+        opacity: 1;
+    }
+}
+上面这段代码执行功能为在0.5秒内将元素向右移动100像素后将其返回。我们可以在这个动画结束时触发的webkitAnimationEnd事件中执行一些代码，例如显示动画已执行结束，以及动画的执行次数。
+
+执行animation动画
+webkitTransitionEnd事件
+
+在WebKit引擎的浏览器中，当CSS 3的transition动画执行结束时，触发webkitTransitionEnd事件。在CSS 3中，使用如下所示的样式代码定义transition动画。
+
+.element{ -webkit-transition: all 0.25s ease-in; }
+.element.on{ -webkit-transform: translate(100px,0); }
+上面这段代码执行功能同样为在0.5秒内将元素向右移动100像素后将其返回。我们可以在这个动画结束时触发的webkitTransitionEnd事件中执行一些代码，例如显示动画已执行结束，以及动画的执行次数。
+
+执行transition动画
+从执行结果中我们可以看出,在每个动画的执行过程中,webkitTransitionEnd事件的触发次数比webkitAnimationEnd事件的触发次数多一次,这是因为webkitAnimationEnd事件只在元素向右移动,然后向左返回之后触发一次,而webkitTransitionEnd事件将在元素向右移动之后触发一次,在元素向左返回之后再触发一次。
+
+接下来，我们为元素多指定一个opacity(透明度）样式属性，代码如下所示：
+
+.element.on{
+    -webkit-transform: translate(100px,0);
+    opacity: 0.5;
+}
+然后将元素的transition样式属性值指定为all,然后观察执行一次动画时webkitTransitionEnd事件的触发次数。
+
+执行transition动画
+从执行结果中我们可以看出，如果多使用一个样式属性，在每个动画执行的过程中webkitTransitionEnd事件的触发次数将多增加两次。也就是说webkitTransitionEnd事件将在元素的每个样式属性值发生改变之后触发一次。
+</p>

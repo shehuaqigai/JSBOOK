@@ -1,0 +1,39 @@
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="http://www.cnblogs.com/xmphoenix/archive/2012/02/11/2347039.html">用JavaScript实现让浏览器停止载入页面</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>本想弄个判断页面载入时间，过长就不加载特效的JavaScript代码，不过还是有点缺陷，这里就记录下来吧。   <br>IE浏览器用document.execCommand("Stop")，Chrome和Firefox用window.stop()（顺便说下，这是JavaScript标准中定义的方法），写在一起就是下面的方式了：</p>  <blockquote>   <p><code>&lt;html&gt;       <br>&lt;body&gt;        <br>这里可以显示        <br>&lt;script type="text/javascript"&gt;        <br>if (window.stop)        <br>window.stop();        <br>else        <br>document.execCommand("Stop");        <br>&lt;/script&gt;        <br>这里不能显示        <br>&lt;/body&gt;        <br>&lt;/html&gt;</code></p> </blockquote>  <p>当然，你也可以将JavaScript代码简写为：</p>  <pre><code>window.stop ? window.stop() : document.execCommand("Stop");</code></pre>
+
+<p>很奇怪的是，如果写成下面的代码，Firefox不会停止载入：</p>
+</div>
+</div>
+
+
+<blockquote>
+  <p><code>&lt;html&gt;
+      <br>&lt;body&gt;
+
+      <br>这里可以显示
+
+      <br>&lt;script type="text/javascript"&gt;
+
+      <br>document.execCommand("Stop");
+
+      <br>if (window.stop)
+
+      <br>window.stop();
+
+      <br>&lt;/script&gt;
+
+      <br>这里不能显示
+
+      <br>&lt;/body&gt;
+
+      <br>&lt;/html&gt;</code></p>
+</blockquote>
+
+
+
+</div>

@@ -1,0 +1,95 @@
+<p>
+	初始化createEvent方法创建一个新的鼠标事件。
+</p>
+
+<pre>
+	语法
+
+对象。initMouseEvent （事件类型，canBubble，可取消，viewArg，detailArg，screenXArg，screenYArg，clientXArg，clientYArg，ctrlKeyArg，altKeyArg，shiftKeyArg，metaKeyArg，buttonArg，relatedTargetArg)
+参数
+
+事件类型[] in
+类型：字符串
+下面的值或一个用户定义的自定义事件类型之一。
+单击
+Onclick事件。某个元素的上方单击鼠标按钮。单击是一个mousedown事件和在相同的位置中的mouseup事件。DetailArg的价值将增加为每个点击在同一地区。
+dblclick
+请将 ondblclick事件。鼠标按钮就是双击某个元素的上方。
+mousedown
+Onmousedown事件。在元素上按下鼠标按钮。
+mousemove
+Onmousemove事件。在元素上移动鼠标指针。
+怪异
+Onmouseout事件。将鼠标指针移动元素的边界之外。
+鼠标悬停
+Onmouseover事件。将鼠标指针移动到元素的边界。
+mouseup
+Onmouseup事件。在元素上释放鼠标按钮。
+canBubble[] in
+类型：布尔型
+true() true
+该事件应向上传播。
+虚假（假）
+该事件不会向上传播。
+可取消[] in
+类型：布尔型
+true() true
+可以取消默认的操作。
+虚假（假）
+不能取消的默认操作。
+viewArg[] in
+类型： IHTMLWindow2 在活动窗口中的对象或 null。在该事件的视图属性中返回此值。
+detailArg[] in
+类型：整数
+一个数字，可以提供有关该事件的其他信息。在该事件的详细属性中返回此值。
+screenXArg[] in
+类型：整数
+鼠标指针相对于屏幕左上角的 x 坐标。在该事件的screenX属性中返回此值。
+screenYArg[] in
+类型：整数
+鼠标指针相对于屏幕左上角的 y 坐标。在该事件的screenY属性中返回此值。
+clientXArg[] in
+类型：整数
+鼠标指针相对于浏览器的客户端区域的左上角的 x 坐标。在该事件的clientX属性中返回此值。
+clientYArg[] in
+类型：整数
+鼠标指针相对于浏览器的客户端区域的左上角的 y 坐标。在该事件的clientY属性中返回此值。
+ctrlKeyArg[] in
+类型：布尔型
+在该事件的ctrlKey属性中返回的值。
+true() true
+按左或右 Ctrl 键。
+虚假（假）
+既不 Ctrl 键的同时按下。
+altKeyArg[] in
+类型：布尔型
+在该事件的altKey属性中返回的值。
+true() true
+按下左或右边的 Alt 键。
+虚假（假）
+既不 Alt 键已按下。
+shiftKeyArg[] in
+类型：布尔型
+在该事件的shift 键属性中返回的值。
+true() true
+按左或右 Shift 键。
+虚假（假）
+既不 Shift 键按下。
+metaKeyArg[] in
+类型：布尔型
+在该事件的metaKey属性中返回的值。
+true() true
+按左或右元/命令键。
+虚假（假）
+既不元/命令键。
+buttonArg[] in
+类型:数字
+引起该事件的鼠标按钮。在该事件的按钮属性中返回此值。
+relatedTargetArg[] in
+类型： IEventTarget
+对相关元素的引用。有关如何详细信息相关的元素使用鼠标事件，请参见relatedTarget .
+返回值
+
+类型： HRESULT
+如果此方法成功，则返回S_OK。否则，它返回HRESULT错误代码。
+</pre>

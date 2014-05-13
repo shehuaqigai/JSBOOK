@@ -1,0 +1,280 @@
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="aside" style="background-color: #F9F9F9; border: 1px solid #AAAAAA; clear: right; float: right; font-size: 88%; line-height: 1.25em; margin: 4px 0 4px 1em; width: 238px; padding: 4px 12px; padding: -webkit-calc(2px + 0.25em) -webkic-calc(2px + 0.9em); padding: -moz-calc(2px + 0.25em) -moz-calc(2px + 0.9em);"><a rel="nofollow" class="external text" href="http://www.w3.org/TR/orientation-event/"><i><b>English</b></i></a></div>
+<div id="toc" class="toc"><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#.E4.B8.80.E8.87.B4.E6.80.A7.E9.9C.80.E6.B1.82"><span class="tocnumber">1</span> <span class="toctext">一致性需求</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#.E4.BB.8B.E7.BB.8D"><span class="tocnumber">2</span> <span class="toctext">介绍</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#.E8.8C.83.E5.9B.B4"><span class="tocnumber">3</span> <span class="toctext">范围</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#.E6.8F.8F.E8.BF.B0"><span class="tocnumber">4</span> <span class="toctext">描述</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#deviceorientation_.E4.BA.8B.E4.BB.B6"><span class="tocnumber">4.1</span> <span class="toctext">deviceorientation 事件</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#compassneedscalibration_.E4.BA.8B.E4.BB.B6"><span class="tocnumber">4.2</span> <span class="toctext">compassneedscalibration 事件</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#devicemotion_.E4.BA.8B.E4.BB.B6"><span class="tocnumber">4.3</span> <span class="toctext">devicemotion 事件</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#.E7.94.A8.E4.BE.8B.E4.B8.8E.E8.A6.81.E6.B1.82"><span class="tocnumber">5</span> <span class="toctext">用例与要求</span></a>
+<ul>
+<li class="toclevel-2 tocsection-9"><a href="#.E7.94.A8.E4.BE.8B"><span class="tocnumber">5.1</span> <span class="toctext">用例</span></a>
+<ul>
+<li class="toclevel-3 tocsection-10"><a href="#.E6.8E.A7.E5.88.B6.E6.B8.B8.E6.88.8F"><span class="tocnumber">5.1.1</span> <span class="toctext">控制游戏</span></a></li>
+<li class="toclevel-3 tocsection-11"><a href="#.E6.89.8B.E5.8A.BF.E8.AF.86.E5.88.AB"><span class="tocnumber">5.1.2</span> <span class="toctext">手势识别</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#.E5.9C.B0.E5.9B.BE"><span class="tocnumber">5.1.3</span> <span class="toctext">地图</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-13"><a href="#.E8.A6.81.E6.B1.82"><span class="tocnumber">5.2</span> <span class="toctext">要求</span></a>
+<ul>
+<li class="toclevel-3 tocsection-14"><a href="#.E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E6.8F.90.E4.BE.9B.E6.8F.8F.E8.BF.B0.E8.AE.BE.E5.A4.87.E5.9C.A8.E7.A9.BA.E9.97.B4.E4.B8.AD.E7.89.A9.E7.90.86.E6.96.B9.E5.90.91.E7.9A.84.E6.95.B0.E6.8D.AE.E3.80.82"><span class="tocnumber">5.2.1</span> <span class="toctext">本规范必须提供描述设备在空间中物理方向的数据。</span></a></li>
+<li class="toclevel-3 tocsection-15"><a href="#.E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E6.8F.90.E4.BE.9B.E6.8F.8F.E8.BF.B0.E8.AE.BE.E5.A4.87.E5.9C.A8.E7.A9.BA.E9.97.B4.E4.B8.AD.E8.BF.90.E5.8A.A8.E7.9A.84.E6.95.B0.E6.8D.AE.E3.80.82"><span class="tocnumber">5.2.2</span> <span class="toctext">本规范必须提供描述设备在空间中运动的数据。</span></a></li>
+<li class="toclevel-3 tocsection-16"><a href="#.E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E5.85.81.E8.AE.B8Web.E5.BA.94.E7.94.A8.E6.B3.A8.E5.86.8C.E8.AE.BE.E5.A4.87.E6.96.B9.E5.90.91.E7.9A.84.E5.8F.98.E6.8D.A2.E3.80.82"><span class="tocnumber">5.2.3</span> <span class="toctext">本规范必须允许Web应用注册设备方向的变换。</span></a></li>
+<li class="toclevel-3 tocsection-17"><a href="#.E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E7.8B.AC.E7.AB.8B.E4.BA.8E.E6.96.B9.E5.90.91.E5.92.8C.E8.BF.90.E5.8A.A8.E6.95.B0.E6.8D.AE.E7.9A.84.E5.BA.95.E5.B1.82.E6.9D.A5.E6.BA.90.E3.80.82"><span class="tocnumber">5.2.4</span> <span class="toctext">本规范必须独立于方向和运动数据的底层来源。</span></a></li>
+<li class="toclevel-3 tocsection-18"><a href="#.E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E4.BD.BF.E7.94.A8.E7.8E.B0.E6.9C.89DOM.E4.BA.8B.E4.BB.B6.E6.A1.86.E6.9E.B6.E3.80.82"><span class="tocnumber">5.2.5</span> <span class="toctext">本规范必须使用现有DOM事件框架。</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-19"><a href="#.E6.A0.B7.E4.BE.8B"><span class="tocnumber">6</span> <span class="toctext">样例</span></a></li>
+</ul>
+</div>
+
+<h2><span class="mw-headline" id=".E4.B8.80.E8.87.B4.E6.80.A7.E9.9C.80.E6.B1.82">一致性需求</span></h2>
+<p>该规范中的所有的图表、实例和注意事项都是非规范性的，同时这也是全部的非规范性内容。也就是说，除此之外的内容都是规范性的。
+</p><p>规范性内容中的关键字：“必须”、“禁止”、“要求的”、“应该”、“不应该”、“推荐的”、“可以”、“可选的”都是RFC2119中的描述性解释(to be interpreted as described in RFC2119)。为了保障阅读的流畅性，该规范中对这些关键字不会做格式上的强调。#RFC2119
+</p><p>有算法要求的部分全部使用了“必须”、“应该”、“可以”等关键字进行描述。
+</p><p>部分一致性要求是对特性、方法或对象的要求，这些要求会被解释为用户代理(user agent)的要求。
+</p><p>算法和步骤方面的一致性要求可以通过任何方式进行实现，只要运行结果相同即可。(规范里的算法定义只是为了易于遵循，而非性能最优)
+</p><p>规范中唯一的一致性的类就是用户代理。
+</p><p>用户代理在实现上可以针对无约束的用户输入进行特殊限制。比如为了防御服务攻击、为了保护过多内存 被占用、为了在有局限性的平台上工作等。
+</p>
+<h2><span class="mw-headline" id=".E4.BB.8B.E7.BB.8D">介绍</span></h2>
+<p><i>本章不具有规范性</i>
+</p><p>本规范提供了几个新的DOM事件，这几个事件用于获得关于宿主设备物理方向及运动的信息。这些事件提供的信息不是原始的传感器信息，它们是不能获得底层信息来源的高层数据。常见的信息来源包括陀螺仪、罗盘及加速计。
+</p><p>本规范提供的第一个DOM事件是<code>deviceorientation</code>，其提供设备的物理方向信息，表示为一系列本地坐标系的旋角。
+</p><p>本规范提供的第二个DOM事件是<code>devicemotion</code>，其提供设备的加速信息，表示为定义在设备上的坐标系中的卡尔迪坐标。其还提供了设备在坐标系中的自转速率。若可行的话，事件应该提供设备重心处的加速信息。
+</p><p>本规范提供的最后一个DOM事件是<code>compassneedscalibration</code>，其用于通知Web站点使用罗盘信息校准上述事件。
+</p><p>下列代码展示了这些事件的使用方法：
+</p>
+<pre>注册一个deviceorientation事件的接收器：
+
+      window.addEventListener("deviceorientation", function(event) {
+          // 处理event.alpha、event.beta及event.gamma
+      }, true);
+</pre>
+<pre>将设备放置在水平表面，屏幕顶端指向西方，则其方向信息如下：
+
+      {alpha: 90,
+       beta: 0,
+       gamma: 0};
+
+为了获得罗盘指向，可以简单的使用360度减去alpha。若设被平行于水平表面，其罗盘指向为(360 - alpha)。
+</pre>
+<pre>若用户手持设备，屏幕处于一个垂直平面且屏幕顶端指向上方。beta的值为90，alpha和gamma无关。
+</pre>
+<pre>用户手持设备，面向alpha角度，屏幕处于一个垂直屏幕，屏幕顶端指向右方，则其方向信息如下：
+
+      {alpha: 270 - alpha,
+       beta: 0,
+       gamma: 90};
+</pre>
+<pre>只用自定义界面通知用户校准罗盘：
+
+     window.addEventListener("compassneedscalibration", function(event) {
+          alert('您的罗盘需要校准，请将设备沿数字8方向移动。');
+          event.preventDefault();
+      }, true);
+</pre>
+<pre>注册一个devicemotion时间的接收器：
+
+     window.addEventListener("devicemotion", function(event) {
+          // 处理event.acceleration、event.accelerationIncludingGravity、
+          // event.rotationRate和event.interval
+      }, true);
+</pre>
+<pre>将设备放置在水平表面，屏幕向上，acceleration为零，则其accelerationIncludingGravity信息如下：
+
+      {x: 0,
+       y: 0,
+       z: 9.81};
+</pre>
+<pre>设备做自由落体，屏幕水平向上，accelerationIncludingGravity为零，则其acceleration信息如下：
+
+      {x: 0,
+       y: 0,
+       z: -9.81};
+</pre>
+<pre>将设备安置于车辆至上，屏幕处于一个垂直平面，顶端向上，面向车辆后部。车辆行驶速度为v，向右侧进行半径为r的转弯。设备记录acceleration和accelerationIncludingGravity在位置x处的情况，同时设备还会记录rotationRate.gamma的负值：
+
+      {acceleration: {x: v^2/r, y: 0, z: 0},
+       accelerationIncludingGravity: {x: v^2/r, y: 0, z: 9.81},
+       rotationRate: {alpha: 0, beta: 0, gamma: -v/r*180/pi} };
+</pre>
+<h2><span class="mw-headline" id=".E8.8C.83.E5.9B.B4">范围</span></h2>
+<p><i>本章不具有规范性</i>
+</p><p>本规范仅提供取得描述宿主设备物品方向、运动信息的DOM事件。本API的预期目的是上述简单用例。本规范的范围不包括提供类似于旋转函数库之类的操作这些数据的工具。也不包括提供对传感器数据的访问和直接控制这些传感器。
+</p>
+<h2><span class="mw-headline" id=".E6.8F.8F.E8.BF.B0">描述</span></h2>
+<h3><span class="mw-headline" id="deviceorientation_.E4.BA.8B.E4.BB.B6"><code>deviceorientation</code> 事件</span></h3>
+<p>实现本规范的用户代理必须提供一个名为<code>deviceorientation</code>新DOM事件。相应事件的类型必须为<code>DeviceOrientationEvent</code>，且必须在<a href="/html/ig/zh/wiki/HTML5#Window.E5.AF.B9.E8.B1.A1" title="HTML5"><code>window</code></a>对象上触发。对<code>deviceorientation</code>事件的注册和触发必须遵循DOM Level 2事件的默认行为，<a rel="nofollow" class="external text" href="http://www.w3.org/TR/DOM-Level-2-Events/">[DOMEVENTS</a>]。
+</p><p>用户代理同时还必须提供一个<a href="/html/ig/zh/wiki/HTML5#Window.E5.AF.B9.E8.B1.A1" title="HTML5"><code>window</code></a>对象上名为<code>ondeviceorientation</code>的事件处理函数IDL属性<a href="/html/ig/zh/wiki/HTML5" title="HTML5">[HTML5]</a>。该事件处理函数的类型必须是<code>DeviceOrientationEvent</code>。
+</p>
+<pre>   interface <b id="deviceorientation_event">DeviceOrientationEvent</b>&nbsp;: <a href="/html/ig/zh/wiki/DOM4#interface-event" title="DOM4">Event</a> {
+   readonly attribute double? alpha;
+   readonly attribute double? beta;
+   readonly attribute double? gamma;
+   readonly attribute boolean absolute;
+   void initDeviceOrientationEvent(in DOMString type,
+                                   in boolean bubbles,
+                                   in boolean cancelable,
+                                   in double? alpha,
+                                   in double? beta,
+                                   in double? gamma,
+                                   in boolean absolute);
+   }
+</pre>
+<p><br>
+该事件应当在方向发生较大改变时触发。在此上下文中对较大改变的定义由实现给出。另外，在注册此事件新的监听器时，实现应该在获得足够的新信息之后立即触发该事件。
+</p><p>本事件的<code>alpha</code>、<code>beta</code>和<code>gamma</code>属性必须指示设备的方向，其表现形式为从固定在地球上的坐标系到固定在设备上的坐标系的转换。坐标系必须按照下面的描述调整。
+</p><p>地球坐标系是一个位于用户位置的“东、北、上”系。其拥有3个轴，地面相切与1984世界测地系统的spheriod的用户所在位置。
+</p>
+<ul>
+<li> 东（X）在地面上，垂直于北轴，向东为正。
+</li>
+<li> 北（Y）在地面上，向正北为正（指向北极）。
+</li>
+<li> 上（Z）垂直于地面，向上为正。
+</li>
+</ul>
+<p>对于一个移动设备，例如电话或平板，设备坐标系的定义于屏幕的标准方向相关。这意味着类似于键盘的滑动元素没有展开、类似于显示器的选择元素折叠至其默认位置。如果在设备旋转或展开滑动键盘时屏幕方向发生变化，这不会影响关于设备的坐标系的方向。用户希望获得这些屏幕方向的变化可以使用现有的<code>orientationchange</code>事件。对于膝上电脑，设备的坐标系定义于集成键盘。
+</p>
+<ul>
+<li> x在屏幕或键盘平面上，屏幕或键盘的右侧为正。
+</li>
+<li> y在屏幕或键盘屏幕上，屏幕或键盘的上方为正。
+</li>
+<li> z垂直于屏幕或键盘屏幕，离开屏幕或键盘为正。
+</li>
+</ul>
+<p>从地球坐标系到设备坐标系的转变必须按照下列系统转换。
+</p><p>旋转必须使用右手规则，即正向沿一个轴旋转为从该轴的方向看顺时针旋转。从两个系重合开始，旋转应用下列规则：
+</p>
+<ol>
+<li> 以设备坐标系z轴为轴，旋转<code>alpha</code>度。<code>alpha</code>的作用域为[0, 360)。
+</li>
+<li> 以设备坐标系x轴为轴，旋转<code>beta</code>度。<code>beta</code>的作用域为[-180, 180)。
+</li>
+<li> 已设备坐标系y轴为轴，旋转<code>gamma</code>度。<code>gamma</code>的作用域为[-90, 90)。
+</li>
+</ol>
+<p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/start.png" class="new" title="File:Http://www.w3.org/TR/orientation-event/start.png">File:Http://www.w3.org/TR/orientation-event/start.png</a>
+设备的初始位置，地球（XYZ）与设备（zyz）坐标系重合。
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/c-rotation.png" class="new" title="File:Http://www.w3.org/TR/orientation-event/c-rotation.png">File:Http://www.w3.org/TR/orientation-event/c-rotation.png</a>
+设备以z轴为轴，旋转alpha度，原坐标x、y轴显示为x<sub>0</sub>、y<sub>0</sub>。
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/a-rotation.png" class="new" title="File:Http://www.w3.org/TR/orientation-event/a-rotation.png">File:Http://www.w3.org/TR/orientation-event/a-rotation.png</a>
+设备以x轴为轴，旋转beta度，原坐标y、z轴显示为y<sub>0</sub>、z<sub>0</sub>。
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/b-rotation.png" class="new" title="File:Http://www.w3.org/TR/orientation-event/b-rotation.png">File:Http://www.w3.org/TR/orientation-event/b-rotation.png</a>
+设备以y轴为轴，旋转beta度，原坐标x、z轴显示为x<sub>0</sub>、z<sub>0</sub>。
+</p><p>因此，<code>alpha</code>、<code>beta</code>和<code>gamma</code>组成一组Z-X'-Y''式的固有Tait-Bryan角度。[<a rel="nofollow" class="external text" href="http://en.wikipedia.org/wiki/Euler_angles%7C">[EULERANGLES</a>]]注意这里对角度的选择遵循数学惯例，但这意味着<code>alpha</code>与罗盘指向相反。这还意味着这些角度不匹配车辆动力学中的roll-pitch-yaw惯例。
+</p><p>对于不能提供三个角度绝对值的实现，作为替代，可以提供关于任意方向的相对值。在这种情况下，必须设<code>absolute</code>属性为<code>false</code>，否则必须设<code>absolute</code>属性为<code>true</code>。
+</p><p>对于不能提供所有三个角度的实现，其必须设未知的角度的值为null。如果提供了某一角度，必须恰当的设置<code>absolute</code>属性。如果实现不能提供任何方向信息，则触发事件时所有属性都必须被设为null。
+</p>
+<h3><span class="mw-headline" id="compassneedscalibration_.E4.BA.8B.E4.BB.B6">compassneedscalibration 事件</span></h3>
+<p>实现了本规范的用户代理必须提供一个名为<code>compassneedscalibration</code>的新DOM事件，其使用定义于DOM Leve 2事件规范的<code><a href="/html/ig/zh/wiki/DOM4#interface-event" title="DOM4">Event</a></code>接口<a rel="nofollow" class="external text" href="http://www.w3.org/TR/DOM-Level-2-Events/">[DOMEVENTS</a>]。此事件必须在<a href="/html/ig/zh/wiki/HTML5#Window.E5.AF.B9.E8.B1.A1" title="HTML5"><code>window</code></a>对象上触发。对<code>deviceorientation</code>事件的注册和触发必须遵循DOM Level 2事件的默认行为，<a rel="nofollow" class="external text" href="http://www.w3.org/TR/DOM-Level-2-Events/">[DOMEVENTS</a>]。
+</p><p>用户代理同时还必须提供一个<a href="/html/ig/zh/wiki/HTML5#Window.E5.AF.B9.E8.B1.A1" title="HTML5"><code>window</code></a>对象上名为<code>oncompassneedscalibration</code>的事件处理函数IDL属性<a href="/html/ig/zh/wiki/HTML5" title="HTML5">[HTML5]</a>。该事件处理函数的类型必须是<code><a href="/html/ig/zh/wiki/DOM4#interface-event" title="DOM4">Event</a></code>。
+</p><p>该事件必须在用户代理确定用于获得方向数据的罗盘需要校准时触发。此外，用户代理应当仅在校准罗盘可以提高<a href="#deviceorientation">deviceorientation</a>事件获得的的数据的精准度时触发该事件。
+</p><p>该事件的默认行为应当是向用户提示如何校准罗盘。事件必须可以被撤销，以允许网站提供替代的校准界面。
+</p>
+<h3><span class="mw-headline" id="devicemotion_.E4.BA.8B.E4.BB.B6">devicemotion 事件</span></h3>
+<p>实现本规范的用户代理必须提供一个名为<code>devicemotion</code>新DOM事件。相应事件的类型必须为<code>DeviceMotionEvent</code>，且必须在<a href="/html/ig/zh/wiki/HTML5#Window.E5.AF.B9.E8.B1.A1" title="HTML5"><code>window</code></a>对象上触发。对<code>devicemotion</code>事件的注册和触发必须遵循DOM Level 2事件的默认行为，<a rel="nofollow" class="external text" href="http://www.w3.org/TR/DOM-Level-2-Events/">[DOMEVENTS</a>]。
+</p><p>用户代理同时还必须提供一个<a href="/html/ig/zh/wiki/HTML5#Window.E5.AF.B9.E8.B1.A1" title="HTML5"><code>window</code></a>对象上名为<code>ondevicemotion</code>的事件处理函数IDL属性<a href="/html/ig/zh/wiki/HTML5" title="HTML5">[HTML5]</a>。该事件处理函数的类型必须是<code>DeviceMotionEvent</code>。
+</p>
+<pre>   [Callback, NoInterfaceObject]
+   interface <b id="device_acceleration">DeviceAcceleration</b> {
+   readonly attribute double? x;
+   readonly attribute double? y;
+   readonly attribute double? z;
+   }
+</pre>
+<pre>   [Callback, NoInterfaceObject]
+   interface <b id="device_rotation_rate">DeviceRotationRate</b> {
+   readonly attribute double? alpha;
+   readonly attribute double? beta;
+   readonly attribute double? gamma;
+   }
+</pre>
+<pre>   interface <b id="devicemotion_event">DeviceMotionEvent</b>&nbsp;: <a href="/html/ig/zh/wiki/DOM4#interface-event" title="DOM4">Event</a> {
+   readonly attribute DeviceAcceleration? acceleration;
+   readonly attribute DeviceAcceleration? accelerationIncludingGravity;
+   readonly attribute DeviceRotationRate? rotationRate;
+   readonly attribute double? interval;
+   void initAccelerometerEvent(in DOMString type,
+                               in boolean bubbles,
+                               in boolean cancelable,
+                               in DeviceAcceleration? acceleration,
+                               in DeviceAcceleration? accelerationIncludingGravity,
+                               in DeviceRotationRate? rotationRate,
+                               in double? interval);
+   }
+</pre>
+<p><code>acceleration</code>属性必须提供宿主设备相对于地球坐标系的加速信息，其表现形式为定义于<a href="#deviceorientation">4.1章</a>的主坐标系，单位必须是m/s<sup>2</sup>。
+</p><p>对于不能提供排除重力影响的加速数据的实现（例如缺少陀螺仪），作为替代，可以提供受重力影响的加速数据。这对于许多应用来说并不好用，但提供这些信息意味着提供了最大力度的支持。在此情况下，<code>accelerationIncludingGravity</code>属性必须提供宿主设备的加速信息，并加上一个加速度相等方向相反的反重力加速度。其表现形式为定义于<a href="#deviceorientation">4.1章</a>的主坐标系。加速信息的单位必须是m/s<sup>2</sup>。
+</p><p><code>rotationRate</code>属性必须提供宿主设备在空间中旋转的速率，其表现形式为定义于<a href="#deviceorientation">4.1章</a>的角度的变化速率，单位必须是deg/s。
+</p><p><code>interval</code>属性必须提供从硬件获得数据的间隔，单位必须是毫秒。其必须是一个常量，以简化Web应用对数据的过滤。
+</p><p>对于不能提供所有属性的实现，其必须将位置的属性的值设为null。如果一个实现不能提供移动信息，则触发该事件时，所有属性都应被设为null。
+</p>
+<h2><span class="mw-headline" id=".E7.94.A8.E4.BE.8B.E4.B8.8E.E8.A6.81.E6.B1.82">用例与要求</span></h2>
+<h3><span class="mw-headline" id=".E7.94.A8.E4.BE.8B">用例</span></h3>
+<h4><span class="mw-headline" id=".E6.8E.A7.E5.88.B6.E6.B8.B8.E6.88.8F">控制游戏</span></h4>
+<p>Web游戏应用监控设备方向，并将其解释为控制屏幕上的精灵在某方向上的倾斜。
+</p>
+<h4><span class="mw-headline" id=".E6.89.8B.E5.8A.BF.E8.AF.86.E5.88.AB">手势识别</span></h4>
+<p>Web应用监控设备的加速，并将其应用于信号处理，以便识别特定首饰。距离说明，使用摇晃手势清除web表单。
+</p>
+<h4><span class="mw-headline" id=".E5.9C.B0.E5.9B.BE">地图</span></h4>
+<p>Web地图应用使用设备方向，将地图与实际情况对齐。
+</p>
+<h3><span class="mw-headline" id=".E8.A6.81.E6.B1.82">要求</span></h3>
+<h4><span class="mw-headline" id=".E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E6.8F.90.E4.BE.9B.E6.8F.8F.E8.BF.B0.E8.AE.BE.E5.A4.87.E5.9C.A8.E7.A9.BA.E9.97.B4.E4.B8.AD.E7.89.A9.E7.90.86.E6.96.B9.E5.90.91.E7.9A.84.E6.95.B0.E6.8D.AE.E3.80.82">本规范必须提供描述设备在空间中物理方向的数据。</span></h4>
+<h4><span class="mw-headline" id=".E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E6.8F.90.E4.BE.9B.E6.8F.8F.E8.BF.B0.E8.AE.BE.E5.A4.87.E5.9C.A8.E7.A9.BA.E9.97.B4.E4.B8.AD.E8.BF.90.E5.8A.A8.E7.9A.84.E6.95.B0.E6.8D.AE.E3.80.82">本规范必须提供描述设备在空间中运动的数据。</span></h4>
+<h4><span class="mw-headline" id=".E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E5.85.81.E8.AE.B8Web.E5.BA.94.E7.94.A8.E6.B3.A8.E5.86.8C.E8.AE.BE.E5.A4.87.E6.96.B9.E5.90.91.E7.9A.84.E5.8F.98.E6.8D.A2.E3.80.82">本规范必须允许Web应用注册设备方向的变换。</span></h4>
+<h4><span class="mw-headline" id=".E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E7.8B.AC.E7.AB.8B.E4.BA.8E.E6.96.B9.E5.90.91.E5.92.8C.E8.BF.90.E5.8A.A8.E6.95.B0.E6.8D.AE.E7.9A.84.E5.BA.95.E5.B1.82.E6.9D.A5.E6.BA.90.E3.80.82">本规范必须独立于方向和运动数据的底层来源。</span></h4>
+<h4><span class="mw-headline" id=".E6.9C.AC.E8.A7.84.E8.8C.83.E5.BF.85.E9.A1.BB.E4.BD.BF.E7.94.A8.E7.8E.B0.E6.9C.89DOM.E4.BA.8B.E4.BB.B6.E6.A1.86.E6.9E.B6.E3.80.82">本规范必须使用现有DOM事件框架。</span></h4>
+<h2><span class="mw-headline" id=".E6.A0.B7.E4.BE.8B">样例</span></h2>
+<p><i>本节不具有规范性</i>
+</p><p>下列样例旨在帮助DeviceOrientation事件的用户。
+</p><p><a href="#introduction">第二章</a>提供了在设备屏幕水平放置时使用DeviceOrientation事件获得罗盘指向的例子。该例子展示了在用户“面对”设备且设备屏幕近似于垂直于用户面前时如何确定罗盘指向。此类应用被称为增强现实系统。
+</p><p>更确切地说，我们希望确定设备屏幕与屏幕背向的正交矢量的水平部分的罗盘指向。
+</p><p>如果r表示旋转设备主坐标系xyz中的该矢量，则：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation1.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation1.gif">File:Http://www.w3.org/TR/orientation-event/equation1.gif</a>
+</p><p>对于r的变换，围绕z轴旋转表示为下列旋转矩阵：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation2.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation2.gif">File:Http://www.w3.org/TR/orientation-event/equation2.gif</a>
+</p><p>对于r的变换，围绕x轴旋转表示为下列旋转矩阵：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation3.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation3.gif">File:Http://www.w3.org/TR/orientation-event/equation3.gif</a>
+</p><p>对于r的变换，围绕y轴旋转表示为下列旋转矩阵：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation4.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation4.gif">File:Http://www.w3.org/TR/orientation-event/equation4.gif</a>
+</p><p>如果R表示在地球坐标系XYZ中的向量r，则因为初始本体坐标系与地球对齐，则R：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation5a.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation5a.gif">File:Http://www.w3.org/TR/orientation-event/equation5a.gif</a>
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation5b.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation5b.gif">File:Http://www.w3.org/TR/orientation-event/equation5b.gif</a>
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation5c.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation5c.gif">File:Http://www.w3.org/TR/orientation-event/equation5c.gif</a>
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation5d.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation5d.gif">File:Http://www.w3.org/TR/orientation-event/equation5d.gif</a>
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation5e.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation5e.gif">File:Http://www.w3.org/TR/orientation-event/equation5e.gif</a>
+</p><p>设β及γ均不为零，罗盘指向θ：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation6.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation6.gif">File:Http://www.w3.org/TR/orientation-event/equation6.gif</a>
+</p><p>作为一致性验证，如果设γ = 0，则预期：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation7.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation7.gif">File:Http://www.w3.org/TR/orientation-event/equation7.gif</a>
+</p><p>另外，如果设β = 90，则预期：
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation8a.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation8a.gif">File:Http://www.w3.org/TR/orientation-event/equation8a.gif</a>
+</p><p><a href="/html/ig/zh/wiki/index.php?title=Special:Upload&amp;wpDestFile=Http://www.w3.org/TR/orientation-event/equation8b.gif" class="new" title="File:Http://www.w3.org/TR/orientation-event/equation8b.gif">File:Http://www.w3.org/TR/orientation-event/equation8b.gif</a>
+</p>
+<!-- 
+NewPP limit report
+CPU time usage: 0.128 seconds
+Real time usage: 0.134 seconds
+Preprocessor visited node count: 175/1000000
+Preprocessor generated node count: 314/1000000
+Post‐expand include size: 387/2097152 bytes
+Template argument size: 39/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb-html5zh_:pcache:idhash:222-0!*!0!!en!2!* and timestamp 20140201004632
+ -->
+</div>

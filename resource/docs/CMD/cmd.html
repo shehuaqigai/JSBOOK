@@ -1,0 +1,217 @@
+<h1>2009年，美国程序员Ryan Dahl创造了node.js项目，将javascript语言用于服务器端编程。	
+</h1>
+<p>
+	这标志"Javascript模块化编程"正式诞生。因为老实说，在浏览器环境下，没有模块也不是特别大的问题，毕竟网页程序的复杂性有限；但是在服务器端，一定要有模块，与操作系统和其他应用程序互动，否则根本没法编程。
+</p>
+<p>
+	node.js的模块系统，就是参照CommonJS规范实现的。在CommonJS中，有一个全局性方法require()，用于加载模块。假定有一个数学模块math.js，就可以像下面这样加载。
+</p>
+<p>
+	　var math = require('math');
+然后，就可以调用模块提供的方法：
+　　var math = require('math');
+　　math.add(2,3); // 5
+</p>
+
+<pre>
+	前面介绍了一下AMD相关的东西，这篇我们来看看CMD相关的。
+ 
+CMD  -------  Common Module Definition
+ 
+ 在CMD规范里面，一个模块就是一个Javascript文件。代码书写格式如下：
+ 
+ 
+Js代码  
+define(factory);  
+ 
+define是全局函数，来定义模块
+仅接收一个factory参数，可以是函数，对象，字符串等类型
+       1、factory为对象、字符串等非函数类型时候，
+       表示模块的接口是该对象、字符串等值
+
+Js代码  
+define({  
+    "foo":"bar"  
+});  
+ 
+       通过字符串定义模版模块
+
+Js代码  
+define('I am a template.My name is {{name}}.');  
+ 
+      2、factory为函数时候，表示模块的构造方法。
+
+           执行该方法，可以得到模块向外提供的接口。
+           默认3个参数：require 、 exports 、 module
+
+Js代码  
+define(function(require,exports,module){  
+    //...  
+});  
+ 
+
+     require
+
+       ---------  是一个方法，用来获取其他模块提供的接口。
+
+Js代码  
+define(function(require){  
+     var a = require('./a');  
+     a.doSomething;  
+});  
+ 
+   require接受模块标识作为唯一参数，模块标识书写需要遵循一些规范。
+
+
+    require.async
+ 
+     ---------- 可以用来异步加载模块，并在加载完成后执行指定的回调。
+
+   
+Js代码  
+define(function(require,exports,module){  
+     //异步加载b    
+     require.async('./b',function(b){  
+          b.doSomething;  
+    });  
+  
+    //异步加载多个模块  
+    require.async(['./c','./d'],function(c,d){  
+         //  
+         ........  
+    })  
+  
+});  
+  
+
+    require.resolve
+    
+    ---------  使用模块系统内部的路径解析机制来返回模块的路径。
+    该函数不会加载模块，只返回解析后的绝对路径。
+
+Js代码  
+define(function(require,exports){  
+     console.log(require.resolve('./b'));  
+     //../b.js  
+});  
+ 
+   
+   require.cache
+
+    ----------  可以查看模块系统加载过的所有模块。
+
+     某些情况下，需要重新加载某个模块，可以得到该模块的url，
+     然后通过delete require.cache[url] 来将其信息删除。
+
+
+   exports
+
+    --------  是一个对象，用来向外提供模块接口。
+
+  
+Js代码  
+define(function(require,exports){  
+      exports.foo = "bar";  
+      exports.doSomething = function(){  
+          ...............  
+      }  
+});  
+ 
+
+     除了给exports对象增加成员，还可以以return的方式直接向外提供接口。
+
+Js代码  
+define(function(require,exports,module){  
+      return {  
+          fool: "bar",  
+          doSomething:function(){  
+               .............  
+          }  
+     };  
+});  
+ 
+    当然如果只是返回一个对象，可以直接：
+
+Js代码  
+define({  
+     foo: "bar",  
+     doSomething:function(){}  
+});  
+ 
+   注释：在factory里面给exports重新赋值是没有意义的，
+   因为exports仅仅是module.exports的一个引用，
+   直接给exports重新赋值并不会修改module.exports的值。
+
+  看下面这个错误的例子：
+
+  
+Js代码  
+define(function(require,exports,module){  
+      exports = {  
+           foo: "bar",  
+           doSomething:function(){}  
+      }  
+});  
+ 
+  正确的应该是：
+ 
+ 
+Js代码  
+define(function(require,exports,module){  
+     module.exports = {  
+            foo: "bar",  
+           doSomething:function(){}  
+     }  
+});  
+ 
+ 
+   module
+ 
+   module 是一个对象，存储了与当前模块关联的一些属性和方法。
+ 
+ 
+  module.id
+           ----------  模块标识
+ 
+Js代码  
+define(function(require,exports,module){  
+    console.log(require(module.id) === exports);    // true  
+});  
+ 
+ 
+module.uri
+         ------------ 根据模块系统的路径解析规则得到的模块绝对路径
+
+module.dependencies
+         ------------ 是一个数组，标识当前模块的依赖列表
+
+module.parent
+         ------------ 指向初始化调用当前模块的模块。可以得到模块初始化的callstack
+
+module.factory
+         ------------ 指向define(factory)中的factory参数
+
+module.status
+         ------------ 当前模块的状态，是一个数值
+
+module.exports
+         ------------ 当前模块对外提供的接口
+
+
+    传给factory构造方法的exports参数是module.exports对象的一个引用。
+
+    比如当模块的接口是某一个类的实例时候，需要通过module.exports来实现
+        
+Js代码  
+define(function(require,exports,module){  
+     console.log(module.exports === exports);   // true  
+     module.exports = new SomeClass();  
+     console.log(module.exports === exports);  //false  
+});  
+  
+
+module.require
+     在module环境中运行require，一般用于插件开发
+
+
+</pre>

@@ -1,0 +1,168 @@
+<div id="maincontent">
+
+<h1>JavaScript Number 对象参考手册</h1>
+
+
+<div>
+<h2>Number 对象</h2>
+
+<p>Number 对象是原始数值的包装对象。</p>
+
+<h3>创建 Number 对象的语法：</h3>
+<pre>var myNum=new Number(<i>value</i>);
+var myNum=Number(<i>value</i>);</pre>
+
+<h3>参数</h3>
+<p>参数 <i>value</i> 是要创建的 Number 对象的数值，或是要转换成数字的值。</p>
+
+<h3>返回值</h3>
+<p>当 Number() 和运算符 new 一起作为构造函数使用时，它返回一个新创建的 Number 对象。如果不用 new 运算符，把 Number() 作为一个函数来调用，它将把自己的参数转换成一个原始的数值，并且返回这个值（如果转换失败，则返回 NaN）。</p>
+</div>
+
+
+<div>
+<h2>Number 对象属性</h2>
+
+<p>FF: Firefox, IE: Internet Explorer</p>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:25%">属性</th>
+    <th style="width:61%">描述</th>
+    <th style="width:7%">FF</th>
+    <th style="width:7%">IE</th>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_constructor_number.asp">constructor</a></td>
+    <td>返回对创建此对象的 Number 函数的引用。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_max_value.asp">MAX_VALUE</a></td>
+    <td>可表示的最大的数。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_min_value.asp">MIN_VALUE</a></td>
+    <td>可表示的最小的数。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_nan_number.asp">NaN</a></td>
+    <td>非数字值。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_negative_infinity.asp">NEGATIVE_INFINITY</a></td>
+    <td>负无穷大，溢出时返回该值。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+    </tr>
+  <tr>
+    <td><a href="/js/jsref_positive_infinity.asp">POSITIVE_INFINITY</a></td>
+    <td>正无穷大，溢出时返回该值。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+  <tr>
+    <td>prototype</td>
+    <td>使您有能力向对象添加属性和方法。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>Number 对象方法</h2>
+
+<p>FF: Firefox, IE: Internet Explorer</p>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:25%">方法</th>
+    <th style="width:61%">描述</th>
+    <th style="width:7%">FF</th>
+    <th style="width:7%">IE</th>
+  </tr>
+  <tr>
+    <td><a href="jsref_tostring_number.asp">toString</a></td>
+    <td>把数字转换为字符串，使用指定的基数。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+  <tr>
+    <td><a href="jsref_tolocalestring_number.asp">toLocaleString</a></td>
+    <td>把数字转换为字符串，使用本地数字格式顺序。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+  <tr>
+    <td><a href="jsref_tofixed.asp">toFixed</a></td>
+    <td>把数字转换为字符串，结果的小数点后有指定位数的数字。</td>
+    <td>1.0</td>
+    <td>5.5</td>
+  </tr>
+  <tr>
+    <td><a href="jsref_toexponential.asp">toExponential</a></td>
+    <td>把对象的值转换为指数计数法。</td>
+    <td>1.0</td>
+    <td>5.5</td>
+  </tr>
+  <tr>
+    <td><a href="jsref_toprecision.asp">toPrecision</a></td>
+    <td>把数字格式化为指定的长度。</td>
+    <td>1.0</td>
+    <td>5.5</td>
+  </tr>
+  <tr>
+    <td><a href="jsref_valueof_number.asp">valueOf</a></td>
+    <td>返回一个 Number 对象的基本数字值。</td>
+    <td>1.0</td>
+    <td>4.0</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>Number 对象描述</h2>
+
+<p>在 JavaScript 中，数字是一种基本的数据类型。JavaScript 还支持 Number 对象，该对象是原始数值的包装对象。在必要时，JavaScript 会自动地在原始数据和对象之间转换。在 JavaScript 1.1 中，可以用构造函数 Number() 明确地创建一个 Number 对象，尽管这样做并没有什么必要。</p>
+
+<p>构造函数 Number() 可以不与运算符 new 一起使用，而直接作为转化函数来使用。以这种方式调用 Number() 时，它会把自己的参数转化成一个数字，然后返回转换后的原始数值（或 NaN）。</p>
+
+<p>构造函数通常还用作 5 个有用的数字常量的占位符，这 5 个有用的数字常量分别是可表示的最大数、可表示的最小数、正无穷大、负无穷大和特殊的 NaN 值。
+注意，这些值是构造函数 Number() 自身的属性，而不是单独的某个 Number 对象的属性。</p>
+
+<p>比如这样使用属性 MAX_VALUE 是正确的：</p>
+<pre>var big = Number.MAX_VALUE</pre>
+
+<p>但是这样是错误的：</p>
+<pre>var n= new Number(2);
+var big = n.MAX_VALUE</pre>
+
+<p>作为比较，我们看一下 toString() 和 Number 对象的其他方法，它们是每个 Number 对象的方法，而不是 Number() 构造函数的方法。前面提到过，在必要时，JavaScript 会自动地把原始数值转化成 Number 对象，调用 Number 方法的既可以是 Number 对象，也可以是原始数字值。</p>
+
+<pre>var n = 123;
+var binary_value = n.toString(2);</pre>
+</div>
+
+
+<div id="toc">
+<h2>课外书</h2>
+
+<p>如需更多信息，请阅读 JavaScript 高级教程中的相关内容：</p>
+
+<dl>
+<dt><a href="/js/pro_js_referencetypes.asp" title="ECMAScript 引用类型">ECMAScript 引用类型</a></dt>
+<dd>引用类型通常叫做类（class）或对象。本节讲解 ECMAScript 的预定义引用类型。</dd>
+</dl>
+</div>
+
+</div>

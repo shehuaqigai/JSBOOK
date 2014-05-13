@@ -1,0 +1,550 @@
+<div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p><code>XMLHttpRequest</code> 是一个 <a class="internal" href="/zh-cn/JavaScript" title="zh-cn/JavaScript">JavaScript</a> 对象,它最初由微软设计,随后被 Mozilla,Apple, 和 Google采纳. 如今,该对象已经被 <a class="external" href="http://www.w3.org/TR/XMLHttpRequest/" title="http://www.w3.org/TR/XMLHttpRequest/">W3C组织标准化</a>. 通过它,你可以很容易的取回一个URL上的资源数据. 尽管名字里有XML, 但<code>XMLHttpRequest</code> 可以取回所有类型的数据资源,并不局限于XML. 而且除了<a href="/zh-cn/HTTP" title="zh-cn/HTTP">HTTP</a> ,它还支持<code>file</code> 和 <code>ftp</code> 协议.</p>
+<p>创建一个 <code>XMLHttpRequest</code> 实例, 可以使用如下语句:</p>
+<pre class="language-html">var req = new XMLHttpRequest();
+</pre>
+<p>&nbsp;查看文章<a class="internal" href="/zh-cn/DOM/XMLHttpRequest/Using_XMLHttpRequest" title="zh-cn/Using XMLHttpRequest">Using XMLHttpRequest</a><code>来获取更多详细的XMLHttpRequest</code>用法.</p>
+<h2 id=".E6.96.B9.E6.B3.95.E6.A6.82.E8.BF.B0">方法概述</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td><code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#abort()" title="zh-cn/DOM/XMLHttpRequest#abort()">abort</a>();</code></td>
+    </tr>
+    <tr>
+      <td><code>DOMString <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#getAllResponseHeaders()" title="zh-cn/DOM/XMLHttpRequest#getAllResponseHeaders()">getAllResponseHeaders</a>();</code></td>
+    </tr>
+    <tr>
+      <td><code>DOMString? <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#getResponseHeader()" title="zh-cn/DOM/XMLHttpRequest#getResponseHeader()">getResponseHeader</a>(DOMString header);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#open()" title="zh-cn/DOM/XMLHttpRequest#open()">open</a>(DOMString method, DOMString url, optional boolean async, optional DOMString? user, optional DOMString? password);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#overrideMimeType()" title="zh-cn/DOM/XMLHttpRequest#overrideMimeType()">overrideMimeType</a>(DOMString mime);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#send()" title="zh-cn/DOM/XMLHttpRequest#send()">send</a>();</code><br>
+        <code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#send()" title="zh-cn/DOM/XMLHttpRequest#send()">send</a>(ArrayBuffer data);</code><br>
+        <code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#send()" title="zh-cn/DOM/XMLHttpRequest#send()">send</a>(Blob data);</code><br>
+        <code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#send()" title="zh-cn/DOM/XMLHttpRequest#send()">send</a>(Document data);</code><br>
+        <code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#send()" title="zh-cn/DOM/XMLHttpRequest#send()">send</a>(DOMString? data);</code><br>
+        <code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#send()" title="zh-cn/DOM/XMLHttpRequest#send()">send</a>(FormData data);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#setRequestHeader()" title="zh-cn/DOM/XMLHttpRequest#setRequestHeader()">setRequestHeader</a>(DOMString header, DOMString value);</code></td>
+    </tr>
+    <tr>
+      <th>非标准方法</th>
+    </tr>
+    <tr>
+      <td><code>[noscript] void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#init()" title="zh-cn/DOM/XMLHttpRequest#init()">init</a>(in nsIPrincipal principal, in nsIScriptContext scriptContext, in nsPIDOMWindow ownerWindow);</code></td>
+    </tr>
+    <tr>
+      <td><code>[noscript] void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#openRequest()" title="zh-cn/DOM/XMLHttpRequest#openRequest()">openRequest</a>(in AUTF8String method, in AUTF8String url, in boolean async, in AString user, in AString password); </code></td>
+    </tr>
+    <tr>
+      <td><code>void <a class="internal" href="/zh-cn/DOM/XMLHttpRequest#sendAsBinary()" title="zh-cn/DOM/XMLHttpRequest#sendAsBinary()">sendAsBinary</a>(in DOMString body);</code></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=".E5.B1.9E.E6.80.A7">属性</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    <tr id="onreadystatechange">
+      <td>
+        <p><code>onreadystatechange</code></p>
+      </td>
+      <td><code>Function?</code></td>
+      <td>
+        <p>一个JavaScript函数对象，当<span style="font-family: 'Courier New','Andale Mono',monospace; line-height: inherit;">readyState属性改变时会调用它。回调函数会在user interface线程中调用。</span></p>
+        <div class="warning">
+          <strong>警告:</strong> 不能在本地代码中使用. 也不应该在同步模式的请求中使用.</div>
+      </td>
+    </tr>
+    <tr id="readyState">
+      <td><code>readyState</code></td>
+      <td><code>unsigned short</code></td>
+      <td>
+        <p>请求的五种状态</p>
+        <table class="standard-table">
+          <tbody>
+            <tr>
+              <td class="header">值</td>
+              <td class="header">状态</td>
+              <td class="header">描述</td>
+            </tr>
+            <tr>
+              <td><code>0</code></td>
+              <td><code>UNSENT </code>(未打开)</td>
+              <td><code>open()</code>方法还未被调用.</td>
+            </tr>
+            <tr>
+              <td><code>1</code></td>
+              <td><code>OPENED</code>&nbsp; (未发送)</td>
+              <td><code>send()</code>方法还未被调用.</td>
+            </tr>
+            <tr>
+              <td><code>2</code></td>
+              <td><code>HEADERS_RECEIVED (已获取响应头)</code></td>
+              <td><code>send()</code>方法已经被调用, 响应头和响应状态已经返回.</td>
+            </tr>
+            <tr>
+              <td><code>3</code></td>
+              <td><code>LOADING (正在下载响应体)</code></td>
+              <td>响应体下载中; <code>responseText</code>中已经获取了部分数据.</td>
+            </tr>
+            <tr>
+              <td><code>4</code></td>
+              <td><code>DONE (请求完成)</code></td>
+              <td>整个请求过程已经完毕.</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr id="response">
+      <td><code>response</code></td>
+      <td>varies</td>
+      <td>
+        <p>响应实体的类型由&nbsp;<code><a href="#responseType">responseType</a>&nbsp;来指定，</code>&nbsp;可以是&nbsp;<code><a href="/zh-cn/JavaScript_typed_arrays/ArrayBuffer" title="zh-cn/JavaScript typed arrays/ArrayBuffer">ArrayBuffer</a>，</code>&nbsp;<code><a href="/zh-cn/DOM/Blob" title="zh-cn/DOM/Blob">Blob</a>，</code>&nbsp;<a href="/zh-CN/docs/DOM/Document" title="The documentation about this has not yet been written; please consider contributing!"><code>Document</code></a>， JavaScript 对象 (即 "json")， 或者是字符串。如果请求未完成或失败，则该值为&nbsp;<code>null。</code></p>
+      </td>
+    </tr>
+    <tr id="responseText">
+      <td><code>responseText</code></td>
+      <td><code>DOMString</code></td>
+      <td>此次请求的响应为文本，或是当请求未成功或还未发送时为&nbsp;<code>null。</code><strong>只读。</strong></td>
+    </tr>
+    <tr id="responseType">
+      <td><code>responseType</code></td>
+      <td><code>XMLHttpRequestResponseType</code></td>
+      <td>
+        <p>设置该值能够改变响应类型。就是告诉服务器你期望的响应格式。</p>
+        <table class="standard-table" style="width: auto;">
+          <tbody>
+            <tr>
+              <td class="header">Value</td>
+              <td class="header">Data type of <code>response</code> property</td>
+            </tr>
+            <tr>
+              <td><code>""</code> (空字符串)</td>
+              <td>字符串(默认值)</td>
+            </tr>
+            <tr>
+              <td><code>"arraybuffer"</code></td>
+              <td><a href="/zh-cn/JavaScript_typed_arrays/ArrayBuffer" title="zh-cn/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a></td>
+            </tr>
+            <tr>
+              <td><code>"blob"</code></td>
+              <td><a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a></td>
+            </tr>
+            <tr>
+              <td><code>"document"</code></td>
+              <td><a href="/zh-CN/docs/DOM/Document" title="The documentation about this has not yet been written; please consider contributing!"><code>Document</code></a></td>
+            </tr>
+            <tr>
+              <td><code>"json"</code></td>
+              <td>JavaScript 对象，解析自服务器传递回来的JSON 字符串。</td>
+            </tr>
+            <tr>
+              <td><code>"text"</code></td>
+              <td>字符串</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr id="responseXML">
+      <td><code>responseXML</code></td>
+      <td><code>Document?</code></td>
+      <td>
+        <p>本次请求的响应是一个&nbsp;<code><a class="internal" href="/zh-cn/DOM/document" title="zh-cn/DOM/Document">Document</a></code>&nbsp;对象，如果是以下情况则值为&nbsp;<code>null：</code><span style="line-height: inherit;">请求未成功，请求未发送，或响应无法被解析成 XML 或 HTML。当响应为</span><span style="font-family: 'Courier New','Andale Mono',monospace; line-height: inherit;">text/xml 流时</span><span style="line-height: inherit;">会被解析。当&nbsp;</span><code style="font-size: 14px; line-height: inherit;">responseType</code><span style="line-height: inherit;">&nbsp;设置为"document"，并且请求为异步的，则响应会被当做&nbsp;</span><code style="font-size: 14px; line-height: inherit;">text/html</code><span style="line-height: inherit;">&nbsp;流来解析。</span><strong style="line-height: inherit;">只读</strong><strong style="line-height: inherit;">.</strong></p>
+        <div class="note">
+          <strong>注意:</strong>&nbsp;如果服务器不支持&nbsp;<code>text/xml</code> Content-Type 头，你可以使用&nbsp;<code>overrideMimeType() 强制<font face="Lucida Grande, Lucida Sans Unicode, DejaVu Sans, Lucida, Arial, Helvetica, sans-serif"><span style="line-height: 21px;">&nbsp;</span></font></code><code>XMLHttpRequest</code>&nbsp;将响应解析为 XML。</div>
+      </td>
+    </tr>
+    <tr id="status">
+      <td><code>status</code></td>
+      <td><code>unsigned short</code></td>
+      <td>该请求的响应状态码 (例如, <code>状态码</code>200 表示一个成功的请求).<strong>只读.</strong></td>
+    </tr>
+    <tr id="statusText">
+      <td><code>statusText</code></td>
+      <td><code>DOMString</code></td>
+      <td>该请求的响应状态信息,包含一个状态码和原因短语 (例如 "<code>200 OK</code>"). <strong>只读</strong><strong>.</strong></td>
+    </tr>
+    <tr id="upload">
+      <td><code>upload</code></td>
+      <td><code>XMLHttpRequestUpload</code></td>
+      <td>可以在&nbsp;<code>upload 上添加一个事件监听来跟踪上传过程。</code></td>
+    </tr>
+    <tr id="withCredentials">
+      <td><code>withCredentials</code></td>
+      <td><code>boolean</code></td>
+      <td>
+        <p>表明在进行跨站(cross-site)的访问控制(Access-Control)请求时，是否使用认证信息(例如cookie或授权的header)。 默认为&nbsp;<code>false。</code></p>
+        <div class="note">
+          <strong>注意:</strong> 这不会影响同站(same-site)请求.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 id=".E9.9D.9E.E6.A0.87.E5.87.86.E5.B1.9E.E6.80.A7">非标准属性</h3>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    <tr id="channel">
+      <td><code>channel</code></td>
+      <td><code><a class="new" href="/zh-CN/docs/XPCOM_Interface_Reference/nsIChannel" title="">nsIChannel</a></code></td>
+      <td>The channel used by the object when performing the request. This is <code>null</code> if the channel hasn't been created yet. In the case of a multi-part request, this is the initial channel, not the different parts in the multi-part request. <strong>Requires elevated privileges to access; </strong><strong>只读</strong><strong>.</strong></td>
+    </tr>
+    <tr id="mozBackgroundRequest">
+      <td><code>mozBackgroundRequest</code></td>
+      <td><code>boolean</code></td>
+      <td>
+        <p>Indicates whether or not the object represents a background service request. If <code>true</code>, no load group is associated with the request, and security dialogs are prevented from being shown to the user. <strong>Requires elevated privileges to access.</strong></p>
+        <p>In cases in which a security dialog (such as authentication or a bad certificate notification) would normally be shown, the request simply fails instead.</p>
+      </td>
+    </tr>
+    <tr id="mozResponseArrayBuffer">
+      <td><code>mozResponseArrayBuffer</code>  <span class="inlineIndicator obsolete obsoleteInline" title="(Firefox 6 / Thunderbird 6 / SeaMonkey 2.3)">已废弃 Gecko 6</span></td>
+      <td><a href="/zh-cn/JavaScript_typed_arrays/ArrayBuffer" title="zh-cn/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a></td>
+      <td>The response to the request, as a JavaScript typed array. This is NULL&nbsp;if the request was not successful, or if it hasn't been sent yet. <strong>只读</strong></td>
+    </tr>
+    <tr id="multipart">
+      <td><code>multipart</code></td>
+      <td><code>boolean</code></td>
+      <td>
+        <p>Indicates whether or not the response is expected to be a stream of possibly multiple XML documents. If set to <code>true</code>, the content type of the initial response must be <code>multipart/x-mixed-replace</code> or an error will occur. All requests must be asynchronous.</p>
+        <p>This enables support for server push; for each XML document that's written to this request, a new XML DOM document is created and the <code>onload</code> handler is called between documents.</p>
+        <div class="note">
+          <strong>注意:</strong> When this is set, the <code>onload</code> handler and other event handlers are not reset after the first XMLdocument is loaded, and the <code>onload</code> handler is called after each part of the response is received.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=".E6.96.B9.E6.B3.95">方法</h2>
+<h3 id="abort" name="abort">abort()</h3>
+<p><span class="short_text" id="result_box" lang="zh-CN"><span>如果</span><span>请求已经</span><span>被发送,则立刻</span></span><span class="short_text" id="result_box" lang="zh-CN"><span>中止</span><span>请求</span><span>.</span></span></p>
+<h3 id="getAllResponseHeaders" name="getAllResponseHeaders">getAllResponseHeaders()</h3>
+<pre class="language-html">DOMString getAllResponseHeaders();
+</pre>
+<p>返回所有响应头信息(响应头名和值), 如果响应头还没接受,则返回<code>null</code>.<strong> 注意:</strong> For multipart requests, this returns the headers from the <em>current</em> part of the request, not from the original channel.</p>
+<h3 id="getResponseHeader" name="getResponseHeader">getResponseHeader()</h3>
+<pre class="language-html">DOMString? getResponseHeader(DOMString <var>header</var>);
+</pre>
+<p>返回指定的响应头的值, 如果响应头还没被接受,或该响应头不存在,则返回null.</p>
+<h3 id="open" name="open">open()</h3>
+<p>初始化一个请求. 该方法用于JavaScript代码中;如果是<span class="st">本地代码</span>, 使用 <a class="internal" href="/zh-cn/nsIXMLHttpRequest#openRequest()" title="/zh-cn/XMLHttpRequest#openRequest()"><code>openRequest()</code></a>方法代替.</p>
+<div class="note">
+  <strong>注意:</strong> Calling this method an already active request (one for which <code>open()</code>or <code>openRequest()</code>has already been called) is the equivalent of calling <code>abort()</code>.</div>
+<pre class="language-html">void open(
+   DOMString <var>method</var>,
+   DOMString <var>url</var>,
+   optional boolean <var>async</var>,
+   optional DOMString <var>user</var>,
+   optional DOMString <var>password</var>
+);
+</pre>
+<h6 id=".E5.8F.82.E6.95.B0">参数</h6>
+<dl>
+  <dt>
+    <code>method</code></dt>
+  <dd>
+    请求所使用的HTTP方法; "POST" 或者 "GET". 如果下个参数是非HTTP(S)的URL,则忽略该参数.</dd>
+  <dt>
+    <code>url</code></dt>
+  <dd>
+    该请求所要访问的URL</dd>
+  <dt>
+    <code>async</code></dt>
+  <dd>
+    An optional boolean parameter, defaulting to <code>true</code>, indicating whether or not to perform the operation asynchronously. If this value is <code>false</code>, the <code>send()</code>method does not return until the response is received. If <code>true</code>, notification of a completed transaction is provided using event listeners. This <em>must</em> be true if the <code>multipart</code> attribute is <code>true</code>, or an exception will be thrown.</dd>
+  <dt>
+    <code>user</code></dt>
+  <dd>
+    The optional user name to use for authentication purposes; by default, this is an empty string.</dd>
+  <dt>
+    <code>password</code></dt>
+  <dd>
+    The optional password to use for authentication purposes; by default, this is an empty string.</dd>
+</dl>
+<h3 id="overrideMimeType" name="overrideMimeType">overrideMimeType()</h3>
+<p>Overrides the MIME type returned by the server. This may be used, for example, to force a stream to be treated and parsed as text/xml, even if the server does not report it as such.This method must be called before <code>send()</code>.</p>
+<pre class="language-html">void overrideMimeType(DOMString <var>mimetype</var>);</pre>
+<h3 id="send" name="send">send()</h3>
+<p>发送请求. 如果该请求是异步模式(默认),该方法会立刻返回. 相反,如果请求是同步模式,则直到请求的响应完全接受以后,该方法才会返回.</p>
+<div class="note">
+  <strong>注意:</strong> 所有相关的事件绑定必须在调用<code>send()方法之前进行</code>.</div>
+<pre class="language-html">void send();
+void send(ArrayBuffer <var>data</var>);
+void send(Blob <var>data</var>);
+void send(Document <var>data</var>);
+void send(DOMString? <var>data</var>);
+void send(FormData <var>data</var>);</pre>
+<h4 id=".E6.B3.A8.E6.84.8F">注意</h4>
+<p>If the <var>data</var> is a <code>Document</code>, it is serialized before being sent. When sending a Document, versions of Firefox prior to version 3 always send the request using UTF-8 encoding; <a href="/zh-cn/Firefox_3" rel="internal" title="zh-cn/Firefox_3">Firefox 3</a> properly sends the document using the encoding specified by <code>body.xmlEncoding</code>, or UTF-8 if no encoding is specified.</p>
+<p>If it's an <code>nsIInputStream</code>, it must be compatible with <code>nsIUploadChannel</code>'s <code>setUploadStream()</code>method. In that case, a Content-Length header is added to the request, with its value obtained using <code>nsIInputStream</code>'s <code>available()</code>method. Any headers included at the top of the stream are treated as part of the message body. The stream's MIMEtype should be specified by setting the Content-Type header using the <a class="internal" href="/zh-cn/nsIXMLHttpRequest#setRequestHeader()" title="/zh-cn/XMLHttpRequest#setRequestHeader()"><code>setRequestHeader()</code></a>method prior to calling <code>send()</code>.</p>
+<h3 id="setRequestHeader" name="setRequestHeader">setRequestHeader()</h3>
+<p>给指定的HTTP请求头赋值.在这之前,你必须确认已经调用 <a href="#open"><code>open()</code></a> 方法打开了一个url.</p>
+<pre class="language-html">void setRequestHeader(
+   DOMString <var>header</var>,
+   DOMString <var>value</var>
+);
+</pre>
+<h4 id=".E5.8F.82.E6.95.B0">参数</h4>
+<dl>
+  <dt>
+    <code>header</code></dt>
+  <dd>
+    将要被赋值的请求头名称.</dd>
+  <dt>
+    <code>value</code></dt>
+  <dd>
+    给指定的请求头赋的值.</dd>
+</dl>
+<h3 id=".E9.9D.9E.E6.A0.87.E5.87.86.E6.96.B9.E6.B3.95">非标准方法</h3>
+<h4 id="init()">init()</h4>
+<p>在 C++代码中初始化一个XHR对象.</p>
+<div class="warning">
+  <strong>警告:</strong> 该方法不能在 JavaScript 代码中使用.</div>
+<pre class="language-html">[noscript] void init(
+   in nsIPrincipal principal,
+   in nsIScriptContext scriptContext,
+   in nsPIDOMWindow ownerWindow
+);
+</pre>
+<h5 id=".E5.8F.82.E6.95.B0">参数</h5>
+<dl>
+  <dt>
+    <code>principal</code></dt>
+  <dd>
+    The principal to use for the request; must not be <code>null</code>.</dd>
+  <dt>
+    <code>scriptContext</code></dt>
+  <dd>
+    The script context to use for the request; must not be <code>null</code>.</dd>
+  <dt>
+    <code>ownerWindow</code></dt>
+  <dd>
+    The window associated with the request; may be <code>null</code>.</dd>
+</dl>
+<h4 id="openRequest()">openRequest()</h4>
+<p>Initializes a request. This method is to be used from native code; to initialize a request from JavaScript code, use <a class="internal" href="/zh-cn/nsIXMLHttpRequest#open()" title="/zh-cn/XMLHttpRequest#open()"><code>open()</code></a>instead. See the documentation for <code>open()</code>.</p>
+<p></p><div> 
+    <span class="indicatorInHeadline standardNote standardNoteMethod">Requires Gecko 1.9 (Firefox 3)</span> 
+    <h3 id="sendAsBinary()" name="sendAsBinary()">sendAsBinary()</h3> 
+</div><p></p>
+<p>A variant of the <code>send()</code>method that sends binary data.</p>
+<pre class="language-html">void sendAsBinary(
+   in DOMString body
+);
+</pre>
+<h5 id=".E5.8F.82.E6.95.B0">参数</h5>
+<dl>
+  <dt>
+    <code>body</code></dt>
+  <dd>
+    The request body as a DOMstring. This data is converted to a string of single-byte characters by truncation (removing the high-order byte of each character).</dd>
+</dl>
+<h2 id=".E6.B3.A8.E6.84.8F">注意</h2>
+<ul>
+  <li class="note">By default, Firefox 3 limits the number of <code>XMLHttpRequest</code> connections per server to 6 (previous versions limit this to 2 per server). Some interactive web sites may keep an <code>XMLHttpRequest</code> connection open, so opening multiple sessions to such sites may result in the browser hanging in such a way that the window no longer repaints and controls don't respond. This value can be changed by editing the <code>network.http.max-persistent-connections-per-server</code> preference in <code><a class="linkification-ext" href="/about:config" title="Linkification: about:config">about:config</a></code>.</li>
+  <li class="note">From <span title="(Firefox 7.0 / Thunderbird 7.0 / SeaMonkey 2.4)">Gecko&nbsp;7.0</span> headers set by <code><a class="external" href="http://developer.mozilla.org/zh-CN/docs/DOM/XMLHttpRequest#setRequestHeader()">setRequestHeader()</a></code> are sent with the request when following a redirect. Previously these headers would not be sent.</li>
+  <li class="note"><code>XMLHttpRequest</code> is implemented in Gecko using the <code><a class="new" href="/zh-CN/docs/XPCOM_Interface_Reference/nsIXMLHttpRequest" title="">nsIXMLHttpRequest</a></code>, <code><a class="new" href="/zh-CN/docs/XPCOM_Interface_Reference/nsIXMLHttpRequestEventTarget" title="">nsIXMLHttpRequestEventTarget</a></code>, and <code><a class="new" href="/zh-CN/docs/XPCOM_Interface_Reference/nsIJSXMLHttpRequest" title="">nsIJSXMLHttpRequest</a></code> interfaces.</li>
+</ul>
+<h4 class="note" id="Events">Events</h4>
+<p><code>onreadystatechange</code> as a property on the xhr object is supported in all browsers.</p>
+<p>Since then, a number of additional event handlers were implemented in various browsers (<code>onload</code>, <code>onerror</code>, <code>onprogress</code>, etc.). These are supported in Firefox. In particular, see <code><a class="new" href="/zh-CN/docs/XPCOM_Interface_Reference/nsIXMLHttpRequestEventTarget" title="">nsIXMLHttpRequestEventTarget</a></code> and <a href="/zh-cn/DOM/XMLHttpRequest/Using_XMLHttpRequest" title="zh-cn/XMLHttpRequest/Using_XMLHttpRequest">Using XMLHttpRequest</a>.</p>
+<p>More recent browsers, including Firefox, also support listening to the <code>XMLHttpRequest</code> events via standard <code><a href="/zh-cn/DOM/element.addEventListener" title="element.addEventListener">addEventListener</a></code> APIs in addition to setting <code>on*</code> properties to a handler function.</p>
+<h2 id="Browser_Compatibility" name="Browser_Compatibility">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari (WebKit)</th>
+      </tr>
+      <tr>
+        <td>Basic support (XHR1)</td>
+        <td>1</td>
+        <td>1.0</td>
+        <td>5 (via ActiveXObject)<br>
+          7 (XMLHttpRequest)</td>
+        <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
+        <td>1.2</td>
+      </tr>
+      <tr>
+        <td>send(ArrayBuffer)</td>
+        <td>9</td>
+        <td>9</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>11.60</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>send(Blob)</td>
+        <td>7</td>
+        <td>3.6</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>12</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>send(FormData)</td>
+        <td>6</td>
+        <td>4</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>12</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>response</td>
+        <td>10</td>
+        <td>6</td>
+        <td>10</td>
+        <td>11.60</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>responseType = 'arraybuffer'</td>
+        <td>10</td>
+        <td>6</td>
+        <td>10</td>
+        <td>11.60</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>responseType = 'blob'</td>
+        <td>19</td>
+        <td>6</td>
+        <td>10</td>
+        <td>12</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>responseType = 'document'</td>
+        <td>18</td>
+        <td>11</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+      <tr>
+        <td>responseType = 'json'</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td>10</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td>12</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+      <tr>
+        <td>Progress Events</td>
+        <td>7</td>
+        <td>3.5</td>
+        <td>10</td>
+        <td>12</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>withCredentials</td>
+        <td>3</td>
+        <td>3.5</td>
+        <td>10</td>
+        <td>12</td>
+        <td>4</td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Chrome for Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE&nbsp;Phone</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>0.16</td>
+        <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+
+
+<h2 id=".E7.9B.B8.E5.85.B3.E9.93.BE.E6.8E.A5">相关链接</h2>
+<ul>
+  <li>MDN上关于XMLHttpRequest的文章:
+    <ul>
+      <li><a href="/zh-cn/AJAX/Getting_Started" title="zh-cn/AJAX/Getting_Started">AJAX - Getting Started</a></li>
+      <li><a href="/zh-cn/DOM/XMLHttpRequest/Using_XMLHttpRequest" title="zh-cn/Using XMLHttpRequest">Using XMLHttpRequest</a></li>
+      <li><a href="/zh-cn/HTML_in_XMLHttpRequest" title="zh-cn/HTML_in_XMLHttpRequest">HTML in XMLHttpRequest</a></li>
+      <li><a href="/zh-cn/DOM/XMLHttpRequest/FormData" title="zh-cn/XMLHttpRequest/FormData"><code>FormData</code></a></li>
+    </ul>
+  </li>
+  <li>XMLHttpRequest 参考,来自W3C和各浏览器制造商:
+    <ul>
+      <li><a class="external" href="http://www.w3.org/TR/XMLHttpRequest1/">W3C: XMLHttpRequest</a> (base features)</li>
+      <li><a class="external" href="http://dvcs.w3.org/hg/xhr/raw-file/tip/Overview.html" title="http://dvcs.w3.org/hg/xhr/raw-file/tip/Overview.html">W3C: XMLHttpRequest</a> (latest editor's draft with extensions to the base functionality, formerly XMLHttpRequest Level 2</li>
+      <li><a class="external" href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/xmlsdk/html/xmobjxmlhttprequest.asp">Microsoft documentation</a></li>
+      <li><a class="external" href="http://developer.apple.com/internet/webcontent/xmlhttpreq.html">Apple developers' reference</a></li>
+    </ul>
+  </li>
+  <li><a class="external" href="http://jibbering.com/2002/4/httprequest.html">"Using the XMLHttpRequest Object" (jibbering.com)</a></li>
+  <li><a class="external" href="http://www.peej.co.uk/articles/rich-user-experience.html">XMLHttpRequest - REST and the Rich User Experience</a></li>
+  <li><a class="external" href="http://www.html5rocks.com/zh-cn/tutorials/file/xhr2/">HTML5 Rocks - New Tricks in XMLHttpRequest2</a></li>
+</ul>
+<p></p>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <!-- tags if present -->
+              <div class="tag-attach-list tags contributor-sub">
+                <i aria-hidden="true" class="icon-tags"></i><strong>Tags:</strong>
+                <ul class="tag-list"><li><a href="/zh-CN/docs/tag/AJAX">AJAX</a></li><li><a href="/zh-CN/docs/tag/XMLHttpRequest">XMLHttpRequest</a></li><li><a href="/zh-CN/docs/tag/%E6%89%80%E6%9C%89%E5%88%86%E7%B1%BB">所有分类</a></li></ul>
+              </div>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a>, <a href="/zh-CN/profiles/Carrie%20zhxj">Carrie zhxj</a>, <a href="/zh-CN/profiles/Kook%20pudding">Kook pudding</a>, <a href="/zh-CN/profiles/sunnylost">sunnylost</a>, <a href="/zh-CN/profiles/hanzhao">hanzhao</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a>,
+                  <time datetime="2013-04-09T05:31:34-07:00">Apr 9, 2013 5:31:34 AM</time>
+                </div>
+                          </div>
+                  </div>

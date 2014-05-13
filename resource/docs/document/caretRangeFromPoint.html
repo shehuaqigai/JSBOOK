@@ -1,0 +1,307 @@
+<h1>跟标准方法caretPositionFromPoin一样，webkit用careRangeFromPoint，ie用For MS Internet Explorer the proprietary method TextRange.moveToPoint(x,y) might be helpful.</h1>
+
+<h2>Click to split text in the browser</h2>
+<pre>
+	function onclick(e) {
+	var range;
+        if (document.caretRangeFromPoint) { 
+          range = document.caretRangeFromPoint(e.pageX, e.pageY);
+        } else if (e.rangeParent) { 
+          range = document.createRange();
+          range.setStart(e.rangeParent, e.rangeOffset);
+        }
+	
+       var textContainer = range.startContainer;
+       var node = textContainer.parentNode; 
+       var origValue = node.innerHTML;
+       var textToKeep = origValue.substr(0, range.startOffset);
+       var textToMove = origValue.substr(range.startOffset);
+       node.innerHTML = textToKeep;
+       //Do something with textToMove
+  }
+
+ </pre>
+ <p>
+ 	
+ 
+view rawClickToSplit.js hosted with ❤ by GitHub
+The whole trick is to let the click event call a method that uses document.caretRangeFromPoint() (for WebKit browsers) and document.createRange() for Firefox to create a range from the clicked point, and then using the start of that range - range.startOffset as the point in the text to split. All text before the point is kept in the current paragraph, all text after the point is used for the newly created paragraph after the clicked one.
+
+I have created a quick and dirty demo - only working (tested) in (the latest versions of) Safari, Chrome and Firefox.
+ </p>
+<h3>在最近项目中，碰到一个问题：有一个可编辑的div需要双击时可编辑，blur或者回车时将编辑结果保存。你可能注意到双击时，文字会被选中，可编辑区域不会focus到光标位置。考虑到兼容性问题，写了如下代码。做个备份，以备不时之需。</h3>
+<pre>
+	 function getMouseEventCaretRange(evt) {
+
+            var range, x = evt.clientX, y = evt.clientY;
+            // Try the simple IE way first
+            if (document.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToPoint(x, y);
+            }
+            else if (typeof document.createRange != "undefined") {
+ // Try Mozilla's rangeOffset and rangeParent properties, which are exactly what we want
+
+                if (typeof evt.rangeParent != "undefined") {
+                    range = document.createRange();
+                    range.setStart(evt.rangeParent, evt.rangeOffset);
+                    range.collapse(true);
+                }
+
+                // Try the standards-based way next
+                else if (document.caretPositionFromPoint) {
+                    var pos = document.caretPositionFromPoint(x, y);
+                    range = document.createRange();
+                    range.setStart(pos.offsetNode, pos.offset);
+                    range.collapse(true);
+                }
+
+                // Next, the WebKit way
+                else if (document.caretRangeFromPoint) {
+                    range = document.caretRangeFromPoint(x, y);
+                }
+            }
+
+            return range;
+        }
+
+        function selectRange(range) {
+            if (range) {
+                if (typeof range.select != "undefined") {
+                    range.select();
+                } else if (typeof window.getSelection != "undefined") {
+                    var sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }
+        }
+
+        document.getElementById("rightContent").ondblclick = function(evt) {
+            evt = evt || window.event;
+            this.contentEditable = true;
+            this.focus();
+            var caretRange = getMouseEventCaretRange(evt);
+            // Set a timer to allow the selection to happen and the dust settle first
+            window.setTimeout(function() {
+                selectRange(caretRange);
+            }, 0);
+
+            return false;
+        };
+
+
+</pre>
+
+
+
+
+
+
+<h1>返回一个Range的实例对象</h1>
+<pre>
+collapsed: true
+commonAncestorContainer: text
+endContainer: text
+endOffset: 6
+startContainer: text
+startOffset: 6
+END_TO_END: 2
+END_TO_START: 3
+NODE_AFTER: 1
+NODE_BEFORE: 0
+NODE_BEFORE_AND_AFTER: 2
+NODE_INSIDE: 3
+START_TO_END: 1
+START_TO_START: 0
+cloneContents
+cloneRange
+collapse
+compareBoundaryPoints
+compareNode
+comparePoint
+createContextualFragment
+deleteContents
+detach
+expand
+extractContents
+getBoundingClientRect
+getClientRects
+insertNode
+intersectsNode
+isPointInRange
+selectNode
+selectNodeContents
+setEnd
+setEndAfter
+setEndBefore
+setStart
+setStartAfter
+setStartBefore
+surroundContents
+toString:
+</pre>
+
+<pre>
+	Range表示HTML文档的一部分内容，它可以在任何点开始和结束，
+	最常见的Range就是用户选择的一段文本。通过Range对象，
+	你可以找到开始点和结束点，你可以复制或者删除它，
+	或者替换成另一段文本，甚至是一段HTML代码。
+比如用户从下面的文本中选择了一段：
+选中的这段文本跨越了好几个HTML元素，
+而且你会发现，这段选中的文本是极不规范的HTML代码，
+比如第一行没有&ltp>，最后一行没有&lt/li>。
+获得用户选择区域
+function getUserSelection(){
+    if(window.getSelection){
+        return window.getSelection();
+    }else if(document.selection){
+        return document.selection.createRange();
+    }
+}
+W3C：用户选择区域是Selection对象
+
+    IE：用户选择区域是TextRange对象　
+
+
+获得用户选择的内容
+
+var userSelection = getUserSelection(), 
+    selectedText = userSelection.text || userSelection.toString();
+
+通过Selection对象创建Range对象
+
+function getRange(selection){
+    if(selection.getRangeAt){
+        return selection.getRangeAt(0);
+    }else{//不支持getRangeAt的情况
+        var range = document.createRange();
+        range.setStart(selection.anchorNode, selection.anchorOffset);
+        range.setEnd(selection.focusNode, selection.focusOffset);
+        return range;
+    }
+}
+IE调用getUserSelection()方法获得的就是一个TextRange对象,
+所以不需要再创建Range对象了。　
+
+
+通过编程的方式创建Range对象
+
+如果浏览器不支持getRangeAt()方法，比如Safari1.3，我们需要先创建一个新的Range对象，
+而它必须包含用户当前选中的区域。
+
+首先创建一个空的Range对象：
+
+var range = document.createRange();
+
+为了把它插进文档树中，我们需要设置开始点和结束点：
+
+range.setStart(startNode, startOffset);
+range.setEnd(endNode, endOffset);
+　　
+
+下面给出IE和W3C方法创建Range对象的差异：
+
+IE6/7/8	W3C
+IE6/7/8 只有 TextRange，在指定的对象上创建一个 TextRange 
+需要使用 'object.createTextRange()'。
+
+注意不是任何类型的对象都可以创建 TextRange，
+只有 body 对象、button 对象、textarea 对象和 type='text' 的 input 对象才可以。
+
+还可以通过 'document.selection.createRange()' 从当前的文本 selection 中得到一个 TextRange。
+
+在标准浏览器中有两种方式创建Range对象：
+
+1. 使用 'window.getSelection().getRangeAt(index)' 获得一组 Range 中指定的 Range
+
+2. var range = document.createRange()，然后设置range的开始位置（setStart()）和结束位置（setEnd()）
+属性：
+
+属性	说明
+collapsed	返回一个boolean值，表示range的开始点和结束点是否为同一个位置。
+返回true表示没有包含任何内容，即DOM树中一个单独的点。这个属性是只读的，
+如需要操作它，请使用collapse方法。
+commonAncestorContainer	
+返回包含 startContainer 和 endContainer 的最深的节点，这个属性是只读的，如需要操作它，请重新设置range的开始位置和结束位置。
+
+　　如果选择的是一段纯文本，如&ltspan>1234&lt/span>中的23，该属性为文本节点；
+
+　　如果选区跨越了节点，比如123&ltspan>456&lt/span>中的34，该属性为二者的父节点；
+
+startContainer	
+返回包含range开始点的节点。这个属性是只读的，如需要操作它，请使用setStart方法。
+
+　　通常都是文本节点。
+
+startOffset	返回一个number值，表示range在startContainer中的开始位置。
+startOffset有两种意思：如果 startContainer 是Text节点、
+Comment节点或CDATASection节点，
+startOffset是指从startContainer的开始位置到range的开始位置的偏移量；
+如果是别的节点类型，
+startOffset是指从startContainer的开始位置到range的开始位置的子节点数量。
+这个属性是只读的，如需要操作它，请使用setStart方法。
+endContainer	
+返回包含range结束点的节点。这个属性是只读的，如需要操作它，请使用setEnd方法。
+endOffset	返回一个number值，表示range在endContainer中的结束位置。
+方法：
+
+定位方法（用于设置Range的开始点和结束点）
+
+方法	说明
+collapse(toStart)	toStart是一个boolean值，
+true表示把Range collapse到开始位置，false表示把Range collapse到结束位置。
+setStart(startNode, startOffset)	设置Range的开始位置。如果 startNode 是Text节点、Comment节点或CDATASection节点，startOffset是指从 startNode 的开始位置到range的开始位置的偏移量；如果是别的节点类型，startOffset是指从 startNode 的开始位置到range的开始位置的子节点数量。这个属性是只读的，如需要操作它，请使用setStart方法。
+setEnd(endNode, endOffset)	设置Range的结束位置。
+setStartBefore(referenceNode)	把Range开始位置的父节点设置为referenceNode。
+setStartAfter(referenceNode)	把Range开始位置的父节点设置为referenceNode。
+setEndBefore(referenceNode)	把Range结束位置的父节点设置为referenceNode。
+setEndAfter(referenceNode)	把Range结束位置的父节点设置为referenceNode。
+selectNode(referenceNode)	使Range包含referenceNode和它的子节点，把Range的开始位置和结束位置的父节点设置为referenceNode。
+selectNodeContents(referenceNode)	使Range包含referenceNode的内容。startOffset 为 0， endOffset是子节点的数量 或者 referenceNode中的字符长度。
+编辑方法（用于从Range中获取节点 和 修改Range的内容）
+方法	说明
+cloneContents()	复制Range的节点，返回一个文档碎片。
+用addEventListener之类绑定的事件不会被复制，
+而onclick这样的直接写在元素attribute上的事件会被复制，
+元素的ID也会被复制，这有可能导致两个相同的ID。
+Partially selected nodes include the parent tags necessary to make the document fragment valid。
+deleteContents()	删除Range的内容，这个方法不会返回包含删除内容的文档碎片。
+extractContents()	把Range的内容装入一个文档碎片，规则和cloneContents()相同。
+insertNode(newNode)	在Range的开始位置插入一个节点。如果 newNode 的插入位置是一个文本节点，这个文本节点会在插入位置进行分隔，
+也就是说最后是在两个文本节点之间进行插入。
+如果newNode是一个文档碎片，插入的是文档碎片的子节点。
+surroundContents(newNode)	把Range的内容装入一个新节点，
+并把这个新节点放在Range的开始位置。surroundContents 
+等价于 newNode.appendChild(range.extractContents()); range.insertNode(newNode)。
+
+其他方法：
+
+方法	说明
+compareBoundaryPoints(how, sourceRange)	
+比较两个Range的边界点。
+
+how：比较的方式，这是一个常量值： 
+　　Range.END_TO_END -> 用 sourceRange 的结束点 与 当前Range的结束点 进行比较
+
+　　Range.END_TO_START -> 用 sourceRange 的结束点 与 当前Range的开始点 进行比较
+
+　　Range.START_TO_END -> 用 sourceRange 的开始点 与 当前Range的结束点 进行比较
+
+　　Range.START_TO_START -> 用 sourceRange 的开始点 与 当前Range的开始点进行比较
+
+sourceRange：需要比较的Range
+
+返回：-1, 0 或 1， 表示当前Range的边界点相对于sourceRange的边界点是在前，
+相等还是在后。
+
+cloneRange()	返回一个和当前Range边界点完全相同的Range对象，
+这是值拷贝，非引用，所以改变其中一个不会影响另一个。
+detach()	释放Range从而提高性能。调用 detach() 方法后，
+对这些属性的任何读操作都会抛出代码为 INVALID_STATE_ERR 的 DOMException 异常。
+toString()	返回Range的文本。
+
+兼容之道
+
+
+</pre>

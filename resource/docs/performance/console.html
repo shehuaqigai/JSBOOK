@@ -1,0 +1,208 @@
+
+<style type="text/css">
+	p{
+
+		background:white;
+		
+	}
+
+</style>
+
+
+<h2>console概览</h2>
+
+<ul>
+	
+
+<li>memory: MemoryInfo
+<p>
+	堆内存信息
+</p>
+</li>
+<li>profiles: Array[0]</li>
+<li>assert
+<p>
+	assert方法用来验证某个条件是否为真。如果为假，则显示一条事先指定的错误信息。它的格式如下：
+
+console.assert(条件判断，输出信息)
+使用方法如下：
+
+console.assert(list.childNodes.length < 500, "Node count is > 500");
+</p>
+</li>
+<li>clear <p>对console窗口进行清屏，光标回到第一行。</p></li>
+<li>count</li>
+<li>dir <p>输出对象的信息，用于显示一个对象的所有属性。</p></li>
+<li>dirxml <p> 打印出HTML元素的XML表示形式.</p></li>
+<li>groupCollapsed</li>
+<li>group,groupEnd
+<p>
+	这两个方法用于将显示的信息分组。它只在输出大量信息时有用，分在一组的信息，可以用鼠标折叠/展开。
+	 如果某一类的信息特别多时，分组就有利于逻辑的划分。
+    
+    使用上很简单，参见代码。
+    
+            function consoleGroup(){
+                var groupname = "Group 1";
+                console.group("Message group %s", groupname);
+                console.log("This is the 1 message in %s", groupname);
+                console.log("This is the 2 message in %s", groupname);
+                console.log("This is the 3 message in %s", groupname);
+                console.groupEnd();
+                
+                goupname = "Group 2";
+                console.group("Message group %s", goupname);
+                console.log("This is the 1 message in %s", goupname);
+                
+                var subgroupname = "Sub group 1";
+                console.group("Message group %s",subgroupname);
+                console.log("This is the 1 message in %s", subgroupname);
+                console.log("This is the 2 message in %s", subgroupname);
+                console.log("This is the 3 message in %s", subgroupname);
+                console.groupEnd();
+                
+                console.log("This is the 2 message in %s", goupname);
+                console.groupEnd();
+            }
+</p>
+</li>
+
+<li>log
+
+<p>
+	log方法用于在console窗口显示信息。
+
+如果参数是普通字符串，log方法将字符串内容显示在console窗口。
+
+console.log("Hello World")
+// Hello World
+
+console.log("a","b","c")
+// a b c
+如果参数是格式字符串（使用了格式占位符），log方法将占位符替换以后的内容，显示在console窗口。
+
+console.log(" %s + %s = %s", 1, 1, 2)
+//  1 + 1 = 2
+上面代码的%s表示字符串的占位符，其他占位符还有
+
+%d, %i 整数
+%f 浮点数
+%o 对象的链接
+%c CSS格式字符串
+log方法的两种参数格式，可以结合在一起使用。
+</p>
+</li>
+<li>warn,info,error,debug
+<p>
+	
+	其他输出方法：debug，info，warn，error方法
+除了log，console对象还有四个输出信息的方法：
+
+debug：等同于log。
+
+info：等同于log。
+
+warn：输出信息时，在最前面加一个黄色三角，表示警告。
+
+error：输出信息时，在最前面加一个红色的叉，表示出错。
+这四个方法的用法与log完全一样。
+
+console.error("Error: %s (%i)", "Server is not responding",500)
+// Error: Server is not responding (500)
+
+console.warn('Warning! Too few nodes (%d)', document.childNodes.length)
+// Warning! Too few nodes (1)
+</p>
+</li>
+<li>markTimeline</li>
+<li>profile
+<p>
+	我们可以通过代码console.profile('profileName')或者单击Profiler标签来进行Javascript代码执行的分析。这个功能有点类似于console.time()，可以帮助我们评估
+    代码的表现，但是能够提供比console.time()更详细的信息。
+
+    有三种方法可以调用Javascript profiler。一种是在代码中写入分析脚本，一种是单击profile标签，最后还可以在命令行下输入命令来执行。
+    执行后，可以看到详细的输出结果，下面对各项进行一些说明：
+    Function Column：显示调用的函数名称；
+    
+    Call Column：显示调用次数；
+    
+    Percent Column：显示消耗的时间比；
+    
+    Own Time：显示函数内部语句执行的时间，不包括调用其他函数的时间；
+    
+    Time Column：显示函数从开始到结束的执行时间；
+    
+    Avg Column：平均时间。Avg = Own / Call;
+    
+    Min & Max Column：显示最小和最大时间；
+    
+    File Column：函数所在的文件；  
+
+    性能分析（Profiler）就是分析程序各个部分的运行时间，找出瓶颈所在，使用的方法是console.profile()。
+假定有一个函数Foo()，里面调用了另外两个函数funcA()和funcB()，其中funcA()调用10次，funcB()调用1次。
+　　function Foo(){
+　　　　for(var i=0;i<10;i++){funcA(1000);}
+　　　　funcB(10000);
+　　}
+　　function funcA(count){
+　　　　for(var i=0;i<count;i++){}
+　　}
+　　function funcB(count){
+　　　　for(var i=0;i<count;i++){}
+　　}
+然后，就可以分析Foo()的运行性能了。
+　　console.profile('性能分析器一');
+　　Foo();
+　　console.profileEnd();
+控制台会显示一张性能分析表，如下图。 
+</p>
+</li>
+<li>profileEnd</li>
+<li>time
+timeEnd
+<p>
+	
+	这两个方法用于计时，可以算出一个操作所花费的准确时间。
+
+console.time("Array initialize");
+
+var array= new Array(1000000);
+for (var i = array.length - 1; i >= 0; i--) {
+    array[i] = new Object();
+};
+
+console.timeEnd("Array initialize");
+
+// Array initialize: 1914.481ms
+time方法表示计时开始，timeEnd方法表示计时结束。它们的参数是计时器的名称。调用timeEnd方法之后，console窗口会显示“计时器名称: 所耗费的时间”。
+</p>
+
+</li>
+<li>timeStamp</li>
+<li>trace
+<p>
+	console.trace()是一个非常有趣的功能。我们先来看看官方的解释：打印Javascript执行时刻的堆栈追踪。
+    
+    这个函数可以打印出程序执行时从起点到终点的路径信息。
+    
+    比如如果我们想知道某个函数是何时和如何被执行的，我们将console.trace()放在这个函数中，我们就能够的看到这个函数被执行的路径。
+    这个函数在调试其他人的源代码时非常有用。   
+</p></li>
+
+
+
+</ul>
+
+<p>debugger语句的作用是，当代码运行到这一行时，就会暂停运行，自动打开console界面。它通常用于代码除错，作用类似于设置断点。
+
+for(var i = 0;i<5;i++){
+    console.log(i);
+    if (i===2) debugger;
+}
+上面代码打印出0，1，2以后，就会暂停，自动打开console窗口，等待进一步处理。</p>
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+<article id="wikiArticle">
+                                          <h2 id="Summary" name="Summary">概述</h2>
+<p>创建一个新的对象URL,该对象URL可以代表某一个指定的<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象或<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象.</p>
+<h2 id="Syntax" name="Syntax">语法</h2>
+<pre class="syntaxbox language-html" data-prism-prevent-line-number="1"><em>objectURL</em> = window.URL.createObjectURL(blob);
+</pre>
+<ul>
+  <li><code>blob参数</code>是一个<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象或者<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象.</li>
+  <li><code>objectURL是生成的</code>对象URL.通过这个URL,可以获取到所指定文件的完整内容.</li>
+</ul>
+<h2 id="Example" name="Example">示例</h2>
+<p>查看<a href="/en-US/docs/Using_files_from_web_applications#Example.3A_Using_object_URLs_to_display_images" title="https://developer.mozilla.org/en/Using_files_from_web_applications#Example:_Using_object_URLs_to_display_images">使用对象URL显示图片</a>.</p>
+<h2 id="Notes" name="Notes">附注</h2>
+<p>在每次调用<code>createObjectURL()</code>方 法的时候,都会创建一个新的对象URL,即使参数中的这个对象已经有了自己的对象URL.在你不需要这些对象URL的时候,你应该通过调用 <a href="/zh-CN/docs/DOM/window.URL.revokeObjectURL" title="释放一个已经存在的对象URL,对象URL是通过调用window.URL.createObjectURL()创建的.在你不需要使用这个对象URL的时候,释放它可以让浏览器释放一些相关的内存和资源占用."><code>window.URL.revokeObjectURL()</code></a>方法来释放它们所占用的内容.虽然即使你不主动释放它们,浏览 器也会在当前文档被卸载的时候替你释放,不过,考虑到更好的性能和更少的内存占用,你应该在安全的时候主动施放它们.</p>
+<h2 id="Browser_Compatibility" name="Browser_Compatibility">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari (WebKit)</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>8</td>
+        <td>4</td>
+        <td>10</td>
+        <td>12</td>
+        <td><em>Nightly build</em></td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome for Android</th>
+        <th>Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE Phone</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>18</td>
+        <td>4.0</td>
+        <td>14.0</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+
+
+<h2 id="See_also" name="See_also">相关链接</h2>
+<ul>
+  <li><a href="/zh-CN/docs/DOM/window.URL.revokeObjectURL" title="释放一个已经存在的对象URL,对象URL是通过调用window.URL.createObjectURL()创建的.在你不需要使用这个对象URL的时候,释放它可以让浏览器释放一些相关的内存和资源占用."><code>window.URL.revokeObjectURL()</code></a></li>
+  <li><a href="/en-US/docs/Using_files_from_web_applications" title="Using files from web applications">在web应用程序中使用文件</a></li>
+  <li><a class="external" href="http://www.w3.org/TR/FileAPI/#dfn-createObjectURL" title="http://dev.w3.org/2006/webapi/FileAPI/#url">File API</a>规范</li>
+</ul>
+                                    </article>

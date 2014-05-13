@@ -1,0 +1,88 @@
+<div id="maincontent">
+
+<h1>onfocus 事件</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>onfocus 事件在对象获得焦点时发生。</p>
+
+<h3>语法</h3>
+<pre>onfocus="SomeJavaScriptCode"</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>SomeJavaScriptCode</td>
+    <td>必需。规定该事件发生时执行的 JavaScript。</td>
+  </tr>
+</tbody></table>
+
+<h3>支持该事件的 HTML 标签：</h3>
+<pre>&lt;a&gt;, &lt;acronym&gt;, &lt;address&gt;, &lt;area&gt;, &lt;b&gt;, &lt;bdo&gt;, &lt;big&gt;, &lt;blockquote&gt;, &lt;button&gt;, 
+&lt;caption&gt;, &lt;cite&gt;, &lt;dd&gt;, &lt;del&gt;, &lt;dfn&gt;, &lt;div&gt;, &lt;dl&gt;, &lt;dt&gt;, &lt;em&gt;, &lt;fieldset&gt;, 
+&lt;form&gt;, &lt;frame&gt;, &lt;frameset&gt;, &lt;h1&gt; to &lt;h6&gt;, &lt;hr&gt;, &lt;i&gt;, &lt;iframe&gt;, &lt;img&gt;, &lt;input&gt;, 
+&lt;ins&gt;, &lt;kbd&gt;, &lt;label&gt;, &lt;legend&gt;, &lt;li&gt;, &lt;object&gt;, &lt;ol&gt;, &lt;p&gt;, &lt;pre&gt;, &lt;q&gt;, 
+&lt;samp&gt;, &lt;select&gt;, &lt;small&gt;, &lt;span&gt;, &lt;strong&gt;, &lt;sub&gt;, &lt;sup&gt;, &lt;table&gt;, &lt;tbody&gt;, 
+&lt;td&gt;, &lt;textarea&gt;, &lt;tfoot&gt;, &lt;th&gt;, &lt;thead&gt;, &lt;tr&gt;, &lt;tt&gt;, &lt;ul&gt;, &lt;var&gt;
+</pre>
+
+<h3>支持该事件的 JavaScript 对象：</h3>
+<pre>button, checkbox, fileUpload, layer, frame, password, radio, reset, select, submit, 
+text, textarea, window</pre>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>在本例中，当输入框获得焦点时，其背景颜色将改变：</p>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function setStyle(x)
+{
+document.getElementById(x).style.background="yellow"
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+First name: &lt;input type="text"
+<code>onfocus="setStyle(this.id)" id="fname"</code> /&gt;
+&lt;br /&gt;
+Last name: &lt;input type="text"
+<code>onfocus="setStyle(this.id)" id="lname"</code> /&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>输出：</h3>
+<script type="text/javascript">
+function setStyle(x)
+{
+document.getElementById(x).style.background="yellow"
+}
+</script>
+<p>First name: <input type="text" onfocus="setStyle(this.id)" id="fname"></p>
+<p>Last name: <input type="text" onfocus="setStyle(this.id)" id="lname"></p>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_onfocus">onfocus</a></dt>
+<dd>如何使用 onfocus。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+</div>

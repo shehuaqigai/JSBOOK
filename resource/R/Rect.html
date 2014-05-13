@@ -1,0 +1,43 @@
+<div class="_content"><div class="_page _mdn"><h1>&lt;shape&gt;</h1>  <p>The <code>&lt;shape&gt;</code> <a href="https://developer.mozilla.org/en/CSS" title="CSS">CSS</a> data type denotes the specific form of a region. This region is used to define on which part of an element some properties like <a href="clip" title=""><code>clip</code></a> do apply.</p> <p>In the current specification, a <code>&lt;shape&gt;</code>, though designed to denote any kind of form, can only represents a rectangular region, defined using the <code>rect()</code> functional notation.</p> <h2 id="Syntax" name="Syntax" class="">The <code>rect()</code> function</h2> <p>The <code>rect()</code> functional notation produces a region in the form of a rectangle.</p> <h3 id="Syntax">Syntax</h3> <pre class="eval">rect(<em>top</em>, <em>right</em>, <em>bottom</em>, <em>left</em>)
+</pre> <h4 id="Values">Values</h4> <p><img align="right" alt="rect.png" class="internal rwrap" src="https://developer.mozilla.org/@api/deki/files/5730/=rect.png"></p> <dl>
+<dt> <em>top</em>
+</dt> <dd> Is a <a href="length" title=""><code>&lt;length&gt;</code></a> representing the offset for the top of the rectangle relative to the top border of the element's box.</dd> </dl><dl>
+<dt> <em>right</em>
+</dt> <dd> Is a <a href="length" title=""><code>&lt;length&gt;</code></a> representing the offset for the right of the rectangle relative to the left border of the element's box.</dd> </dl><dl>
+<dt> <em>bottom</em>
+</dt> <dd> Is a <a href="length" title=""><code>&lt;length&gt;</code></a> representing the offset for the bottom of the rectangle relative to the top border of the element's box.</dd> </dl><dl>
+<dt> <em>left</em>
+</dt> <dd> Is a <a href="length" title=""><code>&lt;length&gt;</code></a> representing the offset for the left of the rectangle relative to the left border of the element's box.</dd> </dl><h3 id="Interpolation">Interpolation</h3> <p>Values of the <code>&lt;shape&gt;</code> CSS data type which are rectangles can be interpolated in order to allow animations. In that case they are interpolated over their <code>top</code>, <code>right</code>, <code>bottom</code> and <code>left</code> component, each treated as a real, floating-point number. The speed of the interpolation is determined by the <a href="https://developer.mozilla.org/en/CSS/timing-function" title="timing-function">timing function</a> associated with the animation.</p> <h3 id="Examples" name="Examples">Examples</h3> <pre class="eval"> img.clip04 { 
+   clip: rect(10px, 20px, 20px, 10px);
+ }
+</pre> <h2 id="Specifications" name="Specifications">Specifications</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr></thead>
+<tbody><tr>
+<td><a class="external" href="http://www.w3.org/TR/CSS2/visufx.html#value-def-shape" lang="en" title="The definition of '&lt;shape&gt;' in that specification.">CSS Level 2 (Revision 1)</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>Defined with the <a href="clip" title=""><code>clip</code></a> property</td> </tr></tbody>
+</table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td>1.0</td> <td>1.0 (1.7 or earlier)</td> <td>5.5[*]</td> <td>9.5</td> <td>1.3</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <p>[*] From IE 5.5 to IE 7 included, the IE supported syntax of the rect() didn't allow the comma as the parameter separator, but a space. From IE 8, the standard syntax (only commas) is supported.</p> <h2 id="See_also" name="See_also">See also</h2> <ul>
+<li>Related CSS properties: <a href="clip" title=""><code>clip</code></a>
+</li> <li>The <a href="https://developer.mozilla.org/en/CSS/-moz-image-rect" title="en/CSS/-moz-image-rect">-moz-image-rect()</a> function with similar coordinate than <code>rect()</code>.</li> <li>CSS Data Types : <code><a href="angle">&lt;angle&gt;</a></code>, <code><a href="color_value">&lt;color&gt;</a></code>, <code><a href="frequency">&lt;frequency&gt;</a></code>, <code><a href="gradient">&lt;gradient&gt;</a></code>, <code><a href="image">&lt;image&gt;</a></code>, <code><a href="length">&lt;length&gt;</a></code>, <code><a href="number">&lt;number&gt;</a></code>, <code><a href="percentage">&lt;percentage&gt;</a></code>, <code><a href="position">&lt;position&gt;</a></code>, <code><a href="ratio">&lt;ratio&gt;</a></code>, <code><a href="resolution">&lt;resolution&gt;</a></code>, <code><a href="shape">&lt;shape&gt;</a></code>, <code><a href="string">&lt;string&gt;</a></code>, <code><a href="time">&lt;time&gt;</a></code>, <code><a href="timing-function">&lt;timing-function&gt;</a></code>, <code><a href="uri">&lt;uri&gt;</a></code>, <code><a href="user-ident">&lt;user-ident&gt;</a></code>.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/shape$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/shape" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/CSS/shape</a>
+  </p>
+</div>
+</div></div>

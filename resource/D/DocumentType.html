@@ -1,0 +1,107 @@
+<section class="single-content" id="single-content">
+                    <p>DocumentType类型在Web浏览器中并不常用，仅有Firefox、Safari和Opera支持它。DocumentType包含着与文档的doctype有关的所有信息，它具有下列特征：</p>
+<ul>
+<li>nodeType的值为10；</li>
+<li>nodeName的值为doctype的名称；</li>
+<li>nodeValue的值为null；</li>
+<li>parentNode是Document；</li>
+<li>不支持（没有）子节点。</li>
+</ul>
+<p>在DOM1级中，DocumentType对象不能动态创建，而只能通过解析文档代码的方式来创建。支持它的浏览器会把DocumentType对象保存在document.doctype中。DOM1级描述了DocumentType对象的3个属性：name、entities和notations。其中，name表示文档类型的名称；entities是由文档类型描述的实体的NameNodeMap对象；notations是由文档类型描述的符号的NamedNodeMap对象。通常浏览器中的文档使用的都是HTML或XHTML文档类型，因而entities和notations都是空列表。但不管怎样，只有name属性是有用的。这个属性中保存的是文档类型的名称，也就是出现在&lt;!DOCTYPE之后的文本。以下面严格型HTML 4.01的文档类型声明为例：</p>
+<pre class="prettyprint"><span class="dec">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;</span></pre>
+<p>DocumentType的name属性中保存的就是“HTML”:</p>
+<pre class="prettyprint"><span class="pln">alert</span><span class="pun">(</span><span class="pln">document</span><span class="pun">.</span><span class="pln">doctype</span><span class="pun">.</span><span class="pln">name</span><span class="pun">);</span><span class="pln"> </span><span class="com">//"HTML"</span></pre>
+<p>IE不支持DocumentType，因此document.doctype的值始终都是null。可是，IE会把文档类型声明错误的解释为注释，并且为它创建一个注释节点。</p>
+<div class="yarpp-related">
+<p>Related posts:</p><ol>
+<li><a href="http://www.w3cmm.com/javascript/learning.html" rel="bookmark" title="学习JavaScript准备工作">学习JavaScript准备工作</a></li>
+</ol>
+</div>
+                                    </section>
+
+
+                                    <div id="maincontent">
+
+<h1>XML DOM - DocumentType 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_document.asp" title="XML DOM Document 对象">DOM Document</a></li>
+<li class="next"><a href="/xmldom/dom_domexception.asp" title="XML DOM DOMException 对象">DOM DOMException</a></li>
+</ul>
+</div>
+
+<div id="intro">
+<p><strong>DocumentType 对象可向为 XML 所定义的实体提供一个接口。</strong></p>
+</div>
+
+<div>
+<h2>DocumentType 对象</h2>
+
+<p>每个文档均有一个 DOCTYPE 属性，此属性的值可为 null，也可是一个 DocumentType 对象。</p>
+<p>DocumentType 对象可向为 XML 所定义的实体提供接口。</p>
+<p><em>IE:</em> Internet Explorer, <em>F:</em> Firefox, <em>O:</em> Opera, <em>W3C:</em> 万维网联盟 (因特网标准)</p>
+</div>
+
+<div>
+<h2>DocumentType 对象的属性</h2>
+
+<table class="dataintable">
+<tbody><tr>
+<th>属性</th>
+<th>描述</th>
+<th>IE</th>
+<th>F</th>
+<th>O</th>
+<th>W3C</th>
+</tr>
+<tr>
+	<td><a href="prop_documenttype_entities.asp">entities</a></td>
+	<td>可返回含有在 DTD 中所声明的实体的 NamedNodeMap</td>
+	<td>6</td>
+	<td>No</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td><a href="prop_documenttype_internalsubset.asp">internalSubset</a></td>
+	<td>以字符串返回内部 DTD</td>
+	<td>No</td>
+	<td>No</td>
+	<td>No</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td><a href="prop_documenttype_name.asp">name</a></td>
+	<td>返回 DTD 的名称</td>
+	<td>6</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td>notations</td>
+	<td>可返回含有在 DTD 中所声明的符号（notation）的 NamedNodeMap</td>
+	<td>6</td>
+	<td>No</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td><a href="prop_documenttype_systemid.asp">systemId</a></td>
+	<td>可返回外部 DTD 的系统识别符</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+</tbody></table>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_document.asp" title="XML DOM Document 对象">DOM Document</a></li>
+<li class="next"><a href="/xmldom/dom_domexception.asp" title="XML DOM DOMException 对象">DOM DOMException</a></li>
+</ul>
+</div>
+</div>

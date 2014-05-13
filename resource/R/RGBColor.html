@@ -1,0 +1,20 @@
+<div class="topic" xmlns:mtps="http://msdn2.microsoft.com/mtps" xmlns:ms-help="http://msdn.microsoft.com/ms-help" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">RGBColor Object</h1>
+  
+  <div class="lw_vs">
+    <div id="curversion">
+      <strong>
+            Office 2003
+        </strong>
+    </div>
+  </div>
+  <div style="clear:both;"></div>
+  
+   <table class="ofvbaomart"><tbody><tr><td class="noborder" nowrap="true"><a href="http://msdn.microsoft.com/en-us/library/office/aa221366(v=office.11).aspx"><span class="omblue" xmlns="http://www.w3.org/1999/xhtml">RGBColor</span></a><br></td></tr></tbody></table><p>Represents a single color in a color scheme.</p><h2>Using the RGBColor Object</h2><p>Use the <a href="http://msdn.microsoft.com/en-us/library/office/aa171989(v=office.11).aspx"><b class="bterm" xmlns="http://www.w3.org/1999/xhtml">Colors</b></a>
+ method to return an <a href="#RGBColor"><b class="bterm">RGBColor</b></a>
+ object. You can set an <b class="bterm">RGBColor</b> object to another <b class="bterm">RGBColor</b> object. You can use the <a href="http://msdn.microsoft.com/en-us/library/office/aa172637(v=office.11).aspx"><b class="bterm" xmlns="http://www.w3.org/1999/xhtml">RGB</b></a>
+ property to set or return the explicit red-green-blue value for an <b class="bterm">RGBColor</b> object, with the exception of the <b class="bterm">RGBColor</b> objects defined by the <b class="bterm">ppNotSchemeColor</b> and <b class="bterm">ppSchemeColorMixed</b> constants. The <b class="bterm">RGB</b> property can be returned, but not set, for these two objects. The following example sets the background color in color scheme one in the active presentation to red and sets the title color to the title color that's defined for color scheme two.</p><pre><code>With ActivePresentation.ColorSchemes
+    .Item(1).Colors(ppBackground).RGB = RGB(255, 0, 0)
+    .Item(1).Colors(ppTitle) = .Item(2).Colors(ppTitle)
+End With</code>
+		</pre><br><br><p></p><div id="properties"><b>Properties </b> | <a href="http://msdn.microsoft.com/en-us/library/office/aa221526(v=office.11).aspx">Application Property</a> | <a href="http://msdn.microsoft.com/en-us/library/office/aa195642(v=office.11).aspx">Parent Property</a> | <a href="http://msdn.microsoft.com/en-us/library/office/aa172637(v=office.11).aspx">RGB Property</a></div><p></p><div id="parentobjects"><b>Parent Objects </b></div><p></p><div id="childobjects"><b>Child Objects </b></div><br><br></div>

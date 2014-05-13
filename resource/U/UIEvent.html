@@ -1,0 +1,60 @@
+
+<div class="mycontent">
+<div id="new">
+        <div id="zhan"></div>
+        <div id="ad"><script language="javascript" src="http://www.xue5.com/AD/200504/24.js"></script></div>     
+</div>　和IE不同的是，W3C DOM中的Event对象并不是window全局对象下面的属性，换句话说，event不是全局变量。通常在DOM二级标准中，event作为发生事件的文档对象的属性。Event含有两个子接口，分别是UIEvent和MutationEvent，这两个子接口实现了Event的所有方法和属性，而MouseEvent接口又是UIEvent的子接口，所以实现了UIEvent和Event的所有方法和属性。下面，我们就看看Event、UIEvent和MouseEvent的主要属性和方法。<br>　　1.Event<br>　　&nbsp; type：事件类型，和IE类似，但是没有“on”前缀，例如单击事件只是“click”。<br>　　&nbsp; target：发生事件的节点。<br>　　&nbsp; currentTarget：发生当前正在处理的事件的节点，可能是Target属性所指向的节点，也可能由于捕捉或者起泡，指向Target所指节点的父节点。<br>　　&nbsp; eventPhase：指定了事件传播的阶段。是一个数字。<br>　　&nbsp; timeStamp：事件发生的时间。<br>　　&nbsp; bubbles：指明该事件是否起泡。<br>　　&nbsp; cancelable：指明该事件是否可以用preventDefault()方法来取消默认的动作。<br>　　&nbsp; preventDefault()方法：取消事件的默认动作；<br>　　&nbsp; stopPropagation()方法：停止事件传播。<br>　　2.UIEvent<br>　　&nbsp; view：发生事件的window对象。<br>　　&nbsp; detail：提供事件的额外信息，对于单击事件、mousedown和mouseup事件都代表的是点击次数。<br>　　3.MouseEvent<br>　　　button：一个数字，指明在mousedown、mouseup和单击事件中，鼠标键的状态，和IE中的button属性类似，但是数字代表的意义不一样，0代表左键，1代表中间键，2代表右键。<br>　　　altKey、ctrlKey、shiftKey、metaKey：和IE相同，但是IE没有最后一个。<br>　　　clientX、clientY：和IE的含义相同，但是在DOM标准中，这两个属性值都不考虑文档的滚动情况，也就是说，无论文档滚动到哪里，只要事件发生在窗口左上角，clientX和clientY都是0，所以在IE中，要想得到事件发生的坐标相对于文档开头的位置，要加上document.body.scrollLeft和document.body.scrollTop。<br>　　　screenX、screenY：鼠标指针相对于显示器左上角的位置，如果你想打开新的窗口，这两个属性很重要。<br>　　　relatedTarget：和IE中的fromElement、toElement类似，除了对于mouseover和mouseout有意义外，其他的事件没什么意义。<br>（三）兼容于两种主流浏览器的拖动DOM元素的例子<br>　　好了，刚才讲了这么多DOM编程和IE中的事件，那么如何编写兼容IE和Mozilla Firefox两种主流浏览器的拖拽程序呢？代码如下：<br>function beginDrag(elementToDrag,event)<br>{<br>&nbsp; var deltaX=event.clientX-parseInt(elementToDrag.style.left);<br>&nbsp; var deltaY=event.clientY-parseInt(elementToDrag.style.top);<br>&nbsp; <br>if(document.addEventListener) <br>{<br>&nbsp; document.addEventListener("mousemove",moveHandler,true);<br>&nbsp; document.addEventListener("mouseup",upHandler,true);<br>}<br>else if(document.attachEvent)<br>{<br>&nbsp; document.attachEvent("onmousemove",moveHandler);<br>&nbsp; document.attachEvent("onmouseup",upHandler);<br>&nbsp; <br>}<br>&nbsp; <br>&nbsp; if(event.stopPropagation)&nbsp;&nbsp; event.stopPropagation();<br>&nbsp; else event.cancelBubble=true;<br>&nbsp; if(event.preventDefault)&nbsp; event.preventDefault();<br>&nbsp; else event.returnValue=false;<br>&nbsp; <br>&nbsp; function moveHandler(e)&nbsp; <br>&nbsp; {<br>　　if (!e) e=window.event; //如果是IE的事件对象，那么就用window.event<br>　　//全局属性，否则就用DOM二级标准的Event对象。<br>&nbsp;&nbsp;&nbsp; elementToDrag.style.left=(event.clientX-deltaX)+"px";<br>&nbsp;&nbsp;&nbsp; elementToDrag.style.top=(event.clientY-deltaY)+"px";<br>&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp;&nbsp; if(event.stopPropagation)&nbsp;&nbsp; event.stopPropagation();<br>&nbsp;&nbsp;&nbsp; else event.cancelBubble=true;<br>&nbsp;&nbsp;&nbsp; <br>&nbsp; }<br>&nbsp; <br>&nbsp; function upHandler(e)<br>&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(document.removeEventListener)<br>&nbsp;&nbsp;&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; document.removeEventListener("mouseup",upHandler,true);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; document.removeEventListener("mousemo<p></p><div align="left"><b><div id="nextpage" style="float:left;border:1px solid #39f;text-align:center;WIDTH: 55px;HEIGHT: 20px;background-color:#eee;padding:2px;margin:5px;"><a href="http://www.xue5.com/itedu/200710/27071_2.html">上一页</a></div><div id="pages" style="float:left;border:1px solid #39f;text-align:center;WIDTH: 30px;HEIGHT: 20px;background-color:#eee;padding:2px;margin:5px;margin-right:0;"><a href="http://www.xue5.com/itedu/200710/27071.html">1</a></div><div id="pages" style="float:left;border:1px solid #39f;text-align:center;WIDTH: 30px;HEIGHT: 20px;background-color:#eee;padding:2px;margin:5px;margin-right:0;"><a href="http://www.xue5.com/itedu/200710/27071_2.html">2</a></div><div id="pages" style="float:left;border:1px solid #39f;text-align:center;WIDTH: 30px;HEIGHT: 20px;background-color:#eee;padding:2px;margin:5px;margin-right:0;"><font color="red">3</font></div><div id="pages" style="float:left;border:1px solid #39f;text-align:center;WIDTH: 30px;HEIGHT: 20px;background-color:#eee;padding:2px;margin:5px;margin-right:0;"><a href="http://www.xue5.com/itedu/200710/27071_4.html">4</a></div><div id="nextpage" style="float:left;border:1px solid #39f;text-align:center;WIDTH: 55px;HEIGHT: 20px;background-color:#eee;padding:2px;margin:5px;"><a href="http://www.xue5.com/itedu/200710/27071_4.html">下一页</a></div> </b></div>
+</div>
+
+
+
+
+
+<div class="_content"><div class="_page _mdn"><h1>UIEvent</h1> <p>The DOM <code>UIEvent</code> represents simple user interface events.</p> <h2 id="Method_overview">Method overview</h2> <table class="standard-table"><tbody><tr>
+<td><code>void initUIEvent(in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in views::AbstractView viewArg, in long detailArg);</code></td> </tr></tbody></table><h2 id="Attributes">Attributes</h2> <table class="standard-table" style="width: auto;"><tbody>
+<tr>
+<th class="header">Attribute</th> <th class="header">Type</th> <th class="header">Description</th> </tr>
+<tr>
+<td><code>detail</code></td> <td><code>long</code></td> <td>Detail about the event, depending on the type of event. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td><code>view</code></td> <td><code>views::AbstractView</code></td> <td>A view which generated the event. <strong>Read only.</strong>
+</td> </tr>
+</tbody></table><h2 id="Methods">Methods</h2> <h3 id="initUIEvent">initUIEvent</h3> <p>Initializes the UIEvent object.</p> <pre><code>void initUIEvent(
+  in DOMString typeArg,
+  in boolean canBubbleArg,
+  in boolean cancelableArg,
+  in views::AbstractView viewArg,
+  in long detailArg
+);</code>
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>typeArg</code>
+</dt> <dd> The type of UI event.</dd> <dt> <code>canBubbleArg</code>
+</dt> <dd> Whether or not the event can bubble.</dd> <dt> <code>cancelableArg</code>
+</dt> <dd> Whether or not the event can be canceled.</dd> <dt> <code>viewArg</code>
+</dt> <dd> Specifies the <code>view</code> attribute value. This may be <code>null</code>.</dd> <dt> <code>detailArg</code>
+</dt> <dd> Specifies the detail attribute value.</dd> </dl><h2 class="editable" id="Specification"><span>Specification</span></h2> <p><a class="external" href="http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html#events-UIEvent" rel="external" title="http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html#events-UIEvent">DOM 3 Events: UIEvent</a></p> <h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 class="editable" id="See_also"><span>See also</span></h2> <ul>
+<li><a href="event" title="This chapter describes the DOM Event Model. The Event interface itself is described, as well as the interfaces for event registration on nodes in the DOM, and event listeners, and several longer examples that show how the various event interfaces relate to one another."><code>Event</code></a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/UIEvent</a>
+  </p>
+</div>
+</div></div>

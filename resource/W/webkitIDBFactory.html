@@ -1,0 +1,174 @@
+<div class="pleft">
+		<div class="place">
+			<strong>当前位置:</strong> <a href="http://silverlightchina.net/">银光首页</a> &gt; <a href="/html/html5/">HTML 5</a> &gt; <a href="/html/HTML_5/study/">HTML 5学习教程</a> &gt; 
+		</div><!-- /place -->
+		<div class="viewbox">
+			<div class="title">
+				<h2>HTML5 - Indexed Database API (2) - IDBFactory 与资料库物件</h2>
+			</div><!-- /title -->
+			<div class="info">
+				<small>时间:</small>2012-06-06 19:56<small>来源:</small>dotblogs <small>作者:</small>kangting <small>点击:</small>
+
+				221次</div><!-- /info -->
+
+            	<div class="intro">资料库(Database)是Indexed Database 机制的基础，被用来维护资料物件，下图简要说明资料库的结构： 你可以建立一个以上的资料库以进行各种资料的管理护作业，每一个资料库包含一个以上的物件仓储(object store)，是资料真正储存的地方，就如同关联式资料库中的资料表。 Indexed Database API 支援资料库与物件仓储操作所</div>
+			<div class="content">
+			　　<p>　　资料库(Database)是Indexed Database 机制的基础，被用来维护资料物件，下图简要说明资料库的结构：</p>
+<p>　　</p>
+<center><img alt="" src="/uploads/allimg/120606/1959491L7-0.jpg" width="620" height="332"></center>
+<p>&nbsp;</p>
+<p>　　你可以建立一个以上的资料库以进行各种资料的管理护作业，每一个资料库包含一个以上的物件仓储(object store)，是资料真正储存的地方，就如同关联式资料库中的资料表。</p>
+<p>　　Indexed Database API 支援资料库与物件仓储操作所需的介面与方法成员，当你要进行资料维謢工作，第一步便是建立资料库连线，开启资料库之后，接下来就是取出所要操作的物件仓储即可开始执行资料库作业。</p>
+<p>　　建立资料库连线所需的方法，由 IDBFactory 定义，也是你在实作资料处理功能之前第一个必须瞭解的介面，以下列举其定义：</p>
+<div style="padding-bottom: 6px; margin: 1px; padding-left: 6px; padding-right: 6px; font-family: Courier New; color: #333333; font-size: 12px; overflow: auto; padding-top: 6px"><span style="color: #0000ff">interface</span>&nbsp;IDBFactory&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;IDBOpenDBRequest&nbsp;open&nbsp;(DOMString&nbsp;name,[EnforceRange]&nbsp;optional&nbsp;unsigned&nbsp;<span style="color: #0000ff">long</span>&nbsp;<span style="color: #0000ff">long</span>&nbsp;version);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;IDBOpenDBRequest&nbsp;deleteDatabase&nbsp;(DOMString&nbsp;name);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000ff">short</span>&nbsp;cmp&nbsp;(any&nbsp;first,&nbsp;any&nbsp;second);<br>
+};</div>
+<p>　　其中open() 将执行开启资料库的操作，第一个参数name 为所要开启的资料库名称，而 deleteDatabase 则删除指定的资料库，其中的参数name 则是所要删除的资料库名称。而最后一个cmp 针对其中的两个参数进行比较，如果first 大于second 回传1 ，反之则是-1 ，两个相等则是0 。</p>
+<p>　　无论open() 或是delete() ，均是以非同步进行，这些方法执行完毕之后，都将回传一个IDBRequest 介面定义的物件，代表对资料库提出非同步要求所得到的回应结果，介面的定义如下：</p>
+<div style="padding-bottom: 6px; margin: 1px; padding-left: 6px; padding-right: 6px; font-family: Courier New; color: #333333; font-size: 12px; overflow: auto; padding-top: 6px"><span style="color: #0000ff">interface</span>&nbsp;IDBRequest&nbsp;:&nbsp;EventTarget&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000ff">readonly</span>&nbsp;attribute&nbsp;any&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000ff">readonly</span>&nbsp;attribute&nbsp;DOMError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;error;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000ff">readonly</span>&nbsp;attribute&nbsp;Object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000ff">readonly</span>&nbsp;attribute&nbsp;IDBTransaction&nbsp;transaction;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000ff">readonly</span>&nbsp;attribute&nbsp;DOMString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;readyState;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[TreatNonCallableAsNull]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attribute&nbsp;Function?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onsuccess;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[TreatNonCallableAsNull]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;attribute&nbsp;Function?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onerror;<br>
+};</div>
+<p>　　其中的成员，包含支援接下来的资料库操作所需的事件回应属性，以及表示资料库作业的结果属性，列举说明如下：</p>
+<p>　　result资料库操作完成之后回传的结果。</p>
+<p>　　error发生的错误。</p>
+<p>　　source回传操作要求来源。</p>
+<p>　　transaction回传操作要求的交易物件。</p>
+<p>　　readyState操作未完成，回传 pending 字串，否则回传 done 结果字串。</p>
+<p>　　onsuccess操作成功之后，回应 success 事件的回应函式。</p>
+<p>　　onerror操作失败之后，回应 error 事件的回应函式。</p>
+<p>　　具备相关的介面概念，下一篇来看看如何建立资料库连线，讨论实际的资料库功能实作。</p>
+<p>　　本文来自kangting的博客，原文地址：http://www.dotblogs.com.tw/kangting/archive/2012/06/07/html5-indexeddatabase-objectstore.aspx</p>
+			</div><!-- /content -->
+                                <div class="content">
+			　　
+
+
+<ins style="display:inline-table;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:60px;margin:0;padding:0;position:relative;visibility:visible;width:468px;background-color:transparent"><iframe width="468" height="60" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+			</div><!-- /contentAD -->
+			<div class="dede_pages">
+				<ul class="pagelist">
+                    
+				</ul>
+			</div><!-- /pages -->
+			<div class="newdigg" id="newdigg"><div class="diggbox digg_good" onmousemove="this.style.backgroundPosition='left bottom';" onmouseout="this.style.backgroundPosition='left top';" onclick="postDigg('good',16535)">
+			<div class="digg_act">顶一下</div>
+			<div class="digg_num">(0)</div>
+			<div class="digg_percent">
+				<div class="digg_percent_bar"><span style="width:0.00%"></span></div>
+				<div class="digg_percent_num">0.00%</div>
+			</div>
+		</div>
+		<div class="diggbox digg_bad" onmousemove="this.style.backgroundPosition='right bottom';" onmouseout="this.style.backgroundPosition='right top';" onclick="postDigg('bad',16535)">
+			<div class="digg_act">踩一下</div>
+			<div class="digg_num">(0)</div>
+			<div class="digg_percent">
+				<div class="digg_percent_bar"><span style="width:0.00%"></span></div>
+				<div class="digg_percent_num">0.00%</div>
+			</div>
+		</div></div>
+			<div class="boxoff">
+				<strong>------分隔线----------------------------</strong>
+			</div>
+			<div class="handle">
+				<div class="context">
+					<ul>
+						<li>上一篇：<a href="/html/HTML_5/study/2012/0606/16529.html">HTML5 canvas基础</a> </li>
+						<li>下一篇：<a href="/html/HTML_5/study/2012/0606/16536.html">HTML5 - Indexed Database API (1) - Web SQL Database</a> </li>
+					</ul>
+				</div><!-- /context -->
+				<div class="actbox">
+					<ul>
+						<li id="act-fav"><a href="/plus/stow.php?aid=16535" target="_blank">收藏</a></li>
+						<li id="act-err"><a href="/plus/erraddsave.php?aid=16535&amp;title=HTML5 - Indexed Database API (2) - IDBFactory 与资料库物件" target="_blank">挑错</a></li>
+						<li id="act-pus"><a href="/plus/recommend.php?aid=16535" target="_blank">推荐</a></li>
+						<li id="act-pnt"><a href="#" onclick="window.print();">打印</a></li>
+					</ul>
+				</div><!-- /actbox -->
+			</div><!-- /handle -->
+		</div><!-- /viewbox -->
+
+		<div class="mt1">
+			<dl class="tbox">
+				<dt>
+					<strong>最新评论</strong>
+					<span class="more"><a href="/plus/feedback.php?aid=16535">查看所有评论</a></span>
+				</dt>
+				<dd>
+					<div class="dede_comment">
+                   
+					</div><!-- /dede_comment -->
+				</dd>
+			</dl>
+		</div><!-- /comment -->
+<div class="mt1">
+		<dl class="tbox">
+			<dt>
+				<strong>发表评论</strong>
+				<span class="more"><a href="/plus/feedback.php?aid=16535">查看所有评论</a></span>
+			</dt>
+			<dd>
+				<div class="dede_comment_post">
+          <form action="/plus/feedback.php" method="post" name="feedback">
+          <input type="hidden" name="action" value="send">
+          <input type="hidden" name="comtype" value="comments">
+          <input type="hidden" name="aid" value="16535">
+          <input type="hidden" name="isconfirm" value="yes">
+                    <div class="dcmp-title">
+						<small>请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。</small>
+					</div><!-- /dcmp-title -->
+					<div class="dcmp-stand">
+						<strong>评价:</strong>
+							<input type="radio" name="feedbacktype" checked="1" value="feedback" id="dcmp-stand-neu"><label for="dcmp-stand-neu"><img src="/templets/images/cmt-neu.gif">中立</label>
+							<input type="radio" name="feedbacktype" value="good" id="dcmp-stand-good"><label for="dcmp-stand-good"><img src="/templets/images/cmt-good.gif">好评</label>
+							<input type="radio" name="feedbacktype" value="bad" id="dcmp-stand-bad"><label for="dcmp-stand-bad"><img src="/templets/images/cmt-bad.gif">差评</label>
+					</div><!-- /dcmp-stand -->
+					<div class="dcmp-content">
+						<textarea cols="60" name="msg" rows="5" class="ipt-txt"></textarea>
+					</div><!-- /dcmp-content -->
+
+					<div class="dcmp-mood">
+						<strong>表情:</strong>
+						<ul>
+								<li><input type="radio" name="face" value="6" checked="1"><img src="/templets/images/mood/ico-mood-6.gif"></li>
+								<li><input type="radio" name="face" value="4"><img src="/templets/images/mood/ico-mood-4.gif"></li>
+								<li><input type="radio" name="face" value="3"><img src="/templets/images/mood/ico-mood-3.gif"></li>
+								<li><input type="radio" name="face" value="5"><img src="/templets/images/mood/ico-mood-5.gif"></li>
+								<li><input type="radio" name="face" value="2"><img src="/templets/images/mood/ico-mood-2.gif"></li>
+								<li><input type="radio" name="face" value="1"><img src="/templets/images/mood/ico-mood-1.gif"></li>
+								<li><input type="radio" name="face" value="7"><img src="/templets/images/mood/ico-mood-7.gif"></li>
+						</ul>
+					</div><!-- /dcmp-mood -->
+					<div class="dcmp-post"><!--未登陆-->
+							<div class="dcmp-userinfo" id="_ajax_feedback">
+
+<title>DEDECMS提示信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<base target="_self">
+<style>div{line-height:160%;}</style>
+
+<center>
+
+</center>
+
+
+</div>
+                            
+						
+						</div>
+                    </form>
+				</div><!-- /dede_comment_post -->
+			</dd>
+		</dl>
+	</div>
+
+	</div>

@@ -1,0 +1,486 @@
+<div id="maincontent">
+ <h1>event对象是MouseEvent的一个实例</h1>
+ <h3>MouseEvent继承UIEvent</h3>
+ <h3>UIEvent继承Event</h3>
+<h1>HTML DOM Event 对象</h1>
+
+<div>
+<h2>实例</h2>
+<p><a href="/tiy/t.asp?f=hdom_event_button">哪个鼠标按钮被点击？</a></p>
+<p><a href="/tiy/t.asp?f=hdom_event_clientx">光标的坐标是？</a></p>
+<p><a href="/tiy/t.asp?f=hdom_event_keycode">被按的按键的 unicode 是？</a></p>
+<p><a href="/tiy/t.asp?f=hdom_event_screenxy">相对于屏幕，光标的坐标是？</a></p>
+<p><a href="/tiy/t.asp?f=hdom_event_shiftkey">shift 键被按了吗？</a></p>
+<p><a href="/tiy/t.asp?f=hdom_event_srcelement">哪个元素被点击了？</a></p>
+<p><a href="/tiy/t.asp?f=hdom_event_type">哪个事件类型发生了？</a></p>
+</div>
+
+<div>
+<h2>Event 对象</h2>
+<p>Event 对象代表事件的状态，比如事件在其中发生的元素、键盘按键的状态、鼠标的位置、鼠标按钮的状态。</p>
+<p>事件通常与函数结合使用，函数不会在事件发生前被执行！</p>
+
+<p class="note"><span>IE:</span> Internet Explorer, <span>F:</span> Firefox, <span>O:</span> Opera, <span>W3C:</span> W3C 标准.</p>
+</div>
+
+<div>
+<h2>事件句柄　(Event Handlers)</h2>
+<p>HTML 4.0 的新特性之一是能够使 HTML 事件触发浏览器中的行为，比如当用户点击某个 HTML 元素时启动一段 JavaScript。下面是一个属性列表，可将之插入 HTML 标签以定义事件的行为。</p>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:20%">属性</th>
+    <th>此事件发生在何时...</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+    <th style="width:7%">W3C</th>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onabort.asp">onabort</a></td>
+	<td>图像的加载被中断。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onblur.asp">onblur</a></td>
+	<td>元素失去焦点。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onchange.asp">onchange</a></td>
+	<td>域的内容被改变。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onclick.asp">onclick</a></td>
+	<td>当用户点击某个对象时调用的事件句柄。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_ondblclick.asp">ondblclick</a></td>
+	<td>当用户双击某个对象时调用的事件句柄。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onerror.asp">onerror</a></td>
+	<td>在加载文档或图像时发生错误。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onfocus.asp">onfocus</a></td>
+	<td>元素获得焦点。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onkeydown.asp">onkeydown</a></td>
+	<td>某个键盘按键被按下。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>No</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onkeypress.asp">onkeypress</a></td>
+	<td>某个键盘按键被按下并松开。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onkeyup.asp">onkeyup</a></td>
+	<td>某个键盘按键被松开。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onload.asp">onload</a></td>
+	<td>一张页面或一幅图像完成加载。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onmousedown.asp">onmousedown</a></td>
+	<td>鼠标按钮被按下。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a href="event_onmousemove.asp">onmousemove</a></td>
+	<td>鼠标被移动。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onmouseout.asp">onmouseout</a></td>
+	<td>鼠标从某元素移开。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onmouseover.asp">onmouseover</a></td>
+	<td>鼠标移到某元素之上。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onmouseup.asp">onmouseup</a></td>
+	<td>鼠标按键被松开。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onreset.asp">onreset</a></td>
+	<td>重置按钮被点击。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onresize.asp">onresize</a></td>
+	<td>窗口或框架被重新调整大小。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onselect.asp">onselect</a></td>
+	<td>文本被选中。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onsubmit.asp">onsubmit</a></td>
+	<td>确认按钮被点击。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+
+  <tr>
+	<td><a target="_top" href="event_onunload.asp">onunload</a></td>
+	<td>用户退出页面。</td>
+    <td>3</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+</tbody></table>
+</div>
+
+<div>
+<h2>鼠标 / 键盘属性</h2>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:20%">属性</th>
+    <th>描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+    <th style="width:7%">W3C</th>
+  </tr>
+  <tr>
+		<td><a href="event_altkey.asp">altKey</a></td>
+		<td>返回当事件被触发时，"ALT" 是否被按下。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_button.asp">button</a></td>
+		<td>返回当事件被触发时，哪个鼠标按钮被点击。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td>
+          <a href="event_clientx.asp">clientX</a></td>
+		<td>返回当事件被触发时，鼠标指针的水平坐标。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_clienty.asp">clientY</a></td>
+		<td>返回当事件被触发时，鼠标指针的垂直坐标。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_ctrlkey.asp">ctrlKey</a></td>
+		<td>返回当事件被触发时，"CTRL" 键是否被按下。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td>
+          <a href="event_metakey.asp">metaKey</a></td>
+		<td>返回当事件被触发时，"meta" 键是否被按下。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_relatedtarget.asp">relatedTarget</a></td>
+		<td>返回与事件的目标节点相关的节点。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_screenx.asp">screenX</a></td>
+		<td>返回当某个事件被触发时，鼠标指针的水平坐标。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_screeny.asp">screenY</a></td>
+		<td>返回当某个事件被触发时，鼠标指针的垂直坐标。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_shiftkey.asp">shiftKey</a></td>
+		<td>返回当事件被触发时，"SHIFT" 键是否被按下。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>IE 属性</h2>
+<p>除了上面的鼠标/事件属性，IE 浏览器还支持下面的属性：</p>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:20%">属性</th>
+    <th>描述</th>
+  </tr>
+  <tr>
+		<td>cancelBubble</td>
+		<td>如果事件句柄想阻止事件传播到包容对象，必须把该属性设为 true。</td>
+  </tr>
+  <tr>
+		<td>fromElement</td>
+		<td>对于 mouseover 和 mouseout 事件，fromElement 引用移出鼠标的元素。</td>
+  </tr>
+  <tr>
+		<td>keyCode</td>
+		<td>对于 keypress 事件，该属性声明了被敲击的键生成的 Unicode 字符码。对于 keydown 和 keyup 事件，它指定了被敲击的键的虚拟键盘码。虚拟键盘码可能和使用的键盘的布局相关。</td>
+  </tr>
+  <tr>
+		<td>offsetX,offsetY</td>
+		<td>发生事件的地点在事件源元素的坐标系统中的 x 坐标和 y 坐标。</td>
+  </tr>
+  <tr>
+		<td>returnValue</td>
+		<td>如果设置了该属性，它的值比事件句柄的返回值优先级高。把这个属性设置为 fasle，可以取消发生事件的源元素的默认动作。</td>
+  </tr>
+  <tr>
+		<td>srcElement</td>
+		<td>对于生成事件的 Window 对象、Document 对象或 Element 对象的引用。</td>
+  </tr>
+  <tr>
+		<td>toElement</td>
+		<td>对于 mouseover 和 mouseout 事件，该属性引用移入鼠标的元素。</td>
+  </tr>
+  <tr>
+		<td>x,y</td>
+		<td>事件发生的位置的 x 坐标和 y 坐标，它们相对于用CSS动态定位的最内层包容元素。</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>标准 Event 属性</h2>
+<p>下面列出了 2 级 DOM 事件标准定义的属性。</p>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:20%">属性</th>
+    <th>描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+    <th style="width:7%">W3C</th>
+  </tr>
+  <tr>
+		<td><a href="event_bubbles.asp">bubbles</a></td>
+		<td>返回布尔值，指示事件是否是起泡事件类型。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_cancelable.asp">cancelable</a></td>
+		<td>返回布尔值，指示事件是否可拥可取消的默认动作。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td>
+          <a href="event_currenttarget.asp">currentTarget</a></td>
+		<td>返回其事件监听器触发该事件的元素。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_eventphase.asp">eventPhase</a></td>
+		<td>返回事件传播的当前阶段。</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_target.asp">target</a></td>
+		<td>返回触发此事件的元素（事件的目标节点）。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td>
+          <a href="event_timestamp.asp">timeStamp</a></td>
+		<td>返回事件生成的日期和时间。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_type.asp">type</a></td>
+		<td>返回当前 Event 对象表示的事件的名称。</td>
+		<td>6</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  </tbody></table>
+</div>
+
+
+<div>
+<h2>标准 Event 方法</h2>
+<p>下面列出了 2 级 DOM 事件标准定义的方法。IE 的事件模型不支持这些方法：</p>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:20%">方法</th>
+    <th>描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+    <th style="width:7%">W3C</th>
+  </tr>
+  <tr>
+		<td><a href="event_initevent.asp">initEvent()</a></td>
+		<td>初始化新创建的 Event 对象的属性。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td><a href="event_preventdefault.asp">preventDefault()</a></td>
+		<td>通知浏览器不要执行与事件关联的默认动作。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  <tr>
+		<td class="no_wrap"><a href="event_stoppropagation.asp">stopPropagation()</a></td>
+		<td>不再派发事件。</td>
+		<td>No</td>
+		<td>1</td>
+		<td>9</td>
+		<td>Yes</td>
+  </tr>
+  </tbody></table>
+</div>
+
+</div>

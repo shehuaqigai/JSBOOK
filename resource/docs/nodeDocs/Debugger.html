@@ -1,0 +1,107 @@
+<div class="_page _node"><h1 id="debugger_debugger">Debugger</h1> <pre class="api_stability_3">Stability: 3 - Stable</pre> <p>V8 comes with an extensive debugger which is accessible out-of-process via a simple <a href="http://code.google.com/p/v8/wiki/DebuggerProtocol">TCP protocol</a>. Node has a built-in client for this debugger. To use this, start Node with the <code>debug</code> argument; a prompt will appear: </p> <pre class="  language-javascript"><code class="  language-javascript"><span class="token operator">%</span> node debug myscript<span class="token punctuation">.</span>js
+<span class="token operator">&lt;</span> debugger listening on port <span class="token number">5858</span>
+connecting<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> ok
+<span class="token keyword">break</span> <span class="token keyword">in</span> <span class="token operator">/</span>home<span class="token operator">/</span>indutny<span class="token operator">/</span>Code<span class="token operator">/</span>git<span class="token operator">/</span>indutny<span class="token operator">/</span>myscript<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">1</span>
+  <span class="token number">1</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token number">2</span> <span class="token function">setTimeout<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token number">3</span>   debugger<span class="token punctuation">;</span>
+debug<span class="token operator">&gt;</span></code></pre> <p>Node's debugger client doesn't support the full range of commands, but simple step and inspection is possible. By putting the statement <code>debugger;</code> into the source code of your script, you will enable a breakpoint. </p> <p>For example, suppose <code>myscript.js</code> looked like this: </p> <pre class="  language-javascript"><code class="  language-javascript"><span class="token comment" spellcheck="true">// myscript.js
+</span>x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token function">setTimeout<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  debugger<span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p>Then once the debugger is run, it will break on line 4. </p> <pre class="  language-javascript"><code class="  language-javascript"><span class="token operator">%</span> node debug myscript<span class="token punctuation">.</span>js
+<span class="token operator">&lt;</span> debugger listening on port <span class="token number">5858</span>
+connecting<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> ok
+<span class="token keyword">break</span> <span class="token keyword">in</span> <span class="token operator">/</span>home<span class="token operator">/</span>indutny<span class="token operator">/</span>Code<span class="token operator">/</span>git<span class="token operator">/</span>indutny<span class="token operator">/</span>myscript<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">1</span>
+  <span class="token number">1</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token number">2</span> <span class="token function">setTimeout<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token number">3</span>   debugger<span class="token punctuation">;</span>
+debug<span class="token operator">&gt;</span> cont
+<span class="token operator">&lt;</span> hello
+<span class="token keyword">break</span> <span class="token keyword">in</span> <span class="token operator">/</span>home<span class="token operator">/</span>indutny<span class="token operator">/</span>Code<span class="token operator">/</span>git<span class="token operator">/</span>indutny<span class="token operator">/</span>myscript<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">3</span>
+  <span class="token number">1</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token number">2</span> <span class="token function">setTimeout<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token number">3</span>   debugger<span class="token punctuation">;</span>
+  <span class="token number">4</span>   console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">5</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+debug<span class="token operator">&gt;</span> next
+<span class="token keyword">break</span> <span class="token keyword">in</span> <span class="token operator">/</span>home<span class="token operator">/</span>indutny<span class="token operator">/</span>Code<span class="token operator">/</span>git<span class="token operator">/</span>indutny<span class="token operator">/</span>myscript<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">4</span>
+  <span class="token number">2</span> <span class="token function">setTimeout<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token number">3</span>   debugger<span class="token punctuation">;</span>
+  <span class="token number">4</span>   console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">5</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">6</span> console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+debug<span class="token operator">&gt;</span> repl
+Press Ctrl <span class="token operator">+</span> C to leave debug repl
+<span class="token operator">&gt;</span> x
+<span class="token number">5</span>
+<span class="token operator">&gt;</span> <span class="token number">2</span><span class="token operator">+</span><span class="token number">2</span>
+<span class="token number">4</span>
+debug<span class="token operator">&gt;</span> next
+<span class="token operator">&lt;</span> world
+<span class="token keyword">break</span> <span class="token keyword">in</span> <span class="token operator">/</span>home<span class="token operator">/</span>indutny<span class="token operator">/</span>Code<span class="token operator">/</span>git<span class="token operator">/</span>indutny<span class="token operator">/</span>myscript<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">5</span>
+  <span class="token number">3</span>   debugger<span class="token punctuation">;</span>
+  <span class="token number">4</span>   console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">5</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">6</span> console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">7</span>
+debug<span class="token operator">&gt;</span> quit
+<span class="token operator">%</span></code></pre> <p>The <code>repl</code> command allows you to evaluate code remotely. The <code>next</code> command steps over to the next line. There are a few other commands available and more to come. Type <code>help</code> to see others. </p> <h2 id="debugger_watchers">Watchers</h2> <p>You can watch expression and variable values while debugging your code. On every breakpoint each expression from the watchers list will be evaluated in the current context and displayed just before the breakpoint's source code listing. </p> <p>To start watching an expression, type <code>watch("my_expression")</code>. <code>watchers</code> prints the active watchers. To remove a watcher, type <code>unwatch("my_expression")</code>. </p> <h2 id="debugger_commands_reference">Commands reference</h2> <h3 id="debugger_stepping">Stepping</h3> <ul>
+<li>
+<code>cont</code>, <code>c</code> - Continue execution</li> <li>
+<code>next</code>, <code>n</code> - Step next</li> <li>
+<code>step</code>, <code>s</code> - Step in</li> <li>
+<code>out</code>, <code>o</code> - Step out</li> <li>
+<code>pause</code> - Pause running code (like pause button in Developer Tools)</li> </ul>
+<h3 id="debugger_breakpoints">Breakpoints</h3> <div class="signature"><ul>
+<li>
+<code>setBreakpoint()</code>, <code>sb()</code> - Set breakpoint on current line</li> <li>
+<code>setBreakpoint(line)</code>, <code>sb(line)</code> - Set breakpoint on specific line</li> <li>
+<code>setBreakpoint('fn()')</code>, <code>sb(...)</code> - Set breakpoint on a first statement in functions body</li> <li>
+<code>setBreakpoint('script.js', 1)</code>, <code>sb(...)</code> - Set breakpoint on first line of script.js</li> <li>
+<code>clearBreakpoint</code>, <code>cb(...)</code> - Clear breakpoint</li> </ul></div> <p>It is also possible to set a breakpoint in a file (module) that isn't loaded yet: </p> <pre class="  language-javascript"><code class="  language-javascript"><span class="token operator">%</span> <span class="token punctuation">.</span><span class="token operator">/</span>node debug test<span class="token operator">/</span>fixtures<span class="token operator">/</span><span class="token keyword">break</span><span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>module<span class="token operator">/</span>main<span class="token punctuation">.</span>js
+<span class="token operator">&lt;</span> debugger listening on port <span class="token number">5858</span>
+connecting to port <span class="token number">5858</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> ok
+<span class="token keyword">break</span> <span class="token keyword">in</span> test<span class="token operator">/</span>fixtures<span class="token operator">/</span><span class="token keyword">break</span><span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>module<span class="token operator">/</span>main<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">1</span>
+  <span class="token number">1</span> <span class="token keyword">var</span> mod <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'./mod.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">2</span> mod<span class="token punctuation">.</span><span class="token function">hello<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">3</span> mod<span class="token punctuation">.</span><span class="token function">hello<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+debug<span class="token operator">&gt;</span> <span class="token function">setBreakpoint<span class="token punctuation">(</span></span><span class="token string">'mod.js'</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">)</span>
+Warning<span class="token punctuation">:</span> script <span class="token string">'mod.js'</span> was not loaded yet<span class="token punctuation">.</span>
+  <span class="token number">1</span> <span class="token keyword">var</span> mod <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'./mod.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">2</span> mod<span class="token punctuation">.</span><span class="token function">hello<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token number">3</span> mod<span class="token punctuation">.</span><span class="token function">hello<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+debug<span class="token operator">&gt;</span> c
+<span class="token keyword">break</span> <span class="token keyword">in</span> test<span class="token operator">/</span>fixtures<span class="token operator">/</span><span class="token keyword">break</span><span class="token operator">-</span><span class="token keyword">in</span><span class="token operator">-</span>module<span class="token operator">/</span>mod<span class="token punctuation">.</span>js<span class="token punctuation">:</span><span class="token number">23</span>
+ <span class="token number">21</span>
+ <span class="token number">22</span> exports<span class="token punctuation">.</span>hello <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token number">23</span>   <span class="token keyword">return</span> <span class="token string">'hello from module'</span><span class="token punctuation">;</span>
+ <span class="token number">24</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ <span class="token number">25</span>
+debug<span class="token operator">&gt;</span></code></pre> <h3 id="debugger_info">Info</h3> <div class="signature"><ul>
+<li>
+<code>backtrace</code>, <code>bt</code> - Print backtrace of current execution frame</li> <li>
+<code>list(5)</code> - List scripts source code with 5 line context (5 lines before and after)</li> <li>
+<code>watch(expr)</code> - Add expression to watch list</li> <li>
+<code>unwatch(expr)</code> - Remove expression from watch list</li> <li>
+<code>watchers</code> - List all watchers and their values (automatically listed on each breakpoint)</li> <li>
+<code>repl</code> - Open debugger's repl for evaluation in debugging script's context</li> </ul></div> <h3 id="debugger_execution_control">Execution control</h3> <div class="signature"><ul>
+<li>
+<code>run</code> - Run script (automatically runs on debugger's start)</li> <li>
+<code>restart</code> - Restart script</li> <li>
+<code>kill</code> - Kill script</li> </ul></div> <h3 id="debugger_various">Various</h3> <div class="signature"><ul>
+<li>
+<code>scripts</code> - List all loaded scripts</li> <li>
+<code>version</code> - Display v8's version</li> </ul></div> <h2 id="debugger_advanced_usage">Advanced Usage</h2> <p>The V8 debugger can be enabled and accessed either by starting Node with the <code>--debug</code> command-line flag or by signaling an existing Node process with <code>SIGUSR1</code>. </p> <p>Once a process has been set in debug mode with this it can be connected to with the node debugger. Either connect to the <code>pid</code> or the URI to the debugger. The syntax is: </p> <ul>
+<li>
+<code>node debug -p &lt;pid&gt;</code> - Connects to the process via the <code>pid</code>
+</li> <li>
+<code>node debug &lt;URI&gt;</code> - Connects to the process via the URI such as localhost:5858</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    © Joyent, Inc. and other Node contributors<br>Licensed under the MIT License.<br>
+    <a href="http://nodejs.org/api/debugger.html" class="_attribution-link">http://nodejs.org/api/debugger.html</a>
+  </p>
+</div>
+</div>

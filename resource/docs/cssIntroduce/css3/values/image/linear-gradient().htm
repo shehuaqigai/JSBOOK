@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS linear-gradient()</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:15.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/values/image/linear-gradient().htm">http://www.phpstudy.net/css3/values/image/linear-gradient().htm</a><br>
+<b>Title:</b> CSS linear-gradient() &nbsp;&bull;&nbsp; <b>Size:</b> 9681 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">取值列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">图像值</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/values/image/?" class="target">
+				<strong>其它图像值参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="linear-gradient().htm">linear-gradient()</a></li>
+					<li><a href="radial-gradient().htm">radial-gradient()</a></li>
+					<li><a href="repeating-linear-gradient().htm">repeating-linear-gradient()</a></li>
+					<li><a href="repeating-radial-gradient().htm">repeating-radial-gradient()</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">linear-gradient()</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section class="gmodule gattr" id="syntax">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>&lt;linear-gradient&gt;</strong>：linear-gradient([ <a href="#dfn-syntax">&lt;point&gt;</a>,]? <a href="#dfn-syntax2">&lt;color-stop&gt;</a>[, <a href="#dfn-syntax2">&lt;color-stop&gt;</a>]+);</p>
+			<p id="dfn-syntax"><strong>&lt;point&gt;</strong>：[ left | right ]? [ top | bottom ]? || <a href="../other/angle.htm">&lt;angle&gt;</a>?</p>
+			<p id="dfn-syntax2"><strong>&lt;color-stop&gt;</strong>：<a href="../../properties/color/color.htm">&lt;color&gt;</a> [ <a href="../other/length.htm">&lt;length&gt;</a> | <a href="../other/percentage.htm">&lt;percentage&gt;</a> ]?</p>
+		</div>
+	</section>
+	<section class="gmodule gattr" id="value">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<h3 class="glight">&lt;point&gt;</h3>
+			<dl>
+				<dt>left：</dt>
+				<dd>设置左边为渐变起点的横坐标值。</dd>
+				<dt>right：</dt>
+				<dd>设置右边为渐变起点的横坐标值。</dd>
+				<dt>top：</dt>
+				<dd>设置顶部为渐变起点的纵坐标值。</dd>
+				<dt>bottom：</dt>
+				<dd>设置底部为渐变起点的纵坐标值。</dd>
+				<dt><a href="../other/angle.htm">&lt;angle&gt;</a>：</dt>
+				<dd>用角度值指定渐变的方向（或角度）。</dd>
+				<dt>&lt;color-stop&gt;：</dt>
+				<dd>指定渐变的起止颜色。</dd>
+			</dl>
+			<h3 class="glight">&lt;color-stop&gt;</h3>
+			<dl>
+				<dt><a href="../../properties/color/color.htm">&lt;color&gt;</a>：</dt>
+				<dd>指定颜色。请参阅<a href="../color/index.htm">颜色值</a></dd>
+				<dt><a href="../other/length.htm">&lt;length&gt;</a>：</dt>
+				<dd>用长度值指定起止色位置。不允许负值</dd>
+				<dt><a href="../other/percentage.htm">&lt;percentage&gt;</a>：</dt>
+				<dd>用百分比指定起止色位置。</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>用线性渐变创建图像。</strong>
+			<ul>
+				<li>写本文档时Firefox,Chrome,Opera已经在实验性质阶段支持了该属性，Safari对该属性的支持仍停留在以私有方式实现的阶段（可参阅页面底部的示例代码）。</li>
+				<li>Firefox还支持使用<a href="../other/percentage.htm">&lt;percentage&gt;</a>、<a href="../other/length.htm">&lt;length&gt;</a>和center特殊值定义渐变起点，并支持起点与角度一起使用。</li>
+				<li>
+					<div class="gquote">
+						<p class="gquote-tit"><strong>示例代码：</strong></p>
+						<div class="gquote-cont">
+							<p class="img"><image src="images/linear-gradient.png" /><br />（图一）</p>
+							<blockquote class="code"><pre><code>linear-gradient(#fff,#333);
+linear-gradient(top,#fff,#333);
+linear-gradient(bottom,#333,#fff);
+linear-gradient(-90deg,#fff,#333);
+</code></pre></blockquote>
+						</div>
+						<p class="gquote-info">以上几句代码都可以实现如（图一）的渐变效果</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="unsupport">6.0-9.0</td>
+						<td rowspan="2" class="experimentsupport">4.0</td>
+						<td rowspan="2" class="experimentsupport">5.1</td>
+						<td rowspan="2" class="experimentsupport">13.0</td>
+						<td rowspan="2" class="experimentsupport">11.50</td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="experimentsupport">10.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section class="gmodule gattr" id="way">
+		<h2 class="tit">写法：</h2>
+		<div class="cont">
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th>内核类型</th>
+						<th>写法</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Webkit(Chrome/Safari)</th>
+						<td>-webkit-linear-gradient()/-webkit-gradient()</td>
+					</tr>
+					<tr>
+						<th>Gecko(Firefox)</th>
+						<td>-moz-linear-gradient()</td>
+					</tr>
+					<tr>
+						<th>Presto(Opera)</th>
+						<td>-o-linear-gradient()</td>
+					</tr>
+					<tr>
+						<th>Trident(IE)</th>
+						<td>-ms-linear-gradient()</td>
+					</tr>
+					<tr>
+						<th>W3C</th>
+						<td>linear-gradient()</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS linear-gradient()_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+div{width:200px;height:100px;margin-top:10px;border:1px solid #ddd;}
+.test{background:-moz-linear-gradient(#fff,#333);background:-webkit-gradient(linear,center top,center bottom,from(#fff),to(#333));background:-webkit-linear-gradient(#fff,#333);background:-o-linear-gradient(#fff,#333);background:-ms-linear-gradient(#fff,#333);background:linear-gradient(#fff,#333);}
+.test2{background:-moz-linear-gradient(#000,#f00 50%,#090);background:-webkit-gradient(linear,center top,center bottom,from(#000),color-stop(.5,#f00),to(#090));background:-webkit-linear-gradient(#000,#f00 50%,#090);background:-o-linear-gradient(#000,#f00 50%,#090);background:-ms-linear-gradient(#000,#f00 50%,#090);background:linear-gradient(#000,#f00 50%,#090);}
+.test3{background:-moz-linear-gradient(left center,#000 20%,#f00 50%,#090 80%);background:-webkit-gradient(linear,left center,right center,color-stop(.2,#000),color-stop(.5,#f00),color-stop(.8,#090));background:-webkit-linear-gradient(0deg,#000 20%,#f00 50%,#090 80%);background:-o-linear-gradient(0deg,#000 20%,#f00 50%,#090 80%);background:-ms-linear-gradient(0deg,#000 20%,#f00 50%,#090 80%);background:linear-gradient(0deg,#000 20%,#f00 50%,#090 80%);}
+.test4{background:-moz-linear-gradient(45deg,#000,#f00 50%,#090);background:-webkit-gradient(linear,left bottom,right top,from(#000),color-stop(.5,#f00),to(#090));background:-webkit-linear-gradient(45deg,#000,#f00 50%,#090);background:-o-linear-gradient(45deg,#000,#f00 50%,#090);background:-ms-linear-gradient(45deg,#000,#f00 50%,#090);background:linear-gradient(45deg,#000,#f00 50%,#090);}
+</style>
+</head>
+<body>
+<div class="test"></div>
+<div class="test2"></div>
+<div class="test3"></div>
+<div class="test4"></div>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

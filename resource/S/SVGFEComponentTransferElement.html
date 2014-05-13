@@ -1,0 +1,230 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">feComponentTransfer element | SVGFEComponentTransferElement object</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Performs component-wise remapping of data allowing operations like brightness adjustment, contrast adjustment, color balance, or thresholding.</p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects"><img id="badge_svg" alt="Scalable Vector Graphics: Filter Effects, Section 15.25.5" src="http://i.msdn.microsoft.com/dynimg/IC536350.png" title="Scalable Vector Graphics: Filter Effects, Section 15.25.5" xmlns=""></a><img id="badge_ie10" alt="Internet Explorer&nbsp;10" src="http://i.msdn.microsoft.com/dynimg/IC600829.png" title="Internet Explorer&nbsp;10" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_e3780d18-82b4-4d02-8a2f-1242133c3581');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_e3780d18-82b4-4d02-8a2f-1242133c3581" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;feComponentTransfer&gt;
+   &lt;feFuncR type="gamma" amplitude="2" exponent="5" offset="0"/&gt;
+   &lt;feFuncG type="gamma" amplitude="2" exponent="3" offset="0"/&gt;
+   &lt;feFuncB type="gamma" amplitude="2" exponent="1" offset="0"/&gt;
+&lt;/feComponentTransfer&gt;
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869750(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Node</strong></a>
+<div>&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869681(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Element</strong></a>
+<div>&nbsp;&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/gg305566(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">SVGElement</strong></a>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVGFEComponentTransferElement</div>
+</div>
+</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>SVGFEComponentTransferElement</strong> object has these types of members:</p>
+<ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>SVGFEComponentTransferElement</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971948(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">height</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets  the height of an element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773078(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">in1</strong></a>
+</p>
+                                </td><td>
+<p>Identifies input for the given filter primitive.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773405(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">result</strong></a>
+</p>
+                                </td><td>
+<p>Provides a reference for the output result of a filter. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972028(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">width</strong></a>
+</p>
+                                </td><td>
+<p>Defines the width of an element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972029(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">x</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the x-coordinate value.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972039(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">y</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the y-coordinate value.</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects">Scalable Vector Graphics: Filter Effects</a>, Section 15.25.5</li>
+</ul>
+<h2>Remarks</h2>
+<p>This filter primitive performs component-wise remapping of data as follows for every pixel:</p>
+
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_09c732d1-fc96-4bc5-a930-33be7a03642b');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_09c732d1-fc96-4bc5-a930-33be7a03642b" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+R' = feFuncR( R )
+G' = feFuncG( G )
+B' = feFuncB( B )
+A' = feFuncA( A )
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>It allows operations like brightness adjustment, contrast adjustment, color balance, or thresholding.</p>
+<p>The <code>feFuncR</code>, <code>feFuncG</code>, <code>feFuncB</code>, and<code>feFuncA</code> elements can be children of the <code>feComponentTransfer</code> element. For more information, see <a href="http://msdn.microsoft.com/en-us/library/ie/hh773245(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">SVGFEFuncRElement</strong></a>.</p>
+<p>The calculations are performed on non-premultiplied color values. If the input graphics consist of premultiplied color values, those values are automatically converted into non-premultiplied color values for this operation. (Note that the undoing and redoing of the premultiplication can be avoided if <a href="http://msdn.microsoft.com/en-us/library/ie/hh773242(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">feFuncA</strong></a> is the identity transform and all alpha values on the source graphic are set to 1.)</p>
+<h2>Examples</h2>
+<p>The following W3C example shows the four types of <strong>feComponentTransfer</strong> operations.</p>
+
+<div id="code-snippet-3" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_9e3be0a3-0bf7-46de-926b-07dca922a8aa');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_9e3be0a3-0bf7-46de-926b-07dca922a8aa" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;?xml version="1.0"?&gt;
+<span style="color:Blue;">&lt;!</span><span style="color:#A31515;">DOCTYPE</span> <span style="color:Red;">svg</span> <span style="color:Red;">PUBLIC</span> <span style="color:Blue;">"-//W3C//DTD SVG 1.1//EN"</span> 
+          <span style="color:Blue;">"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">svg</span> <span style="color:Red;">width</span><span style="color:Blue;">=</span><span style="color:Blue;">"8cm"</span> <span style="color:Red;">height</span><span style="color:Blue;">=</span><span style="color:Blue;">"4cm"</span> <span style="color:Red;">viewBox</span><span style="color:Blue;">=</span><span style="color:Blue;">"0 0 800 400"</span>
+     <span style="color:Red;">xmlns</span><span style="color:Blue;">=</span><span style="color:Blue;">"http://www.w3.org/2000/svg"</span> <span style="color:Red;">version</span><span style="color:Blue;">=</span><span style="color:Blue;">"1.1"</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>Example feComponentTransfer - Examples of feComponentTransfer operations<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">desc</span><span style="color:Blue;">&gt;</span>Four text strings showing the effects of feComponentTransfer: 
+        an identity function acting as a reference, 
+        use of the feComponentTransfer table option,
+        use of the feComponentTransfer linear option,
+        and use of the feComponentTransfer gamma option.<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">desc</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">defs</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">linearGradient</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"MyGradient"</span> <span style="color:Red;">gradientUnits</span><span style="color:Blue;">=</span><span style="color:Blue;">"userSpaceOnUse"</span>
+            <span style="color:Red;">x1</span><span style="color:Blue;">=</span><span style="color:Blue;">"100"</span> <span style="color:Red;">y1</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span> <span style="color:Red;">x2</span><span style="color:Blue;">=</span><span style="color:Blue;">"600"</span> <span style="color:Red;">y2</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">stop</span> <span style="color:Red;">offset</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span> <span style="color:Red;">stop-color</span><span style="color:Blue;">=</span><span style="color:Blue;">"#ff0000"</span> <span style="color:Blue;">/&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">stop</span> <span style="color:Red;">offset</span><span style="color:Blue;">=</span><span style="color:Blue;">".33"</span> <span style="color:Red;">stop-color</span><span style="color:Blue;">=</span><span style="color:Blue;">"#00ff00"</span> <span style="color:Blue;">/&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">stop</span> <span style="color:Red;">offset</span><span style="color:Blue;">=</span><span style="color:Blue;">".67"</span> <span style="color:Red;">stop-color</span><span style="color:Blue;">=</span><span style="color:Blue;">"#0000ff"</span> <span style="color:Blue;">/&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">stop</span> <span style="color:Red;">offset</span><span style="color:Blue;">=</span><span style="color:Blue;">"1"</span> <span style="color:Red;">stop-color</span><span style="color:Blue;">=</span><span style="color:Blue;">"#000000"</span> <span style="color:Blue;">/&gt;</span>
+    <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">linearGradient</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">filter</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"Identity"</span> <span style="color:Red;">filterUnits</span><span style="color:Blue;">=</span><span style="color:Blue;">"objectBoundingBox"</span> 
+            <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">width</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span> <span style="color:Red;">height</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncR</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"identity"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncG</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"identity"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncB</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"identity"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncA</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"identity"</span><span style="color:Blue;">/&gt;</span>
+      <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">filter</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">filter</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"Table"</span> <span style="color:Red;">filterUnits</span><span style="color:Blue;">=</span><span style="color:Blue;">"objectBoundingBox"</span> 
+            <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">width</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span> <span style="color:Red;">height</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncR</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"table"</span> <span style="color:Red;">tableValues</span><span style="color:Blue;">=</span><span style="color:Blue;">"0 0 1 1"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncG</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"table"</span> <span style="color:Red;">tableValues</span><span style="color:Blue;">=</span><span style="color:Blue;">"1 1 0 0"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncB</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"table"</span> <span style="color:Red;">tableValues</span><span style="color:Blue;">=</span><span style="color:Blue;">"0 1 1 0"</span><span style="color:Blue;">/&gt;</span>
+      <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">filter</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">filter</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"Linear"</span> <span style="color:Red;">filterUnits</span><span style="color:Blue;">=</span><span style="color:Blue;">"objectBoundingBox"</span> 
+            <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">width</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span> <span style="color:Red;">height</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncR</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"linear"</span> <span style="color:Red;">slope</span><span style="color:Blue;">=</span><span style="color:Blue;">".5"</span> <span style="color:Red;">intercept</span><span style="color:Blue;">=</span><span style="color:Blue;">".25"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncG</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"linear"</span> <span style="color:Red;">slope</span><span style="color:Blue;">=</span><span style="color:Blue;">".5"</span> <span style="color:Red;">intercept</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncB</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"linear"</span> <span style="color:Red;">slope</span><span style="color:Blue;">=</span><span style="color:Blue;">".5"</span> <span style="color:Red;">intercept</span><span style="color:Blue;">=</span><span style="color:Blue;">".5"</span><span style="color:Blue;">/&gt;</span>
+      <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">filter</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">filter</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"Gamma"</span> <span style="color:Red;">filterUnits</span><span style="color:Blue;">=</span><span style="color:Blue;">"objectBoundingBox"</span> 
+            <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"0%"</span> <span style="color:Red;">width</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span> <span style="color:Red;">height</span><span style="color:Blue;">=</span><span style="color:Blue;">"100%"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncR</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"gamma"</span> <span style="color:Red;">amplitude</span><span style="color:Blue;">=</span><span style="color:Blue;">"2"</span> <span style="color:Red;">exponent</span><span style="color:Blue;">=</span><span style="color:Blue;">"5"</span> <span style="color:Red;">offset</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncG</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"gamma"</span> <span style="color:Red;">amplitude</span><span style="color:Blue;">=</span><span style="color:Blue;">"2"</span> <span style="color:Red;">exponent</span><span style="color:Blue;">=</span><span style="color:Blue;">"3"</span> <span style="color:Red;">offset</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span><span style="color:Blue;">/&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">feFuncB</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"gamma"</span> <span style="color:Red;">amplitude</span><span style="color:Blue;">=</span><span style="color:Blue;">"2"</span> <span style="color:Red;">exponent</span><span style="color:Blue;">=</span><span style="color:Blue;">"1"</span> <span style="color:Red;">offset</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span><span style="color:Blue;">/&gt;</span>
+      <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">feComponentTransfer</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">filter</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">defs</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">rect</span> <span style="color:Red;">fill</span><span style="color:Blue;">=</span><span style="color:Blue;">"none"</span> <span style="color:Red;">stroke</span><span style="color:Blue;">=</span><span style="color:Blue;">"blue"</span>  
+        <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"1"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"1"</span> <span style="color:Red;">width</span><span style="color:Blue;">=</span><span style="color:Blue;">"798"</span> <span style="color:Red;">height</span><span style="color:Blue;">=</span><span style="color:Blue;">"398"</span><span style="color:Blue;">/&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">g</span> <span style="color:Red;">font-family</span><span style="color:Blue;">=</span><span style="color:Blue;">"Verdana"</span> <span style="color:Red;">font-size</span><span style="color:Blue;">=</span><span style="color:Blue;">"75"</span> 
+            <span style="color:Red;">font-weight</span><span style="color:Blue;">=</span><span style="color:Blue;">"bold"</span> <span style="color:Red;">fill</span><span style="color:Blue;">=</span><span style="color:Blue;">"url(#MyGradient)"</span> <span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">rect</span> <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"100"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"0"</span> <span style="color:Red;">width</span><span style="color:Blue;">=</span><span style="color:Blue;">"600"</span> <span style="color:Red;">height</span><span style="color:Blue;">=</span><span style="color:Blue;">"20"</span> <span style="color:Blue;">/&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">text</span> <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"100"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"90"</span><span style="color:Blue;">&gt;</span>Identity<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">text</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">text</span> <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"100"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"190"</span> <span style="color:Red;">filter</span><span style="color:Blue;">=</span><span style="color:Blue;">"url(#Table)"</span> <span style="color:Blue;">&gt;</span>TableLookup<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">text</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">text</span> <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"100"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"290"</span> <span style="color:Red;">filter</span><span style="color:Blue;">=</span><span style="color:Blue;">"url(#Linear)"</span> <span style="color:Blue;">&gt;</span>LinearFunc<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">text</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">text</span> <span style="color:Red;">x</span><span style="color:Blue;">=</span><span style="color:Blue;">"100"</span> <span style="color:Red;">y</span><span style="color:Blue;">=</span><span style="color:Blue;">"390"</span> <span style="color:Red;">filter</span><span style="color:Blue;">=</span><span style="color:Blue;">"url(#Gamma)"</span> <span style="color:Blue;">&gt;</span>GammaFunc<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">text</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">g</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">svg</span><span style="color:Blue;">&gt;</span>
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2><a id="see_also"></a>See also</h2>
+<dl>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773245(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">SVGFEFuncRElement</strong></a>
+</dt>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/13/2014</p>
+</div>
+</div>

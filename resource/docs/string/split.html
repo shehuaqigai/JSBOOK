@@ -1,0 +1,49 @@
+<p>
+	定义和用法
+split() 方法用于把一个字符串分割成字符串数组。
+语法
+stringObject.split(separator,howmany)
+参数	描述
+separator	必需。字符串或正则表达式，从该参数指定的地方分割 stringObject。
+howmany	可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。
+返回值
+一个字符串数组。该数组是通过在 separator 指定的边界处将字符串 stringObject 分割成子串创建的。返回的数组中的字串不包括 separator 自身。
+但是，如果 separator 是包含子表达式的正则表达式，那么返回的数组中包括与这些子表达式匹配的字串（但不包括与整个正则表达式匹配的文本）。
+提示和注释
+注释：如果把空字符串 ("") 用作 separator，那么 stringObject 中的每个字符之间都会被分割。
+注释：String.split() 执行的操作与 Array.join 执行的操作是相反的。
+实例
+例子 1
+在本例中，我们将按照不同的方式来分割字符串：
+<pre>
+	
+
+&ltscript type="text/javascript">
+
+var str="How are you doing today?"
+
+document.write(str.split(" ") + "&ltbr />")
+document.write(str.split("") + "&ltbr />")
+document.write(str.split(" ",3))
+
+&lt/script>
+输出：
+How,are,you,doing,today?
+H,o,w, ,a,r,e, ,y,o,u, ,d,o,i,n,g, ,t,o,d,a,y,?
+How,are,you
+例子 2
+在本例中，我们将分割结构更为复杂的字符串：
+"2:3:4:5".split(":")	//将返回["2", "3", "4", "5"]
+"|a|b|c".split("|")	//将返回["", "a", "b", "c"]
+例子 3
+使用下面的代码，可以把句子分割成单词：
+var words = sentence.split(' ')
+或者使用正则表达式作为 separator：
+var words = sentence.split(/\s+/)
+例子 4
+如果您希望把单词分割为字母，或者把字符串分割为字符，可使用下面的代码：
+"hello".split("")	//可返回 ["h", "e", "l", "l", "o"]
+若只需要返回一部分字符，请使用 howmany 参数：
+"hello".split("", 3)	//可返回 ["h", "e", "l"]
+</pre>
+</p>

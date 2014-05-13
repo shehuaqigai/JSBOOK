@@ -1,0 +1,102 @@
+<div class="mcnt ztag">
+    <div class="nbw-bitm bdwb bds2 bdc0 ">
+        <div class="multicntwrap">
+            <div class="multicnt">
+                <div>
+                    <h3 class="title pre fs1"><span class="tcnt">getBoundingClientRect方法    元素对象调用这个方法后就创建一个ClientRect的实例</span>&nbsp;&nbsp;
+                        <span class="bgc0 fc07 fw0 fs0"></span></h3>
+                    <p class="tdep clearfix nbw-act fc06" style="line-height:20px;">
+		        <span class="pleft">
+
+		          <span class="blogsep">2010-06-01 18:33:41</span><span class="blogsep">|&nbsp;&nbsp;分类：</span>
+		          <a class="fc03 m2a" href="http://qbaok.blog.163.com/blog/#m=0&amp;t=1&amp;c=fks_084066086081089070080085084095085086080065093084080070" title="web 前台 开发">web 前台 开发</a>
+		          <span class="blogsep phide" id="$_blogTagTitle">|&nbsp;&nbsp;标签：</span><span class="fc03 phide" id="$_blogTagInfo"></span>
+		        </span>
+                        <span class="pright fc07 ztag"><span class="blogsep">|</span><span id="$_spanReport" class="fc03 m2a">举报</span></span>
+                        <span class="pright fc07 ztag"><span class="blogsep">|</span><span class="zihao fc03" id="$_fontswitch">字号<span class="zihaoshow  phide" id="$_fontsTypes"><span class="zihaoc bdc0"><span class="stag"></span><span class="fc04 stag">大</span><span class="fc04 stag">中</span><span class="fc04 stag">小</span></span></span></span></span><span class="pright pnt fc03" id="$_blog_subscribe"><span class="iblock icn0 icn0-919">&nbsp;</span><a class="m2a">订阅</a></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+
+        </div>
+
+        <div class="nbw-blog-start"></div>
+        <div class="bct fc05 fc11 nbw-blog ztag">  今天中午重新测试了个原本IE支持的getBoundingClientRect方法，貌似Chrome\Safari 4\Firefox3.5\0pera 10都支持了，暂时加入偶的core.js库中，原本实现的getFullHegiht\getFullWidth\getPosition等方法还留着~~，等待时机成熟用getBoundingClientRect来替换这些接口方法的内部实现~~~<br><br>&nbsp;/** <br>&nbsp;&nbsp;&nbsp; /* 使用它来获取到一个element相对于的viewport坐标.<br>&nbsp;&nbsp;&nbsp; /* dom里面没有文本也能返回一个 TextRectangle. 这样就不需要向上遍历来计算对象的相对坐标了。 <br>&nbsp;&nbsp;&nbsp; /* 返回当前节点在DOM内的区域{bottom,height,left,right,top,width}<br>&nbsp;&nbsp;&nbsp; /* FF3.5，Safari 4 以上支持，原本是IE转有属性 <br>&nbsp;&nbsp;&nbsp; */<br>&nbsp;&nbsp;&nbsp; getBoundingClientRect:function (element){<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return (element.nodeType != 1 || element.nodeType != 9) : null ? element.getBoundingClientRect();<br>&nbsp;&nbsp;&nbsp; },<br></div>
+        <div class="nbw-blog-end"></div>
+
+        <div>
+        </div>
+
+        <div>
+        </div>
+
+        <div>
+            <div>
+                <div class="wumii-hook"></div><script type="text/javascript" id="wumiiRelatedItems"></script>
+            </div>
+        </div>
+
+        <div class="ptc phide ztag">
+          <span class="ptcp">
+            <span class="iblock bcmimg">&nbsp;</span>
+            <span class="nbc-0 nbc-0-40 ptcmt ptcmt-2">评论这张</span>
+          </span>
+        </div>
+        <div style="display:none" class="ptc phide ztag">
+          <span class="ptcp">
+            <span class="nbc-0 nbc-0-40 ptcmi">
+              <img src="http://b.bst.126.net/newpage/images/microblog.png?1">
+            </span>
+            <span class="nbc-0 nbc-0-40 ptcmt">转发至微博</span>
+          </span>
+        </div>
+        <div class="ptc phide">
+            <a id="publishtolofter" class="toLofter" title="发布到LOFTER" target="_blank" hidefocus="true">&nbsp;</a>
+        </div>
+
+        <div style="display:none" class="ptc phide ztag">
+          <span class="ptcp">
+            <span class="nbc-0 nbc-0-40 ptcmi">
+              <img src="http://b.bst.126.net/newpage/images/microblog.png?1">
+            </span>
+            <span class="nbc-0 nbc-0-40 ptcmt">转发至微博</span>
+          </span>
+        </div>
+
+
+        <div class="nbw-act tbar fc03 clearfix">
+
+
+            <div style="height:40px;line-height:40px;">
+                <div class="pleft">
+                    <div class="pleft leftoperatebar">
+                        <span class="fc07">阅读(<span id="$_spaniReadCount">959</span>)</span><span class="sep fc07">|</span>
+                        <span class="fc07">评论(<span id="$_spaniCommentCount">0</span>)</span>
+                    </div>
+                </div>
+                <div class="pleft rdif">
+                    <span class="pleft sep sep-last fc07">|</span>
+                    <span style="display:none" id="$_shareToSites" class="fc07 pleft nas-tofix">分享到：</span><span class="nas-wrap pleft"><span id="$_shareBtn_163weibo" title="分享到网易微博" class="nas-itm nas-itm0">&nbsp;</span><span id="$_shareBtn_sinaweibo" title="分享到新浪微博" class="nas-itm nas-itm6">&nbsp;</span><span id="$_shareBtn_qqweibo" title="分享到腾讯微博" class="nas-itm nas-itm9">&nbsp;</span><span style="display:none" class="nas-itm nas-itm7" title="分享到MSN" id="$_shareBtn_msn">&nbsp;</span><span class="nas-itm nas-itm3" title="分享到QQ空间" id="$_shareBtn_qq">&nbsp;</span><span style="display:none" class="nas-itm nas-itm1" title="分享到人人网" id="$_shareBtn_renren">&nbsp;</span><span style="display:none" class="nas-itm nas-itm2" title="分享到开心网" id="$_shareBtn_kaixin">&nbsp;</span><span class="nas-itm nas-itm4" title="分享到豆瓣" id="$_shareBtn_douban">&nbsp;</span></span>
+                </div>
+                <div class="pright rightoperatebar">
+                    <span class="f-myLikeIcons likebtn pnt pright" id="$_spanLike">喜欢</span>
+                    <span class="f-myLikeIcons recommendbtn pnt pright" id="$_spanRecommend">推荐</span>
+	          <span style="display:none" id="$_spanShowRecommend" class="pleft rdct  phide">
+	            <span class="pleft ul fc03"><span id="$_spanRecommendCount">0</span>人</span><span class="pleft iblock icn0 icn0-722 nbw-tgl1 nas-icn0fix">&nbsp;</span><span class="pleft iblock icn0 icn0-621 nbw-tgl0 nas-icn0fix">&nbsp;</span><span class="fc07"></span>|&nbsp;
+	          </span>
+                    <span class="f-myLikeIcons reblogbtn pnt pright" id="$_spanCite">转载</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="snl">
+        <div style="display:none" class="phide bdwb bds2 bdc0 rdcnt" id="$_divRecommendContent"></div>
+        <div id="yodaoad" class="bdwb bds2 bdc0" style="display:none;_zoom:1;">&nbsp;</div>
+        <div id="$_newOldBlogLinkBottomDiv" class="top fc03 clearfix">       <span class="ilft iblock icn0 icn0-620">&nbsp;</span>       <div class="pleft thide"><a class="m2a" href="http://qbaok.blog.163.com/blog/static/1012926520105162347490/">全面的IE6+&nbsp;/&nbsp;Firefox&nbsp;/&nbsp;Webkit&nbsp;/&nbsp;Opera&nbsp;CSS&nbsp;HACK列表</a></div>                 <span class="irgt iblock icn0 icn0-619">&nbsp;</span>       <div class="pright thide"><a class="m2a" href="http://qbaok.blog.163.com/blog/static/101292652010519434114/">innHTML后执行其内的js</a></div>     </div>
+
+    </div>
+
+</div>

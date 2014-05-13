@@ -1,0 +1,54 @@
+<p>
+	uerySelector和querySelectorAll是W3C提供的 新的查询接口
+
+module dom {
+[Supplemental, NoInterfaceObject]
+interface NodeSelector {
+Element querySelector(in DOMString selectors);
+NodeList querySelectorAll(in DOMString selectors);
+};
+Document implements NodeSelector;
+DocumentFragment implements NodeSelector;
+Element implements NodeSelector;
+};
+
+从接口定义可以看到Document、DocumentFragment、Element都实现了NodeSelector接口。即这三种类型的元素都拥有者两个方法。querySelector和querySelectorAll的参数须是符合 css selector 的字符串。不同的是querySelector返回的是一个对象，querySelectorAll返回的一个集合(NodeList)。
+
+目前 IE8/9及Firefox/Chrome/Safari/Opera 的最新版已经支持它们。
+
+如想获取页面class属性为"red"的元素，除了使用document.getElementsByClassName('red')还可以使用document.querySelector('.red')和document.querySelectorAll('.red')。
+
+但Element.querySelector和Element.querySelectorAll的实现有错误，如下
+
+&ltdiv id="d1">
+	&ltp>&lta href="http://www.sina.com.cn">SINA&lt/a>&lt/p>
+&lt/div>
+&ltscript type="text/javascript">	
+	function $(id){return document.getElementById(id);}
+	var d1 = $('d1');
+	var obj1 = d1.querySelector('div a');
+	var obj2 = d1.querySelectorAll('div a');
+	alert(obj1); // -> http://www.sina.com.cn/
+	alert(obj2.length); // -> 1	
+&lt/script>
+在支持这两个方法的浏览器可以看到分别弹出了“http://www.sina.com.cn/”，和 “1”。说明查询到了想要的元素或元素集合。这与W3C的定义却是不合的，根据定义应该是在元素d1范围内查找"div a"，而d1内压根没有div。因此应该分别返回null，空集合。
+
+jQuery1.4.2 及之前版本中只使用了document.querySelectorAll，没有使用Element.querySelectorAll。 jQuery1.4.3 后使用了Element.querySelectorAll，但做了修复。在选择器前加了"#__sizzle__"以强制其在指定元素内查找（3903-3918行）。简化下
+
+function $(id){return document.getElementById(id);}
+var d1 = $('d1');
+var obj1 = d1.querySelector('div a');
+var obj2 = d1.querySelectorAll('div a');
+var old = d1.id, id = d1.id = "__sizzle__";
+try {
+	var query = '#' + id + ' div a';
+	alert(d1.querySelector( query ));
+	alert(d1.querySelectorAll( query ).length);
+} catch(e) {
+} finally {
+	old ? d1.id = old : d1.removeAttribute( "id" );
+}
+
+实现很巧妙，指定范围的元素如果有id，将其保留在old，"__sizzle__"赋值其作为临时id，在选择器"div a"前指定查找范围为"#__sizzle__"，即d1。finally语句来最后清理，如果指定范围的元素本身有id将其恢复为old，没有则去掉临时的id属性"__sizzle__"。
+
+</p>

@@ -1,0 +1,67 @@
+<div id="maincontent">
+
+<h1>onsubmit 事件</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>onsubmit 事件会在表单中的确认按钮被点击时发生。</p>
+
+<h3>语法</h3>
+<pre>onsubmit="SomeJavaScriptCode"</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>SomeJavaScriptCode</td>
+    <td>必需。规定该事件发生时执行的 JavaScript。</td>
+  </tr>
+</tbody></table>
+
+<h3>支持该事件的 HTML 标签：</h3>
+<pre>&lt;form&gt;
+</pre>
+
+<h3>支持该事件的 JavaScript 对象：</h3>
+<pre>form</pre>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>在本例中，当用户点击提交按钮时，会显示一个对话框：</p>
+<pre>&lt;form name="testform" action="jsref_onsubmit.asp"
+<code>onsubmit="alert('Hello ' + testform.fname.value +'!')"</code>&gt;
+
+What is your name?&lt;br /&gt;
+&lt;input type="text" name="fname" /&gt;
+&lt;input type="submit" value="Submit" /&gt;
+
+&lt;/form&gt;</pre>
+
+<h3>输出：</h3>
+<form name="testform" action="event_onsubmit.asp" onsubmit="alert('Hello ' + testform.fname.value +'!')">
+<p>What is your name?</p>
+<p><input type="text" id="fname"></p>
+<p><input type="submit" value="Submit"></p>
+</form>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_onsubmit">onsubmit</a></dt>
+<dd>如何使用 onsubmit。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+</div>

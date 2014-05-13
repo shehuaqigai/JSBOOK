@@ -1,0 +1,10 @@
+<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/jkisjk/archive/2011/09/05/window_external.html">关于window.external</a>
+		</h2>
+		<div class="postbody">
+		  <div id="cnblogs_post_body">
+		    <p>由于工作中有很多时候需要用到window.external，以前一直稀里糊涂的，今天又被人问到，于是突击学习了一下，记下备忘。<br><br>--------------------------------------<br>我们在js中可以通过window.external.aaaa()来调用浏览器提供的外部方法aaaa。<br><br>IE的已默认实现了一些外部方法，可以参见<br>1:某中文文章：<a href="http://www.it118.org/Specials/2e876829-483a-4216-a6ef-08a472c94297/8f8d0507-b4c8-4d92-8e35-3c88dade3a17.htm">http://www.it118.org/Specials/2e876829-483a-4216-a6ef-08a472c94297/8f8d0507-b4c8-4d92-8e35-3c88dade3a17.htm</a><br>2:官方文档里有更多： <a href="http://msdn.microsoft.com/library/default.asp?url=/workshop/author/dhtml/reference/objects/external.asp">http://msdn.microsoft.com/library/default.asp?url=/workshop/author/dhtml/reference/objects/external.asp</a><br><br>在嵌入了浏览器的工程中，除了IE默认提供的外部方法之外，需要网页的脚本中能调用C++代码，要实现这种交互，就必须实现脚本扩展。实现脚本扩展就是在程序中实现一个IDispatch接口，通过CHtmlView类的OnGetExternal虚函数返回此接口指针,这样就可以在脚本中通过window.external.XXX(关键字window可以省略)来 引用接口暴露的方法或属性(XXX为方法或属性名)。<br>参考《实现脚本扩展》<a href="http://topic.csdn.net/u/20080116/17/5fbac468-1188-4c9c-9339-ad48edd8a4d3.html">http://topic.csdn.net/u/20080116/17/5fbac468-1188-4c9c-9339-ad48edd8a4d3.html</a><br><br>Firefox与Chrome也提供了external对象，例如，他们都默认的实现了opensearch的两个外部方法：<br>AddSearchProvider IsSearchProviderInstalled<br>Chrome下，可以在控制台输入window.external看到。<br>Firefox默认提供的外部方法稍稍多一些，也可以可以通过firebug看到。</p>
+		  </div>
+		 </div>
+</div>

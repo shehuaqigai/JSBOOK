@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS Selectors Level Hack</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:15.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/hack/selectors.htm">http://www.phpstudy.net/css3/hack/selectors.htm</a><br>
+<b>Title:</b> CSS Selectors Level Hack &nbsp;&bull;&nbsp; <b>Size:</b> 3965 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:16 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="index.htm">CSS Hack列表</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/hack/?" class="target">
+				<strong>其它CSS Hack参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="conditions.htm">条件Hack</a></li>
+					<li><a href="properties.htm">属性级Hack</a></li>
+					<li><a href="selectors.htm">选择符级Hack</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">选择符级Hack</h1>
+	<ul class="info">
+		<li>CSS内部选择符级Hack</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>&lt;hack&gt; selector</strong>{ sRules }</p>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>选择不同的浏览器及版本</strong>
+			<ul>
+				<li>尽可能减少对CSS Hack的使用。<em class="glight">Hack有风险，使用需谨慎</em></li>
+				<li>通常如未作特别说明，本文档所有的代码和示例的默认运行环境都为标准模式。</li>
+				<li>一些CSS Hack由于浏览器存在交叉认识，所以需要通过层层覆盖的方式来实现对不同浏览器进行Hack的。</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>简单列举几个：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>* html .test{color:#090;}       /* For IE6 and earlier */
+* + html .test{color:#ff0;}     /* For IE7 */
+.test:lang(zh-cn){color:#f00;}  /* For IE8+ and not IE */
+.test:nth-child(1){color:#0ff;} /* For IE9+ and not IE */</code></pre></blockquote>
+					<p class="gquote-info">* 上述代码中的3,4两行就是典型的利用能力来进行选择的CSS Hack。</p>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS 选择符级Hack_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+* html .test{color:#090;}
+* + html .test{color:#ff0;}
+.test:lang(zh-cn){color:#f00;}
+.test:nth-child(1){color:#0ff;}
+</style>
+</head>
+<body>
+<div class="test">在不同浏览器下看看我的颜色吧</div>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../js/phpstudy.js"></script>
+<script src="../js/style.js"></script>
+</body>
+</html>

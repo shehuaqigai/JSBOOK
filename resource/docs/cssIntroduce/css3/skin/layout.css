@@ -1,0 +1,48 @@
+@charset "utf-8";
+@import "global.css";
+/* Layout */
+html,body{overflow:hidden;}
+html{_padding:90px 0 50px;}
+body{height:100%;}
+#main,#side,#about{border:1px solid #ccc;background:#f9f9f9;-webkit-box-shadow:0 0 5px rgba(0,0,0,.3);box-shadow:0 0 5px rgba(0,0,0,.3);}
+#hd{position:absolute;z-index:3;top:0;right:0;left:0;width:100%;height:80px;background:#0382AD url(r_x.png) repeat-x;background:-moz-linear-gradient(center top,#45B5DA,#0382AD);background:-webkit-gradient(linear,center top,center bottom,from(#45B5DA),to(#0382AD));text-align:left;}
+#bd{position:absolute;_position:relative;z-index:1;top:90px;_top:auto;right:0;bottom:50px;_bottom:auto;left:0;_height:100%;margin:0 10px;text-align:left;}
+#side{position:absolute;top:0;bottom:0;left:0;overflow:auto;float:left;width:270px;_height:100%;}
+#main{position:absolute;_position:static;top:0;right:0;bottom:0;left:280px;overflow:auto;_height:100%;_margin-left:280px;background:#fff;}
+#main #content{_position:relative;_overflow:auto;_width:100%;_height:100%;}
+#main #content iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
+#ft{position:absolute;z-index:3;right:0;bottom:0;left:0;width:100%;height:40px;text-align:left;}
+#ft #about{height:28px;margin:0 10px 10px;text-shadow:0 0 5px rgba(0,0,0,.2);line-height:2.2;}
+/* module: mashead */
+#mashead .sitename{display:inline;float:left;margin:15px 20px 0 40px;}
+#mashead .sitename h1{color:#fff;font-size:32px;line-height:1;text-shadow:1px 1px 0 rgba(0,0,0,1),1px 1px 5px rgba(255,255,255,.8);}
+#mashead .sitename h2{color:#333;font-weight:normal;text-shadow:1px 1px 0 rgba(255,255,255,.3),1px 1px 5px rgba(0,0,0,.1);}
+#mashead .related{float:right;padding:46px 10px 0 0;}
+#mashead .related ul{float:left;}
+#mashead .related li{position:relative;float:left;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.3);line-height:1.231;}
+#mashead .related .version{margin-top:4px;padding:0 6px;color:#9ED55E;}
+#mashead .related .download{margin-top:4px;padding:0 6px;}
+#mashead .related .contribute{margin-top:4px;padding:0 6px;}
+#mashead .related li a{color:#fff;}
+#mashead .related li strong{display:block;position:relative;z-index:2;padding:4px 20px 2px 6px;font-weight:normal;cursor:pointer;}
+#mashead .related li:hover strong,#mashead .related strong.on{padding:3px 19px 2px 5px;*padding:5px 19px 3px 5px;*line-height:1;border:1px solid #026E93;border-bottom:none;-webkit-box-shadow:0 0 4px rgba(0,0,0,.5);box-shadow:0 0 4px rgba(0,0,0,.5);background:#0382AD;}
+#mashead .related li strong:after{display:block;position:absolute;top:9px;right:6px;overflow:hidden;width:0;height:0;border:5px solid #fff;border-color:#fff transparent transparent;content:'';-moz-transition:all .4s ease-in;-webkit-transition:all .4s ease-in;-o-transition:all .4s ease-in;-ms-transition:all .4s ease-in;transition:all .4s ease-in;}
+#mashead .related li:hover strong:after,#mashead .related strong.on:after{top:2px;border-color:transparent transparent #fff;}
+#mashead .related li strong:before{display:none;position:absolute;bottom:-4px;left:0;overflow:hidden;width:100%;height:4px;background:#0382AD;content:'';}
+#mashead .related li:hover strong:before,#mashead .related strong.on:before{display:block;}
+#mashead .related li ul{position:absolute;top:21px;right:0;overflow:hidden;float:none;width:125px;height:0;opacity:0;_height:auto;_opacity:1;padding:4px 0;border:1px solid #026E93;border-radius:0 0 3px 3px;-webkit-box-shadow:0 0 5px rgba(0,0,0,.5);box-shadow:0 0 5px rgba(0,0,0,.5);-moz-transition:all .3s ease-in-out;-webkit-transition:all .3s ease-in;-o-transition:all .3s ease-in;background:#0382AD;}
+#mashead .related li:hover ul{height:66px;opacity:1;}
+#mashead .related li li{position:static;float:none;padding:0;white-space:nowrap;}
+#mashead .related li li a{zoom:1;display:block;padding:3px 8px;}
+#mashead .related li li a:hover{background:#45B5DA;text-decoration:none;}
+/* module: navigation */
+#navigation{padding:8px;}
+/* module: about */
+#about .copyright{float:left;padding:0 10px;color:#666;font-style:italic;font-weight:bold;font-family:Georgia;}
+#about .origin,#about .related{float:right;padding:0 10px;}
+#about .related a{font-weight:bold;}
+/* popup module: contribute */
+#contribute{width:400px;}
+#contribute .popbd ul{position:absolute;z-index:3;width:350px;height:130px;padding:10px 15px;}
+#contribute .popbd p{position:absolute;z-index:3;top:130px;left:25px;}
+#contribute .becauseofyou{position:absolute;z-index:1;top:35px;left:0;overflow:hidden;width:400px;color:#f8f8f8;font-weight:bold;font-style:italic;font-size:60px;white-space:nowrap;}

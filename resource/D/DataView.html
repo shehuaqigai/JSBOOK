@@ -1,0 +1,112 @@
+<div class="_content"><div class="_page _mdn"><h1>DataView</h1><p>An <code>ArrayBuffer</code> is a useful object for representing an arbitrary chunk of data. In many cases, such data will be read from disk or from the network, and will not follow the alignment restrictions that are imposed on the <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBufferView" title="en/JavaScript_typed_arrays/ArrayBufferView">Typed Array Views</a> described earlier. In addition, the data will often be heterogeneous in nature and have a defined byte order.</p> <p>The <strong><code>DataView</code></strong> view provides a low-level interface for reading such data from and writing it to an <code><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a></code>.</p> <h2 id="Constructors">Constructors</h2> <table class="standard-table"><tbody><tr>
+<td><code>DataView DataView(<a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a> buffer, optional unsigned long byteOffset, optional unsigned long byteLength);</code></td> </tr></tbody></table><h2 id="Method_overview" name="Method_overview">Method overview</h2> <h3 id="Read" name="Read">Read</h3> <table class="standard-table"><tbody>
+<tr>
+<td><code>byte <a href="#getInt8">getInt8</a>(unsigned long byteOffset);</code></td> </tr>
+<tr>
+<td><code>unsigned byte <a href="#getUint8">getUint8</a>(unsigned long byteOffset);</code></td> </tr>
+<tr>
+<td><code>short <a href="#getInt16">getInt16</a>(unsigned long byteOffset, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>unsigned short <a href="#getUint16">getUint16</a>(unsigned long byteOffset, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>long <a href="#getInt32">getInt32</a>(unsigned long byteOffset, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>unsigned long <a href="#getUint32">getUint32</a>(unsigned long byteOffset, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>float <a href="#getFloat32">getFloat32</a>(unsigned long byteOffset, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>double <a href="#getFloat64">getFloat64</a>(unsigned long byteOffset, optional boolean littleEndian);</code></td> </tr>
+</tbody></table><h3 id="Write" name="Write">Write</h3> <table class="standard-table"><tbody>
+<tr>
+<td><code>void <a href="#setInt8">setInt8</a>(unsigned long byteOffset, byte value);</code></td> </tr>
+<tr>
+<td><code>void <a href="#setUint8">setUint8</a>(unsigned long byteOffset, unsigned byte value);</code></td> </tr>
+<tr>
+<td><code>void <a href="#setInt16">setInt16</a>(unsigned long byteOffset, short value, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>void <a href="#setUint16">setUint16</a>(unsigned long byteOffset, unsigned short value, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>void <a href="#setInt32">setInt32</a>(unsigned long byteOffset, long value, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>void <a href="#setUint32">setUint32</a>(unsigned long byteOffset, unsigned long value, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>void <a href="#setFloat32">setFloat32</a>(unsigned long byteOffset, float value, optional boolean littleEndian);</code></td> </tr>
+<tr>
+<td><code>void <a href="#setFloat64">setFloat64</a>(unsigned long byteOffset, double value, optional boolean littleEndian);</code></td> </tr>
+</tbody></table><h2 id="Constructor">Constructor</h2> <p>Returns a new <code>DataView</code> object using the passed <code><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a></code> for its storage.</p> <pre>DataView DataView(
+&nbsp; ArrayBuffer buffer,
+&nbsp; optional unsigned long byteOffset,
+&nbsp; optional unsigned long byteLength
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>buffer</code>
+</dt> <dd> An existing <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript_typed_arrays/ArrayBuffer"><code>ArrayBuffer</code></a> to use as the storage for the new <code>DataView</code> object.</dd> <dt> <code>byteOffset</code> <span class="inlineIndicator optional optionalInline">Optional</span>
+</dt> <dd> The offset, in bytes, to the first byte in the specified buffer for the new view to reference. If not specified, the view of the buffer will start with the first byte.</dd> <dt> <code>byteLength</code> <span class="inlineIndicator optional optionalInline">Optional</span>
+</dt> <dd> The number of elements in the byte array. If unspecified, length of the view will match the buffer's length.</dd> </dl><h6 id="Return_value">Return value</h6> <p>A new <code>DataView</code> object representing the specified data buffer.</p> <h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INDEX_SIZE_ERR</code>
+</dt> <dd> The <code>byteOffset</code> and <code>byteLength</code> result in the specified view extending past the end of the buffer.</dd> </dl><h2 id="Methods">Methods</h2> <h3 id="getInt8()">getInt8()</h3> <p>Gets a signed 8-bit integer at the specified byte offset from the start of the view.</p> <pre>byte getInt8(
+  unsigned long byteOffset
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>offset</code>
+</dt> <dd> The offset, in byte, from the start of the view where to read the data.</dd> </dl><h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INDEX_SIZE_ERR</code>
+</dt> <dd> The <code>byteOffset</code> is set such as it would read beyond the end of the view</dd> </dl><h3 id="getUint8()">getUint8()</h3> <p>Gets an unsigned 8-bit integer at the specified byte offset from the start of the view.</p> <pre>byte getUint8(
+  unsigned long byteOffset
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>offset</code>
+</dt> <dd> The offset, in byte, from the start of the view where to read the data.</dd> </dl><h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INDEX_SIZE_ERR</code>
+</dt> <dd> The <code>byteOffset</code> is set such as it would read beyond the end of the view</dd> </dl><h3 id="getInt16()">getInt16()</h3> <p>Gets a signed 16-bit integer at the specified byte offset from the start of the view.</p> <pre>short getInt16(
+  unsigned long byteOffset,
+  optional boolean littleEndian
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>byteOffset</code>
+</dt> <dd> The offset, in byte, from the start of the view where to read the data.</dd> </dl><dl>
+<dt> <code>littleEndian</code>
+</dt> <dd> Indicates whether the 16-bit int is stored in little- or big-endian format. If false or undefined, a big-endian value is read.</dd> </dl><h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INDEX_SIZE_ERR</code>
+</dt> <dd> The <code>byteOffset</code> is set such as it would read beyond the end of the view</dd> </dl><h3 id="getUint16()">getUint16()</h3> <p>Gets an unsigned 16-bit integer at the specified byte offset from the start of the view.</p> <pre>unsigned short getUint16(
+  unsigned long byteOffset,
+  optional boolean littleEndian
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>byteOffset</code>
+</dt> <dd> The offset, in byte, from the start of the view where to read the data.</dd> </dl><dl>
+<dt> <code>littleEndian</code>
+</dt> <dd> Indicates whether the 16-bit int is stored in little- or big-endian format. If false or undefined, a big-endian value is read.</dd> </dl><h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INDEX_SIZE_ERR</code>
+</dt> <dd> The <code>byteOffset</code> is set such as it would read beyond the end of the view</dd> </dl><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td>9</td> <td>15.0 (15.0)</td> <td>10</td> <td><font color="#003300" face="Verdana, Arial, sans-serif"><span style="line-height: normal;">12.1</span></font></td> <td>5.1</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.0</td> <td>15.0 (15.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>12.0</td> <td>4.2</td> </tr>
+</tbody></table>
+</div> <h2 id="Detect_endianness">Detect endianness</h2> <p>You'll probably need to detect the type of architecture your script is running, here is a little trick to check it :</p> <pre class=" language-javascript"><span class="token keyword">var</span> littleEndian <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> buffer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayBuffer</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">new</span> <span class="token class-name">DataView</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setInt16<span class="token punctuation">(</span></span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Int16Array</span><span class="token punctuation">(</span>buffer<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token number">256</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>littleEndian<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // true ou false
+</span></pre> <h2 id="See_also">See also</h2> <ul>
+<li><a class="external" href="http://www.khronos.org/registry/typedarray/specs/latest/#8">DataView Specification</a></li> <li><a class="external" href="http://www.khronos.org/registry/typedarray/specs/latest/">Typed Array Specification</a></li> <li><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays" title="en/JavaScript typed arrays">JavaScript typed arrays</a></li> <li>
+<a class="link-https" href="https://github.com/jDataView/jDataView">jDataView</a>: a Javascript library that provides extended DataView-compatible API to all browsers and Node.js.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/DataView$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/DataView" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/DataView</a>
+  </p>
+</div>
+</div></div>

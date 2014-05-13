@@ -1,0 +1,51 @@
+<div id="maincontent">
+
+    <h1>XML DOM CSSStyleRule 对象</h1>
+
+    <div id="tpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_cssrule.asp" title="XML DOM CSSRule 对象">DOM CSSRule</a></li>
+            <li class="next"><a href="/xmldom/dom_cssstylesheet.asp" title="XML DOM CSSStyleSheet 对象">DOM CSSStyleSheet</a></li>
+        </ul>
+    </div>
+
+
+    <div>
+        <h2>CSSStyleRule 对象</h2>
+        <p>CSSStyleRule 对象表示 CSS 样式表中一个单独的规则集（rule sets）。</p>
+    </div>
+
+
+    <div>
+        <h2>CSSStyleRule 对象的属性</h2>
+
+        <dl class="define">
+            <dt>selectorText</dt>
+            <dd>设置或返回该规则中选择器的文本表示。例如，"h1,h2"。</dd>
+
+            <dt>style</dt>
+            <dd>返回 CSSStyleDeclaration 对象，即 CSS 选择器的样式值（CSS 声明块）。</dd>
+        </dl>
+    </div>
+
+
+    <div>
+        <h2>相关页面</h2>
+        <p>XML DOM 参考手册：<a href="/xmldom/dom_cssrule.asp" title="XML DOM CSSRule 对象">CSSRule 对象</a></p>
+    </div>
+
+
+    <div id="bpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_cssrule.asp" title="XML DOM CSSRule 对象">DOM CSSRule</a></li>
+            <li class="next"><a href="/xmldom/dom_cssstylesheet.asp" title="XML DOM CSSStyleSheet 对象">DOM CSSStyleSheet</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="art_content">
+    <!--NEWSZW_HZH_BEGIN-->
+    W3C DOM2样式规则 <br>========================================================== <br><strong>CSSStyleSheet对象 <br></strong>　 CSSStyleSheet对象表示的是所有CSS样式表，包括外部样式表和使用&lt;style type="text/css"&gt;&lt;/style&gt;标签指定的嵌入式样式表。 <br>CSSStyleSheet同样构建于其他的DOM2 CSS对象基础之 上，而CSSStyleRule对象表示的则样式表中的每条规则。 <br>　　通过document.stylesheets属性可以取得文档中CSSStyleSheet对象的列表，其中每个对象有下列属性 <br>　　type　　　　　　　　始终为text/css <br>　　disabled　　　　　　相应样式表是应于还是禁用于当前文档 <br>　 href　　　　　　　　样式表相对于当前文档的URL <br>　　title　　　　　　　　分组样式标签 <br>　　media　　　　　　 样式应用的目标设备类型(screen、print) <br>　　ownerRule　　　　 只读CSSRule对象，若样式用@import导入，表示其父规则 <br>　　cssRules 　　　　　只读cssRuleList列表对象，包含样式表中所有CSSRule对象 <br>　　========================================================== <br>　　insertRule(rule,index)　　　　添加新的样式声明 <br>　　deleteRule(index)　　　　　 从样式表中移除规则 <br><strong>CSSStyleRule对象</strong> <br>　　每个CSSStyleSheet对象内部包含着一组CSSStyleRule对象。这些对象分别对应着类似下面这样一条规则： <br>　　boyd{ <br>　 　　font:lucida,verdana,sans-serif; <br>　　　　background:#c7600f; <br>　　　　color:#1a3800; <br>　　} <br><strong>CSSStyleRule对象具有下列属性： <br></strong>　　type　　　　　　　　继承自CSSRule对象的一个属性，以0~6中的一个数字表示规则类型 <br>　　cssText　　　　　　 以字符串形式表示的当前状态下的全部规则 <br>　　parentStyleSheet　　 引用父CSSStyleRule对象 <br>　　parentRule　　　　　 如果规则位于另一规则中，该属性引用另一个CSSRule对象 <br>　　selectorText　　　　 包含规则的选择符 <br>　　style　　　　　　　　与HTMLElement.style相似，是CSSStyleDeclaration对象的一个实例 <br><strong>CSSStyleDeclaration对象</strong> <br>　　表示一个元素的style属性，与CSSStyleRule对象类似，CSSStyleDeclaration具有下面属性： <br>　　cssText　　　　以字符串形式表示的全部规则 <br>　　parentRule　　 将引用CSSStyleRule对象 <br>　　========================================================== <br>　　getPropertyValue(propertyName)　　　　　　CSS样式属性值 <br>　　removeProperty(propertyName)　　　　　　 从声明中移除属性 <br>　　setProperty(propertyName,value,priority)　　 设置CSS属性值 <br><strong>把样式置于DOM脚本之外</strong> <br>========================================================= <br>style属性 <br>　　style属性本身是一个表示特定元素的所有不同CSS样式的CSSStyleDeclaration对象，通过style属性只能访问到在元素的style属性中以嵌入方式声明的CSS属性。换句话说，通过style属性无法访问到由多重样式表层叠而来或者从父元素继承的CSS属性。 <br><div class="codetitle"><span style="CURSOR: pointer" onclick="doCopy('code45574')"><u>复制代码</u></span> 代码如下:</div><div class="codebody" id="code45574"> <br>element.style.backgroundColor = 'red';　　//background-color被转换为大小写形式，必须的 <br>//设置id为"example"的元素的样式 <br>setStyleById('example',{ <br>　　'background-color' 　　: 　　'red', <br>　　'border'　　　　　　 :　　'1px solid black', <br>　　'padding'　　　　　　 :　　'1px', <br>　　'margin'　　　　　　　:　　'1px' <br>}); <br>function setStyle(elementid,styles){　 <br>　　var element = document.getElementById(elementid); <br>　　//循环遍历styles对象并应用每个属性 <br>　　for(property in styles){ <br>　　　　//非styles直接定义的属性 <br>　　　　if(!styles.hasOwnProperty(property)) continue; <br>　　　　 <br>　　　　if(element.style.setProperty){ <br>　　　　　　element.style.setProperty(uncamlize(property, '-'), styles[property], null); <br>　　　　} else { <br>　　　　　　element.style[camelize(property)] = styles[property]; <br>　　　　} <br>　　} <br>　　 <br>　　return true; <br>} <br>//将word-word转换为wordWord <br>function camelize(s) { <br>return s.replace(/-(\w)/g, function(math,p1){ <br>return p1.toUpperCase(); <br>}); <br>} <br>//将wordWord转换为word-word <br>function uncamelize(s, sep) { <br>sep = sep || '-'; <br>return s.replace(/([a-z])([A-Z])/g, function (match, p1, p2){ <br>return p1 + sep + p2.toLowerCase(); <br>}); <br>} <br>//基于className切换样式 <br>element.className += 'newclass'; <br></div> <br><strong>访问计算样式</strong> <br>　　在修改一个元素的表现之前，你可能希望首先确定它当前的样式属性，由于元素的style属性只适用于以嵌入式方式定义的样式，因此无法通过style取得计算样式，DOM2规范在document.defaultView中包含一个名叫getComputedStyle()的方法，该方法返回一个只读的CSSStyleDeclaration对象，包含特定元素的所有计算样式，如下： <br><div class="codetitle"><span style="CURSOR: pointer" onclick="doCopy('code37288')"><u>复制代码</u></span> 代码如下:</div><div class="codebody" id="code37288"> <br>　　var styles = document.defaultView.getComputedStyle(element); <br>　　var color = styles.getProperty('background-color'); <br></div> <br>但是Microsoft有自己的属性element.currentStyle版本 <br><div class="codetitle"><span style="CURSOR: pointer" onclick="doCopy('code15262')"><u>复制代码</u></span> 代码如下:</div><div class="codebody" id="code15262"> <br>//取得一元素的计算样式 <br>function getStyle(element,property) { <br>　　var value = element.style[camelize(property)]; <br>　　if(!value) { <br>　　　　if(document.defaultView &amp;&amp; document.defaultView.getComputedStyle) { <br>　　　　　　value = document.defaultView.getComputedStyle(element).getPropertyValue(property); <br>　　　　} else if(element.currentStyle) { <br>　　　　　　value = element.currentStyle[camelize(property)]; <br>　　 　　} <br>　　} <br>　　return value; <br>} <br></div>
+    <!--NEWSZW_HZH_END-->
+
+</div>

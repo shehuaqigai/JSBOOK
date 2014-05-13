@@ -1,0 +1,81 @@
+<p>
+	目前，在web开发领域，主要的数据交换格式有XML和JSON，对于XML相信每一个web developer都不会感到陌生；相比之下，JSON可能对于一些新步入开发领域的新手会感到有些陌生，也可能你之前已经听说过，但对于XML和 JSON的不同之处可能会不怎么了解。对于在 Ajax开发中，是选择XML还是JSON，一直存在着争议，个人还是比较倾向于JSON的，虽然JSON才处于起步阶段，但我相信JSON最终会取代XML成为Ajax的首选，到时Ajax可能要更名为Ajaj(Asynchronous JavaScript and JSON)了；
+
+1.数据交换格式比较之关于XML和JSON：
+
+XML：extensible markup language,一种类似于HTML的语言，他没有预先定义的标签，使用DTD(document type definition)文档类型定义来组织数据；格式统一，跨平台和语言，早已成为业界公认的标准。具体的可以问Google或百度。相比之JSON这种轻量级的数据交换格式，XML可以称为重量级的了。
+
+ 
+
+JSON : JavaScript Object Notation 是一种轻量级的数据交换格式。易于人阅读和编写。同时也易于机器解析和生成。它基于JavaScript Programming Language , Standard ECMA-262 3rd Edition - December 1999 的一个子集。 JSON采用完全独立于语言的文本格式，但是也使用了类似于C语言家族的习惯（包括C, C++, C#, Java, JavaScript, Perl, Python等）。这些特性使JSON成为理想的数据交换语言。
+
+2.数据交换格式比较之关于轻量级和重量级：
+
+轻量级和重量级是相对来说的，那么XML相对于JSON的重量级体现在哪呢？我想应该体现在解析上，XML目前设计了两种解析方式：DOM和SAX；
+
+DOM是把一个数据交换格式XML看成一个DOM对象，需要把XML文件整个读入内存，这一点上JSON和XML的原理是一样的，但是XML要考虑父节点和子节点，这一点上JSON的解析难度要小很多，因为JSON构建于两种结构：key/value，键值对的集合；值的有序集合，可理解为数组；
+
+SAX不需要整个读入文档就可以对解析出的内容进行处理，是一种逐步解析的方法。程序也可以随时终止解析。这样，一个大的文档就可以逐步的、一点一点的展现出来，所以SAX适合于大规模的解析。这一点，JSON目前是做不到得。
+
+所以，JSON和XML的轻/重量级的区别在于：JSON只提供整体解析方案，而这种方法只在解析较少的数据时才能起到良好的效果；而XML提供了对大规模数据的逐步解析方案，这种方案很适合于对大量数据的处理。
+
+3.数据交换格式比较之关于数据格式编码及解析的难度：
+
+在编码上，虽然XML和JSON都有各自的编码工具，但是JSON的编码要比XML简单，即使不借助工具，也可以写出JSON代码，但要写出好的XML代码就有点困难；与XML一样，JSON也是基于文本的，且它们都使用Unicode编码，且其与数据交换格式XML一样具有可读性。
+
+主观上来看，JSON更为清晰且冗余更少些。JSON网站提供了对JSON语法的严格描述，只是描述较简短。从总体来看，XML比较适合于标记文档，而JSON却更适于进行数据交换处理。
+
+在解析上，在普通的web应用领域，开发者经常为XML的解析伤脑筋，无论是服务器端生成或处理XML，还是客户端用 JavaScript 解析XML，都常常导致复杂的代码，极低的开发效率。
+
+实际上，对于大多数web应用来说，他们根本不需要复杂的XML来传输数据，XML宣称的扩展性在此就很少具有优势；许多Ajax应用甚至直接返回HTML片段来构建动态web页面。和返回XML并解析它相比，返回HTML片段大大降低了系统的复杂性，但同时缺少了一定的灵活性。同XML或HTML片段相比，数据交换格式JSON 提供了更好的简单性和灵活性。在web serivice应用中，至少就目前来说XML仍有不可动摇的地位。
+
+
+
+
+
+JSON(Javascript Object Notation) 是一种轻量级的数据交换格式。易于人阅读和编写。同时也易于机器解析和生成。它基于Javascript Programming Language, Standard ECMA-262 3rd Edition - December 1999的一个子集。JSON采用完全独立于语言的文本格式，但是也使用了类似于C语言家族的习惯（包括C, C++, C#, Java, Javascript, Perl, Python等）。这些特性使JSON成为理想的数据交换语言。 
+JSON概念很简单，就是服务器直接生成Javascript语句，客户端获取后直接用eval方法来获得这个对象，这样就可以省去解析XML的性损失。 
+
+
+
+
+JSON不仅减少了解析XML解析带来的性能问题和兼容性问题，而且对于Javascript来说非常容易使用，可以方便的通过遍历数组以及访问对象属性来获取数据，其可读性也不错，基本具备了结构化数据的性质。不得不说是一个很好的办法，而且事实上google maps就没有采用XML传递数据，而是采用了JSON方案。 
+
+JSON的另外一个优势是"跨域性"，例如你在www.aspxuexi.com的网页里使用 
+&ltscript type="text/javascript" src="http://www.yyy.com/some.js">
+
+是完全可行的，这就意味着你可以跨域传递信息。而使用XMLHttpRequest却获取不了跨域的信息，这是Javascript内部的安全性质所限制的。 
+
+JSON能完全取代XML吗？当然不能，原因就在于XML的优势：通用性。要使服务器端产生语法合格的Javascript代码并不是很容易做到的，这主要发生在比较庞大的系统，服务器端和客户端有不同的开发人员。它们必须协商对象的格式，这很容易造成错误。
+
+Ajax：拥抱JSON，让XML走开 
+
+　　Ajax(Asynchronous Javascript and XML)说到底就是一种浏览器异步读取服务器上XML内容的技术。现在的技术凡是跟XML扯上关系，再加上个概念做幌子，就像金装了一样，拽得不行。门外 的人看得很是热闹，门里的人摇摇头不外如是。XML呢，跨平台的新潮语言？其实XML＝TXT。XML只是符合很多规范的文本。它本身什么都不是，只是保 存字符的文件。而浏览器异步读取的只是服务器上的文本内容，所以在Ajax开发时完全不必拘泥于XML。
+
+　　JSON的来历 
+
+　　XML 的作用是格式化数据内容。如果我们不用XML还有什么更好的方法吗？这个答案是JSON。介绍JSON之前我先介绍一下Javascript这门脚本语 言。脚本语言自身有动态执行的天赋。即我们可以把想要执行的语句放在字符串里，通过eval_r()这个动态执行函数来执行。字符串里的内容会像我们写的脚本 一样被执行。 
+
+　　如果我们在后台异步传来的文本是Javascript的声明语句，那么不是一条eval方法就能解析了？对于解析复杂的XML，这样的效率是多么大的提高啊！ 
+
+　　现在就来告诉你什么是JSON：Javascript Object Notation。我更愿意把它翻译为Javascript对象声明。比如要从后台载入一些通讯录的信息，如果写成XML，如下： 
+　　简单的不只是表达上，最重要的是可以丢弃让人晕头转向的DOM解析了。因为只要符合Javascript的声明规范，JavaScrip会自动帮你解析好 的。Ajax中使用JSON的基本方法是前台载入后台声明Javascript对象的字符串，用eval方法来将它转为实际的对象，最后通过 DHTML更新页面信息。 
+
+　　JSON的格式 
+
+　　JSON的基本格式如下， 
+
+　　·对象是属性、值对的集合。一个对象的开始于"{"，结束于"}"。每一个属性名和值间用":"提示，属性间用","分隔。 
+　　·数组是有顺序的值的集合。一个数组开始于"["，结束于"]"，值之间用","分隔。 
+　　·值可以是引号里的字符串、数字、true、false、null，也可以是对象或数组。这些结构都能嵌套。 
+　　·字符串的定义和C或Java基本一致。 
+　　·数字的定义也和C或Java基本一致。 
+
+　　JSON VS XML 
+
+　　·可读性　　JSON和XML的可读性可谓不相上下，一边是建议的语法，一边是规范的标签形式，很难分出胜负。 
+　　·可扩展性　　XML天生有很好的扩展性，JSON当然也有，没有什么是XML能扩展，JSON不能的。 
+　　·编码难度　　XML有丰富的编码工具，比如Dom4j、JDom等，JSON也有json.org提供的工具，但是JSON的编码明显比XML容易许多，即使不借助工具也能写出JSON的代码，可是要写好XML就不太容易了。 
+　　·解码难度　　XML的解析得考虑子节点父节点，让人头昏眼花，而JSON的解析难度几乎为0。这一点XML输的真是没话说。 
+　　·流行度　　XML已经被业界广泛的使用，而JSON才刚刚开始，但是在Ajax这个特定的领域，未来的发展一定是XML让位于JSON。到时Ajax应该变成Ajaj(Asynchronous Javascript and JSON)了。
+</p>

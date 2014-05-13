@@ -1,0 +1,108 @@
+<div id="maincontent">
+
+<h1>HTML DOM opener 属性</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>opener 属性是一个可读可写的属性，可返回对创建该窗口的 Window 对象的引用。</p>
+<p>opener 属性非常有用，创建的窗口可以引用创建它的窗口所定义的属性和函数。</p>
+
+<h3>语法</h3>
+<pre>window.opener</pre>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="note"><span>注释：</span>只有表示顶层窗口的 Window 对象的 operner 属性才有效，表示框架的 Window 对象的 operner 属性无效。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>下面的例子可向 opener 窗口写文本（父窗口）：</p>
+
+<pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;script type="text/javascript"&gt;
+myWindow=window.open('','MyName','width=200,height=100')
+myWindow.document.write("This is 'myWindow'")
+myWindow.focus()
+myWindow.<code>opener</code>.document.write("This is the parent window")
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_win_opener">向 opener 窗口写文本</a></dt>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+</div>
+
+
+
+
+
+<div id="cnblogs_post_body"><p><font size="2"><img src="http://www.cnblogs.com/Emoticons/tusiji/202939796.gif" alt="">opener即谁打开我的，比如A页面利用window.open弹出了B页面窗口，那么A页面所在窗口就是B页面的<br>
+<br>
+opener，在B页面通过opener对象可以访问A页面。<br>
+<br>
+parent表示父窗口，比如一个A页面利用iframe或frame调用B页面，那么A页面所在窗口就是B页面的<br>
+<br>
+parent。<br>
+<br>
+<br>
+<br>
+在JS中，window.opener只是对弹出窗口的母窗口的一个引用。比如：<br>
+a.html中，通过点击按钮等方式window.open出一个新的窗口b.html。那么在b.html中，就可以通过<br>
+<br>
+window.opener（省略写为opener）来引用a.html，包括a.html的document等对象，操作a.html的内容。<br>
+假如这个引用失败，那么将返回null。所以在调用opener的对象前，要先判断对象是否为null，否则会<br>
+<br>
+出现“对象为空或者不存在”的JS错误。<br>
+<br>
+&lt;html&gt;<br>
+&lt;body&gt;<br>
+&lt;form. name=form1&gt;<br>
+&lt;input type=text name=inpu &gt;<br>
+&lt;input type=button&nbsp;&nbsp; &gt;<br>
+&lt;/form&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;<br>
+<br>
+<br>
+--------------------------------<br>
+back2opener.html<br>
+--------------------------------<br>
+&lt;html&gt;<br>
+&lt;body&gt;<br>
+&lt;form. name=form1&gt;<br>
+&lt;input type=text name=inpu &gt;<br>
+<br>
+&nbsp;&nbsp; &lt;a class=under href=# &gt;添加&lt;/a&gt;<br>
+&lt;/form&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;<br>
+<br>
+<br>
+<br>
+window.opener 返回的是创建当前窗口的那个窗口的引用，比如点击了a.htm上的一个链接而打开了<br>
+<br>
+b.htm，然后我们打算在b.htm上输入一个值然后赋予a.htm上的一个id为“name”的textbox中，就可以<br>
+<br>
+写为：<br>
+<br>
+window.opener.document.getElementById("name").value = "输入的数据"; </font></p>
+</div>

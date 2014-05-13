@@ -1,0 +1,71 @@
+<p>
+	定义和用法
+xmlStandalone 属性可设置或返回文档是否为 standalone。
+语法：
+documentObject.xmlStandalone
+</p>
+<p>
+	standalone  用来表示该文件是否呼叫其它外部的文件。若值是 ”yes” 表示没有呼叫外部文件，若值是 ”no” 则表示有呼叫外部文件。默认值是 “yes”。 
+
+这里所指的外部文件其实就是查检XML是不是有效的约束文件,或是DTD或是Schema,那这两者又有什么区别呢? 
+
+   尽管XML1.0提供了一种机制，即文档类型定义（DTD）来规范XML的格式规则。但是它天生存在一些缺点，比如，它采用了非XML的语法规则、不支持更多的数据类型、扩展性差等，为了克服这些缺点，XML Schema 出现了。W3C推荐在XML中使用XML Schema来代替DTD。 
+XML Schema（模式） 跟DTD一样，也用于定义 XML 文档的约束。但它与DTD明显不同的是，XML Schema遵循XML语法规则，更好地支持数据类型以及命名空间。W3C称：XML Schema is an XML based alternative to DTD。模式在单独的文件中定义，通常扩展名为 .xsd。每个模式定义都有一个根元素 schema，该元素属于名称空间http://www.w3.org/2001/XMLSchema。schema 元素可以包含可选的属性。比如： 
+&ltxs:schema xmlns:xs=http://www.w3.org/2001/XMLSchema 
+    elementFormDefault="qualified" attributeFormDefault="unqualified"> 
+这表示模式中使用的元素来自http://www.w3.org/2001/XMLSchema名称空间。 
+XML 文件使用 schema 名称空间中的 schemaLocation 属性链接到对应的模式。使用 schemaLocation 属性必须定义 schema 名称空间。所有这些定义都出现在 XML 文档的根元素中。语法如下： 
+&ltroot_element  schema_namespace_definition  schema_location_definition> 
+下面是一个例子： 
+&ltBooks  xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
+xs:schemaLocation="http://www.example.com Books.xsd"> 
+先来看看一个XML文件示例（message.xml），分别用DTD和XML Schema 描述这个文件，看看它们之间的区别：
+<pre>
+1、使用DTD： 
+引用
+&lt?xml version="1.0" standalone="yes"?> 
+<!DOCTYPE message[ 
+  <!ELEMENT message (to,from,body)> 
+  <!ELEMENT to      (#PCDATA)> 
+  <!ELEMENT from    (#PCDATA)> 
+  <!ELEMENT body    (#PCDATA)> 
+]> 
+&ltmessage> 
+  &ltto>rose&lt/to> 
+  &ltfrom>alex&lt/from> 
+  &ltbody>Hi,My Girl!&lt/body> 
+&lt/message>
+
+
+2、使用XML Schema ： 
+
+message.xml: 
+Java代码  
+&lt?xml version="1.0" standalone="no"? >  
+&ltmessage xmlns=http://www.example.com   
+  xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance   
+  xsi:schemaLocation="http://www.example.com message.xsd">  
+   &ltto>Rose&lt/to>  
+   &ltfrom>Alex&lt/from>  
+   &ltbody>Hi,My Girl!&lt/body>  
+&lt/message>  
+
+message.xsd: 
+Java代码  
+&lt?xml version="1.0"?>  
+&ltxs:schema xmlns:xs=http://www.w3.org/2001/XMLSchema   
+targetNamespace=http://www.example.com   
+xmlns="http://www.example.com" elementFormDefault="qualified">  
+ &ltxs:element name="message">  
+  &ltxs:complexType>  
+    &ltxs:sequence>  
+    &ltxs:element name="to" type="xs:string"/>  
+    &ltxs:element name="from" type="xs:string"/>  
+    &ltxs:element name="body" type="xs:string"/>  
+    &lt/xs:sequence>  
+  &lt/xs:complexType>  
+ &lt/xs:element>  
+&lt/xs:schema>  
+</pre>
+
+</p>

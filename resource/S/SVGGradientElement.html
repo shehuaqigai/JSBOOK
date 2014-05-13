@@ -1,0 +1,69 @@
+<div class="_page _mdn"><h1>SVGGradientElement</h1> <p>The <code>SVGGradient</code> interface is a base interface used by <a href="svglineargradientelement" title="The SVGLinearGradientElement interface corresponds to the &lt;lineargradient&gt; element."><code>SVGLinearGradientElement</code></a> and <a href="svgradialgradientelement" title="The SVGRadialGradientElement interface corresponds to the &lt;radialgradient&gt; element."><code>SVGRadialGradientElement</code></a>.</p> <h3 id="Interface_overview">Interface overview</h3> <table class="standard-table"><tbody>
+<tr>
+<th scope="row">Also implement</th> <td>
+<a href="svgelement" title="All of the SVG DOM interfaces that correspond directly to elements in the SVG language derive from the SVGElement interface."><code>SVGElement</code></a>, <a href="svgurireference" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGURIReference</code></a>, <a href="svgexternalresourcesrequired" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGExternalResourcesRequired</code></a>, <a href="svgstylable" title="The SVGStylable interface is implemented on all objects corresponding to SVG elements that can have style, class and presentation attributes specified on them."><code>SVGStylable</code></a>, <a href="svgunittypes" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGUnitTypes</code></a>
+</td> </tr>
+<tr>
+<th scope="row">Methods</th> <td><em>None</em></td> </tr>
+<tr>
+<th scope="row">Properties</th> <td> <ul>
+<li>readonly <a href="svganimatedenumeration" title="The SVGAnimatedEnumeration interface is used for attributes whose value must be a constant from a particular enumeration and which can be animated."><code>SVGAnimatedEnumeration</code></a> <code>gradientUnits</code>
+</li> <li>readonly <a href="svganimatedtransformlist" title="The SVGAnimatedTransformList interface is used for attributes which take a list of numbers and which can be animated."><code>SVGAnimatedTransformList</code></a> <code>gradientTransform</code>
+</li> <li>readonly <a href="svganimatedenumeration" title="The SVGAnimatedEnumeration interface is used for attributes whose value must be a constant from a particular enumeration and which can be animated."><code>SVGAnimatedEnumeration</code></a> <code>spreadMethod</code>;</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Constants</th> <td> <ul>
+<li>
+<code>SVG_SPREADMETHOD_UNKNOWN</code> = 0</li> <li>
+<code>SVG_SPREADMETHOD_PAD</code> = 1</li> <li>
+<code>SVG_SPREADMETHOD_REFLECT</code> = 2</li> <li>
+<code>SVG_SPREADMETHOD_REPEAT</code> = 3</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Normative document</th> <td><a class="external" href="http://www.w3.org/TR/SVG11/pservers.html#InterfaceSVGGradientElement" title="http://www.w3.org/TR/SVG11/pservers.html#InterfaceSVGGradientElement">SVG 1.1 (2nd Edition)</a></td> </tr>
+</tbody></table><h2 id="Constants">Constants</h2> <table class="standard-table"><tbody>
+<tr>
+<th>Name</th> <th>Value</th> <th>Description</th> </tr>
+<tr>
+<td><code>SVG_SPREADMETHOD_UNKNOWN</code></td> <td>0</td> <td>The type is not one of predefined types. It is invalid to attempt to define a new value of this type or to attempt to switch an existing value to this type.</td> </tr>
+<tr>
+<td><code>SVG_SPREADMETHOD_PAD</code></td> <td>1</td> <td>Corresponds to value <em>pad</em>.</td> </tr>
+<tr>
+<td><code>SVG_SPREADMETHOD_REFLECT</code></td> <td>2</td> <td>Corresponds to value <em>reflect</em>.</td> </tr>
+<tr>
+<td><code>SVG_SPREADMETHOD_REPEAT</code></td> <td>3</td> <td>Corresponds to value <em>repeat</em>.</td> </tr>
+</tbody></table><h2 id="Properties">Properties</h2> <table class="standard-table">
+<thead><tr>
+<th>Name</th> <th>Type</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>gradientUnits</code></td> <td><a href="svganimatedtransformlist" title="The SVGAnimatedTransformList interface is used for attributes which take a list of numbers and which can be animated."><code>SVGAnimatedTransformList</code></a></td> <td>Corresponds to attribute <code><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientUnits">gradientUnits</a></code> on the given element. Takes one of the constants defined in <a href="svgunittypes" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGUnitTypes</code></a>.</td> </tr>
+<tr>
+<td><code>gradientTransform</code></td> <td><a href="svganimatedtransformlist" title="The SVGAnimatedTransformList interface is used for attributes which take a list of numbers and which can be animated."><code>SVGAnimatedTransformList</code></a></td> <td>Corresponds to attribute <code><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/gradientTransform">gradientTransform</a></code> on the given element.</td> </tr>
+<tr>
+<td><code>spreadMethod</code></td> <td><a href="svganimatedtransformlist" title="The SVGAnimatedTransformList interface is used for attributes which take a list of numbers and which can be animated."><code>SVGAnimatedTransformList</code></a></td> <td>Corresponds to attribute <code><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/spreadMethod">spreadMethod</a></code> on the given element. One of the Spread Method Types defined on this interface.</td> </tr>
+</tbody>
+</table><h2 id="Methods">Methods</h2> <p>The <code>SVGGradientElement</code> interface do not provide any specific methods.</p> <h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGGradientElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGGradientElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/SVGGradientElement</a>
+  </p>
+</div>
+</div>

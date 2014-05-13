@@ -1,0 +1,21 @@
+<p>
+实现语音输入也非常简单：
+1
+&ltinput id="q" name="q" accesskey="s" autofocus="true" 
+autocomplete="off" 
+x-webkit-speech  x-webkit-grammar="builtin:translate" /&gt
+简单的来说，我们只要在input元素上加上x-webkit-speech属性就可以了，
+当然你如果用xhtml，那么标准的写法是：x-webkit-speech=”x-webkit-speech”；
+</p>
+<pre>
+	lang
+这玩意可以强制输入框里面的语音的语言种类，例如
+&ltinput type="text" x-webkit-speech lang="zh-CN"/&gt
+2.onwebkitspeechchange 语音事件-监听输入
+3.x-webkit-grammar 语音语法限制
+这个语法作用是使得语音的内容尽量靠近搜索内容，
+同时去除一些多余的字符，至于这个功能我测试过，貌似不太强大.
+使用注意：
+如果原input中value不为空，输入会直接添加在原有文字后面。
+既然用webkit就要用placeholder了，不要再使用value为作输入提示了.
+</pre>

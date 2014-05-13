@@ -1,0 +1,141 @@
+<div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p>Some browsers implement&nbsp;<a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/#offline">Online/Offline events</a> from the <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/">WHATWG Web Applications 1.0 specification</a>.</p>
+<h3 id="Overview" name="Overview">概述</h3>
+<p>为了构建一个支持离线的 web 应用，你需要知道你的应用何时真正处于离线状态。同时，你还需要知道应用何时重新回到了「在线」状态。实际上，我们可以把需求分解成如下内容：</p>
+<ol>
+  <li>你需要知道用户何时回到在线状态，这样你就可以与服务器重新同步。</li>
+  <li>你需要知道用户何时处于离线状态，这样你就可以将对服务器的请求放入队列中以便稍后使用。</li>
+</ol>
+<p>这便是在线/离线事件所要处理的过程。</p>
+<p>你的 web 应用可能需要使得某个特定的文档在离线资源缓存中得到维护。 你可以在&nbsp;<a href="/en/Offline_resources_in_Firefox" title="en/Offline_resources_in_Firefox">Firefox 中的离线资源</a>&nbsp;这篇文章中了解到更多内容。</p>
+<h3 id="API" name="API">API</h3>
+<h4 id="navigator.onLine" name="navigator.onLine"><code>navigator.onLine</code></h4>
+<p><code><a href="/en/DOM/window.navigator.onLine" title="en/DOM/window.navigator.onLine">navigator.onLine</a></code>&nbsp;是一个属性，维护&nbsp;<code>true</code>/<code>false</code>&nbsp;值 (<code>true</code>&nbsp;表示在线，&nbsp;<code>false</code>&nbsp;表示离线)。当用户通过选择对应的菜单项目(Firefox 中为 文件 -&gt; 离线工作)从而切换到「离线模式」时，这个值就会被更新。</p>
+<p>此外，当浏览器长时间无法连接到网络时，该值也会被更新。根据如下规范：</p>
+<blockquote cite="http://www.whatwg.org/specs/web-apps/current-work/#offline">
+  <code>由于用户点击一个链接或是脚本请求一个远程页面(或者类似的操作失败了)从而导致户代理无法访问网络时， navigator.onLine</code>&nbsp;属性返回 false ...</blockquote>
+<p>在 Firefox 2 中，当在浏览器的离线模式中来回切换，在 Windows 与 Linux 中失去/获得网络连接时，该属性会被更新。</p>
+<p>该属性存在于旧版本的 Firefox 与 Internet Explorer (the specification based itself off of these prior implementations)，因此你现在就可以使用该属性。Firefox 2实现了网络状态自动检测。</p>
+<h4 id=".22online.22_and_.22offline.22_events" name=".22online.22_and_.22offline.22_events"><code>「online」与「</code><code>offline」</code>&nbsp;事件</h4>
+<p><a href="/en/Firefox_3_for_developers" title="en/Firefox_3_for_developers">Firefox 3</a>&nbsp;引入了两个新事件：「<code>online」与「</code><code>offline」。当浏览器从在线与离线状态中切换时，这两个事件会在页面的</code>&nbsp;<code>&lt;body&gt;</code>&nbsp;上触发。此外，该事件会从&nbsp;<code>document.body 冒泡到</code>&nbsp;<code>document 上，最后到达</code>&nbsp;<code>window。两个事件都无法被取消</code>(你无法阻止用户进入在线或离线状态)。</p>
+<p>你可以使用集中熟悉的方式来注册事件：</p>
+<ul>
+  <li>在&nbsp;<code>window，</code><code>document，或<font face="Lucida Grande, Lucida Sans Unicode, DejaVu Sans, Lucida, Arial, Helvetica, sans-serif"><span style="line-height: 21px;">&nbsp;</span></font></code><code>document.body 上使用&nbsp;</code><code style="font-size: 14px;"><a href="/en/DOM/element.addEventListener" title="en/DOM/element.addEventListener">addEventListener</a></code></li>
+  <li>将&nbsp;<code style="font-size: 14px;">document</code>&nbsp;或&nbsp;<code style="font-size: 14px;">document.body 的</code>&nbsp;<code>.ononline</code>&nbsp;或&nbsp;<code>.onoffline</code>&nbsp;熟悉设置为一个&nbsp;JavaScript <code>Function</code>&nbsp;对象。(<strong>注意：</strong>由于兼容性原因，不能使用&nbsp;<code>window.ononline</code>&nbsp;或&nbsp;<code>window.onoffline</code>。)</li>
+  <li>在 HTML 标记中的&nbsp;<code style="font-size: 14px;">&lt;body&gt; 标签上指定</code>&nbsp;<code>ononline="..."</code>&nbsp;或&nbsp;<code>onoffline="..."</code>&nbsp;特性。</li>
+</ul>
+<h3 id="Example" name="Example">示例</h3>
+<p>这是<a class="external link-https" href="https://bugzilla.mozilla.org/attachment.cgi?id=220609">一个简单的测试用例</a>，你可以运行它来检验事件是否生效。<span class="comment">XXX When mochitests for this are created, point to those instead and update this example -nickolay</span></p>
+<pre class="brush: html  language-html" data-number=""><code class=" language-html">&lt;!doctype html&gt;
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+   <span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+     <span class="token keyword">function</span> <span class="token function">updateOnlineStatus<span class="token punctuation">(</span></span>msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">var</span> status <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"status"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">var</span> condition <span class="token operator">=</span> navigator<span class="token punctuation">.</span>onLine <span class="token operator">?</span> <span class="token string">"ONLINE"</span> <span class="token punctuation">:</span> <span class="token string">"OFFLINE"</span><span class="token punctuation">;</span>
+       status<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">"class"</span><span class="token punctuation">,</span> condition<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">var</span> state <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"state"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       state<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> condition<span class="token punctuation">;</span>
+       <span class="token keyword">var</span> log <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"log"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       log<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">createTextNode<span class="token punctuation">(</span></span><span class="token string">"Event: "</span> <span class="token operator">+</span> msg <span class="token operator">+</span> <span class="token string">"; status="</span> <span class="token operator">+</span> condition <span class="token operator">+</span> <span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">function</span> <span class="token function">loaded<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token function">updateOnlineStatus<span class="token punctuation">(</span></span><span class="token string">"load"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">"offline"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token function">updateOnlineStatus<span class="token punctuation">(</span></span><span class="token string">"offline"</span><span class="token punctuation">)</span>
+       <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">"online"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token function">updateOnlineStatus<span class="token punctuation">(</span></span><span class="token string">"online"</span><span class="token punctuation">)</span>
+       <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+   <span class="token style"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">onload</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>loaded()<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>status<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>state<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>log<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div></code></pre>
+<h3 id="References" name="References">注意</h3>
+<p>如果浏览器没有实现该 API，你可以使用其他方式来检测是否离线，包括&nbsp;<a class="external" href="http://www.html5rocks.com/en/mobile/workingoffthegrid.html#toc-appcache">AppCache 错误事件</a>&nbsp;和&nbsp;<a class="external" href="http://www.html5rocks.com/en/mobile/workingoffthegrid.html#toc-xml-http-request">XMLHttpRequest 的响应</a>。</p>
+<h3 id="References" name="References">参考</h3>
+<ul>
+  <li><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/#offline">'Online/Offline events' section from the WHATWG Web Applications 1.0 Specification</a></li>
+  <li><a class="external link-https" href="https://bugzilla.mozilla.org/show_bug.cgi?id=336359">The bug tracking online/offline events implementation in Firefox</a> and a <a class="external link-https" href="https://bugzilla.mozilla.org/show_bug.cgi?id=336682">follow-up</a></li>
+  <li><a class="external link-https" href="https://bugzilla.mozilla.org/attachment.cgi?id=220609">A simple test case</a></li>
+  <li><a class="external" href="http://ejohn.org/blog/offline-events/">An explanation of Online/Offline events</a></li>
+  <li><a class="external" href="http://hacks.mozilla.org/2010/01/offline-web-applications/" title="http://hacks.mozilla.org/2010/01/offline-web-applications/">offline web applications</a> at hacks.mozilla.org - showcases an offline app demo and explains how it works.</li>
+</ul>
+<div>
+  <div class="horizFlexboxContainer"> 
+  <div class="smallTextMultiColumnBoxHeading">HTML5 Documentation</div> 
+  <div class="smallTextMultiColumnBoxList"> 
+<table class="html5ArticleToc"> 
+	<tbody> 
+		<tr> 
+			<td style="width: 150px; border-left: none; border-right: none; border-top: none; border-bottom: dotted 2px rgba(224,244,244,200);"><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#HTML" title="HTML5 Documentation">HTML</a></td> 
+			<td style="border-left: none; border-right: none; border-top: none; border-bottom: dotted 2px rgba(224,244,244,200);"> 
+				<ul> 
+					<li><a href="/zh-CN/docs/Using_HTML5_audio_and_video" title="Using HTML5 audio and video">Audio/Video</a></li> 
+					<li><a href="/zh-CN/docs/HTML/Canvas" title="Canvas">Canvas</a></li> 
+					<li><a href="/zh-CN/docs/WebGL" title="WebGL">WebGL</a></li> 
+					<li><a href="/zh-CN/docs/SVG" title="SVG">SVG</a></li> 
+					<li><a class="new" href="/zh-CN/docs/MathML" title="MathML">MathML</a></li> 
+					<li><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#WebForms" title="HTML5 Thematic Classification #WebForms">WebForms</a></li> 
+					<li><a href="/zh-CN/docs/HTML/Using_the_application_cache" title="Using Application Cache">AppCache</a></li> 
+					<li><a class="new" href="/zh-CN/docs/Using_microformats" title="Using microformats">Microformats</a></li> 
+					<li><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#Semantic_tags" title="HTML5 Thematic Classification#Semantic tags">SemanticTags</a></li> 
+				</ul> 
+			</td> 
+		</tr> 
+		<tr> 
+			<td style="width: 150px; border-left: none; border-right: none; border-top: none; border-bottom: dotted 2px rgba(224,244,244,200);"><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#JavaScript" title="HTML5 Thematic Classification #JavaScript">JavaScript</a></td> 
+			<td style="border-left: none; border-right: none; border-top: none; border-bottom: dotted 2px rgba(224,244,244,200);"> 
+				<ul> 
+					<li><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#Client-Side_Storage" title="HTML5 Thematic Classification #Client-Side Storage">Storage</a></li> 
+					<li><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#IndexedDB" title="HTML5 Thematic Classification #IndexedDB">IndexedDB</a></li> 
+					<li><a href="/zh-CN/docs/WebSockets" title="WebSockets">WebSockets</a></li> 
+					<li><a class="new" href="/zh-CN/docs/Using_web_workers" title="Using web workers">WebWorkers</a></li> 
+					<li><a href="/zh-CN/docs/Online_and_offline_events" title="Online and offline events">Events</a></li> 
+					<li><a href="/zh-CN/docs/DragDrop/Drag_and_Drop" title="Drag and Drop">Drag/Drop</a></li> 
+					<li><a class="new" href="/zh-CN/docs/Web-based_protocol_handlers" title="Web-based protocol handlers">ProtocolHandler</a></li> 
+					<li><a class="new" href="/zh-CN/docs/Using_geolocation" title="Using geolocation">Geolocation</a></li> 
+					<li><a class="new" href="/zh-CN/docs/Focus_management_in_HTML" title="Focus management in HTML">Focus</a></li> 
+				</ul> 
+			</td> 
+		</tr> 
+		<tr> 
+			<td style="border: none;"><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#CSS" title="HTML5 Thematic Classification #CSS">CSS</a></td> 
+			<td style="border: none;"> 
+				<ul> 
+					<li><a href="/zh-CN/docs/Mozilla_CSS_support_chart" title="Mozilla CSS support chart">NewSelectors</a></li> 
+					<li><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#Typography" title="HTML5 Thematic Classification #Typography">Typography</a></li> 
+					<li><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#Visual" title="HTML5 Thematic Classification #Visual">Visual</a></li> 
+					<li><a href="/zh-CN/docs/HTML/HTML5/HTML5_Thematic_Classification#Effects" title="HTML5 Thematic Classification #Effects">Effects</a></li> 
+				</ul> 
+			</td> 
+		</tr> 
+	</tbody> 
+</table> 
+</div> 
+</div></div>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/sunnylost">sunnylost</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/sunnylost">sunnylost</a>,
+                  <time datetime="2013-04-25T04:37:00-07:00">Apr 25, 2013 4:37:00 AM</time>
+                </div>
+                          </div>
+                  </div>

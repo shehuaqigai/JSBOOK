@@ -1,0 +1,140 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">metadata element | SVGMetadataElement object</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Contains information  that is associated with SVG metadata.</p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=204750" title="Scalable Vector Graphics: Metadata"><img id="badge_svg" alt="Scalable Vector Graphics: Metadata, Section 21.4.1" src="http://i.msdn.microsoft.com/dynimg/IC536350.png" title="Scalable Vector Graphics: Metadata, Section 21.4.1" xmlns=""></a><img id="badge_ie9" alt="Internet Explorer&nbsp;9" src="http://i.msdn.microsoft.com/dynimg/IC560342.png" title="Internet Explorer&nbsp;9" xmlns=""></td></tr>
+</tbody></table>
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869750(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Node</strong></a>
+<div>&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869681(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Element</strong></a>
+<div>&nbsp;&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/gg305566(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">SVGElement</strong></a>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVGMetadataElement</div>
+</div>
+</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>SVGMetadataElement</strong> object has these types of members:</p>
+<ul>
+<li><a href="#events">Events</a></li>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="events"></a>Events</h3>
+<p>The <strong>SVGMetadataElement</strong> object has these events.</p>
+<table id="memberListEvents" class="members">
+<tbody><tr><th>Event</th><th>Description</th></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972236(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">onload</strong></a>
+</td><td>
+<p>Occurs  when the browser has fully parsed the element and all of its descendants.</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>SVGMetadataElement</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971943(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">focusable</strong></a>
+</p>
+                                </td><td>
+<p>Determines if an element can acquire keyboard focus (that is, receive keyboard events) and be a target for field-to-field navigation actions (such as when  a user presses  the Tab key).</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971973(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">ownerSVGElement</strong></a>
+</p>
+                                </td><td>
+<p>Gets the nearest ancestor <a href="http://msdn.microsoft.com/en-us/library/ie/gg305566(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">svg</strong></a> element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972026(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">viewportElement</strong></a>
+</p>
+                                </td><td>
+<p>Gets the element that established the current viewport. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972036(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">xmlbase</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the <code>base</code> attribute on the element.</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=204750" title="Scalable Vector Graphics: Metadata">Scalable Vector Graphics: Metadata</a>, Section 21.4.1</li>
+</ul>
+<h2>Remarks</h2>
+<p class="note"><strong>Note</strong>&nbsp;&nbsp;In addition to the attributes, properties, events, methods, and styles listed above, SVG elements also inherit core HTML attributes, properties, events, methods, and styles.</p>
+<p>You should specify metadata, which  you can  include with SVG content, within <strong>metadata</strong> elements. The contents of a <strong>metadata</strong> element should be children elements from other XML namespaces that are  expressed in a manner that conforms with the <a href="http://go.microsoft.com/fwlink/p/?linkid=203781">Namespaces in XML Recommendation</a>.</p>
+<p>You should provide a <strong>metadata</strong> child element  to the outermost <a href="http://msdn.microsoft.com/en-us/library/ie/ff972122(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">svg</strong></a> element within a stand-alone SVG document. The <strong>metadata</strong> child element to an <strong>svg</strong> element  identifies  document-level metadata.</p>
+<p class="note"><strong>Note</strong>&nbsp;&nbsp;We  recommend  that  you add at most one <strong>metadata</strong> element  as a child of any particular element, and that this element appear before any other child elements (except possibly <a href="http://msdn.microsoft.com/en-us/library/ie/ff972068(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">desc</strong></a> or <a href="http://msdn.microsoft.com/en-us/library/ie/ff972129(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">title</strong></a> elements) or character data content.</p>
+<h2>Examples</h2>
+<p>The following  code  example demonstrates how  you can include metadata  in an SVG document. This example uses the Dublin Core version 1.1 schema. (You can also use other XML-compatible metadata languages, including ones that are not based on RDF.)</p>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>JavaScript</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1a7ea1f1-da20-46a9-8129-432572b1bd81');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1a7ea1f1-da20-46a9-8129-432572b1bd81" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;?xml version=<span style="color:#A31515;">"1.0"</span> standalone=<span style="color:#A31515;">"yes"</span>?&gt;
+&lt;svg width=<span style="color:#A31515;">"4in"</span> height=<span style="color:#A31515;">"3in"</span> version=<span style="color:#A31515;">"1.1"</span>
+    xmlns = <span style="color:#A31515;">'http://www.w3.org/2000/svg'</span>&gt;
+    &lt;desc xmlns:myfoo=<span style="color:#A31515;">"http://example.org/myfoo"</span>&gt;
+      &lt;myfoo:title&gt;This is a financial report&lt;/myfoo:title&gt;
+      &lt;myfoo:descr&gt;The global description uses markup from the
+        &lt;myfoo:emph&gt;myfoo&lt;/myfoo:emph&gt; namespace.&lt;/myfoo:descr&gt;
+      &lt;myfoo:scene&gt;&lt;myfoo:what&gt;widget $growth&lt;/myfoo:what&gt;
+      &lt;myfoo:contains&gt;$three $graph-bar&lt;/myfoo:contains&gt;
+        &lt;myfoo:when&gt;1998 $through 2000&lt;/myfoo:when&gt; &lt;/myfoo:scene&gt;
+   &lt;/desc&gt;
+    &lt;metadata&gt;
+      &lt;rdf:RDF
+           xmlns:rdf = <span style="color:#A31515;">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span>
+           xmlns:rdfs = <span style="color:#A31515;">"http://www.w3.org/2000/01/rdf-schema#"</span>
+           xmlns:dc = <span style="color:#A31515;">"http://purl.org/dc/elements/1.1/"</span> &gt;
+        &lt;rdf:Description about=<span style="color:#A31515;">"http://example.org/myfoo"</span>
+             dc:title=<span style="color:#A31515;">"MyFoo Financial Report"</span>
+             dc:description=<span style="color:#A31515;">"$three $bar $thousands $dollars $from 1998 $through 2000"</span>
+             dc:publisher=<span style="color:#A31515;">"Example Organization"</span>
+             dc:date=<span style="color:#A31515;">"2000-04-11"</span>
+             dc:format=<span style="color:#A31515;">"image/svg+xml"</span>
+             dc:language=<span style="color:#A31515;">"en"</span> &gt;
+          &lt;dc:creator&gt;
+            &lt;rdf:Bag&gt;
+              &lt;rdf:li&gt;Irving Bird&lt;/rdf:li&gt;
+              &lt;rdf:li&gt;Mary Lambert&lt;/rdf:li&gt;
+            &lt;/rdf:Bag&gt;
+          &lt;/dc:creator&gt;
+        &lt;/rdf:Description&gt;
+      &lt;/rdf:RDF&gt;
+    &lt;/metadata&gt;
+&lt;/svg&gt;
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/13/2014</p>
+</div>
+</div>

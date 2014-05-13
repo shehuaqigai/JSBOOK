@@ -1,0 +1,53 @@
+<pre>
+	文档类型定义（DTD）可定义合法的XML文档构建模块。它使用一系列合法的元素来定义文档的结构。
+DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用。
+内部的 DOCTYPE 声明
+假如 DTD 被包含在您的 XML 源文件中，它应当通过下面的语法包装在一个 DOCTYPE 声明中：
+<!DOCTYPE 根元素 [元素声明]>
+带有 DTD 的 XML 文档实例（请在 IE5 以及更高的版本打开，并选择查看源代码）：
+&lt?xml version="1.0"?>
+<!DOCTYPE note [
+  <!ELEMENT note (to,from,heading,body)>
+  &lt!ELEMENT to      (#PCDATA)>
+  &lt!ELEMENT from    (#PCDATA)>
+  &lt!ELEMENT heading (#PCDATA)>
+  &lt!ELEMENT body    (#PCDATA)>
+]>
+&ltnote>
+  &ltto>George&lt/to>
+  &ltfrom>John&lt/from>
+  &ltheading>Reminder&lt/heading>
+  &ltbody>Don't forget the meeting!&lt/body>
+&lt/note>
+在您的浏览器中打开此 XML 文件，并选择“查看源代码”命令。
+以上 DTD 解释如下：
+!DOCTYPE note (第二行)定义此文档是 note 类型的文档。
+!ELEMENT note (第三行)定义 note 元素有四个元素："to、from、heading,、body"
+!ELEMENT to (第四行)定义 to 元素为 "#PCDATA" 类型
+!ELEMENT from (第五行)定义 from 元素为 "#PCDATA" 类型
+!ELEMENT heading (第六行)定义 heading 元素为 "#PCDATA" 类型
+!ELEMENT body (第七行)定义 body 元素为 "#PCDATA" 类型
+外部文档声明
+假如 DTD 位于 XML 源文件的外部，那么它应通过下面的语法被封装在一个 DOCTYPE 定义中：
+&lt!DOCTYPE 根元素 SYSTEM "文件名">
+这个 XML 文档和上面的 XML 文档相同，但是拥有一个外部的 DTD: （在 IE5 中打开，并选择“查看源代码”命令。）
+&lt?xml version="1.0"?>
+&lt!DOCTYPE note SYSTEM "note.dtd">
+&ltnote>
+&ltto>George&lt/to>
+&ltfrom>John&lt/from>
+&ltheading>Reminder&lt/heading>
+&ltbody>Don't forget the meeting!&lt/body>
+&lt/note> 
+这是包含 DTD 的 "note.dtd" 文件：
+&lt!ELEMENT note (to,from,heading,body)>
+&lt!ELEMENT to (#PCDATA)>
+&lt!ELEMENT from (#PCDATA)>
+&lt!ELEMENT heading (#PCDATA)>
+&lt!ELEMENT body (#PCDATA)>
+为什么使用 DTD？
+通过 DTD，您的每一个 XML 文件均可携带一个有关其自身格式的描述。
+通过 DTD，独立的团体可一致地使用某个标准的 DTD 来交换数据。
+而您的应用程序也可使用某个标准的 DTD 来验证从外部接收到的数据。
+您还可以使用 DTD 来验证您自身的数据。
+</pre>

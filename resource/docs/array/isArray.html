@@ -1,0 +1,47 @@
+<p>
+	在 JavaScript 1.8.5 引入
+概述
+判断一个对象是否为数组,如果是,则返回true,否则返回false.
+
+Method of the Array global object
+Implemented in	JavaScript 1.8.5
+ECMAScript Edition	ECMAScript 5th Edition
+语法
+Array.isArray(obj)
+
+参数
+obj
+需要检测的对象
+描述
+该方法为ECMAScript 5标准的一部分,查看 Web Tech Blog了解详情.
+
+例子
+// 下面的语句返回true
+Array.isArray([]);
+Array.isArray([1]);
+Array.isArray( new Array() );
+Array.isArray( Array.prototype ); // 鲜为人知的事实:Array.prototype其实也是一个数组.
+
+// 下面的语句返回 false
+Array.isArray();
+Array.isArray({});
+Array.isArray(null);
+Array.isArray(undefined);
+Array.isArray(17);
+Array.isArray("Array");
+Array.isArray(true);
+Array.isArray(false);
+Array.isArray({ __proto__ : Array.prototype });
+兼容旧环境
+如果浏览器不支持原生的Array.isArray()方法,则可以使用下面的JavaScript代码来实现这个方法.
+
+if(!Array.isArray) {
+  Array.isArray = function (vArg) {
+    return Object.prototype.toString.call(vArg) === "[object Array]";
+  };
+}
+浏览器兼容性
+Desktop Mobile
+Feature	Chrome	Firefox (Gecko)	Internet Explorer	Opera	Safari
+Basic support	5	4 (2.0)	9	10.5	5
+</p>

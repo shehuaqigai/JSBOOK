@@ -1,0 +1,213 @@
+<p>
+	QUnit是一套由jQuery团队开发的，非常强大的用于对JavaScript进行单元测试的框架。本文将介绍什么是QUnit，以及为何要关心代码测试。
+
+什么是QUnit
+
+Qunit是一款强大的用于帮助调试代码的，JavaScript单元测试框架。QUnit由jQuery团队成员编写，是jQuery的官方测试套件，不仅如此，QUnit还可以测试任何常规JavaScript代码，甚至可以通过一些像Rhino或者V8这样的JavaScript引擎，测试服务端JavaScript代码。
+
+如果不熟悉“单元测试”的概念，不要担心。并不难理解：
+
+"在计算机编程中，单元测试（又称为模块测试）是针对程序模块(软件设计的最小单位)来进行正确性检验的测试工作。程序单元是应用的最小可测试部件。在过程化编程中，一个单元就是单个程序、函数、过程等；对于面向对象编程，最小单元就是方法，包括基类（超类）、抽象类、或者派生类（子类）中的方法。"——引自维基百科。
+
+简单来说，你为代码的每一个功能编写测试用例，如果所有的测试都通过了，就可以确保代码没有bug了（通常，还是由测试有多彻底而定）。
+
+为什么要测试代码
+
+如果你以前从未写过任何单元测试，你可能直接将你的代码应用到网站上，点击一会看看是否有什么问题出现，并且尝试去解决你所发现的问题，采用这种方法会有很多的问题。
+
+首先，这是非常乏味的。点击其实并不是一项简单的工作，因为需要保证每一个东西都被点击到而且极有可能漏掉一两个。其次，为测试做的每一件事情都是不可重用的，这就意味着它很难回归。什么是回归？想像一下，你写了一些代码并测试他们，修复了所有你发现的缺陷，然后发布。这时，一个用户发过来一些关于新的bug的反馈，并且有一些新的需求。你又回到代码中，处理这些新的bug，并增加新的功能。接下来可能会发生的就是一些旧的缺陷又重现了，这就叫“回归”。这样，你就不得不重新点击一遍，而且有可能你还找不到这些旧的缺陷；即使你这么做，这还需要一段时间才能弄清楚你的问题是由回归引起的。使用单元测试，你写测试用例去发现缺陷，一旦代码被修改，您通过测试再筛选一次。一旦出现回归，一些测试用例一定会失败，你可以很容易地认出他们，知道哪部分代码包含了错误。既然你知道你刚才修改了什么，就可以很容易地解决问题。
+
+单元测试的另外一个尤其是对于Web开发的优点：让跨浏览器兼容性测试变得更容易。仅仅在不同浏览器中运行你的测试用例，一旦某个浏览器出现问题，修复它并重新运行这些测试用例，确保不会在别的浏览器引起回归，一旦全部通过测试，就可以肯定的说，所有的目标浏览器都支持。
+
+我喜欢提及一个John Resig的项目：TestSwarm。TestSwarm通过分发，将JavaScript单元测试带到了一个新的层次。这是一个包含很多测试用例的网站，任何人都可以去那运行一些测试用例，然后返回结果会返回到服务器。通过这种方式，代码会非常迅速的在不同的浏览器进行测试，甚至不同的平台运行。
+</p>
+<a href="https://github.com/jquery/qunit" target="_blank">Qunit github资源</a>
+<a href="https://qunitjs.com/" target="_blank">Qunit官网</a>
+
+
+
+
+
+
+
+
+<pre>
+	解决方案
+　　现在已经有很多JavaScript的单元测试框架了，
+例如你可以选择QUnit。QUnit是jquery使用的单元测试框架，
+而且他已经被广泛的使用在了不同的项目中。使用QUnit很简单，
+你只需要添加两个相关文件到你的html页面即可。
+QUnit包括qunit.js：测试运行器和测试框架，
+qunit.css：测试页面用于显示测试结果的css文件。
+&lt!DOCTYPE html>
+&lthtml>
+&lthead>
+  &ltmeta charset="utf-8">
+  &lttitle>QUnit basic example&lt/title>
+  &ltlink rel="stylesheet" href="/resources/qunit.css">
+&lt/head>
+&ltbody>
+  &ltdiv id="qunit">&lt/div>
+  &ltdiv id="qunit-fixture">&lt/div>
+  &ltscript src="/resources/qunit.js">&lt/script>
+  &ltscript>
+    test( "a basic test example", function() {
+      var value = "hello";
+      equal( value, "hello", "We expect value to be hello" );
+    });
+  &lt/script>
+&lt/body>
+&lt/html>
+
+　　在浏览器中打开上面的文件，显示结果如下：
+
+　　唯一需要的标签是&ltbody>中含有id="qunit-fixture"的&ltdiv>，
+他对于所有QUnit的测试都是必须的，即使这个div元素是空的，
+他为测试提供夹具（fixture），我们会在“保持测试原子性”中详细介绍。
+有趣的部分是跟在测试运行器（qunit.js）后面的脚本标签，
+他包含一个test方法。他包含两个参数，
+第一个参数是字符串类型，表示测试名称，他将会显示在测试结果和方法上。
+第二个参数是一个函数，包含实际的测试代码。
+他包含一个或者多个断言，上面的例子包含两个断言：
+ok() 和 equal()。我们会在“断言结果”中详细介绍。
+　　我们注意到这里没有使用到document-ready，
+这次因为测试运行器会把test()添加到测试队列中，
+测试用例会被延迟执行。
+　　讨论
+　　测试套件的页眉显示页面名称，所有测试通过的时候，
+显示绿条；当至少有一条测试失败的时候显示红条。
+有选择框可供过滤结果，此外还有一个蓝条用来显示浏览器信息。
+选择框中有"Hide passed tests"，
+当测试很多的时候可以使用它隐藏成功的测试，只显示失败的测试。
+选择“noglobals”，
+会让QUnit在每次测试的开始和结束的时候罗列window的所有属性，
+并比较不同点。如果存在属性的添加和删除操作，测试失败，并显示不同点信息。
+这样可以验证我们的测试代码和被测试代码没有暴露任何的全局属性。
+　　“notrycatch”选择框的作用是，告诉QUnit不使用try-catch跑测试，
+当有异常抛出的时候，测试运行器会停止运行。但是你会获得一个内部异常，
+这样在我们使用老浏览器（例如ie6）做测试的时候会有帮助。
+　　页眉之下是测试总结，显示测试总用时，成功和失败的测试总数。
+当测试还在运行的时候，他会显示哪个测试用例正在被执行。
+　　页面的主体部分是测试结果，每个实体以名字开头，
+后面跟着失败数、成功数和总断言数。点击实体将会显示每一个断言，
+经常会显示期望值和实际值。最后的“Rerun”链接会单独运行测试实体。
+　　断言结果
+　　问题
+　　任何单元测试的实际元素都是断言，测试的开发者需要使用测试框架，
+将期望值和运行测试获得的实际值进行比较。
+　　解决方案
+　　QUnit提供三种断言。
+　　ok( truthy [, message ] )
+　　ok()是最基本的方法，他只需要一个参数，如果参数等于true，
+断言成功，否则失败。例外他还接受额外的字符串参数，用于显示测试结果。
+test( "ok test", function() {
+  ok( true, "true succeeds" );
+  ok( "non-empty", "non-empty string succeeds" );
+ 
+  ok( false, "false fails" );
+  ok( 0, "0 fails" );
+  ok( NaN, "NaN fails" );
+  ok( "", "empty string fails" );
+  ok( null, "null fails" );
+  ok( undefined, "undefined fails" );
+});
+　　equal( actual, expected [, message ] )
+　　equal()方法使用简单的比较符（==）来比较期望值和实际值。
+当他们相等的时候，断言成功，否则失败。当失败的时候，期望值和实际值都会显示，
+另外还显示消息。
+test( "equal test", function() {
+  equal( 0, 0, "Zero; equal succeeds" );
+  equal( "", 0, "Empty, Zero; equal succeeds" );
+  equal( "", "", "Empty, Empty; equal succeeds" );
+  equal( 0, 0, "Zero, Zero; equal succeeds" );
+ 
+  equal( "three", 3, "Three, 3; equal fails" );
+  equal( null, false, "null, false; equal fails" );
+});
+　　使用ok() 和 equal()让我们更容易的找到失败的测试，
+因为测试失败的时候他会很明显的告诉我们哪个值导致了问题。
+当你需要使用严格比较（===）的时候，可以使用strictEqual()。
+　　deepEqual( actual, expected [, message ] )
+　　deepEqual()可以像equal()那样使用，但是他适用的场景更多。
+他不是使用简单比较符（==），他使用的是更精确的比较符（===）。
+这种情况下，undefined不等于null，0或者空字符串（“”）。
+他同时也比较对象的内容，{key: value} 等于 {key: value}，
+甚至比较的两个对象有不同的实例。
+deepEqual()同样也处理NaN，dates，正则表达式，数组和函数，而equal()只检查对象实例。
+test( "deepEqual test", function() {
+  var obj = { foo: "bar" };
+  deepEqual( obj, { foo: "bar" }, "Two objects can be the same in value" );
+});
+　　如果你不想明确的比较两个对象的内容仍然可以使用equal()，
+但是deepEqual()是更好的选择。
+　　同步回调
+　　问题
+　　有时候你的代码可能会阻止回调断言的执行，导致测试无声无息的就失败了。
+　　解决方案
+　　QUnit提供了一个特殊的断言，定义了测试包含的总断言数。
+当测试结束的时候，断言总数不相等，无论其他断言的执行情况，
+都会返回失败。使用上也相当简单，在测试开始的时候调用expect()，
+只需要传递期望的断言数作为方法参数。
+test( "a test", function() {
+  expect( 2 );
+  function calc( x, operation ) {
+    return operation( x );
+  }
+  var result = calc( 2, function( x ) {
+    ok( true, "calc() calls operation function" );
+    return x * x;
+  });
+ 
+  equal( result, 4, "2 square equals 4" );
+});
+　　另外一种方式是，把期望断言数作为他的第二个参数传给test()：
+test( "a test", 2, function() {
+ 
+  function calc( x, operation ) {
+    return operation( x );
+  }
+  var result = calc( 2, function( x ) {
+    ok( true, "calc() calls operation function" );
+    return x * x;
+  });
+  equal( result, 4, "2 square equals 4" );
+});
+　　实例:
+test( "a test", 1, function() {
+  var $body = $( "body" );
+ 
+  $body.on( "click", function() {
+    ok( true, "body was clicked!" );
+  });
+ 
+  $body.trigger( "click" );
+});
+　　异步回调
+　　问题
+　　虽然expect()对于同步回调的测试是有帮助的，
+但他不能用来处理异步回调的测试，异步回调和测试运行器中的执行队列的执行相冲突。
+在测试代码中执行一个timeout、interval或者ajax请求的时候，
+测试运行器只是会继续执行测试用例剩余的代码，
+然后接着执行测试队列中剩余的用例，而不会去执行异步操作。
+　　解决方案
+　　我们不使用test()，取而代之将使用asyncTest()，
+当你的测试代码执行完毕准备继续的时候执行start()。
+asyncTest( "asynchronous test: one second later!", function() {
+  expect( 1 );
+  setTimeout(function() {
+    ok( true, "Passed and ready to resume!" );
+    start();
+  }, 1000);
+});
+　　实例：
+asyncTest( "asynchronous test: video ready to play", 1, function() {
+  var $video = $( "video" );
+ 
+  $video.on( "canplaythrough", function() {
+    ok( true, "video has loaded and is ready to play" );
+    start();
+  });
+});
+
+</pre>
+

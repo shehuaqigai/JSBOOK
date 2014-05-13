@@ -1,0 +1,29 @@
+
+<pre>一、老版本的XMLHttpRequest对象
+在介绍新版本之前，我们先回顾一下老版本的用法。
+首先，新建一个XMLHttpRequest的实例。
+　　var xhr = new XMLHttpRequest();
+然后，向远程主机发出一个HTTP请求。
+　　xhr.open('GET', 'example.php');
+　　xhr.send();
+接着，就等待远程主机做出回应。这时需要监控XMLHttpRequest对象的状态变化，指定回调函数。
+　　xhr.onreadystatechange = function(){
+　　　　if ( xhr.readyState == 4 && xhr.status == 200 ) {
+　　　　　　alert( xhr.responseText );
+　　　　} else {
+　　　　　　alert( xhr.statusText );
+　　　　}
+　　};
+上面的代码包含了老版本XMLHttpRequest对象的主要属性：
+　　* xhr.readyState：XMLHttpRequest对象的状态，等于4表示数据已经接收完毕。
+　　* xhr.status：服务器返回的状态码，等于200表示一切正常。
+　　* xhr.responseText：服务器返回的文本数据
+　　* xhr.responseXML：服务器返回的XML格式的数据
+　　* xhr.statusText：服务器返回的状态文本。
+二、老版本的缺点
+老版本的XMLHttpRequest对象有以下几个缺点：
+　　* 只支持文本数据的传送，无法用来读取和上传二进制文件。
+　　* 传送和接收数据时，没有进度信息，只能提示有没有完成。
+　　* 受到"同域限制"（Same Origin Policy），只能向同一域名的服务器请求数据。
+</pre>
+

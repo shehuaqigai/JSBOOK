@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS CSS If Hack</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:15.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/hack/conditions.htm">http://www.phpstudy.net/css3/hack/conditions.htm</a><br>
+<b>Title:</b> CSS CSS If Hack &nbsp;&bull;&nbsp; <b>Size:</b> 8215 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:16 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="index.htm">CSS Hack列表</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/hack/?" class="target">
+				<strong>其它CSS Hack参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="conditions.htm">条件Hack</a></li>
+					<li><a href="properties.htm">属性级Hack</a></li>
+					<li><a href="selectors.htm">选择符级Hack</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">条件Hack</h1>
+	<ul class="info">
+		<li>（CSS外部）HTML级Hack</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<pre><code>&lt;!--[if &lt;keywords&gt;? IE &lt;version&gt;?]&gt;
+HTML代码块
+&lt;![endif]--&gt;</code></pre>
+		</div>
+	</section>
+	<section class="gmodule gattr" id="value">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<strong class="glight">&lt;keywords&gt;</strong>
+			<p>if条件共包含6种选择方式：是否、大于、大于或等于、小于、小于或等于、非指定版本</p>
+			<dl>
+				<dt>是否：</dt>
+				<dd>指定是否IE或IE某个版本。关键字：<em class="glight">空</em></dd>
+				<dt>大于：</dt>
+				<dd>选择大于指定版本的IE版本。关键字：<em class="glight">gt</em>（greater than）</dd>
+				<dt>大于或等于：</dt>
+				<dd>选择大于或等于指定版本的IE版本。关键字：<em class="glight">gte</em>（greater than or equal）</dd>
+				<dt>小于：</dt>
+				<dd>选择小于指定版本的IE版本。关键字：<em class="glight">lt</em>（less than）</dd>
+				<dt>小于或等于：</dt>
+				<dd>选择小于或等于指定版本的IE版本。关键字：<em class="glight">lte</em>（less than or equal）</dd>
+				<dt>非指定版本：</dt>
+				<dd>选择除指定版本外的所有IE版本。关键字：<em class="glight">!</em></dd>
+			</dl>
+			<strong class="glight">&lt;version&gt;</strong>
+			<p>目前的常用IE版本为6.0及以上，推荐酌情忽略低版本，把精力花在为使用高级浏览器的用户提供更好的体验上</p>
+		</div> 
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>用于选择IE浏览器及IE的不同版本</strong>
+			<ul>
+				<li>if条件Hack是HTML级别的（包含但不仅是CSS的Hack，可以选择任何HTML代码块）</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>如不想在非IE中看到某区域，可这样写：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>&lt;!--[if IE]&gt;
+&lt;p&gt;你在非IE中将看不到我的身影&lt;/p&gt;
+&lt;![endif]--&gt;</code></pre></blockquote>
+					<p class="gquote-info">上述p代码块，将只在IE中可见。</p>
+				</li>
+				<li>if条件6种选择方式的使用示例（下述代码中被条件注释包含的HTML代码块也可以是link标记）：</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>是否，示例代码：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>&lt;!--[if IE]&gt;
+&lt;style&gt;
+.test{color:red;}
+&lt;/style&gt;
+&lt;![endif]--&gt;</code></pre></blockquote>
+					<p class="gquote-info">在上述代码中，只有IE浏览，才能看到应用了test类的元素是红色文本。</p>
+				</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>大于，示例代码：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>&lt;!--[if gt IE 6]&gt;
+&lt;style&gt;
+.test{color:red;}
+&lt;/style&gt;
+&lt;![endif]--&gt;</code></pre></blockquote>
+					<p class="gquote-info">在上述代码中，只有IE6以上，才能看到应用了test类的元素是红色文本。</p>
+				</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>大于或等于，示例代码：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>&lt;!--[if gte IE 6]&gt;
+&lt;style&gt;
+.test{color:red;}
+&lt;/style&gt;
+&lt;![endif]--&gt;</code></pre></blockquote>
+					<p class="gquote-info">在上述代码中，只有IE6以上（含IE6），才能看到应用了test类的元素是红色文本。</p>
+				</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>小于，示例代码：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>&lt;!--[if lt IE 7]&gt;
+&lt;style&gt;
+.test{color:red;}
+&lt;/style&gt;
+&lt;![endif]--&gt;</code></pre></blockquote>
+					<p class="gquote-info">在上述代码中，只有IE7以下，才能看到应用了test类的元素是红色文本。</p>
+				</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>小于或等于，示例代码：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>&lt;!--[if lte IE 7]&gt;
+&lt;style&gt;
+.test{color:red;}
+&lt;/style&gt;
+&lt;![endif]--&gt;</code></pre></blockquote>
+					<p class="gquote-info">在上述代码中，只有IE7以下（含IE7），才能看到应用了test类的元素是红色文本。</p>
+				</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>非指定版本，示例代码：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>&lt;!--[if ! IE 7]&gt;
+&lt;style&gt;
+.test{color:red;}
+&lt;/style&gt;
+&lt;![endif]--&gt;</code></pre></blockquote>
+					<p class="gquote-info">在上述代码中，除IE7以外的IE版本，都能看到应用了test类的元素是红色文本。</p>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS CSS if条件Hack_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+h1{margin:10px 0;font-size:16px;}
+span{display:none;}
+.not-ie{display:inline;}
+</style>
+<!--[if IE]>
+<style>
+.ie{display:inline;}
+.not-ie{display:none;}
+</style>
+<![endif]-->
+
+<!--[if IE 5]>
+<style>
+.ie5{display:inline;}
+</style>
+<![endif]-->
+
+<!--[if IE 6]>
+<style>
+.ie6{display:inline;}
+</style>
+<![endif]-->
+
+<!--[if IE 7]>
+<style>
+.ie7{display:inline;}
+</style>
+<![endif]-->
+
+<!--[if IE 8]>
+<style>
+.ie8{display:inline;}
+</style>
+<![endif]-->
+
+<!--[if IE 9]>
+<style>
+.ie9{display:inline;}
+</style>
+<![endif]-->
+</head>
+<body>
+<div>
+	您正在使用
+	<span class="not-ie">非IE</span>
+	<span class="ie">IE</span>
+	<span class="ie5">5</span>
+	<span class="ie6">6</span>
+	<span class="ie7">7</span>
+	<span class="ie8">8</span>
+	<span class="ie9">9</span>
+	浏览器
+</div>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpStudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../js/phpstudy.js"></script>
+<script src="../js/style.js"></script>
+</body>
+</html>

@@ -1,0 +1,690 @@
+<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="17940214" id="question">
+    
+   
+            <div class="everyonelovesstackoverflow adzerk-vote" id="adzerk1158375482"><a href="http://engine.adzerk.net/r?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjI5MTEsImNoIjoxMTc4LCJjciI6NTkyMSwiZGkiOiI0MjVmZmRmM2VjZmY0ZTNhOTQzMDRjOGY2ZWRiODVmMiIsImRtIjoxLCJmYyI6MTAxODYsImZsIjo3NDcyLCJrdyI6Im1hdGgsM2QsY3Jvc3MtYnJvd3Nlcix0cmFuc2Zvcm0scG9seWZpbGxzLHgtdXNlci1yZWdpc3RlcmVkIiwibnciOjIyLCJwYyI6MCwicHIiOjE2MDQsInJ0IjoxLCJyZiI6Imh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9zZWFyY2g_cT1jb252ZXJ0UG9pbnRGcm9tUGFnZVRvTm9kZSIsInN0Ijo4Mjc3LCJ6biI6NDMsInRzIjoxMzkxNDI4Njg2ODU5LCJ1ciI6Imh0dHA6Ly9jYXJlZXJzLnN0YWNrb3ZlcmZsb3cuY29tLyJ9&amp;s=w7PIaoL2eUNSgdHpTuxrEYbaXR8" rel="nofollow" target="_blank" title=""><img src="http://static.adzerk.net/Advertisers/9241eb4107b24c588c0ca0042534c03e.png" title="" alt="" border="0" width="728" height="90"></a><div class="adzerk-vote-controls" style="display: none;"><div class="adzerk-vote-option adzerk-vote-up"><div class="adzerk-vote-icon"></div></div><div class="adzerk-vote-option adzerk-vote-down"><div class="adzerk-vote-icon"></div></div></div><div class="adzerk-vote-survey" style="display:none;"><form><span>No problem. We won't show you that ad again. Why didn't you like it?</span><ul><li><label><input type="radio" value="12" name="downvoteReason">Uninteresting</label></li><li><label><input type="radio" value="13" name="downvoteReason">Misleading</label></li><li><label><input type="radio" value="14" name="downvoteReason">Offensive</label></li><li><label><input type="radio" value="15" name="downvoteReason">Repetitive</label></li></ul><a href="#" class="adzerk-vote-cancel">Oops! I didn't mean to do this.</a></form></div><img height="0px" width="0px" border="0" src="http://engine.adzerk.net/i.gif?e=eyJhdiI6NDE0LCJhdCI6NCwiY20iOjI5MTEsImNoIjoxMTc4LCJjciI6NTkyMSwiZGkiOiI0MjVmZmRmM2VjZmY0ZTNhOTQzMDRjOGY2ZWRiODVmMiIsImRtIjoxLCJmYyI6MTAxODYsImZsIjo3NDcyLCJrdyI6Im1hdGgsM2QsY3Jvc3MtYnJvd3Nlcix0cmFuc2Zvcm0scG9seWZpbGxzLHgtdXNlci1yZWdpc3RlcmVkIiwibnciOjIyLCJwYyI6MCwicHIiOjE2MDQsInJ0IjoxLCJyZiI6Imh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9zZWFyY2g_cT1jb252ZXJ0UG9pbnRGcm9tUGFnZVRvTm9kZSIsInN0Ijo4Mjc3LCJ6biI6NDMsInRzIjoxMzkxNDI4Njg2ODYwfQ&amp;s=mVbD8OE69owXekAV53NRqK3eVMI"></div>    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="17940214">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span class="vote-count-post ">2</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b></b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="description">
+
+        <p>The <code>webkitConvertPointFromPageToNode(in Node node, in WebKitPoint p)</code> method is awesome; give it a DOM node and a point in page-coordinates (say, the mouse cursor position) and it will give a coordinate back to you in that node's local coordinate system. Unfortunately, it's currently <a href="http://compatibility.shwups-cms.ch/en/home/?&amp;property=webkitConvertPointFromPageToNode" rel="nofollow">only available in webkit</a>.</p>
+
+<pre><code># Choose a node into which we'll map the mouse coordinates
+node = $('#subjectElement').get(0)
+
+handleMouseMove = (e) -&gt;
+  # Convert the mouse position to a Point
+  mousePoint = new WebKitPoint(e.pageX, e.pageY)
+
+  # Convert the mouse point into node coordinates using WebKit
+  nodeCoords = webkitConvertPointFromPageToNode(node, mousePoint)
+
+# Attach a handler to track the mouse position
+$(document).on 'mousemove', handleMouseMove    
+</code></pre>
+
+<p>I've thrown my entire math-brain at the problem, but no matter how close I get, my implementation falls apart with one extra level of composition, or the application of 3D perspective.</p>
+
+<p>It's time for a <code>convertPointFromPageToNode</code> polyfill that works as well as the WebKit implementation, in 3D. <a href="http://stackoverflow.com/users/839199/4esn0k">@4esn0k</a> <a href="https://gist.github.com/Yaffle/1145197" rel="nofollow">gave one a shot</a>, but it only solves the 2D case.</p>
+
+<p>Can you write one that makes this JSFiddle work?</p>
+
+<p><img src="http://i.stack.imgur.com/XlWGi.png" alt="webkitConvertPointFromPageToNode kicking ass and taking names on a complicatedly transformed element"></p>
+
+<p><a href="http://jsfiddle.net/steveluscher/rA27K/" rel="nofollow">http://jsfiddle.net/steveluscher/rA27K/</a></p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="/questions/tagged/math" class="post-tag js-gps-track" title="show questions tagged 'math'" rel="tag">math</a> <a href="/questions/tagged/3d" class="post-tag js-gps-track" title="show questions tagged '3d'" rel="tag">3d</a> <a href="/questions/tagged/cross-browser" class="post-tag js-gps-track" title="show questions tagged 'cross-browser'" rel="tag">cross-browser</a> <a href="/questions/tagged/transform" class="post-tag js-gps-track" title="show questions tagged 'transform'" rel="tag">transform</a> <a href="/questions/tagged/polyfills" class="post-tag js-gps-track" title="show questions tagged 'polyfills'" rel="tag">polyfills</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="/q/17940214/3231242" title="short permalink to this question" class="short-link" id="link-post-17940214">share</a><span class="lsep">|</span><a href="/posts/17940214/edit" class="suggest-edit-post" title="revise and improve this post">edit</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/17940214/revisions" title="show all edits to this post">edited <span title="2013-07-30 07:19:27Z" class="relativetime">Jul 30 '13 at 7:19</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        <br>
+        
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2013-07-30 06:55:37Z" class="relativetime">Jul 30 '13 at 6:55</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/802047/steveluscher"><div><img src="https://www.gravatar.com/avatar/c16d87816cc35b30e7a38502bce8a610?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/802047/steveluscher">steveluscher</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">694</span><span title="2 silver badges"><span class="badge2"></span><span class="badgecount">2</span></span><span title="15 bronze badges"><span class="badge3"></span><span class="badgecount">15</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-17940214" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-29172635" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">are you ok if it can't calculate off-element coordinates? e.g. it only works if the mouse is on the element?</span>
+	–&nbsp;
+		<a href="/users/1233320/markasoftware" title="1486 reputation" class="comment-user">Markasoftware</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment29172635_17940214"><span title="2013-10-28 23:29:24Z" class="relativetime-clean">Oct 28 '13 at 23:29</span></a></span>
+		<span class="edited-yes" title="this comment was edited 1 time"></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-29362536" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">i know this is an old question, but can you look at it I posted an answer.</span>
+	–&nbsp;
+		<a href="/users/1233320/markasoftware" title="1486 reputation" class="comment-user">Markasoftware</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment29362536_17940214"><span title="2013-11-03 21:07:47Z" class="relativetime-clean">Nov 3 '13 at 21:07</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-29402218" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">I was talking to my coworkers about your solution the other day, @Markasoftware! Give me a while for things to calm down at work, and then I'll give it a good look!</span>
+	–&nbsp;
+		<a href="/users/802047/steveluscher" title="694 reputation" class="comment-user owner">steveluscher</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment29402218_17940214"><span title="2013-11-05 02:08:55Z" class="relativetime-clean">Nov 5 '13 at 2:08</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+    <tr id="comment-29970294" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">I hate to be this person, but could you please accept/upvote my answer soon? it's been there for nearly a month</span>
+	–&nbsp;
+		<a href="/users/1233320/markasoftware" title="1486 reputation" class="comment-user">Markasoftware</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment29970294_17940214"><span title="2013-11-21 04:43:37Z" class="relativetime-clean">Nov 21 '13 at 4:43</span></a></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-17940214" data-rep="50" data-reg="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments.">add comment</a>
+    </td>
+</tr>            </tbody></table>    
+</div>
+
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								1 Answer
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="/questions/17940214/show-me-a-javascript-implementation-of-webkitconvertpointfrompagetonode?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a href="/questions/17940214/show-me-a-javascript-implementation-of-webkitconvertpointfrompagetonode?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a class="youarehere" href="/questions/17940214/show-me-a-javascript-implementation-of-webkitconvertpointfrompagetonode?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="19647885"></a>
+<div id="answer-19647885" class="answer accepted-answer" data-answerid="19647885">
+    <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="19647885">
+    <a class="vote-up-off" title="This answer is useful">up vote</a>
+    <span class="vote-count-post ">2</span>
+    <a class="vote-down-off" title="This answer is not useful">down vote</a>
+    
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text">
+            <p>This seems like an amazing question, but there is an ALMOST duplicate right here: <a href="http://stackoverflow.com/questions/6773481/how-to-get-the-mouseevent-coordinates-for-an-element-that-has-css3-transform">How to get the MouseEvent coordinates for an element that has CSS3 Transform?</a> but nobody is looking at my answer there and this seems to be much more general so I'll post it again here, with a few modifications to make it more clear:</p>
+
+<p>Basically, it works by doing this: split the element you are trying to find relative coordinates for, and split it into 9 smaller elements. Use document.elementFromPoint to find if the coordinate is over that mini-element. If it is, split that element into 9 more elements, and keep doing this until a pretty accurate coordinate is possible. Then use getBoundingClientRect to find the on-screen coordinates of that mini-element. BOOM!</p>
+
+<p>jsfiddle: <a href="http://jsfiddle.net/markasoftware/rA27K/8/" rel="nofollow">http://jsfiddle.net/markasoftware/rA27K/8/</a></p>
+
+<p>Here is the JavaScript function:</p>
+
+<pre><code>function convertPointFromPageToNode(elt,coords){
+    ///the original innerHTML of the element
+    var origHTML=elt.innerHTML;
+    //now clear it
+    elt.innerHTML='';
+    //now save and clear bad styles
+    var origPadding=elt.style.padding=='0px'?'':elt.style.padding;
+    var origMargin=elt.style.margin=='0px'?'':elt.style.margin;
+    elt.style.padding=0;
+    elt.style.margin=0;
+    //make sure the event is in the element given
+    if(document.elementFromPoint(coords.x,coords.y)!==elt){
+        //reset the element
+        elt.innerHTML=origHTML;
+        //and styles
+        elt.style.padding=origPadding;
+        elt.style.margin=origMargin;
+        //we've got nothing to show, so return null
+        return null;
+    }
+    //array of all places for rects
+    var rectPlaces=['topleft','topcenter','topright','centerleft','centercenter','centerright','bottomleft','bottomcenter','bottomright'];
+    //function that adds 9 rects to element
+    function addChildren(elt){
+        //loop through all places for rects
+        rectPlaces.forEach(function(curRect){
+            //create the element for this rect
+            var curElt=document.createElement('div');
+            //add class and id
+            curElt.setAttribute('class','offsetrect');
+            curElt.setAttribute('id',curRect+'offset');
+            //add it to element
+            elt.appendChild(curElt);
+        });
+        //get the element form point and its styling
+        var eltFromPoint=document.elementFromPoint(coords.x,coords.y);
+        var eltFromPointStyle=getComputedStyle(eltFromPoint);
+        //Either return the element smaller than 1 pixel that the event was in, or recurse until we do find it, and return the result of the recursement
+        return Math.max(parseFloat(eltFromPointStyle.getPropertyValue('height')),parseFloat(eltFromPointStyle.getPropertyValue('width')))&lt;=1?eltFromPoint:addChildren(eltFromPoint);
+    }
+    //this is the innermost element
+    var correctElt=addChildren(elt);
+    //find the element's top and left value by going through all of its parents and adding up the values, as top and left are relative to the parent but we want relative to teh wall
+    for(var curElt=correctElt,correctTop=0,correctLeft=0;curElt!==elt;curElt=curElt.parentNode){
+        //get the style for the current element
+        var curEltStyle=getComputedStyle(curElt);
+        //add the top and left for the current element to the total
+        correctTop+=parseFloat(curEltStyle.getPropertyValue('top'));
+        correctLeft+=parseFloat(curEltStyle.getPropertyValue('left'));
+    }
+    //reset the element
+    elt.innerHTML=origHTML;
+    //restore element styles
+    elt.style.padding=origPadding;
+    elt.style.margin=origMargin;
+    //the returned object
+    var returnObj={
+        x: correctLeft,
+        y: correctTop
+    }
+    return returnObj;
+}
+</code></pre>
+
+<p>IMPORTANT!!! You must also include this CSS for it to work:</p>
+
+<pre><code>.offsetrect{
+    position: absolute;
+    opacity: 0;
+    height: 33.333%;
+    width: 33.333%;
+}
+#topleftoffset{
+    top: 0;
+    left: 0;
+}
+#topcenteroffset{
+    top: 0;
+    left: 33.333%;
+}
+#toprightoffset{
+    top: 0;
+    left: 66.666%;
+}
+#centerleftoffset{
+    top: 33.333%;
+    left: 0;
+}
+#centercenteroffset{
+    top: 33.333%;
+    left: 33.333%;
+}
+#centerrightoffset{
+    top: 33.333%;
+    left: 66.666%;
+}
+#bottomleftoffset{
+    top: 66.666%;
+    left: 0;
+}
+#bottomcenteroffset{
+    top: 66.666%;
+    left: 33.333%;
+}
+#bottomrightoffset{
+    top: 66.666%;
+    left: 66.666%;
+}
+</code></pre>
+
+<p>ALSO: I modified a little of your css by giving the "grandfather" div an id and referencing to it in your css using <code>#div1</code> instead of <code>div</code> because my code generates divs, and your div styles were also applying to the ones my code uses and messed it up</p>
+
+<p>ONE LAST THING: I don't know CoffeeScript so I adjusted your code to make it pure JavaScript. Sorry about that.</p>
+
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/19647885/3231242" title="short permalink to this answer" class="short-link" id="link-post-19647885">share</a><span class="lsep">|</span><a href="/posts/19647885/edit" class="suggest-edit-post" title="revise and improve this post">edit</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-10-29 01:05:06Z" class="relativetime">Oct 29 '13 at 1:05</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/1233320/markasoftware"><div class="gravatar-wrapper-32"><img src="http://i.stack.imgur.com/kv2sA.png?s=32&amp;g=1" alt=""></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1233320/markasoftware">Markasoftware</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">1,486</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="23 bronze badges"><span class="badge3"></span><span class="badgecount">23</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>
+        </tr>
+
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-19647885" class="comments" data-localized="true">
+		    <table>
+			    <tbody data-remaining-comments-count="0" data-addlink-html="add comment" data-addlink-disabled="true">
+
+    <tr id="comment-29997737" class="comment">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="comment-score">
+                            
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+	<span class="comment-copy">I like this approach very much, for its gusto if for nothing else. I would prefer to see an analytical solution to the original problem (any 3D gurus out there?), but the point of a polyfill is to fill a gap temporarily until the official API catches up, right? There's quite a lot of cleanup to be done, but I would like to see this made into a formal, MIT licensed project. Are you interested in collaborating on one?</span>
+	–&nbsp;
+		<a href="/users/802047/steveluscher" title="694 reputation" class="comment-user owner">steveluscher</a>
+	<span class="comment-date" dir="ltr"><a class="comment-link" href="#comment29997737_19647885"><span title="2013-11-21 18:24:57Z" class="relativetime-clean">Nov 21 '13 at 18:24</span></a></span>
+		<span class="edited-yes" title="this comment was edited 1 time"></span>
+				</div>
+
+        </td>
+    </tr>
+			    </tbody>
+		    </table>
+	    </div>
+			<a id="comments-link-19647885" data-rep="50" data-reg="true" class="comments-link disabled-link" title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”.">add comment</a>
+    </td>
+</tr>
+    </tbody></table>
+</div>
+									<a name="new-answer"></a>
+						<form id="post-form" action="/questions/17940214/answer/submit" method="post" class="post-form">
+							<input type="hidden" id="post-id" value="17940214">
+							<h2 class="space">Your Answer</h2>
+
+
+
+    
+
+
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li class="wmd-button" id="wmd-bold-button" title="Strong &lt;strong&gt; Ctrl+B" style="left: 0px;"><span style="background-position: 0px 0px;"></span></li><li class="wmd-button" id="wmd-italic-button" title="Emphasis &lt;em&gt; Ctrl+I" style="left: 25px;"><span style="background-position: -20px 0px;"></span></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button" id="wmd-link-button" title="Hyperlink &lt;a&gt; Ctrl+L" style="left: 75px;"><span style="background-position: -40px 0px;"></span></li><li class="wmd-button" id="wmd-quote-button" title="Blockquote &lt;blockquote&gt; Ctrl+Q" style="left: 100px;"><span style="background-position: -60px 0px;"></span></li><li class="wmd-button" id="wmd-code-button" title="Code Sample &lt;pre&gt;&lt;code&gt; Ctrl+K" style="left: 125px;"><span style="background-position: -80px 0px;"></span></li><li class="wmd-button" id="wmd-image-button" title="Image &lt;img&gt; Ctrl+G" style="left: 150px;"><span style="background-position: -100px 0px;"></span></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2"></li><li class="wmd-button" id="wmd-olist-button" title="Numbered List &lt;ol&gt; Ctrl+O" style="left: 200px;"><span style="background-position: -120px 0px;"></span></li><li class="wmd-button" id="wmd-ulist-button" title="Bulleted List &lt;ul&gt; Ctrl+U" style="left: 225px;"><span style="background-position: -140px 0px;"></span></li><li class="wmd-button" id="wmd-heading-button" title="Heading &lt;h1&gt;/&lt;h2&gt; Ctrl+H" style="left: 250px;"><span style="background-position: -160px 0px;"></span></li><li class="wmd-button" id="wmd-hr-button" title="Horizontal Rule &lt;hr&gt; Ctrl+R" style="left: 275px;"><span style="background-position: -180px 0px;"></span></li><li class="wmd-spacer wmd-spacer3" id="wmd-spacer3"></li><li class="wmd-button" id="wmd-undo-button" title="Undo - Ctrl+Z" style="left: 325px;"><span style="background-position: -200px -20px;"></span></li><li class="wmd-button" id="wmd-redo-button" title="Redo - Ctrl+Shift+Z" style="left: 350px;"><span style="background-position: -220px -20px;"></span></li><li class="wmd-button wmd-help-button active-help" id="wmd-help-button" title="Markdown Editing Help" style="right: 0px;"><span style="background-position: -240px 0px;"></span></li><div id="mdhelp" class="mdhelp" style="right: -8px; width: 668px; top: 25px;">
+    <ul id="mdhelp-tabs" class="mdhelp-tabs">
+        <li data-tab="mdhelp-links" data-buttons="link">Links</li>
+        <li data-tab="mdhelp-images" data-buttons="image">Images</li>
+        <li data-tab="mdhelp-styles" data-buttons="bold,italic,heading">Styling/Headers</li>
+        <li data-tab="mdhelp-lists" data-buttons="olist,ulist">Lists</li>
+        <li data-tab="mdhelp-blockquotes" data-buttons="quote">Blockquotes</li>
+        <li data-tab="mdhelp-code" data-buttons="code">Code</li>
+        <li data-tab="mdhelp-html"> HTML </li>
+        <li style="float:right"><a href="/editing-help" target="_blank">advanced help »</a></li>
+    </ul>
+    
+    <div class="mdhelp-tab" id="mdhelp-links">
+            <p>
+                In most cases, a plain URL will be recognized as such and automatically linked:
+            </p>
+            <pre>Visit http://area51.stackexchange.com/ regularly!
+Use angle brackets to force linking: Have you seen &lt;http://superuser.com&gt;?
+</pre>
+            <p>
+                To create fancier links, use Markdown:
+            </p>
+                <pre>Here's [a link](http://www.example.com/)! And a reference-style link to [a panda][1].
+References don't have to be [numbers][question].
+
+ [1]: http://notfound.stackexchange.com/
+ [question]: http://english.stackexchange.com/questions/11481
+</pre>
+                <p>You can add tooltips to links:</p>
+<pre>Click [here](http://diy.stackexchange.com<span class="spaces">&nbsp;</span>"this text appears when you mouse over")!
+This works with [reference links][blog] as well.
+
+ [blog]: http://blog.stackoverflow.com/<span class="spaces">&nbsp;</span>"click here for updates"
+</pre>
+    </div>
+
+    <div class="mdhelp-tab" id="mdhelp-images">
+        <p>Images are exactly like links, but they have an exclamation point in front of them:</p>
+        <pre>![a busy cat](http://sstatic.net/stackoverflow/img/error-lolcat-problemz.jpg)
+![two muppets][1]
+
+ [1]: http://i.imgur.com/I5DFV.jpg "tooltip"
+</pre>
+        <p>
+            The word in square brackets is the alt text, which gets displayed if the browser
+ can't show the image. Be sure to include meaningful alt text for screen-reading
+ software.
+        </p>
+   
+    </div>
+    <div class="mdhelp-tab" id="mdhelp-styles">
+        <div class="col1">
+            <p>Be sure to use text styling sparingly; only where it helps readability.</p>
+                <pre>*This is italicized*, and so
+is _this_.
+
+**This is bold**, just like __this__.
+
+You can ***combine*** them
+if you ___really have to___.
+</pre>
+        
+        </div>
+        <div class="col2">
+            <p>
+                To break your text into sections, you can use headers:
+            </p>
+                <pre>A Large Header
+==============
+
+Smaller Subheader
+-----------------
+</pre>
+            <p>
+                Use hash marks if you need several levels of headers:</p>
+    <pre># Header 1 #
+## Header 2 ##
+### Header 3 ###
+</pre>
+
+            
+        </div>
+
+    </div>
+    <div class="mdhelp-tab" id="mdhelp-lists">
+        <p>Both bulleted and numbered lists are possible:</p>
+        <div class="col1">
+<pre>-<span class="spaces">&nbsp;</span>Use a minus sign for a bullet
++<span class="spaces">&nbsp;</span>Or plus sign
+*<span class="spaces">&nbsp;</span>Or an asterisk
+
+1.<span class="spaces">&nbsp;</span>Numbered lists are easy
+2.<span class="spaces">&nbsp;</span>Markdown keeps track of
+ the numbers for you
+7.<span class="spaces">&nbsp;</span>So this will be item 3.
+</pre>
+        </div>
+        <div class="col2">
+<pre>1.<span class="spaces">&nbsp;</span>Lists in a list item:
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>-<span class="spaces">&nbsp;</span>Indented four spaces.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>*<span class="spaces">&nbsp;</span>indented eight spaces.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>-<span class="spaces">&nbsp;</span>Four spaces again.
+2.<span class="spaces">&nbsp;&nbsp;</span>You can have multiple
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>paragraphs in a list items.
+<span class="spaces">&nbsp;</span>
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>Just be sure to indent.
+</pre>        
+        </div>
+    </div>
+
+    <div class="mdhelp-tab" id="mdhelp-blockquotes">
+        <div class="col1">
+            <pre>&gt; Create a blockquote by
+&gt; prepending “&gt;” to each line.
+&gt;
+&gt; Other formatting also works here, e.g.
+&gt;
+&gt; 1. Lists or
+&gt; 2. Headings:
+&gt;
+&gt; ## Quoted Heading ##
+</pre>
+        </div>
+        <div class="col2">
+                <p>
+                    You can even put blockquotes in blockquotes:
+                </p>
+                <pre>&gt; A standard blockquote is indented
+&gt; &gt; A nested blockquote is indented more
+&gt; &gt; &gt; &gt; You can nest to any depth.
+</pre>
+        </div>
+    </div>
+
+    <div class="mdhelp-tab" id="mdhelp-code">
+        <p>
+            To create code blocks or other preformatted text, indent by four spaces:
+        </p>
+        <pre><span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>This will be displayed in a monospaced font. The first four spaces
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>will be stripped off, but all other whitespace will be preserved.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>Markdown and HTML are turned off in code blocks:
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;i&gt;This is not italic&lt;/i&gt;, and [this is not a link](http://example.com)
+</pre>
+        <p>
+            To create not a block, but an inline code span, use backticks:
+        </p>
+        <pre>The `$` character is just a shortcut for `window.jQuery`.
+</pre>
+        <p>
+            If you want to have a preformatted block within a list, indent by eight spaces:
+        </p>
+        <pre>1. This is normal text.
+2. So is this, but now follows a code block:
+<span class="spaces">&nbsp;</span>
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Skip a line and indent eight spaces.
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>That's four spaces for the list
+<span class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>and four to trigger the code block.
+</pre>
+    </div>
+
+    <div class="mdhelp-tab" id="mdhelp-html">
+        <p>
+            If you need to do something that Markdown can't handle, use HTML. Note that <a href="http://meta.stackoverflow.com/questions/1777/what-html-tags-are-allowed" target="_blank">we only support a very strict subset of HTML!</a>
+        </p>
+        <pre>Strikethrough humor is &lt;strike&gt;funny&lt;/strike&gt;.
+</pre>
+        <p>
+            Markdown is smart enough not to mangle your span-level HTML:
+        </p>
+        <pre>&lt;b&gt;Markdown works *fine* in here.&lt;/b&gt;
+</pre>
+        <p>
+            Block-level HTML elements have a few restrictions:
+        </p>
+        <ol>
+            <li>They must be separated from surrounding text by blank lines.</li>
+            <li>The begin and end tags of the outermost block element must not be indented.</li>
+            <li>Markdown can't be used within HTML blocks.</li>
+        </ol>
+        <br>
+        <pre>&lt;pre&gt;
+ You can &lt;em&gt;not&lt;/em&gt; use Markdown in here.
+&lt;/pre&gt;
+</pre>
+    </div>
+
+    <div class="cbt"></div>
+</div></ul></div>
+            <div style="clear: both; height: 24px;"></div><textarea id="wmd-input" class="wmd-input processed" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        <div class="grippie" style="margin-right: 0px;"></div></div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="ef60084abb0e5c4b7446b43d5d1f0366">
+        <input id="author" name="author" type="text">
+    </div>
+</div>
+							<div style="position: relative;">
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice">
+Not the answer you're looking for?							Browse other questions tagged <a href="/questions/tagged/math" class="post-tag" title="show questions tagged 'math'" rel="tag">math</a> <a href="/questions/tagged/3d" class="post-tag" title="" rel="tag">3d</a> <a href="/questions/tagged/cross-browser" class="post-tag" title="show questions tagged 'cross-browser'" rel="tag">cross-browser</a> <a href="/questions/tagged/transform" class="post-tag" title="show questions tagged 'transform'" rel="tag">transform</a> <a href="/questions/tagged/polyfills" class="post-tag" title="show questions tagged 'polyfills'" rel="tag">polyfills</a>  or <a href="/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>

@@ -1,0 +1,137 @@
+<div class="_page _mdn"><h1>SVGTransformList</h1> <p>The <code>SVGTransformList</code> defines a list of <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> objects.</p> <p>An <code>SVGTransformList</code> object can be designated as read only, which means that attempts to modify the object will result in an exception being thrown.</p> <div class="note"> <p><strong>Note:</strong> Starting in <span title="(Firefox 9.0 / Thunderbird 9.0 / SeaMonkey 2.6)">Gecko 9.0</span>,the <code>SVGTransformList</code> DOM interface is now indexable and can be accessed like Arrays</p> </div> <h3 id="Interface_overview">Interface overview</h3> <table class="standard-table"><tbody>
+<tr>
+<th scope="row">Also implement</th> <td><em>None</em></td> </tr>
+<tr>
+<th scope="row">Methods</th> <td> <ul>
+<li><code>void clear()</code></li> <li>
+<a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <code>initialize(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <em>newItem</em>)</code>
+</li> <li>
+<a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <code>getItem(in unsigned long <em>index</em>)</code>
+</li> <li>
+<a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <code>insertItemBefore(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <em>newItem</em>, in unsigned long <em>index</em>)</code>
+</li> <li>
+<a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <code>replaceItem(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <em>newItem</em>, in unsigned long <em>index</em>)</code>
+</li> <li>
+<a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <code>removeItem(in unsigned long <em>index</em>)</code>
+</li> <li>
+<a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <code>appendItem(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a><code> <em>newItem</em>)</code></code>
+</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Properties</th> <td> <ul>
+<li>readonly unsigned long <code>numberOfItems</code>
+</li> <li>readonly unsigned long <code>length</code> 
+</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Normative document</th> <td><a class="external" href="http://www.w3.org/TR/SVG/coords.html#InterfaceSVGTransformList" title="http://www.w3.org/TR/SVG/coords.html#InterfaceSVGTransformList">SVG 1.1 (2nd Edition)</a></td> </tr>
+</tbody></table><h2 id="Properties">Properties</h2> <table class="standard-table">
+<thead><tr>
+<th>Name</th> <th>Type</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>numberOfItems</code></td> <td>unsigned long</td> <td>The number of items in the list.</td> </tr>
+<tr>
+<td>
+<code>length </code> 
+</td> <td>unsigned long</td> <td>The number of items in the list.</td> </tr>
+</tbody>
+</table><h2 id="Methods">Methods</h2> <table class="standard-table">
+<thead><tr>
+<th>Name &amp; Arguments</th> <th>Return</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code><strong>clear</strong>()</code></td> <td><code>void</code></td> <td> <p>Clears all existing current items from the list, with the result being an empty list.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the list corresponds to a read only attribute or when the object itself is read only.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>initialize</strong>(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <em>newItem</em>)</code></td> <td><a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a></td> <td> <p>Clears all existing current items from the list and re-initializes the list to hold the single item specified by the parameter. If the inserted item is already in a list, it is removed from its previous list before it is inserted into this list. The inserted item is the item itself and not a copy. The return value is the item inserted into the list.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the list corresponds to a read only attribute or when the object itself is read only.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>getItem</strong>(in unsigned long <em>index</em>)</code></td> <td><a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a></td> <td> <p>Returns the specified item from the list. The returned item is the item itself and not a copy. Any changes made to the item are immediately reflected in the list. The first item is number 0.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the list corresponds to a read only attribute or when the object itself is read only.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>insertItemBefore</strong>(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <em>newItem</em>, in unsigned long <em>index</em>)</code></td> <td><a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a></td> <td> <p>Inserts a new item into the list at the specified position. The first item is number 0. If <code>newItem</code> is already in a list, it is removed from its previous list before it is inserted into this list. The inserted item is the item itself and not a copy. If the item is already in this list, note that the index of the item to insert before is before the removal of the item. If the <code>index</code> is equal to 0, then the new item is inserted at the front of the list. If the index is greater than or equal to <code>numberOfItems</code>, then the new item is appended to the end of the list.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the list corresponds to a read only attribute or when the object itself is read only.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>replaceItem</strong>(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <em>newItem</em>, in unsigned long <em>index</em>)</code></td> <td><a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a></td> <td> <p>Replaces an existing item in the list with a new item. If <code>newItem</code> is already in a list, it is removed from its previous list before it is inserted into this list. The inserted item is the item itself and not a copy. If the item is already in this list, note that the index of the item to replace is before the removal of the item.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the list corresponds to a read only attribute or when the object itself is read only.</li> <li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>INDEX_SIZE_ERR</code> is raised if the index number is greater than or equal to <code>numberOfItems</code>.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>removeItem</strong>(in unsigned long <em>index</em>)</code></td> <td><a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a></td> <td> <p>Removes an existing item from the list.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the list corresponds to a read only attribute or when the object itself is read only.</li> <li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>INDEX_SIZE_ERR</code> is raised if the index number is greater than or equal to <code>numberOfItems</code>.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>appendItem</strong>(in <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> <em>newItem</em>)</code></td> <td><a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a></td> <td> <p>Inserts a new item at the end of the list. If <code>newItem</code> is already in a list, it is removed from its previous list before it is inserted into this list. The inserted item is the item itself and not a copy.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the list corresponds to a read only attribute or when the object itself is read only.</li> </ul>
+</td> </tr>
+</tbody>
+</table><h2 id="Browser_compatibility" name="Browser_compatibility">Example</h2> <h3 id="Using_multiple_SVGTransform_objects">Using multiple SVGTransform objects</h3> <p>In this example we create a function that will apply three different transformations to the SVG element that has been clicked on. In order to do this we create a separate <a href="svgtransform" title="SVGTransform is the interface for one of the component transformations within an SVGTransformList; thus, an SVGTransform object corresponds to a single component (e.g., scale(…) or matrix(…)) within a transform attribute."><code>SVGTransform</code></a> object for each transformation -- such as <code>translate</code>, <code>rotate</code>, and <code>scale</code>. We apply multiple transformation by appending the transform object to the <code>SVGTransformList</code> associated with an SVG element.</p> <pre class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>svg</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>my-svg<span class="token punctuation">"</span></span> <span class="token attr-name">viewBox</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0 0 300 280<span class="token punctuation">"</span></span>
+     <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.w3.org/2000/svg<span class="token punctuation">"</span></span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1.1<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>desc</span><span class="token punctuation">&gt;</span></span>Example showing how to transform svg elements that using SVGTransform objects<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>desc</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>application/ecmascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> <span class="token cdata">&lt;![CDATA[
+    function transformMe(evt) {
+      // svg root element to access the createSVGTransform() function
+      var svgroot = evt.target.parentNode;
+
+      // SVGTransformList of the element that has been clicked on
+      var tfmList = evt.target.transform.baseVal;
+
+      // Create a seperate transform object for each transform
+      var translate = svgroot.createSVGTransform();
+      translate.setTranslate(50,5);
+      
+      var rotate = svgroot.createSVGTransform();
+      rotate.setRotate(10,0,0);
+
+      var scale = svgroot.createSVGTransform();
+      scale.setScale(0.8,0.8);
+
+      // apply the transformations by appending the SVGTranform objects to the SVGTransformList associated with the element
+      tfmList.appendItem(translate);
+      tfmList.appendItem(rotate);
+      tfmList.appendItem(scale);
+    }
+  ]]&gt;</span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>polygon</span> <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>orange<span class="token punctuation">"</span></span> <span class="token attr-name">stroke</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>black<span class="token punctuation">"</span></span> <span class="token attr-name">stroke-width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>5<span class="token punctuation">"</span></span>
+           <span class="token attr-name">points</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100,225 100,115 130,115 70,15 70,15 10,115 40,115 40,225<span class="token punctuation">"</span></span> 
+           <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transformMe(evt)<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rect</span> <span class="token attr-name">x</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>200<span class="token punctuation">"</span></span> <span class="token attr-name">y</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100<span class="token punctuation">"</span></span> <span class="token attr-name">height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100<span class="token punctuation">"</span></span> 
+        <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>yellow<span class="token punctuation">"</span></span> <span class="token attr-name">stroke</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>black<span class="token punctuation">"</span></span> <span class="token attr-name">stroke-width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>5<span class="token punctuation">"</span></span>  
+        <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transformMe(evt)<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>text</span> <span class="token attr-name">x</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>40<span class="token punctuation">"</span></span> <span class="token attr-name">y</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>250<span class="token punctuation">"</span></span>
+        <span class="token attr-name">font-family</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Verdana<span class="token punctuation">"</span></span> <span class="token attr-name">font-size</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>16<span class="token punctuation">"</span></span> <span class="token attr-name">fill</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>green<span class="token punctuation">"</span></span> <span class="token punctuation">&gt;</span></span>
+    Click on a shape to transform it
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>text</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>svg</span><span class="token punctuation">&gt;</span></span></pre> <p>Live preview:</p> <p><iframe frameborder="0" height="280" src="https://mdn.mozillademos.org/en-US/docs/Web/API/SVGTransformList%24samples/Using_multiple_SVGTransform_objects?revision=493143" width="300"></iframe></p> <h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><code>length</code></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>9.0 (9.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>11</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><code>length</code></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>9.0 (9.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGTransformList$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGTransformList" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/SVGTransformList</a>
+  </p>
+</div>
+</div>

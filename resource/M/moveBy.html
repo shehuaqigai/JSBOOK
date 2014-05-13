@@ -1,0 +1,69 @@
+<div id="maincontent">
+
+<h1>HTML DOM moveBy() 方法</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>moveBy() 方法可相对窗口的当前坐标把它移动指定的像素。</p>
+
+<h3>语法</h3>
+<pre>window.moveBy(x,y)</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>x</td>
+    <td>要把窗口右移的像素数</td>
+  </tr>
+  <tr>
+    <td>y</td>
+    <td>要把窗口下移的像素数</td>
+  </tr>
+</tbody></table>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>下面的例子将把窗口相对其当前位置移动 50 个像素：</p>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function moveWin()
+  {
+  <code>myWindow.moveBy(50,50)</code>
+  }
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;script type="text/javascript"&gt;
+myWindow=window.open('','','width=200,height=100')
+myWindow.document.write("This is 'myWindow'")
+&lt;/script&gt;
+
+&lt;input type="button" value="Move 'myWindow'"
+onclick="moveWin()" /&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_win_moveby">通过 moveBy() 移动窗口</a></dt>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+</div>

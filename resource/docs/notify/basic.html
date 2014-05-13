@@ -1,0 +1,97 @@
+<section class="leftsider">
+      <div class="firstdiv">
+        <div class="location">你所在的位置：<a href="http://www.html5china.com/">首 页</a> &gt; <a href="/HTML5features/">HTML5特性</a> &gt; <a href="/HTML5features/Notifications/">桌面提醒</a> &gt; </div> 
+        <div class="viewbox">
+          <h2 class="title">Web Notifications - Web通知</h2>
+          <p class="info">发布时间：2011-09-26 作者：admin 来源：未知 <a href="#postform" title="我要评论">我要评论</a></p>
+
+          <p class="summary">用过QQ、Gtalk之类的同学，应该都被它的消息提醒所骚扰过。其实这里就要谈谈这玩意，对于桌面应用程序来说，这应该算不了什么大不了的；不过这相同的技术移植到另一个平台上，如…</p> 
+          <!--content-->
+          <div class="content">
+            <p>&nbsp;用过QQ、Gtalk之类的同学，应该都被它的消息提醒所骚扰过。其实这里就要谈谈这玩意，对于桌面应用程序来说，这应该算不了什么大不了的；不过这相同的技术移植到另一个平台上，如Web应用上来说，就没那么简单了，这么W3C还没把它定案呢，各大浏览器商也支持不一。</p>
+<p>今天正好手头没项目，就试玩了下Web Notifications；对，就是传说中的Web通知也可以简单说成消息提醒，就它的表现形式在W3C定义来说还是相当丰富的。下面我们就先来简单了解下官方的资料说明（以下资料大多翻译自W3C或浏览器官方网站，大可放心其可靠性。不过里面的一些专业词汇没有翻译），最后在看个简单的例子。</p>
+<h3>定义</h3>
+<div>Ambient notification：不需要用户任何操作自动弹出和消失的消息窗口；</div>
+<div>Interactive notification：用户可以通过操作与应用传递信息的消息窗口；</div>
+<div>Persistent notification：除非用户主动释放它，不然会一直显示的一种消息窗口；</div>
+<div>Notification platform：桌面消息窗口，脱离UA的消息平台。如MacOS中的Growl、Linux中的NotifyOSD和Windows下的notification API；</div>
+<div>Simple notification：由一个图标、一行或二行文本组成的一种简单消息提醒；</div>
+<div>Web notification：根本Web应用程序决定的一种消息提醒，如HTML、SVG；</div>
+<p>这里分享的就是第5种：Simple notification，我们可以把它定义成“简单消息提醒”，追求原版的可以移步：<a href="http://dev.w3.org/2006/webapi/WebNotifications/publish/Notifications.html">Web Notifications</a>。</p>
+<h3>例子</h3>
+<p>因为这份文档还没定案，所以就像上面提到的，目前的几大浏览器还支持不一，经过查找相关资料及测试，目前还只弄了个Chrome版本的，因此文章会不断地更新。</p>
+<h4>Chrome</h4>
+<p>前提条件是先把Google Chrome更新到10.0以上版本； 并把允许弹出桌面消息的功能打开（“Under the Hood" -&gt; "Privacy" -&gt; "Content settings" -&gt; "Notifications"，选择"Allow all sites to show desktop notifications".）</p>
+<div class="codeText">
+<div class="codeHead"><span class="lantxt">XML/HTML Code</span><span class="copyCodeText" style="cursor:pointer" onclick="copyIdText('code_9212')">复制内容到剪贴板</span></div>
+<div id="code_9212">
+<ol start="1" class="dp-xml">
+    <li class="alt"><span><span>&lt;!DOCTYPE&nbsp;html</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;<span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;<span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;<span class="tag">&lt;</span><span class="tag-name">meta</span><span>&nbsp;</span><span class="attribute">charset</span><span>=</span><span class="attribute-value">"utf-8"</span><span>&nbsp;</span><span class="tag">/&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;<span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span><span>Web&nbsp;Notifications</span><span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;<span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li><span>&nbsp;<span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;<span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li><span><span class="tag">&lt;</span><span class="tag-name">script</span><span>&nbsp;</span><span class="attribute">type</span><span>=</span><span class="attribute-value">"text/javascript"</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>var&nbsp;<span class="attribute">myNotifications</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">window</span><span>.webkitNotifications;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li><span>if(myNotifications.checkPermission()&nbsp;===&nbsp;1)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;myNotifications.requestPermission();&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li><span>}&nbsp;else&nbsp;if&nbsp;(myNotifications.checkPermission()&nbsp;===&nbsp;0)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;<span class="attribute">notification</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">myNotifications</span><span>.createNotification('images/message.jpg',&nbsp;'New&nbsp;Message&nbsp;Received',&nbsp;'The&nbsp;<a href="http://www.html5china.com" title="html5" target="_blank"><u>html5</u></a>&nbsp;has&nbsp;send&nbsp;you&nbsp;an&nbsp;email.');&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">notification.ondisplay</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">function</span><span>()&nbsp;{&nbsp;setTimeout('notification.cancel()',&nbsp;5000);&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;notification.show();&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li><span>}&nbsp;else&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;alert('Permission&nbsp;has&nbsp;been&nbsp;denied.');&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li class="alt"><span><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></span></li>
+</ol>
+</div>
+</div>
+<p>在浏览器中打开此页面，就会看到桌面的右下角弹出一个持续5秒钟的消息窗口。如下图：</p>
+<p><img src="/uploads/allimg/110926/1559452J7-0.JPG" alt="" border="0">&nbsp;</p>
+<p>Chrome提供了对此窗口的简单管理功能，当你单击“功能管理”图标时，会发现有“禁止桌面弹出消息窗口”、“设置”（跳到上面提到的Notifications管理）、“管理此窗口显示位置”。</p>
+<p>这个例子中会出现一种如下的情况：如果用户根本就没有开启允许弹出消息窗口功能，怎么办？也许你已经注意到了代码中的"myNotifications.requestPermission()"，对这句代码的功能就是向用户请求权限允许的。现在我们就来试下把浏览器的"Notifications"的权限设置为"Ask me when a site wants to show desktop notifications(recommended)" 后再刷新此窗口，发现根本没弹出窗口，而且也没有弹出向用户请求权限的窗口，这到底是什么原因呢？（请看<a href="http://code.google.com/p/chromium/issues/detail?id=31736">Issue 31736</a>），发现第13条回复是这样的：Not a Bug, Feature. Desktop Notifications can only be triggered via a user action. Typing into the JavaScript console has the same effect as raw javascript code embedded into the web page (no user action). Typing the javascript into the location bar, however, represents a user-action (the user is intentionally visiting a javascript link to enable notifications, probably for sites that tend to use href="javascript:" instead of onclick="". I'm pretty sure this is a non-issue.</p>
+<p>翻译：这不是个Bug，桌面消息只能通过用户来触发，在Javascript运行窗口、地址运行及直接在Javascript中运行都不是用户的主动行为 ，解决方法就是让用户来触发相关代码，如：通过超链接的方式，你需要做的就是把链接的href或onclick属性指向到你的代码片段即可。</p>
+<p><strong>既然如此，现将上面的代码改成如下：</strong></p>
+<div class="codeText">
+<div class="codeHead"><span class="lantxt">XML/HTML Code</span><span class="copyCodeText" style="cursor:pointer" onclick="copyIdText('code_8231')">复制内容到剪贴板</span></div>
+<div id="code_8231">
+<ol start="1" class="dp-xml">
+    <li class="alt"><span><span>&nbsp;&nbsp;&lt;!DOCTYPE&nbsp;html</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">html</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">head</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">meta</span><span>&nbsp;</span><span class="attribute">charset</span><span>=</span><span class="attribute-value">"utf-8"</span><span>&nbsp;</span><span class="tag">/&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">title</span><span class="tag">&gt;</span><span>The&nbsp;Essential&nbsp;Guide&nbsp;to&nbsp;HTML5</span><span class="tag">&lt;/</span><span class="tag-name">title</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;&nbsp;<span class="tag">&lt;/</span><span class="tag-name">head</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li><span>&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">body</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;<span class="tag">&lt;</span><span class="tag-name">a</span><span>&nbsp;</span><span class="attribute">href</span><span>=</span><span class="attribute-value">"javascript:popNotifications();"</span><span class="tag">&gt;</span><span>点击我</span><span class="tag">&lt;/</span><span class="tag-name">a</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;<span class="tag">&lt;/</span><span class="tag-name">body</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;<span class="tag">&lt;</span><span class="tag-name">script</span><span>&nbsp;</span><span class="attribute">type</span><span>=</span><span class="attribute-value">"text/javascript"</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;function&nbsp;popNotifications()&nbsp;{&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;<span class="attribute">myNotifications</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">window</span><span>.webkitNotifications;&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(myNotifications.checkPermission()&nbsp;===&nbsp;1)&nbsp;{&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;myNotifications.requestPermission();&nbsp;&nbsp;</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;if&nbsp;(myNotifications.checkPermission()&nbsp;===&nbsp;0)&nbsp;{&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;<span class="attribute">notification</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">myNotifications</span><span>.createNotification('images/list1.jpg',&nbsp;'New&nbsp;Message&nbsp;Received',&nbsp;'The&nbsp;html5&nbsp;has&nbsp;send&nbsp;you&nbsp;an&nbsp;email.');&nbsp;&nbsp;</span></span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="attribute">notification.ondisplay</span><span>&nbsp;=&nbsp;</span><span class="attribute-value">function</span><span>()&nbsp;{&nbsp;setTimeout('notification.cancel()',&nbsp;5000);&nbsp;}&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notification.show();&nbsp;&nbsp;</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert('Permission&nbsp;has&nbsp;been&nbsp;denied.');&nbsp;&nbsp;</span></li>
+    <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li>
+    <li class="alt"><span>}&nbsp;&nbsp;</span></li>
+    <li><span><span class="tag">&lt;/</span><span class="tag-name">script</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+    <li class="alt"><span><span class="tag">&lt;/</span><span class="tag-name">html</span><span class="tag">&gt;</span><span>&nbsp;&nbsp;</span></span></li>
+</ol>
+</div>
+</div>
+<p>现在再来运行新的页面，当单击“点击我”后，出现请求权限的提示，如图：</p>
+<p><img src="/uploads/allimg/110926/1559454E1-1.JPG" alt="" border="0">&nbsp;</p>
+<p>点击“Allow”后，再次单击“点击我”，发现消息窗口出来了，这不正是我们需要的效果嘛，哈哈，已经完全成功了。不过我们还是值得再回头看下，权限允许后浏览器的设置，如下图：</p>
+<p><img src="/uploads/allimg/110926/1559456407-2.JPG" alt="" border="0"></p>
+<p>浏览器已经将我们的网站添加到Notifications白名单中了（红色标记处），也就是说以后所有来自此网站的桌面消息窗口都不再需要请求权限直接通过了。</p>
+
+    </section>

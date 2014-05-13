@@ -1,0 +1,57 @@
+<div class="_content"><div class="_page _mdn"><h1>Object.isPrototypeOf</h1>  <p>The <code><strong>isPrototypeOf()</strong></code> method tests for an object in another object's prototype chain.</p> <div class="note"> <strong>Note:</strong> <code>isPrototypeOf</code> differs from the <a href="../../operators/instanceof" title="The instanceof operator tests whether an object has in its prototype chain the prototype property of a constructor."><code>instanceof operator</code></a>. In the expression "<code>object instanceof AFunction</code>", the <code>object</code> prototype chain is checked against <code>AFunction.prototype</code>, not against <code>AFunction</code> itself.</div> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="syntaxbox"><code><em>prototypeObj</em>.isPrototypeOf(<em>obj</em>)</code></pre> <h3 id="Parameters" name="Parameters">Parameters</h3> <dl>
+<dt> prototypeObj</dt> <dd> An object to be tested against each link in the prototype chain of the <strong>object</strong> argument.</dd> <dt> object</dt> <dd> the object whose prototype chain will be searched</dd> </dl><h2 id="Description" name="Description">Description</h2> <p>The <code>isPrototypeOf</code> mehtod allows you to check whether or not an object exists within another object's prototype chain.</p> <p>For example, consider the following prototype chain:</p> <pre class=" language-javascript"><span class="token keyword">function</span> <span class="token function">Fee<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // . . .
+</span><span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">Fi<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // . . .
+</span><span class="token punctuation">}</span>
+Fi<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Fee</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">Fo<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // . . .
+</span><span class="token punctuation">}</span>
+Fo<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Fi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">Fum<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // . . .
+</span><span class="token punctuation">}</span>
+Fum<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Fo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre> <p>Later on down the road, if you instantiate <code>Fum</code> and need to check if <code>Fi</code>'s prototype exists within the <code>Fum</code> prototype chain, you could do this:</p> <pre class=" language-javascript"><span class="token keyword">var</span> fum <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Fum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span> <span class="token punctuation">.</span> <span class="token punctuation">.</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>Fi<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">isPrototypeOf<span class="token punctuation">(</span></span>fum<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // do something safe
+</span><span class="token punctuation">}</span></pre> <p>This, along with the <code>instanceof</code> operator particularly comes in handy if you have code that can only function when dealing with objects descended from a specific prototype chain, e.g., to guarantee that certain methods or properties will be present on that object.</p> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td>ECMAScript 3rd Edition.</td> <td>Standard</td> <td>Initial definition.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.4.5" lang="en" title="The definition of 'Object.prototype.hasOwnProperty' in that specification.">ECMAScript Language Specification 5.1th Edition (ECMA-262)</a></td> <td><span class="spec-Standard">Standard</span></td> <td> </td> </tr>
+<tr>
+<td><a class="external" href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.hasownproperty" lang="en" title="The definition of 'Object.prototype.hasOwnProperty' in that specification.">ECMAScript Language Specification 6th Edition (ECMA-262)</a></td> <td><span class="spec-Draft">Draft</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Chrome for Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_Also" name="See_Also">See also</h2> <ul>
+<li><a href="../../operators/instanceof" title="The instanceof operator tests whether an object has in its prototype chain the prototype property of a constructor."><code>instanceof</code></a></li> <li><a href="getprototypeof" title="The Object.getPrototypeOf() method returns the prototype (i.e. the internal [[Prototype]]) of the specified object."><code>Object.getPrototypeOf()</code></a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isPrototypeOf$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isPrototypeOf" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/isPrototypeOf</a>
+  </p>
+</div>
+</div></div>

@@ -1,0 +1,43 @@
+<div class="_page _mdn"><h1>MediaSource</h1><div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div> <p>The <strong><code>MediaSource</code></strong> interface represents the source of media data for an <a href="htmlmediaelement" title="The HTMLMediaElement interface has special properties and methods (beyond the properties and methods available for all children of HTMLElement), that are common to all media-related objects."><code>HTMLMediaElement</code></a> object. A <code>MediaSource</code> object can be attached to a <a href="htmlmediaelement" title="The HTMLMediaElement interface has special properties and methods (beyond the properties and methods available for all children of HTMLElement), that are common to all media-related objects."><code>HTMLMediaElement</code></a> to be played in the user agent.</p> <h2 id="Properties">Properties</h2> <p><em>Inherits properties from its parent interface, <a href="eventtarget" title="EventTarget is a DOM interface implemented by objects that can receive DOM events and have listeners for them."><code>EventTarget</code></a>.</em></p> <dl>
+<dt> <a href="mediasource.sourcebuffers" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.sourceBuffers</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Is a <a href="sourcebufferlist" title="The documentation about this has not yet been written; please consider contributing!"><code>SourceBufferList</code></a> containing...</dd> <dt> <a href="mediasource.activesourcebuffers" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.activeSourceBuffers</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Is a <a href="sourcebufferlist" title="The documentation about this has not yet been written; please consider contributing!"><code>SourceBufferList</code></a> containing...</dd> <dt> <a href="mediasource.readystate" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.readyState</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Is an enumerated values ...</dd> <dt> <a href="mediasource.duration" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.duration</code></a>
+</dt> <dd> Is an <code>unrestricted double</code> ...</dd> </dl><h2 id="Constructors">Constructors</h2> <dl>
+<dt> <a href="mediasource.mediasource" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource()</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Constructs and returns a <code>MediaSource</code> object with no associated source buffers.</dd> </dl><h2 id="Static_methods">Static methods</h2> <dl>
+<dt> <a href="mediasource.istypesupported" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.isTypeSupported()</code></a>
+</dt> <dd> Returns a <a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a> value indicating if the given MIME type is supported by the specific implementation</dd> </dl><h2 id="Methods">Methods</h2> <p><em>Inherits properties from its parent interface, <a href="eventtarget" title="EventTarget is a DOM interface implemented by objects that can receive DOM events and have listeners for them."><code>EventTarget</code></a>.</em></p> <dl>
+<dt> <a href="mediasource.addsourcebuffer" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.addSourceBuffer()</code></a>
+</dt> <dd> Creates, associates with this <code>MediaSource</code> object, and returns a <a href="sourcebuffer" title="The documentation about this has not yet been written; please consider contributing!"><code>SourceBuffer</code></a> of the given MIME type.</dd> <dt> <a href="mediasource.removesourcebuffer" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.removeSourceBuffer()</code></a>
+</dt> <dd> Removes the given <a href="sourcebuffer" title="The documentation about this has not yet been written; please consider contributing!"><code>SourceBuffer</code></a> from the list of buffers associated with this <code>MediaSource</code> object.</dd> <dt> <a href="mediasource.endofstream" title="The documentation about this has not yet been written; please consider contributing!"><code>MediaSource.endOfStream()</code></a>
+</dt> <dd> Signals the end of the stream, eventually with an error.</dd> </dl><h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/html-media/raw-file/default/media-source/media-source.html#mediasource" lang="en" title="The definition of 'MediaSource' in that specification.">Media Source Extensions</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Initial definition.</td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #f00;">Not supported</span></td> <td>25.0 (25.0) [1]</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #f00;">Not supported</span></td> <td>25.0 (25.0) [1]</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <p>[1] Available after switching the <code>about:config</code> preference <code>media.mediasource.enabled</code> to <code>true</code>.</p> <h2 id="See_also">See also</h2> <ul>
+<li>Related interfaces: <a href="sourcebuffer" title="The documentation about this has not yet been written; please consider contributing!"><code>SourceBuffer</code></a> and <a href="sourcebufferlist" title="The documentation about this has not yet been written; please consider contributing!"><code>SourceBufferList</code></a>.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaSource$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaSource" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/MediaSource</a>
+  </p>
+</div>
+</div>

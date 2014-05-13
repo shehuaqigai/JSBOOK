@@ -1,0 +1,24 @@
+<p>
+	概述
+
+返回一个布尔值,表明当前事件的默认动作是否被取消,也就是是否执行了 event.preventDefault()方法.
+
+注意:你应该使用该属性来代替以前的非标准的已经被废弃的getPreventDefault()方法 (查看bug 691151).
+语法
+<pre>
+	
+
+
+bool = event.defaultPrevented 
+例子
+
+ if (e.defaultPrevented) {
+   /* 事件的默认动作已被取消*/
+ }
+浏览器兼容性
+
+Desktop Mobile
+Feature	Chrome	Firefox (Gecko)	Internet Explorer	Opera	Safari
+Basic support	18.0 (18)	6.0 (6.0)	9.0 (9)	11.0 (11)	5.0 (5.0)
+</pre>
+</p>

@@ -1,0 +1,98 @@
+<p>
+	概述
+返回当前文档关联的文档类型定义(DTD). 返回的对象实现了 DocumentType 接口. 使用 DOMImplementation.createDocumentType 方法可以创建一个DocumentType类型的对象.
+
+语法
+doctype = document.doctype;
+doctype 是一个只读属性.
+示例
+var doctypeObj = document.doctype;
+
+alert(
+  "doctypeObj.name: "           + doctypeObj.name            + "\n" +
+  "doctypeObj.internalSubset: " + doctypeObj.internalSubset  + "\n" +
+  "doctypeObj.publicId: "       + doctypeObj.publicId        + "\n" +
+  "doctypeObj.systemId: "       + doctypeObj.systemId
+);
+附注
+如果当前文档没有DTD,则该属性返回null.
+
+在HTML文档中,如果文档有DTD,则该属性等价于document.firstChild.
+
+DOM level 2 不支持编辑文档类型定义.
+
+规范
+DOM Level 2 Core: doctype
+DOM Level 3 Core: doctype
+</p>
+<pre>
+	IE9 以及其他浏览器，支持 document.doctype ，返回是个 node，nodetype 为 10。
+IE6-8，支持 document.doctype ，返回是 null。
+IE5.5 及以下，不支持 document.doctype ，返回  undefined。
+
+当然，以上 都是 在 document.doctype 没有被污染的情况下……
+
+IE6-8，设置了 doctype 头可以用 document.getElementsByTagName("*")[0] 得到最开始的节点。
+这是个注释节点，nodetype 为 8。
+内容可以通过 document.getElementsByTagName("*")[0].nodeValue 取得。
+但是 IE6 会过舍弃掉前四个和后三个字符。
+根据陆大神说，这是IE6的问题，因为注释 <!-- 和  --> 正好符合这个规则，被替换错了。
+说的好啊~~IE7以后就修复这个问题了。
+
+IE9 以及其他浏览器，使用 document.doctype.publicId 和 
+document.doctype.systemId 得到 doctype 具体信息。
+
+说这么多，这玩意能干毛呢？
+
+恩,根据 doctype 判断页面渲染模式啊，这可比毛 compatMode 要准了吧。
+
+先写这么多，具体实现以后再说。
+
+封装陆神的一个具体实现，仅供参考，其中检测了chrome与IE的DTD：
+
+getCompatMode_ = function(){
+    function isIEDTDBug() {
+      var html = document.documentElement, prev = html;
+      while (prev.previousSibling) { prev = prev.previousSibling; }
+      if (prev && prev.nodeType == 8) {
+        return true;
+      }
+    }
+
+    var doctypeInIE, doctypeInWebKit, diffMap,
+        pid = (document.doctype) ? document.doctype.publicId : 0,
+        sid = (document.doctype) ? document.doctype.systemId : 0,
+        cm = document.compatMode.toLowerCase();
+    doctypeInIE = doctypeInWebKit = (cm == 'backcompat') ? 'Q' : 'S';
+    if (isIEDTDBug()) {
+      doctypeInIE = 'Q';
+      if (tn == 'HTML')
+        this.addProblem('HG8001', [node]);
+    }
+    diffMap = {
+      "-//W3C//DTD HTML 4.0 Transitional//EN": {
+        "systemId": "http://www.w3.org/TR/html4/loose.dtd",
+        "IE": "S",
+        "WebKit": "Q"
+      },
+      "ISO/IEC 15445:2000//DTD HTML//EN": {
+        "systemId": "",
+        "IE": "Q",
+        "WebKit": "S"
+      },
+      "ISO/IEC 15445:1999//DTD HTML//EN": {
+        "systemId": "",
+        "IE": "Q",
+        "WebKit": "S"
+      }
+    }
+    if (diffMap[pid]) {
+      if (diffMap[pid]['systemId'] == sid) {
+        doctypeInIE = diffMap[pid]['IE'];
+        doctypeInWebKit = diffMap[pid]['WebKit'];
+      }
+    }
+    return {doctypeInIE:doctypeInWebKit,
+      doctypeInWebKit:doctypeInWebKit};
+  }();
+</pre>

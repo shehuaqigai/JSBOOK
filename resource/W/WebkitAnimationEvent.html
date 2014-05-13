@@ -1,0 +1,66 @@
+<div class="_page _mdn"><h1>AnimationEvent</h1><div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div>   <p>The <strong><code>AnimationEvent</code></strong> interface represents events providing information related to <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Using_CSS_animations">animations</a>.</p> <h2 id="Properties">Properties</h2> <p><em>Also inherits properties from its parent <a href="event" title="This chapter describes the DOM Event Model. The Event interface itself is described, as well as the interfaces for event registration on nodes in the DOM, and event listeners, and several longer examples that show how the various event interfaces relate to one another."><code>Event</code></a></em>.</p> <dl>
+<dt> <a href="animationevent.animationname" title="The AnimationEvent.animationName read-only property is a DOMString containing the value of the animation-name CSS property associated with the transition."><code>AnimationEvent.animationName</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Is a <a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a> containing the value of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name" title=""><code>animation-name</code></a> CSS property associated with the transition.</dd> <dt> <a href="animationevent.elapsedtime" title="The AnimationEvent.elapsedTime read-only property is a float giving the amount of time the animation has been running, in seconds, when this event fired, excluding any time the animation was paused. For an &quot;animationstart&quot; event, elapsedTime is 0.0 unless there was a negative value for animation-delay, in which case the event will be fired with elapsedTime containing&nbsp; (-1 * delay)."><code>AnimationEvent.elapsedTime</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Is a <code>float</code> giving the amount of time the animation has been running, in seconds, when this event fired, excluding any time the animation was paused. For an <code>"animationstart"</code> event, <code>elapsedTime</code> is <code>0.0</code> unless there was a negative value for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay" title=""><code>animation-delay</code></a>, in which case the event will be fired with <code>elapsedTime</code> containing <code>(-1 * </code><em>delay</em><code>)</code>.</dd> <dt> <a href="animationevent.pseudoelement" title="The AnimationEvent.pseudoElement read-only property is a DOMString, starting with '::', containing the name of the pseudo-element the animation runs on. If the animation doesn't run on a pseudo-element but on the element, an empty string: ''."><code>AnimationEvent.pseudoElement</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Is a <a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a>, starting with <code>'::'</code>, containing the name of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements" title="/en-US/docs/Web/CSS/Pseudo-elements">pseudo-element</a> the animation runs on. If the animation doesn't run on a pseudo-element but on the element, an empty string: <code>''</code><code>.</code>
+</dd> </dl><h2 id="Constructor">Constructor</h2> <dl>
+<dt> <a href="animationevent.animationevent" title="The AnimationEvent() constructor returns a newly created AnimationEvent, representing an event in relation with an animation."><code>AnimationEvent()</code></a>
+</dt> <dd> Creates an <code>AnimationEvent</code> event with the given parameters.</dd> </dl><h2 id="Methods">Methods</h2> <p><em>Also inherits methods from its parent <a href="event" title="This chapter describes the DOM Event Model. The Event interface itself is described, as well as the interfaces for event registration on nodes in the DOM, and event listeners, and several longer examples that show how the various event interfaces relate to one another."><code>Event</code></a></em>.</p> <dl>
+<dt> <a href="animationevent.initanimationevent" title="The AnimationEvent.initAnimationEvent() method Initializes an animation event created using the deprecated Document.createEvent(&quot;AnimationEvent&quot;) method."><code>AnimationEvent.initAnimationEvent()</code></a> 
+</dt> <dd> Initializes a <code>AnimationEvent</code> created using the deprecated <a href="document.createevent" title="Creates an event of the type specified. The returned object should be first initialized and can then be passed to element.dispatchEvent."><code>Document.createEvent("AnimationEvent")</code></a> method.</dd> </dl><h2 id="Specifications">Specifications</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr></thead>
+<tbody><tr>
+<td><a class="external" href="http://dev.w3.org/csswg/css-animations/#AnimationEvent-interface" lang="en" title="The definition of 'AnimationEvent' in that specification.">CSS Animations</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Initial definition.</td> </tr></tbody>
+</table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td>1.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> <td>6.0 (6.0)</td> <td>10.0</td> <td>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">o</span><br> 12.10 (without prefix)<br> 15.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> <td>4.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> </tr>
+<tr>
+<td>
+<code>AnimationEvent()</code> constructor</td> <td><span style="color: #f00;">Not supported</span></td> <td>23.0 (23.0)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td>
+<code>initAnimationEvent()</code> 
+</td> <td>1.0</td> <td>6.0 (6.0)<br> Removed in 23.0 (23.0)</td> <td>10.0</td> <td>12</td> <td>4.0</td> </tr>
+<tr>
+<td><code>pseudoelement</code></td> <td><span style="color: #f00;">Not supported</span></td> <td>23.0 (23.0)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span><span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> <td>6.0 (6.0)</td> <td>10.0</td> <td>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">o</span><br> 12.10 (without prefix)<br> 15.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span><span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> </tr>
+<tr>
+<td>
+<code>AnimationEvent()</code> constructor</td> <td><span style="color: #f00;">Not supported</span></td> <td>23.0 (23.0)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td>
+<code>initAnimationEvent()</code> 
+</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>6.0 (6.0)<br> Removed in 23.0 (23.0)</td> <td>10.0</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>pseudoelement</code></td> <td><span style="color: #f00;">Not supported</span></td> <td>23.0 (23.0)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/CSS/Using_CSS_animations">Using CSS animations</a></li> <li>Animation-related CSS properties and at-rules: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation" title=""><code>animation</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay" title=""><code>animation-delay</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction" title=""><code>animation-direction</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration" title=""><code>animation-duration</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode" title=""><code>animation-fill-mode</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-iteration-count" title=""><code>animation-iteration-count</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name" title=""><code>animation-name</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state" title=""><code>animation-play-state</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function" title=""><code>animation-timing-function</code></a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" title=""><code>@keyframes</code></a>
+</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent</a>
+  </p>
+</div>
+</div>

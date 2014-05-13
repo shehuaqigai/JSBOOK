@@ -1,0 +1,30 @@
+<p>
+	概述
+
+返回当前浏览器的用户代理字符串.
+
+语法
+
+var ua = window.navigator.userAgent;
+值
+
+该属性是只读的.
+
+用户代理字符串是由其他的一些navigator对象的属性值组合而成的. 基于Gecko的浏览器中,其结构如下:
+
+userAgent = appCodeName/appVersion number (Platform; Security; OS-or-CPU; 
+Localization; rv: revision-version-number) product/productSub 
+Application-Name Application-Name-version
+例子
+
+alert(window.navigator.userAgent)
+// 弹出 "Mozilla/5.0 (Windows; U; Win98; zh-CN; rv:0.9.2) Gecko/20010725 Netscape6/6.1"
+附注
+
+通过检测userAgent的值来判断浏览器类型是不可靠的,也是不推荐的.因为用户可以修改userAgent的值.比如:
+
+Firefox中,你可以通过在about:config页面添加并修改general.useragent.override选项的值来覆盖默认的用户代理字符串.一些Firefox扩展也可以用其他方式修改这个值,但它们通常只会修改发送到服务器的User-Agent请求头的值,而不会影响JavaScript代码中获取到的window.navigator.userAgent属性的值.
+Opera 6+ 中允许用户通过菜单选择不同的用户代理字符串.
+Microsoft Internet Explorer使用注册表来配置自己的用户代理字符串.
+Safari和iCab也允许用户修改其用户代理字符串,来将自己伪装成Internet Explorer或Netscape.
+</p>

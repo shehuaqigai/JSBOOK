@@ -1,0 +1,19 @@
+Event.CHANGE 和TextEvent.TEXT_INPUT 都是用户修改值调度,两者的主要区别是一前一后, Event.CHANGE 是在文本被改变之后调度,TextEvent.TEXT_INPUT是在文本将要加入前调度; 在文本键入前拦截有很多好处,比如我们希望文本框只能输入数字和字母,当用户键入非法字符时给予警告或提示,当然你可以使用正则,使用restrict属性来限定,可是这样提示信息就会很难处理.
+
+txt.addEventListener(TextEvent.TEXT_INPUT,inputHandler)
+function inputHandler(event:TextEvent){
+        var reg:RegExp=/[^0-9A-Za-z]/g        
+        if(reg.test(event.text)){
+                event.preventDefault() 
+                trace("非法字符:"+ event.text)
+        }
+}
+
+比如打字练习软件,不允许使用粘贴,只需要象下面这样,无论右键的粘贴,还是Ctrl+V,都可以有效拦截.(指的是大量的文本的粘贴)
+其它功能还有很多...
+
+txt.addEventListener(TextEvent.TEXT_INPUT,inputHandler)
+function inputHandler(event:TextEvent){        
+        if(event.text.length>1)//如果练习的是中文4-8就差不多了
+                event.preventDefault()         
+}

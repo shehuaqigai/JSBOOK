@@ -1,0 +1,87 @@
+<div id="content" class="g-u" role="主内容">
+            <article data-id="3890" id="post-3890" class="post-3890 post type-post status-publish format-standard hentry category-html5 tag-html5 tag-javascript tag-postmessage block J_SinglePost">
+        <header>
+            <h1 class="entry-title J_SinglePostTitle">利用HTML5的window.postMessage实现跨域通信</h1>
+        </header>
+        <div class="bd entry-content">
+            <p><img src="http://www.36ria.com/wp-content/uploads/2011/02/postMessage-2.png" alt="" title="postMessage-2" width="640" height="200" class="alignleft size-full wp-image-3893"><br>
+由于同源策略的限制，JavaScript跨域的问题，一直是一个颇为棘手的问题，为了解决js的跨域，web开发人员是煞费苦心，研究了各种跨域方案，如果有机会的话，明河以后会一一展示给各位，今天明河重点介绍下html5新引入的postMessage跨域方案。</p>
+<h4>1.哪些场景要考虑跨域问题？</h4>
+<p>明河这二周在处理淘宝添加收藏夹的重构，里面就有一个非常经典的跨域问题。<br>
+<img src="http://www.36ria.com/wp-content/uploads/2011/02/postMessage.png" alt="" title="postMessage" width="480" height="338" class="alignleft size-full wp-image-3891"><br>
+添加收藏弹出层外层是淘宝商城页面域名是tmall.com，而弹出层内部的页面域名却是taobao.com，接下来的问题就是我现在希望弹出层内部的高度改变了，父页面弹出层的高度也随之改变，同时子iframe内有办法使用一个按钮，关闭父页面的弹出层。<br>
+这个场景还是非常经典的，很多朋友估计多多少少都会遇到这个情况，就是有个弹出层里面嵌一个iframe，iframe内的子页面如何操作父页面的弹出层或其他元素？</p>
+<h4>2.淘宝商城是如何处理跨域的？</h4>
+<p>由于今天主要是讲html5的跨域方案，这里明河简要提一下，有机会跟大家详细分享。<br>
+淘宝商城有个专门用于处理跨域的js类TMall.XDomain，这个类会生成子iframe中生成一个新的iframe，这个iframe我们叫它<strong>代理iframe</strong>，代理iframe必须跟父页面时同域的，这样代理iframe就有权限处理父页面。<br>
+这里明河推荐阅读以下文章：</p>
+<ul>
+<li><a href="http://developer.51cto.com/art/201102/245701.htm">JavaScript跨域总结与解决办法</a></li>
+<li><a href="http://struts.javaeye.com/blog/266446">iframe跨域</a></li>
+<li><a href="http://hereson.javaeye.com/blog/172107">关于document.domain的一些解释</a></li>
+</ul>
+<h4>3.哪些情况下存在跨域问题？</h4>
+<p><img src="http://www.36ria.com/wp-content/uploads/2011/02/1728490.jpg" alt="" title="1728490" width="573" height="403" class="alignleft size-full wp-image-3892"></p>
+<h4>4.HTML5的window.postMessage简述</h4>
+<p>postMessage是html为了解决跨域通信，特别引入的一个新的API，目前支持这个API的浏览器有：<strong>Firefox, IE8+, Opera, Safari, Chrome</strong>。postMessage允许页面中的多个iframe/window的通信，postMessage也可以实现ajax直接跨域，不通过服务器端代理。</p>
+<ul class="tow-columns clearfix">
+<li class="l"><a href="http://www.36ria.com/demo/html5-postMessage/index.html" class="btn-view-demo" target="_blank"></a></li>
+<li class="l"><a href="http://www.36ria.com/wp-content/plugins/download-monitor/download.php?id=208" title="名称：html5-postMessage，下载次数：1140，文件大小：2.83 kB" class="btn-download">点此下载</a></li>
+</ul>
+<p>感谢苏河哥哥提供另外个主机作为跨域测试，O(∩_∩)O哈！<br>
+在上面的demo中，明河简单演示了postMessage的用法，父页面中有二个不同域的iframe，现在我们要求这二个iframe每过一秒，向对方的内容层传递一行文字，对象一接收到文字就开始输出。</p>
+<h4>5.postMessage用法解析</h4>
+<p>这里以iframe1.html的代码为例。</p>
+<h5>1)向另外一个iframe发送消息</h5>
+<div class="hl-surround"><ol class="hl-main ln-show" title="Double click to hide line number." ondblclick="linenumber(this)"><li class="hl-firstline"><span style="color: Green;">var</span><span style="color: Gray;"> </span><span style="color: Blue;">message</span><span style="color: Gray;"> = </span><span style="color: #8b0000;">'</span><span style="color: Red;">hello，RIA之家！&amp;nbsp;&amp;nbsp; </span><span style="color: #8b0000;">'</span><span style="color: Gray;"> + </span><span style="color: Olive;">(</span><span style="color: Green;">new</span><span style="color: Gray;"> </span><span style="color: Teal;">Date</span><span style="color: Olive;">()</span><span style="color: Gray;">.</span><span style="color: Blue;">getTime</span><span style="color: Olive;">())</span><span style="color: Gray;">;</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: Teal;">window</span><span style="color: Gray;">.</span><span style="color: Blue;">parent</span><span style="color: Gray;">.</span><span style="color: Blue;">frames</span><span style="color: Olive;">[</span><span style="color: Maroon;">1</span><span style="color: Olive;">]</span><span style="color: Gray;">.</span><span style="color: Blue;">postMessage</span><span style="color: Olive;">(</span><span style="color: Blue;">message</span><span style="color: Gray;">, </span><span style="color: #8b0000;">'</span><span style="color: Red;">*</span><span style="color: #8b0000;">'</span><span style="color: Olive;">)</span><span style="color: Gray;">;</span></li></ol></div>
+<p>iframe1.html需要向iframe2.html发送消息，也就是第二个iframe，所以是<strong>window.parent.frames[1]</strong>，如果是向父页面发送消息就是<strong>window.parent</strong>。<br>
+<strong>postMessage</strong>这个函数接收二个参数，缺一不可，第一个参数即你要发送的数据，第二个参数是非常重要，主要是出于安全的考虑，一般填写允许通信的域名，这里明河为了简化，所以使用’*'，即不对访问的域进行判断。</p>
+<h5>2)另外一个iframe监听消息事件</h5>
+<p>iframe2.html中写个监听message事件，当有消息传到iframe2.html时就会触发这个事件。</p>
+<div class="hl-surround"><ol class="hl-main ln-show" title="Double click to hide line number." ondblclick="linenumber(this)"><li class="hl-firstline"><span style="color: Green;">var</span><span style="color: Gray;"> </span><span style="color: Blue;">onmessage</span><span style="color: Gray;"> = </span><span style="color: Green;">function</span><span style="color: Olive;">(</span><span style="color: Blue;">e</span><span style="color: Olive;">)</span><span style="color: Gray;"> </span><span style="color: Olive;">{</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; &nbsp;&nbsp; </span><span style="color: Green;">var</span><span style="color: Gray;">&nbsp;</span><span style="color: Blue;">data</span><span style="color: Gray;"> = </span><span style="color: Blue;">e</span><span style="color: Gray;">.</span><span style="color: Blue;">data</span><span style="color: Gray;">,</span><span style="color: Blue;">p</span><span style="color: Gray;"> = </span><span style="color: Teal;">document</span><span style="color: Gray;">.</span><span style="color: Blue;">createElement</span><span style="color: Olive;">(</span><span style="color: #8b0000;">'</span><span style="color: Red;">p</span><span style="color: #8b0000;">'</span><span style="color: Olive;">)</span><span style="color: Gray;">;</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; &nbsp;&nbsp; </span><span style="color: Blue;">p</span><span style="color: Gray;">.</span><span style="color: Blue;">innerHTML</span><span style="color: Gray;"> = </span><span style="color: Blue;">data</span><span style="color: Gray;">;</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; &nbsp;&nbsp; </span><span style="color: Teal;">document</span><span style="color: Gray;">.</span><span style="color: Blue;">getElementById</span><span style="color: Olive;">(</span><span style="color: #8b0000;">'</span><span style="color: Red;">display</span><span style="color: #8b0000;">'</span><span style="color: Olive;">)</span><span style="color: Gray;">.</span><span style="color: Blue;">appendChild</span><span style="color: Olive;">(</span><span style="color: Blue;">p</span><span style="color: Olive;">)</span><span style="color: Gray;">;</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; </span><span style="color: Olive;">}</span><span style="color: Gray;">;</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; </span><span style="color: #ffa500;">//监听postMessage消息事件</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; </span><span style="color: Green;">if</span><span style="color: Gray;">&nbsp;</span><span style="color: Olive;">(</span><span style="color: Green;">typeof</span><span style="color: Gray;"> </span><span style="color: Teal;">window</span><span style="color: Gray;">.</span><span style="color: Blue;">addEventListener</span><span style="color: Gray;"> != </span><span style="color: #8b0000;">'</span><span style="color: Red;">undefined</span><span style="color: #8b0000;">'</span><span style="color: Olive;">)</span><span style="color: Gray;"> </span><span style="color: Olive;">{</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; &nbsp; </span><span style="color: Teal;">window</span><span style="color: Gray;">.</span><span style="color: Blue;">addEventListener</span><span style="color: Olive;">(</span><span style="color: #8b0000;">'</span><span style="color: Red;">message</span><span style="color: #8b0000;">'</span><span style="color: Gray;">, </span><span style="color: Blue;">onmessage</span><span style="color: Gray;">, </span><span style="color: Green;">false</span><span style="color: Olive;">)</span><span style="color: Gray;">;</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; </span><span style="color: Olive;">}</span><span style="color: Gray;">&nbsp;</span><span style="color: Green;">else</span><span style="color: Gray;"> </span><span style="color: Green;">if</span><span style="color: Gray;"> </span><span style="color: Olive;">(</span><span style="color: Green;">typeof</span><span style="color: Gray;"> </span><span style="color: Teal;">window</span><span style="color: Gray;">.</span><span style="color: Blue;">attachEvent</span><span style="color: Gray;"> != </span><span style="color: #8b0000;">'</span><span style="color: Red;">undefined</span><span style="color: #8b0000;">'</span><span style="color: Olive;">)</span><span style="color: Gray;"> </span><span style="color: Olive;">{</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; &nbsp; </span><span style="color: Teal;">window</span><span style="color: Gray;">.</span><span style="color: Blue;">attachEvent</span><span style="color: Olive;">(</span><span style="color: #8b0000;">'</span><span style="color: Red;">onmessage</span><span style="color: #8b0000;">'</span><span style="color: Gray;">, </span><span style="color: Blue;">onmessage</span><span style="color: Olive;">)</span><span style="color: Gray;">;</span></li>
+<li><span style="color: Gray;">&nbsp; &nbsp; </span><span style="color: Olive;">}</span></li></ol></div>
+<p>整个通信过程就结束了！是不是非常简单惬意！<br>
+如果你有加域名限,比如下面的代码：</p>
+<div class="hl-surround"><ol class="hl-main ln-show" title="Double click to hide line number." ondblclick="linenumber(this)"><li class="hl-firstline"><span style="color: Teal;">window</span><span style="color: Gray;">.</span><span style="color: Blue;">parent</span><span style="color: Gray;">.</span><span style="color: Blue;">frames</span><span style="color: Olive;">[</span><span style="color: Maroon;">1</span><span style="color: Olive;">]</span><span style="color: Gray;">.</span><span style="color: Blue;">postMessage</span><span style="color: Olive;">(</span><span style="color: Blue;">message</span><span style="color: Gray;">, </span><span style="color: #8b0000;">'</span><span style="color: Red;">http://www.36ria.com</span><span style="color: #8b0000;">'</span><span style="color: Olive;">)</span><span style="color: Gray;">;</span></li></ol></div>
+<p>就要在onmessage中追加个判断：</p>
+<div class="hl-surround"><ol class="hl-main ln-show" title="Double click to hide line number." ondblclick="linenumber(this)"><li class="hl-firstline"><span style="color: Green;">if</span><span style="color: Olive;">(</span><span style="color: Blue;">event</span><span style="color: Gray;">.</span><span style="color: Blue;">origin</span><span style="color: Gray;"> !== </span><span style="color: Blue;">http</span><span style="color: Gray;">:</span><span style="color: #ffa500;">//www.36ria.com') return;</span></li></ol></div>
+<h4>6.明河结语</h4>
+<p>html5的postMessage相当强悍和易用！你可以利用这个特性解决大部分场景下的跨域问题，不用再创建个代理iframe之类的繁琐方法。严重推荐大家练习下该方法，目前的确存在浏览器差异问题，但相信以后会成为主流跨域通信方案。</p>
+<div class="wumii-hook"><div id="wumiiBtnDiv" style="clear:both;overflow:visible;position:relative;left:0;top:0;height:28px;margin:0;padding:10px 0 0;text-shadow: none;text-indent:0;">
+	    <div id="wumiiLoginTipsDiv" style="display:none;overflow:visible;position:absolute;width:418px;margin:0;padding:5px;background:url('http://static.wumii.cn/images/msgBox_shadow.png') repeat;_background:none;border-radius:5px;">
+		    <div id="wumiiLoginTipsInner" style="display:block;position:relative;margin:0;padding:25px 20px;border:1px solid #959595;background-color:#fff;">
+		        <a href="javascript:void(0);" id="wumiiCloseLoginTips" style="position:absolute;right:10px;top:10px;width:11px;height:11px;background:url('http://static.wumii.cn/images/blogWidget/app_login_img.png') no-repeat -37px -53px;text-decoration:none;"></a>
+		        <div id="wumiiLoginTipsContent" style="overflow:hidden;display:block;height:61px;margin:0;padding:0;">
+		            <p style="display:block;height:auto;line-height:20px;margin:0 0 15px;padding:0;color:#535353;text-align:center;text-indent:0;letter-spacing:0;font-size:12px;">想要保存喜欢过的文章吗？立即关联或<a href="http://www.wumii.com/reg/binding?ext=true" class="wumii-reg-btn" target="_blank" style="display:inline;padding:0;color:#009e96;">创建无觅账号</a>？</p>
+		            <p style="display:block;height:26px;line-height:24px;margin:0;padding:0;text-align:center;text-indent:0;font-size:12px;" id="wumiiBindingBtns">
+		    	        <a href="http://www.wumii.com/reg/authapp?app=SINA&amp;ext=true&amp;c=false" target="_blank" class="wumii-binding-btn" style="float:left;display:inline;width:144px;height:26px;margin:0 15px 0 0;padding:0;background:url('http://static.wumii.cn/images/blogWidget/app_login_img.png') no-repeat;text-decoration:none;"></a>
+		    		    <a href="http://www.wumii.com/reg/authapp?app=QQ&amp;ext=true&amp;c=false" target="_blank" class="wumii-binding-btn" style="float:left;display:inline;width:144px;height:26px;margin:0;padding:0;background:url('http://static.wumii.cn/images/blogWidget/app_login_img.png') no-repeat 0 -26px;text-decoration:none;"></a>
+		    		    <a href="javascript:void(0);" id="wumiiNoTipsBtn" style="float:right;display:inline;width:auto;height:auto;margin:0;padding:0;color:#7d7d7d;text-decoration:none;letter-spacing:0;">不再提示！</a>
+		    	    </p>
+		        </div>
+		    </div>
+		    <div style="display:block;_display:none;position:absolute;left:50%;bottom:-16px;width:34px;height:22px;margin:0 0 0 -17px;padding:0;background:url('http://static.wumii.cn/images/blogWidget/app_login_img.png') no-repeat 0 -53px;_background:none;"></div>
+		</div>
+    <div id="wumiiLikeBtnDiv" style="position: static; float: left; display: inline; width: 89px; height: 28px; margin: 0px 0px 0px 362px; padding: 0px; background-image: url(http://static.wumii.cn/images/blogWidget/widget_buttons_lightGray.png); text-indent: 0px; background-position: 0px 0px; background-repeat: no-repeat no-repeat;" onmouseover="this.style.backgroundPosition='-89px 0';" onmouseout="this.style.backgroundPosition='0 0';">
+        <a href="http://www.wumii.com/item/tqwAvXwH" target="_blank" id="wumiiNumLikes" style="float:left;width:38px;height:20px;line-height:21px;margin:4px 0 0 4px;padding:0;border:none;background-color:#fff;color:#444444;letter-spacing:0;text-decoration:none;text-align:center;text-indent:0;font-size:12px;" onmouseover="this.style.fontWeight='bold';" onmouseout="this.style.fontWeight='normal';">6</a>
+        <span style="float:left;width:40px;height:29px;margin:0;padding:0;outline:none;cursor:pointer;" id="wumiiLikeBtn" hidefocus="true"></span>
+    </div>
+    <div id="wumiiRecommendBtnDiv" style="position:static;clear:none;float:left;display:inline;height:28px;margin:0;padding:0 5px;text-indent:0;">
+        <span id="wumiiRecommendBtn" hidefocus="true" style="float:left;display:inline;width:60px;height:28px;margin:0 0 0 5px;padding:0;background:url('http://static.wumii.cn/images/blogWidget/widget_buttons_lightGray.png') no-repeat -267px 0;cursor:pointer;outline:none;" onmouseover="this.style.backgroundPosition='-328px 0';" onmouseout="this.style.backgroundPosition='-267px 0';"></span>
+        <img src="http://static.wumii.cn/images/loading.gif" id="wumiiLoading" style="clear:none;display:none;height:15px;margin:7px 0 0 8px;padding:0;border:0;background:none;cursor:default;" alt="正在加载推荐文章">
+    </div>
+</div>
+    
+    
+    
+      

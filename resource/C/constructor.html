@@ -1,0 +1,151 @@
+<div id="article_details" class="details">
+    <div class="article_title">
+        <span class="ico ico_type_Original"></span>
+        <h3>
+        <span class="link_title"><a href="/hikvision_java_gyh/article/details/8937157">
+            <font color="red">[置顶]</font>
+            揭开Javascript属性constructor/prototype的底层原理
+        </a></span>
+        </h3>
+    </div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/a564663276/article/category/1421119">javascript</a>
+        </span>
+        <span class="link_postdate">2013-05-16 21:48</span>
+        <span class="link_view" title="阅读次数">1066人阅读</span>
+        <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(8)</span>
+        <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('揭开Javascript属性constructor/prototype的底层原理','8937157');return false;" title="收藏">收藏</a></span>
+        <span class="link_report"><a href="#report" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(8937157,2);return false;" title="举报">举报</a></span>
+
+    </div>
+    <div class="tag2box"><a href="http://www.csdn.net/tag/js%e7%bb%a7%e6%89%bf%e5%ae%9e%e7%8e%b0" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">js继承实现</a><a href="http://www.csdn.net/tag/JavaScript" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">JavaScript</a><a href="http://www.csdn.net/tag/constructor." target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">constructor.</a><a href="http://www.csdn.net/tag/Prototype" target="_blank" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">Prototype</a></div>
+
+
+    <div id="article_content" class="article_content">
+
+<span style="font-size:18px"><br>
+&nbsp; &nbsp; &nbsp; &nbsp; 在Javascript语言中，constructor属性是专门为function而设计的，它存在于<span style="color:#ff0000">每一个function</span>的<span style="color:#ff0000">prototype属性</span>中。这个constructor保存了指向function的<span style="color:#ff0000">一个引用</span>。在定义一个函数（代码如下所示）时，<br>
+</span>
+        <p style="text-align:left"></p>
+        <div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 644px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>&lt;span&nbsp;style=</span><span class="string">"font-size:18px;"</span><span>&gt;</span><span class="keyword">function</span><span>&nbsp;F()&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">//&nbsp;some&nbsp;code</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>&nbsp;}.&nbsp;&lt;/span&gt;&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="javascript" style="display: none;"><span style="font-size:18px;">function F() {
+	// some code
+ }. </span></pre><br>
+        <span style="font-size:18px">JavaScript内部会执行如下几个动作：</span>
+        <p></p>
+        <p style="text-align:left"><span style="font-size:18px">为该函数添加一个原形属性<span style="font-size:18px">（即prototype对象）</span></span><span style="font-size:18px">.&nbsp;</span></p>
+        <p style="text-align:left"><span style="font-size:18px">为prototype对象额外添加一个constructor属性，并且该属性保存指向函数F的一个引用。</span></p>
+        <p style="text-align:center"><span style="font-size:18px"><img src="http://images.cnblogs.com/cnblogs_com/qiantuwuliang/208703/o_js.constructor.prototype001.jpg" alt=""><br>
+</span></p>
+        <p><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; 这样当我们把函数F作为自定义构造函数来创建对象的时候，对象实例内部会自动保存一个指向其构造函数（这里就是我们的自定义构造函数F）的prototype对象的一个属性__proto__，所以我们在每一个对象实例中就可以访问构造函数的prototype所有拥有的全部属性和方法，就好像它们是实例自己的一样。</span></p>
+        <p><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; 当然该实例也有一个constructor属性了（从prototype那里获得的），这时候constructor的作用就很明显了，因为在这时，每一个对象实例都可以通过constrcutor对象访问它的构造函数，请看下面代码：&nbsp;</span></p>
+        <p></p>
+        <div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 1488px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_2" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">var</span><span>&nbsp;f&nbsp;=&nbsp;</span><span class="keyword">new</span><span>&nbsp;F();&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>alert(f.constructor&nbsp;===&nbsp;F);<span class="comment">//&nbsp;output&nbsp;true&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>alert(f.constructor&nbsp;===&nbsp;F.prototype.constructor);<span class="comment">//&nbsp;output&nbsp;true</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="javascript" style="display: none;">var f = new F();
+alert(f.constructor === F);// output true
+alert(f.constructor === F.prototype.constructor);// output true</pre><br>
+        <p></p>
+        <p><span style="font-size:18px">我们可以利用这个特性来完成下面的事情： 对象类型判断，如&nbsp;</span></p>
+        <p></p>
+        <div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 1677px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_3" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">if</span><span>(f.constructor&nbsp;===&nbsp;F)&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//&nbsp;do&nbsp;sth&nbsp;with&nbsp;F&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="javascript" style="display: none;">if(f.constructor === F) {
+// do sth with F
+} </pre><br>
+        <p></p>
+        <p><span style="font-size:18px">其实constructor的出现原本就是用来进行对象类型判断的，但是constructor属性易变，不可信赖。</span></p>
+        <p><span style="font-size:18px">我们有一种更加安全可靠的判定方法：instanceof 操作符。</span></p>
+        <p><span style="font-size:18px">下面代码仍然返回true&nbsp;</span></p>
+        <p><span style="font-size:18px">if(f instanceof F)&nbsp;</span><span style="font-size:18px">{&nbsp;</span></p>
+        <p><span style="font-size:18px">&nbsp; &nbsp;// do sth with F</span></p>
+        <p><span style="font-size:18px">&nbsp;}</span><span style="font-size:18px">.&nbsp;</span></p>
+        <p><span style="font-size:18px">原型链继承，由于constructor存在于prototype对象上，因此我们可以结合constructor沿着原型链找到最原始的构造函数，如下面代码：</span></p>
+        <p></p>
+        <div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 2158px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_4" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_4" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=4&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">function</span><span>&nbsp;Base()&nbsp;{}&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="comment">//&nbsp;Sub1&nbsp;inherited&nbsp;from&nbsp;Base&nbsp;through&nbsp;prototype&nbsp;chain&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">function</span><span>&nbsp;Sub1(){}&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>Sub1.prototype&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Base();&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>Sub1.prototype.constructor&nbsp;=&nbsp;Sub1;&nbsp;&nbsp;</span></li><li class=""><span>Sub1.superclass&nbsp;=&nbsp;Base.prototype;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span><span class="comment">//&nbsp;Sub2&nbsp;inherited&nbsp;from&nbsp;Sub1&nbsp;through&nbsp;prototype&nbsp;chain&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">function</span><span>&nbsp;Sub2(){}&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>Sub2.prototype&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Sub1();&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>Sub2.prototype.constructor&nbsp;=&nbsp;Sub2;&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>Sub2.superclass&nbsp;=&nbsp;Sub1.prototype;&nbsp;&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//&nbsp;Test&nbsp;prototype&nbsp;chain&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>alert(Sub2.prototype.constructor);&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//&nbsp;function&nbsp;Sub2(){}&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>alert(Sub2.superclass.constructor);&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//&nbsp;function&nbsp;Sub1(){}&nbsp;</span><span>&nbsp;&nbsp;</span></span></li><li class="alt"><span>alert(Sub2.superclass.constructor.superclass.constructor);&nbsp;&nbsp;</span></li><li class=""><span><span class="comment">//&nbsp;function&nbsp;Base(){}</span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="javascript" style="display: none;">function Base() {}
+// Sub1 inherited from Base through prototype chain
+function Sub1(){}
+Sub1.prototype = new Base();
+Sub1.prototype.constructor = Sub1;
+Sub1.superclass = Base.prototype;
+// Sub2 inherited from Sub1 through prototype chain
+function Sub2(){}
+Sub2.prototype = new Sub1();
+Sub2.prototype.constructor = Sub2;
+Sub2.superclass = Sub1.prototype;
+// Test prototype chain
+alert(Sub2.prototype.constructor);
+// function Sub2(){}
+alert(Sub2.superclass.constructor);
+// function Sub1(){}
+alert(Sub2.superclass.constructor.superclass.constructor);
+// function Base(){}</pre><br>
+        <span style="font-size:18px">上面的例子只是为了说明constructor在原型链中的作用，更实际一点的意义在于：一个子类对象可以获得其父类的所有属性和方法，称之为继承，关于继承我们有好多可以分析和讨论，本篇限于篇幅不在此讨论。&nbsp;</span>
+        <p></p>
+        <p><span style="font-size:18px">一个容易掉入的陷阱（gotchas） 之前提到constructor易变，那是因为函数的prototype属性容易被更改，我们用时下很流行的编码方式来说明问题，请看下面的示例代码：&nbsp;</span></p>
+        <div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 2721px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_5" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_5" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=5&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="javascript" style="display: none;"></pre><div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 2790px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_6" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_6" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=6&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">function</span><span>&nbsp;F()&nbsp;{}&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>F.prototype&nbsp;=&nbsp;{&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>_name:&nbsp;<span class="string">'Eric'</span><span>,&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>getName:&nbsp;<span class="keyword">function</span><span>()&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span><span class="keyword">return</span><span>&nbsp;</span><span class="keyword">this</span><span>._name;&nbsp;&nbsp;</span></span></li><li class=""><span>&nbsp;}&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>};&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="javascript" style="display: none;">function F() {}
+F.prototype = {
+_name: 'Eric',
+getName: function() {
+return this._name;
+ }
+};</pre><span style="font-size:18px">初看这种方式并无问题，但是你会发现下面的代码失效了：&nbsp;</span>
+        <p></p>
+        <p><span style="font-size:18px">var f = new F();&nbsp;</span></p>
+        <p><span style="font-size:18px">alert(f.constructor === F); // output false</span></p>
+        <p><span style="font-size:18px">怎么回事？F不是实例对象f的构造函数了吗？</span></p>
+        <p><span style="font-size:18px">当然是！只不过构造函数F的原型被开发者重写了，这种方式将原有的prototype对象用一个对象的字面量{}来代替。</span></p>
+        <p><span style="font-size:18px">而新建的对象{}只是Object的一个实例，系统（或者说浏览器）在解析的时候并不会在{}上自动添加一个constructor属性，因为这是function创建时的专属操作，仅当你声明函数的时候解析器才会做此动作。</span></p>
+        <p><span style="font-size:18px">然而你会发现constructor并不是不存在的，下面代码可以测试它的存在性：</span></p>
+        <p><span style="font-size:18px">&nbsp;alert(typeof f.constructor == 'undefined');// output false</span></p>
+        <p><span style="font-size:18px">既然存在，那这个constructor是从哪儿冒出来的呢？</span></p>
+        <p><span style="font-size:18px">我们要回头分析这个对象字面量{}。</span></p>
+        <p><span style="font-size:18px">因为{}是创建对象的一种简写，所以{}相当于是new Object()。</span></p>
+        <p><span style="font-size:18px">那既然{}是Object的实例，自然而然他获得一个指向构造函数Object()的prototype属性的一个引用__proto__，又因为Object.prototype上有一个指向Object本身的constructor属性。所以可以看出这个constructor其实就是Object.prototype的constructor，下面代码可以验证其结论：&nbsp;</span></p>
+        <p><span style="font-size:18px">alert(f.constructor === Object.prototype.constructor);//output true&nbsp;</span></p>
+        <p><span style="font-size:18px">alert(f.constructor === Object);// also output true</span></p>
+        <p><span style="font-size:18px"><span style="font-size:18px">一个解决办法就是手动恢复他的constructor，下面代码非常好地解决了这个问题：</span></span></p>
+        <p><span style="font-size:18px"><span style="font-size:18px"></span></span></p>
+        <div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 3727px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_7" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_7" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=7&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">function</span><span>&nbsp;F()&nbsp;{}&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span>F.prototype&nbsp;=&nbsp;{&nbsp;&nbsp;&nbsp;</span></li><li class="alt"><span>constructor:&nbsp;F,&nbsp;<span class="comment">/*&nbsp;reset&nbsp;constructor&nbsp;*/</span><span>&nbsp;&nbsp;</span></span></li><li class=""><span>_name:&nbsp;<span class="string">'Eric'</span><span>,&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>getName:&nbsp;<span class="keyword">function</span><span>()&nbsp;{&nbsp;&nbsp;&nbsp;</span></span></li><li class=""><span><span class="keyword">return</span><span>&nbsp;</span><span class="keyword">this</span><span>._name;&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt"><span>}&nbsp;&nbsp;</span></li><li class=""><span>};&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="javascript" style="display: none;">function F() {}
+F.prototype = {
+constructor: F, /* reset constructor */
+_name: 'Eric',
+getName: function() {
+return this._name;
+}
+};</pre><br>
+        <p></p>
+        <p></p>
+        <p><span style="font-size:18px"><span style="font-size:18px"><br>
+</span></span></p>
+        <p><span style="font-size:18px">之后一切恢复正常，constructor重新获得的构造函数的引用，我们可以再一次测试上面的代码，这次返回true&nbsp;<br>
+var f = new F();&nbsp;<br>
+alert(f.constructor === F); // output true this time ^^<br>
+解惑：构造函数上怎么还有一个constructor？它又是哪儿来的？&nbsp;<br>
+细心的朋友会发现，像JavaScript内建的构造函数，如Array, RegExp, String, Number, Object, Function等等居然自己也有一个constructor:&nbsp;<br>
+alert(typeof Array.constructor != 'undefined');// output true<br>
+经过测试发现，此物非彼物它和prototype上constructor不是同一个对象，他们是共存的：<br>
+alert(typeof Array.constructor != 'undefined');// output true&nbsp;<br>
+alert(typeof Array.prototype.constructor === Array); // output true<br>
+不过这件事情也是好理解的，因为构造函数也是函数。<br>
+是函数说明它就是Function构造函数的实例对象，自然他内部也有一个指向Function.prototype的内部引用__proto__啦。<br>
+因此我们很容易得出结论，这个constructor（构造函数上的constructor不是prototype上的）其实就是Function构造函数的引用：&nbsp;<br>
+alert(Array.constructor === Function);// output true&nbsp;<br>
+alert(Function.constructor === Function); // output true<br>
+OK, constructor从此真相大白，你不在对它陌生了~</span></p>
+        <div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 619px; top: 4540px; width: 18px; height: 18px; z-index: 99;"><embed id="ZeroClipboardMovie_8" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="18" height="18" name="ZeroClipboardMovie_8" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=8&amp;width=18&amp;height=18" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>&lt;pre&nbsp;name=</span><span class="string">"code"</span><span>&nbsp;</span><span class="keyword">class</span><span>=</span><span class="string">"javascript"</span><span>&gt;&lt;/pre&gt;&nbsp;&nbsp;</span></span></li><li class=""><span>&lt;pre&gt;&lt;/pre&gt;&nbsp;&nbsp;</span></li><li class="alt"><span>&lt;pre&gt;&lt;/pre&gt;&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="javascript" style="display: none;"><div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 0px; top: 0px; width: 0px; height: 0px; z-index: 99;"><embed id="ZeroClipboardMovie_9" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="0" height="0" name="ZeroClipboardMovie_9" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=9&amp;width=0&amp;height=0" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span>&nbsp;&nbsp;</span></span></li></ol></div><pre name="code" class="javascript" style="display: none;"></pre>
+<pre></pre>
+<pre></pre>
+
+</pre></div>
+
+
+
+    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" style="float: right;">
+        <a class="bds_qzone" title="分享到QQ空间" href="#"></a>
+        <a class="bds_tsina" title="分享到新浪微博" href="#"></a>
+        <a class="bds_tqq" title="分享到腾讯微博" href="#"></a>
+        <a class="bds_renren" title="分享到人人网" href="#"></a>
+        <a class="bds_t163" title="分享到网易微博" href="#"></a>
+        <span class="bds_more">更多</span>
+        <a class="shareCount" href="#" title="累计分享0次">0</a>
+    </div>

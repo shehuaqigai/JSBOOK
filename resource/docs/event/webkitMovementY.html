@@ -1,0 +1,29 @@
+<p>
+	MouseEvent.movementY
+
+The movementY property provides the shift in the Y coordinate of the mouse pointer between that event and the previous mousemove event. In other words, the value of that property is computed that way : currentEvent.movementY = currentEvent.screenY - previousEvent.screenY.
+<pre>
+Syntax
+
+var yShift = instanceOfMouseEvent.movementY
+Value
+
+A number
+
+Specifications
+
+Specification	Status	Comment
+Document Object Model (DOM) Level 2 Events Specification	Recommendation	
+Document Object Model (DOM) Level 3 Events Specification	Working Draft	
+UI Events	Working Draft	Extend DOM3
+Pointer Lock	Working Draft	Extend the MouseEvent interface
+Browser compatibility
+
+Feature	Firefox (Gecko)	Chrome	Internet Explorer	Opera	Safari
+Basic support	(Yes)	(Yes)	(Yes)	(Yes)	(Yes)
+movementX
+movementY	(Yes) moz	(Yes) webkit	?	?	?
+Feature	Firefox Mobile (Gecko)	Android	IE Mobile	Opera Mobile	Safari Mobile
+Basic support	?	?	?	?	?
+</pre>
+</p>

@@ -1,0 +1,71 @@
+<div class="_content"><div class="_page _mdn"><h1>NodeFilter</h1> <p>A <strong><code>NodeFilter</code></strong> interface represents an object used to filter the nodes in a <a href="nodeiterator" title="The NodeIterator interface represents an iterator over the members of a list of the nodes in a subtree of the DOM. The nodes will be returned in document order."><code>NodeIterator</code></a> or <a href="treewalker" title="The TreeWalker object represents the nodes of a document subtree and a position within them."><code>TreeWalker</code></a>. They don't know anything about the DOM or how to traverse nodes; they just know how to evaluate a single node against the provided filter.</p> <div class="note"> <p>The browser doesn't provide any object implementing this interface. It is the user who is expected to write one, tailoring the <code>acceptNode()</code> method to its needs, and using it with some <a href="treewalker" title="The TreeWalker object represents the nodes of a document subtree and a position within them."><code>TreeWalker</code></a> or <a href="nodeiterator" title="The NodeIterator interface represents an iterator over the members of a list of the nodes in a subtree of the DOM. The nodes will be returned in document order."><code>NodeIterator</code></a> objects.</p> </div> <h2 id="Properties">Properties</h2> <p><em>This interface neither implements, nor inherits, any property.</em></p> <h2 id="Methods">Methods</h2> <p><em>This interface doesn't inherit any method.</em></p> <dl>
+<dt> <a href="nodefilter.acceptnode" title="The NodeFilter.acceptNode() method returns an unsigned short that will be used to tell if a given Node must be accepted or not by the NodeIterator or TreeWalker iteration algorithm. This method is expected to be written by the user of a NodeFilter. Possible return values are:"><code>NodeFilter.acceptNode()</code></a>
+</dt> <dd> Returns an <code>unsigned short</code> that will be used to tell if a given <a href="node" title="A Node is an interface from which a number of DOM types inherit, and allows these various types to be treated (or tested) similarly."><code>Node</code></a> must be accepted or not by the <a href="nodeiterator" title="The NodeIterator interface represents an iterator over the members of a list of the nodes in a subtree of the DOM. The nodes will be returned in document order."><code>NodeIterator</code></a> or <a href="treewalker" title="The TreeWalker object represents the nodes of a document subtree and a position within them."><code>TreeWalker</code></a> iteration algorithm. This method is expected to be written by the user of a <code>NodeFilter</code>. Possible return values are: <table class="standard-table"><tbody>
+<tr>
+<th class="header">Constant</th> <th class="header">Description</th> </tr>
+<tr>
+<td><code>FILTER_ACCEPT</code></td> <td>Value returned by the <a href="nodefilter.acceptnode" title="The NodeFilter.acceptNode() method returns an unsigned short that will be used to tell if a given Node must be accepted or not by the NodeIterator or TreeWalker iteration algorithm. This method is expected to be written by the user of a NodeFilter. Possible return values are:"><code>NodeFilter.acceptNode()</code></a> method when a node should be accepted.</td> </tr>
+<tr>
+<td><code>FILTER_REJECT</code></td> <td>Value to be returned by the <a href="nodefilter.acceptnode" title="The NodeFilter.acceptNode() method returns an unsigned short that will be used to tell if a given Node must be accepted or not by the NodeIterator or TreeWalker iteration algorithm. This method is expected to be written by the user of a NodeFilter. Possible return values are:"><code>NodeFilter.acceptNode()</code></a> method when a node should be rejected. The children of rejected nodes are not visited by the <a href="nodeiterator" title="The NodeIterator interface represents an iterator over the members of a list of the nodes in a subtree of the DOM. The nodes will be returned in document order."><code>NodeIterator</code></a> or <a href="treewalker" title="The TreeWalker object represents the nodes of a document subtree and a position within them."><code>TreeWalker</code></a> object; this value is treated as "skip this node and all its children".</td> </tr>
+<tr>
+<td><code>FILTER_SKIP</code></td> <td>Value to be returned by <a href="nodefilter.acceptnode" title="The NodeFilter.acceptNode() method returns an unsigned short that will be used to tell if a given Node must be accepted or not by the NodeIterator or TreeWalker iteration algorithm. This method is expected to be written by the user of a NodeFilter. Possible return values are:"><code>NodeFilter.acceptNode()</code></a> for nodes to be skipped by the <a href="nodeiterator" title="The NodeIterator interface represents an iterator over the members of a list of the nodes in a subtree of the DOM. The nodes will be returned in document order."><code>NodeIterator</code></a> or <a href="treewalker" title="The TreeWalker object represents the nodes of a document subtree and a position within them."><code>TreeWalker</code></a> object. The children of skipped nodes are still considered. This is treated as "skip this node but not its children".</td> </tr>
+</tbody></table>
+</dd> </dl><h2 id="Example">Example</h2> <pre class=" language-javascript"><span class="token keyword">var</span> nodeIterator <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createNodeIterator<span class="token punctuation">(</span></span>
+ <span class="token comment" spellcheck="true"> // Node to use as root
+</span>  document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'someId'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+ <span class="token comment" spellcheck="true"> // Only consider nodes that are text nodes (nodeType 3)
+</span>  NodeFilter<span class="token punctuation">.</span>SHOW_TEXT<span class="token punctuation">,</span>
+
+ <span class="token comment" spellcheck="true"> // Object containing the function to use for the acceptNode method
+</span> <span class="token comment" spellcheck="true"> // of the NodeFilter
+</span>    <span class="token punctuation">{</span> acceptNode<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true"> // Logic to determine whether to accept, reject or skip node
+</span>     <span class="token comment" spellcheck="true"> // In this case, only accept nodes that have content
+</span>     <span class="token comment" spellcheck="true"> // other than whitespace
+</span>      <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span> <span class="token regex">/^\s*$/</span><span class="token punctuation">.</span><span class="token function">test<span class="token punctuation">(</span></span>node<span class="token punctuation">.</span>data<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> NodeFilter<span class="token punctuation">.</span>FILTER_ACCEPT<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token boolean">false</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Show the content of every non-empty text node that is a child of root
+</span><span class="token keyword">var</span> node<span class="token punctuation">;</span>
+
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>node <span class="token operator">=</span> iterator<span class="token punctuation">.</span><span class="token function">nextNode<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">alert<span class="token punctuation">(</span></span>node<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre> <h2 id="Specification" name="Specification">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="http://dom.spec.whatwg.org/#nodeFilter" lang="en" title="The definition of 'NodeFilter' in that specification.">DOM</a></td> <td><span class="spec-Living">Living Standard</span></td> <td> </td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/DOM-Level-2-Traversal-Range/traversal.html#Traversal-NodeFilter" lang="en" title="The definition of 'NodeFilter' in that specification.">Document Object Model (DOM) Level 2 Traversal and Range Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>Initial definition.</td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td>1.0</td> <td>2.0 (1.8.1)</td> <td>9.0</td> <td>9.0</td> <td>3.0</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>1.0 (1.8.1)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>9.0</td> <td>3.0</td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li>Related interfaces: <a href="treewalker" title="The TreeWalker object represents the nodes of a document subtree and a position within them."><code>TreeWalker</code></a>, <a href="nodeiterator" title="The NodeIterator interface represents an iterator over the members of a list of the nodes in a subtree of the DOM. The nodes will be returned in document order."><code>NodeIterator</code></a>.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/NodeFilter$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/NodeFilter" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/NodeFilter</a>
+  </p>
+</div>
+</div></div>

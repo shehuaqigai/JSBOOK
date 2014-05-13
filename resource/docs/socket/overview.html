@@ -1,0 +1,118 @@
+<h1>webSocket对象</h1>
+
+<p>
+<h2>var connection = new WebSocket('ws://html5rocks.websocket.org/echo', ['soap', 'xmpp']);</h2>
+立即向连接附加一些事件处理程序可让您知道连接打开、收到传入讯息或出现错误的时间。
+第二个参数可接受可选子协议，它既可以是字符串，也可以是字符串数组。
+每个字符串都应代表一个子协议名称，而服务器只能接受数组中通过的一个子协议。
+访问 WebSocket 对象的 protocol 属性可确定接受的子协议。
+<a href="http://www.iana.org/assignments/websocket/websocket.xml" target="_blank">子协议参考</a>
+</p>
+<pre style="background:black;color:white;">
+// When the connection is open, send some data to the server
+connection.onopen = function () {
+  connection.send('Ping'); // Send the message 'Ping' to the server
+};
+
+// Log errors
+connection.onerror = function (error) {
+  console.log('WebSocket Error ' + error);
+};
+
+// Log messages from the server
+connection.onmessage = function (e) {
+  console.log('Server: ' + e.data);
+ //如果成功会返回一个MessageEvent对象
+bubbles: false
+cancelBubble: false
+cancelable: false
+clipboardData: undefined
+currentTarget: WebSocket
+data: "hello world!"
+defaultPrevented: false
+eventPhase: 0
+lastEventId: ""
+origin: "ws://html5rocks.websocket.org"
+ports: Array[0]
+returnValue: true
+source: null
+srcElement: WebSocket
+target: WebSocket
+timeStamp: 1392863504814
+type: "message"
+initMessageEvent:
+webkitInitMessageEvent
+};
+
+connection.send()会返回一个布尔值
+
+connection.onclose(e){
+返回closeEvent对象
+bubbles: false
+cancelBubble: false
+cancelable: false
+clipboardData: undefined
+code: 1005//是服务器端返回的数值状态码
+currentTarget: WebSocket
+defaultPrevented: false
+eventPhase: 0
+reason: ""//包含服务器发回的消息
+returnValue: true
+srcElement: WebSocket
+target: WebSocket
+timeStamp: 1392864088758
+type: "close"
+wasClean: true//连接是否明确的关闭
+}
+
+</pre>
+<h3 id="toc-gettingstarted-workercomm">与服务器通信</h3>
+<p>与服务器建立连接后（启动 <code>open</code> 事件时），我们可以开始对连接对象使用 <code>send('your message')</code> 方法，向服务器发送数据。该方法以前只支持字符串，但根据最新的规范，现在也可以发送二进制讯息了。要发送二进制数据，您可以使用 <code>Blob</code> 或 <code>ArrayBuffer</code> 对象。</p>
+
+<pre class="prettyprint"><span class="com">// Sending String</span><span class="pln">
+connection</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="str">'your message'</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Sending canvas ImageData as ArrayBuffer</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> img </span><span class="pun">=</span><span class="pln"> canvas_context</span><span class="pun">.</span><span class="pln">getImageData</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">400</span><span class="pun">,</span><span class="pln"> </span><span class="lit">320</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> binary </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Uint8Array</span><span class="pun">(</span><span class="pln">img</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">length</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&lt;</span><span class="pln"> img</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">length</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  binary</span><span class="pun">[</span><span class="pln">i</span><span class="pun">]</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> img</span><span class="pun">.</span><span class="pln">data</span><span class="pun">[</span><span class="pln">i</span><span class="pun">];</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+connection</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="pln">binary</span><span class="pun">.</span><span class="pln">buffer</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Sending file as Blob</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> file </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'input[type="file"]'</span><span class="pun">).</span><span class="pln">files</span><span class="pun">[</span><span class="lit">0</span><span class="pun">];</span><span class="pln">
+connection</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="pln">file</span><span class="pun">);</span></pre>
+<p>同样，服务器也可能随时向我们发送讯息。只要发生这种情况，就会启动 <code>onmessage</code> 回调。该回调接收的是事件对象，而实际的讯息可通过 <code>data</code> 属性进行访问。</p>
+<p>在最新规范中，WebSocket 也可以接收二进制讯息。接收的二进制帧可以是 <code>Blob</code> 或 <code>ArrayBuffer</code> 格式。要指定收到的二进制数据的格式，可将 WebSocket 对象的 binaryType 属性设为“blob”或“arraybuffer”。默认格式为“blob”（您不必在发送时校正 binaryType 参数）。</p>
+<pre class="prettyprint"><span class="com">// Setting binaryType to accept received binary as either 'blob' or 'arraybuffer'</span><span class="pln">
+connection</span><span class="pun">.</span><span class="pln">binaryType </span><span class="pun">=</span><span class="pln"> </span><span class="str">'arraybuffer'</span><span class="pun">;</span><span class="pln">
+connection</span><span class="pun">.</span><span class="pln">onmessage </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">e</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">byteLength</span><span class="pun">);</span><span class="pln"> </span><span class="com">// ArrayBuffer object if binary</span><span class="pln">
+</span><span class="pun">};</span></pre>
+<p>WebSocket 的另一个新增功能是扩展。利用扩展，可以发送<a href="http://tools.ietf.org/html/draft-tyoshino-hybi-websocket-perframe-deflate-05">压缩</a>帧、<a href="http://tools.ietf.org/html/draft-tamplin-hybi-google-mux-02">多路复用</a>帧等。您可以检查 open 事件后的 WebSocket 对象的 extensions 属性，查找服务器所接受的扩展。截止 2012 年 2 月，还没有官方发布的扩展规范。</p>
+<pre class="prettyprint"><span class="com">// Determining accepted extensions</span><span class="pln">
+console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">connection</span><span class="pun">.</span><span class="pln">extensions</span><span class="pun">);</span></pre>
+
+<pre>
+URL: "ws://html5rocks.websocket.org/echo"
+binaryType: "blob" //二进制类型
+bufferedAmount: 0
+extensions: ""
+onclose: null//在连接关闭时触发
+onerror: null//在发生错误时触发连接不能持续
+onmessage: null//接收到消息触发
+onopen: null//在成功建立连接是触发
+protocol: ""//子协议
+readyState: 1//状态
+url: "ws://html5rocks.websocket.org/echo"
+CLOSED: 3//已经关闭连接
+CLOSING: 2//正在关闭连接
+CONNECTING: 0//正在建立连接
+OPEN: 1//已经建立连接
+addEventListener
+close//关闭连接
+dispatchEvent
+removeEventListener
+send//发送消息
+</pre>

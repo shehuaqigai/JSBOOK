@@ -1,0 +1,21 @@
+<p>
+	可以使用document.createTextNode()创建新文本节点，这个方法接受一个参数——要插入节点中的文本。
+	与设置已有文本节点的值一样，作为参数的文本也将按照HTML或XML的格式进行编码：
+var textNode = document.createTextNode("&ltstrong>Hello&lt/strong> world!");
+在创建新文本节点的同时，也会为其设置ownerDocument属性。不过，除非把新节点添加到文档树中，否则我们不会在浏览器窗口中看到新节点。下面的代码会创建一个&ltdiv>元素并向其中添加一条消息：
+var element = document.createElement("div");
+element.className = "message";
+var textNode = document.createTextNode("Hello world!");
+element.appendChild(textNode);
+document.body.appendChild(element);
+这个例子创建了一个新&ltdiv>元素并为它指定了值为“message”的class特性。然后，又创建了一个文本节点，并将其添加到前面创建的元素中。最后一步，就是将这个元素添加到了文档中的&ltbody>元素中，这样可以在浏览器中看到新创建的元素和文本节点了。
+一般情况下，每个元素只有一个文本子节点。不过，在某些情况下也可能包含多少个文本子节点，如下面的例子所示：
+var element = document.createElement("div");
+element.className = "message";
+var textNode = document.createTextNode("Hello world!");
+element.appendChild(textNode);
+var anotherTextNode = document.createTextNode("Yippee!");
+element.appendChild(anotherTextNode);
+document.body.appendChild(element);
+如果两个文本节点是相邻的同胞节点，那么这两个节点中的文本就会连起来显示，中间不会有空格。
+</p>

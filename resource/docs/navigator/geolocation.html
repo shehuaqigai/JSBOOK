@@ -1,0 +1,124 @@
+<pre>
+	一、简介
+　　html5为window.navigator提供了geolocation属性，用于获取基于浏览器的当前用户地理位置。
+　　window.navigator.geolocation提供了3个方法分别是：
+void getCurrentPosition(onSuccess,onError,options);
+//获取用户当前位置
+
+int watchCurrentPosition(onSuccess,onError,options);
+//持续获取当前用户位置
+
+void clearWatch(watchId);
+//watchId 为watchCurrentPosition返回的值
+//取消监控
+
+
+options = {
+     enableHighAccuracy,//boolean 是否要求高精度的地理信息
+     timeout,//获取信息的超时限制
+     maximumAge//对地理信息进行缓存的时间
+}
+//options可以不写，为默认即可
+ 　　二、position对象
+　　当成功获取地理位置信息时候，onsuccess方法中会返回position对象，通过这个对象可以获取地理位置的相关信息，包括：
+　　position对象的属性：
+latitude,//纬度
+
+longitude,//经度
+
+altitude,//海拔高度
+
+accuracy,//获取纬度或者经度的精度
+
+altitudeAccurancy,//海拔高度的精度
+
+heading,//设备前景方向。正北方向的顺时针旋转角
+
+speed,//设备的前进速度 m/s
+
+timestamp,//获取地理位置信息时候的时间
+</pre>
+<p>
+	地理位置 - Geolocation
+编辑
+
+[1]基于地理位置的应用越来越火，HTML5也提供了地理位置API。本章充数的文字比较多，不过还是有些内容的。
+获取地理位置的方式及其优缺点：
+
+1、ip地址
+书上说不准确，很多时候获取的是ISP机房的位置，但是获取非常方便，没有什么限制。但是实际上我觉得在中国，ip地址还是比较准确的，基本上上能精确到小区或大楼的标准。
+2、GPS
+非常准确，但是需要在户外，且需要很长时间搜索卫星。最主要的很多设备比如笔记本电脑基本都是不带GPS的，新的智能手机倒是都有。
+3、WiFi基站的mac地址。（猜测是连接位置已知的公共WiFi的时候，通过Mac地址识别WiFi接入点，从而定位)
+这种定位的精度还是很不错的，而且还可以在室内定位。不过由于这种位置公开的wifi比较少，此种方法的适用范围比较少。
+4、 GSM或CDMA基站
+通过基站定位，精度随基站密度变化，精度一般，还是只有手机能用。看来地理位置API还是手机上比较有实用性。
+5、用户指定位置
+晕，这个就不是HTML5的范畴了。
+地理位置获取流程：
+
+1、用户打开需要获取地理位置的web应用。
+2、应用向浏览器请求地理位置，浏览器弹出询问窗口，询问用户是否共享地理位置。
+3、假设用户允许，浏览器从设别查询相关信息。
+4、浏览器将相关信息发送到一个信任的位置服务器，服务器返回具体的地理位置。
+检测浏览器支持：
+
+function loadDemo() {
+if(navigator.geolocation) {
+document.getElementById(“support”).innerHTML = “HTML5 Geolocation supported.”;
+} else {
+document.getElementById(“support”).innerHTML = “HTML5 Geolocation is not supported in
+your browser.”;
+}
+}
+位置请求方式：
+
+单次请求navigator.geolocation.getCurrentPosition(updateLocation, handleLocationError, options);
+回调函数updateLocation接受一个对象参数，表示当前的地理位置，它有如下属性：
+latitude——纬度​
+longitude——经度​
+accuracy——精确度，单位米
+altitude——高度，单位米
+altitudeAccuracy——高度的精确地，单位米
+heading—运动的方向，相对于正北方向的角度
+speed——运动的速度（假设你在地平线上运动），单位米/秒
+回调函数handleLocationError接受错误对象，error.code是如下错误号。
+UNKNOWN_ERROR (error code 0) —— 错误不在如下三种之内，你可以使用error.message获取错误详细信息。
+PERMISSION_DENIED (error code 1)—— 用不选择不共享地理位置
+POSITION_UNAVAILABLE (error code 2) ——无法获取当前位置
+TIMEOUT (error code 3) ——在指定时间无法获取位置会触发此错误。
+第三个参数options是可选参数，属性如下：
+enableHighAccuracy——指示浏览器获取高精度的位置，默认为false。当开启后，可能没有任何影响，也可能使浏览器花费更长的时间获取更精确的位置数据。
+timeout——指定获取地理位置的超时时间，默认不限时。单位为毫秒。
+maximumAge——最长有效期，在重复获取地理位置时，此参数指定多久再次获取位置。默认为0，表示浏览器需要立刻重新计算位置。
+参数使用的例子如下：
+navigator.geolocation.getCurrentPosition(updateLocation,handleLocationError,
+{timeout:10000});
+重复请求navigator.geolocation.watchPosition(updateLocation, handleLocationError);
+使用 watchPosition可以持续获取地理位置，浏览器或多次调用updateLocation函数以便传递最新的位置。该函数返回一个watchID，使用navigator.geolocation.clearWatch(watchId)可以清除此次回调，使用不带参数的navigator.geolocation.clearWatch()清除说有watchPosition。
+地址转换：
+
+由于地理位置API返回的是经纬度，如果要计算两个位置之间的距离，可以使用著名的Haversine公式计算两个坐标在地平线上的距离。
+Listing 4-7. A JavaScript Haversine implementation
+function toRadians(degree) {
+return degree * Math.PI / 180;
+}
+function distance(latitude1, longitude1, latitude2, longitude2) {
+// R is the radius of the earth in kilometers
+var R = 6371;
+var deltaLatitude = toRadians(latitude2-latitude1);
+var deltaLongitude = toRadians(longitude2-longitude1);
+latitude1 =toRadians(latitude1);
+latitude2 =toRadians(latitude2);
+var a = Math.sin(deltaLatitude/2) *
+Math.sin(deltaLatitude/2) +
+Math.cos(latitude1) *
+Math.cos(latitude2) *
+Math.sin(deltaLongitude/2) *
+Math.sin(deltaLongitude/2);
+var c = 2 * Math.atan2(Math.sqrt(a),
+Math.sqrt(1-a));
+var d = R * c;
+return d;
+}
+</p>

@@ -1,0 +1,51 @@
+<pre>
+	浏览器界面元素
+为了允许Web页面与Web浏览器整合，
+某些Web浏览器界面元素有限制地暴露给Web页面中的脚本。
+每个界面元素表示为一个BarProp对象：
+interface BarProp {
+           attribute boolean visible;
+};
+此区块中不是标准描述，实现要求在下面给出。
+window . locationbar . visible
+如果地址栏可见，则返回真；否则返回假；
+window . menubar . visible
+如果菜单栏可见，则返回真；否则返回假；
+window . personalbar . visible
+如果个人栏可见，则返回真；否则返回假；
+window . scrollbars . visible
+如果滚动栏可见，则返回真；否则返回假；
+window . statusbar . visible
+如果状态栏可见，则返回真；否则返回假；
+window . toolbar . visible
+如果工具栏可见，则返回真；否则返回假；
+对于visible属性，在获取时，
+必须返回真或者由用户代理根据下面的描述决定的最接近该对象表示的用户界面元素的可见状态的值。
+在设置时，必须丢弃新值。
+下列BarProp对象存在于浏览器上下文中的每个Document对象。
+这些对象所表示的某些用户界面元素可能在不同用户代理中不相同；
+对于这些用户代理，除非另外说明，
+其对象的行为必须与其存在且可见相同（例如，其visible属性必须返回真）。
+地址栏BarProp对象
+表示包含显示活跃文档URL的控件的用户界面元素，或其他相似界面。
+菜单栏BarProp对象
+表示包含以菜单形式显示的命令列表的控件的用户界面元素，或其他相似界面。
+个人栏BarProp对象
+表示包含链接到用户收藏夹页面的控件的用户界面元素，或其他相似界面。
+滚动栏BarProp对象
+表示包含滚动机制的控件的用户界面元素，或其他相似界面。
+状态栏BarProp对象
+表示与用户的媒介适应的紧跟在文档之下或之后的用户界面元素。
+如果用户代理没有这样的用户界面元素，
+则对象的行为可以与没有相应的用户界面元素相同（例如，其visible属性可以返回假）。
+工具栏BarProp对象
+表示与用户的媒介适应的紧跟在文档之上或之前的用户界面元素。
+如果用户代理没有这样的用户界面元素，
+则对象的行为可以与没有相应的用户界面元素相同（例如，其visible属性可以返回假）。
+locationbar属性必须返回地址栏BarProp对象。
+menubar属性必须返回菜单栏BarProp对象。
+personalbar属性必须返回个人栏BarProp对象。
+scrollbars属性必须返回滚动栏BarProp对象。
+statusbar属性必须返回状态栏BarProp对象。
+toolbar属性必须返回工具栏BarProp对象。
+</pre>

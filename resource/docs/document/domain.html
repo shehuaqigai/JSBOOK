@@ -1,0 +1,172 @@
+<p>
+	前些天在对公司原有的 web 应用进行改版时遇到一个问题，当时需要从原有的应用中提取出一部分，用一个更为通用的来进行替换，并且仍然保留原有的应用接口。原有的应用属于 news.mycompany.com 域，而新应用将被部署到upload.mycopany.com。当我试着从新的域向 news.mycompany.com 传递数据时，在前台遇到了浏览器返回的“拒绝访问(Access Denied)” 的错误信息，通过参考在google 中查到的大量英文资料找到了问题的症结，并通过指定两个域中页面的docment.domain 属性使问题得到了部分解决。后来一时兴起在 google 中查找与document.domain 相关的中文资料，但得到的大部分是网络安全方面的文章，很少有文章提及通过指定页面的 document.domain 属性能够实现两个域之间的数据交换，于是决定写下此文，希望能够做到抛砖引玉吧。 
+
+关键字： JavaScript, Domain, Access Denied 
+问题的提出 
+在开发 Web 应用时经常会遇到需要在两个帧之间传递数据的情况，这里的帧可以是 frameset 中的 frame 也可以是独立的窗口。常见的情况是一个帧作为应用的主体，另一个帧则提供一些供用户选择的选项，用户选择完毕后，该帧把用户作出的选择发送到服务器并向主 要的帧传递一些信息，这里的信息可能是用户的选择也可能是服务器返回的数据。当两个帧中的内容同属于一个域时实现以来比较简单，但是当它们分属于不同域时 问题就变得复杂而棘手了，因为这里涉及到了数据访问的安全性问题,搞不好就会遇到浏览器返回的“拒绝访问(Access Denied)” 的错误信息。 
+可能的解决方案 
+下面我们将通过几个试验来分析一下在分属于不同域的帧之间传递数据的一些方法。 
+
+
+利用客户端脚本(如 JavaScript)和窗口句柄在两个帧之间传递数据 
+利用 MSIE 提供的对话框在两个帧之间传递数据 
+利用服务器端的应用，通过 session 来传递数据 
+
+方案一 
+用客户端脚本实现两个帧之间的数据交换应该是最为轻量级的方式之一了，这样做不会增加服务器的负载也不会占用网络带宽，数据交换完全是在客户端完成。下面就让我们先来了解一下用客户端脚本（以 JavaScript 为例）和窗口句柄如何实现一个域内的数据交换。 
+
+我们通过一个实例来进行说明：假设需要给用户提供一个新闻的录入界面，用户可以用它录入新闻的原始内容，并且可以在其中嵌入一副图片。为了实现这个功能界面我们设计了两个帧，或者说是两个窗口： 
+
+
+主窗口： 新闻内容的主要编辑界面，用户可以在里面录入新闻的标题、作者、新闻主体等内容，还有一个图片框可以预览上传的图片 
+弹出窗口： 处理图片上传的界面，用户可以选择本地图片进行上传，成功后它把服务器上文件的 url 返回给主窗口进行预览 
+
+为了简单起见，我们假设两个窗口中的内容都是静态的，主窗口对应的文件为NewsEdit.html，弹出窗口对应的文件为 ImgUpload.html（而大多数情况下两个窗口的内容都应该是动态生成的）。 
+
+其中 NewsEdit.html 位于 news.mycompany.com 的主目录下，其源代码如下所示： <!-- File: NewsEdit.html (http://news.mycompany.com/NewsEdit.html) --> 
+&lthtml> 
+&lthead> 
+&lttitle>The Content Editing Interface&lt/title> 
+&ltmeta http-equiv="Content-Type" content="text/html; charset=gb2312"> 
+&ltscript language="JavaScript"> 
+<!-- 
+/* OpenWin 用来在一个弹出窗口中显示 ImgUpload.html 的内容*/ 
+function OpenWin(){//Open window 
+url='http://news.mycompany.com/upload/ImgUpload.html'; 
+newwindow = window.open(url,"ImgUpload","height=135,width=300"); 
+if (!newwindow.opener) newwindow.opener=self; 
+} 
+--> 
+&lt/script> 
+&lt/head> 
+
+&ltbody> 
+&lth2>Edit your content here&lt/h2> 
+<!-- 调用后台应用 newsedit 来保存新闻内容 --> 
+&ltform action="http://news.mycompany.com/newsedit" method="post" 
+name="addnews"> 
+<!-- 新闻标题 --> 
+Title:&ltinput type="text" name="title">&ltbr> 
+<!-- 新闻作者 --> 
+Author:&ltinput type="text" name="author">&ltbr> 
+The content &ltbr> 
+<!-- 新闻内容 --> 
+&lttextarea name="contentBody" cols="100" rows="10">&lt/textarea> 
+&ltbr> 
+<!-- 点击连接打开上传图片的小窗口 --> 
+&lta href="JavaScript:OpenWin()">Upload Image File&lt/a> 
+&ltbr> 
+<!-- UserImg 用来预览上传成功后的图片文件 --> 
+&ltimg name="UserImg" style="width: 100px; height: 100px;" src="" border="1"> 
+&ltbr>&ltbr> 
+&ltinput type="submit" name="SaveContent" value="Submit"> 
+&ltinput type="reset" name="ClearContent" value="Reset"> 
+&lt/form> 
+&lt/html> 
+ImgUpload.html 位于 news.mycompany.com 的 upload 子目录下，其源代码如下所示： <!-- File: ImgUpload.html 
+(http://news.mycompany.com/upload/ImgUpload.html) --> 
+&lthtml> 
+&lthead> 
+&lttitle>Imgage Upload Interface&lt/title> 
+&ltmeta http-equiv="Content-Type" content="text/html; charset=gb2312"> 
+&lt/head> 
+
+&ltbody> 
+&lth2>Image Upload&lt/h2> 
+<!-- 调用后台应用来处理上传的图片 --> 
+&ltform action="http://news.mycompany.com/upload/imgupload" method="post" 
+enctype="multipart/form-data" name="upload"> 
+<!-- 由用户选择本地文件 --> 
+&ltinput type="file" name="imgfile"> 
+&ltinput type="submit" name="Submit" value="Upload"> 
+&lt/form> 
+&lt/html> 
+
+
+newsedit: 位于 news.mycompany.com 的主目录下,接受用户的 POST 请求，将编辑界面的新闻元素存储到后台数据库 
+imgupload: 位于 news.mycompany.com 的 upload 子目录下，接受用户的 POST请求，将本地的图片文件上传到服务器，并返回图片文件完整的 url。 
+下面是 imgupload 处理完 POST 请求后返回的页面内容，该内容显示在ImgUpload.html 所占据的弹出窗口中： &lthtml> 
+&lthead> 
+&lttitle>File Upload Successfully&lt/title> 
+&lt/head> 
+&ltbody> 
+&lth3>File Uploaded Successfully！&lt/h3> 
+&ltscript language="JavaScript"> 
+<!-- 获取主窗口的句柄 --> 
+parwin=self.opener; 
+<!-- 获取对 img 元素的引用，并用上传文件的 url 为 img 元素的 src 属性赋 
+值，这样在客户端就可以预览了 --> 
+<!-- 为了简化问题，我们将对 img 元素的引用直接写在程序中 --> 
+parwin.addnews.UserImg.src="http://news.mycompany.com/img/2003_07/06/1057478464859.gif"; 
+&lt/script> 
+&lt/body> 
+&lt/html> 
+
+
+好了，我们的第一个实验已经成功了，实验结果告诉我们：当两个帧中的内容同属于一个域时，利用客户端脚本和窗口句柄在其中传递数据是没有问题的。 接下来我 们把 ImgUpload.html 和 imgupload 从 news.mycompany.com 提取出来,部署到img.mycompany.com 的对应目录下,并修改 NewsEdit.html 中引用ImgUpload.html 时的 url。这样当我们试着用 JavaScript 从img.yourcompanu.com 向bbs.yourcompany.com 传递数据时，浏览器就会弹出“拒绝访问(Access Denied)” 的错误框，表明我们违反了他的安全策略，并且数据无法正常传递过来。 
+
+我们之所以会遇到“拒绝访问(Access Denied)” 的的错误信息，其原因在于： 
+
+“那为什么即使我的两个页面属于同一个域我还是会遇到‘拒绝访问’的错误呀？”如果是这种情况，那就要看你的弹出窗口中的内容是否始终属于同一个 域，看一 下你的 ImgUpload.html 是不是调用了属于其他域的应用，并且该应用在窗口中重新写入了内容，如果是这样那你的弹出窗口就变质了，它最后属于另外一个域，你当然会遇到“拒绝访问” 的错误。 
+
+是的，一些浏览器的开发商、开发团体在开发高版本的浏览器时对原有策略进行了部分调整，这些调整给我们带来了一线生机：当两个页面在进行数据交换 时，浏览 器会首先比较两个页面的 domain 属性，如果domain 属性相同，那么浏览器就允许它们之间的数据交换，否则就返回“拒绝访问(Access Denied)”的错误。 
+
+
+
+加入上面的声明就可以蒙蔽浏览器，在原本属于两个不同域的页面之间进行数据交换了。但需要注意：只有把上面的声明加入到需要进行数据交换的所有文 件中才会 有效，只在一个域的文件中加入上面的声明是不起作用的。另外，声明部分最好能插入到页面的 <head></head> 标记中间，这一点也是用脚本进行开发时所被提倡的。有关 JavaScript 中的 document 和 domain 等可以参考http://www.werelight.com/docs/JavaScript_Quick_Reference.htm 
+“使用这种方法有什么限制码？”因该说用这种方法来实现不同域之间的数据传递还是有很多的限制的，主要表现为以下两点： 
+
+
+方案二下面我们来看一下利用 MSIE 提供的对话框能不能解决两个域之间的数据交换问题首先我来简单介绍一下 MSIE 对话框：MSIE 提供的 showModalDialog 和showModelessDialog 方法可以用来在一个单独的帧中显示一个模态或非模态对话框，两个方法都通过一个 URI 参数来指定对话框帧中的内容；可选的参数vArguments 用来向对话框帧传递任何类型（包括数组类型）的参数；另外还有一个可选的参数 sFeatures 是用来定义对话框帧的显示效果，如位置、字体等等的；注意 Netscape Navigator 、Mozilla 和 Opera 浏览器是没有与之对应的方法的，也就是说除了 MSIE 之外其他几大浏览器都不支持用 showModalDialog 或showModelessDialog 显示对话框，如果你感兴趣的话这里有一篇文章能够教你如何通过其他方式来模拟一个模态对话框，详见 Simulating Modal Dialog Windows 
+
+
+
+“那么我能不能像方案一中那样通过强制指定两个页面中的 document.domain 属性来蒙蔽浏览器，使其认为两个页面属于同一个域呢？”确实有人提出过这种想法，笔者也试着这样做过，但最后还以失败而告终：在两个页面中强制指定 document.domain 了属性后，无论两个页面是否属于同一个域，对话框都无法正常识别从主页面传递过来的参数。 
+
+
+main.html : 部署在 a.mycompany.com，通过调用 showModalDialog 引用另外两个文件 
+localdialog.html : 与 main.html 一起部署在 a.mycompany.com 
+remotedialog.html : 部署在 b.mycompany.com，其内容与 localdialog.html完全一样 
+main.html 在调用用 showModalDialog 方法时，通过 vArguments 向对话框传递了参数："Can you hear me?"，希望对话框能够接收到这个参数；如果对话框接收到了，那么它将调用 window.alert() 方法打印出这条消息，然后向main.html 返回一个结果："Yes I do, I hear you from " + document.domain ；如果main.html 接收到了对话框返回的结果，那么它同样会调用 window.alert() 打印出结果的内容。 
+
+
+localdialog.html(remotedialog.html) 的源代码如下所示： &lthtml> 
+&lthead> 
+&lttitle>a remote dialog&lt/title> 
+&ltscript> 
+<!-- 
+//document.domain = "mycompany.com"; 
+
+onload = function() { 
+var args = window.dialogArguments; 
+alert("You send me: " + args.content); 
+btnCan.onclick = function() { 
+window.returnValue = "Yes I do, I hear you from " + document.domain; 
+close(); 
+} 
+} 
+--> 
+&lt/script> 
+&lt/head> 
+
+&ltbody> 
+Im here, Im a dialog &ltbr> 
+I will return something to the main window&ltbr> 
+&ltinput id="btnCan" type="button" style="text-align:center;" value="Close"> 
+&lt/body> 
+&lt/html> 
+
+
+main.html 总是能正常的接收从对话框中返回的结果，无论对话框是位于a.mycompany.com 还是 b.mycompany.com,也无论是否设置了 document.domain 属性； 
+在 没有设置 document.domain 属性时，localdialog.html 可以正常接收从main.html 传递过来的参数，但如果设置了 document.domain 属性，localdialog.html 读取到的参数就变成 null 了。 
+而无论是否设置了 document.domain 属性，在 remotedialog.html 读取从main.html 传递过来的参数得到的始终都是 null。 
+非常遗憾，实验结果告诉我们：用对话框是无法实现这种跨域的数据交换的。 
+
+注(2004 -12-28):您在进行测试的时候可能会得到不同的测试结果，因为随着IE的更新或者补丁的作用，这种跨域的数据交换行为可能会被调整。例如笔者在加入 这段注解的时候上面的第1条就已经不再成立了——main.html 并不是总能接收到从隶属于b.mycompany.com 的对话框返回的数据，只有两者都把document.domain 属性设置为mycompany.com 后main.html 才能接收到对话框返回的结果。见相关讨论：about showModalDialog"Even though there is no mention in the documentation of passing arguments or returning a value being blocked in the cross-domain case, I think that may actually have changed as the consequence of one of the *many* IE upgrades and/or security patches." 
+
+
+总结在上面介绍的三种方案中，除方案二尚不能实现在分属于不同域的帧之间进行数据交换之外，经证明方案一和方案三都是可行的，不过这两种方案又各有利弊： 
+
+
+另外，如果您有其他可选方案的话，非常感谢您能通过 Email 告知我，以填补我在这面方面的空白，谢谢！
+</p>

@@ -1,0 +1,26 @@
+
+<h1>假设你已经得到<head>这个节点：Node n = ...;
+且有另外一个文档对象: Document d = ...;
+那么，将节点n加到文档对象d中可以这样：d.adoptNode(n);他会把原文档里的节点干掉</h1>
+<p>
+	document.adoptNode
+
+Adopts a node from an external document. The node and its subtree is removed from the document it's in (if any), and its ownerDocument is changed to the current document. The node can then be inserted into the current document.
+
+Supported since Gecko 1.9 (Firefox 3)
+
+Syntax
+
+node = document.adoptNode(externalNode);
+node is the adopted node that can be used in the current document. The new node's parentNode is null, since it has not yet been inserted into the document tree.
+externalNode is the node from another document to be adopted.
+Example
+
+Notes
+
+In general the adoptNode call may fail due to the source node coming from a different implementation, however this should not be a problem with browser implementations.
+
+Nodes from external documents should be cloned using document.importNode() (or adopted using document.adoptNode()) before they can be inserted into the current document. For more on the Node.ownerDocument issues, see the W3C DOM FAQ.
+
+Firefox doesn't currently enforce this rule (it did for a while during the development of Firefox 3, but too many sites break when this rule is enforced). We encourage Web developers to fix their code to follow this rule for improved future compatibility.
+</p>

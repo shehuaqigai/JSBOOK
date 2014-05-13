@@ -1,0 +1,315 @@
+<div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Represents the  programmable WebGL pipeline and associated shader programs.</p>
+<table>
+<tbody><tr><td><img id="badge_ie11" alt="IE11" src="http://i.msdn.microsoft.com/dynimg/IC677945.png" title="IE11" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_90e4257d-a1b5-4f42-a9cb-2b8723f2d94e');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_90e4257d-a1b5-4f42-a9cb-2b8723f2d94e" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;body&gt;
+  &lt;canvas ⁯id="canvas"&gt;&lt;/canvas&gt;
+  ...
+&lt;script&gt;
+  var gl = document.getElementById("canvas").getContext("experimental-webgl");
+  ...
+var glProgram = gl.createProgram();
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/dn302359(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLObject</strong></a>
+<div>&nbsp;&nbsp;&nbsp;WebGLProgram</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>WebGLProgram</strong> object does not define any members.</p>
+<h2>Examples</h2>
+<p>The following example shows how to initialize a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302362(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLRenderingContext</strong></a>, create some simple shaders and a program, and display the results. </p>
+
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1b46e1b5-3f55-4686-8697-2b98c8cd7203');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1b46e1b5-3f55-4686-8697-2b98c8cd7203" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">&lt;!</span><span style="color:#A31515;">doctype</span> <span style="color:Red;">html</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>Hello WebGL<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"vertex-shader"</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"x-shader/x-vertex"</span><span style="color:Blue;">&gt;</span>
+          <span style="color:Green;">/*
+            Summary:
+              The vertex shader. Simply assigns the input vector to WebGL's 
+              vertex shader global return variable
+                    
+              Parameters:
+                vPosition -- A 4 - dimension attribute vector
+                                  
+              Returns:
+                void
+          */</span>    
+          attribute vec4 vPosition;
+            
+          <span style="color:Blue;">void</span> main() {
+            gl_Position = vPosition;
+          }
+        <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+        
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"fragment-shader"</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"x-shader/x-fragment"</span><span style="color:Blue;">&gt;</span>
+          <span style="color:Green;">/* 
+            Summary:
+              The pixel shader. Simply sets the color of the current pixel to green
+                                       
+              Returns: 
+                void
+          */</span>
+          precision highp <span style="color:Blue;">float</span>;
+            
+          <span style="color:Blue;">void</span> main() {
+            gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0); <span style="color:Green;">// green (opaque)</span>
+          }
+        <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+        
+        <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+          <span style="color:Green;">/* 
+            Summary:
+              Start by following these steps:
+                1) Retrieve the canvas element
+                2) Create a new WebGL context from the canvas element
+                3) Clear WebGL's color buffer
+                4) Enable depth tests
+                5) Clear the depth buffer
+                
+            Parameters:
+              none
+                
+            Returns: 
+              none
+          */</span>
+          <span style="color:Blue;">function</span> initWebGL() {
+            
+            <span style="color:Green;">// Retrieve the canvas element</span>
+            <span style="color:Blue;">var</span> canvas = document.getElementById(<span style="color:#A31515;">"canvas"</span>);
+            <span style="color:Blue;">if</span> (<span style="color:Blue;">null</span> == canvas) {
+            <span style="color:Blue;">throw</span> Error(<span style="color:#A31515;">"Canvas element not found"</span>);
+          }
+                
+          <span style="color:Green;">// Create a new WebGL context from the canvas element</span>
+          <span style="color:Blue;">var</span> gl = <span style="color:Blue;">null</span>;
+          <span style="color:Blue;">try</span> {
+                gl = canvas.getContext(<span style="color:#A31515;">"experimental-webgl"</span>);
+              }
+              <span style="color:Blue;">catch</span> (error) {
+                <span style="color:Blue;">var</span> msg = <span style="color:#A31515;">"Error creating WebGL context: "</span> + e.toString();
+                <span style="color:Blue;">throw</span> Error(msg);
+              }
+                
+          <span style="color:Green;">// Clear the WebGL view port and set it's color to the supplied color values</span>
+          gl.clearColor(0.0, 0.0, 0.0, 1.0);
+                
+          <span style="color:Green;">// Enable depth tests</span>
+          gl.enable(gl.DEPTH_TEST);
+                
+          <span style="color:Green;">// Clear the depth buffer and color buffer</span>
+          gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+                
+          <span style="color:Green;">// Set the WebGL context as a global variable</span>
+          window.gl = gl;
+        }
+            
+        <span style="color:Green;">/*
+          Summary: 
+            Create and return a new shader. This involves the following steps:
+              1) Retrieve a shader script element 
+              2) Retrieve the shader code text from the shader script element
+              3) Create a new shader object
+              4) Set the shader source code on the shader object
+              5) Compile the shader object
+              6) Return the compiled shader object
+                
+              Parameters:
+                id -- The ID of a shader script element
+                
+              Returns:
+                A shader object instance
+
+        */</span>
+        <span style="color:Blue;">function</span> getShader(id) {
+                
+          <span style="color:Green;">// Find the shader script element</span>
+          <span style="color:Blue;">var</span> shaderScriptElement = document.getElementById(id);
+          <span style="color:Blue;">if</span> (<span style="color:Blue;">null</span> == shaderScriptElement) {
+            <span style="color:Blue;">throw</span> Error(<span style="color:#A31515;">"Shader script element not found. Element id: "</span> + id);
+          }
+                
+          <span style="color:Green;">// Retrieve the shader source code from the shader java-script element</span>
+          <span style="color:Blue;">var</span> shaderText = <span style="color:#A31515;">""</span>;
+          <span style="color:Blue;">var</span> domIter = shaderScriptElement.firstChild;
+          <span style="color:Blue;">while</span> (domIter) {
+            <span style="color:Green;">// If the current node is a text node, append it's contents </span>
+            <span style="color:Blue;">if</span> (3 == domIter.nodeType) {
+              shaderText += domIter.textContent;
+            }
+              domIter = domIter.nextSibling;
+            }
+                
+            <span style="color:Green;">// Create the shader object instance                </span>
+            <span style="color:Blue;">var</span> shader = <span style="color:Blue;">null</span>;
+            <span style="color:Blue;">if</span> (shaderScriptElement.type == <span style="color:#A31515;">"x-shader/x-fragment"</span>) {
+              shader = gl.createShader(gl.FRAGMENT_SHADER);
+            } 
+            <span style="color:Blue;">else</span> <span style="color:Blue;">if</span> (shaderScriptElement.type == <span style="color:#A31515;">"x-shader/x-vertex"</span>) {
+              shader = gl.createShader(gl.VERTEX_SHADER);
+            }
+            <span style="color:Blue;">else</span> {
+              <span style="color:Blue;">throw</span> Error(<span style="color:#A31515;">"unrecognized shader type. shaderScript.type: "</span> + shaderScriptElement.type);
+            }
+                
+            <span style="color:Green;">// Set the shader source code in the shader object instance and compile the shader</span>
+            gl.shaderSource(shader, shaderText);
+            gl.compileShader(shader);
+            <span style="color:Blue;">if</span> (<span style="color:Blue;">null</span> == gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+              <span style="color:Blue;">throw</span> Error(<span style="color:#A31515;">"Shader compilation failed. Error: \"</span><span style="color:#A31515;">" + gl.getShaderInfoLog(shader) + "</span>\<span style="color:#A31515;">""</span>);
+            }
+                
+            <span style="color:Blue;">return</span> shader;
+        }
+            
+        <span style="color:Green;">/* 
+          Initialize the vertex and fragment shaders - this involves:
+            1) Create new instances of the vertex and fragment shaders
+            2) Create a new shader program
+            3) Attach the vertex and fragment shader instances to the shader program
+            4) Bind any shader attributes to the appropriate locations
+            5) Link the shader program
+            
+        */</span>
+          <span style="color:Blue;">function</span> initShaders() {
+            <span style="color:Green;">// Retrieve the vertex shader</span>
+            <span style="color:Blue;">var</span> vertexShader = getShader(<span style="color:#A31515;">"vertex-shader"</span>);
+                
+            <span style="color:Green;">// Retrieve the fragment shader</span>
+            <span style="color:Blue;">var</span> fragmentShader = getShader(<span style="color:#A31515;">"fragment-shader"</span>);
+                
+            <span style="color:Green;">// Create the shader program and save a global reference to it</span>
+            window.shaderProgram = gl.createProgram();
+                
+            <span style="color:Green;">// Attach the shaders to the shader program </span>
+            gl.attachShader(shaderProgram, vertexShader);
+            gl.attachShader(shaderProgram, fragmentShader);
+                
+            <span style="color:Green;">// Bind the attribute location (vPosition) to the shader program</span>
+            <span style="color:Green;">// The 0 tells WebGL to ensure the attribute vPosition will be found at attribute index 0</span>
+            gl.bindAttribLocation(shaderProgram, 0, <span style="color:#A31515;">"vPosition"</span>);
+                
+            <span style="color:Green;">// Link the shader program</span>
+                gl.linkProgram(shaderProgram);
+                <span style="color:Blue;">if</span> (<span style="color:Blue;">null</span> == gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                    <span style="color:Blue;">throw</span> Error(<span style="color:#A31515;">"Error linking shader program: \"</span><span style="color:#A31515;">" + gl.getProgramInfoLog(shaderProgram) + "</span>\<span style="color:#A31515;">""</span>);
+                }
+                
+
+          }
+            
+          <span style="color:Green;">/*
+            Draw an object - this involves the following steps: 
+              1) Define the vertices of the object to draw
+              2) Install a shader program into the WebGL context
+              3) Create and initialize the vertex buffer's data-store
+          */</span>
+          <span style="color:Blue;">function</span> draw() {
+            <span style="color:Green;">// Define the vertices for a triangle</span>
+            <span style="color:Blue;">var</span> vertices = [
+              0.0, 0.5, 0.0,
+              -0.5, -0.5, 0.0,
+              0.5, -0.5, 0.0                        
+            ];
+                
+            <span style="color:Green;">// Install a shader program into the WebGL context</span>
+            gl.useProgram(shaderProgram);
+
+            <span style="color:Green;">// Create a buffer to use in the WebGL instance </span>
+            <span style="color:Blue;">var</span> buffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+                
+            <span style="color:Green;">// Create and initialize the vertex buffer's data-store</span>
+            gl.bufferData(gl.ARRAY_BUFFER, <span style="color:Blue;">new</span> Float32Array(vertices), gl.STATIC_DRAW);
+                
+            <span style="color:Green;">/* 
+              Define an array of generic vertex attribute data
+              The parameters represent the following:
+                Parameter 0: value 0 = Index of the vertex attribute being assigned 
+                  (0 is mapped to the vPosition due to the bindAttribLocation call before linking the program)
+                Parameter 1: value 3 = Number of components in each vertex attribute 
+                Parameter 2: value False = Whether fixed point values should be normalized
+                Parameter 3: value 0 = Offset in bytes between consecutive vertex attributes
+                Parameter 4: value 0 = Offset in bytes of the first component in the first vertex attribute
+            */</span>
+            gl.vertexAttribPointer(0, 3, gl.FLOAT, <span style="color:Blue;">false</span>, 0, 0); 
+                
+            <span style="color:Green;">// Enable the vertex attribute array</span>
+            <span style="color:Green;">// The 0 parameter specifies to enable the attribute at index 0 as an array</span>
+            gl.enableVertexAttribArray(0);
+                
+            <span style="color:Green;">/* Draw the vertex array
+               Parameter 0: Tells WebGL to draw the array and interpret it as triangles
+               as opposed to lines, points, etc...
+               Parameter 1: Start from the first element in the array
+               Parameter 2: Number of elements in array = 3 
+            */</span>
+            gl.drawArrays(gl.TRIANGLES, 0, 3);
+                
+            <span style="color:Green;">// Force all buffered GL commands to be executed as quickly as possible by the rendering engine</span>
+            gl.flush();
+          }
+
+          <span style="color:Green;">//    Initialize WebGL, initialize the shaders, and draw an object</span>
+          <span style="color:Blue;">function</span> main() {
+            initWebGL();
+            initShaders();
+            draw();
+          }
+        <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span> <span style="color:Red;">onload</span><span style="color:Blue;">=</span><span style="color:Blue;">"main()"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">&lt;</span><span style="color:#A31515;">canvas</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"canvas"</span><span style="color:Blue;">&gt;</span>
+        Canvas element not supported
+      <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">canvas</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/17/2014</p>
+</div>

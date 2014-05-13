@@ -1,0 +1,22 @@
+<p>
+	概述
+将当前节点和它的后代节点"正常化".在一个"正常化"后的DOM树中, 不存在一个空的文本节点,或者两个响邻的文本节点.
+
+语法
+element.normalize();
+例子
+var wrapper = document.createElement("div");
+
+wrapper.appendChild(document.createTextNode("Part 1 "));
+wrapper.appendChild(document.createTextNode("Part 2 "));
+
+// 这时,wrapper.childNodes.length === 2
+// wrapper.childNodes[0].textContent === "Part 1 "
+// wrapper.childNodes[1].textContent === "Part 2 "
+
+wrapper.normalize();
+// 现在, wrapper.childNodes.length === 1
+// wrapper.childNodes[0].textContent === "Part 1 Part 2"
+ // 去掉XML文档中空白部分
+       document.normalize();
+</p>

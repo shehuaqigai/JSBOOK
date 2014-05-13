@@ -1,0 +1,21 @@
+<div class="_content"><div class="_page _mdn"><h1>window.frames</h1>  <p>Returns the window itself, which is an array-like object, listing the direct sub-frames of the current window.</p> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="eval"><em>frameList</em> = window.frames;
+</pre> <ul>
+<li>
+<code>frameList</code> is a list of frame objects. It is similar to an array in that it has a <code>length</code> property and its items can be accessed using the <code>[i]</code> notation.</li> <li>
+<code>frameList === window</code> evaluates to true.</li> <li>Each item in the window.frames pseudo-array represents the <a class="internal" href="window" title="en/DOM/window">window</a> object corresponding to the given <a class="internal" href="https://developer.mozilla.org/en/HTML/Element/frame" title="en/HTML/Element/frame">&lt;frame&gt;</a>'s or <a class="internal" href="https://developer.mozilla.org/en/HTML/Element/iframe" title="en/HTML/Element/iframe">&lt;iframe&gt;</a>'s content, not the (i)frame DOM element (i.e., <code>window.frames[ 0 ]</code> is the same thing as <code>document.getElementsByTagName( "iframe" )[ 0 ].contentWindow</code>).</li> <li>For more details about the returned value, refer to this <a class="external" href="http://groups.google.com/group/mozilla.dev.platform/browse_thread/thread/5628c6f346859d4f/169aa7004565066?hl=en&amp;ie=UTF-8&amp;oe=utf-8&amp;q=window.frames&amp;pli=1" title="http://groups.google.com/group/mozilla.dev.platform/browse_thread/thread/5628c6f346859d4f/169aa7004565066?hl=en&amp;ie=UTF-8&amp;oe=utf-8&amp;q=window.frames&amp;pli=1">thread on mozilla.dev.platform</a>.</li> </ul><h2 id="Example" name="Example">Example</h2> <pre class=" language-javascript"><span class="token keyword">var</span> frames <span class="token operator">=</span> window<span class="token punctuation">.</span>frames<span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // or // var frames = window.parent.frames;
+</span><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> frames<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+ <span class="token comment" spellcheck="true"> // do something with each subframe as frames[i]
+</span>  frames<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span>background <span class="token operator">=</span> <span class="token string">"red"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre> <h2 id="Specification" name="Specification">Specification</h2> <p>DOM Level 0. Not part of any standard.</p> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.frames$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.frames" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/window.frames</a>
+  </p>
+</div>
+</div></div>

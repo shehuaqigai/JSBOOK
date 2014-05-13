@@ -1,0 +1,38 @@
+<p>
+	概述
+从某个父节点中移除指定的子节点,并返回那个子节点.
+
+语法
+var oldChild = node.removeChild(child);
+child 是要移除的那个字节点.
+node 是child的父节点.
+oldChild 和child指向同一个节点,既oldChild === child.
+被移除的这个子节点仍然存在于内存中,只是没有添加到当前文档的DOM树中,因此,你还可以把这个节点重新添加会文档中,当然,实现要用另外一个变量比如上例中的oldChild来保存这个节点的引用.
+
+如果上例中的child节点不是node节点的子节点,则该方法会抛出异常.
+
+示例
+<!--示例HTML代码-->
+
+&ltdiv id="top" align="center">
+  &ltdiv id="nested">&lt/div>
+&lt/div>
+// 先定位父节点,然后删除其子节点
+var d = document.getElementById("top");
+var d_nested = document.getElementById("nested");
+var throwawayNode = d.removeChild(d_nested);
+// 无须定位父节点,通过parentNode属性直接删除自身
+var node = document.getElementById("nested");
+if (node.parentNode) {
+  node.parentNode.removeChild(node);
+}
+// 移除一个元素节点的所有子节点
+var element = document.getElementById("top");
+while (element.firstChild) {
+  element.removeChild(element.firstChild);
+}
+规范
+DOM Level 1 Core: removeChild
+DOM Level 2 Core: removeChild
+DOM Level 3 Core: removeChild
+</p>

@@ -1,0 +1,1145 @@
+<div id="maincontent">
+
+<h1>HTML DOM CanvasRenderingContext2D 对象</h1>
+
+
+<div>
+    <h2>CanvasRenderingContext2D 对象</h2>
+
+    <p>CanvasRenderingContext2D 对象提供了一组用来在画布上绘制的图形函数。可用的函数非常丰富，它们可以分为以下几类：</p>
+
+
+    <h3>绘制矩形</h3>
+
+    <p>可以使用 <a href="/htmldom/met_canvasrenderingcontext2d_strokerect.asp" title="HTML DOM strokeRect() 方法">strokeRect()</a> 和 <a href="/htmldom/met_canvasrenderingcontext2d_fillrect.asp" title="HTML DOM fillRect() 方法">fillRect()</a> 来绘制矩形的边框和填充矩形。此外，可以使用 <a href="/htmldom/met_canvasrenderingcontext2d_clearrect.asp" title="HTML DOM clearRect() 方法">clearRect()</a> 来清除矩形所定义的区域。</p>
+
+
+    <h3>绘制图像</h3>
+
+    <p>在 Canvas API 中，图像通过表示 <a href="/tags/tag_img.asp" title="HTML &lt;img&gt; 标签">HTML &lt;img&gt; 元素</a>的 <a href="/htmldom/dom_obj_image.asp" title="HTML DOM Image 对象">Image 对象</a>来指定，或者通过使用 Image() 构造函数所创建的屏幕外图像来指定。一个 <a href="/htmldom/dom_obj_canvas.asp" title="HTML DOM Canvas 对象">Canvas 对象</a>也可以用作图像来源。</p>
+
+    <p>可以使用 <a href="/htmldom/met_canvasrenderingcontext2d_drawimage.asp" title="HTML DOM drawImage() 方法">drawImage() 方法</a>在一个画布上绘制图像；而更为常见的形式是，允许源图像的任意矩形区域缩放或绘制到画布上。</p>
+
+
+    <h3>创建和渲染路径</h3>
+
+    <p>画布的一项强大功能是，它能够从基本的绘图操作来构建图形，然后，绘制这些图形的框架（勾勒它们）或者给这些图形的内容涂色（填充它们）。累计起来的操作统一叫做<em>当前路径</em>。一个画布只保持一条当前路径。</p>
+
+    <p>为了构建一个多条线段所构成的一个连续的封闭形状，绘制操作之间需要一个连接点。为此，画布保存了一个<em>当前位置</em>。画布绘制操作显式地使用这个位置作为它们的起始点，并且更新它直到到达终点。可以把这看做是使用钢笔或纸来绘画：当您完成了一条具体的线段或曲线，当前位置就是完成这一操作之后钢笔所停留的点。</p>
+
+    <p>可以在当前路径中创建一系列互相不连续的形状，它们都使用同样的绘制参数一起渲染。要分隔开这些形状，请使用 <a href="/htmldom/met_canvasrenderingcontext2d_moveto.asp" title="HTML DOM moveTo() 方法">moveTo()</a> 方法，这个方法把当前的位置移动到一个新的位置而不添加一条连接线段。当您这么做的时候，就创建了一条新的路径，这是用来表示一组连接起来的操作的画布术语。</p>
+
+    <p>一旦您所想要的路径形成了，可以使用 <a href="/htmldom/met_canvasrenderingcontext2d_stroke.asp" title="HTML DOM stroke() 方法">stroke()</a> 绘制其边框，使用 <a href="/htmldom/met_canvasrenderingcontext2d_fill.asp" title="HTML DOM fill() 方法">fill()</a> 来绘制其内容；或者两件事都做。</p>
+
+    <p>可用的图形操作有：用来绘制直线的 <a href="/htmldom/met_canvasrenderingcontext2d_lineto.asp" title="HTML DOM lineTo() 方法">lineTo()</a>，用于绘制矩形的 <a href="/htmldom/met_canvasrenderingcontext2d_rect.asp" title="HTML DOM rect() 方法">rect()</a>，用于绘制部分圆形的 <a href="/htmldom/met_canvasrenderingcontext2d_arc.asp" title="HTML DOM arc() 方法">arc()</a> 或 <a href="/htmldom/met_canvasrenderingcontext2d_arcto.asp" title="HTML DOM arcTo() 方法">arcTo()</a>，以及用于绘制曲线的 <a href="/htmldom/met_canvasrenderingcontext2d_beziercurveto.asp" title="HTML DOM bezierCurveTo() 方法">bezierCurveTo()</a> 或 <a href="/htmldom/met_canvasrenderingcontext2d_quadraticcurveto.asp" title="HTML DOM quadraticCurveTo() 方法">quadraticCurveTo()</a>。</p>
+
+    <p>除了勾勒和填充，还可以使用当前路径来指定绘制时画布所使用的剪切区域。这个区域中的像素是显示的，区域之外的像素是不显示的。剪切区域是累加性的；调用 <a href="/htmldom/met_canvasrenderingcontext2d_clip.asp" title="HTML DOM clip() 方法">clip()</a> 可以将当前路径和当前绘制区域取交集，产生一个新的区域。不幸的是，没有直接的方法把当前的剪切区域设置为画布的范围；要做到这一点，必须保存和恢复画布的整个图形状态。</p>
+
+    <p>如果任何子路径中的线段没有形成一个闭合的图形，<a href="/htmldom/met_canvasrenderingcontext2d_fill.asp" title="HTML DOM fill() 方法">fill()</a> 和 <a href="/htmldom/met_canvasrenderingcontext2d_clip.asp" title="HTML DOM clip() 方法">clip()</a> 操作通过添加一条从子路径的起点到终点的、虚拟（勾勒的时候看不到）线段来闭合它。可选的是，也可以调用 <a href="/htmldom/met_canvasrenderingcontext2d_closepath.asp" title="HTML DOM closePath() 方法">closePath()</a> 来显示地添加这条线段。</p>
+
+
+    <h3>颜色、渐变和模式</h3>
+
+    <p>在填充和勾勒路径时，可用 fillStyle 和 strokeStyle 属性来指定线段或者绘制区域如何绘制。CSS 样式颜色字符串，以及描述渐变和模式的 <a href="/htmldom/dom_obj_canvasgradient.asp" title="HTML DOM CanvasGradient 对象">CanvasGradient</a> 或 <a href="/htmldom/dom_obj_createpattern.asp" title="HTML DOM CanvasPattern 对象">CanvasPattern</a> 都是可以接受的。要创建一个渐变，请使用 <a href="/htmldom/met_canvasrenderingcontext2d_createlineargradient.asp" title="HTML DOM createLinearGradient() 方法">createLinearGradient()</a> 或 <a href="/htmldom/met_canvasrenderingcontext2d_createradialgradient.asp" title="HTML DOM createRadialGradient() 方法">createRadialGradient()</a>。要创建一个模式，请使用 <a href="/htmldom/met_canvasrenderingcontext2d_createpattern.asp" title="HTML DOM createPattern() 方法">createPattern()</a>。</p>
+
+    <p>要用 CSS 表示法来指定不透明的颜色，就采用 "#RRGGBB" 形式的字符串，其中 RR、GG 和 BB 分别是指定颜色的红色、绿色和蓝色成分的十六进制，其值都在 00 和 FF 之间。例如，完全红色的值是 "#FF0000"。要指定部分透明的颜色，请使用一个 "rgba(R,G,B,A)" 形式的字符串。在这种形式中，R、G 和 B 将颜色的红色、绿色和蓝色成分指定为 0 到 255 之间的十进制整数，并且 A 把 alpha（不透明）成分指定为 0.0 （完全透明）和 1.0 （完全不透明）之间的一个浮点数值。例如，半透明的完全红色为 "rgba(255,0,0,0.5)"。</p>
+
+
+    <h3>线条宽度、线帽和线条连接</h3>
+
+    <p>画布为调整各种线条显示提供了几个选项。可以使用 lineWidth 属性来指定线条的宽度，用 <a href="/htmldom/prop_canvasrenderingcontext2d_linecap.asp" title="HTML DOM lineCap 属性">lineCap 属性</a>来指定的端点如何绘制，并且用 <a href="/htmldom/prop_canvasrenderingcontext2d_linejoin.asp" title="HTML DOM lineJoin 属性">lineJoin 属性</a>来指定线条如何连接。</p>
+
+
+    <h3>坐标空间和转换</h3>
+
+    <p>默认情况下，一个画布的坐标空间使用画布的左上角 (0,0) 作为原点，x 值向右增加，y 值向下增加。这个坐标空间中的一个单位通常转换为像素。</p>
+
+    <p>然后，可以转换坐标空间，产生你在绘图操作中所指定的用来移动、缩放或旋转的任何坐标或范围。这通过 <a href="/htmldom/met_canvasrenderingcontext2d_translate.asp" title="HTML DOM translate() 方法">translate()</a>、<a href="/htmldom/met_canvasrenderingcontext2d_scale.asp" title="HTML DOM scale() 方法">scale()</a> 和 <a href="/htmldom/met_canvasrenderingcontext2d_rotate.asp" title="HTML DOM rotate() 方法">rotate() 方法</a>来实现，它们会对画布的变换矩阵产生影响。由于坐标空间可以像这样转换，您传递给 <a href="/htmldom/met_canvasrenderingcontext2d_lineto.asp" title="HTML DOM lineTo() 方法">lineTo()</a> 这样方法的坐标可能无法用像素来度量。因此，Canvas API 使用浮点数而不是整数。</p>
+
+    <p>变换按照它们被指定的顺序相反的顺序来处理。例如，调用 scale() 之后，紧接着调用 translate()，这会首先变换坐标系统，然后再缩放。</p>
+
+
+    <h3>组合</h3>
+
+    <p>通常，图形是一个绘制于另一个的上面，新的图形使得在它之前绘制在其下方的图形变得模糊。这是一个画布中的默认行为。然而，您可以通过为 <a href="/htmldom/prop_canvasrenderingcontext2d_globalcompositeoperation.asp" title="HTML DOM globalCompositeOperation 属性">globalCompositeOperation 属性</a>指定不同的值来执行很多有趣的操作，范围包括从 XOR 操作到增量或减暗图形区域。</p>
+
+
+    <h3>阴影</h3>
+
+    <p>Canvas API 包含了可以自动为您所绘制的任何图形添加下拉阴影的属性。然而，在编写本参考页时，Safari 是唯一实现了这一 API 的浏览器。阴影的颜色可用 shadowColor 属性来指定，并且可以通过 shadowOffsetX 和 shadowOffsetY 属性来改变。另外，应用到阴影边缘的羽化量也可以使用 shadowBlur 属性来设置。</p>
+
+
+    <h3>保存图形状态</h3>
+
+    <p><a href="/htmldom/met_canvasrenderingcontext2d_save.asp" title="HTML DOM save() 方法">save()</a> 和 <a href="/htmldom/met_canvasrenderingcontext2d_restore.asp" title="HTML DOM restore() 方法">restore()</a> 方法允许你保存和恢复一个 CanvasRenderingContext2D 对象的状态。save() 把当前状态推入到栈中，而 restore() 从栈的顶端弹出最近保存的状态，并且根据这些存储的值来设置当前绘图状态。</p>
+
+    <p>CanvasRenderingContext2D 对象的所有属性（除了画布的属性是一个常量）都是保存的状态的一部分。变换矩阵和剪切区域也是这个状态的一部分，但是当前路径和当前点并不是。</p>
+
+</div>
+
+<div>
+    <h2>CanvasRenderingContext2D 对象的属性</h2>
+
+
+    <h3>canvas 属性</h3>
+
+    <p>这个环境可以绘制于其上的 Canvas 元素。</p>
+
+
+    <h3>fillStyle 属性</h3>
+
+    <p>用来填充路径的当前的颜色、模式或渐变。这个属性可以设置为一个字符串或者一个 <a href="/htmldom/dom_obj_canvasgradient.asp" title="HTML DOM CanvasGradient 对象">CanvasGradient 对象</a> 或 <a href="/htmldom/dom_obj_createpattern.asp" title="HTML DOM CanvasPattern 对象">CanvasPattern 对象</a>。当设置为一个字符串时，它被解析为一个 CSS 颜色值并且用来进行实心填充。当设置为一个 CanvasGradient 或 CanvasPattern 对象，通过使用指定的渐变或模式来完成填充。</p>
+
+    <h3>globalAlpha 属性</h3>
+
+    <p>指定在画布上绘制的内容的不透明度。这个值的范围在 0.0（完全透明）和 1.0（完全不透明）之间。默认值为 1.0。</p>
+
+    <h3>globalCompositeOperation 属性</h3>
+
+    <p>指定颜色如何与画布上已有的颜色组合（合成）。如需更多细节，请参阅 <a href="/htmldom/prop_canvasrenderingcontext2d_globalcompositeoperation.asp" title="HTML DOM globalCompositeOperation 属性">globalCompositeOperation 属性参考页</a>。</p>
+
+    <h3>lineCap 属性</h3>
+
+    <p>指定线条的末端如何绘制。合法的值是 "butt"、"round" 和 "square"。默认值是 "butt"。如需更多细节，请参阅 <a href="/htmldom/prop_canvasrenderingcontext2d_linecap.asp" title="HTML DOM lineCap 属性">lineCap 属性参考页</a>。</p>
+
+    <h3>lineJoin 属性</h3>
+
+    <p>指定两条线条如何连接。合法的值是 "round"、"bevel" 和 "miter"。默认值是 "miter"。如需更多细节，请参阅 <a href="/htmldom/prop_canvasrenderingcontext2d_linejoin.asp" title="HTML DOM lineJoin 属性">lineJoin 属性参考页</a>。</p>
+
+    <h3>lineWidth 属性</h3>
+
+    <p>指定了画笔（绘制线条）操作的线条宽度。默认值是 1.0，并且这个属性必须大于 0.0。较宽的线条在路径上居中，每边有线条宽的一半。</p>
+
+    <h3>miterLimit 属性</h3>
+
+    <p>当 lineJoin 属性为 "miter" 的时候，这个属性指定了斜连接长度和线条宽度的最大比率。如需更多细节，请参阅 <a href="/htmldom/prop_canvasrenderingcontext2d_miterlimit.asp" title="HTML DOM miterLimit 属性">miterLimit 属性参考页</a>。</p>
+
+    <h3>shadowBlur 属性</h3>
+
+    <p>指定羽化阴影的程度。默认值是 0。阴影效果得到 safari 的支持，但是并没有得到 FireFox 1.5 或 Opera 9 的支持。</p>
+
+    <h3>shadowColor 属性</h3>
+
+    <p>把阴影的颜色指定为一个 CSS 字符串或 Web 样式字符串，并且可以包含一个 alpha 部分来表示透明度。默认值是 black。阴影效果得到 Safari 的支持，但是并没有得到 FireFox 1.5 或 Opera 9 的支持。</p>
+
+    <h3>shadowOffsetX, shadowOffsetY 属性</h3>
+
+    <p>指定阴影的水平偏移和垂直偏移。较大的值使得阴影化的对象似乎漂浮在背景的较高位置上。默认值是 0。阴影效果得到 Safari 的支持，但是并没有得到 FireFox 1.5 或 Opera 9 的支持。</p>
+
+    <h3>strokeStyle 属性</h3>
+
+    <p>指定了用于画笔（绘制）路径的颜色、模式和渐变。这个属性可能是一个字符串，或者一个 <a href="/htmldom/dom_obj_canvasgradient.asp" title="HTML DOM CanvasGradient 对象">CanvasGradient 对象</a> 或 <a href="/htmldom/dom_obj_createpattern.asp" title="HTML DOM CanvasPattern 对象">CanvasPattern 对象</a>。如果是一个字符串，它被解析为一个 CSS 颜色值，并且画笔用所得的实色来绘制。如果这个属性的值是一个 CanvasGradient 对象或 CanvasPattern 对象，画笔使用这个渐变或模式来实现。</p>
+</div>
+
+
+<div>
+    <h2>CanvasRenderingContext2D 对象的方法</h2>
+
+    <table class="dataintable">
+        <tbody><tr>
+            <th>方法</th>
+            <th>描述</th>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_arc.asp" title="HTML DOM arc() 方法">arc()</a></td>
+            <td>用一个中心点和半径，为一个画布的当前子路径添加一条弧线。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_arcto.asp" title="HTML DOM arcTo() 方法">arcTo()</a></td>
+            <td>使用目标点和一个半径，为当前的子路径添加一条弧线。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_beginpath.asp" title="HTML DOM beginPath() 方法">beginPath()</a></td>
+            <td>开始一个画布中的一条新路径（或者子路径的一个集合）。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_beziercurveto.asp" title="HTML DOM bezierCurveTo() 方法">bezierCurveTo()</a></td>
+            <td>为当前的子路径添加一个三次贝塞尔曲线。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_clearrect.asp" title="HTML DOM clearRect() 方法">clearRect()</a></td>
+            <td>在一个画布的一个矩形区域中清除掉像素。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_clip.asp" title="HTML DOM clip() 方法">clip()</a></td>
+            <td>使用当前路径作为连续绘制操作的剪切区域。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_closepath.asp" title="HTML DOM closePath() 方法">closePath()</a></td>
+            <td>如果当前子路径是打开的，就关闭它。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_createlineargradient.asp" title="HTML DOM createLinearGradient() 方法">createLinearGradient()</a></td>
+            <td>返回代表线性颜色渐变的一个 CanvasGradient 对象。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_createpattern.asp" title="HTML DOM createPattern() 方法">createPattern()</a></td>
+            <td>返回代表贴图图像的一个 CanvasPattern 对象。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_createradialgradient.asp" title="HTML DOM createRadialGradient() 方法">createRadialGradient()</a></td>
+            <td>返回代表放射颜色渐变的一个 CanvasGradient 对象。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_drawimage.asp" title="HTML DOM drawImage() 方法">drawImage()</a></td>
+            <td>绘制一幅图像。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_fill.asp" title="HTML DOM fill() 方法">fill()</a></td>
+            <td>使用指定颜色、渐变或模式来绘制或填充当前路径的内部。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_fillrect.asp" title="HTML DOM fillRect() 方法">fillRect()</a></td>
+            <td>绘制或填充一个矩形。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_lineto.asp" title="HTML DOM lineTo() 方法">lineTo()</a></td>
+            <td>为当前的子路径添加一条直线线段。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_moveto.asp" title="HTML DOM moveTo() 方法">moveTo()</a></td>
+            <td>设置当前位置并开始一条新的子路径。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_quadraticcurveto.asp" title="HTML DOM quadraticCurveTo() 方法">quadraticCurveTo()</a></td>
+            <td>为当前路径添加一条贝塞尔曲线。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_rect.asp" title="HTML DOM rect() 方法">rect()</a></td>
+            <td>为当前路径添加一条矩形子路径。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_restore.asp" title="HTML DOM restore() 方法">restore()</a></td>
+            <td>为画布重置为最近保存的图像状态。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_rotate.asp" title="HTML DOM rotate() 方法">rotate()</a></td>
+            <td>旋转画布。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_save.asp" title="HTML DOM save() 方法">save()</a></td>
+            <td>保存 CanvasRenderingContext2D 对象的属性、剪切区域和变换矩阵。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_scale.asp" title="HTML DOM scale() 方法">scale()</a></td>
+            <td>标注画布的用户坐标系统。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_stroke.asp" title="HTML DOM stroke() 方法">stroke()</a></td>
+            <td>沿着当前路径绘制或画一条直线。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_strokerect.asp" title="HTML DOM strokeRect() 方法">strokeRect()</a></td>
+            <td>绘制（但不填充）一个矩形。</td>
+        </tr>
+
+        <tr>
+            <td><a href="/htmldom/met_canvasrenderingcontext2d_translate.asp" title="HTML DOM translate() 方法">translate()</a></td>
+            <td>转换画布的用户坐标系统。</td>
+        </tr>
+        </tbody></table>
+</div>
+
+
+<div>
+    <h2>参阅</h2>
+
+    <p><a href="/htmldom/dom_obj_canvas.asp" title="HTML DOM Canvas 对象">HTML DOM Canvas 对象</a></p>
+
+    <p><a href="/html5/tag_canvas.asp" title="HTML5 &lt;canvas&gt; 标签">HTML5 &lt;canvas&gt; 标签</a></p>
+
+    <p><a href="/html5/html_5_canvas.asp" title="HTML5 Canvas">HTML5 Canvas 教程</a></p>
+
+    <p><a href="/html5/html5_ref_canvas.asp" title="HTML5 Canvas 参考手册">HTML5 Canvas 参考手册</a></p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="postBody">
+<div id="cnblogs_post_body"><h1>HTML DOM CanvasRenderingContext2D 对象参考手册</h1>
+<p>&nbsp;</p>
+<div>
+    <h2>CanvasRenderingContext2D 对象</h2>
+    <p>CanvasRenderingContext2D 对象提供了一组用来在画布上绘制的图形函数。可用的函数非常丰富，它们可以分为以下几类：</p>
+    <h3>绘制矩形</h3>
+    <p>可以使用 strokeRect() 和 fillRect() 来绘制矩形的边框和填充矩形。此外，可以使用 clearRect() 来清除矩形所定义的区域。</p>
+    <h3>绘制图像</h3>
+    <p>在 Canvas API 中，图像通过表示 HTML &lt;img&gt; 元素的 Image 对象来指定，或者通过使用 Image() 构造函数所创建的屏幕外图像来指定。一个 Canvas 对象也可以用作图像来源。</p>
+    <p>可以使用 drawImage() 方法在一个画布上绘制图像；而更为常见的形式是，允许源图像的任意矩形区域缩放或绘制到画布上。</p>
+    <h3>创建和渲染路径</h3>
+    <p>画布的一项强大功能是，它能够从基本的绘图操作来构建图形，然后，绘制这些图形的框架（勾勒它们）或者给这些图形的内容涂色（填充它们）。累计起来的操作统一叫做当前路径。一个画布只保持一条当前路径。</p>
+    <p>为了构建一个多条线段所构成的一个连续的封闭形状，绘制操作之间需要一个连接点。为此，画布保存了一个当前位置。画布绘制操作显式地使用这个位置作为它们的起始点，并且更新它直到到达终点。可以把这看做是使用钢笔或纸来绘画：当您完成了一条具体的线段或曲线，当前位置就是完成这一操作之后钢笔所停留的点。</p>
+    <p>可以在当前路径中创建一系列互相不连续的形状，它们都使用同样的绘制参数一起渲染。要分隔开这些形状，请使用 moveTo() 方法，这个方法把当前的位置移动到一个新的位置而不添加一条连接线段。当您这么做的时候，就创建了一条新的路径，这是用来表示一组连接起来的操作的画布术语。</p>
+    <p>一旦您所想要的路径形成了，可以使用 stroke() 绘制其边框，使用 fill() 来绘制其内容；或者两件事都做。</p>
+    <p>可用的图形操作有：用来绘制直线的 lineTo()，用于绘制矩形的 rect()，用于绘制部分圆形的 arc() 或 arcTo()，以及用于绘制曲线的 bezierCurveTo() 或 quadraticCurveTo()。</p>
+    <p>除了勾勒和填充，还可以使用当前路径来指定绘制时画布所使用的剪切区域。这个区域中的像素是显示的，区域之外的像素是不显示的。剪切区域是累加性的；调用 clip() 可以将当前路径和当前绘制区域取交集，产生一个新的区域。不幸的是，没有直接的方法把当前的剪切区域设置为画布的范围；要做到这一点，必须保存和恢复画布的整个图形状态。</p>
+    <p>如果任何子路径中的线段没有形成一个闭合的图形，fill() 和 clip() 操作通过添加一条从子路径的起点到终点的、虚拟（勾勒的时候看不到）线段来闭合它。可选的是，也可以调用 closePath() 来显示地添加这条线段。</p>
+    <h3>颜色、渐变和模式</h3>
+    <p>在填充和勾勒路径时，可用 fillStyle 和 strokeStyle 属性来指定线段或者绘制区域如何绘制。CSS 样式颜色字符串，以及描述渐变和模式的 CanvasGradient 或 CanvasPattern 都是可以接受的。要创建一个渐变，请使用 createLinearGradient() 或 createRadialGradient()。要创建一个模式，请使用 createPattern()。</p>
+    <p>要用 CSS 表示法来指定不透明的颜色，就采用 "#RRGGBB" 形式的字符串，其中 RR、GG 和 BB 分别是指定颜色的红色、绿色和蓝色成分的十六进制，其值都在 00 和 FF 之间。例如，完全红色的值是 "#FF0000"。要指定部分透明的颜色，请使用一个 "rgba(R,G,B,A)" 形式的字符串。在这种形式中，R、G 和 B 将颜色的红色、绿色和蓝色成分指定为 0 到 255 之间的十进制整数，并且 A 把 alpha（不透明）成分指定为 0.0 （完全透明）和 1.0 （完全不透明）之间的一个浮点数值。例如，半透明的完全红色为 "rgba(255,0,0,0.5)"。</p>
+    <h3>线条宽度、线帽和线条连接</h3>
+    <p>画布为调整各种线条显示提供了几个选项。可以使用 lineWidth 属性来指定线条的宽度，用 lineCap 属性来指定的端点如何绘制，并且用 lineJoin 属性来指定线条如何连接。</p>
+    <h3>坐标空间和转换</h3>
+    <p>默认情况下，一个画布的坐标空间使用画布的左上角 (0,0) 作为原点，x 值向右增加，y 值向下增加。这个坐标空间中的一个单位通常转换为像素。</p>
+    <p>然后，可以转换坐标空间，产生你在绘图操作中所指定的用来移动、缩放或旋转的任何坐标或范围。这通过 translate()、scale() 和 rotate() 方法来实现，它们会对画布的变换矩阵产生影响。由于坐标空间可以像这样转换，您传递给 lineTo() 这样方法的坐标可能无法用像素来度量。因此，Canvas API 使用浮点数而不是整数。</p>
+    <p>变换按照它们被指定的顺序相反的顺序来处理。例如，调用 scale() 之后，紧接着调用 translate()，这会首先变换坐标系统，然后再缩放。</p>
+    <h3>组合</h3>
+    <p>通常，图形是一个绘制于另一个的上面，新的图形使得在它之前绘制在其下方的图形变得模糊。这是一个画布中的默认行为。然而，您可以通过为 globalCompositeOperation 属性指定不同的值来执行很多有趣的操作，范围包括从 XOR 操作到增量或减暗图形区域。</p>
+    <h3>阴影</h3>
+    <p>Canvas API 包含了可以自动为您所绘制的任何图形添加下拉阴影的属性。阴影的颜色可用 shadowColor 属性来指定，并且可以通过 shadowOffsetX 和 shadowOffsetY 属性来改变。另外，应用到阴影边缘的羽化量也可以使用 shadowBlur 属性来设置。</p>
+    <h3>保存图形状态</h3>
+    <p>save() 和 restore() 方法允许你保存和恢复一个 CanvasRenderingContext2D 对象的状态。save() 把当前状态推入到栈中，而 restore() 从栈的顶端弹出最近保存的状态，并且根据这些存储的值来设置当前绘图状态。</p>
+    <p>CanvasRenderingContext2D 对象的所有属性（除了画布的属性是一个常量）都是保存的状态的一部分。变换矩阵和剪切区域也是这个状态的一部分，但是当前路径和当前点并不是。</p>
+    <p>&nbsp;</p>
+</div>
+<div>&nbsp;</div>
+<div>
+    <h2>CanvasRenderingContext2D 对象的属性</h2>
+    <h3>canvas 属性</h3>
+    <p>这个环境可以绘制于其上的 Canvas 元素。</p>
+    <h3>fillStyle 属性</h3>
+    <p>用来填充路径的当前的颜色、模式或渐变。这个属性可以设置为一个字符串或者一个 CanvasGradient 对象 或 CanvasPattern 对象。当设置为一个字符串时，它被解析为一个 CSS 颜色值并且用来进行实心填充。当设置为一个 CanvasGradient 或 CanvasPattern 对象，通过使用指定的渐变或模式来完成填充。</p>
+    <h3>globalAlpha 属性</h3>
+    <p>指定在画布上绘制的内容的不透明度。这个值的范围在 0.0（完全透明）和 1.0（完全不透明）之间。默认值为 1.0。</p>
+    <h3>globalCompositeOperation 属性</h3>
+    <p>指定颜色如何与画布上已有的颜色组合（合成）。</p>
+    <h3>lineCap 属性</h3>
+    <p>指定线条的末端如何绘制。合法的值是 "butt"、"round" 和 "square"。默认值是 "butt"。</p>
+    <h3>lineJoin 属性</h3>
+    <p>指定两条线条如何连接。合法的值是 "round"、"bevel" 和 "miter"。默认值是 "miter"。</p>
+    <h3>lineWidth 属性</h3>
+    <p>指定了画笔（绘制线条）操作的线条宽度。默认值是 1.0，并且这个属性必须大于 0.0。较宽的线条在路径上居中，每边有线条宽的一半。</p>
+    <h3>miterLimit 属性</h3>
+    <p>当 lineJoin 属性为 "miter" 的时候，这个属性指定了斜连接长度和线条宽度的最大比率。</p>
+    <h3>shadowBlur 属性</h3>
+    <p>指定羽化阴影的程度。默认值是 0。</p>
+    <h3>shadowColor 属性</h3>
+    <p>把阴影的颜色指定为一个 CSS 字符串或 Web 样式字符串，并且可以包含一个 alpha 部分来表示透明度。默认值是 black。</p>
+    <h3>shadowOffsetX, shadowOffsetY 属性</h3>
+    <p>指定阴影的水平偏移和垂直偏移。较大的值使得阴影化的对象似乎漂浮在背景的较高位置上。默认值是 0。</p>
+    <h3>strokeStyle 属性</h3>
+    <p>指定了用于画笔（绘制）路径的颜色、模式和渐变。这个属性可能是一个字符串，或者一个 CanvasGradient 对象 或 CanvasPattern 对象。如果是一个字符串，它被解析为一个 CSS 颜色值，并且画笔用所得的实色来绘制。如果这个属性的值是一个 CanvasGradient 对象或 CanvasPattern 对象，画笔使用这个渐变或模式来实现。</p>
+    <p>&nbsp;</p>
+</div>
+<div>
+    <h2>CanvasRenderingContext2D 对象的方法</h2>
+    <table class="dataintable">
+        <tbody>
+        <tr><th>方法</th><th>描述</th></tr>
+        <tr>
+            <td>arc()</td>
+            <td>用一个中心点和半径，为一个画布的当前子路径添加一条弧线。</td>
+        </tr>
+        <tr>
+            <td>arcTo()</td>
+            <td>使用目标点和一个半径，为当前的子路径添加一条弧线。</td>
+        </tr>
+        <tr>
+            <td>beginPath()</td>
+            <td>开始一个画布中的一条新路径（或者子路径的一个集合）。</td>
+        </tr>
+        <tr>
+            <td>bezierCurveTo()</td>
+            <td>为当前的子路径添加一个三次贝塞尔曲线。</td>
+        </tr>
+        <tr>
+            <td>clearRect()</td>
+            <td>在一个画布的一个矩形区域中清除掉像素。</td>
+        </tr>
+        <tr>
+            <td>clip()</td>
+            <td>使用当前路径作为连续绘制操作的剪切区域。</td>
+        </tr>
+        <tr>
+            <td>closePath()</td>
+            <td>如果当前子路径是打开的，就关闭它。</td>
+        </tr>
+        <tr>
+            <td>createLinearGradient()</td>
+            <td>返回代表线性颜色渐变的一个 CanvasGradient 对象。</td>
+        </tr>
+        <tr>
+            <td>createPattern()</td>
+            <td>返回代表贴图图像的一个 CanvasPattern 对象。</td>
+        </tr>
+        <tr>
+            <td>createRadialGradient()</td>
+            <td>返回代表放射颜色渐变的一个 CanvasGradient 对象。</td>
+        </tr>
+        <tr>
+            <td>drawImage()</td>
+            <td>绘制一幅图像。</td>
+        </tr>
+        <tr>
+            <td>fill()</td>
+            <td>使用指定颜色、渐变或模式来绘制或填充当前路径的内部。</td>
+        </tr>
+        <tr>
+            <td>fillRect()</td>
+            <td>绘制或填充一个矩形。</td>
+        </tr>
+        <tr>
+            <td>lineTo()</td>
+            <td>为当前的子路径添加一条直线线段。</td>
+        </tr>
+        <tr>
+            <td>moveTo()</td>
+            <td>设置当前位置并开始一条新的子路径。</td>
+        </tr>
+        <tr>
+            <td>quadraticCurveTo()</td>
+            <td>为当前路径添加一条贝塞尔曲线。</td>
+        </tr>
+        <tr>
+            <td>rect()</td>
+            <td>为当前路径添加一条矩形子路径。</td>
+        </tr>
+        <tr>
+            <td>restore()</td>
+            <td>为画布重置为最近保存的图像状态。</td>
+        </tr>
+        <tr>
+            <td>rotate()</td>
+            <td>旋转画布。</td>
+        </tr>
+        <tr>
+            <td>save()</td>
+            <td>保存 CanvasRenderingContext2D 对象的属性、剪切区域和变换矩阵。</td>
+        </tr>
+        <tr>
+            <td>scale()</td>
+            <td>标注画布的用户坐标系统。</td>
+        </tr>
+        <tr>
+            <td>stroke()</td>
+            <td>沿着当前路径绘制或画一条直线。</td>
+        </tr>
+        <tr>
+            <td>strokeRect()</td>
+            <td>绘制（但不填充）一个矩形。</td>
+        </tr>
+        <tr>
+            <td>translate()</td>
+            <td>转换画布的用户坐标系统。</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<p>&nbsp;</p>
+<h2>globalCompositeOperation 属性</h2>
+<div>
+    <p>globalCompositeOperation 属性说明如何在画布上组合颜色。</p>
+    <p>&nbsp;</p>
+    <h3>语法</h3>
+    <pre>CanvasRenderingContext2D.globalCompositeOperation</pre>
+    <h3>描述</h3>
+    <p>globalCompositeOperation 属性说明了绘制到画布上的颜色是如何与画布上已有的颜色组合（或“合成”）的。</p>
+    <p>下面的表格列出了可能的值及其含义。这些值中的 "source" 一词，指的是将要绘制到画布上的颜色，而 "destination" 指的是画布上已经存在的颜色。默认值是 "source-over"。</p>
+    <table class="dataintable">
+        <tbody>
+        <tr><th>值</th><th>含义</th></tr>
+        <tr>
+            <td>"copy"</td>
+            <td>只绘制新图形，删除其他所有内容。</td>
+        </tr>
+        <tr>
+            <td>"darker"</td>
+            <td>在图形重叠的地方，颜色由两个颜色值相减后决定。</td>
+        </tr>
+        <tr>
+            <td>"destination-atop"</td>
+            <td>已有的内容只有在它和新的图形重叠的地方保留。新图形绘制于内容之后。</td>
+        </tr>
+        <tr>
+            <td>"destination-in"</td>
+            <td>在新图形以及已有画布重叠的地方，已有内容都保留。所有其他内容成为透明的。</td>
+        </tr>
+        <tr>
+            <td>"destination-out"</td>
+            <td>在已有内容和新图形不重叠的地方，已有内容保留。所有其他内容成为透明。</td>
+        </tr>
+        <tr>
+            <td>"destination-over"</td>
+            <td>新图形绘制于已有内容的后面。</td>
+        </tr>
+        <tr>
+            <td>"lighter"</td>
+            <td>在图形重叠的地方，颜色由两种颜色值的加值来决定。</td>
+        </tr>
+        <tr>
+            <td>"source-atop"</td>
+            <td>只有在新图形和已有内容重叠的地方，才绘制新图形。</td>
+        </tr>
+        <tr>
+            <td>"source-in"</td>
+            <td>在新图形以及已有内容重叠的地方，新图形才绘制。所有其他内容成为透明。</td>
+        </tr>
+        <tr>
+            <td>"source-out"</td>
+            <td>只有在和已有图形不重叠的地方，才绘制新图形。</td>
+        </tr>
+        <tr>
+            <td>"source-over"</td>
+            <td>新图形绘制于已有图形的顶部。这是默认的行为。</td>
+        </tr>
+        <tr>
+            <td>"xor"</td>
+            <td>在重叠和正常绘制的其他地方，图形都成为透明的。</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>&nbsp;</div>
+<div>
+<h2>lineCap 属性</h2>
+<div>
+    <p>lineCap 属性指定线段的末端如何绘制。</p>
+    <p>&nbsp;</p>
+    <h3>语法</h3>
+    <pre>CanvasRenderingContext2D.lineCap</pre>
+    <h3>描述</h3>
+    <p>lineCap 属性指定线段如何结束。只有绘制较宽线段时，它才有效。这个属性的合法值如下表所示。默认值是："butt"。</p>
+    <table class="dataintable">
+        <tbody>
+        <tr><th>值</th><th>含义</th></tr>
+        <tr>
+            <td>"butt"</td>
+            <td>这个默认值指定了线段应该没有线帽。线条的末点是平直的而且和线条的方向正交，这条线段在其端点之外没有扩展。</td>
+        </tr>
+        <tr>
+            <td>"round"</td>
+            <td>这个值指定了线段应该带有一个半圆形的线帽，半圆的直径等于线段的宽度，并且线段在端点之外扩展了线段宽度的一半。</td>
+        </tr>
+        <tr>
+            <td>"square"</td>
+            <td>这个值表示线段应该带有一个矩形线帽。这个值和 "butt" 一样，但是线段扩展了自己的宽度的一半。</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>&nbsp;</div>
+<div>
+<h2>lineJoin 属性</h2>
+<div>
+<p>lineJoin 属性说明如何绘制交点。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>CanvasRenderingContext2D.lineJoin</pre>
+<h3>描述</h3>
+<p>当一个路径包含了线段或曲线相交的交点的时候，lineJoin 属性说明如何绘制这些交点。只有当绘制具有宽度的线条的时候，这一属性的效果才能表现出来。</p>
+<p>这一属性的默认值是 "miter"，它说明了两条线段的外边缘一直扩展到它们相交。当两条线段以一个锐角相交，斜角连接可能变得很长。miterLimit 属性为一个斜面的长度设置了上限。超过这一限制，斜面就变成斜角了。</p>
+<p>值 "round" 说明定点的外边缘应该和一个填充的弧接合，这个弧的直径等于线段的宽度。"bevel" 值说明顶点的外边缘应该和一个填充的三角形相交。</p>
+<p>&nbsp;</p>
+<h2>miterLimit 属性</h2>
+<div>
+<p>miterLimit 属性说明如何绘制交点。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>CanvasRenderingContext2D.miterLimit</pre>
+<h3>描述</h3>
+<p>当宽线条使用设置为 "miter" 的 lineJoin 属性绘制并且两条线段以锐角相交的时候，所得的斜面可能相当长。当斜面太长，就会变得不协调。miterLimit 属性为斜面的长度设置一个上限。这个属性表示斜面长度和线条长度的比值。默认是 10，意味着一个斜面的长度不应该超过线条宽度的 10 倍。如果斜面达到这个长度，它就变成斜角了。当 lineJoin 为 "round" 或 "bevel" 的时候，这个属性无效。</p>
+<p>&nbsp;</p>
+<h2>arc() 方法</h2>
+<div>
+<p>arc() 方法使用一个中心点和半径，为一个画布的当前子路径添加一条弧。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>arc(<em>x</em>, <em>y</em>, <em>radius</em>, <em>startAngle</em>, <em>endAngle</em>, <em>counterclockwise</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>x, y</td>
+        <td>描述弧的圆形的圆心的坐标。</td>
+    </tr>
+    <tr>
+        <td>radius</td>
+        <td>描述弧的圆形的半径。</td>
+    </tr>
+    <tr>
+        <td>startAngle, endAngle</td>
+        <td>
+            <p>沿着圆指定弧的开始点和结束点的一个角度。这个角度用弧度来衡量。</p>
+            <p>沿着 X 轴正半轴的三点钟方向的角度为 0，角度沿着逆时针方向而增加。</p>
+        </td>
+    </tr>
+    <tr>
+        <td>counterclockwise</td>
+        <td>弧沿着圆周的逆时针方向（TRUE）还是顺时针方向（FALSE）遍历。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>描述</h3>
+<p>这个方法的头 5 个参数指定了圆周的一个起始点和结束点。调用这个方法会在当前点和当前子路径的起始点之间添加一条直线。接下来，它沿着圆周，在子路径的起始点和结束点之间添加弧。</p>
+<p>最后一个 <em>counterclockwise</em> 参数指定了圆应该沿着哪个方向遍历来连接起始点和结束点。这个方法将当前位置设置为弧的终点。</p>
+<p>&nbsp;</p>
+<h2>arcTo() 方法</h2>
+<div>
+    <p>arcTo() 方法使用使用切点和一个半径，来为当前子路径添加一条圆弧。</p>
+    <p>&nbsp;</p>
+    <h3>语法</h3>
+    <pre>arc(<em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em>, <em>radius</em>)</pre>
+    <h3>参数</h3>
+    <table class="dataintable">
+        <tbody>
+        <tr><th>参数</th><th>描述</th></tr>
+        <tr>
+            <td><em>x1</em>, <em>y1</em></td>
+            <td>点 P1 的坐标。</td>
+        </tr>
+        <tr>
+            <td><em>x2</em>, <em>y2</em></td>
+            <td>点 P2 的坐标。</td>
+        </tr>
+        <tr>
+            <td>radius</td>
+            <td>定义圆弧的圆的半径。</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>描述</h3>
+    <p>这个方法为当前的子路径添加了一条圆弧，但是，它所描述的这条圆弧和 arc() 方法所描述的圆弧大不相同。添加给路径的圆弧是具有指定 <em>radius</em> 的圆的一部分。该圆弧有一个点与当前位置到 P1 的线段相切，还有一个点和从 P1 到 P2 的线段相切。这两个切点就是圆弧的起点和终点，圆弧绘制的方向就是连接这两个点的最短圆弧的方向。</p>
+    <p>在很多常见的应用中，圆弧开始于当前位置而结束于 P2，但情况并不总是这样。如果当前的位置和圆弧的起点不同，这个方法添加了一条从当前位置到圆弧起点的直线。这个方法总是将当前位置设置为圆弧的终点。</p>
+</div>
+<div>
+    <h2>实例</h2>
+    <p>可以用下面的代码绘制一个矩形的右上角（圆角）：</p>
+<pre>c.moveTo(10,10);		<span>//在左上方开始</span>
+c.lineTo(90,10);		<span>//到达圆角开始点的水平线</span>
+c.arcTo(100,10,100,20,10);	<span>//圆角</span>
+c.lineTo(100,100);		<span>//到达右下方的垂直线</span></pre>
+</div>
+<div>
+<h1>&nbsp;</h1>
+<h2>beginPath() 方法</h2>
+<div>
+<p>beginPath() 方法在一个画布中开始子路径的一个新的集合。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>beginPath()</pre>
+<h3>描述</h3>
+<p>beginPath() 丢弃任何当前定义的路径并且开始一条新的路径。它把当前的点设置为 (0,0)。</p>
+<p>当一个画布的环境第一次创建，beginPath() 方法会被显式地调用。</p>
+<p>&nbsp;</p>
+<h2>bezierCurveTo() 方法</h2>
+<div class="backtoreference">bezierCurveTo() 方法在一个画布中开始子路径的一个新的集合。</div>
+<div class="backtoreference">&nbsp;</div>
+<div>
+<h3>语法</h3>
+<pre>bezierCurveTo(<em>cpX1</em>, <em>cpY1</em>, <em>cpX2</em>, <em>cpY2</em>, <em>x</em>, <em>y</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>cpX1, cpY1</td>
+        <td>和曲线的开始点（当前位置）相关联的控制点的坐标。</td>
+    </tr>
+    <tr>
+        <td>cpX2, cpY2</td>
+        <td>和曲线的结束点相关联的控制点的坐标。</td>
+    </tr>
+    <tr>
+        <td>x, y</td>
+        <td>曲线的结束点的坐标。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>描述</h3>
+<p>bezierCurveTo() 为一个画布的当前子路径添加一条三次贝塞尔曲线。这条曲线的开始点是画布的当前点，而结束点是 (<em>x</em>, <em>y</em>)。两条贝塞尔曲线控制点 (<em>cpX1</em>, <em>cpY1</em>) 和 (<em>cpX2</em>, <em>cpY2</em>) 定义了曲线的形状。当这个方法返回的时候，当前的位置为 (<em>x</em>, <em>y</em>)。</p>
+<p>&nbsp;</p>
+<h2>clearRect() 方法</h2>
+<div class="backtoreference">clearRect() 方法删除一个画布的矩形区域。</div>
+<div class="backtoreference">&nbsp;</div>
+<div>
+<h3>语法</h3>
+<pre>clearRect(<em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>x, y</td>
+        <td>矩形的左上角的坐标。</td>
+    </tr>
+    <tr>
+        <td>width, height</td>
+        <td>矩形的尺寸。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>描述</h3>
+<p>clearRect() 方法擦除了指定的矩形，并且用一个透明的颜色填充它。</p>
+<p>&nbsp;</p>
+<h2>clip() 方法</h2>
+<div>
+<p>clip() 方法设置一个画布的剪切路径。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>clip()</pre>
+<h3>描述</h3>
+<p>clip() 方法用当前剪切路径来剪切当前路径，然后使用剪切后的路径作为新的剪切路径。注意，没有方法来扩大剪切路径。如果想要一个临时的剪切路径，应该先调用 save() 以便使用 restore() 恢复最初的剪切路径。一个画布的默认剪切路径就是画布的矩形自身。</p>
+<p>&nbsp;</p>
+<h2>closePath() 方法</h2>
+<div>
+    <p>closePath() 方法关闭一条打开的子路径。</p>
+    <p>&nbsp;</p>
+    <h3>语法</h3>
+    <pre>closePath()</pre>
+    <h3>描述</h3>
+    <p>如果画布的子路径是打开的，closePath() 通过添加一条线条连接当前点和子路径起始点来关闭它。</p>
+    <p>如果子路径已经闭合了，这个方法不做任何事情。</p>
+    <p>一旦子路径闭合，就不能再为其添加更多的直线或曲线了。要继续向该路径添加，需要通过调用 moveTo() 开始一条新的子路径。</p>
+</div>
+<div>
+<p class="note"><span>注释：</span>不需要在勾勒或填充一条路径之前调用 closePath()。当填充的时候（并且当你调用 clip() 的时候），路径是隐式闭合的。</p>
+<p class="note">&nbsp;</p>
+<h2>createLinearGradient() 方法</h2>
+<div>
+<p>createLinearGradient() 方法创建一条线性颜色渐变。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>createLinearGradient(<em>xStart</em>, <em>yStart</em>, <em>xEnd</em>, <em>yEnd</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>xStart, yStart</td>
+        <td>渐变的起始点的坐标。</td>
+    </tr>
+    <tr>
+        <td>xEnd, yEnd</td>
+        <td>渐变的结束点的坐标。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>返回值</h3>
+<p>表示一个线性颜色渐变的一个 CanvasGradient 对象。</p>
+<h3>描述</h3>
+<p>这个方法创建并返回了一个新的 CanvasGradient 对象，它在指定的起始点和结束点之间线性地内插颜色值。注意，这个方法并没有为渐变指定任何颜色。使用返回对象的 addColorStop() 来做到这一点。要使用一个渐变来勾勒线条或填充区域，只需要把 CanvasGradient 对象赋给 strokeStyle 属性或 fillStyle 属性即可。</p>
+<p>&nbsp;</p>
+<h2>createPattern() 方法</h2>
+<div class="backtoreference">createPattern() 方法为贴图图像创建一个模式。</div>
+<div class="backtoreference">&nbsp;</div>
+<div>
+<h3>语法</h3>
+<pre>createPattern(<em>image</em>, <em>repetitionStyle</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>image</td>
+        <td>
+            <p>需要贴图的图像。</p>
+            <p>这个参数通常是一个 Image 对象，但是也可以使用一个 Canvas 元素。</p>
+        </td>
+    </tr>
+    <tr>
+        <td>repetitionStyle</td>
+        <td>说明图像如何贴图。可能的值如下所示：
+            <ul class="listintable">
+                <li>"repeat" - 在各个方向上都对图像贴图。默认值。</li>
+                <li>"repeat-x" - 只在 X 方向上贴图。</li>
+                <li>"repeat-y" - 只在 Y 方向上贴图。</li>
+                <li>"no-repeat" - 不贴图，只使用它一次。</li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h3>返回值</h3>
+<p>表示模式的一个 CanvasPattern 对象。</p>
+<h3>描述</h3>
+<p>createPattern() 方法创建并返回一个 CanvasPattern 对象，该对象表示一个贴图图像所定义的模式。要使用一个模式来勾勒线条或填充区域，可以把一个 CanvasPattern 对象用作 strokeStyle 属性或 fillStyle 属性的值。</p>
+<p>&nbsp;</p>
+<h2>createRadialGradient() 方法</h2>
+<div>
+<p>createRadialGradient() 方法创建一条放射颜色渐变。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>createLinearGradient(<em>xStart</em>, <em>yStart</em>, <em>radiusStart</em>, <em>xEnd</em>, <em>yEnd</em>, <em>radiusEnd</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>xStart, yStart</td>
+        <td>开始圆的圆心的坐标。</td>
+    </tr>
+    <tr>
+        <td>radiusStart</td>
+        <td>开始圆的直径。</td>
+    </tr>
+    <tr>
+        <td>xEnd, yEnd</td>
+        <td>结束圆的圆心的坐标。</td>
+    </tr>
+    <tr>
+        <td>radiusEnd</td>
+        <td>结束圆的直径。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>返回值</h3>
+<p>表示一个放射性颜色渐变的一个 CanvasGradient 对象。</p>
+<h3>描述</h3>
+<p>这个方法创建并返回了一个新的 CanvasGradient 对象，该对象在两个指定圆的圆周之间放射性地插值颜色。注意，这个方法并没有指定任何用来渐变的颜色。使用返回对象的 addColorStop() 方法做到这一点。要使用一个渐变来勾勒线条或填充区域，只需要把 CanvasGradient 对象赋给 strokeStyle 属性或 fillStyle 属性即可。</p>
+<p>放射性渐变的绘制方法：使用第一个圆的圆周在偏移 0 处的颜色和第二个圆的圆周在偏移 1 处的颜色，在两个位置之间的圆上插入颜色值（红色、绿色、蓝色和 alpha）。</p>
+<p>&nbsp;</p>
+<h2>drawImage() 方法</h2>
+<div>
+<p>drawImage() 方法绘制一幅图像。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>drawImage(<em>image</em>, <em>x</em>, <em>y</em>)
+drawImage(<em>image</em>, <em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>)
+drawImage(<em>image</em>, <em>sourceX</em>, <em>sourceY</em>, <em>sourceWidth</em>, <em>sourceHeight</em>,
+          <em>destX</em>, <em>destY</em>, <em>destWidth</em>, <em>destHeight</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>image</td>
+        <td>
+            <p>所要绘制的图像。</p>
+            <p>这必须是表示 &lt;img&gt; 标记或者屏幕外图像的 Image 对象，或者是 Canvas 元素。</p>
+        </td>
+    </tr>
+    <tr>
+        <td>x, y</td>
+        <td>要绘制的图像的左上角的位置。</td>
+    </tr>
+    <tr>
+        <td>width, height</td>
+        <td>图像所应该绘制的尺寸。指定这些参数使得图像可以缩放。</td>
+    </tr>
+    <tr>
+        <td>sourceX, sourceY</td>
+        <td>图像将要被绘制的区域的左上角。这些整数参数用图像像素来度量。</td>
+    </tr>
+    <tr>
+        <td class="no_wrap">sourceWidth, sourceHeight</td>
+        <td>图像所要绘制区域的大小，用图像像素表示。</td>
+    </tr>
+    <tr>
+        <td>destX, destY</td>
+        <td>所要绘制的图像区域的左上角的画布坐标。</td>
+    </tr>
+    <tr>
+        <td>destWidth, destHeight</td>
+        <td>图像区域所要绘制的画布大小。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>描述</h3>
+<p>drawImage() 方法有 3 个变形。第一个变形把整个图像复制到画布，将其放置到指定点的左上角，并且将每个图像像素映射成画布坐标系统的一个单元。第二个变形也把整个图像复制到画布，但是允许您用画布单位来指定想要的图像的宽度和高度。第三个变形则是完全通用的，它允许您指定图像的任何矩形区域并复制它，对画布中的任何位置都可进行任何的缩放。</p>
+<p>传递给 drawImage() 方法的图像必须是 Image 对象或 Canvas 元素。一个 Image 对象能够表示文档中的一个 &lt;img&gt; 标记或者使用 Image() 构造函数所创建的一个屏幕外图像。</p>
+<p>&nbsp;</p>
+<h2>fill() 方法</h2>
+<div>
+<p>fill() 方法填充路径。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>fill()</pre>
+<h3>描述</h3>
+<p>fill() 方法使用 fillStyle 属性所指定的颜色、渐变和模式来填充当前路径。这一路径的每一条子路径都单独填充。任何未闭合的子路径都被填充，就好像已经对他么调用了 closePath() 方法一样（但是，注意，实际上没有这么让子路径成为闭合的）。</p>
+<p>画布使用“非零匝数规则”来确定哪个点在路径的内部，而哪个点在路径的外部。这一规定的细节超出了本参考页的范围，但是，它们通常只和那些与自身相交的复杂路径相交。</p>
+<p>填充一条路径并不会清除该路径。你可以在调用 fill() 之后再次调用 stroke()，而不需要重新定义该路径。</p>
+<p>&nbsp;</p>
+<h2>fillRect() 方法</h2>
+<div class="backtoreference">
+    <p>fillRect() 方法填充一个矩形。</p>
+    <p>&nbsp;</p>
+</div>
+<div>
+<h3>语法</h3>
+<pre>fillRect(<em>x</em>, <em>y</em>, <em>weight</em>, <em>height</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>x, y</td>
+        <td>矩形的左上角的坐标。</td>
+    </tr>
+    <tr>
+        <td>weight, height</td>
+        <td>矩形的大小。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>描述</h3>
+<p>fillRect() 方法使用 fillStyle 属性所指定的颜色、渐变和模式来填充指定的矩形。</p>
+<p>fillRect() 方法的当前实现还清除了路径，就好像 beginPath() 已经调用了。这一令人惊讶的行为可能不会标准化，因此不应该指望它。</p>
+<p>&nbsp;</p>
+<h2>lineTo() 方法</h2>
+<div>
+<p>lineTo() 方法为当前子路径添加一条直线。</p>
+<p>&nbsp;</p>
+<h3>语法</h3>
+<pre>lineTo(<em>x</em>, <em>y</em>)</pre>
+<h3>参数</h3>
+<table class="dataintable">
+    <tbody>
+    <tr><th>参数</th><th>描述</th></tr>
+    <tr>
+        <td>x, y</td>
+        <td>直线的终点的坐标。</td>
+    </tr>
+    </tbody>
+</table>
+<h3>描述</h3>
+<p>lineTo() 方法为当前子路径添加一条直线。这条直线从当前点开始，到 (x, y) 结束。当方法返回时，当前点是 (x,y)。</p>
+<p>&nbsp;</p>
+<h2>moveTo() 方法</h2>
+<div>
+    <p>moveTo() 方法设置当前位置并开始一条新的子路径。</p>
+    <p>&nbsp;</p>
+    <h3>语法</h3>
+    <pre>moveTo(<em>x</em>, <em>y</em>)</pre>
+    <h3>参数</h3>
+    <table class="dataintable">
+        <tbody>
+        <tr><th>参数</th><th>描述</th></tr>
+        <tr>
+            <td>x, y</td>
+            <td>新的当前点的坐标。</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>描述</h3>
+    <p>moveTo() 方法将当前位置设置为 (x, y) 并用它作为第一点创建一条新的子路径。如果之前有一条子路径并且它包含刚才的那一点，那么从路径中删除该子路径。</p>
+    <p>&nbsp;</p>
+    <h2>quadraticCurveTo() 方法</h2>
+    <div>
+        <p>quadraticCurveTo() 方法为当前路径添加一条贝塞尔曲线。</p>
+        <p>&nbsp;</p>
+        <h3>语法</h3>
+        <pre>quadraticCurveTo(<em>cpX</em>, <em>cpY</em>, <em>x</em>, <em>y</em>)</pre>
+        <h3>参数</h3>
+        <table class="dataintable">
+            <tbody>
+            <tr><th>参数</th><th>描述</th></tr>
+            <tr>
+                <td>cpX, cpY</td>
+                <td>控制点的坐标。</td>
+            </tr>
+            <tr>
+                <td>x, y</td>
+                <td>曲线终点的坐标。</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>描述</h3>
+        <p>quadraticCurveTo() 方法为当前的子路径添加一条贝塞尔曲线。这条曲线从当前点开始，到 (<em>x</em>,<em>y</em>) 结束。控制点 (<em>cpX</em>,<em>cpY</em>) 说明了这两个点之间的曲线的形状（贝塞尔曲线的数学原理超过了本参考页的范围）。</p>
+        <p>当 quadraticCurveTo() 方法返回时，当前位置是 (<em>x</em>,<em>y</em>)。</p>
+        <p>&nbsp;</p>
+        <h2>rect() 方法</h2>
+        <div>
+            <p>rect() 方法为当前路径添加一条矩形子路径。</p>
+            <p>&nbsp;</p>
+            <h3>语法</h3>
+            <pre>quadraticCurveTo(<em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>)</pre>
+            <h3>参数</h3>
+            <table class="dataintable">
+                <tbody>
+                <tr><th>参数</th><th>描述</th></tr>
+                <tr>
+                    <td>x, y</td>
+                    <td>矩形的左上角的坐标。</td>
+                </tr>
+                <tr>
+                    <td>width, height</td>
+                    <td>矩形的大小。</td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>描述</h3>
+            <p>rect() 方法为路径添加了一个矩形。这个矩形是路径的一个子路径并且没有和路径中的任何其他子路径相连。</p>
+            <p>当 rect() 方法返回时，当前位置是 (0,0)。</p>
+            <p>&nbsp;</p>
+            <h2>restore() 方法</h2>
+            <div class="backtoreference">
+                <p>restore() 方法将绘图状态置为保存值。</p>
+                <p>&nbsp;</p>
+            </div>
+            <div>
+                <h3>语法</h3>
+                <pre>restore()</pre>
+                <h3>描述</h3>
+                <p>restore() 方法从栈中弹出存储的图形状态并恢复 CanvasRenderingContext2D 对象的属性、剪切路径和变换矩阵的值。</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <h2>rotate() 方法</h2>
+                <div class="backtoreference">
+                    <p>rotate() 方法旋转画布的坐标系统。</p>
+                    <p>&nbsp;</p>
+                </div>
+                <div>
+                    <h3>语法</h3>
+                    <pre>rotate(<em>angle</em>)</pre>
+                    <h3>参数</h3>
+                    <table class="dataintable">
+                        <tbody>
+                        <tr><th>参数</th><th>描述</th></tr>
+                        <tr>
+                            <td>angle</td>
+                            <td>旋转的量，用弧度表示。正值表示顺时针方向旋转，负值表示逆时针方向旋转。</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3>描述</h3>
+                    <p>rotate() 方法通过指定一个角度，改变了画布坐标和 Web 浏览器中的 &lt;Canvas&gt; 元素的像素之间的映射，使得任意后续绘图在画布中都显示为旋转的。它并没有旋转 &lt;Canvas&gt; 元素本身。注意，这个角度是用弧度指定的。</p>
+                    <p class="tip"><span>提示：</span>如需把角度转换为弧度，请乘以 Math.PI 并除以 180。</p>
+                    <p class="tip">&nbsp;</p>
+                    <h2>save() 方法</h2>
+                    <div class="backtoreference">
+                        <p>save() 方法保存当前图像状态的一份拷贝。</p>
+                        <p>&nbsp;</p>
+                    </div>
+                    <div>
+                        <h3>语法</h3>
+                        <pre>save()</pre>
+                        <h3>描述</h3>
+                        <p>save() 方法把当前状态的一份拷贝压入到一个保存图像状态的栈中。这就允许您临时地改变图像状态，然后，通过调用 restore() 来恢复以前的值。</p>
+                        <p>一个画布的图形状态包含了 CanvasRenderingContext2D 对象的所有属性（除了只读的画布属性以外）。它还包含了一个变换矩阵，该矩阵是调用 rotate()、scale() 和 translate() 的结果。另外，它包含了剪切路径，该路径通过 clip() 方法指定。可是要注意，当前路径和当前位置并非图形状态的一部分，并且不会由这个方法保存。</p>
+                        <p>&nbsp;</p>
+                        <h2>scale() 方法</h2>
+                        <div class="backtoreference">
+                            <p>scale() 方法标注画布的用户坐标系统。</p>
+                            <p>&nbsp;</p>
+                        </div>
+                        <div>
+                            <h3>语法</h3>
+                            <pre>scale(<em>sx</em>, <em>sy</em>)</pre>
+                            <h3>参数</h3>
+                            <table class="dataintable">
+                                <tbody>
+                                <tr><th>参数</th><th>描述</th></tr>
+                                <tr>
+                                    <td>sx, sy</td>
+                                    <td>水平和垂直的缩放因子。</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <h3>描述</h3>
+                            <p>scale() 方法为画布的当前变换矩阵添加一个缩放变换。缩放通过独立的水平和垂直缩放因子来完成。例如，传递一个值 2.0 和 0.5 将会导致绘图路径宽度变为原来的两倍，而高度变为原来的 1/2。指定一个负的 <em>sx</em> 值，会导致 X 坐标沿 Y 轴对折，而指定一个负的 <em>sy</em> 会导致 Y 坐标沿着 X 轴对折。</p>
+                            <p>&nbsp;</p>
+                            <h2>stroke() 方法</h2>
+                            <div>
+                                <p>stroke() 方法绘制当前路径。</p>
+                                <p>&nbsp;</p>
+                                <h3>语法</h3>
+                                <pre>stroke()</pre>
+                                <h3>描述</h3>
+                                <p>stroke() 方法绘制当前路径的边框。路径定义的几何线条产生了，但线条的可视化取决于 strokeStyle、lineWidth、lineJoin、lineCap 和 miterLimit 等属性。</p>
+                                <p>术语“勾勒”，指的是钢笔或笔刷的画笔。它意味着“画......轮廓”。和 stroke() 方法相对的是 fill()，该方法会填充路径的内部区域而不是勾勒出路径的边框。</p>
+                                <p>&nbsp;</p>
+                                <h2>strokeRect() 方法</h2>
+                                <div>
+                                    <p>strokeRect() 方法用于在单选按钮上模拟一次鼠标点击：</p>
+                                    <p>&nbsp;</p>
+                                    <h3>语法</h3>
+                                    <pre>strokeRect(x, y, width, height)</pre>
+                                    <h3>描述</h3>
+                                    <p>该方法按照指定的位置和大小绘制一个矩形的边框（但并不填充矩形的内部）。线条颜色和线条宽度由 strokeStyle 和 lineWidth 属性指定。矩形边角的形状由 <a title="HTML DOM lineJoin 属性" href="http://www.w3school.com.cn/htmldom/prop_canvasrenderingcontext2d_linejoin.asp">lineJoin 属性</a>指定。</p>
+                                    <p>strokeRect() 的当前实现会清晰化路径，就好像 beginPath() 已经调用过了。这一令人吃惊的行为可能不会标准化，所以不能指望它。</p>
+                                    <p>&nbsp;</p>
+                                    <h2>translate() 方法</h2>
+                                    <div>
+                                        <p>translate() 方法转换画布的用户坐标系统。</p>
+                                        <p>&nbsp;</p>
+                                        <h3>语法</h3>
+                                        <pre>translate(<em>dx</em>, <em>dy</em>)</pre>
+                                        <h3>参数</h3>
+                                        <table class="dataintable">
+                                            <tbody>
+                                            <tr><th>参数</th><th>描述</th></tr>
+                                            <tr>
+                                                <td>dx, dy</td>
+                                                <td>转换的量的 X 和 Y 大小。</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3>描述</h3>
+                                        <p>translate() 方法为画布的变换矩阵添加水平的和垂直的偏移。参数 <em>dx</em> 和 <em>dy</em> 添加给后续定义路径中的所有点。</p>
+                                        <p>&nbsp;</p>
+                                        <h1>HTML Canvas 2D Context规范</h1>
+                                        <h2><strong>WHATWG（<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#2dcontext">http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#2dcontext</a>）</strong></h2>
+                                        <div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+                                            <pre>interface CanvasRenderingContext2D {<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> back-reference to the canvas</span><span style="color: #008000;"><br></span>  readonly attribute HTMLCanvasElement canvas;<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> state</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> save(); <span style="color: #008000;">//</span><span style="color: #008000;"> push state on state stack</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> restore(); <span style="color: #008000;">//</span><span style="color: #008000;"> pop state stack and restore state</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> transformations (default transform is the identity matrix)</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> scale(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> rotate(<span style="color: #0000ff;">double</span> angle);<br>  <span style="color: #0000ff;">void</span> translate(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> transform(<span style="color: #0000ff;">double</span> a, <span style="color: #0000ff;">double</span> b, <span style="color: #0000ff;">double</span> c, <span style="color: #0000ff;">double</span> d, <span style="color: #0000ff;">double</span> e, <span style="color: #0000ff;">double</span> f);<br>  <span style="color: #0000ff;">void</span> setTransform(<span style="color: #0000ff;">double</span> a, <span style="color: #0000ff;">double</span> b, <span style="color: #0000ff;">double</span> c, <span style="color: #0000ff;">double</span> d, <span style="color: #0000ff;">double</span> e, <span style="color: #0000ff;">double</span> f);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> compositing</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> globalAlpha; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 1.0)</span><span style="color: #008000;"><br></span>           attribute DOMString globalCompositeOperation; <span style="color: #008000;">//</span><span style="color: #008000;"> (default source-over)</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> colors and styles</span><span style="color: #008000;"><br></span>           attribute any strokeStyle; <span style="color: #008000;">//</span><span style="color: #008000;"> (default black)</span><span style="color: #008000;"><br></span>           attribute any fillStyle; <span style="color: #008000;">//</span><span style="color: #008000;"> (default black)</span><span style="color: #008000;"><br></span>  CanvasGradient createLinearGradient(<span style="color: #0000ff;">double</span> x0, <span style="color: #0000ff;">double</span> y0, <span style="color: #0000ff;">double</span> x1, <span style="color: #0000ff;">double</span> y1);<br>  CanvasGradient createRadialGradient(<span style="color: #0000ff;">double</span> x0, <span style="color: #0000ff;">double</span> y0, <span style="color: #0000ff;">double</span> r0, <span style="color: #0000ff;">double</span> x1, <span style="color: #0000ff;">double</span> y1, <span style="color: #0000ff;">double</span> r1);<br>  CanvasPattern createPattern(HTMLImageElement image, DOMString repetition);<br>  CanvasPattern createPattern(HTMLCanvasElement image, DOMString repetition);<br>  CanvasPattern createPattern(HTMLVideoElement image, DOMString repetition);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> line caps/joins</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> lineWidth; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 1)</span><span style="color: #008000;"><br></span>           attribute DOMString lineCap; <span style="color: #008000;">//</span><span style="color: #008000;"> "butt", "round", "square" (default "butt")</span><span style="color: #008000;"><br></span>           attribute DOMString lineJoin; <span style="color: #008000;">//</span><span style="color: #008000;"> "round", "bevel", "miter" (default "miter")</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> miterLimit; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 10)</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> shadows</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> shadowOffsetX; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 0)</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> shadowOffsetY; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 0)</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> shadowBlur; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 0)</span><span style="color: #008000;"><br></span>           attribute DOMString shadowColor; <span style="color: #008000;">//</span><span style="color: #008000;"> (default transparent black)</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> rects</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> clearRect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br>  <span style="color: #0000ff;">void</span> fillRect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br>  <span style="color: #0000ff;">void</span> strokeRect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> path API</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> beginPath();<br>  <span style="color: #0000ff;">void</span> closePath();<br>  <span style="color: #0000ff;">void</span> moveTo(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> lineTo(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> quadraticCurveTo(<span style="color: #0000ff;">double</span> cpx, <span style="color: #0000ff;">double</span> cpy, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> bezierCurveTo(<span style="color: #0000ff;">double</span> cp1x, <span style="color: #0000ff;">double</span> cp1y, <span style="color: #0000ff;">double</span> cp2x, <span style="color: #0000ff;">double</span> cp2y, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> arcTo(<span style="color: #0000ff;">double</span> x1, <span style="color: #0000ff;">double</span> y1, <span style="color: #0000ff;">double</span> x2, <span style="color: #0000ff;">double</span> y2, <span style="color: #0000ff;">double</span> radius); <br>  <span style="color: #0000ff;">void</span> rect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br>  <span style="color: #0000ff;">void</span> arc(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> radius, <span style="color: #0000ff;">double</span> startAngle, <span style="color: #0000ff;">double</span> endAngle, optional <span style="color: #0000ff;">boolean</span> anticlockwise); <br>  <span style="color: #0000ff;">void</span> fill();<br>  <span style="color: #0000ff;">void</span> stroke();<br>  <span style="color: #0000ff;">void</span> drawSystemFocusRing(Element element);<br>  <span style="color: #0000ff;">boolean</span> drawCustomFocusRing(Element element);<br>  <span style="color: #0000ff;">void</span> scrollPathIntoView();<br>  <span style="color: #0000ff;">void</span> clip();<br>  <span style="color: #0000ff;">boolean</span> isPointInPath(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> text</span><span style="color: #008000;"><br></span>           attribute DOMString font; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 10px sans-serif)</span><span style="color: #008000;"><br></span>           attribute DOMString textAlign; <span style="color: #008000;">//</span><span style="color: #008000;"> "start", "end", "left", "right", "center" (default: "start")</span><span style="color: #008000;"><br></span>           attribute DOMString textBaseline; <span style="color: #008000;">//</span><span style="color: #008000;"> "top", "hanging", "middle", "alphabetic", "ideographic", "bottom" (default: "alphabetic")</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> fillText(DOMString text, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, optional <span style="color: #0000ff;">double</span> maxWidth);<br>  <span style="color: #0000ff;">void</span> strokeText(DOMString text, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, optional <span style="color: #0000ff;">double</span> maxWidth);<br>  TextMetrics measureText(DOMString text);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> drawing images</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> drawImage(HTMLImageElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLImageElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLImageElement image, <span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLCanvasElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLCanvasElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLCanvasElement image, <span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLVideoElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLVideoElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLVideoElement image, <span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> pixel manipulation</span><span style="color: #008000;"><br></span>  ImageData createImageData(<span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh);<br>  ImageData createImageData(ImageData imagedata);<br>  ImageData getImageData(<span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh);<br>  <span style="color: #0000ff;">void</span> putImageData(ImageData imagedata, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> putImageData(ImageData imagedata, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dirtyX, <span style="color: #0000ff;">double</span> dirtyY, <span style="color: #0000ff;">double</span> dirtyWidth, <span style="color: #0000ff;">double</span> dirtyHeight);<br>};<br><br>interface CanvasGradient {<br>  <span style="color: #008000;">//</span><span style="color: #008000;"> opaque object</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> addColorStop(<span style="color: #0000ff;">double</span> offset, DOMString color);<br>};<br><br>interface CanvasPattern {<br>  <span style="color: #008000;">//</span><span style="color: #008000;"> opaque object</span><span style="color: #008000;"><br></span>};<br><br>interface TextMetrics {<br>  readonly attribute <span style="color: #0000ff;">double</span> width;<br>};<br><br>interface ImageData {<br>  readonly attribute unsigned <span style="color: #0000ff;">long</span> width;<br>  readonly attribute unsigned <span style="color: #0000ff;">long</span> height;<br>  readonly attribute Uint8ClampedArray data;<br>};</pre>
+                                            <div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+                                        <strong></strong></div>
+                                    <div>
+                                        <p>&nbsp;</p>
+                                        <h2><strong>W3C（<a href="http://dev.w3.org/html5/2dcontext/">http://dev.w3.org/html5/2dcontext/</a>）</strong></h2>
+                                        <div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+                                            <pre>interface CanvasRenderingContext2D {<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> back-reference to the canvas</span><span style="color: #008000;"><br></span>  readonly attribute HTMLCanvasElement canvas;<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> state</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> save(); <span style="color: #008000;">//</span><span style="color: #008000;"> push state on state stack</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> restore(); <span style="color: #008000;">//</span><span style="color: #008000;"> pop state stack and restore state</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> transformations (default transform is the identity matrix)</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> scale(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> rotate(<span style="color: #0000ff;">double</span> angle);<br>  <span style="color: #0000ff;">void</span> translate(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> transform(<span style="color: #0000ff;">double</span> a, <span style="color: #0000ff;">double</span> b, <span style="color: #0000ff;">double</span> c, <span style="color: #0000ff;">double</span> d, <span style="color: #0000ff;">double</span> e, <span style="color: #0000ff;">double</span> f);<br>  <span style="color: #0000ff;">void</span> setTransform(<span style="color: #0000ff;">double</span> a, <span style="color: #0000ff;">double</span> b, <span style="color: #0000ff;">double</span> c, <span style="color: #0000ff;">double</span> d, <span style="color: #0000ff;">double</span> e, <span style="color: #0000ff;">double</span> f);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> compositing</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> globalAlpha; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 1.0)</span><span style="color: #008000;"><br></span>           attribute DOMString globalCompositeOperation; <span style="color: #008000;">//</span><span style="color: #008000;"> (default source-over)</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> colors and styles</span><span style="color: #008000;"><br></span>           attribute any strokeStyle; <span style="color: #008000;">//</span><span style="color: #008000;"> (default black)</span><span style="color: #008000;"><br></span>           attribute any fillStyle; <span style="color: #008000;">//</span><span style="color: #008000;"> (default black)</span><span style="color: #008000;"><br></span>  CanvasGradient createLinearGradient(<span style="color: #0000ff;">double</span> x0, <span style="color: #0000ff;">double</span> y0, <span style="color: #0000ff;">double</span> x1, <span style="color: #0000ff;">double</span> y1);<br>  CanvasGradient createRadialGradient(<span style="color: #0000ff;">double</span> x0, <span style="color: #0000ff;">double</span> y0, <span style="color: #0000ff;">double</span> r0, <span style="color: #0000ff;">double</span> x1, <span style="color: #0000ff;">double</span> y1, <span style="color: #0000ff;">double</span> r1);<br>  CanvasPattern createPattern(HTMLImageElement image, DOMString repetition);<br>  CanvasPattern createPattern(HTMLCanvasElement image, DOMString repetition);<br>  CanvasPattern createPattern(HTMLVideoElement image, DOMString repetition);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> line caps/joins</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> lineWidth; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 1)</span><span style="color: #008000;"><br></span>           attribute DOMString lineCap; <span style="color: #008000;">//</span><span style="color: #008000;"> "butt", "round", "square" (default "butt")</span><span style="color: #008000;"><br></span>           attribute DOMString lineJoin; <span style="color: #008000;">//</span><span style="color: #008000;"> "round", "bevel", "miter" (default "miter")</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> miterLimit; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 10)</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> shadows</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> shadowOffsetX; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 0)</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> shadowOffsetY; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 0)</span><span style="color: #008000;"><br></span>           attribute <span style="color: #0000ff;">double</span> shadowBlur; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 0)</span><span style="color: #008000;"><br></span>           attribute DOMString shadowColor; <span style="color: #008000;">//</span><span style="color: #008000;"> (default transparent black)</span><span style="color: #008000;"><br></span><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> rects</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> clearRect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br>  <span style="color: #0000ff;">void</span> fillRect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br>  <span style="color: #0000ff;">void</span> strokeRect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> path API</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> beginPath();<br>  <span style="color: #0000ff;">void</span> closePath();<br>  <span style="color: #0000ff;">void</span> moveTo(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> lineTo(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> quadraticCurveTo(<span style="color: #0000ff;">double</span> cpx, <span style="color: #0000ff;">double</span> cpy, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> bezierCurveTo(<span style="color: #0000ff;">double</span> cp1x, <span style="color: #0000ff;">double</span> cp1y, <span style="color: #0000ff;">double</span> cp2x, <span style="color: #0000ff;">double</span> cp2y, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br>  <span style="color: #0000ff;">void</span> arcTo(<span style="color: #0000ff;">double</span> x1, <span style="color: #0000ff;">double</span> y1, <span style="color: #0000ff;">double</span> x2, <span style="color: #0000ff;">double</span> y2, <span style="color: #0000ff;">double</span> radius); <br>  <span style="color: #0000ff;">void</span> rect(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> w, <span style="color: #0000ff;">double</span> h);<br>  <span style="color: #0000ff;">void</span> arc(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, <span style="color: #0000ff;">double</span> radius, <span style="color: #0000ff;">double</span> startAngle, <span style="color: #0000ff;">double</span> endAngle, optional <span style="color: #0000ff;">boolean</span> anticlockwise); <br>  <span style="color: #0000ff;">void</span> fill();<br>  <span style="color: #0000ff;">void</span> stroke();<br>  <span style="color: #0000ff;">void</span> drawSystemFocusRing(Element element);<br>  <span style="color: #0000ff;">boolean</span> drawCustomFocusRing(Element element);<br>  <span style="color: #0000ff;">void</span> scrollPathIntoView();<br>  <span style="color: #0000ff;">void</span> clip();<br>  <span style="color: #0000ff;">boolean</span> isPointInPath(<span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> text</span><span style="color: #008000;"><br></span>           attribute DOMString font; <span style="color: #008000;">//</span><span style="color: #008000;"> (default 10px sans-serif)</span><span style="color: #008000;"><br></span>           attribute DOMString textAlign; <span style="color: #008000;">//</span><span style="color: #008000;"> "start", "end", "left", "right", "center" (default: "start")</span><span style="color: #008000;"><br></span>           attribute DOMString textBaseline; <span style="color: #008000;">//</span><span style="color: #008000;"> "top", "hanging", "middle", "alphabetic", "ideographic", "bottom" (default: "alphabetic")</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> fillText(DOMString text, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, optional <span style="color: #0000ff;">double</span> maxWidth);<br>  <span style="color: #0000ff;">void</span> strokeText(DOMString text, <span style="color: #0000ff;">double</span> x, <span style="color: #0000ff;">double</span> y, optional <span style="color: #0000ff;">double</span> maxWidth);<br>  TextMetrics measureText(DOMString text);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> drawing images</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> drawImage(HTMLImageElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLImageElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLImageElement image, <span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLCanvasElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLCanvasElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLCanvasElement image, <span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLVideoElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLVideoElement image, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br>  <span style="color: #0000ff;">void</span> drawImage(HTMLVideoElement image, <span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dw, <span style="color: #0000ff;">double</span> dh);<br><br>  <span style="color: #008000;">//</span><span style="color: #008000;"> pixel manipulation</span><span style="color: #008000;"><br></span>  ImageData createImageData(<span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh);<br>  ImageData createImageData(ImageData imagedata);<br>  ImageData getImageData(<span style="color: #0000ff;">double</span> sx, <span style="color: #0000ff;">double</span> sy, <span style="color: #0000ff;">double</span> sw, <span style="color: #0000ff;">double</span> sh);<br>  <span style="color: #0000ff;">void</span> putImageData(ImageData imagedata, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy);<br>  <span style="color: #0000ff;">void</span> putImageData(ImageData imagedata, <span style="color: #0000ff;">double</span> dx, <span style="color: #0000ff;">double</span> dy, <span style="color: #0000ff;">double</span> dirtyX, <span style="color: #0000ff;">double</span> dirtyY, <span style="color: #0000ff;">double</span> dirtyWidth, <span style="color: #0000ff;">double</span> dirtyHeight);<br>};<br><br>interface CanvasGradient {<br>  <span style="color: #008000;">//</span><span style="color: #008000;"> opaque object</span><span style="color: #008000;"><br></span>  <span style="color: #0000ff;">void</span> addColorStop(<span style="color: #0000ff;">double</span> offset, DOMString color);<br>};<br><br>interface CanvasPattern {<br>  <span style="color: #008000;">//</span><span style="color: #008000;"> opaque object</span><span style="color: #008000;"><br></span>};<br><br>interface TextMetrics {<br>  readonly attribute <span style="color: #0000ff;">double</span> width;<br>};<br><br>interface ImageData {<br>  readonly attribute unsigned <span style="color: #0000ff;">long</span> width;<br>  readonly attribute unsigned <span style="color: #0000ff;">long</span> height;<br>  readonly attribute Uint8ClampedArray data;<br>};</pre>
+                                            <div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+                                        <p><strong><br></strong></p>
+                                        <p><strong></strong>&nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+
+
+</div>

@@ -1,0 +1,96 @@
+<div id="maincontent">
+
+<h1>JavaScript eval() 函数</h1>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>eval() 函数可计算某个字符串，并执行其中的的 JavaScript 代码。</p>
+
+<h3>语法</h3>
+<pre>eval(string)</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>string</td>
+    <td>必需。要计算的字符串，其中含有要计算的 JavaScript 表达式或要执行的语句。</td>
+  </tr>
+</tbody></table>
+
+<h3>返回值</h3>
+<p>通过计算 string 得到的值（如果有的话）。</p>
+
+<h3>说明</h3>
+<p>该方法只接受原始字符串作为参数，如果 string 参数不是原始字符串，那么该方法将不作任何改变地返回。因此请不要为 eval() 函数传递 String 对象来作为参数。</p>
+
+<p>如果试图覆盖 eval 属性或把 eval() 方法赋予另一个属性，并通过该属性调用它，则 ECMAScript 实现允许抛出一个 EvalError 异常。</p>
+
+<h3>抛出</h3>
+<p>如果参数中没有合法的表达式和语句，则抛出 SyntaxError 异常。</p>
+<p>如果非法调用 eval()，则抛出 EvalError 异常。</p>
+<p>如果传递给 eval() 的 Javascript 代码生成了一个异常，eval() 将把该异常传递给调用者。</p>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="tip"><span>提示：</span>虽然 eval() 的功能非常强大，但在实际使用中用到它的情况并不多。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+
+<h3>例子 1</h3>
+<p>在本例中，我们将在几个字符串上运用 eval()，并看看返回的结果：</p>
+<pre>&lt;script type="text/javascript"&gt;
+
+eval("x=10;y=20;document.write(x*y)")
+
+document.write(eval("2+2"))
+
+var x=10
+document.write(eval(x+17))
+
+&lt;/script&gt;</pre>
+<p>输出：</p>
+<pre>200
+4
+27</pre>
+
+<h3>例子 2</h3>
+<p>看一下在其他情况中，eval() 返回的结果：</p>
+<pre>eval("2+3")	// 返回 5
+var myeval = eval;	// 可能会抛出 EvalError 异常
+myeval("2+3");	// 可能会抛出 EvalError 异常
+</pre>
+
+<p>可以使用下面这段代码来检测 eval() 的参数是否合法：</p>
+<pre>try  {
+     alert("Result:" + eval(prompt("Enter an expression:","")));
+     }
+
+catch(exception) {
+     alert(exception);
+     }
+</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_eval">eval()</a></dt>
+<dd>如何使用 eval()。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+</div>

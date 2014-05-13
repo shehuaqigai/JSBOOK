@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS animation-name</title>
+<meta name="Description" content="CSS3 animation-name属性用于检索或设置对象所应用的动画名称" />
+<meta name="Keywords" content="css,css3,animation,animation-name" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/animation/animation-name.htm">http://www.phpstudy.net/css3/properties/animation/animation-name.htm</a><br>
+<b>Title:</b> CSS animation-name &nbsp;&bull;&nbsp; <b>Size:</b> 9769 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:16 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">动画属性</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/animation/?" class="target">
+				<strong>其它动画属性参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="animation.htm">animation</a></li>
+					<li><a href="animation-name.htm">animation-name</a></li>
+					<li><a href="animation-duration.htm">animation-duration</a></li>
+					<li><a href="animation-timing-function.htm">animation-timing-function</a></li>
+					<li><a href="animation-delay.htm">animation-delay</a></li>
+					<li><a href="animation-iteration-count.htm">animation-iteration-count</a></li>
+					<li><a href="animation-direction.htm">animation-direction</a></li>
+					<li><a href="animation-play-state.htm">animation-play-state</a></li>
+					<li><a href="animation-fill-mode.htm">animation-fill-mode</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">animation-name</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+		<li>继承性：无</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>animation-name</strong>：none | <a href="../../values/textual/identifier.htm">&lt;identifier&gt;</a> [ , none | <a href="../../values/textual/identifier.htm">&lt;identifier&gt;</a> ]*</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">none</mark></p>
+			<p><strong>相关属性</strong>：[ <a href="../../rules/@keyframes.htm">@keyframes</a> ]</p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt>none：</dt>
+				<dd>不引用任何动画名称</dd>
+				<dt><a href="../../values/textual/identifier.htm">&lt;identifier&gt;</a>：</dt>
+				<dd>定义一个或多个动画名称(identifier标识)</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>检索或设置对象所应用的动画名称</strong>，必须与规则<a href="../../rules/@keyframes.htm">@keyframes</a>配合使用，因为动画名称由<a href="../../rules/@keyframes.htm">@keyframes</a>定义
+			<ul>
+				<li>如果提供多个属性值，以逗号进行分隔。</li>
+				<li>对应的脚本特性为<strong>animationName</strong>。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="unsupport">6.0-9.0</td>
+						<td class="unsupport">4.0</td>
+						<td rowspan="2" class="experimentsupport">5.1</td>
+						<td rowspan="2" class="experimentsupport">13.0-16.0</td>
+						<td rowspan="2" class="unsupport">11.50-11.60</td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="experimentsupport">10.0</td>
+						<td class="experimentsupport">5.0-9.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="way" class="gmodule gattr">
+		<h2 class="tit">写法：</h2>
+		<div class="cont">
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th>内核类型</th>
+						<th>写法</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Webkit(Chrome/Safari)</th>
+						<td>-webkit-animation-name</td>
+					</tr>
+					<tr>
+						<th>Gecko(Firefox)</th>
+						<td>-moz-animation-name</td>
+					</tr>
+					<tr>
+						<th>Presto(Opera)</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>Trident(IE)</th>
+						<td>-ms-animation-name</td>
+					</tr>
+					<tr>
+						<th>W3C</th>
+						<td>animation-name</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS animation-name_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+div{opacity:0;position:absolute;top:50%;left:50%;width:300px;height:150px;margin:-75px 0 0 -150px;}
+.over{border:3px solid #eee;background:#e0e0e0;}
+.text{font:bold 14px/150px Georgia;text-align:center;}
+.over{
+	-webkit-animation:animations 2.5s ease-out,animations3 1s ease-out 2.5s;
+	-moz-animation:animations 2.5s ease-out,animations3 1s ease-out 2.5s;
+	-o-animation:animations 2.5s ease-out,animations3 1s ease-out 2.5s;
+	-ms-animation:animations 2.5s ease-out,animations3 1s ease-out 2.5s;
+	animation:animations 2.5s ease-out,animations3 1s ease-out 2.5s;
+}
+@-webkit-keyframes animations{
+	0%{-webkit-transform:scale(0);opacity:0;}
+	40%{-webkit-transform:scale(1);opacity:1;}
+	100%{opacity:1;}
+}
+@-moz-keyframes animations{
+	0%{-moz-transform:scale(0);opacity:0;}
+	40%{-moz-transform:scale(1);opacity:1;}
+	100%{opacity:1;}
+}
+@-o-keyframes animations{
+	0%{-o-transform:scale(0);opacity:0;}
+	40%{-o-transform:scale(1);opacity:1;}
+	100%{opacity:1;}
+}
+@-ms-keyframes animations{
+	0%{-ms-transform:scale(0);opacity:0;}
+	40%{-ms-transform:scale(1);opacity:1;}
+	100%{opacity:1;}
+}
+@keyframes animations{
+	0%{transform:scale(0);opacity:0;}
+	40%{transform:scale(1);opacity:1;}
+	100%{opacity:1;}
+}
+.text{
+	-webkit-animation:animations2 1.5s ease-out 1s;
+	-moz-animation:animations2 1.5s ease-out 1s;
+	-o-animation:animations2 1.5s ease-out 1s;
+	-ms-animation:animations2 1.5s ease-out 1s;
+	animation:animations2 1.5s ease-out 1s;
+}
+@-webkit-keyframes animations2{
+	0%{-webkit-transform:scale(4);opacity:0;}
+	40%{-webkit-transform:scale(2);opacity:1;}
+	70%{-webkit-transform:scale(2);opacity:1;}
+	100%{-webkit-transform:scale(5);opacity:0;}
+}
+@-moz-keyframes animations2{
+	0%{-moz-transform:scale(4);opacity:0;}
+	40%{-moz-transform:scale(2);opacity:1;}
+	70%{-moz-transform:scale(2);opacity:1;}
+	100%{-moz-transform:scale(5);opacity:0;}
+}
+@-o-keyframes animations2{
+	0%{-o-transform:scale(4);opacity:0;}
+	40%{-o-transform:scale(2);opacity:1;}
+	70%{-o-transform:scale(2);opacity:1;}
+	100%{-o-transform:scale(5);opacity:0;}
+}
+@-ms-keyframes animations2{
+	0%{-ms-transform:scale(4);opacity:0;}
+	40%{-ms-transform:scale(2);opacity:1;}
+	70%{-ms-transform:scale(2);opacity:1;}
+	100%{-ms-transform:scale(5);opacity:0;}
+}
+@keyframes animations2{
+	0%{transform:scale(4);opacity:0;}
+	40%{transform:scale(2);opacity:1;}
+	70%{transform:scale(2);opacity:1;}
+	100%{transform:scale(5);opacity:1;}
+}
+@-webkit-keyframes animations3{
+	0%{-webkit-transform:scale(1);opacity:1;}
+	100%{-webkit-transform:scale(0);opacity:0;}
+}
+@-moz-keyframes animations3{
+	0%{-moz-transform:scale(1);opacity:1;}
+	100%{-moz-transform:scale(0);opacity:0;}
+}
+@-o-keyframes animations3{
+	0%{-o-transform:scale(1);opacity:1;}
+	100%{-o-transform:scale(0);opacity:0;}
+}
+@-ms-keyframes animations3{
+	0%{-ms-transform:scale(1);opacity:1;}
+	100%{-ms-transform:scale(0);opacity:0;}
+}
+@keyframes animations3{
+	0%{transform:scale(1);opacity:1;}
+	100%{transform:scale(0);opacity:0;}
+}
+</style>
+</head>
+<body>
+<div class="over"></div>
+<div class="text">CSS3 Animations</div>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

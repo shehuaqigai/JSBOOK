@@ -1,0 +1,93 @@
+<div id="maincontent">
+
+<h1>JavaScript parseInt() 函数</h1>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+
+<div>
+<h2>定义和用法</h2>
+
+<p>parseInt() 函数可解析一个字符串，并返回一个整数。</p>
+
+<h3>语法</h3>
+<pre>parseInt(<i>string</i>, <i>radix</i>)</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>string</td>
+    <td>必需。要被解析的字符串。</td>
+  </tr>
+  <tr>
+    <td>radix</td>
+    <td>
+	<p>可选。表示要解析的数字的基数。该值介于 2 ~ 36 之间。</p>
+	<p>如果省略该参数或其值为 0，则数字将以 10 为基础来解析。如果它以 “0x” 或 “0X” 开头，将以 16 为基数。</p>
+	<p>如果该参数小于 2 或者大于 36，则 parseInt() 将返回 NaN。</p>
+	</td>
+  </tr>
+</tbody></table>
+
+<h3>返回值</h3>
+
+<p>返回解析后的数字。</p>
+
+<h3>说明</h3>
+
+<p>当参数 <i>radix</i> 的值为 0，或没有设置该参数时，parseInt() 会根据 <i>string</i> 来判断数字的基数。</p>
+<p>举例，如果 <i>string</i> 以 "0x" 开头，parseInt() 会把 <i>string</i> 的其余部分解析为十六进制的整数。如果 <i>string</i> 以 0 开头，那么 ECMAScript v3 允许 parseInt() 的一个实现把其后的字符解析为八进制或十六进制的数字。如果 <i>string</i> 以 1 ~ 9 的数字开头，parseInt() 将把它解析为十进制的整数。</p>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="note"><span>注释：</span>只有字符串中的第一个数字会被返回。</p>
+<p class="note"><span>注释：</span>开头和结尾的空格是允许的。</p>
+<p class="tip"><span>提示：</span>如果字符串的第一个字符不能被转换为数字，那么 parseFloat() 会返回 NaN。</p>
+</div>
+
+
+<div>
+<h2>实例</h2>
+<p>在本例中，我们将使用 parseInt() 来解析不同的字符串：</p>
+<pre>parseInt("10");			//返回 10
+parseInt("19",10);		//返回 19 (10+9)
+parseInt("11",2);		//返回 3 (2+1)
+parseInt("17",8);		//返回 15 (8+7)
+parseInt("1f",16);		//返回 31 (16+15)
+parseInt("010");		//未定：返回 10 或 8
+</pre>
+</div>
+
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_parseInt">parseInt()</a></dt>
+<dd>如何使用 parseInt() 来解析不同的字符串。</dd>
+</dl>
+</div>
+
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+
+<div id="toc">
+<h2>课外书</h2>
+
+<p>如需更多有关类型转换的知识，请阅读 JavaScript 高级教程中的相关内容：</p>
+
+<dl>
+<dt><a href="/js/pro_js_typeconversion.asp" title="ECMAScript 类型转换">ECMAScript 类型转换</a></dt>
+<dd>本节讲解了 ECMAScript 提供的类型转换方法，以及如何进行强制类型转换。</dd>
+</dl>
+</div>
+
+</div>

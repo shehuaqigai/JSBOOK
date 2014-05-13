@@ -1,0 +1,30 @@
+<p>
+
+通过表单中requestAutoComplete方法来请求失败回调将返回autocompleteErrorEvent事件
+
+
+Chrome 31新增了对Web支付、便携式本机代码的支持，还修复了25个安全漏洞。下面我们具体来看一看Web支持和便携式本机客户端：
+首先，Web支付简化了在线支付流程，Chrome 31新增了一个名为requestAutocomplete()的功能，在用户的授权下，Web开发人员可以通过程序调用浏览器的自动填充数据。这样，在支付时，用户可以直接选择存储在浏览器上的数据，或者通过一个浏览器界面来输入新的支付信息，然后开发人员再继续他们现有的支付流程。
+
+Web支付功能目前已经为Android、Windows、Chrome OS用户提供，Mac用户还要再等待一段时间。
+
+便携式本机客户端（PNaCl，Portable Native Client）可以让开发者一劳永逸，只需一次编译就能在任何硬件平台上运行。其工作原理是将原生的C和C++代码编译为一个中间表现形式，封装进一个便携式可执行程序中，并托管在Web服务器上
+
+
+
+
+&ltINPUT name="NAME" type="text" autocomplete="off" class="advsearchinp" id="NAME" onkeyup="changeName()" />
+
+这里autocomplete属性是: input历史记录的功能,on是打开,off是关闭. 默认为on.
+代表的意思为:是否让浏览器自动记录之前输入的值.
+但是，有时候弹出的下拉框会挡住页面显示内容，而且在某些情况下也不需要对input框进行记录，如号码查询的input框，用户不会对同一个号码进行多次查询，就没有必要让浏览器记录。  
+MSIE自定义了input 的扩展属性 autocomplete，置为off即可  
+
+&ltinput type="text"  autocomplete="off"   id="number"/>  
+
+用这个方法可以屏蔽MSIE，Firefox则需要使用另一个扩展属性disableautocomplete  
+
+&ltinput type="text"  disableautocomplete  id="number"/>  
+
+两扩展属性可以同时使用，浏览器会根据自身特性自动解析。
+</p>

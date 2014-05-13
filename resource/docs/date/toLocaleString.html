@@ -1,0 +1,29 @@
+<pre>
+	定义和用法
+toLocaleString() 方法可根据本地时间把 Date 对象转换为字符串，并返回结果。
+语法
+dateObject.toLocaleString()
+返回值
+dateObject 的字符串表示，以本地时间区表示，并根据本地规则格式化。
+实例
+例子 1
+在本例中，我们将根据本地时间把今天的日期转换为字符串：
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.toLocaleString())
+
+&lt/script>
+输出：
+2/22/2014 2:55:10 PM
+例子 2
+在本例中，我们将根据本地时间把具体的日期转换为字符串：
+&ltscript type="text/javascript">
+
+var born = new Date("July 21, 1983 01:15:00")
+document.write(born.toLocaleString())
+
+&lt/script>
+输出：
+7/21/1983 1:15:00 AM
+</pre>

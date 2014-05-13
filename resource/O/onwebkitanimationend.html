@@ -1,0 +1,36 @@
+<div id="cnblogs_post_body"><p>　　用css3的animation完成一个动画，当<span style="background-color: #ccffcc;">只有这个动画完成时</span><span style="background-color: #ffffff;">才执行</span>令一个事件，比如让动画保持在终止的状态或其他一些事件。我们该怎么办呢。</p>
+<p>　　<span style="background-color: #ccffcc;">第一种方法：</span></p>
+<p>　　　　用计时器，设定一个和动画时长一样的time，过time事件去执行这个函数。</p>
+<p>　　　　setTimeout(function(){ },time);</p>
+<p>　　<span style="background-color: #ccffcc;">第二种方法：</span></p>
+<p>　　　　　　当-webkit-animation动画结束时有一个webkitAnimationEnd事件，<span>只要监听这个事件就可以了。</span></p>
+<p><span>　　例子：</span></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码" target="_blank"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre></pre>
+<p>&lt;!DOCTYPE HTML&gt;<br>&lt;html&gt;<br>&lt;head&gt;<br>&lt;meta charset="utf-8"&gt;<br>&lt;meta name="author" content="@my_programmer"&gt;<br>&lt;title&gt;webkitAnimationEnd&lt;/title&gt;<br>&lt;meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/&gt;<br>&lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;<br>&lt;meta name="format-detection" content="telephone=no"/&gt;<br>&lt;style type="text/css"&gt;<br>	#div{<br>		width:200px;<br>		height:200px;<br>		background:#f60;<br>		margin:100px auto;<br>		-webkit-transition: all ease 1s;<br>	}<br>	.change{<br>		-webkit-animation: transform 1s 2 ease;<br>	}<br>	@-webkit-keyframes transform { <br>		0% 	{ -webkit-transform: scale(1)}<br>		30% { -webkit-transform: scale(2)}<br>		60% { -webkit-transform: scale(0.5)}<br>		100% { -webkit-transform: scale(1)}<br>	}<br>&lt;/style&gt;<br>&lt;/head&gt;<br>&lt;body&gt;</p>
+<pre></pre>
+<p>&lt;div id="div"&gt;&lt;/div&gt;</p>
+<pre></pre>
+<p>&lt;script type="text/javascript"&gt;</p>
+<pre></pre>
+<p> var tt = document.querySelector('#div');<br>	tt.addEventListener("click", function(){	<br>		 this.className = 'change';<br>	}, false);</p>
+<pre></pre>
+<p> tt.addEventListener("webkitAnimationEnd", function(){ //动画结束时事件<br>		this.className = this.className.replace('change', ' '); <br>		console.log(2);<br>	}, false);</p>
+<pre></pre>
+<p>&lt;/script&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;</p>
+<pre><span style="color: #0000ff;">&nbsp;</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码" target="_blank"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　<span style="background-color: #ccffcc;">拓展：</span></p>
+<p>　　　<strong>1、</strong>　-webkit-animation动画其实有三个事件：　　　　　　</p>
+<p> 　　　　　　开始事件 webkitAnimationStart<br>	　　　　　　结束事件	  webkitAnimationEnd<br>	　　　　　　重复运动事件  webkitAnimationIteration</p>
+<p>　　　　你可以在上个例子中测试一下这两个事件</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码" target="_blank"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre></pre>
+<p>tt.addEventListener("webkitAnimationStart", function(){ //动画开始时事件<br>		 　　console.log(1);　　//动画开始时，控制台输出1</p>
+<p>	}, false);<br>	tt.addEventListener("webkitAnimationIteration", function(){	//动画重复运动时的事件<br>		 　　console.log(3);　　<span>//</span><span>第一遍动作完成时，控制台输出3</span><br>	}, false);</p>
+<pre></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码" target="_blank"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　　　<strong>2、</strong> &nbsp;css3的过渡属性transition，在动画结束时，也存在结束的事件：webkitTransitionEnd;</p>
+<p>　　　　　　<span style="background-color: #ccffcc;">注意：</span>transition,也仅仅有这一个事件。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div>

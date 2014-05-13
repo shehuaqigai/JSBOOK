@@ -1,0 +1,14 @@
+<p>
+	 a) queryCommandEnabled(cmd):  
+判断是否能够在当前位置或对选择的内容执行命令cmd,如果可以返回true.  
+var result = frames['richEditor'].document.queryCommandEnabled('bold');  
+  
+    b) queryCommandState(cmd):  
+判断当前选择的内容是否已经执行命令cmd，如果是返回true.  
+var result = frames['richEditor'].document.queryCommandState('bold');  
+  
+    c)queryCommandValue(cmd):  
+获取当前选择的内容执行命令cmd后的值(即:execCommand方法的第三个参数).  
+var fontSize = frames['richEditor'].document.queryCommandValue('fontsize');
+返回表明指定命令是否可于给定文档当前状态下使用 execCommand 命令成功执行的 Boolean 值。  
+</p>

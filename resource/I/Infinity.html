@@ -1,0 +1,53 @@
+<div id="maincontent">
+
+<h1>JavaScript Infinity 属性</h1>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>Infinity 属性用于存放表示正无穷大的数值。</p>
+
+<h3>语法</h3>
+<pre>Infinity</pre>
+
+<h3>说明</h3>
+<p>无法使用 for/in 循环来枚举 Infinity 属性，也不能用 delete 运算符来删除它。</p>
+<p>Infinity 不是常量，可以把它设置为其他值。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>在本例中，我们将展示当一个数超出了 infinity 的限制发生的情况：</p>
+<pre>&lt;script type="text/javascript"&gt;
+
+var t1=1.7976931348623157E+10308
+document.write(t1)
+
+document.write("&lt;br /&gt;")
+
+var t2=-1.7976931348623157E+10308
+document.write(t2)
+
+&lt;/script&gt;</pre>
+
+<p>输出：</p>
+<pre>Infinity
+-Infinity</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_Infinity">Infinity</a></dt>
+<dd>如果一个数超出了 infinity 的限制会发生什么呢？</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+</div>

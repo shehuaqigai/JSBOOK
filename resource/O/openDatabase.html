@@ -1,0 +1,151 @@
+<div class="postBody">
+			<div id="cnblogs_post_body"><p>在<a href="http://www.cnblogs.com/dolphinX/p/3348469.html">HTML5 WebStorage</a>介绍了html5本地存储的Local Storage和Session Storage，这两个是以键值对存储的解决方案，存储少量数据结构很有用，但是对于大量结构化数据就无能为力了，灵活大不够强大。</p>
+<h3>Web SQL Database</h3>
+<p>我们经常在数据库中处理大量结构化数据，html5引入Web SQL Database概念，它使用 SQL 来操纵客户端数据库的 API，这些 API 是异步的，规范中使用的方言是SQLlite，悲剧正是产生于此，<a href="http://dev.w3.org/html5/webdatabase/">Web SQL Database规范页面</a>有着这样的声明</p>
+<p><a href="http://images.cnitblog.com/blog/349217/201311/03195047-034221fd6b77423aa92966d6ca38d5f5.png"><img style="display: inline; border-width: 0px;" title="image" src="http://images.cnitblog.com/blog/349217/201311/03195049-5925494098d0455dbee0802dd4163267.png" alt="image" width="545" height="173" border="0"></a></p>
+<p><span style="color: #ff0000;">This document was on the W3C Recommendation track but specification work has stopped. The specification reached an impasse: all interested implementors have used the same SQL backend (Sqlite), but we need multiple independent implementations to proceed along a standardisation path.</span></p>
+<p>&nbsp;大概意思就是</p>
+<p>这个文档曾经在W3C推荐规范上，但规范工作已经停止了。目前已经陷入了一个僵局：目前的所有实现都是基于同一个SQL后端（SQLite），但是我们需要更多的独立实现来完成标准化。</p>
+<p>也就是说这是一个废弃的标准了，虽然部分浏览器已经实现，但。。。。。。。</p>
+<h3>三个核心方法</h3>
+<p>但是我们学一下也没什么坏处，而且能和现在W3C力推的IndexedDB做比较，看看为什么要废弃这种方案。Web SQL Database 规范中定义的三个核心方法：</p>
+<ol>
+<li>openDatabase：这个方法使用现有数据库或新建数据库来创建数据库对象</li>
+<li>transaction：这个方法允许我们根据情况控制事务提交或回滚</li>
+<li>executeSql：这个方法用于执行SQL 查询</li>
+</ol>
+<p>&nbsp;</p>
+<h3>openDatabase</h3>
+<p>我们可以使用这样简单的一条语句，创建或打开一个本地的数据库对象</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">var</span> db = openDatabase('testDB', '1.0', 'Test DB', 2 * 1024 * 1024);</pre>
+</div>
+<p>openDatabase接收五个参数：</p>
+<ol>
+<li>数据库名字</li>
+<li>数据库版本号</li>
+<li>显示名字</li>
+<li>数据库保存数据的大小（以字节为单位 )</li>
+<li>回调函数（非必须)</li>
+</ol>
+<p>&nbsp;</p>
+<p>如果提供了回调函数，回调函数用以调用 changeVersion() 函数，不管给定什么样的版本号，回调函数将把数据库的版本号设置为空。如果没有提供回调函数，则以给定的版本号创建数据库。</p>
+<h3>transaction</h3>
+<p>transaction方法用以处理事务，当一条语句执行失败的时候，整个事务回滚。方法有三个参数</p>
+<ol>
+<li>包含事务内容的一个方法</li>
+<li>执行成功回调函数（可选）</li>
+<li>执行失败回调函数（可选）</li>
+</ol>
+<p>&nbsp;</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre>db.transaction(<span style="color: #0000ff;">function</span><span style="color: #000000;"> (context) {
+           context.executeSql(</span>'CREATE TABLE IF NOT EXISTS testTable (id unique, name)'<span style="color: #000000;">);
+           context.executeSql(</span>'INSERT INTO testTable (id, name) VALUES (0, "Byron")'<span style="color: #000000;">);
+           context.executeSql(</span>'INSERT INTO testTable (id, name) VALUES (1, "Casper")'<span style="color: #000000;">);
+           context.executeSql(</span>'INSERT INTO testTable (id, name) VALUES (2, "Frank")'<span style="color: #000000;">);
+         });</span></pre>
+</div>
+<p>这个例子中我们创建了一个table，并在表中插入三条数据，四条执行语句任何一条出现错误，整个事务都会回滚</p>
+<h3>executeSql</h3>
+<p>executeSql方法用以执行SQL语句，返回结果，方法有四个参数</p>
+<ol>
+<li>查询字符串</li>
+<li>用以替换查询字符串中问号的参数</li>
+<li>执行成功回调函数（可选）</li>
+<li>执行失败回调函数（可选）</li>
+<li></li>
+</ol>
+<p>在上面的例子中我们使用了插入语句，看个查询的例子</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre>db.transaction(<span style="color: #0000ff;">function</span><span style="color: #000000;"> (context) {
+           context.executeSql(</span>'SELECT * FROM testTable', [], <span style="color: #0000ff;">function</span><span style="color: #000000;"> (context, results) {
+            </span><span style="color: #0000ff;">var</span> len =<span style="color: #000000;"> results.rows.length, i;
+            console.log(</span>'Got '+len+' rows.'<span style="color: #000000;">);
+               </span><span style="color: #0000ff;">for</span> (i = 0; i &lt; len; i++<span style="color: #000000;">){
+              console.log(</span>'id: '+<span style="color: #000000;">results.rows.item(i).id);
+              console.log(</span>'name: '+<span style="color: #000000;">results.rows.item(i).name);
+            }
+         });</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<h3>完整示例</h3>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">&lt;!</span><span style="color: #ff00ff;">DOCTYPE HTML</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">html</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">head</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">title</span><span style="color: #0000ff;">&gt;</span>Web SQL Database<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">title</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">head</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;</span><span style="color: #800000;">body</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">script </span><span style="color: #ff0000;">type</span><span style="color: #0000ff;">="text/javascript"</span><span style="color: #0000ff;">&gt;</span>
+        <span style="background-color: #f5f5f5; color: #0000ff;">var</span><span style="background-color: #f5f5f5; color: #000000;"> db </span><span style="background-color: #f5f5f5; color: #000000;">=</span><span style="background-color: #f5f5f5; color: #000000;"> openDatabase(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">testDB</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">, </span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">1.0</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">, </span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">Test DB</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">, </span><span style="background-color: #f5f5f5; color: #000000;">2</span> <span style="background-color: #f5f5f5; color: #000000;">*</span> <span style="background-color: #f5f5f5; color: #000000;">1024</span> <span style="background-color: #f5f5f5; color: #000000;">*</span> <span style="background-color: #f5f5f5; color: #000000;">1024</span><span style="background-color: #f5f5f5; color: #000000;">);
+        </span><span style="background-color: #f5f5f5; color: #0000ff;">var</span><span style="background-color: #f5f5f5; color: #000000;"> msg;
+        db.transaction(</span><span style="background-color: #f5f5f5; color: #0000ff;">function</span><span style="background-color: #f5f5f5; color: #000000;"> (context) {
+           context.executeSql(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">CREATE TABLE IF NOT EXISTS testTable (id unique, name)</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">);
+           context.executeSql(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">INSERT INTO testTable (id, name) VALUES (0, "Byron")</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">);
+           context.executeSql(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">INSERT INTO testTable (id, name) VALUES (1, "Casper")</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">);
+           context.executeSql(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">INSERT INTO testTable (id, name) VALUES (2, "Frank")</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">);
+         });
+
+        db.transaction(</span><span style="background-color: #f5f5f5; color: #0000ff;">function</span><span style="background-color: #f5f5f5; color: #000000;"> (context) {
+           context.executeSql(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">SELECT * FROM testTable</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">, [], </span><span style="background-color: #f5f5f5; color: #0000ff;">function</span><span style="background-color: #f5f5f5; color: #000000;"> (context, results) {
+            </span><span style="background-color: #f5f5f5; color: #0000ff;">var</span><span style="background-color: #f5f5f5; color: #000000;"> len </span><span style="background-color: #f5f5f5; color: #000000;">=</span><span style="background-color: #f5f5f5; color: #000000;"> results.rows.length, i;
+            console.log(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">Got </span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">+</span><span style="background-color: #f5f5f5; color: #000000;">len</span><span style="background-color: #f5f5f5; color: #000000;">+</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;"> rows.</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">);
+               </span><span style="background-color: #f5f5f5; color: #0000ff;">for</span><span style="background-color: #f5f5f5; color: #000000;"> (i </span><span style="background-color: #f5f5f5; color: #000000;">=</span> <span style="background-color: #f5f5f5; color: #000000;">0</span><span style="background-color: #f5f5f5; color: #000000;">; i </span><span style="background-color: #f5f5f5; color: #000000;">&lt;</span><span style="background-color: #f5f5f5; color: #000000;"> len; i</span><span style="background-color: #f5f5f5; color: #000000;">++</span><span style="background-color: #f5f5f5; color: #000000;">){
+              console.log(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">id: </span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">+</span><span style="background-color: #f5f5f5; color: #000000;">results.rows.item(i).id);
+              console.log(</span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">name: </span><span style="background-color: #f5f5f5; color: #000000;">'</span><span style="background-color: #f5f5f5; color: #000000;">+</span><span style="background-color: #f5f5f5; color: #000000;">results.rows.item(i).name);
+            }
+         });
+        });
+    </span><span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">script</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">body</span><span style="color: #0000ff;">&gt;</span>
+<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">html</span><span style="color: #0000ff;">&gt;</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<h3>最后</h3>
+<p>由于Web SQL Database规范已经被废弃，原因说的很清楚，当前的SQL规范采用SQLite的SQL方言，而作为一个标准，这是不可接受的，每个浏览器都有自己的实现这还搞毛的标准。这样浏览器兼容性就不重要了，估计慢慢会被遗忘。不过Chrome的控制台真心好用啊，神马cookie、Local Storage、Session Storage、Web SQL、IndexedDB、Application Cache等html5新增内容看的一清二楚，免去了很多调试代码工作。</p>
+<p><a href="http://images.cnitblog.com/blog/349217/201311/03201954-3d88b394c99d47deaae3126a67e730ac.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/349217/201311/03201955-8a618689641d428e988529a27b6e494c.png" alt="image" width="816" height="411" border="0"></a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/dolphinX/category/530314.html">HTML</a></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/dolphinX" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="http://static.cnblogs.com/images/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/dolphinX/" target="_blank"><img src="http://pic.cnitblog.com/face/349217/20140114092700.png" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/dolphinX/">dolphinX</a><br>
+<a href="http://home.cnblogs.com/u/dolphinX/followees">关注 - 10</a><br>
+<a href="http://home.cnblogs.com/u/dolphinX/followers">粉丝 - 478</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/dolphinX/p/3403520.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/dolphinX/p/3403520.html" title="发布于2013-11-02 11:56">跨站请求伪造CSRF</a><br><a href="http://www.cnblogs.com/dolphinX/p/3403821.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/dolphinX/p/3403821.html" title="发布于2013-11-04 21:06">Javascript函数节流</a><br></div>
+</div>
+
+
+		</div>

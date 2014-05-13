@@ -1,0 +1,206 @@
+<h2>表示一个ICE协议的候选者。</h2>
+<h2>RTCIceServer:表示一个ICE Server。</h2>
+
+<div class="post-172 post type-post status-publish format-standard hentry category-webrtc tag-ice tag-rtcpeerconnection tag-sdp tag-stringifier tag-stun tag-webrtc-1-0" id="post-172">
+				<div class="thecontent">
+                <h1 class="postheader">06 Oct 12 <a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-7/" rel="bookmark" title="Permanent Link to WebRTC 1.0: Real-time Communication Between Browsers中文版（七）">WebRTC 1.0: Real-time Communication Between Browsers中文版（七）</a></h1>
+				<section id="rtcpeerstate-enum">
+<h4>原文：<a href="http://www.w3.org/TR/webrtc/#rtcpeerstate-enum">http://www.w3.org/TR/webrtc/#rtcpeerstate-enum</a></h4>
+<h4>5.1.6&nbsp;RTCPeerState Enum</h4>
+<pre>enum RTCPeerState {
+    "new",
+    "opening",
+    "active",
+    "closing",
+    "closed"
+};</pre>
+<table>
+<tbody>
+<tr>
+<th colspan="2">枚举类型描述</th>
+</tr>
+<tr>
+<td><code>new</code></td>
+<td>对象刚刚创建，而且还没有任何网络消息发送或者接收。</td>
+</tr>
+<tr>
+<td><code>opening</code></td>
+<td>用户代理（ user agent）正在尝试通过ICE agent 建立连接并等待本地和远端的SDP被设置。<p></p>
+<div>
+<div>问题 7</div>
+<p>ISSUE: 我们需要在 “opening” 和”active”之间加上更多的状态吗?</p>
+</div>
+</td>
+</tr>
+<tr>
+<td><code>active</code></td>
+<td>ICE Agent已经发现了一个连接而且本地和远端的SDP已经被设置好了。可以开始媒体流程了。</td>
+</tr>
+<tr>
+<td><code>closing</code></td>
+<td>&nbsp;<code><code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCPeerConnection">RTCPeerConnection</a>对象结束了所有的媒体流而且正在关闭连接的过程中。</code></code></td>
+</tr>
+<tr>
+<td><code>closed</code></td>
+<td>连接已经关闭了。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rtcicestate-enum">
+<h4>5.1.7&nbsp;RTCIceState 枚举</h4>
+<div>
+<div>注意</div>
+<p>这些状态还正在讨论过程中，有可能被修改。</p>
+</div>
+<pre>enum RTCIceState {
+    "new",
+    "gathering",
+    "waiting",
+    "checking",
+    "connected",
+    "completed",
+    "failed",
+    "closed"
+};</pre>
+<table>
+<tbody>
+<tr>
+<th colspan="2">枚举类型描述</th>
+</tr>
+<tr>
+<td><code>new</code></td>
+<td>&nbsp;RTCPeerConnection 对象刚刚被创建,没有任何网络消息被发送和接收。</td>
+</tr>
+<tr>
+<td><code>gathering</code></td>
+<td>&nbsp;ICE Agent正在尝试收集地址。</td>
+</tr>
+<tr>
+<td><code>waiting</code></td>
+<td>ICE Agent没有在收集任何地址，它在等待另外一端的candidates完成之后它才会开始检查。</td>
+</tr>
+<tr>
+<td><code>checking</code></td>
+<td>ICE Agent正在检查candidate对，但是还没有找到一个连接。不光是检查，它有可能还在搜集地址。</td>
+</tr>
+<tr>
+<td><code>connected</code></td>
+<td>&nbsp;ICE Agent已经找到一条连接，但是还在检查其它的candidate对，看能否找到一条更好的连接。它也可能还在收集地址。</td>
+</tr>
+<tr>
+<td><code>completed</code></td>
+<td>ICE Agent 已经完成搜集工作而且已经找到一条连接（对比上一个状态可以知道这是最好的一条连接）</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>ICE Agent 正在完成检查所有的 candidate 对，但是没有找到一条连接。</td>
+</tr>
+<tr>
+<td><code>closed</code></td>
+<td>ICE Agent已经关闭了而且不再响应STUN的请求。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rtcicecandidate-type">
+<h4>5.1.8&nbsp;RTCIceCandidate Type</h4>
+<p><dfn id="dom-icecandidate"><code><span style="font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;"><span style="font-style: normal;">&nbsp; &nbsp;&nbsp;</span></span>RTCIceCandidate()</code></dfn>&nbsp; 构造函数构造函数接收一个可选的字典参数，&nbsp;<var>candidateInitDict</var>, whose它的内容用来初始化新的<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCIceCandidate"><code>RTCIceCandidate</code></a></code>&nbsp;对象。如果一个字典中的key在<var>candidateInitDict</var>不存在,对应的属性将被初始化为空。如果没有将字典参数传给构造函数,所有的属性将初始化为空。这个类是可以为未来的携带的数据做扩充扩展而不需要执行任何实质性的处理。</p>
+<pre>[Constructor (optional RTCIceCandidateInit candidateInitDict)]
+interface RTCIceCandidate {
+             attribute <a>DOMString</a>?      <a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidate-candidate">candidate</a>;
+             attribute <a>DOMString</a>?      <a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidate-sdpMid">sdpMid</a>;
+             attribute <a>unsigned short</a>? <a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidate-sdpMLineIndex">sdpMLineIndex</a>;
+    <a>stringifier</a> <a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidate-DOMString-stringifier">DOMString</a> ();
+};
+dictionary RTCIceCandidateInit {
+    <a>DOMString</a>      <a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidateInit-candidate">candidate</a>;
+    <a>DOMString</a>      <a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidateInit-sdpMid">sdpMid</a>;
+    <a>unsigned short</a> <a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidateInit-sdpMLineIndex">sdpMLineIndex</a>;
+};</pre>
+<section id="attributes-2">
+<h5>5.1.8.1&nbsp;属性</h5>
+<dl>
+<dt id="widl-RTCIceCandidate-candidate"><code>candidate</code>&nbsp;：类型DOMString, 可能为空</dt>
+<dd>这个属性携带 candidate-attribute 定义在 [<cite><a href="http://www.w3.org/TR/webrtc/#bib-ICE">ICE</a></cite>]的15.1 节.</dd>
+<dt id="widl-RTCIceCandidate-sdpMLineIndex"><code>sdpMLineIndex</code>&nbsp;：类型unsigned short, 可能为空</dt>
+<dd>这个指定index (从0开始的) ，是在SDP Mline对应的数组下标。</dd>
+<dt id="widl-RTCIceCandidate-sdpMid"><code>sdpMid</code>&nbsp;：类型DOMString, 可以为空</dt>
+<dd>如果存在这个属性,它包含了 “media stream identification”的标识符，这个在 [RFC 3388]中为和这个candidate关联的 m-line 定义的。</dd>
+</dl>
+</section>
+<section id="methods-2">
+<h5>5.1.8.2&nbsp;方法</h5>
+<dl>
+<dt id="widl-RTCIceCandidate-DOMString-stringifier"><code>DOMString</code></dt>
+<dd>&nbsp; &nbsp; 实现了&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCIceCandidate"><code>RTCIceCandidate</code></a></code>接口的对象必须实现字符串化（ stringify）的方法，这个方法的算法在&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescription"><code>RTCSessionDescription</code></a></code>&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescription-DOMString-stringifier">stringifier algorithm</a></code>&nbsp;中定义，包括<code><a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidate-candidate">candidate</a></code>,&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidate-sdpMid">sdpMid</a></code>,&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#widl-RTCIceCandidate-sdpMLineIndex">sdpMLineIndex</a></code>&nbsp;作为元素的属性列表<em>。</em><p></p>
+<div><em>没有参数</em></div>
+<div><em>返回类型: 字符串（</em><code>stringifier）</code></div>
+</dd>
+</dl>
+</section>
+<section id="dictionary-rtcicecandidateinit-members">
+<h5>5.1.8.3&nbsp;字典<a href="http://www.w3.org/TR/webrtc/#idl-def-RTCIceCandidateInit"><code>RTCIceCandidateInit</code></a>&nbsp;的成员</h5>
+<dl>
+<dt id="widl-RTCIceCandidateInit-candidate"><code>candidate</code>：类型是DOMString</dt>
+<dd>DOMString sdpMid</dd>
+<dt id="widl-RTCIceCandidateInit-sdpMLineIndex"><code>sdpMLineIndex</code>&nbsp;：类型是unsigned short</dt>
+<dd></dd>
+<dt id="widl-RTCIceCandidateInit-sdpMid"><code>sdpMid</code>&nbsp;：类型是DOMString</dt>
+<dd>unsigned short sdpMLineIndex</dd>
+</dl>
+</section>
+</section>
+<div style="margin-top: 15px; font-style: italic">
+<p><strong>原创文章，转载请注明：</strong> 转载自<a href="http://www.iwebrtc.com/blog/">讨论关于webrtc html5 extjs nodejs等技术和产品</a></p>
+<p><strong>本文链接地址:</strong> <a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-7/">WebRTC 1.0: Real-time Communication Between Browsers中文版（七）</a></p>
+</div>
+<div class="wumii-hook"><div id="wumiiBtnDiv" style="clear:both;overflow:visible;position:relative;left:0;top:0;height:28px;margin:0;padding:10px 0 0;text-shadow: none;text-indent:0;">
+    <div id="wumiiLikeBtnDiv" style="position: static; float: left; display: inline; width: 89px; height: 28px; margin: 0px 0px 0px 220.5px; padding: 0px; background-image: url(http://static.wumii.cn/images/blogWidget/widget_buttons_deepBlue.png); text-indent: 0px; background-position: 0px 0px; background-repeat: no-repeat no-repeat;" onmouseover="this.style.backgroundPosition='-89px 0';" onmouseout="this.style.backgroundPosition='0 0';">
+        <a href="http://www.wumii.com/item/13PIlNcx2" target="_blank" id="wumiiNumLikes" style="float:left;width:38px;height:20px;line-height:21px;margin:4px 0 0 4px;padding:0;border:none;background-color:#fff;color:#385c80;letter-spacing:0;text-decoration:none;text-align:center;text-indent:0;font-size:12px;" onmouseover="this.style.fontWeight='bold';" onmouseout="this.style.fontWeight='normal';">0</a>
+        <span style="float:left;width:40px;height:29px;margin:0;padding:0;outline:none;cursor:pointer;" id="wumiiLikeBtn" hidefocus="true"></span>
+    </div>
+    <div id="wumiiRecommendBtnDiv" style="position:static;clear:none;float:left;display:inline;height:28px;margin:0;padding:0 5px;text-indent:0;">
+        <span id="wumiiRecommendBtn" hidefocus="true" style="float:left;display:inline;width:60px;height:28px;margin:0 0 0 5px;padding:0;background:url('http://static.wumii.cn/images/blogWidget/widget_buttons_deepBlue.png') no-repeat -267px 0;cursor:pointer;outline:none;" onmouseover="this.style.backgroundPosition='-328px 0';" onmouseout="this.style.backgroundPosition='-267px 0';"></span>
+        <img src="http://static.wumii.cn/images/loading.gif" id="wumiiLoading" style="clear:none;display:none;height:15px;margin:7px 0 0 8px;padding:0;border:0;background:none;cursor:default;" alt="正在加载推荐文章">
+    </div>
+</div>
+<div class="wumii-related-items-div" wmode="2" style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;">
+    
+    
+    
+        <div class="wumii-internal" style="padding: 0; margin: 0; border: none; clear: both; display: block;">
+        <div class="wumii-widget-title" style="margin: 0; border: none; padding: 20px 0 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold; ">You may also like：</div>
+                <div class="wumii-image-row" style="clear: both; overflow: hidden; border: none; padding: 0;margin: 0;_zoom: 1;" fromurl="http%3A%2F%2Fwww.iwebrtc.com%2Fblog%2Fwebrtc-1-0-real-time-communication-between-browsers-7%2F"><a class="wumii-image-block" hidefocus="true" title="(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（八）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/en/webrtc-1-0-real-time-communication-between-browsers-8/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/YhCoPUWV.png?i=AMDTOCFW" src="http://static.wumii.cn/site_images/ti/YhCoPUWV.png?i=AMDTOCFW">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（八）</div>
+</a><a class="wumii-image-block" hidefocus="true" title="WebRTC 1.0: Real-time Communication Between Browsers中文版（十三）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-13/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/azXHhfG4.jpg?i=172NlfSRo" src="http://static.wumii.cn/site_images/ti/azXHhfG4.jpg?i=172NlfSRo">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">WebRTC 1.0: Real-time Communication Between Browsers中文版（十三）</div>
+</a><a class="wumii-image-block" hidefocus="true" title="(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（十三）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/en/webrtc-1-0-real-time-communication-between-browsers-13/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=7FH6OXA1" src="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=7FH6OXA1">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（十三）</div>
+</a><a class="wumii-image-block" hidefocus="true" title="(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（三）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/en/webrtc-1-0-real-time-communication-between-browsers-3/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=nwxUTWI5" src="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=nwxUTWI5">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（三）</div>
+</a></div>
+    </div><div class="wumii-footer" style="margin: 0px; border: none; padding: 5px 0px; clear: both; text-align: right; width: 451px;">
+            <a href="http://www.wumii.com/widget/relatedItems" target="_blank" title="无觅关联推荐" style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: arial; color: rgb(187, 187, 187); border-bottom-style: none; word-wrap: normal; display: inline; cursor: pointer;">无觅关联推荐[?]</a>
+                
+        </div>
+</div></div>
+<p>Related posts:</p><ol>
+<li><a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-6/" rel="bookmark" title="WebRTC 1.0: Real-time Communication Between Browsers中文版（六）">WebRTC 1.0: Real-time Communication Between Browsers中文版（六）</a> <small>原文：http://www.w3.org/TR/webrtc/#rtcpeerconnection 5.1&nbsp;R [...]...</small></li>
+<li><a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-5/" rel="bookmark" title="WebRTC 1.0: Real-time Communication Between Browsers中文版（五）">WebRTC 1.0: Real-time Communication Between Browsers中文版（五）</a> <small>原文：http://www.w3.org/TR/webrtc/#peer-to-peer-connection [...]...</small></li>
+</ol>                                </div>
+                <div style="clear:both;"></div>
+                <div class="postmeta">Tags: <a href="http://www.iwebrtc.com/blog/tag/ice/" rel="tag">ICE</a>, <a href="http://www.iwebrtc.com/blog/tag/rtcpeerconnection/" rel="tag">RTCPeerConnection</a>, <a href="http://www.iwebrtc.com/blog/tag/sdp/" rel="tag">sdp</a>, <a href="http://www.iwebrtc.com/blog/tag/stringifier/" rel="tag">stringifier</a>, <a href="http://www.iwebrtc.com/blog/tag/stun/" rel="tag">STUN</a>, <a href="http://www.iwebrtc.com/blog/tag/webrtc-1-0/" rel="tag">WebRTC 1.0</a><br>Filed in <a href="http://www.iwebrtc.com/blog/category/webrtc/" title="查看 webrtc 中的全部文章" rel="category tag">webrtc</a> with <a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-7/#respond" title="《WebRTC 1.0: Real-time Communication Between Browsers中文版（七）》上的评论">0 Comments</a> </div>
+			</div>

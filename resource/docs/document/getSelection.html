@@ -1,0 +1,12 @@
+<p>
+	以上的代码可以捕获到选中的网页中的纯文本内容(不含HTML标签)
+如果想获得包含html的内容，将document.selection.createRange().text改成document.selection.createRange().htmlText  
+IE：document.selection 　　FireFox：window.getSelection() 　　document.selection只有IE支持，window.getSelection()也只有FireFox和   Safari支持，都不是标准语法。 
+selection   对象
+代表了当前激活选中区，即高亮文本块，和/或文档中用户可执行某些操作的其它元素。 
+selection   对象的典型用途是作为用户的输入，以便识别正在对文档的哪一部分正在处理，或者作为某一操作的结果输出给用户。 
+   
+用户和脚本都可以创建选中区。用户创建选中区的办法是拖曳文档的一部分。脚本创建选中区的办法是在文本区域或类似对象上调用   select   方法。要获取当前选中区，请对   document   对象应用   selection   关键字。要对选中区执行操作，请先用   createRange   方法从选中区创建一个文本区域对象。 
+   
+一个文档同一时间只能有一个选中区。选中区的类型决定了其中为空或者包含文本和/或元素块。尽管空的选中区不包含任何内容，你仍然可以用它作为文档中的位置标志。
+</p>

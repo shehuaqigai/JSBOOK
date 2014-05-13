@@ -1,0 +1,193 @@
+<div class="_page _mdn"><h1>SVGPathElement</h1> <p>The <code>SVGPathElement</code> interface corresponds to the <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path" title="The path element is the generic element to define a shape. All the basic shapes can be created with a path element."><code>&lt;path&gt;</code></a> element.</p> <h3 id="Interface_overview">Interface overview</h3> <table class="standard-table"><tbody>
+<tr>
+<th scope="row">Also implement</th> <td>
+<a href="svgelement" title="All of the SVG DOM interfaces that correspond directly to elements in the SVG language derive from the SVGElement interface."><code>SVGElement</code></a>, <a href="svgtests" title="Interface SVGTests defines an interface which applies to all elements which have attributes requiredFeatures, requiredExtensions and systemLanguage."><code>SVGTests</code></a>, <a href="svglangspace" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGLangSpace</code></a>, <a href="svgexternalresourcesrequired" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGExternalResourcesRequired</code></a>, <a href="svgstylable" title="The SVGStylable interface is implemented on all objects corresponding to SVG elements that can have style, class and presentation attributes specified on them."><code>SVGStylable</code></a>, <a href="svgtransformable" title="Interface SVGTransformable contains properties and methods that apply to all elements which have attribute transform."><code>SVGTransformable</code></a>, <a href="svganimatedpathdata" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGAnimatedPathData</code></a>
+</td> </tr>
+<tr>
+<th scope="row">Methods</th> <td> <ul>
+<li><code>float getTotalLength()</code></li> <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGPoint" title="test content"><code>SVGPoint</code></a> getPointAtLength(in float distance)</code></li> <li><code>unsigned long getPathSegAtLength(in float distance)</code></li> <li><code><a href="svgpathsegclosepath" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegClosePath</code></a> createSVGPathSegClosePath()</code></li> <li><code><a href="svgpathsegmovetoabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegMovetoAbs</code></a> createSVGPathSegMovetoAbs(in float x, in float y)</code></li> <li><code><a href="svgpathsegmovetorel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegMovetoRel</code></a> createSVGPathSegMovetoRel(in float x, in float y)</code></li> <li><code><a href="svgpathseglinetoabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoAbs</code></a> createSVGPathSegLinetoAbs(in float x, in float y)</code></li> <li><code><a href="svgpathseglinetorel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoRel</code></a> createSVGPathSegLinetoRel(in float x, in float y)</code></li> <li><code><a href="svgpathsegcurvetocubicabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicAbs</code></a> createSVGPathSegCurvetoCubicAbs(in float x, in float y, in float x1, in float y1, in float x2, in float y2)</code></li> <li><code><a href="svgpathsegcurvetocubicrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicRel</code></a> createSVGPathSegCurvetoCubicRel(in float x, in float y, in float x1, in float y1, in float x2, in float y2)</code></li> <li><code><a href="svgpathsegcurvetoquadraticabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticAbs</code></a> createSVGPathSegCurvetoQuadraticAbs(in float x, in float y, in float x1, in float y1)</code></li> <li><code><a href="svgpathsegcurvetoquadraticrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticRel</code></a> createSVGPathSegCurvetoQuadraticRel(in float x, in float y, in float x1, in float y1)</code></li> <li><code><a href="svgpathsegarcabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegArcAbs</code></a> createSVGPathSegArcAbs(in float x, in float y, in float r1, in float r2, in float angle, in boolean largeArcFlag, in boolean sweepFlag)</code></li> <li><code><a href="svgpathsegarcrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegArcRel</code></a> createSVGPathSegArcRel(in float x, in float y, in float r1, in float r2, in float angle, in boolean largeArcFlag, in boolean sweepFlag)</code></li> <li><code><a href="svgpathseglinetohorizontalabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoHorizontalAbs</code></a> createSVGPathSegLinetoHorizontalAbs(in float x)</code></li> <li><code><a href="svgpathseglinetohorizontalrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoHorizontalRel</code></a> createSVGPathSegLinetoHorizontalRel(in float x)</code></li> <li><code><a href="svgpathseglinetoverticalabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoVerticalAbs</code></a> createSVGPathSegLinetoVerticalAbs(in float y)</code></li> <li><code><a href="svgpathseglinetoverticalrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoVerticalRel</code></a> createSVGPathSegLinetoVerticalRel(in float y)</code></li> <li><code><a href="svgpathsegcurvetocubicsmoothabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicSmoothAbs</code></a> createSVGPathSegCurvetoCubicSmoothAbs(in float x, in float y, in float x2, in float y2)</code></li> <li><code><a href="svgpathsegcurvetocubicsmoothrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicSmoothRel</code></a> createSVGPathSegCurvetoCubicSmoothRel(in float x, in float y, in float x2, in float y2)</code></li> <li><code><a href="svgpathsegcurvetoquadraticsmoothabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticSmoothAbs</code></a> createSVGPathSegCurvetoQuadraticSmoothAbs(in float x, in float y)</code></li> <li><code><a href="svgpathsegcurvetoquadraticsmoothrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticSmoothRel</code></a> createSVGPathSegCurvetoQuadraticSmoothRel(in float x, in float y);</code></li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Properties</th> <td> <ul>
+<li>
+<a href="svganimatednumber" title="The SVGAnimatedNumber interface is used for attributes of basic type &lt;Number&gt; which can be animated."><code>SVGAnimatedNumber</code></a> <code>pathLength</code>
+</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Normative document</th> <td><a class="external" href="http://www.w3.org/TR/SVG11/types.html#InterfaceSVGLength" title="http://www.w3.org/TR/SVG11/types.html#InterfaceSVGLength">SVG 1.1 (2nd Edition)</a></td> </tr>
+</tbody></table><h2 id="Properties">Properties</h2> <table class="standard-table">
+<thead><tr>
+<th>Name</th> <th>Type</th> <th>Description</th> </tr></thead>
+<tbody><tr>
+<td><code>pathLength</code></td> <td><a href="svganimatednumber" title="The SVGAnimatedNumber interface is used for attributes of basic type &lt;Number&gt; which can be animated."><code>SVGAnimatedNumber</code></a></td> <td>Corresponds to attribute <code><a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/pathLength">pathLength</a></code> on the given <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path" title="The path element is the generic element to define a shape. All the basic shapes can be created with a path element."><code>&lt;path&gt;</code></a> element.</td> </tr></tbody>
+</table><h2 id="Methods">Methods</h2>  <table class="standard-table">
+<thead><tr>
+<th>Name &amp; Arguments</th> <th>Return</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td>
+<strong><code>getTotalLength</code></strong><code>()</code>
+</td> <td>float</td> <td>Returns the computed value for the total length of the path using the browser's distance-along-a-path algorithm, as a distance in the current user coordinate system.</td> </tr>
+<tr>
+<td><code><strong>getPointAtLength</strong>(in float <em>distance</em>)</code></td> <td><a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGPoint" title="test content"><code>SVGPoint</code></a></td> <td>Returns the (x,y) coordinate in user space which is distance units along the path, utilizing the browser's distance-along-a-path algorithm.</td> </tr>
+<tr>
+<td><code><strong>getPathSegAtLength</strong>(in float <em>distance</em>)</code></td> <td>unsigned long</td> <td>Returns the index into <code>pathSegList</code> which is <code>distance</code> units along the path, utilizing the user agent's distance-along-a-path algorithm.</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegClosePath</strong>()</code></td> <td><a href="svgpathsegclosepath" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegClosePath</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegclosepath" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegClosePath</code></a> object.</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegMovetoAbs</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgpathsegmovetoabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegMovetoAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegmovetoabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegMovetoAbs</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em></code><br> The absolute Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegMovetoRel</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgpathsegmovetorel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegMovetoRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegmovetorel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegMovetoRel</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The relative X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em></code><br> The relative Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegLinetoAbs</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgpathseglinetoabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathseglinetoabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoAbs</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em></code><br> The absolute Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegLinetoRel</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgpathseglinetorel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathseglinetorel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoRel</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The relative X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em></code><br> The relative Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoCubicAbs</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>x1</em>, in float <em>y1</em>, in float <em>x2</em>, in float <em>y2</em>)</code></td> <td><a href="svgpathsegcurvetocubicabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetocubicabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicAbs</code></a> object.<br><br> Parameters: <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em> </code><br> The absolute Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>x1</em></code><br> The absolute X coordinate for the first control point.</li> <li>
+<code>float <em>y1</em></code><br> The absolute Y coordinate for the first control point.</li> <li>
+<code>float <em>x2</em></code><br> The absolute X coordinate for the second control point.</li> <li>
+<code>float <em>y2</em></code><br> The absolute Y coordinate for the second control point.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoCubicRel</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>x1</em>, in float <em>y1</em>, in float <em>x2</em>, in float <em>y2</em>)</code></td> <td><a href="svgpathsegcurvetocubicrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetocubicrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicRel</code></a> object.<br><br> Parameters: <ul>
+<li>
+<code>float <em>x</em></code><br> The relative X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em> </code><br> The relative Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>x1</em></code><br> The relative X coordinate for the first control point.</li> <li>
+<code>float <em>y1</em></code><br> The relative Y coordinate for the first control point.</li> <li>
+<code>float <em>x2</em></code><br> The relative X coordinate for the second control point.</li> <li>
+<code>float <em>y2</em></code><br> The relative Y coordinate for the second control point.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoQuadraticAbs</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>x1</em>, in float <em>y1</em>)</code></td> <td><a href="svgpathsegcurvetoquadraticabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetoquadraticabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticAbs</code></a> object.<br><br> Parameters: <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em> </code><br> The absolute Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>x1</em></code><br> The absolute X coordinate for the first control point.</li> <li>
+<code>float <em>y1</em></code><br> The absolute Y coordinate for the first control point.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoQuadraticRel</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>x1</em>, in float <em>y1</em>)</code></td> <td><a href="svgpathsegcurvetoquadraticrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetoquadraticrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticRel</code></a> object.<br><br> Parameters: <ul>
+<li>
+<code>float <em>x</em></code><br> The relative X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em> </code><br> The relative Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>x1</em></code><br> The relative X coordinate for the first control point.</li> <li>
+<code>float <em>y1</em></code><br> The relative Y coordinate for the first control point.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegArcAbs</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>r1</em>, in float <em>r2</em>, in float <em>angle</em>, in boolean <em>largeArcFlag</em>, in boolean <em>sweepFlag</em>)</code></td> <td><a href="svgpathsegarcabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegArcAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegarcabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegArcAbs</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em> </code><br> The absolute Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>r1</em></code><br> The x-axis radius for the ellipse.</li> <li>
+<code>float <em>r2 </em></code><br> The y-axis radius for the ellipse.</li> <li>
+<code>float <em>angle </em></code><br> The rotation angle in degrees for the ellipse's x-axis relative to the x-axis of the user coordinate system.</li> <li>
+<code>boolean <em>largeArcFlag </em></code><br> The value of the large-arc-flag parameter.</li> <li>
+<code>boolean <em>sweepFlag </em></code><br> The value of the large-arc-flag parameter.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegArcRel</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>r1</em>, in float <em>r2</em>, in float <em>angle</em>, in boolean <em>largeArcFlag</em>, in boolean <em>sweepFlag</em>)</code></td> <td><a href="svgpathsegarcrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegArcRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegarcrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegArcRel</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The relative X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em> </code><br> The relative Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>r1</em></code><br> The x-axis radius for the ellipse.</li> <li>
+<code>float <em>r2 </em></code><br> The y-axis radius for the ellipse.</li> <li>
+<code>float <em>angle </em></code><br> The rotation angle in degrees for the ellipse's x-axis relative to the x-axis of the user coordinate system.</li> <li>
+<code>boolean <em>largeArcFlag </em></code><br> The value of the large-arc-flag parameter.</li> <li>
+<code>boolean <em>sweepFlag </em></code><br> The value of the large-arc-flag parameter.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegLinetoHorizontalAbs</strong>(in float <em>x</em>)</code></td> <td><a href="svgpathseglinetohorizontalabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoHorizontalAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathseglinetohorizontalabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoHorizontalAbs</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegLinetoHorizontalRel</strong>(in float <em>x</em>)</code></td> <td><a href="svgpathseglinetohorizontalrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoHorizontalRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathseglinetohorizontalrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoHorizontalRel</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The relative X coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegLinetoVerticalAbs</strong>(in float <em>y</em>)</code></td> <td><a href="svgpathseglinetoverticalabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoVerticalAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathseglinetoverticalabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoVerticalAbs</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>y</em></code><br> The absolute Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegLinetoVerticalRel</strong>(in float <em>y</em>)</code></td> <td><a href="svgpathseglinetoverticalrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoVerticalRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathseglinetoverticalrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegLinetoVerticalRel</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>y</em></code><br> The relative Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoCubicSmoothAbs</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>x2</em>, in float <em>y2</em>)</code></td> <td><a href="svgpathsegcurvetocubicsmoothabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicSmoothAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetocubicsmoothabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicSmoothAbs</code></a> object.<br><br> Parameters <ul>
+<li>
+<code>float <em>x </em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y </em></code><br> The absolute Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>x2 </em></code><br> The absolute X coordinate for the second control point.</li> <li>
+<code>float <em>y2 </em></code><br> The absolute Y coordinate for the second control point.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoCubicSmoothRel</strong>(in float <em>x</em>, in float <em>y</em>, in float <em>x2</em>, in float <em>y2</em>)</code></td> <td><a href="svgpathsegcurvetocubicsmoothrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicSmoothRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetocubicsmoothrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoCubicSmoothRel</code></a> object.<br><br> Parameters <ul>
+<li>
+<code>float <em>x </em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y </em></code><br> The absolute Y coordinate for the end point of this path segment.</li> <li>
+<code>float <em>x2 </em></code><br> The absolute X coordinate for the second control point.</li> <li>
+<code>float <em>y2 </em></code><br> The absolute Y coordinate for the second control point.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoQuadraticSmoothAbs</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgpathsegcurvetoquadraticsmoothabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticSmoothAbs</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetoquadraticsmoothabs" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticSmoothAbs</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em></code><br> The absolute Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>createSVGPathSegCurvetoQuadraticSmoothRel</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgpathsegcurvetoquadraticsmoothrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticSmoothRel</code></a></td> <td>Returns a stand-alone, parentless <a href="svgpathsegcurvetoquadraticsmoothrel" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGPathSegCurvetoQuadraticSmoothRel</code></a> object.<br><br><strong>Parameters:</strong> <ul>
+<li>
+<code>float <em>x</em></code><br> The absolute X coordinate for the end point of this path segment.</li> <li>
+<code>float <em>y</em></code><br> The absolute Y coordinate for the end point of this path segment.</li> </ul>
+</td> </tr>
+</tbody>
+</table> <h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li>
+<a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path" title="The path element is the generic element to define a shape. All the basic shapes can be created with a path element."><code>&lt;path&gt;</code></a> SVG Element</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGPathElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGPathElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/SVGPathElement</a>
+  </p>
+</div>
+</div>

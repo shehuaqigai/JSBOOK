@@ -1,0 +1,230 @@
+<div id="maincontent">
+
+    <h1>XML DOM CSSRule 对象</h1>
+
+    <div id="tpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_css2properties.asp" title="XML DOM CSS2Properties 对象">DOM CSS2Properties</a></li>
+            <li class="next"><a href="/xmldom/dom_cssstylerule.asp" title="XML DOM CSSStyleRule 对象">DOM CSSStyleRule</a></li>
+        </ul>
+    </div>
+
+
+    <div>
+        <h2>CSSRule 对象</h2>
+
+        <p>CSSRule 对象是一个基类，用于定义 CSS 样式表中的任何规则，包括规则集（rule sets）和 @ 规则（at-rules）。</p>
+
+        <p>规则存在若干种类型。所有这些类型在 CSSRule 接口共享的通用属性并不多，大部分类型都拥有专门针对特定规则类型的属性。</p>
+
+    </div>
+
+    <div>
+        <h2>CSS 规则的类型</h2>
+
+        <table class="dataintable">
+            <tbody><tr>
+                <th style="width:45%;">类型</th>
+                <th>对应的接口</th>
+            </tr>
+
+            <tr>
+                <td>CSSRule.STYLE_RULE</td>
+                <td><a href="/xmldom/dom_cssstylerule.asp" title="XML DOM CSSStyleRule 对象">CSSStyleRule</a></td>
+            </tr>
+
+            <tr>
+                <td>CSSRule.MEDIA_RULE</td>
+                <td>CSSMediaRule</td>
+            </tr>
+
+            <tr>
+                <td>CSSRule.FONT_FACE_RULE</td>
+                <td>CSSFontFaceRule</td>
+            </tr>
+
+            <tr>
+                <td>CSSRule.PAGE_RULE</td>
+                <td>CSSPageRule</td>
+            </tr>
+
+            <tr>
+                <td>CSSRule.IMPORT_RULE</td>
+                <td>CSSImportRule</td>
+            </tr>
+
+            <tr>
+                <td>CSSRule.CHARSET_RULE</td>
+                <td>CSSCharsetRule</td>
+            </tr>
+
+            <tr>
+                <td>CSSRule.UNKNOWN_RULE</td>
+                <td>CSSUnknownRule</td>
+            </tr>
+            </tbody></table>
+    </div>
+
+
+    <div>
+        <h2>CSSRule 对象的属性</h2>
+
+        <dl class="define">
+            <dt>cssText</dt>
+            <dd>返回规则的文本表示，例如 "h1,h2 { font-size: 16pt }"。</dd>
+
+            <dt>parentRule</dt>
+            <dd>返回包含规则（如果有的话）（例如，在 @media 块中的样式规则）。</dd>
+
+            <dt>parentStyleSheet</dt>
+            <dd>返回该规则所属的 stylesheet 对象。</dd>
+
+            <dt>type</dt>
+            <dd>规则类型，例如 CSSRule.CHARSET_RULE 或 CSSRule.IMPORT_RULE。</dd>
+        </dl>
+
+        <p class="note"><span>注释：</span>以上属性均为只读。</p>
+    </div>
+
+
+    <div>
+        <h2>相关页面</h2>
+        <p>XML DOM 参考手册：<a href="/xmldom/dom_cssstylerule.asp" title="XML DOM CSSStyleRule 对象">CSSStyleRule 对象</a></p>
+    </div>
+
+
+    <div id="bpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_css2properties.asp" title="XML DOM CSS2Properties 对象">DOM CSS2Properties</a></li>
+            <li class="next"><a href="/xmldom/dom_cssstylerule.asp" title="XML DOM CSSStyleRule 对象">DOM CSSStyleRule</a></li>
+        </ul>
+    </div>
+</div>
+<div class="_content"><div class="_page _mdn"><h1>CSSRule</h1> <p>An object implementing the <strong><code>CSSRule</code></strong> DOM interface represents a single CSS at-rule. References to a <code>CSSRule</code>-implementing object may be obtained by looking at a <a href="cssstylesheet">CSS style sheet's</a> <a href="cssstylesheet" title="An object implementing the CSSStyleSheet interface represents a single CSS style sheet."><code>cssRules</code></a> list.</p> <p>There are several kinds of rules. The <code>CSSRule</code> interface specifies the properties common to all rules, while properties unique to specific rule types are specified in the more specialized interfaces for those rules' respective types.</p> <h2 id="Properties" name="Properties">Syntax</h2> <p>The syntax is described using the <a href="http://dev.w3.org/2006/webapi/WebIDL/">WebIDL</a> format.</p> <pre>interface CSSRule {
+    const unsigned short STYLE_RULE = 1;
+    const unsigned short CHARSET_RULE = 2;
+    const unsigned short IMPORT_RULE = 3;
+    const unsigned short MEDIA_RULE = 4;
+    const unsigned short FONT_FACE_RULE = 5;
+    const unsigned short PAGE_RULE = 6;
+    const unsigned short KEYFRAMES_RULE = 7;
+    const unsigned short KEYFRAME_RULE = 8;
+    const unsigned short NAMESPACE_RULE = 10;
+    const unsigned short COUNTER_STYLE_RULE = 11;
+    const unsigned short SUPPORTS_RULE = 12;
+    const unsigned short DOCUMENT_RULE = 13;
+    const unsigned short FONT_FEATURE_VALUES_RULE = 14;
+    const unsigned short VIEWPORT_RULE = 15;
+    const unsigned short REGION_STYLE_RULE = 16;
+    readonly attribute unsigned short type;
+    attribute DOMString cssText;
+    readonly attribute CSSRule? parentRule;
+    readonly attribute CSSStyleSheet? parentStyleSheet;
+};</pre> <h2 id="Properties_common_to_all_CSSRule_instances">Properties common to all CSSRule instances</h2> <dl>
+    <dt id="cssText"> <a href="cssrule.csstext" title="cssText returns the actual text of the style rule. To be able to set a stylesheet rule dynamically, see Using dynamic styling information."><code>CSSRule.cssText</code></a>
+    </dt> <dd> Represents the textual representation of the rule, e.g. <code>"h1,h2 { font-size: 16pt }"</code>
+</dd> <dt id="parentRule"> <a href="cssrule.parentrule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSRule.parentRule</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Returns the containing rule, otherwise <code>null</code>. E.g. if this rule is a style rule inside an <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media" title=""><code>@media</code></a> block, the parent rule would be that <a href="cssmediarule" title="CSSMediaRule is an object representing a single CSS @media rule. It implements the CSSConditionRule interface, and therefore the CSSGroupingRule and the CSSRule interface with a type value of 4 (CSSRule.MEDIA_RULE)."><code>CSSMediaRule</code></a>.</dd> <dt id="parentStyleSheet"> <a href="cssrule.parentstylesheet" title="parentStyleSheet returns the stylesheet object in which the current rule is defined."><code>CSSRule.parentStyleSheet</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Returns the <a href="cssstylesheet" title="An object implementing the CSSStyleSheet interface represents a single CSS style sheet."><code>CSSStyleSheet</code></a> object for the style sheet that contains this rule</dd> <dt id="type"> <a href="cssrule.type" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSRule.type</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> One of the <a href="#Type_constants">Type constants</a> indicating the type of CSS rule.</dd> </dl><h2 id="CSSRule" name="CSSRule">Constants</h2> <h3 id="Type_constants">Type constants</h3> <p>The <code>CSSRule</code> interface specifies integer constants that can be used in conjunction with a <code>CSSRule</code>'s <a href="cssrule/type" title="The documentation about this has not yet been written; please consider contributing!"><code>type</code></a> property to discern the rule type (and therefore, which specialized interface it implements). The relationships between these constants and the interfaces are:</p> <table class="standard-table"><tbody>
+<tr>
+    <th>Type</th> <th>Value</th> <th>Rule-specific interface</th> </tr>
+<tr>
+    <td><code>CSSRule.STYLE_RULE</code></td> <td style="text-align: center;"><code>1</code></td> <td><a href="cssstylerule" title="CSSStyleRule represents a single CSS style rule. It implements the CSSRule interface with a type value of 1 (CSSRule.STYLE_RULE)."><code>CSSStyleRule</code></a></td> </tr>
+<tr>
+    <td><code>CSSRule.MEDIA_RULE</code></td> <td style="text-align: center;"><code>4</code></td> <td><a href="cssmediarule" title="CSSMediaRule is an object representing a single CSS @media rule. It implements the CSSConditionRule interface, and therefore the CSSGroupingRule and the CSSRule interface with a type value of 4 (CSSRule.MEDIA_RULE)."><code>CSSMediaRule</code></a></td> </tr>
+<tr>
+    <td><code>CSSRule.FONT_FACE_RULE</code></td> <td style="text-align: center;"><code>5</code></td> <td><a href="cssfontfacerule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSFontFaceRule</code></a></td> </tr>
+<tr>
+    <td><code>CSSRule.PAGE_RULE</code></td> <td style="text-align: center;"><code>6</code></td> <td><a href="csspagerule" title="CSSPageRule is an object representing a single CSS @page rule. It implements the CSSRule interface with a type value of 6 (CSSRule.PAGE_RULE)."><code>CSSPageRule</code></a></td> </tr>
+<tr>
+    <td><code>CSSRule.IMPORT_RULE</code></td> <td style="text-align: center;"><code>3</code></td> <td><a href="cssimportrule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSImportRule</code></a></td> </tr>
+<tr>
+    <td><code>CSSRule.CHARSET_RULE</code></td> <td style="text-align: center;"><code>2</code></td> <td>
+    <a href="csscharsetrule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSCharsetRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.UNKNOWN_RULE</code></td> <td style="text-align: center;"><code>0</code></td> <td>
+    <a href="cssunknownrule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSUnknownRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.KEYFRAMES_RULE</code></td> <td style="text-align: center;"><code>7</code></td> <td>
+    <a href="csskeyframesrule" title="The CSSKeyframesRule interface describes an object representing a complete set of keyframes for a CSS animation. It corresponds to the contains of a whole @keyframes at-rule. It implements the CSSRule interface with a type value of 7 (CSSRule.KEYFRAMES_RULE)."><code>CSSKeyframesRule</code></a> [1]
+</td> </tr>
+<tr>
+    <td><code>CSSRule.KEYFRAME_RULE</code></td> <td style="text-align: center;"><code>8</code></td> <td>
+    <a href="csskeyframerule" title="The CSSKeyframeRule interface describes an object representing a set of style for a given keyframe. It corresponds to the contains of a single keyframe of a @keyframes at-rule. It implements the CSSRule interface with a type value of 8 (CSSRule.KEYFRAME_RULE)."><code>CSSKeyframeRule</code></a> [1]
+</td> </tr>
+<tr>
+    <td><em>Reserved for future use</em></td> <td style="text-align: center;"><code>9</code></td> <td>Should be used to define color profiles in the future</td> </tr>
+<tr>
+    <td><code>CSSRule.NAMESPACE_RULE</code></td> <td style="text-align: center;"><code>10</code></td> <td>
+    <a href="cssnamespacerule" title="The CSSNamespaceRule interface describes an object representing a single CSS @namespace at-rule. It implements the CSSRule interface, with a type value of 10 (CSSRule.NAMESPACE_RULE)."><code>CSSNamespaceRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.COUNTER_STYLE_RULE</code></td> <td style="text-align: center;"><code>11</code></td> <td>
+    <a href="csscounterstylerule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSCounterStyleRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.SUPPORTS_RULE</code></td> <td style="text-align: center;"><code>12</code></td> <td>
+    <a href="csssupportsrule" title="The CSSSupportsRule interface describes an object representing a single CSS @supports at-rule. It implements the CSSConditionRule interface, and therefore the CSSRule and CSSGroupingRule interfaces with a type value of 12 (CSSRule.SUPPORTS_RULE)."><code>CSSSupportsRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.DOCUMENT_RULE</code></td> <td style="text-align: center;"><code>13</code></td> <td>
+    <a href="cssdocumentrule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSDocumentRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.FONT_FEATURE_VALUES_RULE</code></td> <td style="text-align: center;"><code>14</code></td> <td>
+    <a href="cssfontfeaturevaluesrule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSFontFeatureValuesRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.VIEWPORT_RULE</code></td> <td style="text-align: center;"><code>15</code></td> <td>
+    <a href="cssviewportrule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSViewportRule</code></a>
+</td> </tr>
+<tr>
+    <td><code>CSSRule.REGION_STYLE_RULE</code></td> <td style="text-align: center;"><code>16</code></td> <td>
+    <a href="cssregionstylerule" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSRegionStyleRule</code></a>
+</td> </tr>
+</tbody></table><p>An up-to-date informal list of constants can be found on the <a href="http://wiki.csswg.org/spec/cssom-constants">CSSWG Wiki</a>.</p> <p>[1] On Gecko, before Firefox 19, the keyframe-related constants existed only in their prefixed version: <code>CSSRule.MOZ_KEYFRAMES_RULE</code> and <code>CSSRule.MOZ_KEYFRAME_RULE.</code> From Firefox 20 onwards, both versions are available. The prefixed version will be removed in the future.</p> <h2 id="Specification" name="Specification">Specifications</h2> <table class="standard-table">
+    <thead><tr>
+        <th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr></thead>
+    <tbody>
+    <tr>
+        <td><a class="external" href="http://dev.w3.org/csswg/cssom/#css-rules" lang="en" title="The definition of 'CSSRule' in that specification.">CSS Object Model (CSSOM)</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Obsoleted values <code>CHARSET_RULE</code> and <code>UNKNOWN_RULE</code>. Added value <code>NAMESPACE_RULE</code>.</td> </tr>
+    <tr>
+        <td><a class="external" href="http://dev.w3.org/csswg/css-animations/#cssrule" lang="en" title="The definition of 'CSSRule' in that specification.">CSS Animations</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Added values <code>KEYFRAMES_RULE</code> and <code>KEYFRAME_RULE</code>.</td> </tr>
+    <tr>
+        <td><a class="external" href="http://dev.w3.org/csswg/css3-fonts/#om-fontfeaturevalues" lang="en" title="The definition of 'CSSRule' in that specification.">CSS Fonts Module Level 3</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Added value <code>FONT_FEATURE_VALUES_RULE</code>.</td> </tr>
+    <tr>
+        <td><a class="external" href="http://dev.w3.org/csswg/css-counter-styles-3/#extentions-to-cssrule-interface" lang="en" title="The definition of 'CSSRule' in that specification.">CSS Counter Styles Level 3</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Added value <code>COUNTER_STYLE_RULE</code>.</td> </tr>
+    <tr>
+        <td><a class="external" href="http://dev.w3.org/csswg/css3-conditional/#extentions-to-cssrule-interface" lang="en" title="The definition of 'CSSRule' in that specification.">CSS Conditional Rules Module Level 3</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td>Added value <code>SUPPORTS_RULE</code>. (<code>DOCUMENT_RULE</code> has been pushed to CSS Conditional Rules Level 4)</td> </tr>
+    <tr>
+        <td><a class="external" href="http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSRule" lang="en" title="The definition of 'CSSRule' in that specification.">Document Object Model (DOM) Level 2 Style Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>Initial definition.</td> </tr>
+    </tbody>
+</table><h2 id="Browser_compatibility">Browser compatibility</h2> <p>To get browser compatibility information about the different type constant value, please consult the compatibility table of the associated interface.</p>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+    <th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+    <td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>9</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+    <th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+    <td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/DOM/Using_dynamic_styling_information">Using dynamic styling information</a></li> <li>CSS Object Model: <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a>, <a href="cssstylerule" title="CSSStyleRule represents a single CSS style rule. It implements the CSSRule interface with a type value of 1 (CSSRule.STYLE_RULE)."><code>CSSStyleRule</code></a>, <a href="cssmediarule" title="CSSMediaRule is an object representing a single CSS @media rule. It implements the CSSConditionRule interface, and therefore the CSSGroupingRule and the CSSRule interface with a type value of 4 (CSSRule.MEDIA_RULE)."><code>CSSMediaRule</code></a>, <a href="csspagerule" title="CSSPageRule is an object representing a single CSS @page rule. It implements the CSSRule interface with a type value of 6 (CSSRule.PAGE_RULE)."><code>CSSPageRule</code></a>, <a href="csskeyframesrule" title="The CSSKeyframesRule interface describes an object representing a complete set of keyframes for a CSS animation. It corresponds to the contains of a whole @keyframes at-rule. It implements the CSSRule interface with a type value of 7 (CSSRule.KEYFRAMES_RULE)."><code>CSSKeyframesRule</code></a>, <a href="csskeyframerule" title="The CSSKeyframeRule interface describes an object representing a set of style for a given keyframe. It corresponds to the contains of a single keyframe of a @keyframes at-rule. It implements the CSSRule interface with a type value of 8 (CSSRule.KEYFRAME_RULE)."><code>CSSKeyframeRule</code></a>, <a href="cssnamespacerule" title="The CSSNamespaceRule interface describes an object representing a single CSS @namespace at-rule. It implements the CSSRule interface, with a type value of 10 (CSSRule.NAMESPACE_RULE)."><code>CSSNamespaceRule</code></a>, <a href="csssupportsrule" title="The CSSSupportsRule interface describes an object representing a single CSS @supports at-rule. It implements the CSSConditionRule interface, and therefore the CSSRule and CSSGroupingRule interfaces with a type value of 12 (CSSRule.SUPPORTS_RULE)."><code>CSSSupportsRule</code></a>, <a href="cssgroupingrule" title="An object implementing the CSSGroupingRule DOM interface represents any CSS at-rule that contains other rules nested in it."><code>CSSGroupingRule</code></a>, <a href="cssconditionrule" title="An object implementing the CSSConditionRule DOM interface represents a single condition CSS at-rule, which consists of a condition and a statement block. It is a child of CSSGroupingRule."><code>CSSConditionRule</code></a>
+</li> </ul><div class="_attribution">
+    <p class="_attribution-p">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSRule$edit" class="_attribution-link">Edit this page on MDN</a>
+    </p>
+</div>
+    <div class="_attribution">
+        <p class="_attribution-p">
+            © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSRule" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/CSSRule</a>
+        </p>
+    </div>
+</div></div>

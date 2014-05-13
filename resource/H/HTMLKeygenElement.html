@@ -1,0 +1,54 @@
+<div class="_content"><div class="_page _mdn"><h1>HTMLKeygenElement</h1>  <div class="note"> <p><strong>Note: </strong>This page describes the Keygen Element interface as specified, not as currently implemented by Gecko. See <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=101019" title="KEYGEN support does not belong in the parser">bug 101019</a> for details and status.</p> </div> <h2 id="HTML.C2.A0Keygen_Element_Interface">HTML Keygen Element Interface</h2> <p>DOM <code>keygen</code> elements expose the <a class="external" href="http://dev.w3.org/html5/spec/the-button-element.html#htmlkeygenelement" title="http://dev.w3.org/html5/spec/the-button-element.html#htmlkeygenelement">HTMLKeygenElement</a> interface, which provides special properties and methods (beyond the regular <a href="element" rel="internal">element</a> object interface they also have available to them by inheritance) for manipulating the layout and presentation of <code>keygen</code> elements.</p> <h2 id="Properties">Properties</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name</th> <th scope="col">Type</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>autofocus</code></td> <td><code><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" title="en/JavaScript/Reference/Global Objects/Boolean">Boolean</a></code></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/keygen#attr-autofocus">autofocus</a></code> HTML attribute, indicating that the form control should have input focus when the page loads.</td> </tr>
+<tr>
+<td><code>challenge</code></td> <td><code><a href="https://developer.mozilla.org/En/DOM/DOMString" title="En/DOM/DOMString">DOMString</a></code></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/keygen#attr-challenge">challenge</a></code> HTML attribute, containing a challenge string that is packaged with the submitted key.</td> </tr>
+<tr>
+<td><code>disabled</code></td> <td><code><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" title="en/JavaScript/Reference/Global Objects/Boolean">Boolean</a></code></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/keygen#attr-disabled">disabled</a></code> HTML attribute, indicating that the control is not available for interaction.</td> </tr>
+<tr>
+<td><code>form</code></td> <td><code>readonly <a href="htmlformelement" title="en/DOM/HTMLFormElement">HTMLFormElement</a></code></td> <td>Indicates the control's form owner, reflecting the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/keygen#attr-form">form</a></code> HTML attribute if it is defined.</td> </tr>
+<tr>
+<td><code>keytype</code></td> <td><code><a href="https://developer.mozilla.org/En/DOM/DOMString" title="En/DOM/DOMString">DOMString</a></code></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/keygen#attr-keytype">keytype</a></code> HTML attribute, containing the type of key used.</td> </tr>
+<tr>
+<td>
+<code>labels </code><span class="inlineIndicator unimplemented unimplementedInline">Unimplemented (see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=556743" title="Implement the labels attribute">bug 556743</a>)</span>
+</td> <td><code>readonly <a href="https://developer.mozilla.org/En/DOM/NodeList" title="En/DOM/NodeList">NodeList</a></code></td> <td>A list of label elements associated with this keygen element.</td> </tr>
+<tr>
+<td><code>name</code></td> <td><code><a href="https://developer.mozilla.org/En/DOM/DOMString" title="En/DOM/DOMString">DOMString</a></code></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/keygen#attr-name">name</a></code> HTML attribute, containing the name for the control that is submitted with form data.</td> </tr>
+<tr>
+<td><code>type</code></td> <td>
+<code>readonly </code><code><a href="https://developer.mozilla.org/En/DOM/DOMString" title="En/DOM/DOMString">DOMString</a></code>
+</td> <td>Must be the value <code>keygen</code>.</td> </tr>
+<tr>
+<td><code>validationMessage</code></td> <td>
+<code>readonly </code><code><a href="https://developer.mozilla.org/En/DOM/DOMString" title="En/DOM/DOMString">DOMString</a></code>
+</td> <td>A localized message that describes the validation constraints that the control does not satisfy (if any). This is the empty string if the control is not a candidate for constraint validation (<strong>willValidate</strong> is false), or it satisfies its constraints.</td> </tr>
+<tr>
+<td><code>validity</code></td> <td><code>readonly <a href="https://developer.mozilla.org/en/DOM/ValidityState_Interface" title="en/DOM/ValidityState Interface">ValidityState</a></code></td> <td>The validity states that this element is in.</td> </tr>
+<tr>
+<td><code>willValidate</code></td> <td><code><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" title="en/JavaScript/Reference/Global Objects/Boolean">Boolean</a></code></td> <td>Always false because <code>keygen</code> objects are never candidates for constraint validation.</td> </tr>
+</tbody>
+</table><h2 id="Methods">Methods</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name &amp; Arguments</th> <th scope="col">Return</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>checkValidity()</code></td> <td><code><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" title="en/JavaScript/Reference/Global Objects/Boolean">Boolean</a></code></td> <td>Always returns true because <code>keygen</code> objects are never candidates for constraint validation.</td> </tr>
+<tr>
+<td><code>setCustomValidity(in DOMString error)</code></td> <td><code>void</code></td> <td>Sets a custom validity message for the element. If this message is not the empty string, then the element is suffering from a custom validity error, and does not validate.</td> </tr>
+</tbody>
+</table><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLKeygenElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLKeygenElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/HTMLKeygenElement</a>
+  </p>
+</div>
+</div></div>

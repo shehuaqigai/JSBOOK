@@ -1,0 +1,41 @@
+<p>
+	键盘事件拥有两个属性，keyCode和CharCode，他们之间有一些不一样之处。keyCode表示用户按下键的实际的编码，而charCode是指用户按下字符的编码。
+IE下
+keyCode：对于keypress事件，表示按下按键的Unicode字符；对于keydown/keyup 事件，表示按下按键的数字代码。无charCode属性。
+DOM标准下
+keyCode：表示按下按键的数字代码。
+charCode：按下按键的Unicode字符。
+<pre>
+	
+
+
+当我按下“a”键（注意是小写的字母）时，
+在火狐中会得到
+keydown：keyCode is 65  charCode is 0
+keypress：keyCode is 0   charCode is 97
+keyup：  keyCode is 65  charCode is 0
+在谷歌中会得到
+keydown：keyCode is 65  charCode is 0
+keypress：keyCode is 97  charCode is 97
+keyup：  keyCode is 65  charCode is 0
+在IE中会得到
+keydown：keyCode is 65  charCode is undefined
+keypress：keyCode is 97  charCode is undefined
+keyup：  keyCode is 65  charCode is undefined
+而当我按下shift键时，
+在火狐中会得到
+keydown：keyCode is 16  charCode is 0
+keyup：  keyCode is 16   charCode is 0
+不会得到任何的charCode值，因为按shift并没输入任何的字符，而且也不会触发keypress事件。
+在谷歌中会得到
+keydown：keyCode is 16  charCode is 0
+keyup：  keyCode is 16   charCode is 0
+在IE中会得到
+keydown：keyCode is 16  charCode is undefined
+keyup：  keyCode is 16   charCode is undefined
+</pre>
+小结：
+1.在keydown事件里面，事件包含了keyCode – 用户按下的按键的物理编码。
+2.在keypress里，keyCode包含了字符编码，即表示字符的ASCII码。这样的形式适用于所有的浏览器 – 除了火狐，它在keypress事件中的keyCode返回值为0。
+如果你想获取用户实际敲击的按钮，用keydown事件来获取事件对象，并获取keyCode值，这在所有浏览器都行的通。另一方面，如果你想获取用户输入的字符，那么就使用keypress来获取，然后获取charCode（火狐和safari）或是keyCode（其他浏览器）。
+</p>

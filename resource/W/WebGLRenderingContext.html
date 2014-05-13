@@ -1,0 +1,660 @@
+<div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Provides methods, properties, and constants that let you create fast 2D and 3D WebGL graphics. </p>
+<table>
+<tbody><tr><td><img id="badge_ie11" alt="IE11" src="http://i.msdn.microsoft.com/dynimg/IC677945.png" title="IE11" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_3ca733af-4380-4f88-8e3c-83f680a6ae98');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_3ca733af-4380-4f88-8e3c-83f680a6ae98" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;body&gt;
+  &lt;canvas ⁯id="canvas"&gt;&lt;/canvas&gt;
+  ...
+ 
+&lt;script&gt;
+  var gl = document.getElementById("canvas").getContext("experimental-webgl");
+  ...
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>The WebGLRenderingContext does not inherit from any class or interface.<h2>Members</h2>
+<p>The <strong>WebGLRenderingContext</strong> object has these types of members:</p>
+<ul>
+<li><a href="#methods">Methods</a></li>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="methods"></a>Methods</h3>
+<p>The <strong>WebGLRenderingContext</strong> object has these methods.</p>
+<table id="memberListMethods" class="members">
+<tbody><tr><th>Method</th><th>Description</th></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302363(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">activeTexture</strong></a>
+</td><td>
+<p>Specifies the active texture unit. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302364(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">attachShader</strong></a>
+</td><td>
+<p>Attaches  a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302462(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLShader</strong></a> object to a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302360(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLProgram</strong></a> object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455110(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bindAttribLocation</strong></a>
+</td><td>
+<p>Binds a generic vertex index to a user-defined  attribute variable.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302365(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bindBuffer</strong></a>
+</td><td>
+<p>Associates a buffer with a buffer target.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302366(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bindFramebuffer</strong></a>
+</td><td>
+<p>Associates a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a> object with the gl.FRAMEBUFFER bind target. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302367(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bindRenderbuffer</strong></a>
+</td><td>
+<p>Binds a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302361(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLRenderbuffer</strong></a> object to be used for rendering. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302368(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bindTexture</strong></a>
+</td><td>
+<p>Binds a named texture object to a target.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302369(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">blendEquation</strong></a>
+</td><td>
+<p>Sets the equation used to blend RGB and Alpha values of an incoming source fragment with a destination values as stored in the fragment's frame buffer.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302370(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">blendEquationSeparate</strong></a>
+</td><td>
+<p>Controls the blending of an incoming source fragment's R, G, B, and A values with a destination R, G, B, and A values as stored in the fragment's <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a>.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302371(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">blendFunc</strong></a>
+</td><td>
+<p>Sets the blending factors used to combine source and destination pixels. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302372(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">blendFuncSeparate</strong></a>
+</td><td>
+<p>Sets the weighting factors that are used by  <a href="http://msdn.microsoft.com/en-us/library/ie/dn302370(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">blendEquationSeparate</strong></a>. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302373(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bufferData</strong></a>
+</td><td>
+<p>Creates a buffer in memory  and initializes it with array data. If no array is provided, the contents of the  buffer is initialized to 0.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn434079(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bufferSubData</strong></a>
+</td><td>
+<p>Used to modify or update some or all of a data store for  a bound buffer object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302375(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">checkFramebufferStatus</strong></a>
+</td><td>
+<p>Returns whether the currently bound <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a> is complete. If not complete, returns the reason why.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302376(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">clear</strong></a>
+</td><td>
+<p>Sets all pixels in a specific buffer to the same value.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302377(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">clearColor</strong></a>
+</td><td>
+<p>Specifies color values to  use by the <a href="http://msdn.microsoft.com/en-us/library/ie/dn302376(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">clear</strong></a> method to clear the color buffer.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302378(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">clearDepth</strong></a>
+</td><td>
+<p>Clears the depth buffer to a specific value.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn434080(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">colorMask</strong></a>
+</td><td>
+<p>Lets you set whether individual colors can be written when drawing or rendering to a framebuffer. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302379(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">compileShader</strong></a>
+</td><td>
+<p>Compiles the <em>GLSL</em> shader source into binary data used by the <a href="http://msdn.microsoft.com/en-us/library/ie/dn302360(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLProgram</strong></a> object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455112(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">compressedTexImage2D</strong></a>
+</td><td>
+<p>Specifies a two-dimensional texture image or cube Map image from compressed image data. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455113(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">compressedTexSubImage2D</strong></a>
+</td><td>
+<p>Specifies a two-dimensional texture or cube Map sub-image from compressed image data. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302380(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">copyTexImage2D</strong></a>
+</td><td>
+<p>Copies a rectangle of pixels from the current <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a> into a texture image.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302381(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">copyTexSubImage2D</strong></a>
+</td><td>
+<p>Replaces a portion of an existing 2D texture image with data from the current framebuffer.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302382(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createBuffer</strong></a>
+</td><td>
+<p>Creates and initializes a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302348(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLBuffer</strong></a>. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302383(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createFramebuffer</strong></a>
+</td><td>
+<p>Returns a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a> object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302384(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createProgram</strong></a>
+</td><td>
+<p>Creates an empty <a href="http://msdn.microsoft.com/en-us/library/ie/dn302360(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLProgram</strong></a> object to which  vector and fragment <a href="http://msdn.microsoft.com/en-us/library/ie/dn302462(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLShader</strong></a> objects can be bound. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302385(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createRenderbuffer</strong></a>
+</td><td>
+<p>Creates and returns a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302361(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLRenderbuffer</strong></a> object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302386(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createShader</strong></a>
+</td><td>
+<p>Returns an empty vertex or fragment shader object based on the type specified. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302387(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createTexture</strong></a>
+</td><td>
+<p>Used to generate a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302467(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLTexture</strong></a> object to which images can be bound. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302388(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">cullFace</strong></a>
+</td><td>
+<p>Sets whether or not front, back, or both facing facets are able to be culled. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455114(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">deleteBuffer</strong></a>
+</td><td>
+<p>Delete a specific buffer.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302389(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">deleteFramebuffer</strong></a>
+</td><td>
+<p>Deletes a specific <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a> object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455116(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">deleteProgram</strong></a>
+</td><td>
+<p>Flags a specific <a href="http://msdn.microsoft.com/en-us/library/ie/dn302360(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLProgram</strong></a> object for deletion if currently active.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455118(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">deleteRenderbuffer</strong></a>
+</td><td>
+<p>Deletes the specified renderbuffer object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455119(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">deleteShader</strong></a>
+</td><td>
+<p>Deletes a specific shader object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455120(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">deleteTexture</strong></a>
+</td><td>
+<p>Deletes a specific texture object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302390(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">depthFunc</strong></a>
+</td><td>
+<p>Sets a function to use to compare incoming pixel depth to the current depth buffer value. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302391(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">depthMask</strong></a>
+</td><td>
+<p>Sets whether or not you can write to the depth buffer.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302392(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">depthRange</strong></a>
+</td><td>
+<p>Sets the depth range for normalized coordinates to canvas or viewport depth coordinates. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455121(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">detachShader</strong></a>
+</td><td>
+<p>Detach a shader object from a program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302393(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">disable</strong></a>
+</td><td>
+<p>Turns off  specific WebGL capabilities for this context. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302394(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">disableVertexAttribArray</strong></a>
+</td><td>
+<p>Turns off a vertex attribute array at a specific index position. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302395(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">drawArrays</strong></a>
+</td><td>
+<p>Render geometric primitives from bound and enabled vertex data.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302396(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">drawElements</strong></a>
+</td><td>
+<p>Renders geometric primitives indexed by element array data. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302399(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">enable</strong></a>
+</td><td>
+<p>Turns on specific WebGL capabilities for this context.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302400(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">enableVertexAttribArray</strong></a>
+</td><td>
+<p>Turns on a vertex attribute at a specific index position in a vertex attribute array. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302401(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">framebufferRenderbuffer</strong></a>
+</td><td>
+<p>Attaches a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302361(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLRenderbuffer</strong></a> object as a logical buffer to the currently bound  <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a> object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302402(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">framebufferTexture2D</strong></a>
+</td><td>
+<p>Attaches a texture to a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302358(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLFramebuffer</strong></a> object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302403(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">frontFace</strong></a>
+</td><td>
+<p>Sets whether or not polygons are considered front-facing based on their winding direction. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302404(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">generateMipmap</strong></a>
+</td><td>
+<p>Creates a set of textures for a  <a href="http://msdn.microsoft.com/en-us/library/ie/dn302467(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLTexture</strong></a> object with image dimensions from the original size of the image down to a 1x1 image. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302405(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveAttrib</strong></a>
+</td><td>
+<p>Returns an <a href="http://msdn.microsoft.com/en-us/library/ie/dn302344(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLActiveInfo</strong></a> object containing the size, type, and name of a vertex attribute at a specific <em>index</em> position in a program object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302406(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getActiveUniform</strong></a>
+</td><td>
+<p>Returns an <a href="http://msdn.microsoft.com/en-us/library/ie/dn302344(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLActiveInfo</strong></a> object containing the size, type, and name of a uniform attribute at a specific <em>index</em> position in a program object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302407(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getAttachedShaders</strong></a>
+</td><td>
+<p>Returns a list of <a href="http://msdn.microsoft.com/en-us/library/ie/dn302462(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLShaders</strong></a> bound to a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302360(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLProgram</strong></a>.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302408(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getAttribLocation</strong></a>
+</td><td>
+<p>Returns an index to the location in a program of a named attribute variable.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302409(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getBufferParameter</strong></a>
+</td><td>
+<p>Returns the type of a  parameter for a given buffer.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302410(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getContextAttributes</strong></a>
+</td><td>
+<p>Returns an object that describes the attributes set on a context when it was created. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302411(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getError</strong></a>
+</td><td>
+<p>Returns a value for the WebGL error flag and clears the flag. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302412(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getExtension</strong></a>
+</td><td>
+<p>Enables a passed extension, otherwise returns null.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302413(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getFramebufferAttachmentParameter</strong></a>
+</td><td>
+<p>Gets a parameter value  for a given target and attachment. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302414(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getParameter</strong></a>
+</td><td>
+<p>Returns the natural type value for a constant parameter. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn391698(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getProgramInfoLog</strong></a>
+</td><td>
+<p>Returns information about the last error that occurred during the failed linking or validation of a WebGL  program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302415(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getProgramParameter</strong></a>
+</td><td>
+<p>Returns the value of the program parameter that corresponds to a supplied <em>pname</em> for a given program, or null if an error occurs. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302416(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getRenderbufferParameter</strong></a>
+</td><td>
+<p>Returns a renderbuffer parameter from the currently bound <a href="http://msdn.microsoft.com/en-us/library/ie/dn302361(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLRenderbuffer</strong></a> object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302417(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getShaderInfoLog</strong></a>
+</td><td>
+<p>Returns errors which occur when compiling a shader.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302418(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getShaderParameter</strong></a>
+</td><td>
+<p>Returns the value of the parameter associated with <em>pname</em> for a shader object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302419(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getShaderPrecisionFormat</strong></a>
+</td><td>
+<p>Returns the precision and range of the supplied numeric format for a given shader type.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302420(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getShaderSource</strong></a>
+</td><td>
+<p>Returns source code string associated with a shader object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302421(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getSupportedExtensions</strong></a>
+</td><td>
+<p>Returns an array of supported extension strings. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302422(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getTexParameter</strong></a>
+</td><td>
+<p>Returns the value for a parameter on an active texture unit. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302423(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getUniform</strong></a>
+</td><td>
+<p>Gets the uniform value for a specific location in a program. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302424(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getUniformLocation</strong></a>
+</td><td>
+<p>Returns  a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302468(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLUniformLocation</strong></a> object for the location of a uniform variable within a <a href="http://msdn.microsoft.com/en-us/library/ie/dn302360(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLProgram</strong></a> object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302425(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getVertexAttrib</strong></a>
+</td><td>
+<p>Returns data for a particular characteristic of a vertex attribute at an index in a vertex attribute array. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302426(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getVertexAttribOffset</strong></a>
+</td><td>
+<p>Returns the address of a specified vertex attribute. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455122(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isBuffer</strong></a>
+</td><td>
+<p>Gets state of WebGLBuffer. Returns true if buffer is valid, false otherwise.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn386158(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isContextLost</strong></a>
+</td><td>
+<p>Returns whether the WebGL context has been lost. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302427(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isEnabled</strong></a>
+</td><td>
+<p>Returns whether or not a  WebGL capability is enabled for this context. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455123(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isFramebuffer</strong></a>
+</td><td>
+<p>Gets state of framebuffer. Returns true if buffer is valid, false otherwise.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455124(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isProgram</strong></a>
+</td><td>
+<p>Gets state of WebGL program object. Returns true if program object is valid, false otherwise.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455125(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isRenderbuffer</strong></a>
+</td><td>
+<p>Gets state of WebGL renderbuffer. Returns true if buffer is valid, false otherwise.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455126(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isShader</strong></a>
+</td><td>
+<p>Gets state of WebGL shader. Returns true if shader is valid, false otherwise.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455127(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isTexture</strong></a>
+</td><td>
+<p>Gets state of WebGL texture. Returns true if texture is valid, false otherwise.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455128(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">lineWidth</strong></a>
+</td><td>
+<p>Not supported in IE11. Sets the width of lines in WebGL. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302428(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">linkProgram</strong></a>
+</td><td>
+<p>Links an attached vertex shader and an attached fragment shader to a program so it can be used by the GPU. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302429(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">pixelStorei</strong></a>
+</td><td>
+<p>Sets pixel storage modes for <a href="http://msdn.microsoft.com/en-us/library/ie/dn302431(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">readPixels</strong></a> and unpacking of textures with <a href="http://msdn.microsoft.com/en-us/library/ie/dn302435(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">texImage2D</strong></a> and <a href="http://msdn.microsoft.com/en-us/library/ie/dn302438(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">texSubImage2D</strong></a> .</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302430(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">polygonOffset</strong></a>
+</td><td>
+<p>Sets the implementation-specific units and scale factor used to calculate fragment depth values. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302431(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">readPixels</strong></a>
+</td><td>
+<p>Reads pixel data into an <strong>ArrayBufferView</strong> object from a rectangular area in the color buffer of the active frame buffer.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302432(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">renderbufferStorage</strong></a>
+</td><td>
+<p>Creates or replaces the data store for the currently bound <a href="http://msdn.microsoft.com/en-us/library/ie/dn302361(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLRenderbuffer</strong></a> object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302433(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">scissor</strong></a>
+</td><td>
+<p>Sets the dimensions of the scissor box. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302434(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">shaderSource</strong></a>
+</td><td>
+<p>Sets and replaces shader source code in a shader object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302435(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">texImage2D</strong></a>
+</td><td>
+<p>Loads the supplied pixel data into a texture.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302436(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">texParameterf</strong></a>
+</td><td>
+<p>Sets texture parameters for the current texture unit. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302437(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">texParameteri</strong></a>
+</td><td>
+<p>Sets texture parameters for the current texture unit.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302438(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">texSubImage2D</strong></a>
+</td><td>
+<p>Replaces a portion of an existing 2D texture image with all of another image.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302439(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform1f</strong></a>
+</td><td>
+<p>Assigns a floating point value to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302440(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform1fv</strong></a>
+</td><td>
+<p>Assigns a floating point vector array to a uniform vector variable for the current program object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302441(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform1i</strong></a>
+</td><td>
+<p>Assigns an integer value to a uniform variable for the current program object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302442(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform1iv</strong></a>
+</td><td>
+<p>Assigns an integer vector array  value to a uniform variable for the current program object. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302443(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform2f</strong></a>
+</td><td>
+<p>Assigns two dimensional floating point values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302445(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform2fv</strong></a>
+</td><td>
+<p>Assigns two dimensional floating point vector array to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302446(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform2i</strong></a>
+</td><td>
+<p>Assigns two dimensional integer value to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302447(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform2iv</strong></a>
+</td><td>
+<p>Assigns two dimensional integer vector array values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302448(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform3f</strong></a>
+</td><td>
+<p>Assigns three dimensional  floating point values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302449(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform3fv</strong></a>
+</td><td>
+<p>Assigns three dimensional floating point vector array values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302450(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform3i</strong></a>
+</td><td>
+<p>Assigns three dimensional integer values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302451(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform3iv</strong></a>
+</td><td>
+<p>Assigns three dimensional integer vector array values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302452(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform4f</strong></a>
+</td><td>
+<p>Assigns four dimensional floating point values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302453(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform4fv</strong></a>
+</td><td>
+<p>Assigns four dimensional floating point vector array values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302454(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform4i</strong></a>
+</td><td>
+<p>Assigns four dimensional  integer value to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302455(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniform4iv</strong></a>
+</td><td>
+<p>Assigns four dimensional  integer vector array values to a uniform variable for the current program object.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302456(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniformMatrix2fv</strong></a>
+</td><td>
+<p>Sets values for a 2x2 floating point vector matrix into a uniform location as a matrix or a matrix array.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302457(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniformMatrix3fv</strong></a>
+</td><td>
+<p>Sets values for a 3x3 floating point vector matrix into a uniform location as a matrix or a matrix array.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302458(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">uniformMatrix4fv</strong></a>
+</td><td>
+<p>Sets values for a 4x4 floating point vector matrix into a uniform location as a matrix or a matrix array.  </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302459(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">useProgram</strong></a>
+</td><td>
+<p>Set the program object to use for rendering. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn455129(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">validateProgram</strong></a>
+</td><td>
+<p>Returns whether a given program can run in the current WebGL state.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302460(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">vertexAttribPointer</strong></a>
+</td><td>
+<p>Specifies the data formats and locations of attributes in a vertex attributes array. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302461(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">viewport</strong></a>
+</td><td>
+<p>Represents a rectangular viewable area that contains the rendering  results of the drawing buffer.  </p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>WebGLRenderingContext</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302374(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">canvas</strong></a>
+</p>
+                                </td><td>
+<p>Reference to the canvas object that the associated <strong>WebGLRenderingContext</strong>. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302397(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">drawingBufferHeight</strong></a>
+</p>
+                                </td><td>
+<p>Represents the actual height of the drawing buffer.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302398(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">drawingBufferWidth</strong></a>
+</p>
+                                </td><td>
+<p>Represents the actual width of the drawing buffer.</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/17/2014</p>
+</div>

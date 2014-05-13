@@ -1,0 +1,33 @@
+<p>
+	createProcessingInstruction() 方法
+Document 对象参考手册
+
+定义和用法
+createProcessingInstruction() 方法创建 ProcessingInstruction 节点。
+
+语法：
+createProcessingInstruction(target,data)
+参数	描述
+target	处理指令的目标。
+data	处理指令的内容文本。
+返回值
+新创建的 ProcessingInstruction 节点。
+
+抛出
+如果 target 中含有不合法的字符，则抛出代码为 INVALID_CHARACTER_ERR 的 DOMException 异常。
+
+如果是一个 HTML 文档，不支持处理指令，将抛出代码为 NOT_SUPPORTED_ERR 的 DOMException 异常。
+</p>
+
+<pre>
+	var doc = new ActiveXObject("Msxml2.DOMDocument.4.0");
+	objPI = doc.createProcessingInstruction("xml","version='1.0' encoding='utf-8'")
+doc.insertBefore (objPI, doc.childNodes[0])
+尽管此方法在文档的上下文中创建新对象，但它并不自动将新对象添加到文档树。
+若要添加新对象，必须显式调用节点插入方法之一。
+根据 W3C 可扩展标记语言 (XML) 1.0 
+建议 (www.w3.org/TR/1998/REC-xml-19980210)，
+ProcessingInstruction 节点可包含在 Document 节点和 
+Element 节点中，并且当 EntityReference 节点不是 
+Attribute 节点的子级时，ProcessingInstruction 节点还可包含在 EntityReference 节点中
+</pre>

@@ -1,0 +1,91 @@
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+为了支持网页上一些元素的拖动效果，可以使用drag和drog事件。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+目前ie 5.0+, firefox 3.5+等都支持这些事件，ECMA Script第5版正式将其纳入标准。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+对于被拖动的元素来说，它将依次触发ondragstart和ondrag事件，并在拖放结束时触发ondragend事件。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+而对于拖放的目的地元素来说，它将依次触发ondragenter,ondragover,ondrop事件，与mouseover一类的类似。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+不过在网页上，只有文本框是默认做为放置目标的（也就是拖的时候显示可以放置的那种图标，而不是“无效”鼠标形状，即圆圈中间加一杠）。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+当然，你可以给任意元素添加ondragenter,ondragover事件并把默认操作给阻止掉，那么这个元素就可以接收放置了。此时，你的ondrop事件就会有效。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+这里要特别注意，</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+1）ondragenter和ondragover函数一定要包含event.preventdefault()以阻止默认操作。下文是mozilla原文：</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+“If the mouse was released over an element that is a valid drop
+target, that is, one that&nbsp;<wbr><span style="margin: 0px; padding: 0px; color: rgb(255, 0, 0);">cancelled the
+last<code style="margin: 0px; padding: 0px;">dragenter</code>&nbsp;<wbr>or&nbsp;<wbr><code style="margin: 0px; padding: 0px;">dragover</code>&nbsp;<wbr>event</span>,
+then the drop will be successful, and
+a&nbsp;<wbr><code style="margin: 0px; padding: 0px;">drop</code>&nbsp;<wbr>event
+will fire at the target. Otherwise, the drag operation is cancelled
+and no&nbsp;<wbr><code style="margin: 0px; padding: 0px;">drop</code>&nbsp;<wbr>event is
+fired.”</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+<a href="https://developer.mozilla.org/En/DragDrop/Drag_Operations#drop">
+https://developer.mozilla.org/En/DragDrop/Drag_Operations#drop</a></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+2）这个ondrop效果我今天尝试了很久，一直没有成功，因为我是用return false来代替<span style="margin: 0px; padding: 0px; font-family: Consolas; background-color: rgb(238, 238, 238);">preventDefault</span>&nbsp;<wbr>的。事实上这是不对的。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+return false可以实现<span style="margin: 0px; padding: 0px; font-family: Consolas; background-color: rgb(238, 238, 238);">preventDefault</span>&nbsp;<wbr>和<span style="margin: 0px; padding: 0px; font-family: Consolas; background-color: rgb(238, 238, 238);">stopPropogation的效果。</span><code style="margin: 0px; padding: 0px;"><span style="margin: 0px; padding: 0px; font-family: Consolas; background-color: rgb(238, 238, 238);">preventDefault</span></code>&nbsp;<wbr>will
+prevent the default event from occuring（<span style="margin: 0px; padding: 0px; font-size: x-small;">取消事件的默认行为</span>）,&nbsp;<wbr><code style="margin: 0px; padding: 0px;"><span style="margin: 0px; padding: 0px; font-family: Consolas; background-color: rgb(238, 238, 238);">stopPropogation</span></code>&nbsp;<wbr>will
+prevent the event from bubbling up and<code style="margin: 0px; padding: 0px;"><span style="margin: 0px; padding: 0px; font-family: Consolas; background-color: rgb(238, 238, 238);">return
+false</span></code>&nbsp;<wbr>will do
+both（该方法将停止事件的传播，阻止它被分派到其他 Document
+节点。在事件传播的任何阶段都可以调用它。注意，虽然该方法不能阻止同一个 Document
+节点上的其他事件句柄被调用，但是它可以阻止把事件分派到其他节点。）.</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+因此，在ondragenter和ondragover函数中不能使用return false。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+3）此外，浏览器本身有拖动的默认效果，因此不要在ondragstart中用return
+false等，这样会阻止了拖动的默认效果。</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+4）当你的函数本向在要返回布尔时，以下是一个比较全面的写法：</p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+&nbsp;<wbr></p>
+<p style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: Arial; line-height: 26px; background-color: rgb(255, 255, 255);">
+<span style="margin: 0px; padding: 0px; color: rgb(0, 0, 255);">function</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">&nbsp;<wbr>(eventObject)&nbsp;<wbr>{&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><br style="margin: 0px; padding: 0px;">
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 255);">if</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">&nbsp;<wbr>(eventObject.preventDefault)&nbsp;<wbr>{<br style="margin: 0px; padding: 0px;">
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>eventObject.preventDefault();<br style="margin: 0px; padding: 0px;">
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 255);">else</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 255);">if</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">&nbsp;<wbr>(window.event)&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">&nbsp;<wbr>{<br style="margin: 0px; padding: 0px;">
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>window.event.returnValue&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">=</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 255);">false</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">;<br style="margin: 0px; padding: 0px;">
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>}<br style="margin: 0px; padding: 0px;">
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 255);">return</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">&nbsp;<wbr></span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 255);">true</span><span style="margin: 0px; padding: 0px; color: rgb(0, 0, 0);">;<br style="margin: 0px; padding: 0px;">
+
+};</span></p>							
+		</div>

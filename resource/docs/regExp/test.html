@@ -1,0 +1,28 @@
+<p>
+	定义和用法
+test() 方法用于检测一个字符串是否匹配某个模式.
+语法
+RegExpObject.test(string)
+参数	描述
+string	必需。要检测的字符串。
+返回值
+如果字符串 string 中含有与 RegExpObject 匹配的文本，则返回 true，否则返回 false。
+说明
+调用 RegExp 对象 r 的 test() 方法，并为它传递字符串 s，与这个表示式是等价的：(r.exec(s) != null)。
+实例
+在下面的例子中，我们将检索 "W3School"：
+<pre>
+	
+
+&ltscript type="text/javascript">
+var str = "Visit W3School";
+var patt1 = new RegExp("W3School");
+
+var result = patt1.test(str);
+
+document.write("Result: " + result);
+&lt/script>
+输出：
+Result: true
+</pre>
+</p>

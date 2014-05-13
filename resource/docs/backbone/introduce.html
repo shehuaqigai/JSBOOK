@@ -1,0 +1,44 @@
+Backbone对象包括如下参数
+<pre>
+$:jquery的$对象(需要在backbone库之前加载jquery库)
+Collection
+Events
+
+/----------------------------------------------------------------------
+Backbone的路由导航是由Backbone.Router和Backbone.History两个类共同完成的：
+Router 类用于定义和解析路由规则，并将URL映射到Action。
+History类用于监听URL的变化，和触发Action方法。我们一般不会直接实例化一个History，
+       因为我们在第一次创建Router实例时，会自动创建一个History的单例对象，
+       你可以通过Backbone.history来访问这个对象。
+       要使用路由功能，首先我们需要定义一个Router类来声明需要监听的URL规则和Action，
+    在刚才的例子中，我们在定义时通过routes属性来定义需要监听的URL列表，
+    其中Key表示URL规则，Value表示当URL处于该规则时所执行的Action方法
+    在定义好Router类之后，我们需要实例化一个Router对象，
+    并调用Backbone.history对象的start()方法，该方法会启动对URL的监听。
+    在History对象内部，默认会通过onhashchange事件监听URL中Hash（锚点）的变化，
+    对于不支持onhashchange事件的浏览器（例如IE6），History会通过setInterval心跳的方式监听。
+
+Router//路由配置器
+History//路由器
+    关于Route和History请看Router章节
+/-----------------------------------------------------------------------
+Model//模型
+
+VERSION: "1.1.2"//版本当前版本为1.1.2
+View//视图
+ajax
+bind
+emulateHTTP
+emulateJSON
+
+listenTo
+listenToOnce
+noConflict
+off
+on
+once
+stopListening
+sync//同步请求
+trigger
+unbind
+</pre>

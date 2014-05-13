@@ -1,0 +1,18 @@
+
+<pre>
+FormData对象
+ajax操作往往用来传递表单数据。为了方便表单处理，HTML 5新增了一个FormData对象，可以模拟表单。
+首先，新建一个FormData对象。
+　　var formData = new FormData();
+然后，为它添加表单项。
+　　formData.append('username', '张三');
+　　formData.append('id', 123456);
+最后，直接传送这个FormData对象。这与提交网页表单的效果，完全一样。
+　　xhr.send(formData);
+FormData对象也可以用来获取网页表单的值。
+　　var form = document.getElementById('myform');
+　　var formData = new FormData(form);
+　　formData.append('secret', '123456'); // 添加一个表单项
+　　xhr.open('POST', form.action);
+　　xhr.send(formData);
+</pre>

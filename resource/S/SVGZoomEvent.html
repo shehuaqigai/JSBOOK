@@ -1,0 +1,220 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">SVGZoomEvent object</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Describes a zoom event.</p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=204745" title="Scalable Vector Graphics: Scripting"><img id="badge_svg" alt="Scalable Vector Graphics: Scripting, Section 18.5.2" src="http://i.msdn.microsoft.com/dynimg/IC536350.png" title="Scalable Vector Graphics: Scripting, Section 18.5.2" xmlns=""></a><img id="badge_ie9" alt="Internet Explorer&nbsp;9" src="http://i.msdn.microsoft.com/dynimg/IC560342.png" title="Internet Explorer&nbsp;9" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_6b5d221e-e6ba-47f6-87ce-9a061a375574');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_6b5d221e-e6ba-47f6-87ce-9a061a375574" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+function handler(event) {
+  // event is ZoomEvent
+}
+
+svgElement.addEventListener("SVGZoom",handler,false);
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/aa703876(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Event</strong></a>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;SVGZoomEvent</div>
+</div>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/ff974351(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">UIEvent</strong></a>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;SVGZoomEvent</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>SVGZoomEvent</strong> object has these types of members:</p>
+<ul>
+<li><a href="#methods">Methods</a></li>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="methods"></a>Methods</h3>
+<p>The <strong>SVGZoomEvent</strong> object has these methods.</p>
+<table id="memberListMethods" class="members">
+<tbody><tr><th>Method</th><th>Description</th></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975459(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">initEvent</strong></a>
+</td><td>
+<p>Initializes a new generic event that the  <a href="http://msdn.microsoft.com/en-us/library/ie/ff975304(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createEvent</strong></a> method created. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975256(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">initUIEvent</strong></a>
+</td><td>
+<p>Initializes a new user interface event that the  <a href="http://msdn.microsoft.com/en-us/library/ie/ff975304(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createEvent</strong></a> method created. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975460(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">preventDefault</strong></a>
+</td><td>
+<p>Cancels the default action of an event. </p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975461(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">stopImmediatePropagation</strong></a>
+</td><td>
+<p>Prevents any further propagation of an event.</p>
+</td></tr>
+<tr data="declared;"><td>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff975462(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">stopPropagation</strong></a>
+</td><td>
+<p>Prevents propagation of an event beyond the current target. </p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>SVGZoomEvent</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974939(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">bubbles</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that  indicates whether an event propagates up from the event target. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974940(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">cancelable</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that indicates whether you can cancel an event's default action. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974941(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">cancelBubble</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets a value that indicates whether an event should be stopped from propagating up from the current target. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974942(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">currentTarget</strong></a>
+</p>
+                                </td><td>
+<p>Gets the event target that is currently being processed. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974943(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">defaultPrevented</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that indicates whether the default action should be canceled. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974802(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">detail</strong></a>
+</p>
+                                </td><td>
+<p>Gets additional  information about  an event. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974944(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">eventPhase</strong></a>
+</p>
+                                </td><td>
+<p>Gets the event phase that is being evaluated. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974948(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">isTrusted</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that indicates whether a trusted event source created an event. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971965(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">newScale</strong></a>
+</p>
+                                </td><td>
+<p>Gets the new scale value of a zoom event.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971966(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">newTranslate</strong></a>
+</p>
+                                </td><td>
+<p>Gets the new translation values of a zoom event.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971986(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">previousScale</strong></a>
+</p>
+                                </td><td>
+<p>Gets the previous scale value of a zoom event.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971988(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">previousTranslate</strong></a>
+</p>
+                                </td><td>
+<p>Gets the previous translation values of a zoom event.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974945(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">srcElement</strong></a>
+</p>
+                                </td><td>
+<p>Gets the element that the event was originally dispatched to. Compare to <a href="http://msdn.microsoft.com/en-us/library/ie/ff974946(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">target</strong></a>. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974946(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">target</strong></a>
+</p>
+                                </td><td>
+<p>Gets the element that is the target of the event. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974947(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">timeStamp</strong></a>
+</p>
+                                </td><td>
+<p>Gets the time, in milliseconds, when an event occurred. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974949(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">type</strong></a>
+</p>
+                                </td><td>
+<p>Gets the name of an event. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff974803(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">view</strong></a>
+</p>
+                                </td><td>
+<p>Gets  the <a href="http://msdn.microsoft.com/en-us/library/ie/ms535873(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">window</strong></a> object  that an  event is generated from. </p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=204745" title="Scalable Vector Graphics: Scripting">Scalable Vector Graphics: Scripting</a>, Section 18.5.2</li>
+</ul>
+<h2>Remarks</h2>
+<p class="note"><strong>Note</strong>&nbsp;&nbsp;In addition to the attributes, properties, events, methods, and styles listed above, SVG elements also inherit core HTML attributes, properties, events, methods, and styles.</p>
+<p>The zoom event occurs when  a  user initiates an action  that  causes the current view of the SVG document (or SVGdocument fragment) to be rescaled (including any change to the <a href="http://msdn.microsoft.com/en-us/library/ie/ff972122(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">svg</strong></a> element's <a href="http://msdn.microsoft.com/en-us/library/ie/ff971930(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">currentScale</strong></a>  property). </p>
+<p class="note"><strong>Note</strong>&nbsp;&nbsp;A zoom event  applies  only  to the outermost <a href="http://msdn.microsoft.com/en-us/library/ie/ff972122(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">svg</strong></a> element.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/13/2014</p>
+</div>
+</div>

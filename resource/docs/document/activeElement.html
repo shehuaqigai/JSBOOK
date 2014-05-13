@@ -1,0 +1,17 @@
+<p>
+	document.activeElement
+
+document.activeElement三大浏览器(ie、firefox、chrome)都支持，但，针对的对象不同，返回的值也不同。
+<br/>
+IE：
+
+document.activeElement可获得所有聚焦的元素，包括input、textarea、div等。IE只关心光标聚焦的位置，不关心聚焦元素的性质。
+<br/>
+chrome：
+
+document.activeElement仅对input、textarea等标准的输入文本有效；对于div等非编辑类的元素(即使开启了contentEditable)，返回的值为BODY。
+<br/>
+fireFox：
+
+document.activeElement可获得所有聚焦的元素。包括input、textarea、div等。
+</p>

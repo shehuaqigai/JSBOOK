@@ -1,0 +1,25 @@
+
+<h2>
+HTML5的Blob对象简介
+	
+</h2>
+
+
+
+　　HTML5中的Blob对象和MYSQL中的BLOB类型在概念上是有点区别的。MYSQL中的BLOB类型就只是个二进制数据容器。而HTML5中的Blob对象除了存放二进制数据外还可以设置这个数据的MINE类型，这相当于对文件的储存，其它很多二进制对象也是从这个对象继承的。
+　　在稍低版本的现代浏览器中，这个Blob对象还没规范化，因此需要BlobBuilder之类的方式来创建。但是现在Blob已经规范到可以直接new它的构造器Blob来创建了，而且浏览器几乎都已经支持了这个方式，所以对于旧标准咱就没必要纠结了。
+
+
+var data='&ltb style="font-size:32px;color:red;"&gt次碳酸钴&lt/b&gt';
+var blob=new Blob([data],{"type":"text/html"});
+console.log(blob);
+
+这样我们就创建了一个Blob对象，注意Blob这个构造器的参数比较诡异，第一个参数是一组数据，所以必须是数组，即使像上面的例子一样只有一个字符串也必须用数组装起来。第二个参数是对这一Blob对象的配置属性，目前也只有一个type也就是相关的MIME需要设置，使用key-value的方式也许是为了今后的扩展。
+　　那么，把数据做成Blob有什么用呢？对于Blob对象，我们可以创建出一个URL来访问它。使用URL对象的createObjectURL方法。
+var data='&ltb style="font-size:32px;color:red;"&gt次碳酸钴&lt/b&gt';
+var blob=new Blob([data],{"type":"text/html"});
+onload=function(){
+  var iframe=document.createElement("iframe");
+  iframe.src=URL.createObjectURL(blob);
+  document.body.appendChild(iframe);
+};

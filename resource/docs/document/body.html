@@ -1,0 +1,32 @@
+<p>
+	<pre>
+document.body
+Returns the &ltbody> or &ltframeset> node of the current document,
+ or null if no such element exists.
+
+Syntax
+
+var objRef = document.body; 
+document.body = objRef;
+Example
+
+// in HTML: &ltbody id="oldBodyElement">&lt/body>
+alert(document.body.id); // "oldBodyElement"
+
+var aNewBodyElement = document.createElement("body");
+
+aNewBodyElement.id = "newBodyElement";
+document.body = aNewBodyElement;
+alert(document.body.id); // "newBodyElement"
+Notes
+
+document.body is the element that contains the content for the document. 
+In documents with &ltbody> contents, returns the &ltbody> element, 
+and in frameset documents, this returns the outermost &ltframeset> element.
+
+Though body is settable, setting a new body on a document will 
+effectively remove all the current children of the existing &ltbody> element.
+
+Specification
+</pre>
+</p>

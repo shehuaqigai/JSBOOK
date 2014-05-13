@@ -1,0 +1,41 @@
+<p>
+	概述
+
+返回一个 PluginArray 类型的对象, 包含了当前所使用的浏览器安装的所有插件.
+
+语法
+
+plugins = navigator.plugins;
+plugins不是一个普通的JavaScript数组,但是它也有 length 属性,也可以使用plugins[index]来获取到每个元素的值, 例如(plugins[2]), 效果和使用 item(index) 以及 namedItem("name") 是一样的.
+
+例子
+
+下例演示了如何在一个页面上输出浏览器上安装的所有插件. Plugin对象的属性有: name, filename, description, 和 version.
+
+Gecko 1.9.2 note
+Plugin对象的version属性添加于 Gecko 1.9.2.
+&ltscript type="text/javascript">
+   var L = navigator.plugins.length;
+   document.write(L.toString().bold() + " Plugin(s)".bold());
+   document.write("<br>");
+   document.write("Name | Filename | description".bold());
+   document.write("<br>");
+   for(var i=0; i<L; i++) {
+     document.write(navigator.plugins[i].name);
+     document.write(" | ");
+     document.write(navigator.plugins[i].filename);
+     document.write(" | ");
+     document.write(navigator.plugins[i].description);
+     document.write(" | ");
+     document.write(navigator.plugins[i].version);
+     document.write("<br>");
+   }
+&gt/script>
+备注
+
+你也可以进入 about:plugins 页面,来查看浏览器上安装的插件.
+
+规范
+
+DOM Level 0 不属于任何标准.
+</p>

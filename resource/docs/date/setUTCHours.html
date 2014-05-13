@@ -1,0 +1,53 @@
+<pre>
+	定义和用法
+setUTCHours() 方法用于根据世界时 (UTC) 设置小时（0 - 23）。
+语法
+dateObject.setUTCHours(hour,min,sec,millisec)
+参数	描述
+hour	
+必需。要给 dateObject 设置的小时字段的值。
+该参数是 0 ~ 23 之间的整数。
+min	
+可选。要给 dateObject 设置的分钟字段的值。
+该参数是 0 ~ 59 之间的整数。
+sec	
+可选。要给 dateObject 设置的秒字段的值。
+该参数是 0 ~ 59 之间的整数。
+millisec	
+可选。要给 dateObject 设置的毫秒字段的值。
+该参数是 1 ~ 999 之间的整数。
+说明
+如果没有规定 min, sec 以及 millisec 参数，
+则使用从 getUTCMinutes, getUTCSeconds 以及 getUTCMilliseconds 方法返回的值。
+如果您规定的参数在指定范围之外，则 setUTCHours 尝试据此来更新 Date 对象中的日期信息。
+例如，如果 sec 参数的值是 100，则增加 1 分钟 (min + 1)，而秒数为 40。
+返回值
+调整过的日期的毫秒表示。
+提示和注释：
+注释：该方法总是结合一个 Date 对象来使用。
+提示：有关通用协调时间 (UTC) 的更多资料，请参阅百度百科。
+实例
+例子 1
+在本例中，我们将通过 setUTCHours() 方法将 UTC 小时设置为 23：
+&ltscript type="text/javascript">
+
+var d = new Date();
+d.setUTCHours(23);
+document.write(d);
+
+&lt/script>
+输出：
+Sun Feb 23 2014 07:45:22 GMT+0800 (China Standard Time)
+亲自试一试
+例子 2
+在本例中，我们将通过 setUTCHours() 方法将 UTC 小时设置为 23:15:06 ：
+&ltscript type="text/javascript">
+
+var d = new Date();
+d.setUTCHours(23,15,6);
+document.write(d);
+
+&lt/script>
+输出：
+Sun Feb 23 2014 07:15:06 GMT+0800 (China Standard Time)
+</pre>

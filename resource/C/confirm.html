@@ -1,0 +1,76 @@
+<div id="maincontent">
+
+    <h1>HTML DOM confirm() 方法</h1>
+
+    <div class="backtoreference">
+        <p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+    </div>
+
+    <div>
+        <h2>定义和用法</h2>
+        <p>confirm() 方法用于显示一个带有指定消息和 OK 及取消按钮的对话框。</p>
+
+        <h3>语法</h3>
+        <pre>confirm(message)</pre>
+
+        <table class="dataintable">
+            <tbody><tr>
+                <th>参数</th>
+                <th>描述</th>
+            </tr>
+            <tr>
+                <td>message</td>
+                <td>要在 window 上弹出的对话框中显示的纯文本（而非 HTML 文本）</td>
+            </tr>
+            </tbody></table>
+
+        <h3>说明</h3>
+        <p>如果用户点击确定按钮，则 confirm() 返回 true。如果点击取消按钮，则 confirm() 返回 false。</p>
+        <p>在用户点击确定按钮或取消按钮把对话框关闭之前，它将阻止用户对浏览器的所有输入。在调用 confirm() 时，将暂停对 JavaScript 代码的执行，在用户作出响应之前，不会执行下一条语句。</p>
+    </div>
+
+    <div>
+        <h2>提示和注释</h2>
+        <p class="tip"><span>提示：</span>对话框按钮的文字是不可改变的，因此请小心地编写问题或消息，使它适合用确认和取消来回答。</p>
+    </div>
+
+    <div>
+        <h2>实例</h2>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function disp_confirm()
+  {
+  var r=<code>confirm("Press a button")</code>
+  if (r==true)
+    {
+    document.write("You pressed OK!")
+    }
+  else
+    {
+    document.write("You pressed Cancel!")
+    }
+  }
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;input type="button" onclick="disp_confirm()"
+value="Display a confirm box" /&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </div>
+
+    <div class="example">
+        <h2>TIY</h2>
+        <dl>
+            <dt><a href="/tiy/t.asp?f=hdom_confirm">显示一个确认框</a></dt>
+        </dl>
+    </div>
+
+    <div class="backtoreference">
+        <p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+    </div>
+
+</div>

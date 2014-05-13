@@ -1,0 +1,125 @@
+<div id="maincontent">
+
+<h1>XML DOM XSLTProcessor 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_xpathresult.asp" title="XML DOM XPathResult 对象">DOM XPathResult</a></li>
+<li class="next"><a href="/example/xdom_examples.asp" title="XML DOM 实例">DOM 实例</a></li>
+</ul>
+</div>
+
+<div id="intro">
+<p><strong>XSLTProcessor 用 XSLT 来转换 XML。</strong></p>
+</div>
+
+<div>
+<h2>XSLTProcessor 对象</h2>
+
+<p>XSLTProcessor 使用 XSLT 样式表来转换 XML 文档。</p>
+
+<p>
+通过 <a href="/xmldom/met_xsltprocessor_importstylesheet.asp" title="XML DOM importStylesheet() 方法">importStylesheet() 方法</a>用一个样式表来初始化它。
+如果你的样式表使用参数，可以用 <a href="/xmldom/met_xsltprocessor_setparameter.asp" title="XML DOM setParameter() 方法">setParameter()</a> 来设置这些参数。
+最后，使用 <a href="/xmldom/met_xsltprocessor_transformtodocument.asp" title="XML DOM transformToDocument() 方法">transformToDocument()</a> 或 <a href="/xmldom/met_xsltprocessor_transformtofragment.asp" title="XML DOM transformToFragment() 方法">transformToFragment()</a> 来执行实际的转换。
+</p>
+
+<p>IE 支持 XSLT 但没有实现 XSLTProcessor 对象。</p>
+
+<p>参阅特定于 IE 的 Node 对象的 <a href="/xmldom/met_node_transformnode.asp" title="XML DOM transformNode() 方法">transformNode()</a> 和 <a href="/xmldom/met_node_transformnodetoobject.asp" title="XML DOM transformNodeToObject() 方法">transformNodeToObject() 方法</a>。</p>
+</div>
+
+<div>
+<h2>XSLTProcessor 对象的方法</h2>
+
+<table class="dataintable">
+<tbody><tr>
+<th>方法</th>
+<th>描述</th>
+<th>IE</th>
+<th>F</th>
+<th>O</th>
+<th>W3C</th>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_clearparameters.asp" title="XSLTProcessor.clearParameters()">clearParameters()</a></td>
+	<td>删除之前的任何设置参数。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_getparameter.asp" title="XSLTProcessor.getParameter()">getParameter()</a></td>
+	<td>返回指定的参数的值。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_importstylesheet.asp" title="XSLTProcessor.importStylesheet()">importStylesheet()</a></td>
+	<td>指定要使用的 XSLT 样式表。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_removeparameter.asp" title="XSLTProcessor.removeParameter()">removeParameter()</a></td>
+	<td>删除指定的参数。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_reset.asp" title="XSLTProcessor.reset()">reset()</a></td>
+	<td>把 XSLTProcessor 恢复为默认状态。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_setparameter.asp" title="XSLTProcessor.setParameter()">setParameter()</a></td>
+	<td>设置样式表参数。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_transformtodocument.asp" title="XSLTProcessor.transformToDocument()">transformToDocument()</a></td>
+	<td>把节点或文档转换为新的文档。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+
+<tr>
+	<td><a href="/xmldom/met_xsltprocessor_transformtofragment.asp" title="XSLTProcessor.transformToFragment()">transformToFragment()</a></td>
+	<td>把节点或文档转换为 DocumentFragment。</td>
+	<td>No</td>
+	<td>1</td>
+	<td>9</td>
+	<td>Yes</td>
+</tr>
+</tbody></table>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_xpathresult.asp" title="XML DOM XPathResult 对象">DOM XPathResult</a></li>
+<li class="next"><a href="/example/xdom_examples.asp" title="XML DOM 实例">DOM 实例</a></li>
+</ul>
+</div>
+</div>

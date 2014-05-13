@@ -1,0 +1,23 @@
+<pre>
+	
+
+
+九、进度信息
+新版本的XMLHttpRequest对象，
+传送数据的时候，有一个progress事件，
+用来返回进度信息。
+它分成上传和下载两种情况。
+下载的progress事件属于XMLHttpRequest对象，
+上传的progress事件属于XMLHttpRequest.upload对象。
+我们先定义progress事件的回调函数。
+　　xhr.onprogress = updateProgress;
+　　xhr.upload.onprogress = updateProgress;
+然后，在回调函数里面，使用这个事件的一些属性。
+　　function updateProgress(event) {
+　　　　if (event.lengthComputable) {
+　　　　　　var percentComplete = event.loaded / event.total;
+　　　　}
+　　}
+上面的代码中，event.total是需要传输的总字节，event.loaded是已经传输的字节。
+如果event.lengthComputable不为真，则event.total等于0。
+</pre>

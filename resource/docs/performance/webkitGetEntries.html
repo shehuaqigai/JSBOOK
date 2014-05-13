@@ -1,0 +1,420 @@
+<div id="wiki-wrapper" class="page">
+
+<div id="wiki-content">
+  <div class="wrap">
+  <div id="wiki-body" class="gollum-markdown-content instapaper_body">
+    "webkitGetEntriesByName",webkitGetEntriesByType方法取得的也是这个对象
+    <div class="markdown-body">
+      <p>[原文地址] <a href="https://developers.google.com/chrome-developer-tools/docs/network?hl=zh-CN" target="_blank">https://developers.google.com/chrome-developer-tools/docs/network?hl=zh-CN</a></p>
+
+<p>Network面板记录了你的应用的每一个网络操作的相关信息，包括详细的时间线数据，HTTP请求和响应头，cookies，WebSocket数据，等等。Network面板帮助你解答关于你的web应用的网络性能问题，例如：</p>
+
+<ul>
+<li>哪个资源最晚加载？</li>
+<li>哪个资源加载时间最长（持续时间）？</li>
+<li>谁发起某个特定的网络请求？</li>
+<li>一个特定资源的各个网络阶段各花费了多少时间？</li>
+</ul><h2>
+<a name="wiki-%E8%B5%84%E6%BA%90%E6%97%B6%E9%97%B4%E7%BA%BF" href="#wiki-%E8%B5%84%E6%BA%90%E6%97%B6%E9%97%B4%E7%BA%BF"><span></span></a>资源时间线</h2>
+
+<p>Network面板使用Resource Timing API，一个为每个已加载资源提供详细网络时间线的JavaScript API。例如，这个API能精确的告诉你一个image的HTTP请求什么时候开始，什么时候接收结束。下面的图例显示了Resource Timing API提供的各个网络时间线上的关键点。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/resource-timing-overview.png" alt=""></p>
+
+<p>这个API可以使用在任何的web页面中，不只是DevTools。在chrome中，它被暴露在全局的<code>window.performance</code>对象中。<code>performance.getEntries()</code>方法返回一个<code>resource timing objects</code>的数组包含了这个页面上所有的请求资源数据。（译注：chrome目前版本使用window.performance.webkitGetEntries()方法）</p>
+
+<p>试试：在当前页面打开Javascript控制台，输入下面的命令，点击回车：</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">getEntries</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1">//也许你应该使用window.performance.webkitGetEntries()[0]，译注</span>
+</pre></div>
+
+<p>它获取resource timing objects数组的第一个元素并将它的所有属性显示在控制台中，就像下面这样：
+<img src="https://developers.google.com/chrome-developer-tools/docs/network-files/getentries.png" alt=""></p>
+
+<p>遵循Hight Resolution Time规范，每个时间戳都是微秒级的。这个API在Chrome中可用，叫做<code>window.performance.now()</code>方法。</p>
+
+<h2>
+<a name="wiki-network%E9%9D%A2%E6%9D%BF%E6%80%BB%E8%A7%88" href="#wiki-network%E9%9D%A2%E6%9D%BF%E6%80%BB%E8%A7%88"><span></span></a>Network面板总览</h2>
+
+<p>当DevTools打开时Network面板自动记录所有的网络活动。当你第一次打开它时是空的。重载页面开始记录，或者等着你的应用发起新的网络活动。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/panel.png" alt=""></p>
+
+<p>每个请求资源被添加为Network table中的新的一行，包含下表中的列。注意下面关于Network table中的内容：</p>
+
+<ul>
+<li>不是素有的列都是默认可见的；你可以很简单的显示或隐藏每一列。</li>
+<li>有些列包含一个主要字段和次要字段（比如Time和Latency列）。当Network table使用大资源行视图时两个字段都会显示；当使用小资源行视图时只有主字段显示。</li>
+<li>你可以通过点击列头对每一列的值进行排序。Timeline列有一点点不同：点击它的列头显示一个附加的排序区域菜单。见[Timeline视图]和[排序过滤]章节获取更多信息。</li>
+</ul><table>
+<thead><tr>
+<th>字段</th>
+<th>描述</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Name和Path</td>
+<td>资源名字和URL路径</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>请求使用的HTTP方法(GET或POST, 比如).</td>
+</tr>
+<tr>
+<td>Status和Text</td>
+<td>HTTP状态码和描述文本</td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>资源请求的主域</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>请求资源的MIME类型</td>
+</tr>
+<tr>
+<td>Initiator</td>
+<td>初始化请求的对象或过程. 它可以是下面的某个值:
+<ul>
+<li>Parser 使用Chrome的HTML parser初始化请求.</li>
+<li>Redirect HTTP重定向请求.</li>
+<li>Script 脚本初始化请求.</li>
+<li>Other 其他的处理方法或者行为初始化请求，比如用户通过一个链接，或者通过在地址栏中输入一个URL导航到一个页面。</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td>在请求中传输的cookies的数量，这与在Cookies面板中显示一个资源的详细信息时一致。</td>
+</tr>
+<tr>
+<td>Set-Cookies</td>
+<td>HTTP请求中set-cookies的数量</td>
+</tr>
+<tr>
+<td>Size和Content</td>
+<td>Size是附加在响应体中的响应头的大小（通常为几百字节），通过服务端发送。Content是资源内容的解码后的大小。如果资源从浏览器的缓存中而不是网络加载，这个字段将是一个文本（from cache）.</td>
+</tr>
+<tr>
+<td>Time和Latency</td>
+<td>Time是总的持续时间，从请求开始到响应接收完毕。Latency是接收响应的第一个字节的时间.</td>
+</tr>
+<tr>
+<td>Timeline</td>
+<td>Timeline列显示了所有请求的时间线视图。点击列头显示一个额外的排序字段菜单。详见Timeline视图和排序过滤.</td>
+</tr>
+</tbody>
+</table><h3>
+<a name="wiki-%E5%9C%A8%E8%B7%B3%E8%BD%AC%E6%97%B6%E4%BF%9D%E6%8C%81%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97" href="#wiki-%E5%9C%A8%E8%B7%B3%E8%BD%AC%E6%97%B6%E4%BF%9D%E6%8C%81%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97"><span></span></a>在跳转时保持网络日志</h3>
+
+<p>默认的，当你跳转到另外一个页面，或者重载当前页面的时候网络记录日志面板的数据会被清除。为了保持日志，点击Network面板底部黑色的Preserve log upon navigation按钮<img src="https://developers.google.com/chrome-developer-tools/docs/network-files/keep-log-off.png" alt="">；新的记录将被添加到network table的后面。再次点击这个按钮（现在已经变成红色<img src="https://developers.google.com/chrome-developer-tools/docs/network-files/keep-log-on.png" alt="">）来禁用日志保持。</p>
+
+<h3>
+<a name="wiki-%E6%8E%92%E5%BA%8F%E5%92%8C%E8%BF%87%E6%BB%A4" href="#wiki-%E6%8E%92%E5%BA%8F%E5%92%8C%E8%BF%87%E6%BB%A4"><span></span></a>排序和过滤</h3>
+
+<p>默认的，Network table中的资源按每一个请求的开始时间排序（网络“瀑布图”）。你可以通过点击另外一列的列头来排序表格。再次点击改变排序顺序（升序或降序）。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/sorting.png" alt=""></p>
+
+<p>Timeline列是唯一和其他列不同的，当点击的时候，它会显示一个额外的排序字段菜单。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/timeline-column.png" alt=""></p>
+
+<p>菜单包含下面的排序选项：</p>
+
+<ul>
+<li>Timeline — 通过每一个网络请求的开始时间排序。这是默认的排序方式（和StartTime选项的排序方式一致）</li>
+<li>Start Time — 通过每一个网络请求的开始时间排序。（和Timeline选项的排序方式一致）.</li>
+<li>Response Time — 通过每个请求的响应时间排序.</li>
+<li>End Time — 通过每一个请求的完成时间排序.</li>
+<li>Duration — 通过每一个请求耗费的所有时间排序。</li>
+<li>Latency — 通过请求的开始时间到响应开始的这段时间排序（就是我们所知道的“首字节加载时间”）.</li>
+</ul><p>要过滤Network table只显示某种资源类型的记录，点击面板底部任意一种内容类型：Documents，Stylesheets，Images，Scripts，XHR，Fonts，WebSockets和Other。下面的截图只显示CSS资源。要显示所有类型的记录，点击All按钮。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/filter-type.png" alt=""></p>
+
+<h3>
+<a name="wiki-%E6%B7%BB%E5%8A%A0%E5%92%8C%E7%A7%BB%E9%99%A4%E8%A1%A8%E6%A0%BC%E5%88%97" href="#wiki-%E6%B7%BB%E5%8A%A0%E5%92%8C%E7%A7%BB%E9%99%A4%E8%A1%A8%E6%A0%BC%E5%88%97"><span></span></a>添加和移除表格列</h3>
+
+<p>你可以改变Network table默认的显示集合。要显示或隐藏一列，在表头中右键或者Control+click(mac)并且选择或者取消选择列表中的列名即可。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/add-remove-columns.png" alt=""></p>
+
+<h3>
+<a name="wiki-%E6%94%B9%E5%8F%98%E8%B5%84%E6%BA%90%E8%A1%8C%E5%A4%A7%E5%B0%8F" href="#wiki-%E6%94%B9%E5%8F%98%E8%B5%84%E6%BA%90%E8%A1%8C%E5%A4%A7%E5%B0%8F"><span></span></a>改变资源行大小</h3>
+
+<p>你可以使用大资源行视图（默认）或者小资源行视图来显示Network table。点击面板底部蓝色的Use small resource rows切换按钮<img src="https://developers.google.com/chrome-developer-tools/docs/network-files/small-resource-rows.png" alt="">显示小资源行。点击同样的按钮（现在是灰色的<img src="https://developers.google.com/chrome-developer-tools/docs/network-files/large-rows.png" alt="">）来重新显示大资源行视图。大行允许一些列显示两个字段：一个主要字段和一个次要字段（Time和Latency）。当是小资源行视图时只显示主要字段。</p>
+
+<p>在下面的截图中，Network table显示小资源行视图并且只有Timeline列</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/small-rows.png" alt=""></p>
+
+<h3>
+<a name="wiki-timeline%E8%A7%86%E5%9B%BE" href="#wiki-timeline%E8%A7%86%E5%9B%BE"><span></span></a>Timeline视图</h3>
+
+<p>Network面板中的Timeline视图展示了每一个资源加载时间的图表，从HTTP请求开始到响应接收完毕。每一个资源的加载时间被展现成一个条，并根据资源类型不同进行颜色区分。每个条颜色较浅的部分的长度是请求的延迟时间，而颜色较深的部分的长度是接收响应数据所花费的时间。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/network-timeline.png" alt=""></p>
+
+<p>当把鼠标放在timeline行上时（但不是在一个实际的颜色条上），请求的延时和接收时间都显示在这个颜色条相应的浅色或者深色区域上。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/timeline-view-1.png" alt=""></p>
+
+<p>如果把鼠标放在颜色条上，将会弹出一个提示条，上面显示了资源完整的时间线数据。这个信息和Timing details面板的信息一致。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/timeline-view-hover.png" alt=""></p>
+
+<p>时间线使用蓝色和红色垂直线标示了DOMContentLoaded和load事件触发的时刻。当主文档被加载并且解析完后DOMContentLoaded事件被触发。当所有当前页面的资源（译注，不包括iframe等其他新文档的资源）被下载完成后load事件被触发。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/dom-lines.png" alt=""></p>
+
+<p>Timeline条像下面一样分色：</p>
+
+<p><img src="https://raw.github.com/acelan86/chromeDevTools/master/color-coded.png" alt=""></p>
+
+<h3>
+<a name="wiki-%E4%BF%9D%E5%AD%98%E5%92%8C%E6%8B%B7%E8%B4%9D%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF" href="#wiki-%E4%BF%9D%E5%AD%98%E5%92%8C%E6%8B%B7%E8%B4%9D%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF"><span></span></a>保存和拷贝网络信息</h3>
+
+<p>在Network table中右键或者Control+clicking（mac），弹出一个包含一些行为的上下文菜单。这些行为中的某些作用于鼠标点击所在的资源行（像Copy Request Headers），而另外一些作用于整个网络记录（像将网络记录存为HAR文件）。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/right-click.png" alt=""></p>
+
+<p>下面的菜单行为作用于选中的资源：</p>
+
+<ul>
+<li>Open Link in New Tab — 在一个新的标签中打开资源。你也可以在Network table中双击资源名。</li>
+<li>Copy Link Address — 将资源URL拷贝到系统剪贴板</li>
+<li>Copy Request Headers — 将HTTP请求头拷贝到系统剪切板。</li>
+<li>Copy Response Headers — 将HTTP相应头拷贝到系统剪切板。</li>
+<li>Copy as cURL — 将网络请求作为一个cURL命令拷贝到系统剪贴板。</li>
+<li>Replay XHR — 如果指定的请求是一个XMLHTTPRequest，重新发送这个原始XHR。</li>
+</ul><h4>
+<a name="wiki-%E4%BB%A5curl%E7%9A%84%E6%96%B9%E5%BC%8F%E6%8B%B7%E8%B4%9D%E8%AF%B7%E6%B1%82" href="#wiki-%E4%BB%A5curl%E7%9A%84%E6%96%B9%E5%BC%8F%E6%8B%B7%E8%B4%9D%E8%AF%B7%E6%B1%82"><span></span></a>以cURL的方式拷贝请求</h4>
+
+<p>cURL是一种命令行工具，用于构造HTTP事务。Network面板的Copy as cURL命令重建一个HTTP请求（包括HTTP头，SSL证书和请求参数串）并且作为一个cURL命令字符串拷贝到剪贴板中。然后你可以黏贴字符串到终端窗口中执行相同的请求</p>
+
+<p>下面是一个从Google的新首页上取下来的一个XHR请求的cURL命令行字符串：</p>
+
+<pre><code>curl 'http://news.google.com/news/xhrd=us' -H 'Accept-Encoding: gzip,deflate,:sdch' -H 'Host: news.google.com' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1510.0 Safari/537.36' -H 'Accept: */*' -H 'Referer: http://news.google.com/nwshp?hl=en&amp;tab=wn' -H 'Cookie: NID=67=eruHSUtoIQA-HldQn7U7G5meGuvZOcY32ixQktdgU1qSz7StUDIjC_Knit2xEcWRa-e8CuvmADminmn6h2_IRpk9rWgWMdRj4np3-DM_ssgfeshItriiKsiEXJVfra4n; PREF=ID=a38f960566524d92:U=af866b8c07132db6:FF=0:TM=1369068317:LM=1369068321:S=vVkfXySFmOcAom1K' -H 'Connection: keep-alive' --compressed
+</code></pre>
+
+<h4>
+<a name="wiki-%E4%BF%9D%E5%AD%98%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE" href="#wiki-%E4%BF%9D%E5%AD%98%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE"><span></span></a>保存网络数据</h4>
+
+<p>你也可以将网络记录保存为HAR（HTTP Archive）文件，或者以HAR数据结构的样式拷贝记录到剪贴板。HAR文件包含一个描述网络“瀑布流”的JSON数据结构。一些第三方工具可以通过HAR文件中的数据重新构造网络瀑布流。</p>
+
+<p>要保存一份记录：</p>
+
+<ol>
+<li>在Network table中右键或者Control+click。</li>
+<li>
+<p>在出现的上下文菜单中，选择下面的某一个行为：</p>
+
+<p>*　Copy All as HAR - 以HAR格式拷贝网络记录到系统剪贴板。</p>
+
+<ul>
+<li>Save as HAR with Content - 将页的每个资源的网络数据保存为HAR文件。二进制资源，包括图片，使用Base64编码。</li>
+</ul>
+</li>
+</ol><p>更多信息见：<a href="http://www.igvita.com/2012/08/28/web-performance-power-tool-http-archive-har/">Web Performance Power Tool: HTTP Archive (HAR)</a>.</p>
+
+<h2>
+<a name="wiki-%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E7%BB%86%E8%8A%82" href="#wiki-%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E7%BB%86%E8%8A%82"><span></span></a>网络资源细节</h2>
+
+<p>当你在Network table中点击一个资源名时，一个标签窗口会出现，它包含了下面的额外细节：</p>
+
+<ul>
+<li>HTTP请求和响应头</li>
+<li>资源预览</li>
+<li>HTTP响应</li>
+<li>Cookie名和值</li>
+<li>WebSocket信息</li>
+<li>资源网络时间</li>
+</ul><h3>
+<a name="wiki-http%E5%A4%B4" href="#wiki-http%E5%A4%B4"><span></span></a>HTTP头</h3>
+
+<p>Header标签显示了资源的请求URL，HTTP方法和响应状态码。另外，它列出了HTTP响应和请求头和他们的值，还有请求参数字符串。你可以通过点击parse/view source按钮来切换查看HTTP头的解析格式化结果，或者源内容。你也可以通过点击View decoded/View URL encode按钮来为每一个请求参数块切换decode或者URL encode视图。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/headers.png" alt=""></p>
+
+<p>你也可以拷贝请求或者响应头到剪贴板中。</p>
+
+<h3>
+<a name="wiki-%E8%B5%84%E6%BA%90%E9%A2%84%E8%A7%88" href="#wiki-%E8%B5%84%E6%BA%90%E9%A2%84%E8%A7%88"><span></span></a>资源预览</h3>
+
+<p>Preview标签显示了一个资源的预览，如果允许预览的话。目前为image和JSON资源提供预览：</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/resource-preview-json.png" alt=""></p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/image-preview.png" alt=""></p>
+
+<p>你可以在Response标签中查看资源的未格式化的响应。</p>
+
+<h3>
+<a name="wiki-http%E5%93%8D%E5%BA%94" href="#wiki-http%E5%93%8D%E5%BA%94"><span></span></a>HTTP响应</h3>
+
+<p>Response标签包含了资源的未格式化内容。下面是一个请求返回的响应的JSON数据格式的截图</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/response.png" alt=""></p>
+
+<p>你也可以查看某些资源类型的格式化的预览，包括JSON数据格式和图片。</p>
+
+<h3>
+<a name="wiki-cookies" href="#wiki-cookies"><span></span></a>Cookies</h3>
+
+<p>Cookie标签显示了所有在资源的HTTP请求和响应头中携带的cookie的表格。你也可以清除所有的cookie。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/cookies.png" alt=""></p>
+
+<p>Cookie表格包含了下面的列：</p>
+
+<table>
+<tbody><tr>
+<td>属性</td>
+<td>描述/td&gt;</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>cookie的名字</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>cookie的值</td>
+</tr>
+<tr>
+<td>Domain</td>
+<td>cookie的主域</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>Cookie的URL路径</td>
+</tr>
+<tr>
+<td>Expires / Max-Age</td>
+<td>cookie的过期时间或者max-age属性</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>cookie的字节数</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>表示cookie应该只能被浏览器通过http请求携带，而不能被通过javascript访问</td>
+</tr>
+<tr>
+<td>Secure</td>
+<td>表示cookie应该只能被通过安全连接传输</td>
+</tr>
+</tbody></table><h3>
+<a name="wiki-websocket%E5%B8%A7" href="#wiki-websocket%E5%B8%A7"><span></span></a>WebSocket帧</h3>
+
+<p>Frames标签显示了通过WebSocket连接发送或者接收的信息。这个标签只在当前选中的资源是通过WebSocket连接初始化时候可见。这个表格包含了下面的列：</p>
+
+<table>
+<tbody><tr>
+<td>名字</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>Data</td>
+<td>消息装载。如果消息是plain text，它显示在这里。对于二进制操作码，这个字段显示操作码的名字和操作码。下面是支持的操作码：
+<ul>
+<li>Continuation Frame</li>
+  <li>Binary Frame</li>
+  <li>Connection Close Frame</li>
+  <li>Ping Frame</li>
+  <li>Pong Frame</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Length</td>
+<td>消息的字节长度</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>消息被创建时的时间戳</td>
+</tr>
+</tbody></table><p>消息根据他们的类型分色。发送的文本消息标记成浅绿色；接收的文本消息为白色：</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/websocket-text2.png" alt=""></p>
+
+<p>WebSocket操作码是浅黄色的：</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/frames-opcode.png" alt=""></p>
+
+<p>错误是浅红色的：</p>
+
+<p>注意当前的方案：</p>
+
+<ul>
+<li>要在一个新消息到达之后刷新Frames table，需要点击左侧的资源名。</li>
+<li>只有最新的100个WebSocket消息会被保持在Frames table中。</li>
+</ul><h3>
+<a name="wiki-%E8%B5%84%E6%BA%90%E7%BD%91%E7%BB%9C%E6%97%B6%E9%97%B4%E7%BA%BF" href="#wiki-%E8%B5%84%E6%BA%90%E7%BD%91%E7%BB%9C%E6%97%B6%E9%97%B4%E7%BA%BF"><span></span></a>资源网络时间线</h3>
+
+<p>Timing标签以图形化展现了资源加载的不同的网络阶段消耗的时间。</p>
+
+<p><img src="https://developers.google.com/chrome-developer-tools/docs/network-files/timing.png" alt=""></p>
+
+<p>下面的表格列出了在Timing标签页中的各个网络阶段和他们的描述。</p>
+
+<table>
+<tbody><tr>
+<td>属性名</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>和代理服务器连接中协商耗费的时间Time spent negotiating with a proxy server connection.</td>
+</tr>
+<tr>
+<td>DNS Lookup</td>
+<td>DNS查询过程耗费的时间</td>
+</tr>
+<tr>
+<td>Blocking</td>
+<td>请求从建立连接成功到等待变成可被使用阶段耗费的时间</td>
+</tr>
+<tr>
+<td>Connecting</td>
+<td>建立连接的时间，包括TCP握手/重试，DNS查找，以及连接到代理或者SSL协商的时间</td>
+</tr>
+<tr>
+<td>Sending</td>
+<td>发送请求的时间</td>
+</tr>
+<tr>
+<td>Waiting</td>
+<td>等待初始化响应的时间</td>
+</tr>
+<tr>
+<td>Receiving</td>
+<td>接受响应数据所用的时间</td>
+</tr>
+</tbody></table><h2>
+<a name="wiki-additional-resources" href="#wiki-additional-resources"><span></span></a>Additional resources</h2>
+
+<p>To learn more optimizing the network performance of your application, see the following resources:</p>
+
+<ul>
+<li>Use <a href="https://developers.google.com/speed/pagespeed/insights?hl=zh-CN">PageSpeed Insights</a> to identify performance best practices that can be applied to your site, and <a href="https://developers.google.com/speed/pagespeed/optimization?hl=zh-CN">PageSpeed optimization tools</a> to automate the process of applying those best practices.</li>
+<li>
+<a href="http://www.igvita.com/posa/high-performance-networking-in-google-chrome/">High Performance Networking in Google Chrome</a> discusses Chrome network internals and how you can take advantage of them to make your site faster.</li>
+<li>
+<a href="https://developers.google.com/speed/articles/gzip?hl=zh-CN">How gzip compression works</a> provides a high level overview gzip compression and why it's a good idea.</li>
+<li>
+<a href="https://developers.google.com/speed/docs/best-practices/rules_intro?hl=zh-CN">Web Performance Best Practices</a> provides additional tips for optimizing the network performance of your web page or application.</li>
+</ul>
+    </div>
+  </div>
+  </div>
+
+</div>
+<div id="gollum-footer">
+  <p id="last-edit">
+    Last edited by acelan86, <time class="js-relative-date" data-title-format="YYYY-MM-DD HH:mm:ss" datetime="2013-06-25T20:19:12-07:00" title="2013-06-26 11:19:12">8 months ago</time>
+  </p>
+</div>
+</div>

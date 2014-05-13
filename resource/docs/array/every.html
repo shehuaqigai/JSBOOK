@@ -1,0 +1,573 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">every 方法 (Array) (JavaScript)</h1>
+  
+  <div id="mainSection">
+    <div id="mainBody">
+      <p>
+        
+      </p>
+      <div class="introduction">
+        <p>
+          <span id="mt1" class="sentence" data-guid="d9135667917812b62c032020813ac032" data-source="Determines whether all the members of an array satisfy the specified test." xml:space="preserve">
+            <sentencetext xmlns="http://www.w3.org/1999/xhtml">确定数组的所有成员是否满足指定的测试。</sentencetext>
+          </span>
+        </p>
+      </div>
+      <div id="syntaxSection" class="section">
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_325bf64b-0ad4-4c03-a799-b1f787abd888');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_325bf64b-0ad4-4c03-a799-b1f787abd888" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>array1.every(callbackfn[, thisArg])
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</div>
+      <div>
+        
+        <div class="LW_CollapsibleArea_TitleDiv">
+          <div>
+            <a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="折叠">
+              <span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span>
+              <span class="LW_CollapsibleArea_Title">参数</span>
+            </a>
+            <div class="LW_CollapsibleArea_HrDiv">
+              <hr class="LW_CollapsibleArea_Hr">
+            </div>
+          </div>
+        </div>
+        <div class="sectionblock">
+          <a id="parametersToggle">
+            
+          </a>
+          <div class="caption">
+            
+          </div>
+          <div class="tableSection">
+            <table>
+              <tbody><tr>
+                <th>
+                  <p>
+                    <span id="mt2" class="sentence" data-guid="03144cce1fcdacdbe993e5266c0bf3f3" data-source="Parameter" xml:space="preserve">
+                      <sentencetext xmlns="http://www.w3.org/1999/xhtml">
+  <sentencetext xmlns="http://www.w3.org/1999/xhtml">参数</sentencetext>
+</sentencetext>
+                    </span>
+                  </p>
+                </th>
+                <th>
+                  <p>
+                    <span id="mt3" class="sentence" data-guid="30618b3b44fa316257d07e387759fae5" data-source="Definition" xml:space="preserve">
+                      <sentencetext xmlns="http://www.w3.org/1999/xhtml">定义</sentencetext>
+                    </span>
+                  </p>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <span class="parameter">array1</span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span id="mt4" class="sentence" data-guid="50edf5403c0e270490508221b859330b" data-source="Required." xml:space="preserve">
+                      <sentencetext xmlns="http://www.w3.org/1999/xhtml">必需。</sentencetext>
+                    </span>  <span id="mt5" class="sentence" data-guid="b6705561a0f4f8c939a87f67efecb837" data-source="An array object." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">一个数组对象。</sentencetext></span>  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <span class="parameter">callbackfn</span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span id="mt6" class="sentence" data-guid="50edf5403c0e270490508221b859330b" data-source="Required." xml:space="preserve">
+                      <sentencetext xmlns="http://www.w3.org/1999/xhtml">必需。</sentencetext>
+                    </span>  <span id="mt7" class="sentence" data-guid="ccd65b99a6495df7c3a27a8c28130518" data-source="A function that accepts up to three arguments." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">一个接受最多三个参数的函数。</sentencetext></span>  <span id="mt8" class="sentence" data-guid="525772daac2b179b7c2d893598fb871e" data-source="The &lt;strong&gt;every&lt;/strong&gt; method calls the &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; function for each element in &lt;span class=&quot;parameter&quot;&gt;array1&lt;/span&gt; until the &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; returns &lt;span&gt;&lt;span class=&quot;input&quot;&gt;false&lt;/span&gt;&lt;/span&gt;, or until the end of the array." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">
+  <strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法会为 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">array1</span> 中的每个元素调用 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 函数，直到 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">false</span></span>，或直到到达数组的结尾。</sentencetext></span>  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <span class="parameter">thisArg</span>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <span id="mt9" class="sentence" data-guid="16c952cba827b0f636670d0a0b4b6619" data-source="Optional." xml:space="preserve">
+                      <sentencetext xmlns="http://www.w3.org/1999/xhtml">可选。</sentencetext>
+                    </span>  <span id="mt10" class="sentence" data-guid="a0b5fc9b77368c3a37b14e88074daf5d" data-source="An object to which the &lt;span&gt;&lt;span class=&quot;input&quot;&gt;this&lt;/span&gt;&lt;/span&gt; keyword can refer in the &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; function." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">可在 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 函数中为其引用 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">this</span></span> 关键字的对象。</sentencetext></span>  <span id="mt11" class="sentence" data-guid="4675c7d7371974edf2f9fae1338ca7cd" data-source="If &lt;span class=&quot;parameter&quot;&gt;thisArg&lt;/span&gt; is omitted, &lt;span&gt;&lt;span class=&quot;input&quot;&gt;undefined&lt;/span&gt;&lt;/span&gt; is used as the &lt;span&gt;&lt;span class=&quot;input&quot;&gt;this&lt;/span&gt;&lt;/span&gt; value." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">如果省略 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">thisArg</span>，则 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">undefined</span></span> 将用作 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">this</span></span> 值。</sentencetext></span>  </p>
+                </td>
+              </tr>
+            </tbody></table>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="LW_CollapsibleArea_TitleDiv">
+          <div>
+            <a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="折叠">
+              <span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span>
+              <span class="LW_CollapsibleArea_Title">返回值</span>
+            </a>
+            <div class="LW_CollapsibleArea_HrDiv">
+              <hr class="LW_CollapsibleArea_Hr">
+            </div>
+          </div>
+        </div>
+        <div class="sectionblock">
+          <a id="returnValueToggle">
+            
+          </a>
+          <p>
+            <span id="mt12" class="sentence" data-guid="925b04d628a86cc3dfaf6a50fbac7740" data-source="&lt;span&gt;&lt;span class=&quot;input&quot;&gt;true&lt;/span&gt;&lt;/span&gt; if the &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; function returns &lt;span&gt;&lt;span class=&quot;input&quot;&gt;true&lt;/span&gt;&lt;/span&gt; for all array elements; otherwise, &lt;span&gt;&lt;span class=&quot;input&quot;&gt;false&lt;/span&gt;&lt;/span&gt;." xml:space="preserve">
+              <sentencetext xmlns="http://www.w3.org/1999/xhtml">如果 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 函数为所有数组元素返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">true</span></span>，则为 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">true</span></span>；否则为 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">false</span></span>。</sentencetext>
+            </span>  <span id="mt13" class="sentence" data-guid="58d9ddf3dbf53c03b3c0f2c7806698be" data-source="If the array is has no elements, the &lt;strong&gt;every&lt;/strong&gt; method returns &lt;span&gt;&lt;span class=&quot;input&quot;&gt;true&lt;/span&gt;&lt;/span&gt;." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">如果数组没有元素，则 <strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法将返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">true</span></span>。</sentencetext></span>  </p>
+        </div>
+      </div>
+      <div>
+        <div class="LW_CollapsibleArea_TitleDiv">
+          <div>
+            <a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="折叠">
+              <span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span>
+              <span class="LW_CollapsibleArea_Title">异常</span>
+            </a>
+            <div class="LW_CollapsibleArea_HrDiv">
+              <hr class="LW_CollapsibleArea_Hr">
+            </div>
+          </div>
+        </div>
+        <div class="sectionblock">
+          <a id="ddueExceptionsToggle">
+            
+          </a>
+          <p>
+            <span id="mt14" class="sentence" data-guid="226726a937a7f3e6737e627561ebe2f2" data-source="If the &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; argument is not a function object, a &lt;strong&gt;TypeError&lt;/strong&gt; exception is thrown." xml:space="preserve">
+              <sentencetext xmlns="http://www.w3.org/1999/xhtml">如果 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 参数不是函数对象，则将引发 <strong xmlns="http://www.w3.org/1999/xhtml">TypeError</strong> 异常。</sentencetext>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div>
+        <div class="LW_CollapsibleArea_TitleDiv">
+          <div>
+            <a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="折叠">
+              <span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span>
+              <span class="LW_CollapsibleArea_Title">备注</span>
+            </a>
+            <div class="LW_CollapsibleArea_HrDiv">
+              <hr class="LW_CollapsibleArea_Hr">
+            </div>
+          </div>
+        </div>
+        <div class="sectionblock">
+          <a id="languageReferenceRemarksToggle">
+            
+          </a>
+          <p>
+            <span id="mt15" class="sentence" data-guid="6bc121afb32a57400c98b3f70d8e8b17" data-source="The &lt;strong&gt;every&lt;/strong&gt; method calls the &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; function one time for each array element, in ascending index order, until the &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; function returns &lt;span&gt;&lt;span class=&quot;input&quot;&gt;false&lt;/span&gt;&lt;/span&gt;." xml:space="preserve">
+              <sentencetext xmlns="http://www.w3.org/1999/xhtml">
+  <strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法会按升序顺序对每个数组元素调用一次 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 函数，直到 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 函数返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">false</span></span>。</sentencetext>
+            </span>  <span id="mt16" class="sentence" data-guid="068e8b7c8d5748a43a0af7b3b639196e" data-source="If an element that causes &lt;span class=&quot;parameter&quot;&gt;callbackfn&lt;/span&gt; to return &lt;span&gt;&lt;span class=&quot;input&quot;&gt;false&lt;/span&gt;&lt;/span&gt; is found, the &lt;strong&gt;every&lt;/strong&gt; method immediately returns &lt;span&gt;&lt;span class=&quot;input&quot;&gt;false&lt;/span&gt;&lt;/span&gt;." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">如果找到导致 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">callbackfn</span> 返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">false</span></span> 的元素，则 <strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法会立即返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">false</span></span>。</sentencetext></span>  <span id="mt17" class="sentence" data-guid="b16c186ecfcfc0eca84e7e1cd01c3ed7" data-source="Otherwise, the &lt;span&gt;&lt;span class=&quot;input&quot;&gt;every&lt;/span&gt;&lt;/span&gt; method returns &lt;span&gt;&lt;span class=&quot;input&quot;&gt;true&lt;/span&gt;&lt;/span&gt;." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">否则，<span xmlns="http://www.w3.org/1999/xhtml"><span class="input">every</span></span> 方法返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">true</span></span>。</sentencetext></span>  </p>
+          <p>
+            <span id="mt18" class="sentence" data-guid="cba449bef277652b3e4c6e05e7d017c6" data-source="The callback function is not called for missing elements of the array." xml:space="preserve">
+              <sentencetext xmlns="http://www.w3.org/1999/xhtml">不为数组中缺少的元素调用该回调函数。</sentencetext>
+            </span>
+          </p>
+          <p>
+            <span id="mt19" class="sentence" data-guid="6ea0cc6a3c7b659816285bf880c8f853" data-source="In addition to array objects, the &lt;strong&gt;every&lt;/strong&gt; method can be used by any object that has a &lt;span&gt;&lt;span class=&quot;input&quot;&gt;length&lt;/span&gt;&lt;/span&gt; property and that has numerically indexed property names." xml:space="preserve">
+              <sentencetext xmlns="http://www.w3.org/1999/xhtml">除了数组对象之外，<strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法可由具有 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">length</span></span> 属性且具有已按数字编制索引的属性名的任何对象使用。</sentencetext>
+            </span>
+          </p>
+          <div class="alert">
+            <table>
+              <tbody><tr>
+                <th>
+                  
+                  <img id="alert_note" alt="说明" src="http://i.msdn.microsoft.com/dynimg/IC101471.gif" title="说明" xmlns="">
+                  <strong>说明</strong>
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <p>
+                    <span id="mt20" class="sentence" data-guid="d50898b9f91a524afe1acc13f650412a" data-source="   You can use the &lt;span&gt;&lt;span class=&quot;mtpsTagOuterHtml&quot; &gt;&lt;span&gt;some Method (Array) (JavaScript)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; to check whether the callback function returns &lt;span&gt;&lt;span class=&quot;input&quot;&gt;true&lt;/span&gt;&lt;/span&gt; for any element of an array." xml:space="preserve">
+                      <sentencetext xmlns="http://www.w3.org/1999/xhtml">   可以使用 <span xmlns="http://www.w3.org/1999/xhtml"><a href="http://msdn.microsoft.com/zh-cn/library/ie/ff679978(v=vs.94).aspx">some 方法 (Array) (JavaScript)</a></span>检查回调函数是否对数组的任何元素均返回 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">true</span></span>。</sentencetext>
+                    </span>
+                  </p>
+                </td>
+              </tr>
+            </tbody></table>
+          </div>
+          <h3 class="subHeading">回调函数语法</h3>
+          <div class="subsection">
+            <p>
+              <span id="mt21" class="sentence" data-guid="1ca8bd138636b6b40d23d177ddaf9816" data-source="The syntax of the callback function is as follows:" xml:space="preserve">
+                <sentencetext xmlns="http://www.w3.org/1999/xhtml">回调函数的语法如下所示：</sentencetext>
+              </span>
+            </p>
+            <p>
+              <span class="code">function callbackfn(value, index, array1)</span>
+            </p>
+            <p>
+              <span id="mt22" class="sentence" data-guid="ef0d841623161c1a389988780d829630" data-source="You can declare the callback function with up to three parameters." xml:space="preserve">
+                <sentencetext xmlns="http://www.w3.org/1999/xhtml">可使用最多三个参数来声明回调函数。</sentencetext>
+              </span>
+            </p>
+            <p>
+              <span id="mt23" class="sentence" data-guid="67e86e17ebe237b07f29dbfeb30e598c" data-source="The following table lists the callback function parameters." xml:space="preserve">
+                <sentencetext xmlns="http://www.w3.org/1999/xhtml">下表列出了回调函数参数。</sentencetext>
+              </span>
+            </p>
+            <div class="caption">
+              
+            </div>
+            <div class="tableSection">
+              <table>
+                <tbody><tr>
+                  <th>
+                    <p>
+                      <span id="mt24" class="sentence" data-guid="cf54efd20a88170ea573b05ee8d51c3e" data-source="Callback parameter" xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">回调参数</sentencetext>
+                      </span>
+                    </p>
+                  </th>
+                  <th>
+                    <p>
+                      <span id="mt25" class="sentence" data-guid="30618b3b44fa316257d07e387759fae5" data-source="Definition" xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">定义</sentencetext>
+                      </span>
+                    </p>
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <span class="parameter">value</span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <span id="mt26" class="sentence" data-guid="9e7a4f5b4ae5ff4b68ec6439f212388d" data-source="The value of the array element." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">数组元素的值。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <span class="parameter">index</span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <span id="mt27" class="sentence" data-guid="466e0dab8c9c18196b81117dfa1c4c71" data-source="The numeric index of the array element." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">数组元素的数字索引。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <span class="parameter">array1</span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <span id="mt28" class="sentence" data-guid="d97f0ff07ec2245fb9681a9cfdb8ab4f" data-source="The array object that contains the element." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">包含该元素的数组对象。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+              </tbody></table>
+            </div>
+          </div>
+          <h3 class="subHeading">修改数组对象</h3>
+          <div class="subsection">
+            <p>
+              <span id="mt29" class="sentence" data-guid="685f51319ed94e7e29c3e5e5827c9885" data-source="The array object can be modified by the callback function." xml:space="preserve">
+                <sentencetext xmlns="http://www.w3.org/1999/xhtml">数组对象可由回调函数修改。</sentencetext>
+              </span>
+            </p>
+            <p>
+              <span id="mt30" class="sentence" data-guid="d0424709a27bed0a8725178f85283d60" data-source="The following table describes the results of modifying the array object after the &lt;strong&gt;every&lt;/strong&gt; method starts." xml:space="preserve">
+                <sentencetext xmlns="http://www.w3.org/1999/xhtml">下表描述了在 <strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法启动后修改数组对象所获得的结果。</sentencetext>
+              </span>
+            </p>
+            <div class="caption">
+              
+            </div>
+            <div class="tableSection">
+              <table>
+                <tbody><tr>
+                  <th>
+                    <p>
+                      <span id="mt31" class="sentence" data-guid="6dc210af85ab9735e7ff10774c38f06c" data-source="Condition after the &lt;strong&gt;every&lt;/strong&gt; method starts" xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">
+  <strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法启动后的条件</sentencetext>
+                      </span>
+                    </p>
+                  </th>
+                  <th>
+                    <p>
+                      <span id="mt32" class="sentence" data-guid="d9ec85404b75630849da7507bb440698" data-source="Element passed to callback function?" xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">元素是否传递给回调函数</sentencetext>
+                      </span>
+                    </p>
+                  </th>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <span id="mt33" class="sentence" data-guid="4ccad8d05d98ad8f5fd0de1bdd9259d4" data-source="Element is added beyond the original length of the array." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">在数组的原始长度之外添加元素。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <span id="mt34" class="sentence" data-guid="1bfd7f653591e54b5c9c4e428c65f608" data-source="No." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">否。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <span id="mt35" class="sentence" data-guid="8d07b411c15fafd28db22dbf9009b884" data-source="Element is added to fill in a missing element of the array." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">添加元素以填充数组中缺少的元素。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <span id="mt36" class="sentence" data-guid="c2cbf249d0b6cef5ac11c17941925b08" data-source="Yes, if that index has not yet been passed to the callback function." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">是，如果该索引尚未传递给回调函数。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <span id="mt37" class="sentence" data-guid="6a962adb9e998ab2615c3360be4a32cf" data-source="Element is changed." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">元素被更改。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <span id="mt38" class="sentence" data-guid="4891506182176dfa17ff07baa5ebc9d1" data-source="Yes, if that element has not yet been passed to the callback function." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">是，如果该元素尚未传递给回调函数。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>
+                      <span id="mt39" class="sentence" data-guid="819c3327498e443832e251dcff0e4621" data-source="Element is deleted from the array." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">从数组中删除元素。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <span id="mt40" class="sentence" data-guid="a1c352582a953069344fb9d3b6fdec56" data-source="No, unless that element has already been passed to the callback function." xml:space="preserve">
+                        <sentencetext xmlns="http://www.w3.org/1999/xhtml">否，除非该元素已传递给回调函数。</sentencetext>
+                      </span>
+                    </p>
+                  </td>
+                </tr>
+              </tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="LW_CollapsibleArea_TitleDiv">
+          <div>
+            <a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="折叠">
+              <span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span>
+              <span class="LW_CollapsibleArea_Title">示例</span>
+            </a>
+            <div class="LW_CollapsibleArea_HrDiv">
+              <hr class="LW_CollapsibleArea_Hr">
+            </div>
+          </div>
+        </div>
+        <div class="sectionblock">
+          <a id="exampleToggle">
+            
+          </a>
+          <p>
+            <span id="mt41" class="sentence" data-guid="86aef124edb6a578dfa8033504d660aa" data-source="The following example illustrates the use of the &lt;strong&gt;every&lt;/strong&gt; method." xml:space="preserve">
+              <sentencetext xmlns="http://www.w3.org/1999/xhtml">下面的示例阐释了 <strong xmlns="http://www.w3.org/1999/xhtml">every</strong> 方法的用法。</sentencetext>
+            </span>
+          </p>
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>JavaScript</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_f3e718b3-7af9-49bf-a888-6f11ba2bfb07');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_f3e718b3-7af9-49bf-a888-6f11ba2bfb07" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre><span style="color:Green;">// Define the callback function.</span>
+<span style="color:Blue;">function</span> CheckIfEven(value, index, ar) {
+    document.write(value + <span style="color:#A31515;">" "</span>);
+
+    <span style="color:Blue;">if</span> (value % 2 == 0)
+        <span style="color:Blue;">return</span> <span style="color:Blue;">true</span>;
+    <span style="color:Blue;">else</span>
+        <span style="color:Blue;">return</span> <span style="color:Blue;">false</span>;
+}
+
+<span style="color:Green;">// Create an array.</span>
+<span style="color:Blue;">var</span> numbers = [2, 4, 5, 6, 8];
+
+<span style="color:Green;">// Check whether the callback function returns true for all of the</span>
+<span style="color:Green;">// array values.</span>
+<span style="color:Blue;">if</span> (numbers.every(CheckIfEven))
+    document.write(<span style="color:#A31515;">"All are even."</span>);
+<span style="color:Blue;">else</span>
+    document.write(<span style="color:#A31515;">"Some are not even."</span>);
+
+<span style="color:Green;">// Output:</span>
+<span style="color:Green;">// 2 4 5 Some are not even.</span>
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+<p><span id="mt42" class="sentence" data-guid="d790dcf471462162d06222c31e9d27b9" data-source="The following example illustrates the use of the &lt;span class=&quot;parameter&quot;&gt;thisArg&lt;/span&gt; argument, which specifies an object to which the &lt;span&gt;&lt;span class=&quot;input&quot;&gt;this&lt;/span&gt;&lt;/span&gt; keyword can refer." xml:space="preserve"><sentencetext xmlns="http://www.w3.org/1999/xhtml">下面的示例阐释 <span class="parameter" xmlns="http://www.w3.org/1999/xhtml">thisArg</span> 参数的用法，该参数指定对其引用 <span xmlns="http://www.w3.org/1999/xhtml"><span class="input">this</span></span> 关键字的对象。</sentencetext></span></p>
+<div id="code-snippet-3" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>JavaScript</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_7b21107c-f9c7-451d-9479-d975f7e3a557');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_7b21107c-f9c7-451d-9479-d975f7e3a557" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre><span style="color:Green;">// Create a function that returns true if the value is</span>
+<span style="color:Green;">// numeric and within range.</span>
+<span style="color:Blue;">var</span> checkNumericRange = <span style="color:Blue;">function</span>(value) {
+    <span style="color:Blue;">if</span> (<span style="color:Blue;">typeof</span> value !== <span style="color:#A31515;">'number'</span>)
+        <span style="color:Blue;">return</span> <span style="color:Blue;">false</span>;
+    <span style="color:Blue;">else</span> 
+        <span style="color:Blue;">return</span> value &gt;= <span style="color:Blue;">this</span>.minimum &amp;&amp; value &lt;= <span style="color:Blue;">this</span>.maximum;
+}
+
+<span style="color:Green;">// Create an array of numbers.</span>
+<span style="color:Blue;">var</span> numbers = [10, 15, 19];
+
+<span style="color:Green;">// Check whether the callback function returns true for</span>
+<span style="color:Green;">// all of the array values.</span>
+<span style="color:Green;">// The obj argument enables use of the this value</span>
+<span style="color:Green;">// within the callback function.</span>
+
+<span style="color:Blue;">var</span> obj = { minimum: 10, maximum: 20 }
+
+<span style="color:Blue;">if</span> (numbers.every(checkNumericRange, obj))
+    document.write (<span style="color:#A31515;">"All are within range."</span>);
+<span style="color:Blue;">else</span>
+    document.write (<span style="color:#A31515;">"Some are not within range."</span>);
+
+<span style="color:Green;">// Output:</span>
+<span style="color:Green;">//   All are within range.</span>
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+</div>
+      </div>
+      <div>
+        <div class="LW_CollapsibleArea_TitleDiv">
+          <div>
+            <a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="折叠">
+              <span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span>
+              <span class="LW_CollapsibleArea_Title">要求</span>
+            </a>
+            <div class="LW_CollapsibleArea_HrDiv">
+              <hr class="LW_CollapsibleArea_Hr">
+            </div>
+          </div>
+        </div>
+        <div class="sectionblock">
+          <a id="requirementsTitleToggle">
+            
+          </a>
+          <p>
+    </p>
+          <p>在以下文档模式中受支持：Internet Explorer 9 标准模式、Internet Explorer 10 标准模式和 Internet Explorer 11 标准模式。Windows 应用商店 应用程序中也支持此项。请参阅<a href="http://msdn.microsoft.com/zh-cn/library/ie/s4esdbwz(v=vs.94).aspx">版本信息</a>。</p>
+    <p>在以下文档模式中不受支持：Quirks、Internet Explorer 6 标准模式、Internet Explorer 7 标准模式、Internet Explorer 8 标准模式。</p>
+  </div>
+      </div>
+      <div>
+        <div class="LW_CollapsibleArea_TitleDiv">
+          <div>
+            <a href="javascript:void(0)" class="LW_CollapsibleArea_TitleAhref" title="折叠">
+              <span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span>
+              <span class="LW_CollapsibleArea_Title">请参见</span>
+            </a>
+            <div class="LW_CollapsibleArea_HrDiv">
+              <hr class="LW_CollapsibleArea_Hr">
+            </div>
+          </div>
+        </div>
+        <div class="sectionblock">
+          <a id="seeAlsoToggle">
+            
+          </a>
+          <h4 class="subHeading">参考</h4>
+          <div class="seeAlsoStyle">
+            <span>
+              <a href="http://msdn.microsoft.com/zh-cn/library/ie/ff679978(v=vs.94).aspx">some 方法 (Array) (JavaScript)</a>
+            </span>
+          </div>
+          <div class="seeAlsoStyle">
+            <span>
+              <a href="http://msdn.microsoft.com/zh-cn/library/ie/ff679973(v=vs.94).aspx">filter 方法 (Array) (JavaScript)</a>
+            </span>
+          </div>
+          <div class="seeAlsoStyle">
+            <span>
+              <a href="http://msdn.microsoft.com/zh-cn/library/ie/k4h76zbx(v=vs.94).aspx">Array 对象 (JavaScript)</a>
+            </span>
+          </div>
+          <h4 class="subHeading">概念</h4>
+          <div class="seeAlsoStyle">
+            <span>
+              <a href="http://msdn.microsoft.com/zh-cn/library/ie/5kh4af6c(v=vs.94).aspx">使用数组 (JavaScript)</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

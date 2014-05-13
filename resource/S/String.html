@@ -1,0 +1,303 @@
+<div id="maincontent">
+
+<h1>JavaScript String 对象参考手册</h1>
+
+
+<div>
+<h2>String 对象</h2>
+<p>String 对象用于处理文本（字符串）。</p>
+
+<h3>创建 String 对象的语法：</h3>
+<pre>new String(<i>s</i>);
+String(<i>s</i>);</pre>
+
+<h3>参数</h3>
+<p>参数 <i>s</i> 是要存储在 String 对象中或转换成原始字符串的值。</p>
+
+<h3>返回值</h3>
+<p>当 String() 和运算符 new 一起作为构造函数使用时，它返回一个新创建的 String 对象，存放的是字符串 <i>s</i> 或 <i>s</i> 的字符串表示。</p>
+<p>当不用 new 运算符调用 String() 时，它只把 <i>s</i> 转换成原始的字符串，并返回转换后的值。</p>
+</div>
+
+
+<div>
+<h2>String 对象属性</h2>
+
+<p>FF: Firefox, IE: Internet Explorer</p>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:25%">属性</th>
+    <th style="width:61%">描述</th>
+    <th style="width:7%">FF</th>
+    <th style="width:7%">IE</th>
+  </tr>
+  <tr>
+    <td>constructor</td>
+    <td>对创建该对象的函数的引用</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_length_string.asp">length</a></td>
+    <td>字符串的长度</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>prototype</td>
+    <td>允许您向对象添加属性和方法</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>String 对象方法</h2>
+
+<p>FF: Firefox, IE: Internet Explorer</p>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:25%">方法</th>
+    <th style="width:61%">描述</th>
+    <th style="width:7%">FF</th>
+    <th style="width:7%">IE</th>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_anchor.asp">anchor()</a></td>
+    <td>创建 HTML 锚。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_big.asp">big()</a></td>
+    <td>用大号字体显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_blink.asp">blink()</a></td>
+    <td>显示闪动字符串。</td>
+    <td>1</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_bold.asp">bold()</a></td>
+    <td>使用粗体显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_charAt.asp">charAt()</a></td>
+    <td>返回在指定位置的字符。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_charCodeAt.asp">charCodeAt()</a></td>
+    <td>返回在指定的位置的字符的 Unicode 编码。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_concat_string.asp">concat()</a></td>
+    <td>连接字符串。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_fixed.asp">fixed()</a></td>
+    <td>以打字机文本显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_fontcolor.asp">fontcolor()</a></td>
+    <td>使用指定的颜色来显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_fontsize.asp">fontsize()</a></td>
+    <td>使用指定的尺寸来显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td class="no_wrap"><a href="/js/jsref_fromCharCode.asp">fromCharCode()</a></td>
+    <td>从字符编码创建一个字符串。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_indexOf.asp">indexOf()</a></td>
+    <td>检索字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_italics.asp">italics()</a></td>
+    <td>使用斜体显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_lastIndexOf.asp">lastIndexOf()</a></td>
+    <td>从后向前搜索字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_link.asp">link()</a></td>
+    <td>将字符串显示为链接。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_localeCompare.asp">localeCompare()</a></td>
+    <td>用本地特定的顺序来比较两个字符串。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_match.asp">match()</a></td>
+    <td>找到一个或多个正则表达式的匹配。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_replace.asp">replace()</a></td>
+    <td>替换与正则表达式匹配的子串。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_search.asp">search()</a></td>
+    <td>检索与正则表达式相匹配的值。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_slice_string.asp">slice()</a></td>
+    <td>提取字符串的片断，并在新的字符串中返回被提取的部分。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_small.asp">small()</a></td>
+    <td>使用小字号来显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_split.asp">split()</a></td>
+    <td>把字符串分割为字符串数组。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_strike.asp">strike()</a></td>
+    <td>使用删除线来显示字符串。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_sub.asp">sub()</a></td>
+    <td>把字符串显示为下标。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_substr.asp">substr()</a></td>
+    <td>从起始索引号提取字符串中指定数目的字符。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_substring.asp">substring()</a></td>
+    <td>提取字符串中两个指定的索引号之间的字符。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_sup.asp">sup()</a></td>
+    <td>把字符串显示为上标。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td class="no_wrap"><a href="/js/jsref_toLocaleLowerCase.asp">toLocaleLowerCase()</a></td>
+    <td>把字符串转换为小写。</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td class="no_wrap"><a href="/js/jsref_toLocaleUpperCase.asp">toLocaleUpperCase()</a></td>
+    <td>把字符串转换为大写。</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_toLowerCase.asp">toLowerCase()</a></td>
+    <td>把字符串转换为小写。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_toUpperCase.asp">toUpperCase()</a></td>
+    <td>把字符串转换为大写。</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>toSource()</td>
+    <td>代表对象的源代码。</td>
+    <td>1</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_toString_string.asp">toString()</a></td>
+    <td>返回字符串。</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td><a href="/js/jsref_valueOf_string.asp">valueOf()</a></td>
+    <td>返回某个字符串对象的原始值。</td>
+    <td>1</td>
+    <td>4</td>
+  </tr>
+  </tbody></table>
+</div>
+
+
+<div>
+<h2>String 对象描述</h2>
+
+<p>字符串是 JavaScript 的一种基本的数据类型。</p>
+
+<p>String 对象的 length 属性声明了该字符串中的字符数。</p>
+
+<p>String 类定义了大量操作字符串的方法，例如从字符串中提取字符或子串，或者检索字符或子串。</p>
+
+<p>需要注意的是，JavaScript 的字符串是不可变的（immutable），String 类定义的方法都不能改变字符串的内容。像 String.toUpperCase() 这样的方法，返回的是全新的字符串，而不是修改原始字符串。</p>
+
+<p>在较早的 Netscape 代码基的 JavaScript 实现中（例如 Firefox 实现中），字符串的行为就像只读的字符数组。例如，从字符串 s 中提取第三个字符，可以用 s[2] 代替更加标准的 s.charAt(2)。此外，对字符串应用 for/in 循环时，它将枚举字符串中每个字符的数组下标（但要注意，ECMAScript 标准规定，不能枚举 length 属性）。因为字符串的数组行为不标准，所以应该避免使用它。</p>
+</div>
+
+
+<div id="toc">
+<h2>课外书</h2>
+
+<p>如需更多信息，请阅读 JavaScript 高级教程中的相关内容：</p>
+
+<dl>
+<dt><a href="/js/pro_js_referencetypes.asp" title="ECMAScript 引用类型">ECMAScript 引用类型</a></dt>
+<dd>引用类型通常叫做类（class）或对象。本节讲解 ECMAScript 的预定义引用类型。</dd>
+</dl>
+</div>
+
+</div>

@@ -1,0 +1,25 @@
+
+<h1>HTMLMediaElement对象</h1>
+  
+HAVE_CURRENT_DATA: 2  （数字值为2）：已获取到当前播放数据，但没有足够的数据进行播放<br/>
+HAVE_ENOUGH_DATA: 4 （数字值为4）：可以进行播放，且浏览器确认媒体数据以某一种速度进行加载，可以保证有足够的后续数据进行播放，而不会使浏览器的播放进度赶上加载数据的末端<br/>
+HAVE_FUTURE_DATA: 3 数字值为3）：已获取到后续播放数据，可以进行播放；<br/>
+HAVE_METADATA: 1 （数字值为1）：加载中，媒介资源确认存在，但当前位置没有能够加载到有效媒介数据进行播放<br/>
+HAVE_NOTHING: 0 数字值为0）：当前播放位置无有效媒介资源；<br/>
+NETWORK_EMPTY: 0 //（数字值为0）：尚未初始化；<br/>
+NETWORK_IDLE: 1 //（数字值为1）：加载完成，网络空闲；<br/>
+NETWORK_LOADING: 2 //（数字值为2）：视频加载中；<br/>
+NETWORK_NO_SOURCE: 3 （数字值为3）：加载失败。<br/>
+addTextTrack: //向视频添加新的文本轨道
+canPlayType:
+<h5>canPlayType(type)方法</h5>
+<p>
+使用canPlayType(type)方法测试浏览器是否支持特定的媒介类型。
+方法返回3个可能值（均为浏览器判断的结果）。
+空字符串：浏览器不支持此种媒体类型；
+maybe：浏览器可能支持此种媒体类型；
+probably：浏览器确定支持此种媒体类型。
+</p>
+load: 重新载入视频，并会将playbackRate的值强行设为defaultPlaybackRate的值，且强行将error的值设为null。<br/>
+pause: 暂停视频，并会将paused的值强行设为ture。<br/>
+play: 播放视频，并会将paused的值强行设为false。

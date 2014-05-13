@@ -1,0 +1,140 @@
+<div class="clsDocBody"><table width="97%" cellpadding="0" cellspacing="0"><tbody><tr><td><h1>ondragenter Event
+</h1></td><td align="right"><a href="/main/dhtml/index.html">DHTML文档教程</a></td></tr></tbody></table>
+<hr size="1"><p>Fires on the target element when the user drags the <span replace="1">object</span> to a valid drop target.</p><p class="clsRef">dhtml语法</p><blockquote><table class="clsStd" cellspacing="0"><tbody><tr><th style="border-bottom: 2px solid white; border-right: 2px solid white">Inline HTML</th><td style="border-bottom: 2px solid white; border-right: 2px solid white">&lt;<span class="clsRange" title="Element refers to an element from the Applies To list below.">ELEMENT </span><b>ondragenter</b> = "<i>handler</i>" ... &gt;
+</td><td style="border-bottom: 2px solid white; border-right: 2px solid white">All platforms</td></tr><tr><th rowspan="2" style="border-bottom: 2px solid white; border-right: 2px solid white">Event property</th><td nowrap="1" style="border-right: 2px solid white"><span class="moreinfo" title="an element from the Applies To list below">object</span>.<b>ondragenter</b> = <i>handler</i></td><td>JScript only</td></tr><tr><td style="border-bottom: 2px solid white; border-right: 2px solid white" nowrap="1"><span class="moreinfo" title="an element from the Applies To list below">object</span>.<b>ondragenter</b> = GetRef("<i>handler</i>")</td><td style="border-bottom: 2px solid white; border-right: 2px solid white">Visual Basic Scripting Edition (VBScript) 5.0 or later only</td></tr><tr><th style="border-bottom: 2px solid white; border-right: 2px solid white">Named script</th><td style="border-bottom: 2px solid white; border-right: 2px solid white" nowrap="1">
+&lt;<span class="clsLiteral">SCRIPT FOR</span> =
+<i><span class="moreinfo" title="Object refers to an object from the Applies To list below.">object</span></i><span class="clsLiteral"> EVENT</span> = <b>ondragenter</b>&gt;
+</td><td style="border-bottom: 2px solid white; border-right: 2px solid white" nowrap="1">Internet Explorer only</td></tr></tbody></table></blockquote><p class="clsRef">Event Information</p><blockquote><table class="clsStd"><tbody><tr><th>Bubbles</th><td>Yes</td></tr><tr><th>Cancels</th><td>Yes</td></tr><tr><th>To invoke</th><td><ul style="margin-top:5px"><li>Drag the selection over a valid drop target within the browser. </li><li>Drag the selection to a valid drop target within another browser window. </li></ul></td></tr><tr><th>Default action</th><td>
+Calls the associated event handler.</td></tr></tbody></table></blockquote><p class="clsRef">
+Event Object Properties</p><blockquote><p>Although event handlers in the DHTML Object Model do not receive parameters directly, a handler can query an <a href="../objects/obj_event.html">event</a> object for data.</p><p><a id="pevents" child="divevtprop" onselectstart="return true;" onclick="showhidesection(this, 'available properties')">available properties</a></p><div id="divevtprop" class="clscollapsed"><table class="clsstd"><tbody><tr><th><a href="../properties/altkey.html">altKey</a></th><td>
+Sets or retrieves a value that indicates the state of the ALT key. </td></tr><tr><th><a href="../properties/altleft.html">altLeft</a></th><td>
+Sets or retrieves a value that indicates the state of the left ALT key.</td></tr><tr><th><a href="../properties/cancelbubble.html">cancelBubble</a></th><td>
+Sets or retrieves whether the current event should bubble up the hierarchy of event handlers. </td></tr><tr><th><a href="../properties/clientx.html">clientX</a></th><td>
+Sets or retrieves the x-coordinate of the mouse pointer's position relative to the client area of the window, excluding window decorations and scroll bars.</td></tr><tr><th><a href="../properties/clienty.html">clientY</a></th><td>
+Sets or retrieves the y-coordinate of the mouse pointer's position relative to the client area of the window, excluding window decorations and scroll bars.</td></tr><tr><th><a href="../properties/ctrlkey.html">ctrlKey</a></th><td>
+Sets or retrieves the state of the CTRL key. </td></tr><tr><th><a href="../properties/ctrlleft.html">ctrlLeft</a></th><td>
+Sets or retrieves the state of the left CTRL key.
+</td></tr><tr><th><a href="../objects/obj_datatransfer.html">dataTransfer</a></th><td>
+Provides access to predefined clipboard formats for use in drag-and-drop operations.</td></tr><tr><th><a href="../properties/offsetx.html">offsetX</a></th><td>
+Sets or retrieves the x-coordinate of the mouse pointer's position relative to the object firing the event. </td></tr><tr><th><a href="../properties/offsety.html">offsetY</a></th><td>
+Sets or retrieves the y-coordinate of the mouse pointer's position relative to the object firing the event. </td></tr><tr><th><a href="../properties/returnvalue_1.html">returnValue</a></th><td>
+Sets or retrieves the return value from the event. </td></tr><tr><th><a href="../properties/screenx.html">screenX</a></th><td>
+Retrieves the x-coordinate of the mouse pointer's position relative to the user's screen. </td></tr><tr><th><a href="../properties/screeny.html">screenY</a></th><td>
+Sets or retrieves the y-coordinate of the mouse pointer's position relative to the user's screen. </td></tr><tr><th><a href="../properties/shiftleft.html">shiftLeft</a></th><td>
+Retrieves the state of the left SHIFT key.
+</td></tr><tr><th><a href="../properties/srcelement.html">srcElement</a></th><td>
+Sets or retrieves the object that fired the event. </td></tr><tr><th><a href="../properties/type_4.html">type</a></th><td>
+Sets or retrieves the event name from the event object. </td></tr><tr><th><a href="../properties/x.html">x</a></th><td>
+Sets or retrieves the x-coordinate, in pixels, of the mouse pointer's position relative to a relatively positioned  parent element.</td></tr><tr><th><a href="../properties/y.html">y</a></th><td>
+Sets or retrieves the y-coordinate, in pixels, of the mouse pointer's position relative to a relatively positioned  parent element.</td></tr></tbody></table></div></blockquote><p class="clsRef">Remarks</p><blockquote><p>You can handle the <b>ondragenter</b> event on the source or on the target object. Of the target events, it is the first to fire during a drag operation. Target events use the <a href="../methods/getdata.html">getData</a> method to stipulate which data and data formats to retrieve. The list of drag-and-drop target events includes:
+</p><ul><li><a href="../events/onbeforepaste.html">onbeforepaste</a></li><li><a href="../events/onpaste.html">onpaste</a></li><li><b>ondragenter</b></li><li><a href="../events/ondragover.html">ondragover</a></li><li><a href="../events/ondragleave.html">ondragleave</a></li><li><a href="../events/ondrop.html">ondrop</a></li></ul><p></p><p>when scripting custom functionality, use the <b>returnvalue</b> property to disable the default action.</p></blockquote><p class="clsref">DHTML代码范例</p><blockquote><p>
+This example shows when and where each event fires during a drag-and-drop operation by listing each event and the name of the object firing it in a list box.</p><pre class="clsCode" autohilite="1">&lt;HEAD&gt;
+&lt;SCRIPT&gt;
+var oNewOption;
+// Code for dynamically adding options to a select.
+function ShowResults()
+{				// Information about the events
+// and what object fired them.
+arg = event.type + "  fired by  " + event.srcElement.id;
+oNewOption = new Option();
+oNewOption.text = arg;
+oResults.add(oNewOption,0);
+}
+&lt;/SCRIPT&gt;
+&lt;/HEAD&gt;
+&lt;BODY&gt;
+&lt;P&gt;Source events are wired up to this text box.&lt;/P&gt;
+&lt;INPUT ID=txtDragOrigin VALUE="Text to Drag"
+ondragstart="ShowResults()"
+ondrag="ShowResults()"
+ondragend="ShowResults()"
+&gt;
+&lt;P&gt;Target events are bound to this text box.&lt;/P&gt;
+&lt;INPUT ID=txtDragDestination VALUE="Drag Destination"
+ondragenter="ShowResults()"
+ondragover="ShowResults()"
+ondragleave="ShowResults()"
+ondrop="ShowResults()"
+&gt;
+&lt;SELECT ID=oResults SIZE=30&gt;
+&lt;OPTION&gt;List of Events Fired
+&lt;/SELECT&gt;
+&lt;/BODY&gt;</pre><div><div class="clsShowMe">This feature requires Microsoft® Internet Explorer 5 or later. Click the following icon to install the latest version. Then reload this page to view the sample.</div><a href="#workshop/downloadie.html"><img border="0" width="88" height="31" showme="microsoft internet explorer" src="../common/ieget_animated.gif" minver="5" samplepath="about:blank"></a></div></blockquote><p class="clsref">是否符合公共标准</p><blockquote><p>
+There is no public standard that applies to this event.
+</p></blockquote><p class="clsRef">Applies To</p><blockquote><table id="oATTable" class="TMAT3D"><tbody><tr><td valign="top" style="border: 1 outset; display: none;"></td><td id="oATData" class="controls"><a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/a.html">
+A</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/acronym.html">
+ACRONYM</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/address.html">
+ADDRESS</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/area.html">
+AREA</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/b.html">
+B</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/bdo.html">
+BDO</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/big.html">
+BIG</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/blockquote.html">
+BLOCKQUOTE</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/body.html">
+BODY</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/button.html">
+BUTTON</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/caption.html">
+CAPTION</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/center.html">
+CENTER</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/cite.html">
+CITE</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/code.html">
+CODE</a>, <a platinfo="win32=5;unix=5;ce=5.5" href="../objects/custom.html">
+CUSTOM</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/dd.html">
+DD</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/del.html">
+DEL</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/dfn.html">
+DFN</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/dir.html">
+DIR</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/div.html">
+DIV</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/dl.html">
+DL</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/obj_document.html">
+document</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/dt.html">
+DT</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/em.html">
+EM</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/fieldset.html">
+FIELDSET</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/font.html">
+FONT</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/form.html">
+FORM</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/hn.html">
+hn</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/hr.html">
+HR</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/i.html">
+I</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/img.html">
+IMG</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_button.html">
+INPUT type=button</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_checkbox.html">
+INPUT type=checkbox</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_file.html">
+INPUT type=file</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_image.html">
+INPUT type=image</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_password.html">
+INPUT type=password</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_radio.html">
+INPUT type=radio</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_reset.html">
+INPUT type=reset</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_submit.html">
+INPUT type=submit</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/input_text.html">
+INPUT type=text</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/kbd.html">
+KBD</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/label.html">
+LABEL</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/li.html">
+LI</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/listing.html">
+LISTING</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/map.html">
+MAP</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/marquee.html">
+MARQUEE</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/menu.html">
+MENU</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/nobr.html">
+NOBR</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/object.html">
+OBJECT</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/ol.html">
+OL</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/p.html">
+P</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/plaintext.html">
+PLAINTEXT</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/pre.html">
+PRE</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/q.html">
+Q</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/s.html">
+S</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/samp.html">
+SAMP</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/select.html">
+SELECT</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/small.html">
+SMALL</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/span.html">
+SPAN</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/strike.html">
+STRIKE</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/strong.html">
+STRONG</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/sub.html">
+SUB</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/sup.html">
+SUP</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/table.html">
+TABLE</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/tbody.html">
+TBODY</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/td.html">
+TD</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/textarea.html">
+TEXTAREA</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/tfoot.html">
+TFOOT</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/th.html">
+TH</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/thead.html">
+THEAD</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/tr.html">
+TR</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/tt.html">
+TT</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/u.html">
+U</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/ul.html">
+UL</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/var.html">
+VAR</a>, <a platinfo="win16=5;win32=5;unix=5;mac=5;ce=5.5" href="../objects/xmp.html">
+XMP</a></td></tr><tr><td colspan="2" class="controls"></td></tr></tbody></table></blockquote><p class="clsRef">更多语法参考</p><blockquote><a href="#workshop/author/datatransfer/overview.html">about dhtml data transfer</a>, <a href="../events/ondragstart.html">ondragstart</a></blockquote></div>

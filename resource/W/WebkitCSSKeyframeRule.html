@@ -1,0 +1,305 @@
+
+<div id="maincontent">
+
+<h1>CSS3 @keyframes 规则</h1>
+
+
+<div class="backtoreference">
+<p><a href="index.htm" title="CSS 参考手册">CSS 参考手册</a></p>
+</div>
+
+
+<div>
+<h2>实例</h2>
+
+<p>使 div 元素匀速向下移动：</p>
+
+<pre>@keyframes mymove
+{
+from {top:0px;}
+to {top:200px;}
+}
+
+@-moz-keyframes mymove <span class="code_comment">/* Firefox */</span>
+{
+from {top:0px;}
+to {top:200px;}
+}
+
+@-webkit-keyframes mymove <span class="code_comment">/* Safari 和 Chrome */</span>
+{
+from {top:0px;}
+to {top:200px;}
+}
+
+@-o-keyframes mymove <span class="code_comment">/* Opera */</span>
+{
+from {top:0px;}
+to {top:200px;}
+}
+</pre>
+
+<p><a target="_blank" href="../tiy/t.asp-f=css3_keyframes.htm">亲自试一试</a></p>
+
+<p>页面底部有更多实例。</p>
+</div>
+
+
+<div>
+<h2>浏览器支持</h2>
+
+<p>目前浏览器都不支持 @keyframes 规则。</p>
+
+<p>Firefox 支持替代的 @-moz-keyframes 规则。</p>
+
+<p>Opera 支持替代的 @-o-keyframes 规则。</p>
+
+<p>Safari 和 Chrome 支持替代的 @-webkit-keyframes 规则。</p>
+
+</div>
+
+
+<div>
+<h2>定义和用法</h2>
+
+<p>通过 @keyframes 规则，您能够创建动画。</p>
+
+<p>创建动画的原理是，将一套 CSS 样式逐渐变化为另一套样式。</p>
+
+<p>在动画过程中，您能够多次改变这套 CSS 样式。</p>
+
+<p>以百分比来规定改变发生的时间，或者通过关键词 "from" 和 "to"，等价于 0% 和 100%。</p>
+
+<p>0% 是动画的开始时间，100% 动画的结束时间。</p>
+
+<p>为了获得最佳的浏览器支持，您应该始终定义 0% 和 100% 选择器。</p>
+
+<p class="note"><span>注释：</span>请使用动画属性来控制动画的外观，同时将动画与选择器绑定。</p>
+</div>
+
+
+<div>
+<h2>语法</h2>
+
+<pre>@keyframes <i>animationname</i> {<i>keyframes-selector</i> {<i>css-styles</i>;}}</pre>
+
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td><i>animationname</i></td>
+<td>必需。定义动画的名称。</td>
+</tr>
+
+<tr>
+<td><i>keyframes-selector</i></td>
+<td>
+	<p>必需。动画时长的百分比。</p>
+	<p>合法的值：</p>
+	<ul class="listintable">
+	<li>0-100%</li>
+	<li>from（与 0% 相同）</li>
+	<li>to（与 100% 相同）</li>
+	</ul>
+</td>
+</tr>
+
+<tr>
+<td><i>css-styles</i></td>
+<td>必需。一个或多个合法的 CSS 样式属性。</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>亲自试一试 - 实例</h2>
+
+<h3>实例 1</h3>
+
+<p>在一个动画中添加多个 keyframe 选择器：</p>
+
+<pre>@keyframes mymove
+{
+0%   {top:0px;}
+25%  {top:200px;}
+50%  {top:100px;}
+75%  {top:200px;}
+100% {top:0px;}
+}
+
+@-moz-keyframes mymove <span class="code_comment">/* Firefox */</span>
+{
+0%   {top:0px;}
+25%  {top:200px;}
+50%  {top:100px;}
+75%  {top:200px;}
+100% {top:0px;}
+}
+
+@-webkit-keyframes mymove <span class="code_comment">/* Safari 和 Chrome */</span>
+{
+0%   {top:0px;}
+25%  {top:200px;}
+50%  {top:100px;}
+75%  {top:200px;}
+100% {top:0px;}
+}
+
+@-o-keyframes mymove <span class="code_comment">/* Opera */</span>
+{
+0%   {top:0px;}
+25%  {top:200px;}
+50%  {top:100px;}
+75%  {top:200px;}
+100% {top:0px;}
+}
+</pre>
+
+<p><a target="_blank" href="../tiy/t.asp-f=css3_keyframes2.htm">亲自试一试</a></p>
+
+<h3>实例 2</h3>
+
+<p>在一个动画中改变多个 CSS 样式：</p>
+
+<pre>@keyframes mymove
+{
+0%   {top:0px; background:red; width:100px;}
+100% {top:200px; background:yellow; width:300px;}
+}
+
+@-moz-keyframes mymove <span class="code_comment">/* Firefox */</span>
+{
+0%   {top:0px; background:red; width:100px;}
+100% {top:200px; background:yellow; width:300px;}
+}
+
+@-webkit-keyframes mymove <span class="code_comment">/* Safari 和 Chrome */</span>
+{
+0%   {top:0px; background:red; width:100px;}
+100% {top:200px; background:yellow; width:300px;}
+}
+
+@-o-keyframes mymove <span class="code_comment">/* Opera */</span>
+{
+0%   {top:0px; background:red; width:100px;}
+100% {top:200px; background:yellow; width:300px;}
+}
+</pre>
+
+<p><a target="_blank" href="../tiy/t.asp-f=css3_keyframes3.htm">亲自试一试</a></p>
+
+<h3>实例 3</h3>
+
+<p>带有多个 CSS 样式的多个 keyframe 选择器：</p>
+
+<pre>@keyframes mymove
+{
+0%   {top:0px; left:0px; background:red;}
+25%  {top:0px; left:100px; background:blue;}
+50%  {top:100px; left:100px; background:yellow;}
+75%  {top:100px; left:0px; background:green;}
+100% {top:0px; left:0px; background:red;}
+}
+
+@-moz-keyframes mymove <span class="code_comment">/* Firefox */</span>
+{
+0%   {top:0px; left:0px; background:red;}
+25%  {top:0px; left:100px; background:blue;}
+50%  {top:100px; left:100px; background:yellow;}
+75%  {top:100px; left:0px; background:green;}
+100% {top:0px; left:0px; background:red;}
+}
+
+@-webkit-keyframes mymove <span class="code_comment">/* Safari and Chrome */</span>
+{
+0%   {top:0px; left:0px; background:red;}
+25%  {top:0px; left:100px; background:blue;}
+50%  {top:100px; left:100px; background:yellow;}
+75%  {top:100px; left:0px; background:green;}
+100% {top:0px; left:0px; background:red;}
+}
+
+@-o-keyframes mymove <span class="code_comment">/* Opera */</span>
+{
+0%   {top:0px; left:0px; background:red;}
+25%  {top:0px; left:100px; background:blue;}
+50%  {top:100px; left:100px; background:yellow;}
+75%  {top:100px; left:0px; background:green;}
+100% {top:0px; left:0px; background:red;}
+}
+</pre>
+
+<p><a target="_blank" href="../tiy/t.asp-f=css3_keyframes4.htm">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>相关页面</h2>
+
+<p>CSS3 教程：<a href="../css3/css3_animation.htm" title="CSS3 动画">CSS3 动画</a></p>
+</div>
+
+
+<div class="backtoreference">
+<p><a href="index.htm" title="CSS 参考手册">CSS 参考手册</a></p>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="_page _mdn"><h1>CSSKeyframeRule</h1> <div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div> <p>The <strong><code>CSSKeyframeRule</code></strong> interface describes an object representing a set of style for a given keyframe. It corresponds to the contains of a single keyframe of a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" title=""><code>@keyframes</code></a> <a href="https://developer.mozilla.org/en-US/docs/CSS/At-rule" title="/en-US/docs/CSS/At-rule">at-rule</a>. It implements the <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a> interface with a type value of <code>8</code> (<code>CSSRule.KEYFRAME_RULE</code>).</p> <h2 id="Properties" name="Properties">Syntax</h2> <p>The syntax is described using the <a href="http://dev.w3.org/2006/webapi/WebIDL/" title="http://dev.w3.org/2006/webapi/WebIDL/">WebIDL</a> format.</p> <pre>interface CSSKeyframeRule : CSSRule {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attribute DOMString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; keyText;
+&nbsp; readonly attribute CSSStyleDeclaration style;
+};
+</pre> <h2 id="Properties" name="Properties">Properties</h2> <p>As a <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a>, <code>CSSKeyframeRule</code> also implements the properties of these interfaces. It has two sepcific properties:</p> <dl>
+<dt> <code>keyText</code>
+</dt> <dd> Represents the key of the keyframe, like <code>'10%'</code>, <code>'75%'</code>. The <code>from</code> keyword maps to <code>'0%'</code> and the <code>to</code> keyword maps to <code>'100%'</code>.</dd> <dt id="cssRules"> <code>style</code> <span class="inlineIndicator readOnly readOnlyInline" title="This">Read only </span>
+</dt> <dd> Returns a <a href="cssstyledeclaration" title="A CSSStyleDeclaration is an interface to the declaration block returned by the style property of a cssRule in a stylesheet, when the&nbsp;rule is a CSSStyleRule."><code>CSSStyleDeclaration</code></a> of the CSS style associated with the keyfrom.</dd> </dl><h2 id="Methods" name="Methods">Methods</h2> <p>As a <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a>, <code>CSSKeyframeRule</code> also implements the methods of that interface. It has no specific methods.</p> <h2 id="Specification" name="Specification">Specification</h2> <table class="standard-table">
+<thead><tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr></thead>
+<tbody><tr>
+<td><a class="external" href="http://dev.w3.org/csswg/css-animations/#CSSKeyframeRule-interface" lang="en" title="The definition of 'CSSKeyframeRule' in that specification.">CSS Animations</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Initial definition.</td> </tr></tbody>
+</table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>5.0 (5.0)</td> <td>10</td> <td>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-o</span><br> 12.10 <a href="http://my.opera.com/ODIN/blog/2012/08/03/a-hot-opera-12-50-summer-time-snapshot" title="http://my.opera.com/ODIN/blog/2012/08/03/a-hot-opera-12-50-summer-time-snapshot">#</a>
+</td> <td>4.0</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>5.0 (5.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li>CSS Object Model: <a href="cssrule" title="An object implementing the CSSRule DOM interface represents a single CSS at-rule. References to a CSSRule-implementing object may be obtained by looking at a CSS style sheet's cssRules list."><code>CSSRule</code></a>, <a href="cssstylerule" title="CSSStyleRule represents a single CSS style rule. It implements the CSSRule interface with a type value of 1 (CSSRule.STYLE_RULE)."><code>CSSStyleRule</code></a>, <a href="cssmediarule" title="CSSMediaRule is an object representing a single CSS @media rule. It implements the CSSConditionRule interface, and therefore the CSSGroupingRule and the CSSRule interface with a type value of 4 (CSSRule.MEDIA_RULE)."><code>CSSMediaRule</code></a>, <a href="csspagerule" title="CSSPageRule is an object representing a single CSS @page rule. It implements the CSSRule interface with a type value of 6 (CSSRule.PAGE_RULE)."><code>CSSPageRule</code></a>, <a href="csskeyframesrule" title="The CSSKeyframesRule interface describes an object representing a complete set of keyframes for a CSS animation. It corresponds to the contains of a whole @keyframes at-rule. It implements the CSSRule interface with a type value of 7 (CSSRule.KEYFRAMES_RULE)."><code>CSSKeyframesRule</code></a>, <a href="csskeyframerule" title="The CSSKeyframeRule interface describes an object representing a set of style for a given keyframe. It corresponds to the contains of a single keyframe of a @keyframes at-rule. It implements the CSSRule interface with a type value of 8 (CSSRule.KEYFRAME_RULE)."><code>CSSKeyframeRule</code></a>, <a href="cssnamespacerule" title="The CSSNamespaceRule interface describes an object representing a single CSS @namespace at-rule. It implements the CSSRule interface, with a type value of 10 (CSSRule.NAMESPACE_RULE)."><code>CSSNamespaceRule</code></a>, <a href="csssupportsrule" title="The CSSSupportsRule interface describes an object representing a single CSS @supports at-rule. It implements the CSSConditionRule interface, and therefore the CSSRule and CSSGroupingRule interfaces with a type value of 12 (CSSRule.SUPPORTS_RULE)."><code>CSSSupportsRule</code></a>, <a href="cssgroupingrule" title="An object implementing the CSSGroupingRule DOM interface represents any CSS at-rule that contains other rules nested in it."><code>CSSGroupingRule</code></a>, <a href="cssconditionrule" title="An object implementing the CSSConditionRule DOM interface represents a single condition CSS at-rule, which consists of a condition and a statement block. It is a child of CSSGroupingRule."><code>CSSConditionRule</code></a>
+</li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes" title=""><code>@keyframes</code></a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframeRule$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframeRule" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframeRule</a>
+  </p>
+</div>
+</div>

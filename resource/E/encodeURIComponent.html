@@ -1,0 +1,70 @@
+<div id="maincontent">
+
+<h1>JavaScript encodeURIComponent() 函数</h1>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>encodeURIComponent() 函数可把字符串作为 URI 组件进行编码。</p>
+
+<h3>语法</h3>
+<pre>encodeURIComponent(URIstring)</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>URIstring</td>
+    <td>必需。一个字符串，含有 URI 组件或其他要编码的文本。</td>
+  </tr>
+</tbody></table>
+
+<h3>返回值</h3>
+<p>URIstring 的副本，其中的某些字符将被十六进制的转义序列进行替换。</p>
+
+<h3>说明</h3>
+<p>该方法不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ' ( ) 。</p>
+<p>其他字符（比如 ：;/?:@&amp;=+$,# 这些用于分隔 URI 组件的标点符号），都是由一个或多个十六进制的转义序列替换的。</p>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="tip"><span>提示：</span>请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>在本例中，我们将使用 encodeURIComponent() 对 URI 进行编码：</p>
+<pre>&lt;script type="text/javascript"&gt;
+
+document.write(encodeURIComponent("http://www.w3school.com.cn"))
+document.write("&lt;br /&gt;")
+document.write(encodeURIComponent("http://www.w3school.com.cn/p 1/"))
+document.write("&lt;br /&gt;")
+document.write(encodeURIComponent(",/?:@&amp;=+$#"))
+
+&lt;/script&gt;</pre>
+<p>输出：</p>
+<pre>http%3A%2F%2Fwww.w3school.com.cn
+http%3A%2F%2Fwww.w3school.com.cn%2Fp%201%2F
+%2C%2F%3F%3A%40%26%3D%2B%24%23</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_encodeURIComponent">encodeURIComponent()</a></dt>
+<dd>如何使用 encodeURIComponent() 来编码不同的 URI。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+</div>

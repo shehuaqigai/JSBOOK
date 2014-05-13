@@ -1,0 +1,57 @@
+<div id="maincontent">
+
+<h1>JavaScript undefined 属性</h1>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>undefined  属性用于存放 JavaScript 的 undefined 值。</p>
+
+<h3>语法</h3>
+<pre>undefined</pre>
+
+<h3>说明</h3>
+<p>无法使用 for/in 循环来枚举 undefined 属性，也不能用 delete 运算符来删除它。</p>
+<p>undefined 不是常量，可以把它设置为其他值。</p>
+<p>当尝试读取不存在的对象属性时也会返回 undefined。</p>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="tip"><span>提示：</span>只能用 === 运算来测试某个值是否是未定义的，因为 == 运算符认为 undefined 值等价于 null。</p>
+<p class="note"><span>注释：</span>null 表示无值，而 undefined 表示一个未声明的变量，或已声明但没有赋值的变量，或一个并不存在的对象属性。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>在本例中，我们将检测两个变量中未定义的一个：</p>
+<pre>&lt;script type="text/javascript"&gt;
+
+var t1=""
+var t2
+
+if (t1===undefined) {document.write("t1 is undefined")}
+if (t2===undefined) {document.write("t2 is undefined")}
+
+&lt;/script&gt;</pre>
+
+<p>输出：</p>
+<pre>t2 is undefined</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_undefined">undefined</a></dt>
+<dd>如何检测两个变量中未定义的一个。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+</div>

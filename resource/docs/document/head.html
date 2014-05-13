@@ -1,0 +1,25 @@
+<p>
+	概述
+返回当前文档中的&lthead>元素.如果有多个 &lthead> 元素,则返回第一个.
+
+语法
+<pre>
+	
+
+var objRef = document.head;
+示例
+// HTML部分源码为: &lthead id="my-document-head">
+var aHead = document.head;
+
+alert(aHead.id); // "my-document-head";
+
+alert( document.head === document.querySelector("head") ); // true
+附注
+document.head是个只读属性,为该属性赋值只会静默失败,如果在严格模式中,则会抛出TypeError异常.
+
+浏览器兼容性
+Desktop Mobile
+Feature	Chrome	Firefox (Gecko)	Internet Explorer	Opera	Safari
+Basic support	4.0	4.0 (2)	9.0	11.0	5.0
+</pre>
+</p>

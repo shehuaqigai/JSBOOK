@@ -1,0 +1,26 @@
+
+<h1>四、搭建WebSocket服务器</h1>
+<p>其实，在服务器的选择上很广，基本上，主流语言都有WebSocket的服务器端实现，而我们作为前端开发工程师，当然要选择现在比较火热的NodeJS作为我们的服务器端环境了。</p>
+
+<p>NodeJS本身并没有原生的WebSocket支持，但是有第三方的实现(大家要是有兴趣的话，完全可以参考WebSocket协议来做自己的实现)，我们选择了“ws”作为我们的服务器端实现。</p>
+
+<p>由于本文的重点是讲解WebSocket，所以，对于NodeJS不做过多的介绍，不太熟悉的朋友可以去参考NodeJS入门指南(http://www.nodebeginner.org/index-zh-cn.html)。</p>
+
+<p>安装好NodeJS之后，我们需要安装“ws”，也就是我们的WebSocket实现，安装方法很简单，在终端或者命令行中输入：</p>
+
+<p>1
+npm install ws
+，等待安装完成就可以了。</p>
+
+<p>接下来，我们需要启动我们的WebSocket服务。首先，我们需要构建自己的HTTP服务器，在NodeJS中构建一个简单的HTTP服务器很简单，so easy。代码如下：</p>
+
+<p>1
+var app = http.createServer( onRequest ).listen( 8888 );</p>
+<p>onRequest()作为回调函数，它的作用是处理请求，然后做出响应，实际上就是根据接收的URL，在服务器上查找相应的资源，最终返回给浏览器。</p>
+<p>在构建了HTTP服务器后，我们需要启动WebSocket服务，代码如下：</p>
+
+<p>1
+var WebSocketServer = require('ws').Server;</p>
+<p>2
+var wss = new WebSocketServer( { server : app } );</p>
+<p>从代码中可以看出，在初始化WebSocket服务时，把我们刚才构建好的HTTP实例传递进去就好。到这里，我们的服务端代码差不多也就编写完成了。怎么样？很简单吧。</p>

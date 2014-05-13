@@ -1,0 +1,38 @@
+<pre>
+	定义和用法
+setTime() 方法以毫秒设置 Date 对象。
+语法
+dateObject.setTime(millisec)
+参数	描述
+millisec	必需。要设置的日期和时间据 GMT 时间 1970 年 1 月 1 日午夜之间的毫秒数。
+这种类型的毫秒值可以传递给 Date() 构造函数，
+可以通过调用 Date.UTC() 和 Date.parse() 方法获得该值。
+以毫秒形式表示日期可以使它独立于时区。
+返回值
+返回参数 millisec。在 ECMAScript 标准化之前，该方法不返回值。
+提示和注释：
+注释：该方法总是结合一个 Date 对象来使用。
+实例
+例子 1
+在本例中，我们将向 1970/01/01 添加 77771564221 毫秒，并显示新的日期和时间：
+&ltscript type="text/javascript">
+
+var d = new Date()
+d.setTime(77771564221)
+document.write(d)
+
+&lt/script>
+输出：
+Mon Jun 19 1972 11:12:44 GMT+0800 (China Standard Time)
+例子 2
+在本例中，我们将从 1970/01/01 减去 77771564221 毫秒，并显示新的日期和时间：
+&ltscript type="text/javascript">
+
+var d = new Date()
+d.setTime(-77771564221)
+document.write(d)
+
+&lt/script>
+输出：
+Sun Jul 16 1967 04:47:15 GMT+0800 (China Standard Time)
+</pre>

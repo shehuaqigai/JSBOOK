@@ -1,0 +1,49 @@
+<pre>
+AudioAPI 时间轴与AudioParam的值在AudioAPI中很多值设置都使用AudioParam对象，
+这个对象上提供了一组时间轴与值设置的相关方法，
+相当于在时间轴上添加关键帧，有些方法还提供渐变效果，
+类似自动插入了补间的效果。
+使用这些方法可以实现音效渐变（例如淡入淡出）等一系列功能。
+　　下面是AudioParam对象上的这些方法：
+setValueAtTime(value, startTime)
+但播放到startTime时将值设置为value
+linearRampToValueAtTime(value, endTime)
+从当前时间的当前值线性渐变到endTime时间点的value值
+exponentialRampToValueAtTime(value, endTime)
+从当前时间的当前值指数渐变到endTime时间点的value值
+setTargetAtTime(target, startTime, timeConstant)
+在startTime时间点上，从当前值渐变到target值，历时timeConstant秒
+setValueCurveAtTime(values, startTime, duration)
+在startTime时间点上，从当前值以values设置的曲线渐变，历时duration秒
+cancelScheduledValues(startTime)
+将startTime时间点之后的关键帧全部取消
+下面是使用linearRampToValueAtTime操作gain节点来实现淡入淡出的程序
+演示：[实例]
+&ltinput type="button" value="播放" id="btn" />
+&ltscript>
+var AudioContext=AudioContext||webkitAudioContext;
+var context=new AudioContext;
+//加载音乐
+var audio=new Audio("SuperMario.mp3");
+//创建节点
+var source=context.createMediaElementSource(audio);
+var gain=context.createGain();
+//连接：source → gain → destination
+source.connect(gain);
+gain.connect(context.destination);
+//动作
+btn.onclick=function(){
+  switch(this.value){
+    case "播放":
+      audio.play();
+      gain.gain.linearRampToValueAtTime(1,context.currentTime+1);
+      this.value="暂停";
+      break;
+    case "暂停":
+      gain.gain.linearRampToValueAtTime(0,context.currentTime+1);
+      setTimeout(function(){ audio.pause(); },1000);
+      this.value="播放";
+  };
+};
+&lt/script>
+</pre>

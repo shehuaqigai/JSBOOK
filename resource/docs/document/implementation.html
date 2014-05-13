@@ -1,0 +1,96 @@
+<p>
+	定义和用法
+implementation 属性可返回处理该文档的 DOMImplementation 对象。
+语法：
+documentObject.implementation
+问题描述
+各浏览器对 DOMImplementation 接口的支持程度不同。
+
+造成的影响
+有些浏览器还在支持它，而有些浏览器则不支持，从而导致浏览器间的兼容性问题。
+
+受影响的浏览器
+所有浏览器
+DomImplementation 对象可执行与文档对象模型的任何实例无关的任何操作。
+DomImplementation 对象
+DomImplementation 对象可执行与文档对象模型的任何实例无关的任何操作。
+DomImplementation 接口是一个占位符，存放不专属任何特定 Document 对象，
+而对 DOM 实现来说是“全局性”的方法。可以通过任何 Document 对象的 implementation 属性获得对 DomImplementation 对象的引用。
+IE: Internet Explorer, F: Firefox, O: Opera, W3C: 万维网联盟 (因特网标准)
+DomImplementation 对象的方法
+方法	描述
+createDocument()	创建一个新 Document 对象和指定的根元素。
+createDocumentType()	创建空的 DocumentType 节点。
+getFeature()	返回可执行定义特性和版本的 API 的对象。
+hasFeature()	检查 DOM implementation 是否可执行指定的特性和版本。
+
+<pre>
+	问题分析
+通过调用 Document 接口实例的 implementation 属性，
+可获得 DOMImplementation 接口实例，代码如下：
+
+document.implementation
+那么，目前的主流浏览器对 DOMImplementation 接口的支持情况究竟如何呢？参见如下代码：
+
+alert(document.implementation.hasFeature);
+alert(document.implementation.createDocumentType);
+alert(document.implementation.createDocument);
+alert(document.implementation.getFeature);
+根据以上代码在各浏览器下的表现，汇总结果如下表：
+
+方法	IE	Firefox	Chrome	Safar	Opera
+hasFeature	支持	支持	支持	支持	支持
+createDocumentType	不支持	支持	支持	支持	支持
+createDocument	不支持	支持	支持	支持	支持
+getFeature	不支持	不支持	不支持	不支持	支持
+DOMImplementation 接口的支持程度	DOM1	DOM2	DOM2	DOM2	DOM3
+从上表中，可以清楚的看出， DOMImplementation 接口在各主流浏览器下的支持情况。
+
+注意：以上讨论的方法，都是标准中 DOMImplementation 接口定义的，
+而实际上某些浏览器可能对 DOMImplementation 接口的实现进行了扩展，
+如 WebKit 就额外扩展了 “createCSSStyleSheet” 方法。
+</pre>	
+
+</p>
+<pre>
+createCSSStyleSheet
+createDocument
+createDocumentType
+createHTMLDocument
+hasFeature
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>createDocument</h2>
+document.implementation.createDocument()
+对于支持W3C模型的浏览器，使用document.implementation.createDocument()
+函数来请求XML文档并导入到JavaScript中；而对于Microsoft Windows Internet Explore，
+则是使用Microsoft.XMLDOM对象。
+和其他的不兼容性一样，这也意味着JavaScript程序员在编写代码时需要了解并考虑到这一区别。
+例如，如下的代码创建了可以用来载入和操作XML文档的一个对象：
+ if (typeof document.implementation.createDocument != "undefined") {
+docObj = document.implementation.createDocument("", "", null);
+}
+else if (window.ActiveXObject) {
+docObj = new ActiveXObject("Microsoft.XMLDOM");
+}
+document.implementation.createDocument()函数接受3个参数：指定文档的命名空间的一个命名空间URL，
+根标签名和一个doc类型。实际上，你将发现这些参数保持未定义或者空，如例子所示。
+对于Windows Internet Explorer，Microsoft.XMLDOM对象必须用于此目的。一旦创建了docObj对象，
+它可以用来载入一个XML文档。在这个例子中，载入了一个名为books.xml的XML文档。
+docObj.load("books.xml");

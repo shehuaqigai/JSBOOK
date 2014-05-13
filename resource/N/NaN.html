@@ -1,0 +1,68 @@
+<div id="maincontent">
+
+<h1>JavaScript NaN 属性</h1>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>NaN 属性用于引用特殊的非数字值。</p>
+
+<h3>语法</h3>
+<pre>NaN</pre>
+
+<h3>说明</h3>
+<p>无法使用 for/in 循环来枚举 NaN 属性，也不能用 delete 运算符来删除它。</p>
+<p>NaN 不是常量，可以把它设置为其他值。</p>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="tip"><span>提示：</span>请使用 isNaN() 来判断一个值是否是数字。原因是 NaN 与所有值都不相等，包括它自己。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>在本例中，我们将展示当一个数超出了 infinity 的限制发生的情况：</p>
+<pre>&lt;script type="text/javascript"&gt;
+
+var test1="300"
+var test2="Hello World!"
+
+document.write(Number(test1)+ "&lt;br /&gt;")
+document.write(Number(test2)+ "&lt;br /&gt;")
+
+document.write(isNaN(test1)+ "&lt;br /&gt;")
+document.write(isNaN(test2))
+
+&lt;/script&gt;</pre>
+
+<p>输出：</p>
+<pre>
+script type="text/javascript"
+var test1="300"
+var test2="Hello World!"
+document.write(Number(test1)+ "<br />")
+document.write(Number(test2)+ "<br />")
+document.write(isNaN(test1)+ "<br />")
+document.write(isNaN(test2))
+/script
+
+300<br>NaN<br>false<br>true</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_NaN">NaN</a></dt>
+<dd>如何通过 NaN 来判断一个值。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_global.asp" title="JavaScript 全局对象参考手册">JavaScript 全局对象参考手册</a></p>
+</div>
+
+</div>

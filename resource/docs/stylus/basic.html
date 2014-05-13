@@ -1,0 +1,93 @@
+<p>
+sass 是主流，less 也相當有名，但為什麼我選擇了 stylus
+<p>
+	
+不用學習就會的基本語法
+stylus 在語法上面可以說是 “完勝”，比 sass, less 都更容易上手，如果本來就了解 CSS preprocessors 的作用的話，那根本就不用學習。stylus 基本語法夠彈性不管怎麼寫幾乎都可以，以下幾種寫法全都合法，全看個人喜好去挑選寫法。
+</p>
+<pre>
+	
+
+// 極簡寫法
+body
+  padding 0
+// 加回冒號 `:`
+body
+  margin: 0
+// 加回分號 `;`
+body
+  background: #FFF;
+// 加回括號 `{`, `}`
+body {
+  color: #333;
+}
+而且語法上不會出現很多外人看不懂的奇怪符號，
+就算不懂 stylus 也能猜出 stylus 在做什麼。
+sass 變數必須加上 `$`，在 tag,
+ class 名稱等地方使用變數的話必須用 `#{}`，less 則是要在變數前加上 `@`，
+ 但在 stylus 這些都不用。
+
+// 更直覺得賦值，使用 `=` 而不是 `:`
+h = 1
+h{h}
+  color: red
+更直覺的 Mixins
+sass mixins 寫法過於複雜，宣告時候必須以 @mixin 開頭，
+使用的時候還必須用 @include
+
+@mixin border-radius($n: 5px)
+  -webkit-border-radius: $n
+  -moz-border-radius: $n
+  border-radius: $n
+
+.hello-world
+  @include border-radius()
+是不是有點… 煩 ><
+
+less 也沒有比較好，他的寫法讓人誤會他是個 class，
+想想看預設值不見之後的情況。
+
+.border-radius(@n: 5px) {
+  -webkit-border-radius: $n;
+  -moz-border-radius: $n;
+  border-radius: $n;
+}
+
+.hello-world {
+  .border-radius();
+}
+stylus 在宣告的時候擁有跟 less 一樣簡潔的寫法，
+使用的時候更進一步讓語法跟原來的 css 語法融合，也沒有 less 那個會讓人誤會的 `.`。
+
+border-radius(n)
+  -webkit-border-radius: n
+  -moz-border-radius: n
+  border-radius: n
+
+.hello-world
+  border-radius: 5px
+天生優勢
+對於前端而言，不是是人人都用 ruby，但肯定人人都會寫 js，
+很多人也使用過 grunt，甚至寫過 grunt task。所以要寫 
+extension 的時候 stylus 會相對容易，stylus 的 extension 
+寫法其實跟 grunt task 很像，他們都是用 NodeJS 下常見的作法。
+
+module.exports = function () {
+  return function (stlyus) {
+    // ...
+  };
+}; 
+那為什麼 stylus 在 css preprocessors 競爭中處於劣勢？
+個人覺得問題只出在 stylus 晚了一步，
+sass 已經產生出一整套完整的開發模式。
+所有工具第一步也一定是支援 sass，像是 chrome。
+畢竟 sass 已經站穩主流地位，第一個或 “只” 想到他是理所當然的事情，
+但我相信留住人的絕對不會是 sass 語法，
+而是 compass 這個 extension，他幾乎處理掉寫 css 上所有麻煩、瑣碎的事情，
+這一點也是 stylus 很難追上的。
+為什麼最後選擇了 stylus？
+我還是一樣相信學習不必要的語法是一件浪費生命的事情，花時間在這些東西上面，
+不如動手寫自己需要的工具，stylus 不足的地方，我們可以自己解決，
+從過程中學的東西還比看文件來的有用，而且 TJ 是我的信仰啊 XD
+</pre>
+</p>

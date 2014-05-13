@@ -1,0 +1,37 @@
+<div class="_content"><div class="_page _mdn"><h1>IDBVersionChangeEvent</h1> <div class="summary"> <p>The <code>IDBVersionChangeEvent</code> interface of the <a href="https://developer.mozilla.org/en/IndexedDB" title="en/IndexedDB">IndexedDB API</a> indicates that the version of the database has changed.</p> </div> <p>The specification has changed and some not up-to-date browsers only support the deprecated unique attribute, <code>version</code>, from an early draft version.</p> <h2 id="Properties">Properties</h2> <dl>
+<dt> <a href="idbversionchangeevent.oldversion" title="A 64-bit integer."><code>IDBVersionChangeEvent.oldVersion</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Returns the old version of the database.</dd> <dt> <a href="idbversionchangeevent.newversion" title="A 64-bit integer."><code>IDBVersionChangeEvent.newVersion</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Returns the new version of the database.</dd> <dt> <a href="idbversionchangeevent.version" title="A 64-bit integer."><code>IDBVersionChangeEvent.version</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span> 
+</dt> <dd> <p>The new version of the database in a <a href="https://developer.mozilla.org/en/IndexedDB/IDBTransaction#VERSION_CHANGE" title="en/IndexedDB/IDBTransaction#VERSION CHANGE">versionchange</a> transaction.</p> <div class="warning"> <p>Warning: While this property is still implemented in older browsers, the latest specification replaces it with the <code>oldVersion</code> and <code>newVersion</code> attributes. See the compatibility table to know what browsers support them.</p> </div> </dd> </dl><h2 id="Browser_Compatibility" name="Browser_Compatibility">Example</h2> <pre class=" language-javascript">TBD</pre> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/IndexedDB/raw-file/tip/Overview.html#idl-def-IDBVersionChangeEvent" lang="en" title="The definition of 'IDBVersionChangeEvent' in that specification.">Indexed Database API</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_Compatibility" name="Browser_Compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td><code>version</code></td> <td>12</td> <td> <p>From 4.0 (2.0) to</p> <p>9.0 (9.0)</p> </td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td><code>oldVersion</code></td> <td>23</td> <td> <p>10.0 (10.0)</p> </td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td><code>newVersion</code></td> <td>23</td> <td> <p>10.0 (10.0)</p> </td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>Firefox OS</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.4</td> <td>4.0 (2.0)</td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBVersionChangeEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBVersionChangeEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/IDBVersionChangeEvent</a>
+  </p>
+</div>
+</div></div>

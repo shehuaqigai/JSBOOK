@@ -1,0 +1,9 @@
+<p>
+	
+0
+有一个DOM2 API的那件事。正确的方法是
+
+document.getOverrideStyle(p, ':after').display = 'none'; // or
+document.getOverrideStyle(p, ':after').cssText = 'display: none !important;';
+不幸的是，没有浏览器执行了它。（Webkit 返回 null， Firefox 已经没有这种方法）。看起来像 CSS3 甚至不屑谈这个了，也许因为 usecases 是非常罕见。
+</p>

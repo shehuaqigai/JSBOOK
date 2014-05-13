@@ -1,0 +1,30 @@
+<h1>AudioBuffer</h1>
+<pre>
+	有音频媒体的上下文AudioContext里的方法指定的构造器
+	var context=new webkitAudioContext();
+	   当用ajax请求音频之后，指定类型为arraybuffer，然后用
+	   context.decodeAudioData(request.respone,function(buffer){
+          这里的buffer就是AudioBuffer的实例对象
+	},function(error){})
+
+
+
+ buffer对象有以下属性和方法
+
+duration: 280.08596371882084//音频时间
+gain: 1
+length: 12351791
+numberOfChannels: 2
+sampleRate: 44100
+__proto__: AudioBuffer
+constructor: function AudioBuffer() { [native code] }
+getChannelData: function getChannelData() { [native code] }
+__proto__: Object
+
+
+
+
+
+
+
+</pre>

@@ -1,0 +1,56 @@
+<div id="maincontent">
+
+<h1>XML DOM HTMLDocument 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_htmlcollection.asp" title="XML DOM HTMLCollection 对象">DOM HTMLCollection</a></li>
+<li class="next"><a href="/xmldom/dom_htmlelement.asp" title="XML DOM HTMLElement 对象">DOM HTMLElement</a></li>
+</ul>
+</div>
+
+
+<div>
+<p><strong>HTMLDocument 对象表示 HTML 文档树的根。</strong></p>
+</div>
+
+
+<div>
+<h2>HTMLDocument 对象</h2>
+
+<p>HTMLDocument 接口提供了对 HTML 层级的访问。</p>
+
+<p>HTMLDocument 接口对 DOM Document 接口进行了扩展，定义 HTML 专用的属性和方法。</p>
+<p>很多属性和方法都是 HTMLCollection 对象（实际上是可以用数组或名称索引的只读数组），其中保存了对锚、表单、链接以及其他可脚本元素的引用。</p>
+<p>这些集合属性都源自于 0 级 DOM。它们已经被 <a href="/htmldom/met_doc_getelementsbytagname.asp">Document.getElementsByTagName()</a> 所取代，但是仍然常常使用，因为他们很方便。</p>
+
+<p><a href="/htmldom/met_doc_write.asp">write() 方法</a>值得注意，在文档载入和解析的时候，它允许一个脚本向文档中插入动态生成的内容。</p>
+
+<p class="important"><span>注意：</span>在 1 级 DOM 中，HTMLDocument 定义了一个名为 <a href="/htmldom/met_doc_getelementbyid.asp">getElementById()</a> 的非常有用的方法。在 2 级 DOM 中，该方法已经被转移到了 Document 接口，它现在由 HTMLDocument 继承而不是由它定义了。</p>
+</div>
+
+
+<div>
+<h2>如何获得有关 HTMLDocument 对象更详细的信息</h2>
+
+<p>在 W3School 的 HTML DOM 参考手册中，我们为 HTMLDocument 对象制作了专门的参考页面：</p>
+
+<p><a href="/htmldom/dom_obj_document.asp" title="HTML DOM Document 对象">HTML DOM Document 对象</a></p>
+</div>
+
+
+<div>
+<h2>相关页面</h2>
+<p>XML DOM 参考手册：<a href="/xmldom/dom_document.asp" title="XML DOM Document 对象">Document 对象</a></p>
+<p>XML DOM 参考手册：<a href="/xmldom/met_document_getelementbyid.asp" title="XML DOM getElementById() 方法">Document.getElementById()</a></p>
+<p>XML DOM 参考手册：<a href="/xmldom/met_document_getelementsbytagname.asp" title="XML DOM getElementsByTagName() 方法">Document.getElementsByTagName()</a></p>
+</div>
+
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_htmlcollection.asp" title="XML DOM HTMLCollection 对象">DOM HTMLCollection</a></li>
+<li class="next"><a href="/xmldom/dom_htmlelement.asp" title="XML DOM HTMLElement 对象">DOM HTMLElement</a></li>
+</ul>
+</div>
+</div>

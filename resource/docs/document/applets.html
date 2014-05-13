@@ -1,0 +1,71 @@
+<p>
+	概述
+
+applets 按顺序返回当前文档中所有的applet对象.
+
+语法
+
+nodeList = document.applets 
+</p>
+<p>
+	avaApplet
+编辑
+
+JavaApplet就是用Java语言编写的小应用程序，可以直接嵌入到网页中，并能够产生特殊的效果。
+目录
+1详述
+2例子
+1详述
+编辑
+
+Applet可以翻译为小应用程序,Java Applet就是用Java语言编写的这样的一些小应用程序，它们可以直接嵌入到网页中，并能够产生特殊的效果。包含Applet的网页被称为Java-powered页，可以称其为Java支持的网页。
+当用户访问这样的网页时, Applet被下载到用户的计算机上执行，但前提是用户使用的是支持Java的网络l浏览器。由于Applet是在用户的计算机上执行的，因此它的执行速度不受网络带宽或者Modem存取速度的限制。用户可以更好地欣赏网页上Applet产生的多媒体效果。
+在Java Applet中，可以实现图形绘制，字体和颜色控制，动画和声音的插入，人机交互及网络交流等功能。 Applet还提供了名为抽象窗口工具箱（Abstract Window Toolkit， AWT）的窗口环境开发工具。 AWT利用用户计算机的GUI元素，可以建立标准的图形用户界面，如窗口、按钮、滚动条等等。目前，在网络上有非常多的Applet范例来生动地展现这些功能，读者可以去调阅相应的网页以观看它们的效果。
+Applet的工作原理.
+含有Applet的网页的HTML文件代码中部带有&ltapplet> 和&lt/applet>这样一对标记，当支持Java的网络浏览器遇到这对标记时，就将下载相应的小应用程序代码并在本地计算机上执行该Applet。
+2例子
+编辑
+
+带有一个Applet的主页
+&lthtml>
+&lttitle> An Example Homepage &lt/title>
+&lth1> Welcome to my homepage! &lt/h1>
+This is an example homepage， you can see an applet in it。
+&ltp> &ltbr>
+&ltapplet code=“Example.class” width = 300 height=300>
+&ltparam name = img value="example.gif">
+&lt/applet>
+&lt/html>
+上面这个例子就是一个简单主页的HTML文件代码。代码第五行中的<p>，是为了确保Applet出现在新的一行，若没有它， Applet将会紧接着上一行的最后一个单词出现。代码第六、七两行是关于Applet的一些参数。其中第六行是必需的Applet参数，定义了编译后的包含Applet字节码的文件名，后缀通常为“.class”；和以象素为单位的Applet的初始宽度与高度。第七行则是附加的Applet参数，它由一个分离的标记来指定其后的名称和值，在这里是img的值为“example.gif’，它代表了一个图形文件名。
+Applet的下载与图形文件一样需要一定的时间，若干秒后它才能在屏幕上显示出来。等待的时间则取决于Applet的大小和用户的网络连接的速度。一旦下载以后，它便和本地计算机上的程序以相同的速度运行了。
+Applet在用户的计算机上执行时，还可以下载其它的资源，如声音文件、图像文件或更多的Java代码，有些Applet还允许用户进行交互式操作。但这需要重复的链接与下载，因此速度很慢，这是一个亟待解决的问题，可以想到的一个好办法是采用类似高速缓存的技术，将每次下载的文件都临时保存在用户的硬盘上，虽然第一次使用时花的时间比较多，但当再次使用时，只需直接从硬盘上读取文件而无需再与Internet连接，便可以大大提高性能了。
+import java.awt.*;
+import java.applet.*;
+public class HelloApplet extends Applet{
+public void paint(Graphics g){
+g.drawString("Helloworld!",50,25);
+}
+}
+<!--程序文件名称为HelloApplet.html-->
+&ltHTML>
+&ltHEAD>
+&ltTITLE>　HTML Test Page
+&lt/TITLE>
+&lt/HEAD>
+&ltBODY>
+HelloApplet will appear below in a Java enbaled broswer.&ltBR>
+&ltAPPLET
+CODEBASE="."
+CODE = "HelloApplet.class"
+NAME = "TestApplet"
+WIDTH = 400
+HEIGHT = 300
+HSPACE = 0
+VSPACE = 0
+ALIGN = middle
+>
+&lt/APPLET>
+&lt/BODY>
+&lt/HTML>
+(Java Applet程序不能单独运行，必须嵌入到用HTML语言编写的Web页面中，通过与Java兼容的浏览器来控制执行）
+</p>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS content</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/content/content.htm">http://www.phpstudy.net/css3/properties/content/content.htm</a><br>
+<b>Title:</b> CSS content &nbsp;&bull;&nbsp; <b>Size:</b> 8794 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">内容属性</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/content/?" class="target">
+				<strong>其它内容属性参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="content.htm">content</a></li>
+					<li><a href="counter-increment.htm">counter-increment</a></li>
+					<li><a href="counter-reset.htm">counter-reset</a></li>
+					<li><a href="quotes.htm">quotes</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">content</h1>
+	<ul class="info">
+		<li><strong>版本：CSS2</strong></li>
+		<li>继承性：无</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>content</strong>：normal | none | [<a href="../../values/functional/attr().htm">&lt;attr&gt;</a> | <a href="../../values/textual/url.htm">&lt;url&gt;</a> | <a href="../../values/textual/string.htm">&lt;string&gt;</a> | counter(name) | counter(name,list-style-type) | counters(name,string) | counters(name,string,list-style-type) | no-close-quote | no-open-quote | close-quote | open-quote]+</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">normal</mark></p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt>normal：</dt>
+				<dd>默认值。表现与none值相同</dd>
+				<dt>none：</dt>
+				<dd>不生成任何值。</dd>
+				<dt><a href="../../values/functional/attr().htm">&lt;attr&gt;</a>：</dt>
+				<dd>插入标签属性值</dd>
+				<dt><a href="../../values/textual/url.htm">&lt;url&gt;</a>：</dt>
+				<dd>使用指定的绝对或相对地址插入一个外部资源（图像，声频，视频或浏览器支持的其他任何资源）</dd>
+				<dt><a href="../../values/textual/string.htm">&lt;string&gt;</a>：</dt>
+				<dd>插入字符串</dd>
+				<dt>counter(name)：</dt>
+				<dd>使用已命名的计数器</dd>
+				<dt>counter(name,list-style-type)：</dt>
+				<dd>使用已命名的计数器并遵从指定的list-style-type属性</dd>
+				<dt>counters(name,string)：</dt>
+				<dd>使用所有已命名的计数器</dd>
+				<dt>counters(name,string,list-style-type)：</dt>
+				<dd>使用所有已命名的计数器并遵从指定的list-style-type属性</dd>
+				<dt>no-close-quote：</dt>
+				<dd>并不插入quotes属性的后标记。但增加其嵌套级别</dd>
+				<dt>no-open-quote：</dt>
+				<dd>并不插入quotes属性的前标记。但减少其嵌套级别</dd>
+				<dt>close-quote：</dt>
+				<dd>插入quotes属性的后标记</dd>
+				<dt>open-quote：</dt>
+				<dd>插入quotes属性的前标记</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>用来和<a href="../../selectors/pseudo-element/after.htm">:after</a>及<a href="../../selectors/pseudo-element/before.htm">:before</a>伪元素一起使用，在对象前或后显示内容。</strong>
+			<ul>
+				<li>对应的脚本特性为<strong>content</strong>。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="unsupport">6.0-7.0</td>
+						<td rowspan="2" class="support">4.0</td>
+						<td rowspan="2" class="support">5.1</td>
+						<td rowspan="2" class="support">13.0</td>
+						<td rowspan="2" class="support">11.50</td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="support">8.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS content_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+.string p:after{margin-left:-16px;background:#fff;content:"是";color:#f00;}
+.attr p:after{content:attr(title);}
+.url p:before{content:url(../../skin/ico.png);}
+.test ol{margin:16px 0;padding:0;list-style:none;}
+.counter1 li{counter-increment:testname;}
+.counter1 li:before{content:counter(testname);color:#f00;font-family:georgia,serif,sans-serif;}
+.counter2 li{counter-increment:testname2;}
+.counter2 li:before{content:counter(testname2,lower-roman);color:#f00;font-family:georgia,serif,sans-serif;}
+.counter3 ol ol{margin:0 0 0 28px;}
+.counter3 li{padding:2px 0;counter-increment:testname3;}
+.counter3 li:before{content:counter(testname3,decimal)".";color:#f00;font-family:georgia,serif,sans-serif;}
+.counter3 li li{counter-increment:testname4;}
+.counter3 li li:before{content:counter(testname3,decimal)"."counter(testname4,decimal)".";}
+.counter3 li li li{counter-increment:testname5;}
+.counter3 li li li:before{content:counter(testname3,decimal)"."counter(testname4,decimal)"."counter(testname5,decimal)".";}
+</style>
+</head>
+<body>
+<ul class="test">
+	<li class="string">
+		<strong>string：</strong>
+		<p>你的浏览器是否支持content属性：否</p>
+	</li>
+	<li class="attr">
+		<strong>attr：</strong>
+		<p title="如果你看到我则说明你目前使用的浏览器支持content属性"></p>
+	</li>
+	<li class="url">
+		<strong>url()：</strong>
+		<p>如果你看到文字前面的图标则说明你目前使用的浏览器支持content属性</p>
+	</li>
+	<li class="counter1">
+		<strong>counter(name)：</strong>
+		<ol>
+			<li>列表项</li>
+			<li>列表项</li>
+			<li>列表项</li>
+		</ol>
+	</li>
+	<li class="counter2">
+		<strong>counter(name,list-style-type)：</strong>
+		<ol>
+			<li>列表项</li>
+			<li>列表项</li>
+			<li>列表项</li>
+		</ol>
+	</li>
+	<li class="counter3">
+		<strong>counter(name)拓展应用：</strong>
+		<ol>
+			<li>列表项
+				<ol>
+					<li>列表项
+						<ol>
+							<li>列表项</li>
+							<li>列表项</li>
+						</ol>
+					</li>
+					<li>列表项</li>
+				</ol>
+			</li>
+			<li>列表项
+				<ol>
+					<li>列表项</li>
+					<li>列表项</li>
+				</ol>
+			</li>
+			<li>列表项
+				<ol>
+					<li>列表项</li>
+					<li>列表项</li>
+				</ol>
+			</li>
+		</ol>
+	</li>
+</ul>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

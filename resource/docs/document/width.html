@@ -1,0 +1,22 @@
+<p>
+	已废弃
+Gecko 6.0 note
+(Firefox 6.0 / Thunderbird 6.0 / SeaMonkey 2.3)
+从Gecko 6.0开始,不再支持document.width,请使用document.body.clientWidth来代替.查看element.clientWidth.
+
+概述
+返回当前文档中的&ltbody>元素的宽度,单位为像素.Internet Explorer不支持该属性.
+
+语法
+pixels = document.width;
+示例
+function init() {
+    alert("当前文档的宽度为 " + document.width + " 像素.");
+}
+请使用下面的属性来替代该属性
+document.body.clientWidth              /* &ltbody>元素的宽度 */
+document.documentElement.clientWidth   /* &lthtml>元素的宽度 */
+window.innerWidth                      /* window的宽度 */
+规范
+DOM Level 0 不属于任何标准.
+</p>

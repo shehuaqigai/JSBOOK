@@ -1,0 +1,108 @@
+<div class="post">
+	<h1 class="postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/xiaowei0705/archive/2011/04/19/2021372.html" target="_blank">HTML5 LocalStorage 本地存储</a></h1>
+	<div id="cnblogs_post_body"><div class="Section0">
+<p class="p0">HTML5&nbsp;LocalStorage&nbsp;本地存储</p>
+<p class="p0">说到本地存储，这玩意真是历尽千辛万苦才走到<span face="Arial" style="font-family: Arial;">HTML5</span><span face="宋体" style="font-family: 宋体;">这一步，之前的历史大概如下图所示：</span></p>
+<p class="p0">&nbsp;</p>
+<p class="p0" style="margin-top: 0pt; margin-bottom: 0pt;"><img src="http://pic002.cnblogs.com/images/2011/219983/2011052411382518.jpg"></p>
+<!--EndFragment--><!--EndFragment-->
+<p class="p0">最早的<span face="Arial" style="font-family: Arial;">Cookies</span><span face="宋体" style="font-family: 宋体;">自然是大家都知道，问题主要就是太小，大概也就</span><span face="Arial" style="font-family: Arial;">4KB</span><span face="宋体" style="font-family: 宋体;">的样子，而且</span><span face="Arial" style="font-family: Arial;">IE6</span><span face="宋体" style="font-family: 宋体;">只支持每个域名</span><span face="Arial" style="font-family: Arial;">20</span><span face="宋体" style="font-family: 宋体;">个</span><span face="Arial" style="font-family: Arial;">cookies</span><span face="宋体" style="font-family: 宋体;">，太少了。优势就是大家都支持，而且支持得还蛮好。很早以前那些禁用</span><span face="Arial" style="font-family: Arial;">cookies</span><span face="宋体" style="font-family: 宋体;">的用户也都慢慢的不存在了，就好像以前禁用</span><span face="Arial" style="font-family: Arial;">javascript</span><span face="宋体" style="font-family: 宋体;">的用户不存在了一样。</span></p>
+<p class="p0">&nbsp;</p>
+<p class="p0">userData<span face="宋体" style="font-family: 宋体;">是</span><span face="Arial" style="font-family: Arial;">IE</span><span face="宋体" style="font-family: 宋体;">的东西，垃圾。现在用的最多的是</span><span face="Arial" style="font-family: Arial;">Flash</span><span face="宋体" style="font-family: 宋体;">吧，空间是</span><span face="Arial" style="font-family: Arial;">Cookie</span><span face="宋体" style="font-family: 宋体;">的</span><span face="Arial" style="font-family: Arial;">25</span><span face="宋体" style="font-family: 宋体;">倍，基本够用。再之后</span><span face="Arial" style="font-family: Arial;">Google</span><span face="宋体" style="font-family: 宋体;">推出了</span><span face="Arial" style="font-family: Arial;">Gears</span><span face="宋体" style="font-family: 宋体;">，虽然没有限制，但不爽的地方就是要装额外的插件（没具体研究过）。到了</span><span face="Arial" style="font-family: Arial;">HTML5</span><span face="宋体" style="font-family: 宋体;">把这些都统一了，官方建议是每个网站</span><span face="Arial" style="font-family: Arial;">5MB</span><span face="宋体" style="font-family: 宋体;">，非常大了，就存些字符串，足够了。比较诡异的是居然所有支持的浏览器目前都采用的</span><span face="Arial" style="font-family: Arial;">5MB</span><span face="宋体" style="font-family: 宋体;">，尽管有一些浏览器可以让用户设置，但对于网页制作者来说，目前的形势就</span><span face="Arial" style="font-family: Arial;">5MB</span><span face="宋体" style="font-family: 宋体;">来考虑是比较妥当的。</span></p>
+<p class="p0"><img src="http://pic002.cnblogs.com/images/2011/219983/2011052411384081.jpg"><br><br>支持的情况如上图，<span face="Arial" style="font-family: Arial;">IE</span><span face="宋体" style="font-family: 宋体;">在</span><span face="Arial" style="font-family: Arial;">8.0</span><span face="宋体" style="font-family: 宋体;">的时候就支持了，非常出人意料。不过需要注意的是，</span><span face="Arial" style="font-family: Arial;">IE</span><span face="宋体" style="font-family: 宋体;">、</span><span face="Arial" style="font-family: Arial;">Firefox</span><span face="宋体" style="font-family: 宋体;">测试的时候需要把文件上传到服务器上（或者</span><span face="Arial" style="font-family: Arial;">localhost</span><span face="宋体" style="font-family: 宋体;">），直接点开本地的</span><span face="Arial" style="font-family: Arial;">HTML</span><span face="宋体" style="font-family: 宋体;">文件，是不行的。</span></p>
+<p class="p0">&nbsp;</p>
+<p class="p0">首先自然是检测浏览器是否支持本地存储。在<span face="Arial" style="font-family: Arial;">HTML5</span><span face="宋体" style="font-family: 宋体;">中，本地存储是一个</span><span face="Arial" style="font-family: Arial;">window</span><span face="宋体" style="font-family: 宋体;">的属性，包括</span><span face="Arial" style="font-family: Arial;">localStorage</span><span face="宋体" style="font-family: 宋体;">和</span><span face="Arial" style="font-family: Arial;">sessionStorage</span><span face="宋体" style="font-family: 宋体;">，从名字应该可以很清楚的辨认二者的区别，前者是一直存在本地的，后者只是伴随着</span><span face="Arial" style="font-family: Arial;">session</span><span face="宋体" style="font-family: 宋体;">，窗口一旦关闭就没了。二者用法完全相同，这里以</span><span face="Arial" style="font-family: Arial;">localStorage</span><span face="宋体" style="font-family: 宋体;">为例。</span></p>
+<p class="p0">if(window.localStorage){<br>&nbsp;alert('This&nbsp;browser&nbsp;supports&nbsp;localStorage');<br>}else{<br>&nbsp;alert('This&nbsp;browser&nbsp;does&nbsp;NOT&nbsp;support&nbsp;localStorage');<br>}</p>
+<p class="p0">&nbsp;</p>
+<p class="p0">存储数据的方法就是直接给<span face="Arial" style="font-family: Arial;">window.localStorage</span><span face="宋体" style="font-family: 宋体;">添加一个属性，例如：</span><span face="Arial" style="font-family: Arial;">window.localStorage.a&nbsp;</span><span face="宋体" style="font-family: 宋体;">或者&nbsp;</span><span face="Arial" style="font-family: Arial;">window.localStorage["a"]</span><span face="宋体" style="font-family: 宋体;">。它的读取、写、删除操作方法很简单，是以键值对的方式存在的，如下：</span></p>
+<p class="p0">localStorage.a&nbsp;=&nbsp;3;//<span face="宋体" style="font-family: 宋体;">设置</span><span face="Arial" style="font-family: Arial;">a</span><span face="宋体" style="font-family: 宋体;">为</span><span face="Arial" style="font-family: Arial;">"3"</span><br>localStorage["a"]&nbsp;=&nbsp;"sfsf";//<span face="宋体" style="font-family: 宋体;">设置</span><span face="Arial" style="font-family: Arial;">a</span><span face="宋体" style="font-family: 宋体;">为</span><span face="Arial" style="font-family: Arial;">"sfsf"</span><span face="宋体" style="font-family: 宋体;">，覆盖上面的值</span><br>localStorage.setItem("b","isaac");//<span face="宋体" style="font-family: 宋体;">设置</span><span face="Arial" style="font-family: Arial;">b</span><span face="宋体" style="font-family: 宋体;">为</span><span face="Arial" style="font-family: Arial;">"isaac"</span><br>var&nbsp;a1&nbsp;=&nbsp;localStorage["a"];//<span face="宋体" style="font-family: 宋体;">获取</span><span face="Arial" style="font-family: Arial;">a</span><span face="宋体" style="font-family: 宋体;">的值</span><br>var&nbsp;a2&nbsp;=&nbsp;localStorage.a;//<span face="宋体" style="font-family: 宋体;">获取</span><span face="Arial" style="font-family: Arial;">a</span><span face="宋体" style="font-family: 宋体;">的值</span><br>var&nbsp;b&nbsp;=&nbsp;localStorage.getItem("b");//<span face="宋体" style="font-family: 宋体;">获取</span><span face="Arial" style="font-family: Arial;">b</span><span face="宋体" style="font-family: 宋体;">的值</span><br>localStorage.removeItem("c");//<span face="宋体" style="font-family: 宋体;">清除</span><span face="Arial" style="font-family: Arial;">c</span><span face="宋体" style="font-family: 宋体;">的值</span></p>
+<p class="p0">&nbsp;</p>
+<p class="p0">这里最推荐使用的自然是<span face="Arial" style="font-family: Arial;">getItem()</span><span face="宋体" style="font-family: 宋体;">和</span><span face="Arial" style="font-family: Arial;">setItem()</span><span face="宋体" style="font-family: 宋体;">，清除键值对使用</span><span face="Arial" style="font-family: Arial;">removeItem()</span><span face="宋体" style="font-family: 宋体;">。如果希望一次性清除所有的键值对，可以使用</span><span face="Arial" style="font-family: Arial;">clear()</span><span face="宋体" style="font-family: 宋体;">。另外，</span><span face="Arial" style="font-family: Arial;">HTML5</span><span face="宋体" style="font-family: 宋体;">还提供了一个</span><span face="Arial" style="font-family: Arial;">key()</span><span face="宋体" style="font-family: 宋体;">方法，可以在不知道有哪些键值的时候使用，如下：</span></p>
+<p class="p0">var&nbsp;storage&nbsp;=&nbsp;window.localStorage;<br>function&nbsp;showStorage(){<br>&nbsp;for(var&nbsp;i=0;i&lt;storage.length;i++){<br>&nbsp;&nbsp;//key(i)<span face="宋体" style="font-family: 宋体;">获得相应的键，再用</span><span face="Arial" style="font-family: Arial;">getItem()</span><span face="宋体" style="font-family: 宋体;">方法获得对应的值</span><br>&nbsp;&nbsp;document.write(storage.key(i)+&nbsp;"&nbsp;:&nbsp;"&nbsp;+&nbsp;storage.getItem(storage.key(i))&nbsp;+&nbsp;"&lt;br&gt;");<br>&nbsp;}<br>}</p>
+<p class="p0">&nbsp;</p>
+<p class="p0">写一个最简单的，利用本地存储的计数器：</p>
+<p class="p0">var&nbsp;storage&nbsp;=&nbsp;window.localStorage;<br>if&nbsp;(!storage.getItem("pageLoadCount"))&nbsp;storage.setItem("pageLoadCount",0);<br>storage.pageLoadCount&nbsp;=&nbsp;parseInt(storage.getItem("pageLoadCount"))&nbsp;+&nbsp;1;//<span face="宋体" style="font-family: 宋体;">必须格式转换</span><br>document.getElementByIdx_x("count").innerHTML&nbsp;=&nbsp;storage.pageLoadCount;<br>showStorage();</p>
+<p class="p0">不断刷新就能看到数字在一点点上涨，如下图所示：</p>
+<p class="p0">&nbsp;<img src="http://pic002.cnblogs.com/images/2011/219983/2011052411385178.jpg"></p>
+<p class="p0">需要注意的是，<span face="Arial" style="font-family: Arial;">HTML5</span><span face="宋体" style="font-family: 宋体;">本地存储只能存字符串，任何格式存储的时候都会被自动转为字符串，所以读取的时候，需要自己进行类型的转换。这也就是上一段代码中</span><span face="Arial" style="font-family: Arial;">parseInt</span><span face="宋体" style="font-family: 宋体;">必须要使用的原因。</span></p>
+<p class="p0">&nbsp;</p>
+<p class="p0">另外，在<span face="Arial" style="font-family: Arial;">iPhone/iPad</span><span face="宋体" style="font-family: 宋体;">上有时设置</span><span face="Arial" style="font-family: Arial;">setItem()</span><span face="宋体" style="font-family: 宋体;">时会出现诡异的</span><span face="Arial" style="font-family: Arial;">QUOTA_EXCEEDED_ERR</span><span face="宋体" style="font-family: 宋体;">错误，这时一般在</span><span face="Arial" style="font-family: Arial;">setItem</span><span face="宋体" style="font-family: 宋体;">之前，先</span><span face="Arial" style="font-family: Arial;">removeItem()</span><span face="宋体" style="font-family: 宋体;">就</span><span face="Arial" style="font-family: Arial;">ok</span><span face="宋体" style="font-family: 宋体;">了。</span></p>
+<p class="p0">&nbsp;</p>
+<p class="p0">HTML5<span face="宋体" style="font-family: 宋体;">的本地存储，还提供了一个</span><span face="Arial" style="font-family: Arial;">storage</span><span face="宋体" style="font-family: 宋体;">事件，可以对键值对的改变进行监听，使用方法如下：</span></p>
+<p class="p0">if(window.addEventListener){<br>&nbsp;window.addEventListener("storage",handle_storage,false);<br>}else&nbsp;if(window.attachEvent){<br>&nbsp;window.attachEvent("onstorage",handle_storage);<br>}<br>function&nbsp;handle_storage(e){<br>&nbsp;if(!e){e=window.event;}<br>&nbsp;//showStorage();<br>}</p>
+<p class="p0">&nbsp;</p>
+<p class="p0">对于事件变量<span face="Arial" style="font-family: Arial;">e</span><span face="宋体" style="font-family: 宋体;">，是一个</span><span face="Arial" style="font-family: Arial;">StorageEvent</span><span face="宋体" style="font-family: 宋体;">对象，提供了一些实用的属性，可以很好的观察键值对的变化，如下表：</span></p>
+<table>
+<tbody>
+<tr>
+<td width="80" valign="middle">
+<p class="p0">&nbsp;Property</p>
+</td>
+<td width="52" valign="middle">
+<p class="p0">&nbsp;Type</p>
+</td>
+<td width="410" valign="middle">
+<p class="p0">&nbsp;Description</p>
+</td>
+</tr>
+<tr>
+<td width="80" valign="middle">
+<p class="p0">&nbsp;key</p>
+</td>
+<td width="52" valign="middle">
+<p class="p0">&nbsp;String</p>
+</td>
+<td width="410" valign="middle">
+<p class="p0">&nbsp;The&nbsp;named&nbsp;key&nbsp;that&nbsp;was&nbsp;added,&nbsp;removed,&nbsp;or&nbsp;moddified</p>
+</td>
+</tr>
+<tr>
+<td width="80" valign="middle">
+<p class="p0">&nbsp;oldValue</p>
+</td>
+<td width="52" valign="middle">
+<p class="p0">&nbsp;Any</p>
+</td>
+<td width="410" valign="middle">
+<p class="p0">&nbsp;The&nbsp;previous&nbsp;value(now&nbsp;overwritten),&nbsp;or&nbsp;null&nbsp;if&nbsp;a&nbsp;new&nbsp;item&nbsp;was&nbsp;added</p>
+</td>
+</tr>
+<tr>
+<td width="80" valign="middle">
+<p class="p0">&nbsp;newValue</p>
+</td>
+<td width="52" valign="middle">
+<p class="p0">&nbsp;Any</p>
+</td>
+<td width="410" valign="middle">
+<p class="p0">&nbsp;The&nbsp;new&nbsp;value,&nbsp;or&nbsp;null&nbsp;if&nbsp;an&nbsp;item&nbsp;was&nbsp;added</p>
+</td>
+</tr>
+<tr>
+<td width="80" valign="middle">
+<p class="p0">&nbsp;url/uri</p>
+</td>
+<td width="52" valign="middle">
+<p class="p0">&nbsp;String</p>
+</td>
+<td width="410" valign="middle">
+<p class="p0">&nbsp;The&nbsp;page&nbsp;that&nbsp;called&nbsp;the&nbsp;method&nbsp;that&nbsp;triggered&nbsp;this&nbsp;change</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="p0">&nbsp;</p>
+<p class="p0">这里添加两个键值对<span face="Arial" style="font-family: Arial;">a</span><span face="宋体" style="font-family: 宋体;">和</span><span face="Arial" style="font-family: Arial;">b</span><span face="宋体" style="font-family: 宋体;">，并增加一个按钮。给</span><span face="Arial" style="font-family: Arial;">a</span><span face="宋体" style="font-family: 宋体;">设置固定的值，当点击按钮时，修改</span><span face="Arial" style="font-family: Arial;">b</span><span face="宋体" style="font-family: 宋体;">的值：</span></p>
+<p class="p0">&lt;body&gt;<br>&lt;p&gt;You&nbsp;have&nbsp;viewed&nbsp;this&nbsp;page&nbsp;&lt;span&nbsp;id="count"&gt;0&lt;/span&gt;&nbsp;&nbsp;time(s).&lt;/p&gt;<br>&lt;p&gt;&lt;input&nbsp;type="button"&nbsp;value="changeStorage"&nbsp;onClick="changeS()"/&gt;&lt;/p&gt;<br>&lt;script&gt;<br>var&nbsp;storage&nbsp;=&nbsp;window.localStorage;<br>if&nbsp;(!storage.getItem("pageLoadCount"))&nbsp;storage.setItem("pageLoadCount",0);<br>storage.pageLoadCount&nbsp;=&nbsp;parseInt(storage.getItem("pageLoadCount"))&nbsp;+&nbsp;1;//<span face="宋体" style="font-family: 宋体;">必须格式转换</span><br>document.getElementByIdx_x("count").innerHTML&nbsp;=&nbsp;storage.pageLoadCount;<br>showStorage();<br>if(window.addEventListener){<br>&nbsp;window.addEventListener("storage",handle_storage,false);<br>}else&nbsp;if(window.attachEvent){<br>&nbsp;window.attachEvent("onstorage",handle_storage);<br>}<br>function&nbsp;handle_storage(e){<br>&nbsp;if(!e){e=window.event;}<br>&nbsp;showObject(e);<br>}<br>function&nbsp;showObject(obj){<br>&nbsp;//<span face="宋体" style="font-family: 宋体;">递归显示</span><span face="Arial" style="font-family: Arial;">object</span><br>&nbsp;if(!obj){return;}<br>&nbsp;for(var&nbsp;i&nbsp;in&nbsp;obj){<br>&nbsp;&nbsp;if(typeof(obj[i])!="object"&nbsp;||&nbsp;obj[i]==null){<br>&nbsp;&nbsp;&nbsp;document.write(i&nbsp;+&nbsp;"&nbsp;:&nbsp;"&nbsp;+&nbsp;obj[i]&nbsp;+&nbsp;"&lt;br/&gt;");<br>&nbsp;&nbsp;}else{<br>&nbsp;&nbsp;&nbsp;document.write(i&nbsp;+&nbsp;"&nbsp;:&nbsp;object"&nbsp;+&nbsp;"&lt;br/&gt;");<br>&nbsp;&nbsp;}<br>&nbsp;}<br>}<br>storage.setItem("a",5);<br>function&nbsp;changeS(){<br>&nbsp;//<span face="宋体" style="font-family: 宋体;">修改一个键值，测试</span><span face="Arial" style="font-family: Arial;">storage</span><span face="宋体" style="font-family: 宋体;">事件</span><br>&nbsp;if(!storage.getItem("b")){storage.setItem("b",0);}<br>&nbsp;storage.setItem('b',parseInt(storage.getItem('b'))+1);<br>}<br>function&nbsp;showStorage(){<br>&nbsp;//<span face="宋体" style="font-family: 宋体;">循环显示</span><span face="Arial" style="font-family: Arial;">localStorage</span><span face="宋体" style="font-family: 宋体;">里的键值对</span><br>&nbsp;for(var&nbsp;i=0;i&lt;storage.length;i++){<br>&nbsp;&nbsp;//key(i)<span face="宋体" style="font-family: 宋体;">获得相应的键，再用</span><span face="Arial" style="font-family: Arial;">getItem()</span><span face="宋体" style="font-family: 宋体;">方法获得对应的值</span><br>&nbsp;&nbsp;document.write(storage.key(i)+&nbsp;"&nbsp;:&nbsp;"&nbsp;+&nbsp;storage.getItem(storage.key(i))&nbsp;+&nbsp;"&lt;br&gt;");<br>&nbsp;}<br>}<br>&lt;/script&gt;<br>&lt;/body&gt;</p>
+<p class="p0">&nbsp;</p>
+<p class="p0">测试发现，目前浏览器对这个支持不太好，仅<span face="Arial" style="font-family: Arial;">iPad</span><span face="宋体" style="font-family: 宋体;">和</span><span face="Arial" style="font-family: Arial;">Firefox</span><span face="宋体" style="font-family: 宋体;">支持，而且</span><span face="Arial" style="font-family: Arial;">Firefox</span><span face="宋体" style="font-family: 宋体;">支持得乱糟糟，</span><span face="Arial" style="font-family: Arial;">e</span><span face="宋体" style="font-family: 宋体;">对象根本没有那些属性。</span><span face="Arial" style="font-family: Arial;">iPad</span><span face="宋体" style="font-family: 宋体;">支持非常好，用的是</span><span face="Arial" style="font-family: Arial;">e.uri</span><span face="宋体" style="font-family: 宋体;">（不是</span><span face="Arial" style="font-family: Arial;">e.url</span><span face="宋体" style="font-family: 宋体;">），台式机上的</span><span face="Arial" style="font-family: Arial;">Safari</span><span face="宋体" style="font-family: 宋体;">不行，诡异。</span></p>
+<p class="p0">&nbsp;</p>
+<p class="p0">目前浏览器都带有很好的开发者调试功能，下面分别是<span face="Arial" style="font-family: Arial;">Chrome</span><span face="宋体" style="font-family: 宋体;">和</span><span face="Arial" style="font-family: Arial;">Firefox</span><span face="宋体" style="font-family: 宋体;">的调试工具查看</span><span face="Arial" style="font-family: Arial;">LocalStorage</span><span face="宋体" style="font-family: 宋体;">：</span></p>
+<p class="p0"><img src="http://pic002.cnblogs.com/images/2011/219983/2011052411391983.jpg"></p>
+<p class="p0"><img src="http://pic002.cnblogs.com/images/2011/219983/2011052411393489.jpg"><br><br>另外，目前<span face="Arial" style="font-family: Arial;">javascript</span><span face="宋体" style="font-family: 宋体;">使用非常多的</span><span face="Arial" style="font-family: Arial;">json</span><span face="宋体" style="font-family: 宋体;">格式，如果希望存储在本地，可以直接调用</span><span face="Arial" style="font-family: Arial;">JSON.stringify()</span><span face="宋体" style="font-family: 宋体;">将其转为字符串。读取出来后调用</span><span face="Arial" style="font-family: Arial;">JSON.parse()</span><span face="宋体" style="font-family: 宋体;">将字符串转为</span><span face="Arial" style="font-family: Arial;">json</span><span face="宋体" style="font-family: 宋体;">格式，如下所示：</span></p>
+<p class="p0">var&nbsp;details&nbsp;=&nbsp;{author:"isaac","description":"fresheggs","rating":100};<br>storage.setItem("details",JSON.stringify(details));<br>details&nbsp;=&nbsp;JSON.parse(storage.getItem("details"));</p>
+<p class="p0">&nbsp;<img src="http://pic002.cnblogs.com/images/2011/219983/2011052411400647.jpg"></p>
+<p class="p0">JSON<span face="宋体" style="font-family: 宋体;">对象在支持</span><span face="Arial" style="font-family: Arial;">localStorage</span><span face="宋体" style="font-family: 宋体;">的浏览器上基本都支持，需要注意的是</span><span face="Arial" style="font-family: Arial;">IE8</span><span face="宋体" style="font-family: 宋体;">，它支持</span><span face="Arial" style="font-family: Arial;">JSON</span><span face="宋体" style="font-family: 宋体;">，但如果添加了如下的兼容模式代码，切到</span><span face="Arial" style="font-family: Arial;">IE7</span><span face="宋体" style="font-family: 宋体;">模式就不行了（此时依然支持</span><span face="Arial" style="font-family: Arial;">localStorage</span><span face="宋体" style="font-family: 宋体;">，虽然显示</span><span face="Arial" style="font-family: Arial;">window.localStorage</span><span face="宋体" style="font-family: 宋体;">是</span><span face="Arial" style="font-family: Arial;">[object]</span><span face="宋体" style="font-family: 宋体;">，而不是之前的</span><span face="Arial" style="font-family: Arial;">[object&nbsp;Storage]</span><span face="宋体" style="font-family: 宋体;">，但测试发现</span><span face="Arial" style="font-family: Arial;">getItem()</span><span face="宋体" style="font-family: 宋体;">、</span><span face="Arial" style="font-family: Arial;">setItem()</span><span face="宋体" style="font-family: 宋体;">等均能使用）。</span></p>
+<p class="p0">&lt;meta&nbsp;content="IE=7"&nbsp;http-equiv="X-UA-Compatible"/&gt;</p>
+<p class="p0">&nbsp;</p>
+</div>

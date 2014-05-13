@@ -1,0 +1,49 @@
+<div id="maincontent">
+
+<h1>XML DOM - XMLSerializer 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_http.asp" title="XML DOM XMLHttpRequest 对象">DOM XMLHttpRequest</a></li>
+<li class="next"><a href="/xmldom/dom_xpathexpression.asp" title="XML DOM XPathExpression 对象">DOM XPathExpression</a></li>
+</ul>
+</div>
+
+<div id="intro">
+<p><strong>序列化 XML 文档和节点。</strong></p>
+</div>
+
+<div>
+<h2>XMLSerializer 对象</h2>
+
+<h3>构造函数</h3>
+<pre>new XMLSerializer()</pre>
+
+<h3>说明</h3>
+<p>XMLSerializer 对象使你能够把一个 XML 文档或 Node 对象转化或“序列化”为未解析的 XML 标记的一个字符串。</p>
+<p>要使用一个 XMLSerializer，使用不带参数的构造函数实例化它，然后调用其 serializeToString() 方法：</p>
+<pre>var text = (new XMLSerializer()).serializeToString(<i>element</i>)</pre>
+<p>IE 不支持 XMLSerializer 对象。相反，它通过 Node 对象的 xml 属性使 XML 文本变为可用。</p>
+
+<p>参阅：<a href="/xmldom/prop_node_xml.asp" title="XML DOM xml 属性">Node.xml</a></p>
+</div>
+
+<div>
+<h2>XMLSerializer.serializeToString()</h2>
+<p>把一个 XML 文档或节点转换为一个字符串</p>
+
+<h3>语法</h3>
+<pre>serializeToString(<i>node</i>)</pre>
+<p>node 参数是要序列化的 XML 节点。这可能是文档中一个 <a href="/xmldom/dom_document.asp" title="XML DOM - Document 对象">Document 对象</a>或者任何 Element。</p>
+
+<h3>返回值</h3>
+<p>XML 标记的一个字符串，代表了指定节点及其所有子孙的序列化形式。</p>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_http.asp" title="XML DOM XMLHttpRequest 对象">DOM XMLHttpRequest</a></li>
+<li class="next"><a href="/xmldom/dom_xpathexpression.asp" title="XML DOM XPathExpression 对象">DOM XPathExpression</a></li>
+</ul>
+</div>
+</div>

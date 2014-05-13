@@ -1,0 +1,17 @@
+<p>
+	
+Document.getElementsByTagNameNS()
+返回所有具有指定名字和名字空间的Element节点
+摘要
+Node[] getEIementgByTagNameNS(string namespaCeURI,
+String localName);
+参数
+namespaceURI
+要获取的元素的名字+空间的惟一标识符,或者“*”,匹配所有名宇空间。
+localName
+要获取的元素的本地名（或者“*” ）来匹配所有本地名字。
+返回值
+文档树中具有指定的名字空间和本地名的Element节点的只读数组（从技术上说,是NodeList对象）。
+描述
+该方法与getElementsByTagName()十分相似,只是它根据名宇空间和名称来检索元素。只有使用名字空间的XML文档才会使用它。
+</p>

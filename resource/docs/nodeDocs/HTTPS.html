@@ -1,0 +1,114 @@
+<div class="_page _node"><h1 id="https_https">HTTPS</h1> <pre class="api_stability_3">Stability: 3 - Stable</pre>
+<p>HTTPS is the HTTP protocol over TLS/SSL. In Node this is implemented as a separate module. </p> <h2 id="https_class_https_server">Class: https.Server</h2> <p>This class is a subclass of <code>tls.Server</code> and emits events same as <code>http.Server</code>. See <code>http.Server</code> for more information. </p> <h2 id="https_https_createserver_options_requestlistener">https.createServer(options, [requestListener])</h2> <p>Returns a new HTTPS web server object. The <code>options</code> is similar to <a href="tls#tls_tls_createserver_options_secureconnectionlistener">tls.createServer()</a>. The <code>requestListener</code> is a function which is automatically added to the <code>'request'</code> event. </p> <p>Example: </p> <pre class=" language-javascript"><code class=" language-javascript"><span class="token comment" spellcheck="true">// curl -k https://localhost:8000/
+</span><span class="token keyword">var</span> https <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'https'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
+  key<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync<span class="token punctuation">(</span></span><span class="token string">'test/fixtures/keys/agent2-key.pem'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  cert<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync<span class="token punctuation">(</span></span><span class="token string">'test/fixtures/keys/agent2-cert.pem'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+https<span class="token punctuation">.</span><span class="token function">createServer<span class="token punctuation">(</span></span>options<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">writeHead<span class="token punctuation">(</span></span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span><span class="token function">end<span class="token punctuation">(</span></span><span class="token string">"hello world\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">listen<span class="token punctuation">(</span></span><span class="token number">8000</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p>Or </p> <pre class=" language-javascript"><code class=" language-javascript"><span class="token keyword">var</span> https <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'https'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
+  pfx<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync<span class="token punctuation">(</span></span><span class="token string">'server.pfx'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+https<span class="token punctuation">.</span><span class="token function">createServer<span class="token punctuation">(</span></span>options<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>req<span class="token punctuation">,</span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">writeHead<span class="token punctuation">(</span></span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  res<span class="token punctuation">.</span><span class="token function">end<span class="token punctuation">(</span></span><span class="token string">"hello world\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">listen<span class="token punctuation">(</span></span><span class="token number">8000</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <h3 id="https_server_listen_port_host_backlog_callback">server.listen(port, [host], [backlog], [callback])</h3> <h3 id="https_server_listen_path_callback">server.listen(path, [callback])</h3> <h3 id="https_server_listen_handle_callback">server.listen(handle, [callback])</h3> <p>See <a href="http#http_server_listen_port_hostname_backlog_callback">http.listen()</a> for details. </p> <h3 id="https_server_close_callback" class="">server.close([callback])</h3> <p>See <a href="http#http_server_close_callback">http.close()</a> for details. </p> <h2 id="https_https_request_options_callback">https.request(options, callback)</h2> <p>Makes a request to a secure web server. </p> <p><code>options</code> can be an object or a string. If <code>options</code> is a string, it is automatically parsed with <a href="url#url.parse">url.parse()</a>. </p> <p>All options from <a href="http#http_http_request_options_callback">http.request()</a> are valid. </p> <p>Example: </p> <pre class=" language-javascript"><code class=" language-javascript"><span class="token keyword">var</span> https <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'https'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
+  hostname<span class="token punctuation">:</span> <span class="token string">'encrypted.google.com'</span><span class="token punctuation">,</span>
+  port<span class="token punctuation">:</span> <span class="token number">443</span><span class="token punctuation">,</span>
+  path<span class="token punctuation">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span>
+  method<span class="token punctuation">:</span> <span class="token string">'GET'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> req <span class="token operator">=</span> https<span class="token punctuation">.</span><span class="token function">request<span class="token punctuation">(</span></span>options<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"statusCode: "</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>statusCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"headers: "</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>headers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  res<span class="token punctuation">.</span><span class="token function">on<span class="token punctuation">(</span></span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    process<span class="token punctuation">.</span>stdout<span class="token punctuation">.</span><span class="token function">write<span class="token punctuation">(</span></span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+req<span class="token punctuation">.</span><span class="token function">end<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+req<span class="token punctuation">.</span><span class="token function">on<span class="token punctuation">(</span></span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">error<span class="token punctuation">(</span></span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <p>The options argument has the following options </p> <ul>
+<li>
+<code>host</code>: A domain name or IP address of the server to issue the request to. Defaults to <code>'localhost'</code>.</li> <li>
+<code>hostname</code>: To support <code>url.parse()</code> <code>hostname</code> is preferred over <code>host</code>
+</li> <li>
+<code>port</code>: Port of remote server. Defaults to 443.</li> <li>
+<code>method</code>: A string specifying the HTTP request method. Defaults to <code>'GET'</code>.</li> <li>
+<code>path</code>: Request path. Defaults to <code>'/'</code>. Should include query string if any. E.G. <code>'/index.html?page=12'</code>
+</li> <li>
+<code>headers</code>: An object containing request headers.</li> <li>
+<code>auth</code>: Basic authentication i.e. <code>'user:password'</code> to compute an Authorization header.</li> <li>
+<code>agent</code>: Controls <a href="#https_class_https_agent">Agent</a> behavior. When an Agent is used request will default to <code>Connection: keep-alive</code>. Possible values:<ul>
+<li>
+<code>undefined</code> (default): use <a href="#https_https_globalagent">globalAgent</a> for this host and port.</li> <li>
+<code>Agent</code> object: explicitly use the passed in <code>Agent</code>.</li> <li>
+<code>false</code>: opts out of connection pooling with an Agent, defaults request to <code>Connection: close</code>.</li> </ul>
+</li> </ul>
+<p>The following options from <a href="tls#tls_tls_connect_options_callback">tls.connect()</a> can also be specified. However, a <a href="#https_https_globalagent">globalAgent</a> silently ignores these. </p> <ul>
+<li>
+<code>pfx</code>: Certificate, Private key and CA certificates to use for SSL. Default <code>null</code>.</li> <li>
+<code>key</code>: Private key to use for SSL. Default <code>null</code>.</li> <li>
+<code>passphrase</code>: A string of passphrase for the private key or pfx. Default <code>null</code>.</li> <li>
+<code>cert</code>: Public x509 certificate to use. Default <code>null</code>.</li> <li>
+<code>ca</code>: An authority certificate or array of authority certificates to check the remote host against.</li> <li>
+<code>ciphers</code>: A string describing the ciphers to use or exclude. Consult <a href="http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT">http://www.openssl.org/docs/apps/ciphers.html#CIPHER_LIST_FORMAT</a> for details on the format.</li> <li>
+<code>rejectUnauthorized</code>: If <code>true</code>, the server certificate is verified against the list of supplied CAs. An <code>'error'</code> event is emitted if verification fails. Verification happens at the connection level, <em>before</em> the HTTP request is sent. Default <code>true</code>.</li> <li>
+<code>secureProtocol</code>: The SSL method to use, e.g. <code>SSLv3_method</code> to force SSL version 3. The possible values depend on your installation of OpenSSL and are defined in the constant <a href="http://www.openssl.org/docs/ssl/ssl.html#DEALING_WITH_PROTOCOL_METHODS">SSL_METHODS</a>.</li> </ul>
+<p>In order to specify these options, use a custom <code>Agent</code>. </p> <p>Example: </p> <pre class=" language-javascript"><code class=" language-javascript"><span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
+  hostname<span class="token punctuation">:</span> <span class="token string">'encrypted.google.com'</span><span class="token punctuation">,</span>
+  port<span class="token punctuation">:</span> <span class="token number">443</span><span class="token punctuation">,</span>
+  path<span class="token punctuation">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span>
+  method<span class="token punctuation">:</span> <span class="token string">'GET'</span><span class="token punctuation">,</span>
+  key<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync<span class="token punctuation">(</span></span><span class="token string">'test/fixtures/keys/agent2-key.pem'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  cert<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync<span class="token punctuation">(</span></span><span class="token string">'test/fixtures/keys/agent2-cert.pem'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+options<span class="token punctuation">.</span>agent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">https<span class="token punctuation">.</span>Agent</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> req <span class="token operator">=</span> https<span class="token punctuation">.</span><span class="token function">request<span class="token punctuation">(</span></span>options<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span></code></pre> <p>Or does not use an <code>Agent</code>. </p> <p>Example: </p> <pre class=" language-javascript"><code class=" language-javascript"><span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
+  hostname<span class="token punctuation">:</span> <span class="token string">'encrypted.google.com'</span><span class="token punctuation">,</span>
+  port<span class="token punctuation">:</span> <span class="token number">443</span><span class="token punctuation">,</span>
+  path<span class="token punctuation">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span>
+  method<span class="token punctuation">:</span> <span class="token string">'GET'</span><span class="token punctuation">,</span>
+  key<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync<span class="token punctuation">(</span></span><span class="token string">'test/fixtures/keys/agent2-key.pem'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  cert<span class="token punctuation">:</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync<span class="token punctuation">(</span></span><span class="token string">'test/fixtures/keys/agent2-cert.pem'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  agent<span class="token punctuation">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> req <span class="token operator">=</span> https<span class="token punctuation">.</span><span class="token function">request<span class="token punctuation">(</span></span>options<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span></code></pre> <h2 id="https_https_get_options_callback">https.get(options, callback)</h2> <p>Like <code>http.get()</code> but for HTTPS. </p> <p><code>options</code> can be an object or a string. If <code>options</code> is a string, it is automatically parsed with <a href="url#url.parse">url.parse()</a>. </p> <p>Example: </p> <pre class=" language-javascript"><code class=" language-javascript"><span class="token keyword">var</span> https <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'https'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+https<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span><span class="token string">'https://encrypted.google.com/'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"statusCode: "</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>statusCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"headers: "</span><span class="token punctuation">,</span> res<span class="token punctuation">.</span>headers<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  res<span class="token punctuation">.</span><span class="token function">on<span class="token punctuation">(</span></span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    process<span class="token punctuation">.</span>stdout<span class="token punctuation">.</span><span class="token function">write<span class="token punctuation">(</span></span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on<span class="token punctuation">(</span></span><span class="token string">'error'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">error<span class="token punctuation">(</span></span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre> <h2 id="https_class_https_agent">Class: https.Agent</h2> <p>An Agent object for HTTPS similar to <a href="http#http_class_http_agent">http.Agent</a>. See <a href="#https_https_request_options_callback">https.request()</a> for more information. </p> <h2 id="https_https_globalagent">https.globalAgent</h2> <p>Global instance of <a href="#https_class_https_agent">https.Agent</a> for all HTTPS client requests. </p><div class="_attribution">
+  <p class="_attribution-p">
+    © Joyent, Inc. and other Node contributors<br>Licensed under the MIT License.<br>
+    <a href="http://nodejs.org/api/https.html" class="_attribution-link">http://nodejs.org/api/https.html</a>
+  </p>
+</div>
+</div>

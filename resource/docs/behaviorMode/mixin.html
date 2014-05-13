@@ -1,0 +1,141 @@
+<h1>混合模式</h1>
+
+<pre>
+所谓混合模式，只是我随便起的一个叫法，
+因为我正研究的这个模式是混合了工厂模式、
+构造函数模式、原型模式这三种模式。下面先一一介绍这三种模式，然后再亮出所谓的混合模式。 
+工厂模式
+function Person(name, age){
+	var o = {};
+	o.name = name;
+	o.age = age;
+	o.sayName = function(){
+		console.log(this.name);
+	}
+	return o;
+}
+var person1 = Person('T-mac', 32);
+　　从代码可以看来，工厂模式可以把所有需要用到的属性和方法都封装到一个对象里，
+它可以解决创建多个相似对象的问题。
+但是它的问题很明显，就是不像C++创建一个类的实例那样可以知道这个实例是哪个类的实例。
+于是出现了下面一种模式。 
+构造函数模式
+function Person(name, age){
+	this.name = name;
+	this.age = age;
+	this.sayName = function(){
+		console.log(this.name);
+	}
+}
+var person1 = new Person('T-mac', 32);
+var person2 = new Person('T-mac', 32);
+　　这个模式和工厂模式有很大不同，构造函数(Person)里面用到了this、创建实例用到了new。
+我们可以先来看看javascript中使用new会经历哪些步骤。 
+(1) 创建一个新对象； 
+(2) 将构造函数的作用域赋给这个新对象(也就是this指针会指向这个对象)； 
+(3) 执行构造函数里的代码； 
+(4) 返回这个新对象。 
+　　在创建的实例person1中，person1的构造函数会指向Person，
+也就是person1.constructor == Person 为true。
+而constructor的作用就是告诉程序说person1会继承Person里的东西，
+也就是用来标识对象类型。在javascript中，有个操作符instanceof可以用检测对象类型。 
+console.log(person1 instanceof Object); //true
+console.log(person1 instanceof Person); //true
+　　看到没有，这是工厂模式办不到的！ 
+　　但是问题又来啦！！person1.sayName == person2.sayName 是不等的，
+那为什么不相等，为什么要相等呢？ 
+　　不相等是因为在于实例创建时，
+实例中的方法也会创建一次，也就是说每个实例的方法会重新创建一次，
+每个实例的方法所指向的内存不是同一块！ 
+　　要相等的原因是你不觉得这样很浪费空间吗，
+这些实例的方法本来就可以共享的。基于这个问题，接着出现一种模式，
+这种模式是javascript的特性，灵活又复杂之处。 
+原型模式
+functoin Person(){
+}
+Person.prototype.name = 'T-mac';
+Person.prototype.age = 32;
+Person.prototype.sayName = function(){
+	console.log(this.name);
+}
+var person1 = new Person();
+var person2 = new Person();
+
+　　每一个新创建的函数中都包含一个prototype的属性，
+这个属性是一个指针指向一个对象。
+我们来通过这个模式来解释如何解决构造函数模式所带来的问题。 
+　　在创建实例person1的时候，
+使用到new，new的过程上面有提到，
+它会重置this指针，并指向新创建的对象，
+新创建对象的prototype又指向Person.prototype。
+Person在这里作为person1的构造函数，
+也就是person1.constructor == Person，所以说person1继承了Person。
+那么person1是怎么继承的呢，
+那是person1实例创建的时候，
+会包含一个指针(ECMA管它叫[[Prototype]]，
+在一些浏览器如chrome，可以通过__proto__访问)，
+这个指针指向了构造函数的原型对象，
+也就是Person.prototype，
+所以person1.constructor.prototype == Person.prototype 为true。 
+　　因为这个指针使实例与构造函数原型搭起了一座桥梁，
+注意不是实例与构造函数，实例与构造函数没有直接关系。
+有了这个指针就解决了构造函数模式带来的问题，
+因为每个实例的[[prototype]]指针指向的是同一块内存(Person.prototype)，
+这样实例就可以共享属性和方法。 
+　　再说说原型对象。在默认情况下，
+所有的原型对象都会自动获得一个constructor属性，
+这个属性包含一个指向prototype属性所在函数的指针，
+即Person.prototype.constructor == Person。
+这说明对象类型是Person，如果Person.prototype = new Other()，
+那么Person.prototype.constructor就改变了，
+凡是Person的实例的对象类型就不再是Person，
+而有可能是Other(如果other.prototype.constructor = other)。 
+在这里可能会有些凌乱，迟些时间上个图就容易理解多了。 
+混合模式
+function Person(){
+	var o;
+	Person = function Person(){
+		return o;
+	}
+	Person.prototype = this;
+	o = new Person();
+	o.constructor = Person;
+	return o;
+}
+Person.prototype.name = 'T-mac';
+Person.prototype.age = 32;
+Person.prototype.sayName = function(){
+	console.log(this.name);
+}
+var person1 = new Person();
+　　按顺序一步一步解析 
+(1) 创建一个新对象temp={}，并把temp.prototype = Person.prototype // var person1 = new Person(); 
+(2) 将this指针指向temp，然后开始执行Person()里的代码 
+(3) 定义o，o为undefined 
+(4) 创建全局变量Person，值为一个function。 
+(5) 将Person.prototype指向temp 
+(6) 创建一个新对象temp2={}，并把temp2.prototype = Person.prototype = this // o = new Person(); 
+(7) 将this指针指向temp2，然后开始执行Person函数里Person()的代码 
+(8) 由于此时的o还是undefined，只有显式返回的东西是对象，它才会被返回，
+所以这里还是式返回了temp2 
+(9) o = temp2，o.prototype = temp2.prototype = Person.prototype = this = temp，
+此时的this = temp2 
+(10) 本来o.constructor = (Person = function Person(){return o;})，
+但由于Person.prototype = this ＝ temp，使得o.constructor指向了外层的Person，
+所以需要重设 o.constructor = Person； 
+(11) 显示返回对象o。 
+　　所以这里是涉及到两层子类。person1.__proto__ 指向了构造函数里面那个Person的prototype，
+而该Person.prototype.prototype指向了外面的Person.prototype。
+这个模式的好处是什么呢？这是前面三种模式的结合体，
+可以在构造函数里面为o添加公有属性和方法，
+那么创建的所有实例都有一份公有属性和方法。目前认为，
+这个模式跟构造函数模式和原型模式组合体差不多 
+function Person(name, age){
+	this.name = name;
+	this.age = age;
+}
+Person.prototype.sayName = function(){
+	console.log(this.name);
+}
+var peron = new Person('T-mac', 32);
+</pre>

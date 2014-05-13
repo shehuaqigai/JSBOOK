@@ -1,0 +1,263 @@
+<div class="entry-content clearfix">
+<p style="text-align: right;">By Boris Smus – 来自Google 的开发者</p>
+<p style="text-align: right;">2011 10 14</p>
+<p style="text-align: right;">本文适用于Google Chrome和Safari。</p>
+<p>在HTML5的新特性&lt;audio&gt;标签出现以前，Flash或是其他的浏览器插件是唯一能让网络世界有声的方法。虽然现在我们不再需要依赖插件，但是新的方法却给华丽的游戏和交互式应用带来了很大的麻烦。</p>
+<p>Web Audio API是Javascript中主要用于在网页应用中处理音频请求的一个高级应用接口，这个API目的是用于让最新技术与传统的游戏音频引擎的综合处理相兼容，也即尽力提供一些桌面音频处理程序的要求。那么接下来就是对这个API的一个简单介绍。</p>
+<p><span id="more-147"></span></p>
+<h2>由AudioContext说起</h2>
+<p></p>
+<p><a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioContext-section">AudioContext</a>（W3C）是一种管理、播放声音的对象。要让Web Audio API播放声音或是使一个甚至更多的音频源连接到AudioContext实例上，我们并不需要直接去操作该对象，而是可以通过任意数量的处理元，也就是<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioNode-section">AudioNodes</a>?（W3C）来模块化地处理音频信号。这一过程【<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#ModularRouting-section">英文原文（W3C）</a>】已经被详细地在<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html">Web Audio specification（原文）</a>一文中介绍。</p>
+<p>几行简单的代码创建一个AudioContext就可以支持声音输出和音频波形的合成，那么于是就像下面这一段那样，一个AudioContext对象就创建好了。</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="kwd">var</span><span class="pln"> context</span><span class="pun">;</span><span class="pln">
+window</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'load'</span><span class="pun">,</span><span class="pln"> init</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">function</span><span class="pln"> init</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+context </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> webkitAudioContext</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="kwd">catch</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+alert</span><span class="pun">(</span><span class="str">'您当前的浏览器不支持Web Audio API '</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>对于WebKit核心的浏览器，你需要加上一个webkit前缀，也就是使用webkitAudioContext。</p>
+<p>值得一提的是，好多很有意思的Web Audio API功能，比如说创建AudioNodes 或者是解码音频文件，都是AudioContext的方法。</p>
+<h2>载入声音</h2>
+<p></p>
+<p>Web Audio API使用AudioBuffer方法来缓冲中小型的音频文件。而最简单的请求音频文件的方法是通过<a href="https://developer.mozilla.org/En/XMLHttpRequest/Using_XMLHttpRequest">XMLHttpRequest</a>（W3C）来实现的。</p>
+<p>Web Audio API支持多种格式的音频文件，比如常见的WAV MP3 AAC OGG，<a href="http://en.wikipedia.org/wiki/Audio_file_format">以及其他的一些</a>（Wikipedia）。值得一提的是，不同浏览器支持的文件格式是不同的。</p>
+<p>下面是一个载入音频文件的范例。</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="kwd">var</span><span class="pln"> dogBarkingBuffer </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> context </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> webkitAudioContext</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">&amp;</span><span class="pln">nbsp</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">function</span><span class="pln"> loadDogSound</span><span class="pun">(</span><span class="pln">url</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> request </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">XMLHttpRequest</span><span class="pun">();</span><span class="pln">
+request</span><span class="pun">.</span><span class="pln">open</span><span class="pun">(</span><span class="str">'GET'</span><span class="pun">,</span><span class="pln"> url</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+request</span><span class="pun">.</span><span class="pln">responseType </span><span class="pun">=</span><span class="pln"> </span><span class="str">'arraybuffer'</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">&amp;</span><span class="pln">nbsp</span><span class="pun">;</span><span class="pln">
+</span><span class="com">// 异步解码</span><span class="pln">
+request</span><span class="pun">.</span><span class="pln">onload </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+context</span><span class="pun">.</span><span class="pln">decodeAudioData</span><span class="pun">(</span><span class="pln">request</span><span class="pun">.</span><span class="pln">response</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">buffer</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+dogBarkingBuffer </span><span class="pun">=</span><span class="pln"> buffer</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> onError</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+request</span><span class="pun">.</span><span class="pln">send</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>音频文件是二进制文件而非文本，所以我们需要将responseType设置成’arraybuffer’。如果想要对ArrayBuffers这个东西做一点了解的话，来看一下这篇关于<a href="http://www.html5rocks.com/en/tutorials/file/xhr2/">XHR2</a>的文章吧。</p>
+<p>接收音频文件之后，接下来要做的就是通过AudioContext的decodeAudioData()方法解码文件。这一方法将ArrayBuffer获取的音频文件异步解码（并不打断Javascript的主进程）。</p>
+<p>当decodeAudioData()结束后，此函数会调用一个回调函数返回包含未压缩的PCM格式AudioBuffer实例来存放解压后的音频。</p>
+<h2>播放音频</h2>
+<p><a href="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image001.png"><img src="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image001.png" alt="" title="image001" width="306" height="129" class="alignnone size-full wp-image-206"></a></p>
+<p><em>一个简单的音频图表</em></p>
+<p>当AudioBuffer载入完毕之后，就可以开始播放音频了。为了方便叙述，让我们假设我们刚刚载入并处理了一个AudioBuffer实例，里面有一段小狗的叫声。那么我们就可以通过下面的代码来播放它。</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="kwd">var</span><span class="pln"> context </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> webkitAudioContext</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">&amp;</span><span class="pln">nbsp</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">function</span><span class="pln"> playSound</span><span class="pun">(</span><span class="pln">buffer</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> source </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createBufferSource</span><span class="pun">();</span><span class="pln"> </span><span class="com">// 创建一个声音源</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">buffer </span><span class="pun">=</span><span class="pln"> buffer</span><span class="pun">;</span><span class="pln">                    </span><span class="com">// 告诉该源播放何物</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span><span class="pln">       </span><span class="com">//将该源与硬件相连</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">noteOn</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">                          </span><span class="com">// 现在播放该实例</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>playSound()函数可以在任何情况下调用，比如说用户的按键或是鼠标单击。</p>
+<p>而函数noteOn(time)可以让我们方便地控制音频播放的时间。不过，正常播放的前提是你要正常缓冲好要播放的实例。</p>
+<h2>函数化Web Audio API</h2>
+<p>当然了，如果能有一个像函数一样的东西来让我们不用硬编码地址到源码中直接播放声音就好了。 以载入文件为例，我们有很多办法来直接调函数读取文件，比如使用<a href="http://demo.newhtml.net/Web%20Audio%20API/buffer-loader.js">BufferLoader 类</a>。</p>
+<p>下面这个例子是这个类的使用方法。让我们创建两个AudioBuffer，一旦载入完成，就将它们回放出来。</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="pln">window</span><span class="pun">.</span><span class="pln">onload </span><span class="pun">=</span><span class="pln"> init</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> context</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> bufferLoader</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">function</span><span class="pln"> init</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+context </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> webkitAudioContext</span><span class="pun">();</span><span class="pln">
+
+bufferLoader </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BufferLoader</span><span class="pun">(</span><span class="pln">
+context</span><span class="pun">,</span><span class="pln">
+</span><span class="pun">[</span><span class="pln">
+</span><span class="str">'../sounds/hyper-reality/br-jam-loop.wav'</span><span class="pun">,</span><span class="pln">
+</span><span class="str">'../sounds/hyper-reality/laughter.wav'</span><span class="pun">,</span><span class="pln">
+</span><span class="pun">],</span><span class="pln">
+finishedLoading
+</span><span class="pun">);</span><span class="pln">
+
+bufferLoader</span><span class="pun">.</span><span class="pln">load</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">function</span><span class="pln"> finishedLoading</span><span class="pun">(</span><span class="pln">bufferList</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="com">//创建两个实例并同时播放之</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> source1 </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createBufferSource</span><span class="pun">();</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> source2 </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createBufferSource</span><span class="pun">();</span><span class="pln">
+source1</span><span class="pun">.</span><span class="pln">buffer </span><span class="pun">=</span><span class="pln"> bufferList</span><span class="pun">[</span><span class="lit">0</span><span class="pun">];</span><span class="pln">
+source2</span><span class="pun">.</span><span class="pln">buffer </span><span class="pun">=</span><span class="pln"> bufferList</span><span class="pun">[</span><span class="lit">1</span><span class="pun">];</span><span class="pln">
+
+source1</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span><span class="pln">
+source2</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span><span class="pln">
+source1</span><span class="pun">.</span><span class="pln">noteOn</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+source2</span><span class="pun">.</span><span class="pln">noteOn</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<h2>掌握时间：按你的想法播放声音</h2>
+<p></p>
+<p>Web Audio API提供了精确的时间回放函数给开发者，为了介绍这一特性，让我们来设定一个简单的回放音轨。首先来看一个常见的鼓点节奏：</p>
+<p><a href="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image003.png"><img src="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image003.png" alt="" title="image003" width="500" height="144" class="alignnone size-full wp-image-207"></a></p>
+<p><em>一个简单的鼓点节奏</em></p>
+<p>一个鼓点在每个八分点上敲击，每四分之一小节有一个音符。</p>
+<p>如果要实现这个乐谱，下面的代码可以实现：</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> bar </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> bar </span><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span><span class="pln"> </span><span class="lit">2</span><span class="pun">;</span><span class="pln"> bar</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> time </span><span class="pun">=</span><span class="pln"> startTime </span><span class="pun">+</span><span class="pln"> bar </span><span class="pun">*</span><span class="pln"> </span><span class="lit">8</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> eighthNoteTime</span><span class="pun">;</span><span class="pln">
+</span><span class="com">// 在鼓点1、5上播放</span><span class="pln">
+playSound</span><span class="pun">(</span><span class="pln">kick</span><span class="pun">,</span><span class="pln"> time</span><span class="pun">);</span><span class="pln">
+playSound</span><span class="pun">(</span><span class="pln">kick</span><span class="pun">,</span><span class="pln"> time </span><span class="pun">+</span><span class="pln"> </span><span class="lit">4</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> eighthNoteTime</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// 在3、7上播放另一音效</span><span class="pln">
+playSound</span><span class="pun">(</span><span class="pln">snare</span><span class="pun">,</span><span class="pln"> time </span><span class="pun">+</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> eighthNoteTime</span><span class="pun">);</span><span class="pln">
+playSound</span><span class="pun">(</span><span class="pln">snare</span><span class="pun">,</span><span class="pln"> time </span><span class="pun">+</span><span class="pln"> </span><span class="lit">6</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> eighthNoteTime</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">//每8点播放一次</span><span class="pln">
+</span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&amp;</span><span class="pln">lt</span><span class="pun">;</span><span class="pln"> </span><span class="lit">8</span><span class="pun">;</span><span class="pln"> </span><span class="pun">++</span><span class="pln">i</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+playSound</span><span class="pun">(</span><span class="pln">hihat</span><span class="pun">,</span><span class="pln"> time </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">*</span><span class="pln"> eighthNoteTime</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>就这样，我们播放了音乐。下面给出的函数playSound()可以提供一种播放指定次数音乐的方法。</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="kwd">function</span><span class="pln"> playSound</span><span class="pun">(</span><span class="pln">buffer</span><span class="pun">,</span><span class="pln"> time</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> source </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createBufferSource</span><span class="pun">();</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">buffer </span><span class="pun">=</span><span class="pln"> buffer</span><span class="pun">;</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">noteOn</span><span class="pun">(</span><span class="pln">time</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p><a href="http://demo.newhtml.net/Web%20Audio%20API/rhythm-sample.html" title="查看此范例" target="_blank">查看此范例</a><br>
+    <a href="http://demo.newhtml.net/Web%20Audio%20API/rhythm-sample.js" title="查看此范例源码" target="_blank">查看此范例源码</a></p>
+<h2>设置音频音量</h2>
+<p></p>
+<p>放出声音了之后，我们还要对之进行控制，比如说调节播放的音量。使用Web Audio API，我们可以使用<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioGainNode-section">AudioGainNode</a>（W3C）来控制整个音乐。</p>
+<p><a href="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image005.png"><img src="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image005.png" alt="" title="image005" width="409" height="149" class="alignnone size-full wp-image-208"></a></p>
+<p>这个连接过程可以用如下方法实现：</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="com">// 创建一个gain node</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> gainNode </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createGainNode</span><span class="pun">();</span><span class="pln">
+</span><span class="com">// 将实例与gain node相连</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">gainNode</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 将gain node与播放设备连接</span><span class="pln">
+gainNode</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">一旦设定完成之后，你就可以通过改变值之后来控制音量了。</span><span class="pln">
+</span><span class="com">//减少音量</span><span class="pln">
+gainNode</span><span class="pun">.</span><span class="pln">gain</span><span class="pun">.</span><span class="pln">value </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0.5</span><span class="pun">;</span></pre>
+<p>接下来这个范例介绍了一个音量控制组件，音量切换用的是这个元素：</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"range"</span><span class="tag">&gt;</span></pre>
+<p><a href="http://demo.newhtml.net/Web%20Audio%20API/volume-sample.html" title="查看此范例" target="_blank">查看此范例</a><br>
+    <a href="http://demo.newhtml.net/Web%20Audio%20API/volume-sample.js" title="查看此范例源码" target="_blank">查看此范例源码</a></p>
+<h2>交叉混合两个音频</h2>
+<p></p>
+<p>现在让我们设想一个更复杂的情况，我们希望播放多个音频，并在其间交叉混合。这是一个像是DJ控制台的应用程序，比如说我们有两个声音源，并希望在它们之间切换。</p>
+<p>其控制的图示是这样的：</p>
+<p><a href="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image007.png"><img src="http://newhtml.net/wordpress/wp-content/uploads/2011/11/image007.png" alt="" title="image007" width="406" height="266" class="alignnone size-full wp-image-209"></a></p>
+<p><i>一张含有两个通过gain nodes连接的音频源的音频路径图</i></p>
+<p>要设定这个样子，我们只需要创建两个<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioGainNode-section">AudioGainNodes</a>（W3C），并将每个源连接起来，就像下面这个函数一样。</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="kwd">function</span><span class="pln"> createSource</span><span class="pun">(</span><span class="pln">buffer</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> source </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createBufferSource</span><span class="pun">();</span><span class="pln">
+</span><span class="com">// 创建一个 gain node.</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> gainNode </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createGainNode</span><span class="pun">();</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">buffer </span><span class="pun">=</span><span class="pln"> buffer</span><span class="pun">;</span><span class="pln">
+</span><span class="com">// 启动循环</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">loop </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+</span><span class="com">// 将源与gain相连接</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">gainNode</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 将gain与目标相连接</span><span class="pln">
+gainNode</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">return</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+source</span><span class="pun">:</span><span class="pln"> source</span><span class="pun">,</span><span class="pln">
+gainNode</span><span class="pun">:</span><span class="pln"> gainNode
+</span><span class="pun">};</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<h3>均衡音量混响</h3>
+<p></p>
+<p>简单的线性混响通过改变实例音量来切换音乐。</p>
+<p>这个方案看上去简单，但是会带来一些不自然的情况。为了解决这个问题，我们使用一个平衡功率曲线来取代这个图形。这一非线性曲线相交于更高的位置，在不同层次的地方交叉混响，就可以最大限度地减少骤降。</p>
+<p>下面的例子使用了&lt;input type=”range”&gt;控件来调节两个音乐实例的混响音量。</p>
+<p><a href="http://demo.newhtml.net/Web%20Audio%20API/crossfade-sample.html" title="查看此范例" target="_blank">查看此范例</a><br>
+    <a href="http://demo.newhtml.net/Web%20Audio%20API/crossfade-sample.js" title="查看此范例源码" target="_blank">查看此范例源码</a></p>
+<h3>播放交叉淡入淡出</h3>
+<p></p>
+<p>另外一种需要声音交叉的程序就是音乐播放器了。当一首音乐结束，我们需要将它淡出，并渐入下一首曲目。只有这样，我们才能避免掉播放音乐之前的不自然。要实现交叉淡入淡出，我们可以使用setTimeout来完成任务，但这却<a href="http://stackoverflow.com/questions/2779154/understanding-javascript-timer-thread-issues">不能精确地达到我们想要的效果</a>。现在，有了Web Audio API，我们可以调整AudioGainNode的增益值（位于<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#AudioParam-section">AudioParam</a>（W3C）接口中）来更好地实现我们的效果。</p>
+<p><img alt="" src="http://www.html5rocks.com/en/tutorials/webaudio/intro/diagrams/equal-fade.png" title="a" class="alignnone" width="393" height="226"></p>
+<p>那么，还是范例。给出一个播放列表，在当前曲目即将播放完成时，降低正在播放的曲目的增益值，并将下一首歌的增益值调高：</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="kwd">function</span><span class="pln"> playHelper</span><span class="pun">(</span><span class="pln">bufferNow</span><span class="pun">,</span><span class="pln"> bufferLater</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> playNow </span><span class="pun">=</span><span class="pln"> createSource</span><span class="pun">(</span><span class="pln">bufferNow</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> source </span><span class="pun">=</span><span class="pln"> playNow</span><span class="pun">.</span><span class="pln">source</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> gainNode </span><span class="pun">=</span><span class="pln"> playNow</span><span class="pun">.</span><span class="pln">gainNode</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> duration </span><span class="pun">=</span><span class="pln"> bufferNow</span><span class="pun">.</span><span class="pln">duration</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> currTime </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">currentTime</span><span class="pun">;</span><span class="pln">
+</span><span class="com">// 淡入下一首曲目</span><span class="pln">
+gainNode</span><span class="pun">.</span><span class="pln">gain</span><span class="pun">.</span><span class="pln">linearRampToValueAtTime</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> currTime</span><span class="pun">);</span><span class="pln">
+gainNode</span><span class="pun">.</span><span class="pln">gain</span><span class="pun">.</span><span class="pln">linearRampToValueAtTime</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> currTime </span><span class="pun">+</span><span class="pln"> ctx</span><span class="pun">.</span><span class="pln">FADE_TIME</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 播放当前曲目</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">noteOn</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 在曲子快要结束时，淡出之</span><span class="pln">
+gainNode</span><span class="pun">.</span><span class="pln">gain</span><span class="pun">.</span><span class="pln">linearRampToValueAtTime</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> currTime </span><span class="pun">+</span><span class="pln"> duration</span><span class="pun">-</span><span class="pln">ctx</span><span class="pun">.</span><span class="pln">FADE_TIME</span><span class="pun">);</span><span class="pln">
+gainNode</span><span class="pun">.</span><span class="pln">gain</span><span class="pun">.</span><span class="pln">linearRampToValueAtTime</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> currTime </span><span class="pun">+</span><span class="pln"> duration</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 附加一个表来跟踪播放列表中的顺序曲目</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> recurse </span><span class="pun">=</span><span class="pln"> arguments</span><span class="pun">.</span><span class="pln">callee</span><span class="pun">;</span><span class="pln">
+ctx</span><span class="pun">.</span><span class="pln">timer </span><span class="pun">=</span><span class="pln"> setTimeout</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  recurse</span><span class="pun">(</span><span class="pln">bufferLater</span><span class="pun">,</span><span class="pln"> bufferNow</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">},</span><span class="pln"> </span><span class="pun">(</span><span class="pln">duration </span><span class="pun">-</span><span class="pln"> ctx</span><span class="pun">.</span><span class="pln">FADE_TIME</span><span class="pun">)</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="lit">1000</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">}</span></pre>
+<p>除此以外，Web Audio API还通过一系列的RampToValue方法提供了使属性值指数渐变的方法，比如linearRampToValueAtTime和exponentialRampToValueAtTime。</p>
+<p>如上的几个例子（线性、指数）提供的音量渐变都是内置的，您还可以通过使用setValueCurveAtTime函数来自定义你自己的增益值渐变曲线。</p>
+<p>下面这个演示展示了上面给出的函数的一个应用。</p>
+<p><a href="http://demo.newhtml.net/Web%20Audio%20API/crossfade-playlist-sample.html" title="查看此范例" target="_blank">查看此范例</a><br>
+    <a href="http://demo.newhtml.net/Web%20Audio%20API/crossfade-playlist-sample.js" title="查看此范例源码" target="_blank">查看此范例源码</a><br>
+</p><h2>给音乐加一点简单特效</h2><br>
+<img alt="" src="http://www.html5rocks.com/en/tutorials/webaudio/intro/diagrams/filter.png" title="d" class="alignnone" width="464" height="145"><p></p>
+<p>通过BiquadFilterNode处理过的一个音频播放实例</p>
+<p>Web Audio API允许你通过管道将音频实例连接起来，并组成一个混音组来给音频实例增加一些特效。</p>
+<p>而连接起来的办法有很多，比如上图所示的通过<a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#BiquadFilterNode-section">BiquadFilterNode</a>（W3C）。这一方法可以为你的音频源增加许多低优先级的图形声效或是效果，比如调整每一个频率区间的增益度。</p>
+<p>它支持的滤波器有如下这些：</p>
+<ul>
+    <li>-低通滤波器</li>
+    <li>-高通滤波器</li>
+    <li>-带通滤波器</li>
+    <li>-低架滤波器</li>
+    <li>-高架滤波器</li>
+    <li>-峰值滤波器</li>
+    <li>-陷波滤波器</li>
+    <li>-全通滤波器</li>
+</ul>
+<p>每一个滤波器都含有一定量的，作用于不同频率的<a href="http://en.wikipedia.org/wiki/Gain">增益</a>和质量控制选项。低通滤波器保证低频率的频宽，同时丢弃高频谱段的声波。间断点取决于频率值，但是<a href="http://en.wikipedia.org/wiki/Audio_filter#Self_oscillation">Q点</a>确是不确定的。我们只能说Q点由波形决定，却不知道在哪儿。增益仅仅影响几个确定的滤波器，比如像低架滤波器和峰值滤波器，却不能影响低通滤波器。</p>
+<p>下面这个例子使用低通滤波器来将音频实例中的低音部分过滤出来。</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="com">// 创建滤波器</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> filter </span><span class="pun">=</span><span class="pln"> context</span><span class="pun">.</span><span class="pln">createBiquadFilter</span><span class="pun">();</span><span class="pln">
+</span><span class="com">// 创建音频混音组</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">filter</span><span class="pun">);</span><span class="pln">
+filter</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 设定低通滤波器</span><span class="pln">
+filter</span><span class="pun">.</span><span class="pln">type </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> </span><span class="com">// 低通滤波器。请参阅手册</span><span class="pln">
+filter</span><span class="pun">.</span><span class="pln">frequency</span><span class="pun">.</span><span class="pln">value </span><span class="pun">=</span><span class="pln"> </span><span class="lit">440</span><span class="pun">;</span><span class="pln"> </span><span class="com">// 设定频率为440Hz</span><span class="pln">
+</span><span class="com">// 播放声音</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">noteOn</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span></pre>
+<p>惯例，下面的演示是上面代码的应用。不同的是一个开关可以控制是否打开滤波器，两个滑条可以控制滤波器效果。</p>
+<p><a href="http://demo.newhtml.net/Web%20Audio%20API/filter-sample.html" title="查看此范例" target="_blank">查看此范例</a><br>
+    <a href="http://demo.newhtml.net/Web%20Audio%20API/filter-sample.js" title="查看此范例源码" target="_blank">查看此范例源码</a>
+</p>
+<p>在一般情况下，频率控制需要进行调整。因为对数函数控制的规模因人而异（A4是440Hz，A5是880Hz）。想知道详细的控制方法，请参考上面演示的源码。</p>
+<p>最后的最后，请注意这个是否打开滤波器的开关。因为这个开关可以动态地改变混音组的组成。我们调用node.disconnect(outputNumber)来断开与实例的链接。如果断开后希望重连，那么我们可以这么做：</p>
+<pre class="wp-code-highlight prettyprint prettyprinted" style=""><span class="com">// 将滤波器与实例断开</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">disconnect</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+filter</span><span class="pun">.</span><span class="pln">disconnect</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+</span><span class="com">// 直接与实例相连</span><span class="pln">
+source</span><span class="pun">.</span><span class="pln">connect</span><span class="pun">(</span><span class="pln">context</span><span class="pun">.</span><span class="pln">destination</span><span class="pun">);</span></pre>
+<p></p><h2>更远的前方</h2><p></p>
+<p>我们已经将API的概况介绍的差不多了，从最基础的载入播放到特效都有。那么，是时间开始试试做自己的网页音频应用了。</p>
+<p>如果你在寻找灵感，许多设计师已经通过此API创造了许多<a href="http://chromium.googlecode.com/svn/trunk/samples/audio/samples.html">优秀的作品</a>。举几个例子吧：</p>
+<ul>
+    <li><a href="http://audiojedit.herokuapp.com/">AudioJedit</a>, an in-browser sound splicing tool that uses SoundCloud permalinks.</li>
+    <li><a href="http://labs.dinahmoe.com/ToneCraft/">ToneCraft</a>, a sound sequencer where sounds are created by stacking 3D blocks.</li>
+    <li><a href="http://labs.dinahmoe.com/plink/">Plink</a>, a collaborative music-making game using Web Audio and Web Sockets.</li>
+</ul>
+<div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><div style="float:left"><!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style">
+        <span class="jiathis_txt">分享到：</span>
+        <a class="jiathis_button_tsina" title="分享到新浪微博"><span class="jiathis_txt jiathis_separator jtico jtico_tsina">新浪微博</span></a>
+        <a class="jiathis_button_tqq" title="分享到腾讯微博"><span class="jiathis_txt jiathis_separator jtico jtico_tqq">腾讯微博</span></a>
+        <a class="jiathis_button_renren" title="分享到人人网"><span class="jiathis_txt jiathis_separator jtico jtico_renren">人人网</span></a>
+        <a class="jiathis_button_evernote" title="分享到EverNote"><span class="jiathis_txt jiathis_separator jtico jtico_evernote">EverNote</span></a>
+        <a href="http://www.jiathis.com/share?uid=1554190" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    </div>
+    <script type="text/javascript">var jiathis_config = {data_track_clickback:true};</script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1554190" charset="utf-8"></script>
+    <!-- JiaThis Button END --></div><div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><h3 style="clear:both;padding-top:20px;">您可能还感兴趣：</h3><div style="clear: both"></div><div style="border: 0pt none ; margin: 0pt; padding: 0pt;"><a onmouseout="this.style.backgroundColor='transparent'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: transparent; border-right: 1px solid transparent; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://newhtml.net/html5-please-html5%e6%96%b0%e7%89%b9%e6%80%a7%e5%8f%af%e7%94%a8%e5%ba%a6%e9%80%9f%e6%9f%a5/"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 150px; height: 225px;"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; background: transparent url(http://newhtml.net/wp-content/uploads/2012/02/cv45visually_03-150x150.jpg) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 150px; height: 150px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">HTML5 Please - HTML5新特性可用度速查</div></div></a><a onmouseout="this.style.backgroundColor='transparent'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: transparent; border-right: 1px solid transparent; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://newhtml.net/kube-%e5%8f%88%e4%b8%80%e6%ac%be%e9%80%82%e5%ba%94%e6%80%a7css%e6%a1%86%e6%9e%b6/"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 150px; height: 225px;"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; background: transparent url(http://newhtml.net/wp-content/uploads/2012/10/Kube-Framework-150x150.png) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 150px; height: 150px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">Kube - 又一款适应性CSS框架</div></div></a><a onmouseout="this.style.backgroundColor='transparent'" onmouseover="this.style.backgroundColor='#EEEEEF'" style="background-color: transparent; border-right: 1px solid transparent; border-bottom: medium none; margin: 0pt; padding: 6px; display: block; float: left; text-decoration: none; text-align: left; cursor: pointer;" href="http://newhtml.net/%e6%95%b0%e7%bb%84%e6%93%8d%e4%bd%9c%e7%9a%84%e7%a6%8f%e6%98%9f-lazy-js/"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; width: 150px; height: 225px;"><div style="border: 0pt none ; margin: 0pt; padding: 0pt; background: transparent url(http://newhtml.net/wp-content/uploads/2013/11/FED05C56-8DBB-4E84-94C6-5EB7D22AD799-150x150.png) no-repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; width: 150px; height: 150px;"></div><div style="border: 0pt none; margin: 3px 0pt 0pt; padding: 0pt; font-family: ; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; color: #333333;">数组操作的福星 - Lazy.js</div></div></a></div><div style="clear: both"></div>  </div>

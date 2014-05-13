@@ -1,0 +1,10 @@
+<p>四、HTTP请求的时限
+有时，ajax操作很耗时，而且无法预知要花多少时间。如果网速很慢，用户可能要等很久。
+新版本的XMLHttpRequest对象，增加了timeout属性，可以设置HTTP请求的时限。
+　　xhr.timeout = 3000;
+上面的语句，将最长等待时间设为3000毫秒。过了这个时限，就自动停止HTTP请求。与之配套的还有一个timeout事件，用来指定回调函数。
+　　xhr.ontimeout = function(event){
+　　　　alert('请求超时！');
+　　}
+目前，Opera、Firefox和IE 10支持该属性，IE 8和IE 9的这个属性属于XDomainRequest对象，而Chrome和Safari还不支持。
+</p>

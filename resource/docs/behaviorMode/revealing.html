@@ -1,0 +1,30 @@
+<h1>揭示模式</h1>
+<pre>
+	Revealing Module模式的产生是因为Heilmann很不满意这种状况:当他想从另
+	一个方法调用一个公有方法或访问公有变量时，
+	必须要重复主对象的名称。他也不喜欢使用Module模式
+	时，必须要切换到对象字面量表示法来让某种方法变成公有方法，
+	他努力的结果就是创建了一个更新的模式，能够在私有范围内建的定义所有的函数和变量，
+	并返回一个匿名对象，他拥有私有函数的执政，改函数是他希望展示为公有的方法。
+	有关如何使用Revealing Module模式的实例如下所示:
+	var myRevealingModule=function(){
+var privateVar="Ben Cherry",publicVar="Hey there!";
+
+ function privateFunction(){
+ console.log("Name:"+privateVar);
+}
+function publicSetName(strName){
+	privateName=strName;
+}
+function publicGetName(){
+	
+	privateFunction();
+}
+
+return{setName:publicSetName,greeting:publicVar,getName:publicGetName};
+
+}();
+myRevealingModule.setName("Paul Kinlan");
+优点:该模式可以使脚本语法更加一致，在模块代码底部，它也会很容易指出哪些函数和
+变量可以被公开访问，从而改善可读性！
+</pre>

@@ -1,0 +1,126 @@
+<div class="_content"><div class="_page _mdn"><h1>IDBKeyRange</h1> <div class="summary"> <p>The <code><strong>IDBKeyRange</strong></code> interface of the <a href="https://developer.mozilla.org/en/IndexedDB" title="en/IndexedDB">IndexedDB API</a> represents a continuous interval over some data type that is used for keys. Records can be retrieved from object stores and indexes using keys or a range of keys. You can limit the range using lower and upper bounds. For example, you can iterate over all values of a key between x and y.</p> </div> <p>A key range can have a single value or a range with upper and lower bounds or endpoints. If the key range has both upper and lower bounds, then it is <em>bounded</em>; if it has no bounds, it is <em>unbounded</em>. A bounded key range can either be open (the endpoints are excluded) or closed (the endpoints are included). To retrieve all keys within a certain range, you can use the following code constructs:</p> <table class="standard-table"><thead>
+<tr>
+<th scope="col">Range</th> <th scope="col">Code</th> </tr>
+<tr>
+<td>All keys ≤ <strong>x</strong>
+</td> <td>
+<a href="idbkeyrange.upperbound" title="By default, it includes the upper endpoint value and is closed."><code>IDBKeyRange.upperBound</code></a><code><code>(<strong>x</strong>)</code></code>
+</td> </tr>
+<tr>
+<td>All keys &lt; <strong>x</strong>
+</td> <td>
+<a href="idbkeyrange.upperbound" title="By default, it includes the upper endpoint value and is closed."><code>IDBKeyRange.upperBound</code></a><code>(<strong>x</strong>, true) </code>
+</td> </tr>
+<tr>
+<td>All keys ≥<strong> y</strong>
+</td> <td>
+<a href="idbkeyrange.lowerbound" title="By default, it includes the lower endpoint value and is closed."><code>IDBKeyRange.lowerBound</code></a><code><code>(<strong>y</strong>)</code></code>
+</td> </tr>
+<tr>
+<td>All keys &gt;<strong> y</strong>
+</td> <td>
+<a href="idbkeyrange.lowerbound" title="By default, it includes the lower endpoint value and is closed."><code>IDBKeyRange.lowerBound</code></a><code><code>(<strong>y</strong>, true)</code></code>
+</td> </tr>
+<tr>
+<td>All keys ≥ <strong>x</strong> &amp;&amp; ≤ <strong>y</strong>
+</td> <td>
+<a href="idbkeyrange.bound" title="The bounds can be open (that is, the bounds exclude the endpoint values) or closed (that is, the bounds include the endpoint values). By default, the bounds are closed."><code>IDBKeyRange.bound</code></a><code>(<strong>x</strong>, <strong>y</strong>)</code>
+</td> </tr>
+<tr>
+<td>All keys &gt; <strong>x</strong> &amp;&amp;&lt; <strong>y</strong>
+</td> <td>
+<a href="idbkeyrange.bound" title="The bounds can be open (that is, the bounds exclude the endpoint values) or closed (that is, the bounds include the endpoint values). By default, the bounds are closed."><code>IDBKeyRange.bound</code></a><code>(<strong>x</strong>, <strong>y</strong>, true, true)</code>
+</td> </tr>
+<tr>
+<td>All keys &gt; <strong>x</strong> &amp;&amp; ≤ <strong>y</strong>
+</td> <td>
+<a href="idbkeyrange.bound" title="The bounds can be open (that is, the bounds exclude the endpoint values) or closed (that is, the bounds include the endpoint values). By default, the bounds are closed."><code>IDBKeyRange.bound</code></a><code>(<strong>x</strong>, <strong>y</strong>, true, false)</code>
+</td> </tr>
+<tr>
+<td>All keys ≥ <strong>x</strong> &amp;&amp;&lt; <strong>y</strong>
+</td> <td>
+<a href="idbkeyrange.bound" title="The bounds can be open (that is, the bounds exclude the endpoint values) or closed (that is, the bounds include the endpoint values). By default, the bounds are closed."><code>IDBKeyRange.bound</code></a><code>(<strong>x</strong>, <strong>y</strong>, false, true)</code>
+</td> </tr>
+<tr>
+<td>The key = <strong>z</strong>
+</td> <td>
+<a href="idbkeyrange.only" title="This method may raise a DOMException with a DOMError of the following types:"><code>IDBKeyRange.only</code></a><code>(<strong>z</strong>)</code>
+</td> </tr>
+</thead></table><p>A key is in a key range if the following conditions are true:</p> <ul>
+<li>The lower value of the key range is one of the following: <ul>
+<li><code>undefined</code></li> <li>Less than key value</li> <li>Equal to key value if <code>lowerOpen</code> is <code>false</code>.</li> </ul>
+</li> <li>The upper value of the key range is one of the following: <ul>
+<li><code>undefined</code></li> <li>Greater than key value</li> <li>Equal to key value if <code>upperOpen</code> is <code>false</code>.</li> </ul>
+</li> </ul><h2 id="Methods">Methods</h2> <dl>
+<dt> <a href="idbkeyrange.bound" title="The bounds can be open (that is, the bounds exclude the endpoint values) or closed (that is, the bounds include the endpoint values). By default, the bounds are closed."><code>IDBKeyRange.bound</code></a>
+</dt> <dd> Creates a new key range with upper and lower bounds.</dd> <dt> <a href="idbkeyrange.only" title="This method may raise a DOMException with a DOMError of the following types:"><code>IDBKeyRange.only</code></a>
+</dt> <dd> Creates a new key range containing a single value.</dd> <dt> <a href="idbkeyrange.lowerbound" title="By default, it includes the lower endpoint value and is closed."><code>IDBKeyRange.lowerBound</code></a>
+</dt> <dd> Creates a new key range with only a lower bound.</dd> <dt> <a href="idbkeyrange.upperbound" title="By default, it includes the upper endpoint value and is closed."><code>IDBKeyRange.upperBound</code></a>
+</dt> <dd> Creates a new upper-bound key range.</dd> </dl><h2 id="Properties">Properties</h2> <dl>
+<dt> <a href="idbkeyrange.lower" title="The lower bound of the key range (can be any type.)"><code>IDBKeyRange.lower</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Lower bound of the key range.</dd> <dt> <a href="idbkeyrange.upper" title="The upper bound of the key range (can be any type.)"><code>IDBKeyRange.upper</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Upper bound of the key range.</dd> <dt> <a href="idbkeyrange.loweropen" title="A boolean:"><code>IDBKeyRange.lowerOpen</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Returns false if the lower-bound value is included in the key range.</dd> <dt> <a href="idbkeyrange.upperopen" title="A boolean:"><code>IDBKeyRange.upperOpen</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> Returns false if the upper-bound value is included in the key range.</dd> </dl><h2 id="Examples">Examples</h2> <pre class=" language-javascript"><span class="token comment" spellcheck="true">// Let us open our database
+</span><span class="token keyword">var</span> request <span class="token operator">=</span> window<span class="token punctuation">.</span>indexedDB<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">
+// store the result of opening the database in the db variable.
+</span>db <span class="token operator">=</span> request<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Open a transaction on the current database and get a reference to the object store
+</span><span class="token comment" spellcheck="true">//that we want to pull information out of
+</span><span class="token keyword">var</span> transaction <span class="token operator">=</span> db<span class="token punctuation">.</span><span class="token function">transaction<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">"toDoList"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> objectStore <span class="token operator">=</span> transaction<span class="token punctuation">.</span><span class="token function">objectStore<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Different bounds
+</span><span class="token comment" spellcheck="true">
+// Only match "Walk dog"
+</span><span class="token keyword">var</span> singleKeyRange <span class="token operator">=</span> IDBKeyRange<span class="token punctuation">.</span><span class="token function">only<span class="token punctuation">(</span></span><span class="token string">"Walk dog"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+// Match anything past "Ask friends to tea", including "Ask friends to tea"
+</span><span class="token keyword">var</span> lowerBoundKeyRange <span class="token operator">=</span> IDBKeyRange<span class="token punctuation">.</span><span class="token function">lowerBound<span class="token punctuation">(</span></span><span class="token string">"Ask friends to tea"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+// Match anything past "Walk dog", but don't include "Walk dog"
+</span><span class="token keyword">var</span> lowerBoundOpenKeyRange <span class="token operator">=</span> IDBKeyRange<span class="token punctuation">.</span><span class="token function">lowerBound<span class="token punctuation">(</span></span><span class="token string">"Walk dog"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+// Match anything up to, but not including, "Ask friends to tea"
+</span><span class="token keyword">var</span> upperBoundOpenKeyRange <span class="token operator">=</span> IDBKeyRange<span class="token punctuation">.</span><span class="token function">upperBound<span class="token punctuation">(</span></span><span class="token string">"Ask friends to tea"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+// Match anything between "Ask friends to tea" and "Walk dog", but not including "Walk dog"
+</span><span class="token keyword">var</span> boundKeyRange <span class="token operator">=</span> IDBKeyRange<span class="token punctuation">.</span><span class="token function">bound<span class="token punctuation">(</span></span><span class="token string">"Ask friends to tea"</span><span class="token punctuation">,</span> <span class="token string">"Walk dog"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// To use one of the key ranges, pass it in as the first argument of openCursor()/openKeyCursor()
+</span>index<span class="token punctuation">.</span><span class="token function">openCursor<span class="token punctuation">(</span></span>boundKeyRange<span class="token punctuation">)</span><span class="token punctuation">.</span>onsuccess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> cursor <span class="token operator">=</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>cursor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true"> // Do something with the matches.
+</span>    cursor<span class="token punctuation">.</span><span class="token keyword">continue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></pre> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/IndexedDB/raw-file/tip/Overview.html#idl-def-IDBKeyRange" lang="en" title="The definition of 'IDBKeyRange' in that specification.">Indexed Database API</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-webkit</span><br> 23</td> <td>4.0 (2.0)</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>Firefox OS</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.4</td> <td>6.0 (6.0)</td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div class="warning"> <p>Be careful in Chrome as it still implements the old specification along the new one. Similarly it still has the prefixed <code>webkitIndexedDB</code> property even if the unprefixed <code>indexedDB</code> is present.</p> </div> <h2 id="See_also">See also</h2> <p>To learn more about various topics, see the following</p> <ul>
+<li>Starting transactions: <span class="eval deki-transform"><a href="https://developer.mozilla.org/en-US/docs/IndexedDB/IDBDatabase#transaction()">IDBDatabase</a></span>
+</li> <li>Setting transaction modes: <a href="https://developer.mozilla.org/en-US/docs/IndexedDB/IDBTransaction#Mode_constants">IDBTransaction</a>
+</li> <li>The reference application for the examples in this reference: <a class="external" href="https://github.com/chrisdavidmills/to-do-notifications/tree/gh-pages">To-do Notifications</a> (<a class="external" href="http://chrisdavidmills.github.io/to-do-notifications/">view example live</a>.) Not every snippet appears in this example, but every example uses the same data structure and syntax, and they will make sense in the context of this example.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange</a>
+  </p>
+</div>
+</div></div>

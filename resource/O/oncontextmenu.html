@@ -1,0 +1,72 @@
+<div class="post">
+
+			<h1>用oncontextmenu事件单禁用右键菜单</h1>
+				<div class="singleinfo">
+				<span class="dateinfo">2011 年 05 月 05 日</span>
+				<span class="catinfo"><a href="http://blog.fbbin.com/archives/931#respond" title="《用oncontextmenu事件单禁用右键菜单》上的评论">没有评论</a></span>
+				</div>
+			<div class="entry"><p>onconTextmenu=window.event.returnValue=false;右键菜单禁用，用这个可以禁止复制。<br>
+在中加入属性代码：<br>
+oncontextmenu=”return false”<br>
+onselectstart=”return false”                   禁止选中网页上的内容<br>
+oncopy=”return false”                           防复制用户在网页上选中的内容<br>
+防止用户另存网页：<br>
+利用<br>
+<noscript>&lt;iframe src=*.html&gt;&lt;/iframe&gt;</noscript>
+</p><p>标签，能防止网页的直接另存，但不能防止网页被人使用工具下载<br>
+*为通配符。</p>
+<pre class="brush: php">&lt;html&gt; 
+&lt;head&gt; 
+&lt;title&gt;OnContextMenu事件&lt;/title&gt;
+&lt;script language="JavaScript"&gt; 
+&lt;!--
+function uFunction()
+
+{     document.all.infoDiv.innerHTML='你按下了鼠标右键，但是右键菜单不能 显示！';}
+
+function uFunction2()
+
+{    document.all.infoDiv.innerHTML='你按下了Ctrl+鼠标右键，可以 显示右键菜单。';}
+
+//--&gt;
+&lt;/script&gt; 
+&lt;/head&gt;
+&lt;body oncontextmenu="if(!event.ctrlKey){uFunction();return false}else{uFunction2()}"&gt;
+&lt;div id="infoDiv"&gt;你按下了鼠标右键，但是右键菜单不能 显示！&lt;br&gt;你按下了Ctrl+鼠标右键，可以显示右键菜单。 
+&lt;/div&gt;&lt;/body&gt; 
+&lt;/html&gt;</pre>
+<p>************************************************************<br>
+附：<br>
+JS中判断鼠标按键的问题。<br>
+IE<br>
+左键是 window.event.button = 1<br>
+右键是 window.event.button = 2<br>
+中键是 window.event.button = 4<br>
+没有按键动作window.event.button = 0</p>
+<p>Firefox<br>
+左键是 event.button = 0<br>
+右键是 event.button = 2<br>
+中键是 event.button = 1<br>
+没有按键动作 event.button = 0</p>
+<p>Opera 7.23/7.54<br>
+鼠标左键是 window.event.button = 1<br>
+没有按键动作 window.event.button = 1<br>
+右键和中键无法获取</p>
+<p>Opera 7.60/8.0<br>
+鼠标左键是 window.event.button = 0<br>
+没有按键动作 window.event.button = 0<br>
+右键和中键无法获取</p>
+<p>另外：屏蔽右键的是window.event.button = 3</p>
+<p>************************************************************<br>
+Window.event对象代表事件的状态，例如触发event对象的元素、鼠标的位置及状态、按下的键等等。<br>
+Window.event对象只在事件发生的过程中才有效。<br>
+Window.event的某些属性只对特定的事件有意义。比如，fromElement 和 toElement 属性只对 onmouseover 和 onmouseout 事件有意义。<br>
+如果事件触发后，鼠标移出窗口外，则返回的值为 -1 ，这是个只读属性。这意味着，你只能通过它来得到鼠标的当前位置，却不能用它来更改鼠标的位置。</p>
+<p>Event对象的属性有：<br>
+altKey, button, cancelBubble, clientX, clientY, ctrlKey, fromElement, keyCode, offsetX, offsetY, propertyName, returnValue, screenX, screenY, shiftKey, srcElement, srcFilter, toElement, type, x, y</p>
+			</div>
+
+				
+			
+
+		</div>

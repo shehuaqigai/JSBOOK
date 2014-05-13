@@ -1,0 +1,165 @@
+<div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>可以使用新的媒体方法将隐藏字幕<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772673(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrack</strong></a> 和 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 对象动态添加到 HTML5 视频应用中。</p>
+<h2><a id="WhatsNew"></a><a id="whatsnew"></a><a id="WHATSNEW"></a></h2>
+<p>现在，Internet Explorer&nbsp;11 支持使用三种新方法来直接从你的应用添加 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772673(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrack</strong></a> 和 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 对象，如 <a href="http://go.microsoft.com/fwlink/p/?LinkID=296532">W3C HTML5 规范</a>中所述。 新方法如下：</p>
+<table>
+<tbody><tr><th>方法</th><th>描述</th></tr>
+<tr><td>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/dn254953(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">addTextTrack</strong></a>
+</td><td>向当前视频中添加 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772673(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrack</strong></a> 对象。</td></tr>
+<tr><td>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/dn255061(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">addCue</strong></a>
+</td><td>向 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772673(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrack</strong></a> 添加新的 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 对象。</td></tr>
+<tr><td>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/dn255062(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">removeCue</strong></a>
+</td><td>从 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772673(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrack</strong></a> 对象中删除 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 对象。 </td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2><a id="whyuse"></a><a id="WHYUSE"></a></h2>
+<p>在 Internet Explorer&nbsp;10 中，通过创建计时文本标记语言 (TTML) 或 Web 视频文本轨道 (WebVTT) 文件并使用 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772958(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Track</strong></a> 元素加载它来向视频添加隐藏字幕。如果你已提前创建提示，但无法在加载文件后更改文本，则此功能很有用。IE11 允许你向视频添加轨道和提示（而不需要文件），从而提高了更大的灵活性。这样会打开由于多种原因需要添加字幕的更多应用。当你从 Web 服务器发送 TTML 或 WebVTT 文件时，必须传输正确的 MIME 类型。常见的是将服务器设置为视频 MIME 类型，而不是设置为文本跟踪 MIME 类型。可以使用 XMLHttpRequest (XHR) 将字幕文件作为简单文本文件发送至客户端，无需使用 TTML 或 WebVTT MIME 类型。可以发送仅包含开始时间和结束时间的提示，接下来是消息，然后添加到在客户端上运行时创建的跟踪。</p>
+<p>还可以创建字幕工具，可以使用这些工具在观看视频时写入字幕，与 <a href="http://go.microsoft.com/fwlink/p/?LinkID=251121">HTML5 视频字幕制作器</a>类似。创建新提示时，可以将其添加至文本跟踪并立即使用该视频对其进行测试。</p>
+<h2><a id="___TextTrack___TextTrackCue___"></a><a id="___texttrack___texttrackcue___"></a><a id="___TEXTTRACK___TEXTTRACKCUE___"></a>添加 TextTrack 和 TextTrackCue 对象</h2>
+<p>若要添加 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772673(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrack</strong></a> 和 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 对象，请首先以编程方式创建 <strong>TextTrack</strong>。使用 <a href="http://msdn.microsoft.com/zh-cn/library/ie/dn254953(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">addTextTrack</strong></a> 方法可创建附加到视频元素的空 <strong>TextTrack</strong>。 可以通过在开始时间和结束时间调用 <a href="http://msdn.microsoft.com/zh-cn/library/ie/dn255061(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">addCue</strong></a> 来将字幕添加到 <strong>TextTrack</strong> 中，然后是显示为参数的文本消息。   </p>
+<p>
+</p><p class="note"><strong>注意</strong>&nbsp;&nbsp;可以仅向使用 <a href="http://msdn.microsoft.com/zh-cn/library/ie/dn254953(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">addTextTrack</strong></a> 创建的<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772673(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrack</strong></a> 添加提示。 如果应用于由包含 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772958(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Track</strong></a> 元素的文件所加载的 <strong>TextTrack</strong>，IE11 会引发 <strong>InvalidStateError</strong>。</p>
+
+<p>以下示例中的视频元素使用 <a href="http://msdn.microsoft.com/zh-cn/library/ie/ff974746(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">controls</strong></a>、<a href="http://msdn.microsoft.com/zh-cn/library/ie/ff974744(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">autoplay</strong></a> 和 <a href="http://msdn.microsoft.com/zh-cn/library/ie/ff974754(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">muted</strong></a> 属性提供内置播放控件，在加载视频时开始该视频以及关闭声音。 如果出现，则这些属性为 True，否则为 False，因此无须分配值。 使用源元素设置 <a href="http://msdn.microsoft.com/zh-cn/library/ie/ff975073(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">video</strong></a> 源文件。该示例指定通用视频文件，因此可以替换任何 mp4 视频。</p>
+<p>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 对象的开始时间、结束时间以及简单字幕消息均在循环中创建。设置开始和结束时间，以便每条消息可显示 5 秒钟。有关使用 HTML5 视频的详细信息，请参阅<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh924821(v=vs.85).aspx">如何使用 HTML5 在网页上播放视频文件</a>。</p>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_1ac70777-bd6b-434b-b522-95cb9cfe8cb9');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_1ac70777-bd6b-434b-b522-95cb9cfe8cb9" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;!DOCTYPE html &gt;
+
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">html</span> <span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>Add Text Tracks example<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+    //  this is only uses when testing on a local or intranet machine
+    //  remove when deployed on the Internet
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">meta</span> <span style="color:Red;">http-equiv</span><span style="color:Blue;">=</span><span style="color:Blue;">"X-UA-Compatible"</span> <span style="color:Red;">content</span><span style="color:Blue;">=</span><span style="color:Blue;">"IE=edge"</span> <span style="color:Blue;">/&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"video1"</span> <span style="color:Red;">controls</span> <span style="color:Red;">muted</span> <span style="color:Red;">autoplay</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">source</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"video.mp4"</span><span style="color:Blue;">&gt;</span>  <span style="color:Green;">&lt;!-- change to your own mp4 video file --&gt;</span>
+    HTML5 Video not supported 
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span>
+
+ <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"text/javascript"</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">var</span> video = document.getElementById(<span style="color:#A31515;">"video1"</span>);
+    <span style="color:Blue;">var</span> startTime, endTime, message; 
+    <span style="color:Blue;">var</span> newTextTrack = video.addTextTrack(<span style="color:#A31515;">"captions"</span>, <span style="color:#A31515;">"sample"</span>);
+    newTextTrack.mode = newTextTrack.SHOWING; <span style="color:Green;">// set track to display</span>
+    <span style="color:Green;">// create some cues and add them to the new track </span>
+    <span style="color:Blue;">for</span>(<span style="color:Blue;">var</span> i=0;i&lt;10;i++){
+        startTime =  i * 5 ;
+        endTime = ( (i * 5) +  5);
+        message =  <span style="color:#A31515;">"This is number "</span> + i; 
+        newTextTrack.addCue(<span style="color:Blue;">new</span> TextTrackCue(startTime, endTime, message));
+    }    
+  <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2><a id="__TextTrack_______TextTrackCue"></a><a id="__texttrack_______texttrackcue"></a><a id="__TEXTTRACK_______TEXTTRACKCUE"></a>从 TextTrack 对象中删除 TextTrackCue</h2>
+<p>可以使用 <a href="http://msdn.microsoft.com/zh-cn/library/ie/dn255062(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">removeCue</strong></a> 删除现有 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a>。此示例开始播放视频并为显示检索每个提示。当它看到第二个提示时，它在显示该提示之前使用 <strong>removeCue</strong> 删除该提示。</p>
+
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_6c282d08-918c-4cbd-be99-7845bb45b7b4');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_6c282d08-918c-4cbd-be99-7845bb45b7b4" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;!DOCTYPE html &gt;
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">html</span> <span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>Remove Cue example<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">meta</span> <span style="color:Red;">http-equiv</span><span style="color:Blue;">=</span><span style="color:Blue;">"X-UA-Compatible"</span> <span style="color:Red;">content</span><span style="color:Blue;">=</span><span style="color:Blue;">"IE=edge"</span> <span style="color:Blue;">/&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"video1"</span> <span style="color:Red;">controls</span> <span style="color:Red;">muted</span> <span style="color:Red;">autoplay</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">source</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"video.mp4"</span><span style="color:Blue;">&gt;</span>
+    HTML5 Video not supported 
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span>
+
+ <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"text/javascript"</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">var</span> video = document.getElementById(<span style="color:#A31515;">"video1"</span>);
+    <span style="color:Blue;">var</span> beginTime, endTime, message; 
+    <span style="color:Blue;">var</span> newTextTrack = video.addTextTrack(<span style="color:#A31515;">"captions"</span>, <span style="color:#A31515;">"sample"</span>);
+    newTextTrack.mode = newTextTrack.SHOWING; <span style="color:Green;">// set track to display</span>
+    <span style="color:Green;">// create some cues and add them to the new track </span>
+    <span style="color:Blue;">for</span>(<span style="color:Blue;">var</span> i=0;i&lt;10;i++){
+        beginTime =  i * 5 ;
+        endTime = ( (i * 5) +  5);
+        message =  <span style="color:#A31515;">"This is number "</span> + i; 
+        newTextTrack.addCue(<span style="color:Blue;">new</span> TextTrackCue(beginTime, endTime, message));
+    }
+    <span style="color:Green;">//  Watch for cue change events</span>
+    newTextTrack.addEventListener(<span style="color:#A31515;">"cuechange"</span>, <span style="color:Blue;">function</span> () {
+            <span style="color:Green;">// get current cue, and remove it if it's number 2</span>
+            <span style="color:Blue;">var</span> currentCue = newTextTrack.activeCues[0];             
+            <span style="color:Blue;">if</span> (currentCue.text == <span style="color:#A31515;">"This is number 2"</span>) {
+                newTextTrack.removeCue(currentCue)
+            }            
+        },<span style="color:Blue;">false</span>);
+     
+  <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>使用 <a href="http://msdn.microsoft.com/zh-cn/library/ie/dn255062(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">removeCue</strong></a> 方法时，<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 对象必须匹配文本跟踪上的 <strong>TextTrackCue</strong>，否则会获取 <strong>NotFoundError</strong> 例外。</p>
+<h2><a id="related_topics"></a>相关主题</h2>
+<dl>
+<dt>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh924821(v=vs.85).aspx">如何使用 HTML5 在网页上播放视频文件</a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/dn254953(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">addTextTrack</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/dn255062(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">removeCue</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/dn255061(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">addCue</strong></a>
+</dt>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>

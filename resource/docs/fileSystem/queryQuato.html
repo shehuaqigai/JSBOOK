@@ -1,0 +1,54 @@
+<h1>webkitStorageInfo</h1>
+webkitStorageInfo有俩个方法<br/>
+queryUsageAndQuota()
+requestQuota()<br/>
+
+请求存储配额<br/>
+<p>
+
+要使用 PERSISTENT 存储，您必须向用户取得存储持久数据的许可。由于浏览器可自行决定删除临时存储的数据，因此这一限制不适用于 TEMPORARY 存储。<br/>
+
+为了将 PERSISTENT 存储与 FileSystem API 配合使用，Chrome 浏览器使用基于 window.webkitStorageInfo 的新 API 以请求存储：<br/>
+
+
+
+
+
+您还可以使用 API 查询源的当前配额使用情况和分配情况：window.webkitStorageInfo.queryUsageAndQuota()<br/>
+
+queryUsageAndQuota()第一个参数是存储类型(persistent或temporary,1或0)第二个参数是成功回调，第三个参数是失败回调<br/>
+
+window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem; //文件系统请求标识 <br/>
+window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL || window.webkitResolveLocalFileSystemURL; //<br/>根据URL取得文件的读取权限 <br/>
+window.webkitStorageInfo.queryUsageAndQuota(webkitStorageInfo.PERSISTENT, <br/>
+function(used, remaining){ <br/>
+if(remaining == ""){ <br/>
+console.log("未申请空间。"); <br/>
+
+
+
+}else{ <br/>
+另外，如果您已具备 filesystem: 网址，可使用 resolveLocalFileSystemURL() 找回 fileEntry：<br/>
+　　var url = 'filesystem:http://example.com/temporary/myfile.png';<br/>
+　　window.resolveLocalFileSystemURL(url, function(fileEntry) {<br/>
+　　...<br/>
+　　});<br/>
+
+console.log("已使用空间"+used); <br/>
+console.log("全部空间"+remaining); <br/>
+} <br/>
+}, <br/>
+errorHandler); </p>
+window.webkitStorageInfo.requestQuota(PERSISTENT, 1024*1024, function(grantedBytes) {<br/>
+  window.requestFileSystem(PERSISTENT, grantedBytes, onInitFs, errorHandler);<br/>
+}, function(e) {<br/>
+  console.log('Error', e);<br/>
+});
+用户授予许可后，就不必再调用 requestQuota() 了。后续调用为无操作指令。<br/>
+PERSISTENT//为1<br/>
+TEMPORARY//为0<br/>
+requestQuota向用户请求配额，如果成功就创建一个文件系统，成功后第一个参数是分配的存储大小<br/>
+如果是TEMPORARY就不用requestQuota了，直接requestFileSystem<br/>
+
+
+

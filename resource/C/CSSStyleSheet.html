@@ -1,0 +1,157 @@
+<div id="maincontent">
+
+    <h1>XML DOM CSSStyleSheet 对象</h1>
+
+    <div id="tpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_cssstylerule.asp" title="XML DOM CSSStyleRule 对象">DOM CSSStyleRule</a></li>
+            <li class="next"><a href="/xmldom/dom_comment.asp" title="XML DOM Comment 对象">DOM Comment</a></li>
+        </ul>
+    </div>
+
+
+    <div>
+        <h2>CSSStyleSheet 对象</h2>
+
+        <p>CSSStyleSheet 对象表示一个单独的 CSS 样式表。</p>
+
+        <p>CSS 样式表由 CSS 规则组成，可以通过 CSSRule 对象操作每条规则。CSSStyleSheet 对象允许您查询、插入和删除样式表规则。</p>
+
+        <p>您可以通过使用 document.styleSheets 属性获得给定文档的样式表列表（样式表对象的集合）。</p>
+    </div>
+
+
+    <div>
+        <h2>CSSStyleRule 对象的属性</h2>
+
+        <dl class="define">
+            <dt>cssRules</dt>
+            <dd>以数组的形式返回样式表中所有 CSS 规则。</dd>
+
+            <dt>disabled</dt>
+            <dd>该属性指示是否已应用当前样式表。如果为 true，样式表被关闭，且不能应用于文档。如果为 false，样式表打开并且可以应用于文档。</dd>
+
+            <dt>href</dt>
+            <dd>返回样式表的位置（URL），如果是内联样式表，则为 null。</dd>
+
+            <dt>media</dt>
+            <dd>规定样式信息预期的目标媒介。</dd>
+
+            <dt>ownerNode</dt>
+            <dd>返回将该样式表与文档相关联的节点。</dd>
+
+            <dt>ownerRule</dt>
+            <dd>如果该样式表来自 @import 规则，ownerRule 属性将包含 CSSImportRule。</dd>
+
+            <dt>parentStyleSheet</dt>
+            <dd>返回包含该样式表的样式表（如果有的话）。</dd>
+
+            <dt>title</dt>
+            <dd>返回当前样式表的标题。标题可以通过引用该样式表的 &lt;style&gt; 或 &lt;link&gt; 元素的 title 属性来指定。</dd>
+
+            <dt>type</dt>
+            <dd>规定该样式表的样式表语言。以 MIME 类型表示，CSS 样式表的类型为 "text/css"。</dd>
+        </dl>
+    </div>
+
+
+    <div>
+        <h2>CSSStyleRule 对象方法</h2>
+        <table class="dataintable">
+            <tbody><tr>
+                <th style="width:25%">方法</th>
+                <th>描述</th>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_cssstylesheet_addrule.asp">addRule()</a></td>
+                <td>为一个样式表添加一条规则的特定于 IE 的方法。</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_cssstylesheet_deleterule.asp">deleteRule()</a></td>
+                <td>从指定位置删除规则的 DOM 标准方法。</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_cssstylesheet_insertrule.asp">insertRule()</a></td>
+                <td>向样式表中插入一条新规则的 DOM 标准方法。</td>
+            </tr>
+            <tr>
+                <td><a href="/xmldom/met_cssstylesheet_removerule.asp">removeRule()</a></td>
+                <td>删除一条规则的特定于 IE 的方法。</td>
+            </tr>
+            </tbody></table>
+    </div>
+
+
+    <div>
+        <h2>相关页面</h2>
+        <p>XML DOM 参考手册：<a href="/xmldom/dom_cssrule.asp" title="XML DOM CSSRule 对象">CSSRule 对象</a></p>
+    </div>
+
+
+    <div id="bpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_cssstylerule.asp" title="XML DOM CSSStyleRule 对象">DOM CSSStyleRule</a></li>
+            <li class="next"><a href="/xmldom/dom_comment.asp" title="XML DOM Comment 对象">DOM Comment</a></li>
+        </ul>
+    </div>
+</div>
+
+org.w3c.dom.css
+接口CSSStyleSheet
+
+所有超级：
+样式表
+公共接口CSSStyleSheet
+扩展样式表
+该CSSStyleSheet接口是用来表示一个CSS样式表，即，一个样式表，其内容类型为“text / css的”一个具体的接口。
+
+另请参阅文档对象模型（DOM）级别2样式规范 。
+
+因为：
+DOM Level 2中
+方法摘要
+void	deleteRule (int index)
+用于删除从样式表的规则。
+CSSRuleList	getCssRules ()
+包含样式表中的所有CSS规则的列表。
+CSSRule	getOwnerRule ()
+如果此样式表来自@import规则， ownerRule属性将包含CSSImportRule 。
+int	insertRule (java.lang.String rule, int index)
+用于插入一个新规则到样式表。
+方法从接口org.w3c.dom.stylesheets继承。 样式表
+getDisabled , getHref , getMedia , getOwnerNode , getParentStyleSheet , getTitle , getType , setDisabled
+方法详细信息
+deleteRule
+
+公共无效deleteRule（INT指数）
+抛出的DOMException
+用于删除从样式表的规则。
+参数：
+index -该规则的样式表的规则列表中的索引删除。
+抛出：
+DOMException - INDEX_SIZE_ERR：如果指定的索引不对应的样式表的规则列表中的规则引发。
+NO_MODIFICATION_ALLOWED_ERR：如果引发这个样式表是只读的。
+getCssRules
+
+公共CSSRuleList getCssRules（）
+包含样式表中的所有CSS规则的列表。 这既包括规则集和在-规则 。
+getOwnerRule
+
+公共cssRule指定规则 getOwnerRule（）
+如果此样式表来自@import规则， ownerRule属性将包含CSSImportRule 。 在这种情况下， ownerNode在属性StyleSheet的接口将是null 。 如果样式表来自一个元素或一个处理指令， ownerRule属性将是null和ownerNode属性将包含的Node 。
+insertRule
+
+公众诠释insertRule（java.lang.String中的规则，
+INT指数）
+抛出的DOMException
+用于插入一个新规则到样式表。 新规则现在变成了级联的一部分。
+参数：
+rule -表示规则的可分析文本。 对于规则集这既包含了选择和样式声明。 对于在-规则，这同时指定在-标识符和规则内容。
+index -该规则的样式表的规则列表中的索引之前要插入指定的规则。 如果指定的索引等于样式表的规则集合的长度，该规则将被添加到样式表的末尾。
+返回：
+新插入的规则的样式表的规则集合中的索引。
+抛出：
+DOMException - HIERARCHY_REQUEST_ERR：募集如果规则不能被插在指定索引，例如，如果一个@import规则是一个标准规则集或其他在规则之后插入。
+INDEX_SIZE_ERR：募集如果指定的索引不是一个有效的插入点。
+NO_MODIFICATION_ALLOWED_ERR：如果引发这个样式表是只读的。
+SYNTAX_ERR：若募集指定的规则有语法错误，是不可分析。

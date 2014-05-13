@@ -1,0 +1,286 @@
+<p>
+	如果您打算开发样式表，Syntactically Awesome Stylesheets (Sass) 能够帮助您显著改善整体体验。Sass 是一种样式表语言和层叠式样式表 (CSS) 预处理程序，它为 CSS 开发添加了传统编程属性。Sass 引进了多种编程特性，包括变量、样式的逻辑嵌套、混入 (mixin)、参数和继承。在为网站开发样式表时，Sass 能够将您的 Sass 转化为标准 CSS 标记，从而显著简化您的工作。<br/>
+在这篇文章中，您将学习 Sass 的重要准则。本文提供了几个实例，展示了如何使用 Sass 提高 CSS 开发的速度和效率。<br/>
+Sassy CSS (SCSS) 是 CSS3 的超集；任何 SCSS 代码均为有效的 CSS 代码。本文中使用的代码示例均为 SCSS。
+为何使用 Sass<br/>
+Sass 语法<br/>
+SCSS 是最常用的语法，它是 CSS 语法的超集。<br/>
+缩进式语法 .sass 较为陈旧，使用行缩进来指定代码块。<br/>
+Sass 是一种可靠的、可配置的、功能丰富的 CSS 开发解决方案。它使用了动态构造方法，而非旧式的静态 CSS 规则。如果您想采用日常开发中使用的编程风格，同时访问编程语言结构，那么 Sass 将是您最理想的选择。Sass 出色的灵活性和功能完备的解决方案将为您带来惊喜。<br/>
+CSS 预处理程序对于所有 Web 开发环境都有着重要的意义。它们将：<br/>
+缩短您的开发时间。<br/>
+为 CSS 开发应用 “不要重复自己” (DRY) 的准则。<br/>
+使您的代码更加清晰易读。<br/>
+CSS 预处理程序技术多种多样。本文采用 Sass 的原因在于，它高度灵活，并且具有许多特性。<br/>
+<pre>
+	
+
+安装 Sass
+Sass 主要使用 Ruby 来实现，但也存在其他实现。您要做的第一步是通过 Ruby 组件安装 Sass。
+如果您的系统中尚未安装 Ruby，请下载和安装 Ruby：
+Windows 用户：RubyInstaller for Windows
+Mac OS X：如果您的操作系统中已经安装了 Ruby。
+Linux：通过您喜爱的程序包管理器安装 Ruby。
+通过以下命令安装 Sass Ruby gem： gem install sass
+
+回页首
+准备好 Sass 环境
+使用您喜爱的文本编辑器，创建一个扩展名为 .scss 的文件。
+文本编辑器对 Sass 的支持级别各有不同。
+请参见 参考资料部分，了解具有不同级别 Sass 语法突出显示支持的文本编辑器的列表。
+将清单 1 中的代码复制粘贴到新的 .scss 文件中。
+清单 1. Sass 代码样例
+ #blueBar { 
+ position: relative; 
+ height:37px; 
+ left:0; 
+ right:0; 
+ top:0; 
+ }
+Sass 语言是 CSS3 的超集。在 Sass 版本 3.2.1 中，所有有效的 CSS 也属于有效的 Sass。
+清单 1中的代码是有效的 CSS，因此也是有效的 Sass 代码。
+无论如何，您都必须将清单 1 中的 Sass 转为 CSS。
+如果未进行该转化，
+Web 浏览器将无法正确解释您的样式表。
+您不必每次使用 sass-convert命令将 Sass 转为 CSS，
+而是可以将 Saas 设置为在您每次保存时自动将文件转为 CSS。
+要使 Sass 自动监视您的文件，请在命令行应用程序中运行清单 2 所示的命令。
+清单 2. 监视文件
+ sass --watch 
+ style.scss:style.css
+您还可以通过清单 3 中的命令，使用 Sass 监视整个目录。
+清单 3. 监视目录
+ sass --watch 
+ stylesheets/sass:stylesheets/compiled
+这样，您的框架就已经创建完成，每次保存 Saas 文件时，Sass 都会自动将您的代码转为有效的 CSS。现在可以开始使用该框架。
+回页首
+变量
+CSS 中缺失的一项重要功能就是变量。
+样式表中往往存在大量重复。
+一种有用的选项就是一次性写入一个值，然后通过别名进行重用。
+举例来说，假设您有一个类似于清单 4 的样式表。
+清单 4. CSS 元素和颜色
+ #someElement { color:#541B32; } 
+ #anotherElement { color:#541B32; } 
+ #yetAnotherElement { color:#541B32; }
+标准 CSS 要求您显式写入所有值，因此会导致 清单 4中的冗余内容。但在使用 Sass 时，您可以提高工作效率，如清单 5 所示。
+清单 5. Sass 元素和颜色
+ $purplishColor:#541B32; 
+ #someElement { color:$purplishColor; } 
+ #anotherElement { color:$purplishColor; } 
+ #yetAnotherElement { color:$purplishColor; }
+优势显而易见。现在，您可以在一个位置更改所有元素的颜色。
+在 清单 5中，$purplishColor是一个变量，
+因此您可以随时在 Sass 文件中对其进行更改。
+Sass 变量没有类型，您可以为同一个变量指定字符串、整数值，甚至是颜色值。
+回页首
+模块
+您可以轻松将 CSS 代码拆分为多个模块，再通过 Sass 引擎将它们聚集在一起。
+可以使用 @import指令来导入模块，如清单 6 所示。
+该指令获取一个文件名、一个超链接或其他任意路径。
+CSS 和 SCSS 文件均载入并合并为同一个文档。
+清单 6. Sass 导入模块
+ @import "colors.scss"
+ @import "links.scss"
+在 CSS 和 Sass 中拆分代码的方式截然不同。
+将 CSS 代码拆分为较小的样式表时，每个样式表都会获取一个不同的 HTTP 加载请求。
+Sass @import指令直接获取模块代码，
+因此能保证您始终使用一个 CSS 文件。
+回页首
+字符串和插值
+Sass 支持字符串联接和变量插值。
+变量不再仅仅限于用作属性值，您可以直接将变量值插入属性和选取器名称，
+如清单 7 所示。
+清单 7. Sass 字符串和变量操作
+ $image_dir:'images/web/'; 
+ $page:10; 
+
+ .button 
+ { 
+ background-image: url( $image_dir + 'image.gif' ); 
+ :before { content:"Page #{ $page }"; } 
+ }
+清单 7中的代码将转换为清单 8 中的 CSS 代码。
+清单 8. CSS 字符串和变量操作
+ .button { 
+ background-image: url("images/web/image.gif"); } 
+ .button:before { 
+ content:"Page 10"; }
+回页首
+数学运算
+Sass 支持使用标准数学运算符执行数字运算，如清单 9 所示。
+您可以对变量值执行简单的数学运算。
+清单 9. 对数字执行的 Sass 数学运算
+ .block { 
+ $block_width:500px; 
+ width:$block_width - ( 10px * 2 ) - ( 1px * 2 ); 
+ }
+清单 9中的代码将被转换为清单 10 中的 CSS 代码。
+清单 10. 对数字执行的 CSS 数学运算
+ .block { 
+ width:478px; }
+此外还支持对颜色执行数学运算，如清单 11 所示。
+清单 11. 对颜色执行的 Sass 数学运算
+ .block { 
+ $color:#010203; 
+ color:$color; 
+ border-color:$color - #010101; 
+ }
+清单 11中的代码将被转换为清单 12 中的 CSS 代码。
+清单 12. 对颜色执行的 CSS 数学运算
+ .block { 
+ color:#010203; 
+ border-color:#000102; }
+回页首
+嵌套选取器和属性CSS 中最出色的特性之一就是嵌套选取器
+（应用在一个选取器内使用另一个选取器的样式）。
+ 要在 CSS 中嵌套选取器，
+ 必须繁琐地列出您定义的各子选取器的父选取器。
+ 为了在 Saas 中简化此过程，您可以嵌套选取器，如清单 13 所示。
+清单 13. Sass 嵌套选取器
+ #some { 
+ border:1px solid red; 
+ .some { background: white; } 
+ }
+清单 13中的代码将被转换为清单 14 中的 CSS 代码。
+清单 14. CSS 嵌套选取器
+ #some { border:1px solid red; } 
+ #some .some { background: white; }
+回页首
+控制指令
+Sass 控制指令为 CSS 代码提供了流和逻辑。
+本节介绍的基本控制指令包括 @if、@for 和 @each。
+@if
+Sass 支持基本的 if/else 函数，可将其编译为 CSS。
+举例来说，在清单 15 中，您希望将所有链接的颜色设置为黑色，底色已经为黑色的情况除外。
+如果底色已经为黑色，则将链接颜色设置为白色。
+清单 15. Sass @if示例
+ $color: black; 
+
+ .link { 
+ @if $color == black { 
+ color: white; 
+ } @else { 
+ color: black; 
+ } 
+ }
+清单 15中的代码将被转换为清单 16 中的 CSS 代码。
+清单 16. CSS @if示例
+ .link { 
+ color: white; }
+此处的 @if的用途与在其他编程语言中相同。
+@if语句后面可接 @else if语句和一个 @else语句。
+如果 @if语句失败，则依次尝试 @else if语句，直至其中一条语句获得成功或到达 @else为止。
+@for
+@for指令重复地输出一组样式。对于每次重复，都会使用一个计数器变量来调整输出，如清单 17 所示。
+清单 17. Sass @for示例
+ @for $i from 1 through 5 { 
+ .button-#{$i} { width:1px * $i; } 
+ }
+清单 17中的代码将被转换为清单 18 中的 CSS 代码。
+清单 18. CSS @for示例
+ .button-1 { 
+ width:1px; } 
+ .button-2 { 
+ width:2px; } 
+ .button-3 { 
+ width:3px; } 
+ .button-4 { 
+ width:4px; } 
+ .button-5 { 
+ width:5px; }
+@each
+@each指令获取列表中的项目，并列出包含所列出的值的样式，如清单 19 所示。
+清单 19. Sass @each示例
+ @each $company in IBM, Motorola, Google { 
+ .#{$company}-icon { 
+ background-image: url('/images/#{$company}.jpg'); 
+ } 
+ }
+清单 19中的代码将被转换为清单 20 中的 CSS 代码。
+清单 20. CSS @each示例
+ .IBM-icon { 
+ background-image: url("/images/IBM.jpg"); } 
+ .Motorola-icon { 
+ background-image: url("/images/Motorola.jpg"); } 
+ .Google-icon { 
+ background-image: url("/images/Google.jpg"); }
+回页首
+函数
+您可以在 Sass 中应用函数。通过函数制定计划，重构和抽象构成成功技术基础的方法，
+以便在后续项目中重用和移植。
+Sass 提供了大量内置函数。
+例如，您可以使用清单 21 中所示的 rgb()和 darken()来处理颜色。
+您可以更改色调、饱和度、亮度、透明度、流动性比例和其他许多方面。
+您还可以定义自定义函数，并在需要时重用它们。
+清单 21. Sass 函数
+ #someElement { 
+ color: rgb(150, 50, 100); 
+ } 
+ #someDarkYellowElement { 
+ color: darken(yellow, 33%); 
+ }
+清单 21中的代码将被转换为清单 22 中的 CSS 代码。
+清单 22. CSS 函数
+ #someElement { 
+ color:#963264; } 
+ #someDarkYellowElement { 
+ color:#575700; }
+Sass 包含数学、字符串、列表、自省等函数。
+关于完整的 Sass 函数列表，请参见 参考资料部分。
+回页首
+混入 (Mixin)
+可重用您的 CSS 代码切片的混入是使用 @mixin指令定义的，如清单 23 所示。
+利用混入，您可以定义属性值对的模式，以便在其他规则集中重用这些模式。
+混入功能有助于简化样式表，提高其可读性。基本上来说，
+@mixin是一种用户定义的函数。混入同样可接受参数，
+也就是说，您可以使用几个混入轻松生成大量样式。
+清单 23. Sass 混入
+ @mixin rounded-corners($radius:5px) { 
+ border-radius:$radius; 
+ -webkit-border-radius:$radius; 
+ -moz-border-radius:$radius; 
+ } 
+
+ #header { 
+ @include rounded-corners; 
+ } 
+ #footer { 
+ @include rounded-corners(10px); 
+ }
+清单 23中的代码将被转换为清单 24 中的 CSS 代码。
+清单 24. CSS 混入
+ #header { 
+ border-radius:5px; 
+ -webkit-border-radius:5px; 
+ -moz-border-radius:5px; } 
+
+ #footer { 
+ border-radius:10px; 
+ -webkit-border-radius:10px; 
+ -moz-border-radius:10px; }
+函数和混入极为相似。两者均接受变量，但两者的差异在于，函数总是会返回一个值，
+但混入的输出是代码行。
+回页首
+Compass
+Compass 是一种开放源码 CSS 创作框架，它使用了 Sass 样式表语言。
+其多种可重用设计模式（使用混入）能够帮助您构造可靠、强大的样式表。
+Compass 常用代码库是 Sass 开发工作中不可或缺的工具。
+究其本质而言，Compass 是 CSS 的包装器。
+它能够通过图像拼合 (spriting) 和其他技术处理常见的 CSS 问题，
+例如浏览器兼容性、布局和样式表优化。
+与 Sass 相似，Compass 也以 Ruby gem 程序包的形式提供。
+如需安装 Compass，请在命令行中输入 gem install compass。
+现在，您可以使用 Compass 框架中定义的混入（函数）。
+Compass 中提供了许多预定义的函数、类和原生 CSS3 支持。 
+有关 Compass 的更多信息，请参阅 参考资料部分。
+回页首
+结束语
+本文介绍了一些有助于在您的网站中成功实现 Sass 的概念。
+您学习了变量、插值、嵌套、函数和一些指令。
+Sass 并非 Internet 上的惟一 CSS 预处理程序。
+它最直接的竞争对手 LESS（参见 参考资料部分）也占据着一定的市场份额。
+基本上来说，Sass 与 LESS 之间的差异非常弱小。
+Sass 最重要的资产是 Compass，而 LESS 中不具备此扩展。您应该试用尽可能多的预处理程序，选定最适合您的风格和需求的产品。
+</pre>
+</p>

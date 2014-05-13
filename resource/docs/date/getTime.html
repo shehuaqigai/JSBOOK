@@ -1,0 +1,37 @@
+<pre>
+	定义和用法
+getTime() 方法可返回距 1970 年 1 月 1 日之间的毫秒数。
+语法
+dateObject.getTime()
+返回值
+dateObject 指定的日期和时间距 1970 年 1 月 1 日午夜（GMT 时间）之间的毫秒数。
+提示和注释：
+注释：该方法总是结合一个 Date 对象来使用。
+实例
+例子 1
+在本例中，我们将取得从 1970/01/01 至今的毫秒数，并输出它：
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.getTime() + " milliseconds since 1970/01/01")
+
+&lt/script>
+输出：
+1393050412327 milliseconds since 1970/01/01
+例子 2
+在下面的例子中，我们将计算出从 1970/01/01 至今有多少年：
+&ltscript type="text/javascript">
+
+var minutes = 1000*60
+var hours = minutes*60
+var days = hours*24
+var years = days*365
+var d = new Date()
+var t = d.getTime()
+var y = t/years
+document.write("It's been: " + y + " years since 1970/01/01!")
+
+&lt/script>
+输出：
+It's been: 44.173338797786656 years since 1970/01/01!
+</pre>

@@ -1,0 +1,99 @@
+<p>
+	该函数document.evaluate函数暂且不支持所有浏览器！IE不支持
+
+使用 Greasemonkey 时会遇到的功能最为强大的一个工具就是 evaluate 函数。通过使用XPath这种查询语言，它可以用来寻找页面中的元素，属性和文本。
+
+举个例子来说，如果您想获得某个页面上的全部链接。您也许会想到使用document.getElementsByTagName('a')；但是如果您还要继续检查是否每个链接都具有href属性，因为&lta>还可以用来作为锚名称使用，这时，您需要使用Firefox内建的XPath 支持去获取全部具有href属性的&lta>元素。
+
+例子: 获取页面上的全部链接
+
+var allLinks, thisLink;
+allLinks = document.evaluate(
+     '//a[@href]',
+     document,
+     null,
+     XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+     null);
+for (var i = 0; i < allLinks.snapshotLength; i++) {
+     thisLink = allLinks.snapshotItem(i);
+     // do something with thisLink
+}
+这里，document.evaluate 是关键的部分。 它把 XPath 查询语句作为一个字符串，其它的参数稍后再做解释。 这条 XPath   查询语句可以找到全部具有href属性的&lta>元素，并将它们按照随机的顺序依次返回。(这就是说，第一个被返回的元素并一定也是页面上的第一个这样的元素。) 随后，您就可以用 allLinks.snapshotItem(i) 函数访问每一个元素。
+
+
+XPath表达式所能做到的甚至会使您惊讶。请看下面这个例子，它获取了全部具有title属性的元素。
+
+ 
+
+
+例子: 获取全部具有title属性的元素
+
+var allElements, thisElement;
+allElements = document.evaluate(
+     '//*[@title]',
+     document,
+     null,
+     XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+     null);
+for (var i = 0; i < allElements.snapshotLength; i++) {
+     thisElement = allElements.snapshotItem(i);
+     switch (thisElement.nodeName.toUpperCase()) {
+         case 'A':
+             // this is a link, do something
+             break;
+         case 'IMG':
+             // this is an image, do something else
+             break;
+         default:
+             // do something with other kinds of HTML elements
+     }
+}
+
+ 
+
+如果您已经引用了某个元素（例如上面的 thisElement），您就可以用 thisElement.nodeName 来替代它所对应的在   HTML 页面中的标签名称。如果被访问的这个页面是以 text/html 的方式被服务器执行, 那么标签名称总是用大写子母返回，不论它在原始页面是如何定义的。 如果页面是 application/xhtml+xml 方式的, 那么标签名称就会以小写子母返回。 不论哪种情况，我总是用   thisElement.nodeName.toUpperCase() 得到大写的标签名称。  
+
+
+这是另外一个 XPath 查询，它返回了 div 中的一个特殊的类。
+
+
+例子: 获取 div 中的 sponsoredlink 类
+
+var allDivs, thisDiv;
+allDivs = document.evaluate(
+     "//div[@class='sponsoredlink']",
+     document,
+     null,
+     XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+     null);
+for (var i = 0; i < allDivs.snapshotLength; i++) {
+     thisDiv = allDivs.snapshotItem(i);
+     // do something with thisDiv
+}
+注意我在 XPath 查询语句外使用了双引号，这样在语句内部就可以使用单引号。
+
+
+在 document.evaluate 函数中有很多参数。第二个参数 (在前两个例子中都是docoment) 可以是一个元素， XPath 查询只返回包含在这个元素内的元素。所以，如果您已经引用了一个元素(比如, 通过 document.getElementById 或者 通过   document.getElementsByTagName 得到的数组中的一个元素), 那么您就可以限制查询只返回这个元素的子元素。
+
+
+第三个参数是对一个叫做 namespace resolver 函数的引用, 它只有在工作在 application/xhtml+xml 类型的页面上的用户脚本中是有效的。即使您对它不是很了解也没有关系，因为那种类型的页面不是很多，您可能一次也遇不到。如果您很想知道它是如何使用的，请参考   Mozilla XPath documentation (http://www-jcsu.jesus.cam.ac.uk/~jg307/mozilla/xpath-tutorial.html)，那里解释了它的用法。
+
+
+第四个参数是结果的返回方式。在前面的两个例子中都使用了 XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, 它将结果以随机的方式返回。我使用的几乎全部都是这种方式，但是，出于某种原因，您想让结果以它们在页面上出现的顺序返回，您可以使用   XPathResult.ORDERED_NODE_SNAPSHOT_TYPE 这种方式。 Mozilla XPath documentation (http://www-jcsu.jesus.cam.ac.uk/~jg307/mozilla/xpath-tutorial.html)还给出了另外的一些用例。
+
+
+第五个参数用来合并两次 XPath 查询的结果。 在获得第一次调用 document.evaluate 得到的结果之后，它将两次查询的结果一起返回。在前面的两个例子中，这个参数都用了null，这意味着我们只想获得本次查询的结果。
+
+
+现在您明白了吗？XPath 既可以很简单，也可以很难，这取决于您要如何使用它。在此我强烈推荐您尽快去阅读 this excellent XPath tutorial (http://www.zvon.org/xxl/XPathTutorial/General/examples.html)，从而了解更多的 XPath 语法。至于 document.evaluate 函数的其它参数, 我几乎从来不使用它们。事实上，您可以自己定义一个函数来封装它们。
+
+
+例子: 自定义的 xpath 函数
+
+function xpath(query) {
+     return document.evaluate(query, document, null,
+         XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+}
+
+在定义了这个函数之后，您就可以调用 xpath('//a[@href]') 来获得某个页面上的全部链接, 或者调用 xpath('//* [@title]') 来获得具有 title 属性的元素。您仍然需要通过 snapshotItem 函数来访问结果中的每一项，这个函数的类型并不是一个规则的Javascript数组。
+</p>

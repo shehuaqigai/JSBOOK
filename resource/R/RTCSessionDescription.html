@@ -1,0 +1,341 @@
+
+
+
+<div class="twelve columns">
+
+<h1> WebRTC </h1>
+
+<aside class="right"><p>来自<a href="/">《JavaScript 标准参考教程（alpha）》</a>，by 阮一峰</p></aside>
+
+<h2>目录</h2><div id="toc" class="panel callout radius"><ul><li class="toc-h2"><a href="#toc0">概述</a></li><li class="toc-h2"><a href="#toc1">getUserMedia方法</a></li><li class="toc-h2"><a href="#toc2">展示摄像头图像</a></li><li class="toc-h2"><a href="#toc3">捕获麦克风声音</a></li><li class="toc-h2 toc-active"><a href="#toc4">参考链接</a></li></ul></div>
+
+
+<span id="toc0"></span><div class="chapter"><h2>概述</h2></div>
+
+<p>WebRTC是“网络实时通信”（Web Real Time Communication）的缩写，它主要用来让浏览器获取多媒体设备的实时信息，比如摄像头和麦克风。</p>
+
+<p>它的主要方法是getUserMedia。首先，检查浏览器是否支持这个方法。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">navigator</span><span class="p">.</span><span class="nx">getUserMedia</span> <span class="o">||</span>
+<span class="err">&nbsp;</span> <span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">getUserMedia</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">mozGetUserMedia</span> <span class="o">||</span>
+<span class="err">&nbsp;</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">webkitGetUserMedia</span> <span class="o">||</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">msGetUserMedia</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">getUserMedia</span><span class="p">)</span> <span class="p">{</span>
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="c1">// do something</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'getUserMedia is not supported in this browser.'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>需要注意的是，IE还不支持这个API，所以上面代码中的msGetUserMedia，只是为了确保将来的兼容。</p>
+
+<span id="toc1"></span><div class="chapter"><h2>getUserMedia方法</h2></div>
+
+<p>这个方法接受三个参数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">getUserMedia</span><span class="p">(</span><span class="nx">streams</span><span class="p">,</span> <span class="nx">success</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>含义如下：</p>
+
+<ul>
+<li>streams，一个对象，表示包括哪些多媒体设备。</li>
+<li>success，回调函数，获取多媒体设备成功时调用。</li>
+<li>error，回调函数，获取多媒体设备失败时调用。</li>
+</ul>
+
+
+<p>用法如下：</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">navigator</span><span class="p">.</span><span class="nx">getUserMedia</span><span class="p">({</span>
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="nx">video</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> 
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="nx">audio</span><span class="o">:</span> <span class="kc">true</span>
+<span class="p">},</span> <span class="nx">onSuccess</span><span class="p">,</span> <span class="nx">onError</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>上面的代码用来获取摄像头和麦克风的实时信息。</p>
+
+<p>如果网页使用了getUserMedia，浏览器就会询问用户，是否许可提供信息。如果用户拒绝，就调用回调函数onError。</p>
+
+<p>发生错误时，回调函数的参数是一个Error对象，它的code属性取值如下：</p>
+
+<ul>
+<li><strong>PERMISSION_DENIED</strong>：用户拒绝提供信息。</li>
+<li><strong>NOT_SUPPORTED_ERROR</strong>：浏览器不支持硬件设备。</li>
+<li><strong>MANDATORY_UNSATISFIED_ERROR</strong>：无法发现指定的硬件设备。</li>
+</ul>
+
+
+<span id="toc2"></span><div class="chapter"><h2>展示摄像头图像</h2></div>
+
+<p>将用户的摄像头拍摄的图像展示在网页上，需要先在网页上放置一个video元素。图像就展示在这个元素中。</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;video</span> <span class="na">id=</span><span class="s">"webcam"</span><span class="nt">&gt;&lt;/video&gt;</span>
+</code></pre></div>
+
+
+<p>然后，用代码获取这个元素。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">onSuccess</span><span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="kd">var</span> <span class="nx">video</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'webcam'</span><span class="p">);</span>
+<span class="err">&nbsp;</span>
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="c1">// more code </span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>最后，将这个元素的src属性绑定数据流，摄影头拍摄的图像就可以显示了。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">onSuccess</span><span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="kd">var</span> <span class="nx">video</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'webcam'</span><span class="p">);</span>
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="err">&nbsp;</span>
+<span class="err">&nbsp;</span> <span class="err">&nbsp;</span> <span class="nx">video</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">;</span>
+
+    <span class="nx">video</span><span class="p">.</span><span class="nx">autoplay</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>它的主要用途是让用户使用摄影头为自己拍照。</p>
+
+<span id="toc3"></span><div class="chapter"><h2>捕获麦克风声音</h2></div>
+
+<p>通过浏览器捕获声音，相对复杂，需要借助Web Audio API。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">function</span> <span class="nx">onSuccess</span><span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// 创建一个“音频环境”的对象</span>
+    <span class="nx">audioContext</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">AudioContext</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitAudioContext</span><span class="p">;</span>
+    <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">audioContext</span><span class="p">();</span> 
+
+    <span class="c1">// 将声音流输入这个对象</span>
+    <span class="nx">audioInput</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">createMediaStreamSource</span><span class="p">(</span><span class="nx">stream</span><span class="p">);</span>
+
+    <span class="c1">// 设置音量节点</span>
+    <span class="nx">volume</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">createGain</span><span class="p">();</span>
+    <span class="nx">audioInput</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">volume</span><span class="p">);</span>
+
+    <span class="c1">// 创建缓存，用来暂存声音</span>
+    <span class="kd">var</span> <span class="nx">bufferSize</span> <span class="o">=</span> <span class="mi">2048</span><span class="p">;</span>
+
+    <span class="c1">// 创建声音的缓存节点，createJavaScriptNode方法的</span>
+    <span class="c1">// 第二个和第三个参数指的是输入和输出都是双声道。</span>
+    <span class="nx">recorder</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">createJavaScriptNode</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+    <span class="c1">// 录音过程的回调函数，基本上是将左右两声道的声音</span>
+    <span class="c1">// 分别放入缓存。</span>
+    <span class="nx">recorder</span><span class="p">.</span><span class="nx">onaudioprocess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'recording'</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">inputBuffer</span><span class="p">.</span><span class="nx">getChannelData</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">right</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">inputBuffer</span><span class="p">.</span><span class="nx">getChannelData</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="c1">// we clone the samples</span>
+        <span class="nx">leftchannel</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">left</span><span class="p">));</span>
+        <span class="nx">rightchannel</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">right</span><span class="p">));</span>
+        <span class="nx">recordingLength</span> <span class="o">+=</span> <span class="nx">bufferSize</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 将音量节点连上缓存节点，换言之，音量节点是输入</span>
+    <span class="c1">// 和输出的中间环节。</span>
+    <span class="nx">volume</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">recorder</span><span class="p">);</span>
+
+    <span class="c1">// 将缓存节点连上输出的目的地，可以是扩音器，也可以</span>
+    <span class="c1">// 是音频文件。</span>
+    <span class="nx">recorder</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">destination</span><span class="p">);</span> 
+
+<span class="p">}</span>
+</code></pre></div>
+
+
+<span id="toc4"></span><div class="chapter"><h2 class="reference">参考链接</h2></div>
+
+<ul class="reference-list">
+<li>Andi Smith，<a href="http://www.netmagazine.com/tutorials/get-started-webrtc">Get Started with WebRTC</a></li>
+<li>Thibault Imbert, <a href="http://typedarray.org/from-microphone-to-wav-with-getusermedia-and-web-audio/">From microphone to .WAV with: getUserMedia and Web Audio</a></li>
+<li>Ian Devlin, <a href="http://html5hub.com/using-the-getusermedia-api-with-the-html5-video-and-canvas-elements/#i.bz41ehmmhd3311">Using the getUserMedia API with the HTML5 video and canvas elements</a></li>
+</ul>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="post-166 post type-post status-publish format-standard hentry category-webrtc tag-jsep tag-rtcpeerconnection tag-sdp tag-stringifier tag-webrtc tag-webrtc-1-0" id="post-166">
+				<div class="thecontent">
+                <h1 class="postheader">04 Oct 12 <a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-6/" rel="bookmark" title="Permanent Link to WebRTC 1.0: Real-time Communication Between Browsers中文版（六）">WebRTC 1.0: Real-time Communication Between Browsers中文版（六）</a></h1>
+				<h3>原文：<a href="http://www.w3.org/TR/webrtc/#rtcpeerconnection">http://www.w3.org/TR/webrtc/#rtcpeerconnection</a></h3>
+<h3>5.1&nbsp;RTCPeerConnection</h3>
+<p>RTCPeerConnection的一般操作在这个文档中描述： [<cite><a href="http://www.w3.org/TR/webrtc/#bib-RTCWEB-JSEP">RTCWEB-JSEP</a></cite>].</p>
+<section id="rtcsdptype">
+<h4>5.1.1&nbsp;RTCSdpType</h4>
+<p>RTCSdpType 枚举类型描述&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescription"><code>RTCSessionDescription</code></a></code>&nbsp;实例的类型（Type）。</p>
+<pre>enum RTCSdpType {
+    "offer",
+    "pranswer",
+    "answer"
+};</pre>
+<table>
+<tbody>
+<tr>
+<th colspan="2">枚举类型描述</th>
+</tr>
+<tr>
+<td><code>offer</code></td>
+<td>一个 RTCSdpType 类型的”offer”取值指定一个描述符应该被当做一个 [<cite><a href="http://www.w3.org/TR/webrtc/#bib-SDP">SDP</a></cite>] offer.</td>
+</tr>
+<tr>
+<td><code>pranswer</code></td>
+<td>一个 RTCSdpType 类型的”pranswer”取值指定一个描述符应该被当做 [<cite><a href="http://www.w3.org/TR/webrtc/#bib-SDP">SDP</a></cite>] answer,但不是最终的answer（final answer）。一个描述符（description）用作一个SDP “pranswer” 可能被用作SDP offer的应答, 或者更新上一个已经发送了的 SDP “pranswer”。</td>
+</tr>
+<tr>
+<td><code>answer</code></td>
+<td>一个RTCSdpType类型的”answer”取值指定一个描述符（description）应该被当做 [<cite><a href="http://www.w3.org/TR/webrtc/#bib-SDP">SDP</a></cite>] final answer, 而且这个offer-answer交互过程应该被认为完结。一个描述符（description）被用作一个SDP answer 应该用来作为一个SDP offer的应答, 或者更新上一个已经发送了的 SDP “pranswer”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rtcsessiondescription-class">
+<h4>5.1.2&nbsp;RTCSessionDescription 类型(class)</h4>
+<p><dfn id="dom-sessiondescription"><code>RTCSessionDescription()</code></dfn>&nbsp;构造函数有一个可选的“字典”类型的参数,&nbsp;<var>descriptionInitDict</var>, 它的内容是用来初始化新的<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescription"><code>RTCSessionDescription</code></a></code>&nbsp;对象。如果字典的key不存在于&nbsp;<var>descriptionInitDict中</var>,那么对应的属性就会被初始化为 null。如果没有给构造函数传递字典参数,那么所有的属性都会被初始化为空。这个类为包含的数据未来扩展留了余地 而且不需要做进一步的处理。</p>
+<pre>[Constructor (optional RTCSessionDescriptionInit descriptionInitDict)]
+interface RTCSessionDescription {
+             attribute <a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSdpType"><code>RTCSdpType</code></a>? <a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescription-type">type</a>;
+             attribute <a>DOMString</a>?  <a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescription-sdp">sdp</a>;
+    <a>stringifier</a> <a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescription-DOMString-stringifier">DOMString</a> ();
+};
+dictionary RTCSessionDescriptionInit {
+    <a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSdpType"><code>RTCSdpType</code></a> <a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescriptionInit-type">type</a>;
+    <a>DOMString</a>  <a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescriptionInit-sdp">sdp</a>;
+};</pre>
+<section id="attributes-1">
+<h5>5.1.2.1&nbsp;属性</h5>
+<dl>
+<dt id="widl-RTCSessionDescription-sdp"><code>sdp</code>&nbsp;of type&nbsp;DOMString, nullable</dt>
+<dd>The string representation of the SDP [<cite><a href="http://www.w3.org/TR/webrtc/#bib-SDP">SDP</a></cite>]</dd>
+<dt id="widl-RTCSessionDescription-type"><code>type</code>&nbsp;of type&nbsp;<a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSdpType"><code>RTCSdpType</code></a>, nullable</dt>
+<dd>What type of SDP this RTCSessionDescription represents.</dd>
+</dl>
+</section>
+<section id="methods-1">
+<h5>5.1.2.2&nbsp;方法</h5>
+<dl>
+<dt id="widl-RTCSessionDescription-DOMString-stringifier"><code>DOMString</code></dt>
+<dd>实现了<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescription"><code>RTCSessionDescription</code></a>&nbsp;</code>接口的对象必须可以通过 执行如下步骤转换为string（stringify&nbsp;）。让类型（&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescription-type">type</a>）</code>和&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#widl-RTCSessionDescription-sdp">sdp</a>元素的属性列表</code>,属性列表包含在字符化的表示结果中.<p></p>
+<ol>
+<li>让结果包含 U+0028 左圆括号和 U+007B 左花括号.</li>
+<li>对于每个添加到结果中属性列表中的属性，属性的名字加上： U+003A 冒号和U+0022 引号,属性的值加上： U+0022 引号 和 U+002C 逗号。如果是属性列表中最后一个属性,则去掉最后的 U+002C 逗号。</li>
+<li>在结果中添加 U+007D 右花括号 U+0029 和右圆括号然后返回结果。</li>
+</ol>
+<div><em>没有参数.</em></div>
+<div><em>返回类型:字符串(&nbsp;</em><code>stringifier注：此处应该是json类型的字符串)&nbsp;</code></div>
+</dd>
+</dl>
+</section>
+<section id="dictionary-rtcsessiondescriptioninit-members">
+<h5>5.1.2.3&nbsp;字典&nbsp;<a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescriptionInit"><code>RTCSessionDescriptionInit</code></a>&nbsp;成员</h5>
+<dl>
+<dt id="widl-RTCSessionDescriptionInit-sdp"><code>sdp</code>&nbsp;：类型是DOMString</dt>
+<dd></dd>
+<dt id="widl-RTCSessionDescriptionInit-type"><code>type</code>：类型是&nbsp;<a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSdpType"><code>RTCSdpType</code></a></dt>
+<dd>DOMString sdp</dd>
+</dl>
+</section>
+</section>
+<section id="rtcsessiondescriptioncallback">
+<h4>5.1.3&nbsp;RTCSessionDescriptionCallback</h4>
+<pre>回调方法 RTCSessionDescriptionCallback = <a>void</a> (<a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescription"><code>RTCSessionDescription</code></a> sdp);</pre>
+<section id="callback-rtcsessiondescriptioncallback-parameters">
+<h5>5.1.3.1&nbsp;回调方法&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescriptionCallback">RTCSessionDescriptionCallback</a>参数</code></h5>
+<dl>
+<dt id="widl-RTCSessionDescriptionCallback-sdp"><code>sdp：类型是</code>&nbsp;<code><a href="http://www.w3.org/TR/webrtc/#idl-def-RTCSessionDescription">RTCSessionDescription</a></code></dt>
+<dd>包含 SDP的对象 [<cite><a href="http://www.w3.org/TR/webrtc/#bib-SDP">SDP</a></cite>].</dd>
+</dl>
+</section>
+</section>
+<section id="rtcvoidcallback">
+<h4>5.1.4&nbsp;RTCVoidCallback</h4>
+<pre>回调方法 RTCVoidCallback = <a>void</a> ();</pre>
+</section>
+<section>
+<h4>5.1.5&nbsp;RTCPeerConnectionErrorCallback</h4>
+</section>
+<pre>回调方法RTCPeerConnectionErrorCallback = <a>void</a> (<a>DOMString</a> errorInformation);</pre>
+<section id="rtcpeerconnectionerrorcallback">
+<section id="callback-rtcpeerconnectionerrorcallback-parameters">
+<h5>5.1.5.1&nbsp;Callback&nbsp;<a href="http://www.w3.org/TR/webrtc/#idl-def-RTCPeerConnectionErrorCallback"><code>RTCPeerConnectionErrorCallback</code></a>&nbsp;参数</h5>
+<dl>
+<dt id="widl-RTCPeerConnectionErrorCallback-errorInformation"><span style="font-family: monospace;">类型</span> DOMString的错误信息</dt>
+<dd>什么出错的信息.<p></p>
+<div>
+<div>问题 6</div>
+<p>ISSUE:这应该是个枚举类型吗?</p>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+<section id="rtcpeerstate-enum"></section>
+<div style="margin-top: 15px; font-style: italic">
+<p><strong>原创文章，转载请注明：</strong> 转载自<a href="http://www.iwebrtc.com/blog/">讨论关于webrtc html5 extjs nodejs等技术和产品</a></p>
+<p><strong>本文链接地址:</strong> <a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-6/">WebRTC 1.0: Real-time Communication Between Browsers中文版（六）</a></p>
+</div>
+<div class="wumii-hook"><div id="wumiiBtnDiv" style="clear:both;overflow:visible;position:relative;left:0;top:0;height:28px;margin:0;padding:10px 0 0;text-shadow: none;text-indent:0;">
+    <div id="wumiiLikeBtnDiv" style="position: static; float: left; display: inline; width: 89px; height: 28px; margin: 0px 0px 0px 220.5px; padding: 0px; background-image: url(http://static.wumii.cn/images/blogWidget/widget_buttons_deepBlue.png); text-indent: 0px; background-position: 0px 0px; background-repeat: no-repeat no-repeat;" onmouseover="this.style.backgroundPosition='-89px 0';" onmouseout="this.style.backgroundPosition='0 0';">
+        <a href="http://www.wumii.com/item/sdPyzL6c" target="_blank" id="wumiiNumLikes" style="float:left;width:38px;height:20px;line-height:21px;margin:4px 0 0 4px;padding:0;border:none;background-color:#fff;color:#385c80;letter-spacing:0;text-decoration:none;text-align:center;text-indent:0;font-size:12px;" onmouseover="this.style.fontWeight='bold';" onmouseout="this.style.fontWeight='normal';">0</a>
+        <span style="float:left;width:40px;height:29px;margin:0;padding:0;outline:none;cursor:pointer;" id="wumiiLikeBtn" hidefocus="true"></span>
+    </div>
+    <div id="wumiiRecommendBtnDiv" style="position:static;clear:none;float:left;display:inline;height:28px;margin:0;padding:0 5px;text-indent:0;">
+        <span id="wumiiRecommendBtn" hidefocus="true" style="float:left;display:inline;width:60px;height:28px;margin:0 0 0 5px;padding:0;background:url('http://static.wumii.cn/images/blogWidget/widget_buttons_deepBlue.png') no-repeat -267px 0;cursor:pointer;outline:none;" onmouseover="this.style.backgroundPosition='-328px 0';" onmouseout="this.style.backgroundPosition='-267px 0';"></span>
+        <img src="http://static.wumii.cn/images/loading.gif" id="wumiiLoading" style="clear:none;display:none;height:15px;margin:7px 0 0 8px;padding:0;border:0;background:none;cursor:default;" alt="正在加载推荐文章">
+    </div>
+</div>
+<div class="wumii-related-items-div" wmode="2" style="margin: 0; border: none; padding: 0; clear: both; overflow: hidden; *zoom: 1; *position: relative;">
+    
+    
+    
+        <div class="wumii-internal" style="padding: 0; margin: 0; border: none; clear: both; display: block;">
+        <div class="wumii-widget-title" style="margin: 0; border: none; padding: 20px 0 5px; _padding-top:10px; text-indent: 0; text-align: left; font-weight: bold; ">You may also like：</div>
+                <div class="wumii-image-row" style="clear: both; overflow: hidden; border: none; padding: 0;margin: 0;_zoom: 1;" fromurl="http%3A%2F%2Fwww.iwebrtc.com%2Fblog%2Fwebrtc-1-0-real-time-communication-between-browsers-6%2F"><a class="wumii-image-block" hidefocus="true" title="(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（十三）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/en/webrtc-1-0-real-time-communication-between-browsers-13/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=7FH6OXA1" src="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=7FH6OXA1">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（十三）</div>
+</a><a class="wumii-image-block" hidefocus="true" title="WebRTC 1.0: Real-time Communication Between Browsers中文版（十五）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-15/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/azXHhfG4.jpg?i=uIDLgoOT" src="http://static.wumii.cn/site_images/ti/azXHhfG4.jpg?i=uIDLgoOT">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">WebRTC 1.0: Real-time Communication Between Browsers中文版（十五）</div>
+</a><a class="wumii-image-block" hidefocus="true" title="(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（十五）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/en/webrtc-1-0-real-time-communication-between-browsers-15/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/azXHhfG4.jpg?i=qXGbA8vg" src="http://static.wumii.cn/site_images/ti/azXHhfG4.jpg?i=qXGbA8vg">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（十五）</div>
+</a><a class="wumii-image-block" hidefocus="true" title="(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（五）" onmouseout="this.style.backgroundColor=''" onmouseover="this.style.backgroundColor='#E3E4FA'" style="display: block; float: left; text-decoration: none; border-bottom: none; cursor: pointer; position: relative; margin: 5px 0 0 -1px; padding: 5px; text-align: left; outline: none; background-image: none; border-left: 1px solid #DDDDDD !important;" href="http://www.iwebrtc.com/blog/en/webrtc-1-0-real-time-communication-between-browsers-5/" redirecturl="">
+    <span class="wumii-image-clip" style="overflow: hidden; position: relative; display: block; width: 100px; height: 100px; margin: 0 0 5px; padding: 0; border: 1px solid #DDDDDD;">
+        <img class="wumii-image" style="position: absolute; margin: 0px; padding: 0px; border: none; background-image: none; left: 2px; top: 2px; width: 96px; height: 96px; clip: rect(0px 96px 96px 0px); visibility: visible; background-position: initial initial; background-repeat: initial initial;" image-url="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=XsyFnN6T" src="http://static.wumii.cn/site_images/ti/18aIwIPVC.jpg?i=XsyFnN6T">
+    </span>
+    <div class="wumii-image-title" style="width: 102px; height: 60px; margin: 3px 0 0 0; padding: 0; text-indent: 0; text-align: left; border: none; font: 12px/15px arial; color: #333333; overflow: hidden; white-space: normal; clear: both;">(中文) WebRTC 1.0: Real-time Communication Between Browsers中文版（五）</div>
+</a></div>
+    </div><div class="wumii-footer" style="margin: 0px; border: none; padding: 5px 0px; clear: both; text-align: right; width: 451px;">
+            <a href="http://www.wumii.com/widget/relatedItems" target="_blank" title="无觅关联推荐" style="font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: arial; color: rgb(187, 187, 187); border-bottom-style: none; word-wrap: normal; display: inline; cursor: pointer;">无觅关联推荐[?]</a>
+                
+        </div>
+</div></div>
+<p>Related posts:</p><ol>
+<li><a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-4/" rel="bookmark" title="WebRTC 1.0: Real-time Communication Between Browsers中文版（四）">WebRTC 1.0: Real-time Communication Between Browsers中文版（四）</a> <small>原文：http://www.w3.org/TR/webrtc/#audiomediastreamtrack 4 [...]...</small></li>
+</ol>                                </div>
+                <div style="clear:both;"></div>
+                <div class="postmeta">Tags: <a href="http://www.iwebrtc.com/blog/tag/jsep/" rel="tag">JSEP</a>, <a href="http://www.iwebrtc.com/blog/tag/rtcpeerconnection/" rel="tag">RTCPeerConnection</a>, <a href="http://www.iwebrtc.com/blog/tag/sdp/" rel="tag">sdp</a>, <a href="http://www.iwebrtc.com/blog/tag/stringifier/" rel="tag">stringifier</a>, <a href="http://www.iwebrtc.com/blog/tag/webrtc/" rel="tag">webrtc</a>, <a href="http://www.iwebrtc.com/blog/tag/webrtc-1-0/" rel="tag">WebRTC 1.0</a><br>Filed in <a href="http://www.iwebrtc.com/blog/category/webrtc/" title="查看 webrtc 中的全部文章" rel="category tag">webrtc</a> with <a href="http://www.iwebrtc.com/blog/webrtc-1-0-real-time-communication-between-browsers-6/#respond" title="《WebRTC 1.0: Real-time Communication Between Browsers中文版（六）》上的评论">0 Comments</a> </div>
+			</div>

@@ -1,0 +1,14 @@
+<p>
+	创建Range对象
+摘要
+Range createRange();
+返回值
+新创建的Range对象,两个边界点都被设置为文档的开头。
+描述
+该方法将创建一个Range对象,
+可以用来表示文档的一个区域或与该文档相关的DocumontFragment对象。
+注意,该方法实际上不是由Document接口定义的,而是由DocumentRange接口定义的。
+如果一个实现支持Range模块,
+那么Document对象就会实现Document.Range接口,并定义该方法。
+IE6不支持这个模块。
+</p>

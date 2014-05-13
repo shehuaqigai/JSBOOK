@@ -1,0 +1,424 @@
+<div id="sina_keyword_ad_area2" class="articalContent  ">
+			<br>
+<p>HTML5之IndexedDB应用详解</p>
+<p>HTML5NoSQL数据布局浏览器<br>
+&nbsp;<wbr><wbr>随着firefox4正式版的推出，IndexedDB正式进进我们的视线。IndexedDB是HTML5-WebStorage的严重一环，是一种轻量级NOSQL数据库。相较之下，WebDataBase尺度已很长时间没有更新，大年夜有被IndexedDB代替的意义。<br>
+
+&nbsp;<wbr><wbr><br>
+Section 1：起步，获得Database引用<br>
+w3c为IndexedDB界道了很多接口，个中Database对象被界道为IDBDataBase。而获得IDBDataBase用的是工厂要收，即从IDBFactory中获得。浏览器对象中，真现了IDBFactory的只有indexedDB阿谁真例。<br>
+
+大年夜家可以先看下IDBFactory战IDBDataBase接口的界道<br>
+Js代码&nbsp;<wbr><wbr><br>
+interface IDBFactory {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest open (in DOMString name);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest deleteDatabase (in DOMString
+name);&nbsp;<wbr><wbr><br>
+};&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+interface IDBDatabase : EventTarget
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute
+DOMString&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+name;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute
+DOMString&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+version;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute DOMStringList
+objectStoreNames;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBObjectStore&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+createObjectStore (in DOMString name, in optional Object
+optionalParameters) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+deleteObjectStore (in DOMString name) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBVersionChangeRequest setVersion ([TreatNullAs=EmptyString] in
+DOMString version);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBTransaction&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+transaction (in any storeNames, in optional unsigned short mode)
+raises (IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+void&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+close ();&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+attribute
+Function&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+onabort;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+attribute
+Function&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+onerror;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+attribute
+Function&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+onversionchange;&nbsp;<wbr><wbr><br>
+};&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+interface IDBRequest : EventTarget {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute
+any&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+result get raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute unsigned short errorCode get raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute
+Object&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+source;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute IDBTransaction
+transaction;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+const unsigned short LOADING = 1;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+const unsigned short DONE = 2;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute unsigned short
+readyState;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+attribute
+Function&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+onsuccess;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+attribute
+Function&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+onerror;&nbsp;<wbr><wbr><br>
+};&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+严重:IndexedDB中，几近所有的操做皆是采取了command-&gt;request-&gt;result的体例。比如查询一笔记录，返回一个request，在request的result中获得查询成绩。又比如打开数据库，返回一个request，在request的result中获得返回的数据库引用。<br>
+
+&nbsp;<wbr><wbr><br>
+从IDBFactory的要收体界道中可以看到，返回了一个IDBRequest对象。阿谁IDBRequest便是适才所道的request。<br>
+
+&nbsp;<wbr><wbr><br>
+下里给出一个通用的获得IDBDataBase的要收<br>
+&nbsp;<wbr><wbr><br>
+Js代码&nbsp;<wbr><wbr><br>
+if (!windows.indexedDB) {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+windows.indexedDB = window.mozIndexedDB ||
+window.webkitIndexedDB;&nbsp;<wbr><wbr><br>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+var request =
+indexedDB.open("MyTestDatabase");&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+request.onsuccess = function(e) {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// Obtain
+IDBDatabase&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// VERSION_CHANGE transaction
+callback&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var db = request.result;&nbsp;<wbr><wbr><br>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+Firefox4中应用IndexedDB的属意点:<br>
+1.indexedDB阿谁真例并没有叫indexedDB，而是叫mozIndexedDB<br>
+2.indexedDB没法在iframe大年夜概frame标签中应用<br>
+3.Firefox4中并已真现deleteDatabase要收(大年夜概会在新版本中改进)<br>
+4.indexedDB.open并没有能简朴的当作是打开数据库，而是在打开数据库的根柢上启动了一个version_change事情要收回调。在阿谁回调要收里自动启动了一个事务，用于version_change。IDBDatabase对象必必要在阿谁事务中才能获得。<br>
+
+&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+Section 2：初始化object store<br>
+indexedDB尺度建议，在初始化的时分竖立表。当前每次打开浏览器，只需要check版本号。没有需要第两次竖立。而表在indexedDB中被称为object
+store。<br>
+下里给出object store接口的界道:<br>
+Js代码&nbsp;<wbr><wbr><br>
+interface IDBObjectStore {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute
+DOMString&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+name;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute
+DOMString&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+keyPath;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute DOMStringList&nbsp;<wbr><wbr>
+indexNames;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+readonly attribute IDBTransaction
+transaction;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest put (in any value, in optional any key) raises
+(IDBDatabaseException,
+DOMException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest add (in any value, in optional any key) raises
+(IDBDatabaseException,
+DOMException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest delete (in any key) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest get (in any key) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest clear () raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBRequest openCursor (in optional any range, in optional unsigned
+short direction) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBIndex&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+createIndex (in DOMString name, in DOMString keyPath, in optional
+Object optionalParameters) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+IDBIndex&nbsp;<wbr><wbr>&nbsp;<wbr><wbr> index
+(in DOMString name) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+void&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+deleteIndex (in DOMString indexName) raises
+(IDBDatabaseException);&nbsp;<wbr><wbr><br>
+};&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+大年夜家可以看到IDBDatabase中有一个createObjectStore要收。可是获得IDBDatabase后间接调用会报Exception。原因原由在于createObjectStore没有能在version_change
+的transaction callback中被调用。<br>
+&nbsp;<wbr><wbr><br>
+下里给出通用的竖立object store的代码<br>
+Js代码&nbsp;<wbr><wbr><br>
+var db = null;&nbsp;<wbr><wbr><br>
+var customerData = [&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+{ssn: "444-44-4444", name: "Bill", age: 25, email:
+"bill@company.com&gt;", nickName: ["1", "2",
+"3"]},&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+{ssn: "555-55-5555", name: "Donna", age: 34, email:
+"donna@home.org&gt;"},&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+{ssn: "666-66-6666", name: "Jack", age: 14, email:
+"jack@sina.com.cn&gt;"}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+];&nbsp;<wbr><wbr><br>
+request.onsuccess = function(e) {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// Obtain
+IDBDatabase&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// VERSION_CHANGE transaction
+callback&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+db = request.result;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+if (db.version != "1.0") {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var requestVersion =
+db.setVersion("1.0");&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+requestVersion.onerror = function(event)
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+alert(event);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+requestVersion.onsuccess = function(event)
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+createObjectStore(db);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+db.close();&nbsp;<wbr><wbr><br>
+};&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+function createObjectStore(db) {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+if (db.objectStoreNames.contains("customers"))
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+db.deleteObjectStore("customers")&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// Create Object Store&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// This method was not called from a VERSION_CHANGE transaction
+callback.&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var objectStore = db.createObjectStore("customers",
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// primary key&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+keyPath: "ssn",&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// auto increment&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+autoIncrement: false&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+});&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+objectStore.createIndex("name", "name", { unique: false
+});&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+objectStore.createIndex("email", "email", { unique: true
+});&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+// Add initial data&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+for (var index = 0; index &lt; customerData.length; index++)
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+objectStore.add(customerData[index]);&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+}&nbsp;<wbr><wbr><br>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>以上代码竖立了一个名为customers，PrimaryKey为ssn，而且没有带自删序列的object
+store(表)。并为阿谁object
+store竖立了两个索引(name战email).个中email是唯一键。而且为customers竖立了初始数据。可以看到初始数据中可以嵌套多层布局。<br>
+
+&nbsp;<wbr><wbr><br>
+Section 3：事务战游标<br>
+经过上里IDBDatabase接口的界道，我们可以从IDBDatabase中获得transaction。在indexedDB中，事务会自动提交或回滚。以是无需脚动commit大年夜概rollback。<br>
+
+事务分为三种<br>
+IDBTransaction.READ_ONLY&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+只读<br>
+IDBTransaction.READ_WRITE&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+可读可写<br>
+IDBTransaction.VERSION_CHANGE&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+版本晋级<br>
+我们用的最多的是前两种。假如没有设置事务级别，则默许为READ_ONLY。<br>
+&nbsp;<wbr><wbr><br>
+游标是遍历object
+store的唯一要收。固然firefox4中有getAll，可是相疑在没有久的将来，阿谁要收会被勾销。<br>
+&nbsp;<wbr><wbr><br>
+假如在打开游标的时分没有设置，默许采取IDBCursor.NEXT<br>
+&nbsp;<wbr><wbr><br>
+下里给出获得事务对象的通用要收<br>
+Js代码&nbsp;<wbr><wbr><br>
+// 经过IDBDatabase获得IDBTransaction&nbsp;<wbr><wbr><br>
+var transaction =
+db.transaction(["customers"]);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+// 经过IDBTransaction获得IDBObjectStore&nbsp;<wbr><wbr><br>
+var objectStore =
+transaction.objectStore("customers");&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr><br>
+// 打开游标，遍历customers中所有数据&nbsp;<wbr><wbr><br>
+objectStore.openCursor().onsuccess = function(event)
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var cursor = event.target.result;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+if (cursor) {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var key = cursor.key;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var rowData = cursor.value;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+alert(rowData.name);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+cursor.continue();&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+}&nbsp;<wbr><wbr><br>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>上里代码中应用了游标，那边要属意，在调用了cursor.continue今后，cursor会从头调用onsuccess句柄上的要收。以是，以上代码的onsuccess真践上被调用了3遍。至于openCursor的应用要收，下个Section中会有提到<br>
+
+&nbsp;<wbr><wbr><br>
+Section 4：索引查询<br>
+section3中的objectStore.openCursor是按照keyPath往查询的。假如想经过某个索引往查询，可以用objectStore.index(索引名).openCursor往查询<br>
+
+&nbsp;<wbr><wbr><br>
+1）openCursor的第一个参数为查询条件，他需要传进一个IDBKeyRange对象。<br>
+IDBKeyRange的竖立体例有4种，皆是调用了IDBKeyRange的静态要收。分袂代表了4种差别范例的条件。<br>
+Js代码&nbsp;<wbr><wbr><br>
+// 只取适当前索引的值为Bill的数据&nbsp;<wbr><wbr><br>
+IDBKeyRange.only("Bill");&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+// 只取适当前索引的值大年夜于Bill，而且没有包孕Bill的数据&nbsp;<wbr><wbr><br>
+IDBKeyRange.lowerBound("Bill",
+true);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+// 只取适当前索引的值小于Bill，而且包孕Bill的数据&nbsp;<wbr><wbr><br>
+IDBKeyRange.upperBound("Bill",
+false);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+//
+取适当前索引的值介于Bill战Jack之间，而且包孕Bill，但没有包孕Jack的数据&nbsp;<wbr><wbr><br>
+
+IDBKeyRange.bound("Bill", "Jack", false,
+true);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>2)openCursor的第两个参数为游标标的目标。有4种<br>
+IDBCursor.NEXT&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+次第循环<br>
+IDBCursor.NEXT_NO_DUPLICATE&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+次第循环没有反复<br>
+IDBCursor.PREV&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+倒序循环<br>
+IDBCursor.PREV_NO_DUPLICATE&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+倒序循环没有反复<br>
+&nbsp;<wbr><wbr><br>
+例子：<br>
+Java代码&nbsp;<wbr><wbr><br>
+var boundKeyRange = IDBKeyRange.upperBound("Jack",
+false);&nbsp;<wbr><wbr><br>
+objectStore.index("name").openCursor(boundKeyRange,
+IDBCursor.PREV_NO_DUPLICATE).onsuccess = function(event)
+{&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var cursor = event.target.result;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+if (!cursor) {&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+return;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+}&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+var rowData = cursor.value;&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr><br>
+
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+alert(rowData.name);&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+cursor.continue();&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>&nbsp;<wbr><wbr>
+};&nbsp;<wbr><wbr><br>
+&nbsp;<wbr><wbr><br>
+无缺真例请参考附件。属意，indexedDB必必要在发布情况(web容器)中才可以运止。<br></p>
+<br>							
+		</div>

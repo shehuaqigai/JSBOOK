@@ -1,0 +1,143 @@
+SVGAngle 对象
+包含与角相关的信息。
+Scalable Vector Graphics: Basic Data Types and Interfaces, Section 4.5.15Internet Explorer 9
+成员
+
+SVGAngle对象具有这些类型的成员：
+方法
+属性
+方法
+SVGAngle对象都有这些方法。
+方法	说明
+convertToSpecifiedUnits	
+更改为指定的类型的存储的单元标识符。
+newValueSpecifiedUnits	
+将指定的值重置为指定的设备类型，数字，替换所有对象的属性的值。
+ 
+属性
+SVGAngle对象具有这些属性。
+属性	说明
+unitType
+获取或设置一个值，该值指示的角度单位的类型。
+价值
+获取或设置给定属性的值。
+valueAsString
+获取或设置字符串形式的值属性，在单位， svgUnitTypes指定。
+valueInSpecifiedUnits
+获取或设置的长度或角度值，为浮点数，那svgUnitTypes指定的单位。
+ 
+标准信息
+
+可伸缩矢量图形： 基本数据类型和接口，第 4.5.15 条
+备注
+
+请注意除了属性、 属性、 事件、 方法和上面所列的样式，SVG 元素也继承了核心 HTML 属性、 属性、 事件、 方法和样式。
+ <dd>
+  <p>Angles are specified in one of two ways. When used in the value of a property in a stylesheet, an &lt;angle&gt; is defined as follows:</p>
+  <pre class="language-html">angle ::= number (~"deg" | ~"grad" | ~"rad")?</pre>
+  <p>where deg indicates degrees, grad indicates grads and rad indicates radians.</p>
+  <p>For properties defined in CSS2, an angle unit identifier must be provided. For angle values in SVG-specific properties and their corresponding presentation attributes, the angle unit identifier is optional. If not provided, the angle value is assumed to be in degrees. In presentation attributes for all properties, whether defined in SVG1.1 or in CSS2, the angle identifier, if specified, must be in lower case.</p>
+  <p>When angles are used in an SVG attribute, &lt;angle&gt; is instead defined as follows:</p>
+  <pre class="language-html">angle ::= number ("deg" | "grad" | "rad")?</pre>
+  <p>The unit identifiers in such &lt;angle&gt; values must be in lower case.</p>
+  <p>In the SVG DOM, &lt;angle&gt; values are represented using <a href="/en-US/docs/Web/API/SVGAngle" title="The SVGAngle interface correspond to the &lt;angle&gt; basic data type."><code>SVGAngle</code></a> or <a class="new" href="/en-US/docs/Web/API/SVGAnimatedAngle objects" title="The documentation about this has not yet been written; please consider contributing!"><code>SVGAnimatedAngle objects</code></a>.</p>
+ </dd>
+
+<div class="_content"><div class="_page _mdn"><h1>SVGAngle</h1> <p>The <code>SVGAngle</code> interface correspond to the <a href="https://developer.mozilla.org/en/SVG/Content_type#Angle" title="https://developer.mozilla.org/en/SVG/Content_type#Angle">&lt;angle&gt;</a> basic data type.</p> <p>An <code>SVGAngle</code> object can be designated as read only, which means that attempts to modify the object will result in an exception being thrown.</p> <h3 id="Interface_overview">Interface overview</h3> <table class="standard-table"><tbody>
+<tr>
+<th scope="row">Also implement</th> <td><em>None</em></td> </tr>
+<tr>
+<th scope="row">Methods</th> <td> <ul>
+<li><code>void newValueSpecifiedUnits(in unsigned short unitType, in float valueInSpecifiedUnits)</code></li> <li><code>void convertToSpecifiedUnits(in unsigned short unitType)</code></li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Properties</th> <td> <ul>
+<li>readonly unsigned short <code>unitType</code>
+</li> <li>float <code>value</code>
+</li> <li>float <code>valueInSpecifiedUnits</code>
+</li> <li>
+<a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a> <code>valueAsString</code>
+</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Constants</th> <td> <ul>
+<li>
+<code>SVG_ANGLETYPE_UNKNOWN</code> = 0</li> <li>
+<code>SVG_ANGLETYPE_UNSPECIFIED</code> = 1</li> <li>
+<code>SVG_ANGLETYPE_DEG</code> = 2</li> <li>
+<code>SVG_ANGLETYPE_RAD</code> = 3</li> <li>
+<code>SVG_ANGLETYPE_GRAD</code> = 4</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Normative document</th> <td><a class="external" href="http://www.w3.org/TR/SVG11/types.html#InterfaceSVGAngle" title="http://www.w3.org/TR/SVG11/types.html#InterfaceSVGAngle">SVG 1.1 (2nd Edition)</a></td> </tr>
+</tbody></table><h2 id="Constants">Constants</h2> <table class="standard-table"><tbody>
+<tr>
+<th>Name</th> <th>Value</th> <th>Description</th> </tr>
+<tr>
+<td><code>SVG_ANGLETYPE_UNKNOWN</code></td> <td>0</td> <td>The unit type is not one of predefined unit types. It is invalid to attempt to define a new value of this type or to attempt to switch an existing value to this type.</td> </tr>
+<tr>
+<td>
+<code>SVG_ANGLETYPE_</code><code>UNSPECIFIED</code>
+</td> <td>1</td> <td>No unit type was provided (i.e., a unitless value was specified). For angles, a unitless value is treated the same as if degrees were specified.</td> </tr>
+<tr>
+<td><code>SVG_ANGLETYPE_DEG</code></td> <td>2</td> <td>The unit type was explicitly set to degrees.</td> </tr>
+<tr>
+<td><code>SVG_ANGLETYPE_RAD</code></td> <td>3</td> <td>The unit type is radians.</td> </tr>
+<tr>
+<td><code>SVG_ANGLETYPE_GRAD</code></td> <td>4</td> <td>The unit type is gradians.</td> </tr>
+</tbody></table><h2 id="Properties">Properties</h2> <table class="standard-table">
+<thead><tr>
+<th>Name</th> <th>Type</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>unitType</code></td> <td>unsigned short</td> <td>The type of the value as specified by one of the SVG_ANGLETYPE_* constants defined on this interface.</td> </tr>
+<tr>
+<td><code>value</code></td> <td>float</td> <td> <p>The value as a floating point value, in user units. Setting this attribute will cause <code>valueInSpecifiedUnits</code> and <code>valueAsString</code> to be updated automatically to reflect this setting.</p> <p><strong>Exceptions on setting:</strong> a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the length corresponds to a read only attribute or when the object itself is read only.</p> </td> </tr>
+<tr>
+<td><code>valueInSpecifiedUnits</code></td> <td>float</td> <td> <p>The value as a floating point value, in the units expressed by <code>unitType</code>. Setting this attribute will cause <code>value</code> and <code>valueAsString</code> to be updated automatically to reflect this setting.</p> <p><strong>Exceptions on setting:</strong> a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the length corresponds to a read only attribute or when the object itself is read only.</p> </td> </tr>
+<tr>
+<td><code>valueAsString</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td> <p>The value as a string value, in the units expressed by <code>unitType</code>. Setting this attribute will cause <code>value</code>, <code>valueInSpecifiedUnits</code> and <code>unitType</code> to be updated automatically to reflect this setting.</p> <p><strong>Exceptions on setting:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>SYNTAX_ERR</code> is raised if the assigned string cannot be parsed as a valid <a href="https://developer.mozilla.org/en/SVG/Content_type#Angle" title="https://developer.mozilla.org/en/SVG/Content_type#Angle">&lt;angle&gt;</a>.</li> <li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the length corresponds to a read only attribute or when the object itself is read only.</li> </ul>
+</td> </tr>
+</tbody>
+</table><h2 id="Methods">Methods</h2> <table class="standard-table">
+<thead><tr>
+<th>Name &amp; Arguments</th> <th>Return</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code><strong>newValueSpecifiedUnits</strong>(in unsigned short <em>unitType</em>, in float <em>valueInSpecifiedUnits</em>)</code></td> <td><em>void</em></td> <td> <p>Reset the value as a number with an associated unitType, thereby replacing the values for all of the attributes on the object.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NOT_SUPPORTED_ERR</code> is raised if <code>unitType</code> is <code>SVG_ANGLETYPE_UNKNOWN</code> or not a valid unit type constant (one of the other <code>SVG_ANGLETYPE_*</code> constants defined on this interface).</li> <li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when the length corresponds to a read only attribute or when the object itself is read only.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>convertToSpecifiedUnits</strong>(in unsigned short <em>unitType</em>)</code></td> <td><em>void</em></td> <td>Preserve the same underlying stored value, but reset the stored unit identifier to the given <code><em>unitType</em></code>. Object attributes <code>unitType</code>, <code>valueInSpecifiedUnits</code> and <code>valueAsString</code> might be modified as a result of this method.</td> </tr>
+</tbody>
+
+
+
+
+
+
+</table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGAngle$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGAngle" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/SVGAngle</a>
+  </p>
+</div>
+</div></div>

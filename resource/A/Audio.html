@@ -1,0 +1,628 @@
+<div class="mod-text-content mod-post-content mod-cs-contentblock">
+    <div class="cs-contentblock-bg"></div>
+    <div class="content-head clearfix">
+        <div class="content-other-info">
+            <span>2013-01-16 00:23</span>
+        </div>
+        <h2 class="title content-title">HTML5 Audio/Video 标签,属性,方法,事件汇总</h2>
+    </div>  <div id="content" class="content mod-cs-content text-content clearfix">
+    <p style="margin: 12pt 0cm 2.4pt; text-align: left; background-color: white;">
+        <span>&lt;audio&gt;</span>
+        <span>标签属性：</span>
+    </p>
+    <ul style="">
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">src</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：音乐的</span>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">URL</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">preload</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：预加载</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">autoplay</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：自动播放</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">loop</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：循环播放</span>
+        </li>
+        <li><span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">controls</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：浏览器自带的控制条</span>
+        </li>
+    </ul>
+    <p>
+        <strong>
+            <span style="font-size: 8pt; font-family: Consolas;">Html</span>
+        </strong>
+        <strong>
+            <span style="font-size: 8pt; font-family: 宋体;">代码</span>
+        </strong>
+        <strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+        </strong>
+        <strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+        </strong>
+    </p>
+    <div>
+        <p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">1.
+                <span style="">&nbsp;&nbsp;&nbsp;</span>
+            </span>
+            <strong>
+                <span style="font-size: 8pt; font-family: Consolas; color: #006699;">&lt;audio</span>
+            </strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: red;">id</span>
+            <span style="font-size: 8pt; font-family: Consolas;">=</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"media"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: red;">src</span>
+            <span style="font-size: 8pt; font-family: Consolas;">=</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"http://www.abc.com/test.mp3"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;controls</span>
+            <strong>
+                <span style="font-size: 8pt; font-family: Consolas; color: #006699;">&gt;&lt;/audio&gt;</span>
+            </strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p>
+    </div>
+    <p>
+        <span>&nbsp;</span>
+    </p>
+    <p style="margin: 12pt 0cm 2.4pt; text-align: left; background-color: white;">
+        <span>&lt;video&gt;</span>
+        <span>标签属性：</span>
+    </p>
+    <ul style="">
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">src</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：视频的</span>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">URL</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">poster</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：视频封面，没有播放时显示的图片</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">preload</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：预加载</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">autoplay</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：自动播放</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">loop</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：循环播放</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">controls</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：浏览器自带的控制条</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">width</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：视频宽度</span>
+        </li>
+        <li>
+            <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">height</span>
+            <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">：视频高度</span>
+        </li>
+    </ul>
+    <p>
+        <strong>
+            <span style="font-size: 8pt; font-family: Consolas;">Html</span>
+        </strong>
+        <strong>
+            <span style="font-size: 8pt; font-family: 宋体;">代码</span>
+        </strong>
+        <strong>
+
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+        </strong>
+        <strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;
+                <span style="color: #e9650e;"></span>
+            </span>
+        </strong>
+    </p>
+    <div>
+        <p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">1.
+                <span style="">&nbsp;&nbsp;&nbsp;</span>
+            </span>
+            <strong>
+            <span style="font-size: 8pt; font-family: Consolas; color: #006699;">&lt;video</span>
+            </strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: red;">id</span>
+            <span style="font-size: 8pt; font-family: Consolas;">=</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"media"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: red;">src</span>
+            <span style="font-size: 8pt; font-family: Consolas;">=</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"http://www.abc.com/test.mp4"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;controls&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: red;">width</span>
+            <span style="font-size: 8pt; font-family: Consolas;">=</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"400px"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: red;">heigt</span>
+            <span style="font-size: 8pt; font-family: Consolas;">=</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"400px"</span>
+            <strong>
+                <span style="font-size: 8pt; font-family: Consolas; color: #006699;">&gt;&lt;/video&gt;</span>
+            </strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p>
+    </div>
+    <p>
+        <span>&nbsp;</span>
+    </p>
+    <p style="margin: 12pt 0cm 2.4pt; text-align: left; background-color: white;">
+        <span>获取</span>
+        <span>HTMLVideoElement</span>
+        <span>和</span>
+        <span>HTMLAudioElement</span>
+        <span>对象</span>
+    </p><p><span>&nbsp;</span>
+</p>
+    <p>
+        <strong><span style="font-size: 8pt; font-family: Consolas;">Js</span>
+        </strong><strong><span style="font-size: 8pt; font-family: 宋体;">代码</span>
+    </strong><strong><span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+    </strong><strong><span style="font-size: 8pt; font-family: Consolas;">&nbsp;<span style="color: #e9650e;"></span></span></strong>
+    </p><div><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">1.<span style="">&nbsp;&nbsp;&nbsp;</span>
+</span><span style="font-size: 8pt; font-family: Consolas; color: #008200;">//audio</span>
+    <span style="font-size: 8pt; font-family: 宋体; color: #008200;">可以直接通过</span>
+    <span style="font-size: 8pt; font-family: Consolas; color: #008200;">new</span>
+    <span style="font-size: 8pt; font-family: 宋体; color: #008200;">创建对象</span>
+    <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+    <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">2.
+        <span style="">&nbsp;&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas;">Media&nbsp;=&nbsp;</span>
+    <strong><span style="font-size: 8pt; font-family: Consolas; color: #7f0055;">new</span>
+    </strong><span style="font-size: 8pt; font-family: Consolas;">&nbsp;Audio(</span>
+    <span style="font-size: 8pt; font-family: Consolas; color: blue;">"http://www.abc.com/test.mp3"</span>
+    <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;</span></p><p>
+    <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">3.
+        <span style="">&nbsp;&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas; color: #008200;">//audio</span>
+    <span style="font-size: 8pt; font-family: 宋体; color: #008200;">和</span>
+    <span style="font-size: 8pt; font-family: Consolas; color: #008200;">video</span>
+    <span style="font-size: 8pt; font-family: 宋体; color: #008200;">都可以通过标签获取对象</span>
+    <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+        <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">4.<span style="">&nbsp;&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">Media&nbsp;=&nbsp;document.getElementById(</span>
+        <span style="font-size: 8pt; font-family: Consolas; color: blue;">"media"</span>
+        <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;</span>
+    </p></div><p style="text-align: left;"><span>&nbsp;</span></p><p><span>&nbsp;</span></p>
+        <p style="margin: 12pt 0cm 2.4pt; text-align: left; background-color: white;"><span>Media</span>
+            <span>方法和属性：</span></p><p>
+        <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">HTMLVideoElement&nbsp;</span>
+        <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">和</span>
+        <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">HTMLAudioElement&nbsp;</span>
+
+        <span style="font-size: 9pt; font-family: 宋体; color: #4d4d4d;">均继承自</span>
+        <span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">HTMLMediaElement</span></p>
+        <p><span style="font-size: 9pt; font-family: Helvetica,sans-serif; color: #4d4d4d;">&nbsp;</span>
+            <strong><span style="font-size: 8pt; font-family: Consolas;">Js</span></strong>
+            <strong><span style="font-size: 8pt; font-family: 宋体;">代码</span></strong>
+            <strong><span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span></strong>
+            <strong><span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span></strong>
+        </p><div><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">1.<span style="">&nbsp;&nbsp;&nbsp;</span>
+    </span><span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">错误状态</span>
+        <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">2.
+            <span style="">&nbsp;&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.error;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//null:</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">正常</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">3.
+            <span style="">&nbsp;&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.error.code;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//1.</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">用户终止</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;2.</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">网络错误</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;3.</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">解码错误</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;4.URL</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">无效</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">4.<span style="">&nbsp;&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">5.
+            <span style="">&nbsp;&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">网络状态</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">6.
+                <span style="">&nbsp;&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.currentSrc;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">返回当前资源的</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">URL</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">7
+                .<span style="">&nbsp;&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.src&nbsp;=&nbsp;value;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">返回或设置当前资源的</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">URL</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">8.<span style="">&nbsp;&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.canPlayType(type);&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">是否能播放某种格式的资源</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">9.
+                <span style="">&nbsp;&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.networkState;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//0.</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">此元素未初始化</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;&nbsp;1.</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">正常但没有使用网络</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;&nbsp;2.</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">正在下载数据</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;&nbsp;3.</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">没有找到资源</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">10.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.load();&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">重新加载</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">src</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">指定的资源</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">11.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.buffered;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">返回已缓冲区域，</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">TimeRanges</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">12.
+                <span style="">&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.preload;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//none:</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">不预载</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;metadata:</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">预载资源信息</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;auto:</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">13.
+                <span style="">&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">14.<span style="">&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">准备状态</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">15.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.readyState;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">
+                //1:HAVE_NOTHING&nbsp;2:HAVE_METADATA&nbsp;3.HAVE_CURRENT_DATA&nbsp;4.HAVE_FUTURE_DATA&nbsp;5.HAVE_ENOUGH_DATA</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">16.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.seeking;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">是否正在</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">seeking</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">17.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">18.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">回放状态</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">19.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.currentTime&nbsp;=&nbsp;value;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">当前播放的位置，赋值可改变位置</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">20.<span style="">&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.startTime;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">一般为</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">0</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">，如果为流媒体或者不从</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">0</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">开始的资源，则不为</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">0</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">21.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.duration;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">当前资源长度</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">流返回无限</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">22.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.paused;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">是否暂停</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">23.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.defaultPlaybackRate&nbsp;=&nbsp;value;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">默认的回放速度，可以设置</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">24.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.playbackRate&nbsp;=&nbsp;value;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">当前播放速度，设置后马上改变</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">25.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.played;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">返回已经播放的区域，</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">TimeRanges</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">，关于此对象见下文</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">26.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.seekable;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">返回可以</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">seek</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">的区域</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">&nbsp;TimeRanges</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">27.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.ended;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">是否结束</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">28.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.autoPlay;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">是否自动播放</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">29.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.loop;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">是否循环播放</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">30.
+            <span style="">&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.play();&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">播放</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">31.
+            <span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.pause();&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">暂停</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">32.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">33.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">控制</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">
+            34.<span style="">&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.controls;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">是否有默认控制条</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">35.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.volume&nbsp;=&nbsp;value;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">音量</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">36.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;Media.muted&nbsp;=&nbsp;value;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">静音</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+    <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">37.<span style="">&nbsp;&nbsp;</span>
+    </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+        <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">38.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;</span>
+        <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//TimeRanges(</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">区域</span>
+        <span style="font-size: 8pt; font-family: Consolas; color: #008200;">)</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">对象</span>
+        <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+    <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">39.<span style="">&nbsp;&nbsp;</span>
+    </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;TimeRanges.length;&nbsp;</span>
+        <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">区域段数</span>
+        <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+        <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">40.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;TimeRanges.start(index)&nbsp;</span>
+        <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">第</span>
+        <span style="font-size: 8pt; font-family: Consolas; color: #008200;">index</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">段区域的开始位置</span>
+        <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+        <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">41.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;TimeRanges.end(index)&nbsp;</span><
+        span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">第</span>
+        <span style="font-size: 8pt; font-family: Consolas; color: #008200;">index</span>
+        <span style="font-size: 8pt; font-family: 宋体; color: #008200;">段区域的结束位置</span>
+        <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p></div>
+    <p style="text-align: left;"><span>&nbsp;</span><span>事件：</span></p><p><strong>
+        <span style="font-size: 8pt; font-family: Consolas;">Js</span></strong><strong>
+        <span style="font-size: 8pt; font-family: 宋体;">代码</span></strong><strong>
+        <span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span></strong>
+        <strong><span style="font-size: 8pt; font-family: Consolas;">&nbsp;</span>
+        </strong></p><div><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">1.
+        <span style="">&nbsp;&nbsp;&nbsp;</span></span>
+        <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eventTester&nbsp;=&nbsp;</span>
+        <strong><span style="font-size: 8pt; font-family: Consolas; color: #7f0055;">function</span>
+        </strong><span style="font-size: 8pt; font-family: Consolas;">(e){&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">2.<span style="">&nbsp;&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;&nbsp;Media.addEventListener(e,</span>
+            <strong><span style="font-size: 8pt; font-family: Consolas; color: #7f0055;">function</span>
+            </strong><span style="font-size: 8pt; font-family: Consolas;">(){&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">3.<span style="">&nbsp;&nbsp;&nbsp;</span>
+        </span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log((</span>
+            <strong><span style="font-size: 8pt; font-family: Consolas; color: #7f0055;">new</span>
+            </strong>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;Date()).getTime(),e);&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">4.
+            <span style="">&nbsp;&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;&nbsp;&nbsp;});&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">5.<span style="">&nbsp;&nbsp;&nbsp;</span>
+            </span>
+            <span style="font-size: 8pt; font-family: Consolas;">}&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">6.<span style="">&nbsp;&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">7.<span style="">&nbsp;&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"loadstart"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">客户端开始请求数据</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">8.<span style="">&nbsp;&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"progress"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">客户端正在请求数据</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">9.
+                <span style="">&nbsp;&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"suspend"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">延迟下载</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">10.
+                <span style="">&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"abort"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">客户端主动终止下载（不是因为错误引起），</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">11.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"error"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">请求数据时遇到错误</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">12.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"stalled"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">网速失速</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">13.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"play"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//play()</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">和</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">autoplay</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">开始播放时触发</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">14.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"pause"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//pause()
+            </span><span style="font-size: 8pt; font-family: 宋体; color: #008200;">触发</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">15.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"loadedmetadata"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">成功获取资源长度</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">16.
+                <span style="">&nbsp;&nbsp;</span></span>
+            <span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"loadeddata"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">
+            17.<span style="">&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"waiting"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">等待数据，并非错误</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">18.
+                <span style="">&nbsp;&nbsp;</span></span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"playing"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">开始回放</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">19.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"canplay"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">可以播放，但中途可能因为加载而暂停</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">20.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"canplaythrough"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">可以播放，歌曲全部加载完毕</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">21.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"seeking"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">寻找中</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">22.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"seeked"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">寻找完毕</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">23.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"timeupdate"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">播放时间改变</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">24.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"ended"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">播放结束</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span>
+        </p><p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">25.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"ratechange"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">播放速率改变</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p>
+        <p><span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">26.<span style="">&nbsp;&nbsp;</span>
+        </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"durationchange"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">资源长度改变</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p><p>
+            <span style="font-size: 8pt; font-family: Consolas; color: #2b91af;">27.<span style="">&nbsp;&nbsp;</span>
+            </span><span style="font-size: 8pt; font-family: Consolas;">eventTester(</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: blue;">"volumechange"</span>
+            <span style="font-size: 8pt; font-family: Consolas;">);&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-size: 8pt; font-family: Consolas; color: #008200;">//</span>
+            <span style="font-size: 8pt; font-family: 宋体; color: #008200;">音量改变</span>
+            <span style="font-size: 8pt; font-family: Consolas;">&nbsp;&nbsp;</span></p></div>
+    <p><span>&nbsp;</span>
+    </p>
+    <p>
+        <br>
+    </p>
+    </div>

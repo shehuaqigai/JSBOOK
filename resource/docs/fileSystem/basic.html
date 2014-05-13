@@ -1,0 +1,15 @@
+<h2>简介</h2>
+<p>
+我常常想，如果网络应用能够读取和写入文件与目录，将会非常方便。从离线转移到在线后，应用变得更加复杂，而文件系统方面的 API 的缺乏也一直阻碍着网络前进。存储二进制数据或与其进行交互不应局限于桌面。令人欣慰的是，由于 FileSystem API 的出现，这一现状终于得到了改变。有了 FileSystem API，网络应用就可以创建、读取、导航用户本地文件系统中的沙盒部分以及向其中写入数据。
+
+API 被分为以下不同的主题：
+
+读取和处理文件：File/Blob、FileList、FileReader
+创建和写入：BlobBuilder、FileWriter
+目录和文件系统访问：DirectoryReader、FileEntry/DirectoryEntry、LocalFileSystem
+浏览器支持与存储限制
+
+在写这篇文章时，只有 Google Chrome 浏览器可以实施此 FileSystem API。目前尚不存在专门用于文件/配额管理的浏览器用户界面。要在用户的系统上存储数据，您的应用可能需要请求配额。不过，可使用 --unlimited-quota-for-files 标记运行 Chrome 浏览器进行测试。此外，如果您要开发的是用于 Chrome 网上应用店的应用或扩展程序，可使用 unlimitedStorage 清单文件权限，而无需请求配额。最后，用户会收到授予、拒绝或为应用增加存储的权限对话框。
+
+如果您要通过 file:// 调试您的应用，可能需要 --allow-file-access-from-files 标记。不使用这些标记会导致 SECURITY_ERR 或 QUOTA_EXCEEDED_ERR FileError。
+</p>

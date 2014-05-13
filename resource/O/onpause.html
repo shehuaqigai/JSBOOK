@@ -1,0 +1,163 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">pause | onpause event</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Occurs when playback is paused. </p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=221374" title="HTML5 A vocabulary and associated APIs for HTML and XHTML"><img id="badge_html5" alt="HTML5 A vocabulary and associated APIs for HTML and XHTML, Section 4.8.9.12" src="http://i.msdn.microsoft.com/dynimg/IC536200.png" title="HTML5 A vocabulary and associated APIs for HTML and XHTML, Section 4.8.9.12" xmlns=""></a><img id="badge_ie9" alt="Internet Explorer&nbsp;9" src="http://i.msdn.microsoft.com/dynimg/IC600833.png" title="Internet Explorer&nbsp;9" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<table>
+<tbody><tr><th>Event Property</th><td>
+          object.<strong>onpause</strong> = <em>handler</em>;
+        </td></tr>
+<tr><th>addEventListener Method</th><td>
+          object.addEventListener("<strong>pause</strong>", handler, useCapture)
+        </td></tr>
+</tbody></table>
+
+<h2>Event information</h2>
+<table>
+<tbody><tr><td><strong>Synchronous</strong></td><th>No</th></tr>
+<tr><td><strong>Bubbles</strong></td><th>No</th></tr>
+<tr><td><strong>Cancelable</strong></td><th>No</th></tr>
+</tbody></table>
+<h2>Event handler parameters</h2>
+<dl>
+<dt><em>pEvtObj</em> [in]</dt>
+<dd>
+<p>Type: <strong><a href="http://msdn.microsoft.com/zh-tw/library/ie/ff974340(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Event</strong></a></strong></p>
+</dd>
+</dl>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=221374" title="HTML5 A vocabulary and associated APIs for HTML and XHTML">HTML5 A vocabulary and associated APIs for HTML and XHTML</a>, Section 4.8.9.12</li>
+</ul>
+<h2>Remarks</h2>
+<p>To invoke this event, do one of the following:</p>
+<ul>
+<li>Call the <a href="http://msdn.microsoft.com/zh-tw/library/ie/ff975193(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">pause</strong></a> method. </li>
+<li>Click the pause button on the embedded media controls. </li>
+</ul>
+<h2>Examples</h2>
+<p>This example shows how to use the play event to change the label on a play button. To use it, click <strong>Play</strong> to start the video, and then click the <strong>play</strong>/<strong>pause</strong> button to see how it works. </p>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="複製到剪貼簿。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_3b70a324-b615-4c59-8b9c-6ea525856dd6');">複製</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_3b70a324-b615-4c59-8b9c-6ea525856dd6" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">&lt;!</span><span style="color:#A31515;">DOCTYPE</span> <span style="color:Red;">html</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>Simple Video Example<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Green;">&lt;!-- Uncomment the following tag when developing on a local or intranet computer --&gt;</span>
+      <span style="color:Green;">&lt;!-- &lt;meta http-equiv-'X-UA-Compatible' content="ie9" /&gt;  --&gt;</span>        
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"video1"</span> <span style="color:Blue;">&gt;</span>
+   HTML5 video is not supported<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;</span><span style="color:#A31515;">br</span> <span style="color:Blue;">/&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">input</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"text"</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"videoFile"</span> <span style="color:Red;">style</span><span style="color:Blue;">=</span><span style="color:Blue;">"width:600px"</span> <span style="color:Red;">value</span><span style="color:Blue;">=</span><span style="color:Blue;">"http://ie.microsoft.com/testdrive/ieblog/2011/nov/pp4_blog_demo.mp4"</span><span style="color:Blue;">/&gt;</span>
+  
+  <span style="color:Green;">&lt;!-- Button width set so overall size doesn't change when we toggle the label --&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">button</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"playButton"</span> <span style="color:Red;">onclick</span><span style="color:Blue;">=</span><span style="color:Blue;">"playVideo(this);"</span> <span style="color:Red;">style</span><span style="color:Blue;">=</span><span style="color:Blue;">"width: 80px"</span> <span style="color:Blue;">&gt;</span>Play<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">button</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">div</span> <span style="color:Blue;">&gt;</span>Elapsed Time: <span style="color:Blue;">&lt;</span><span style="color:#A31515;">span</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"timeDisplay"</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;/</span><span style="color:#A31515;">span</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;/</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+
+   <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"text/javascript"</span><span style="color:Blue;">&gt;</span>
+
+     <span style="color:Blue;">var</span> oVideo = document.getElementById(<span style="color:#A31515;">"video1"</span>);      <span style="color:Green;">//video element</span>
+     <span style="color:Blue;">var</span> button = document.getElementById(<span style="color:#A31515;">"playButton"</span>);
+     <span style="color:Blue;">var</span> display = document.getElementById(<span style="color:#A31515;">"timeDisplay"</span>);
+
+          <span style="color:Green;">// Capture the play event and set the button to say pause</span>
+     oVideo.addEventListener(<span style="color:#A31515;">"play"</span>, <span style="color:Blue;">function</span> () {
+       button.innerHTML = <span style="color:#A31515;">"Pause"</span>;
+     }, <span style="color:Blue;">false</span>);
+
+     <span style="color:Green;">// Capture the pause event and set the button to say play</span>
+     oVideo.addEventListener(<span style="color:#A31515;">"pause"</span>, <span style="color:Blue;">function</span> () {
+       button.innerHTML = <span style="color:#A31515;">"Play"</span>;
+     }, <span style="color:Blue;">false</span>);
+
+     <span style="color:Green;">//  Capture time changes and display current position</span>
+     oVideo.addEventListener(<span style="color:#A31515;">"timeupdate"</span>, <span style="color:Blue;">function</span> () {
+       display.innerText = oVideo.currentTime.toFixed(2) ;
+     }, <span style="color:Blue;">false</span>);
+
+     <span style="color:Blue;">function</span> playVideo(e) {      
+       <span style="color:Green;">//  toggle between play and pause based on the paused property</span>
+       <span style="color:Blue;">if</span> (oVideo.paused) {
+         <span style="color:Blue;">var</span> oInput = document.getElementById(<span style="color:#A31515;">'videoFile'</span>);   <span style="color:Green;">//text box</span>
+         <span style="color:Blue;">if</span> (oInput.value) {
+           <span style="color:Green;">//  only load a video file when the text field changes</span>
+           <span style="color:Blue;">if</span> (oInput.value != oVideo.src) {
+             oVideo.src = oInput.value;
+             oVideo.load();
+           }
+           oVideo.play();
+         }
+       } <span style="color:Blue;">else</span> {
+         oVideo.pause();
+       }
+
+     }
+     <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span> 
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2><a id="see_also"></a>See also</h2>
+<dl>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/hh772923(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">audio</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/ff975061(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">audio</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/ms535862(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">document</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/ff975070(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">source</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/hh772959(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">video element</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/ff975073(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">video object</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/ms535873(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">window</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/hh924821(v=vs.85).aspx">How to use HTML5 to play video files on your webpage</a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/gg589483(v=vs.85).aspx">How to use HTML5 to Add an Audio Player to your Webpage</a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-tw/library/ie/jj152143(v=vs.85).aspx">Make your videos accessible with Timed Text Tracks</a>
+</dt>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/17/2014</p>
+</div>
+</div>

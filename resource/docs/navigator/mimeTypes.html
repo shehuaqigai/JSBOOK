@@ -1,0 +1,39 @@
+<p>
+	客户端支持的一个 MIME(多部分网际邮件扩展，Multipart Internet Mail Extension) 类型。
+客户端对象	
+实现版本	Navigator 3.0
+</p>
+<p>
+创建源
+
+你不需要自行创建 MimeType 对象。这些对象是预先定义的 JavaScript 对象，你可以通过 navigator 或 Plugin 对象的 mimeTypes 数组来访问这些对象：
+navigator.mimeTypes[index]
+这里 index 或者是表明由客户端支持的 MIME 类型的整型值，也可以是包含了 MimeType 对象类型(来自于 MimeType.type 属性)的字符串。
+
+
+描述
+
+每个 MimeType 对象都是 mimeTypes 数组中的一个元素。mimeTypes 数组是 navigator 和 Plugin 对象的一个属性。例如，下表将显示 JPEG 图像的值给出了一个总结：
+</p>
+<pre>
+	属性概览
+
+description	MIME 类型的描述。
+enabledPlugin	对为该 MIME 类型配置好的 Plugin 对象的引用。
+suffixes	列出了该 MIME 类型可能对应文件扩展名的字符串，如“mpeg, mpg, mpe, mpv, vbs, mpegv”。
+type	该 MIME 类型的名称，如“video/mpeg”或“audio/x-wav”。
+
+方法
+
+无。
+</pre>
+<pre>
+navigator.mimeTypes 回传 MimeTypeArray 对象，其内包含浏览器支持的媒体格式对象。
+
+MimeTypeArray 有以下的属性 (attribute) 与方法 (method)
+
+名称	描述
+length	所有媒体格式对象的总数
+item(index)	依 index 索引值取得该媒体格式对象
+namedItem(name)	依名称取得该媒体格式对象
+</pre>

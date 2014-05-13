@@ -1,0 +1,32 @@
+<pre>
+	定义和用法
+getUTCFullYear() 方法可返回根据世界时 (UTC) 表示的年份的四位数字。
+语法
+dateObject.getUTCFullYear()
+返回值
+返回 dateObject 用世界时表示时的年份，该值是一个四位的整数，而不是两位数的缩写。
+提示和注释：
+注释：该方法总是结合一个 Date 对象来使用。
+提示：有关通用协调时间 (UTC) 的更多资料，请参阅百度百科。
+实例
+例子 1
+In this example we get the current year and print it:
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.getUTCFullYear())
+
+&lt/script>
+输出：
+2014
+例子 2
+Here we will extract the year out of the specific date:
+&ltscript type="text/javascript">
+
+var born = new Date("July 21, 1983 01:15:00")
+document.write("I was born in " + born.getUTCFullYear())
+
+&lt/script>
+输出：
+I was born in 1983
+</pre>

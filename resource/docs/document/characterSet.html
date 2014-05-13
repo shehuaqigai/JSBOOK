@@ -1,0 +1,16 @@
+<p>
+	// firefox下为 document.characterSet 仅支持读取
+// ie/safria/chrome/opera 均有document.charset   并且支持读写
+</p>
+<pre>
+	*
+ * 调查乱码问题
+ * 创建script标签时添加charset
+ * 字符串真实长度检测
+ * 解决两个页面不同charset的form提交乱码 可以用
+ &ltform method="post" accept-charset="utf-8">&lt/form>
+ * 当然ie下有些问题，用
+ &ltform method="post"  accept-charset="utf-8" onsubmit="document.charset='utf-8';">&lt/form>
+ 这样的无耻行为解决一下
+ */
+</pre>

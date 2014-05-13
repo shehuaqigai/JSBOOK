@@ -1,0 +1,118 @@
+一般我们在JS中添加事件,是这样子的<br/>
+obj.onclick=method <br/>
+这种绑定事件的方式，兼容主流浏览器,但如果一个元素上添加多次同一事件呢? <br/>
+obj.onclick=method1;   <br/>
+obj.onclick=method2; <br/>
+obj.onclick=method3; <br/>
+如果这样写,那么只有最后绑定的事件,这里是method3会被执行,这个时候我们就不能用onclick这样的写法了,主角改登场了,在IE中我们可以使用attachEvent方法
+//object.attachEvent(event,function); <br/>
+btn1Obj.attachEvent("onclick",method1);<br/>
+btn1Obj.attachEvent("onclick",method2); <br/>
+btn1Obj.attachEvent("onclick",method3); <br/>
+使用格式是前面是事件类型,注意的是需要加on,比如onclick,onsubmit,onchange,执行顺序是
+method3->method2->method1
+可惜这个微软的私人方法,火狐和其他浏览器都不支持,幸运的是他们都支持W3C标准的addEventListener方法
+//element.addEventListener(type,listener,useCapture);<br/>
+btn1Obj.addEventListener("click",method1,false); <br/>
+btn1Obj.addEventListener("click",method2,false); <br/>
+btn1Obj.addEventListener("click",method3,false);<br/>
+执行顺序为method1->method2->method3
+做前端开发工程师,最悲剧的某过于浏览器兼容问题了,上面有两种添加事件的方法,为了同一添加事件的方法,我们不得不再重新写一个通用的添加事件函数,幸亏再有前人帮我们做了这件事 <br/>
+function addEvent(elm, evType, fn, useCapture) {  <br/>
+if (elm.addEventListener) { <br/>
+elm.addEventListener(evType, fn, useCapture);//DOM2.0  <br/>
+return true; <br/>
+}      <br/>
+else if (elm.attachEvent) { <br/>
+var r = elm.attachEvent(‘on‘ + evType, fn);//IE5+   <br/>
+return r;    <br/>
+}   <br/>
+else {  <br/>
+elm['on' + evType] = fn;//DOM <br/>
+}    <br/>
+}  <br/>
+下面是Dean Edwards 的版本 view sourceprint?  <br/>
+function addEvent(element, type, handler) {  <br/>
+//为每一个事件处理函数分派一个唯一的ID    <br/>
+if (!handler.$$guid) handler.$$guid = addEvent.guid++;  <br/>
+//为元素的事件类型创建一个哈希表      <br/>
+if (!element.events) element.events = {};   <br/>
+//为每一个"元素/事件"对创建一个事件处理程序的哈希表  <br/>
+var handlers = element.events[type];  <br/>
+if (!handlers) {             <br/>
+handlers = element.events[type] = {};<br/>
+//存储存在的事件处理函数(如果有)   <br/>
+if (element["on" + type]) {   <br/>
+handlers[0] = element["on" + type]; <br/>
+}        <br/>
+}        <br/>
+//将事件处理函数存入哈希表 <br/>
+handlers[handler.$$guid] = handler;    <br/>
+//指派一个全局的事件处理函数来做所有的工作     <br/>
+element["on" + type] = handleEvent;  <br/>
+};      <br/>
+//用来创建唯一的ID的计数器   <br/>
+addEvent.guid = 1;    <br/>
+function removeEvent(element, type, handler) {  <br/>
+//从哈希表中删除事件处理函数   <br/>
+if (element.events && element.events[type]) { <br/>
+delete element.events[type][handler.$$guid]; <br/>
+}     <br/>
+};    <br/>
+function handleEvent(event) { <br/>
+var returnValue = true;   <br/>
+//抓获事件对象(IE使用全局事件对象) <br/>
+event = event || fixEvent(window.event);<br/>
+//取得事件处理函数的哈希表的引用   <br/>
+var handlers = this.events[event.type]; <br/>
+//执行每一个处理函数        <br/>
+for (var i in handlers) {   <br/>
+this.$$handleEvent = handlers[i]; <br/>
+if (this.$$handleEvent(event) === false) { <br/>
+returnValue = false;<br/>
+}         <br/>
+}           <br/>
+return returnValue;  <br/>
+};               <br/>
+//为IE的事件对象添加一些“缺失的”函数 <br/>
+function fixEvent(event) {  <br/>
+//添加标准的W3C方法  <br/>
+event.preventDefault = fixEvent.preventDefault; <br/>
+event.stopPropagation = fixEvent.stopPropagation;  <br/>
+return event;            <br/>
+};                      <br/>
+fixEvent.preventDefault = function() { <br/>
+this.returnValue = false;    <br/>
+};                                 <br/>
+fixEvent.stopPropagation = function() {  <br/>
+this.cancelBubble = true;       <br/>
+};                         <br/>
+功能非常强悍，解决IE的this指向问题，event总是作为第一个参数传入，跨浏览器就更不在话下。 <br/>
+
+最后贡献一个HTML5工作组的版本：   <br/>
+
+var addEvent=(function(){  <br/>
+if(document.addEventListener){   <br/>
+return function(el,type,fn){  <br/>
+if(el.length){                 <br/>
+for(var i=0;i&lt;el.length;i++){ <br/>
+addEvent(el[i],type,fn);      <br/>
+}                             <br/>
+}else{                        <br/>
+el.addEventListener(type,fn,false); <br/>
+}                          <br/>
+};                      <br/>
+}else{                    <br/>
+return function(el,type,fn){  <br/>
+if(el.length){                    <br/>
+for(var i=0;i&lt;el.length;i++){   <br/>
+addEvent(el[i],type,fn);       <br/>
+}                             <br/>
+}else{                       <br/>
+el.attachEvent(‘on‘+type,function(){   <br/>
+return fn.call(el,window.event);  <br/>
+});                       <br/>
+}                         <br/>
+};                    <br/>
+}                 <br/>
+})();          <br/>

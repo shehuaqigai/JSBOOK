@@ -1,0 +1,135 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">feDisplacementMap element | SVGFEDisplacementMapElement object</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Spatially displaces an image (in) using the pixel values of a second image (in2).  The transformation uses the equation: P'(x,y) &lt;- P( x + scale * ((XC(x,y) - .5), y + scale * (YC(x,y) - .5)) where P(x,y) is the source image, image1, and P'(x,y) is the destination. XC(x,y) and YC(x,y) are the component values of the designated by the x-channel-selector and y-channel-selector. For example, to use the red (R) component of image2 to control displacement in x and the green (G) component of image2 to control displacement in y, set x-channel-selector to "R" and y-channel-selector to "G". 
+The displacement map defines the inverse of the mapping performed.</p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects"><img id="badge_svg" alt="Scalable Vector Graphics: Filter Effects, Section 15.25.17" src="http://i.msdn.microsoft.com/dynimg/IC536350.png" title="Scalable Vector Graphics: Filter Effects, Section 15.25.17" xmlns=""></a><img id="badge_ie10" alt="Internet Explorer&nbsp;10" src="http://i.msdn.microsoft.com/dynimg/IC600829.png" title="Internet Explorer&nbsp;10" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_5843a7ef-a1a0-4b8f-9fa6-a0c925018441');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_5843a7ef-a1a0-4b8f-9fa6-a0c925018441" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+ &lt;feDisplacementMap xChannelSelector="G" yChannelSelector="B" in2="image2" in="image1"/&gt;
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869750(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Node</strong></a>
+<div>&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869681(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Element</strong></a>
+<div>&nbsp;&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/gg305566(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">SVGElement</strong></a>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVGFEDisplacementMapElement</div>
+</div>
+</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>SVGFEDisplacementMapElement</strong> object has these types of members:</p>
+<ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>SVGFEDisplacementMapElement</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff971948(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">height</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets  the height of an element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773078(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">in1</strong></a>
+</p>
+                                </td><td>
+<p>Identifies input for the given filter primitive.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773079(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">in2</strong></a>
+</p>
+                                </td><td>
+<p>The second input image to the blending operation.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773405(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">result</strong></a>
+</p>
+                                </td><td>
+<p>Provides a reference for the output result of a filter. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972028(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">width</strong></a>
+</p>
+                                </td><td>
+<p>Defines the width of an element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972029(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">x</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the x-coordinate value.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773236(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">xChannelSelector</strong></a>
+</p>
+                                </td><td>
+<p>Specifies which color channel (R/G/B/A) from image 2 to use for the x displacement property with a <strong>FEDisplacementMap</strong> element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972039(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">y</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the y-coordinate value.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773237(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">yChannelSelector</strong></a>
+</p>
+                                </td><td>
+<p>Specifies which color channel (R/G/B/A) from image 2 to use for the y  displacement property with a <strong>FEDisplacementMap</strong> element.</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects">Scalable Vector Graphics: Filter Effects</a>, Section 15.25.17</li>
+</ul>
+<h2><a id="see_also"></a>See also</h2>
+<dl>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773236(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">xChannelSelector</strong></a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773237(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">yChannelSelector</strong></a>
+</dt>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/13/2014</p>
+</div>
+</div>

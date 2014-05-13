@@ -1,0 +1,143 @@
+<div class="_content"><div class="_page _mdn"><h1>HTMLIFrameElement</h1> <p>The <strong><code>HTMLIFrameElement</code></strong> interface provides special properties and methods (beyond those of the <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a> interface it also has available to it by inheritance) for manipulating the layout and presentation of inline frame elements.</p> <h2 id="Properties">Properties</h2> <p><em>Inherits properties from its parent, <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a></em>.</p> <table class="standard-table">
+<thead><tr>
+<th scope="col">Name</th> <th scope="col">Type</th> <th scope="col">Description</th> </tr></thead>
+<tbody>
+<tr>
+<td>
+<code>align</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Specifies the alignment of the frame with respect to the surrounding context.</td> </tr>
+<tr>
+<td>
+<code>allowfullscreen</code> 
+</td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>Indicates whether or not the inline frame is willing to be placed into full screen mode. See <a href="https://developer.mozilla.org/en-US/docs/DOM/Using_full-screen_mode" title="https://developer.mozilla.org/en/DOM/Using_full-screen_mode">Using full-screen mode</a> for details.</td> </tr>
+<tr>
+<td>
+<code>contentDocument</code> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="document" title="Each web page loaded in the browser has its own document object. The Document interface serves as an entry point to the web page's content (the DOM tree, including elements such as &lt;body&gt; and &lt;table&gt;) and provides functionality global to the document (such as obtaining the page's URL and creating new elements in the document)."><code>Document</code></a></td> <td>The active document in the inline frame's nested browsing context.</td> </tr>
+<tr>
+<td>
+<code>contentWindow</code> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</td> <td><a href="windowproxy" title="The documentation about this has not yet been written; please consider contributing!"><code>WindowProxy</code></a></td> <td>The window proxy for the nested browsing context.</td> </tr>
+<tr>
+<td>
+<code>frameborder</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Indicates whether to create borders between frames.</td> </tr>
+<tr>
+<td><code>height</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-height">height</a></code> HTML attribute, indicating the height of the frame.</td> </tr>
+<tr>
+<td>
+<code>longDesc</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>URI of a long description of the frame.</td> </tr>
+<tr>
+<td>
+<code>marginHeight</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Height of the frame margin.</td> </tr>
+<tr>
+<td>
+<code>marginWidth</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Width of the frame margin.</td> </tr>
+<tr>
+<td><code>name</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-name">name</a></code> HTML attribute, containing a name by which to refer to the frame.</td> </tr>
+<tr>
+<td><code>sandbox</code></td> <td><a href="domsettabletokenlist" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMSettableTokenList</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-sandbox">sandbox</a></code> HTML attribute, indicating extra restrictions on the behavior of the nested content.</td> </tr>
+<tr>
+<td>
+<code>scrolling</code> 
+</td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Indicates whether the browser should provide scrollbars for the frame.</td> </tr>
+<tr>
+<td>
+<code>seamless</code> 
+</td> <td><a href="boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-seamless">seamless</a></code> HTML attribute, indicating that the inline frame should be rendered seamlessly within the parent document.</td> </tr>
+<tr>
+<td><code>src</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-src">src</a></code> HTML attribute, containing the address of the content to be embedded.</td> </tr>
+<tr>
+<td><code>srcDoc</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>The content to display in the frame.</td> </tr>
+<tr>
+<td><code>width</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td>Reflects the <code><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-width">width</a></code> HTML attribute, indicating the width of the frame.</td> </tr>
+</tbody>
+</table><h2 id="Methods">Methods</h2> <p><em>No specific method; inherits properties from its parent, <a href="htmlelement" title="The HTMLElement interface represents any HTML element. Some elements directly implement this interface, other implement it via an interface that inherit it."><code>HTMLElement</code></a></em>.</p> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-iframe-element.html#the-iframe-element" lang="en" title="The definition of 'HTMLIFrameElement' in that specification.">WHATWG HTML Living Standard</a></td> <td><span class="spec-Living">Living Standard</span></td> <td>The following property has been added: <code>allowFullscreen</code>.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/html5/embedded-content-0.html#the-iframe-element" lang="en" title="The definition of 'HTMLIFrameElement' in that specification.">HTML5</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td>The following properties are now obsolete: <code>scrolling</code>, <code>marginWidth</code>, <code>marginHeight</code>, <code>longDesc</code>, <code>frameBorder</code>, and <code>align</code>.<br> The following properties have been added: <code>srcdoc</code>, <code>sandbox</code>, <code>seamless</code>, and <code>contentWindow</code>.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-50708718" lang="en" title="The definition of 'HTMLIFrameElement' in that specification.">Document Object Model (DOM) Level 2 HTML Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>The <code>contentDocument</code> property has been added.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/REC-DOM-Level-1/level-one-html.html#ID-50708718" lang="en" title="The definition of 'HTMLIFrameElement' in that specification.">Document Object Model (DOM) Level 1 Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td>Initial definition.</td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>1.0 (1.7 or earlier)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>srcdoc</code></td> <td>4</td> <td>25.0 (25)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><code>sandbox</code></td> <td>4</td> <td>17.0 (17) [1]</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<code>seamless</code> 
+</td> <td>4</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><code>contentDocument</code></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>8.0 (for older version use <code>HTMLIFrameElement.contentWindow.document</code> instead)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>contentWindow</code></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<code>allowFullScreen</code> 
+</td> <td>17 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-webkit</span><br><em>Daily test builds only</em>
+</td> <td>9.0 (9.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-moz</span><br> 18.0 (18.0)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>1.0 (1.0)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>srcdoc</code></td> <td>4</td> <td>25.0 (25)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><code>sandbox</code></td> <td>4</td> <td>17.0 (17) [1]</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<code>seamless</code> 
+</td> <td>4</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td><code>contentDocument</code></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td><code>contentWindow</code></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+<tr>
+<td>
+<code>allowFullScreen</code> 
+</td> <td>17 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-webkit</span><br><em>Daily test builds only</em>
+</td> <td>9.0 (9.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">-moz</span><br> 18.0 (18.0)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <p>[1] Gecko, and maybe other browsers as it is a late change in the specification, implements <code>sandbox</code> as a <a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a> instead of a <a href="domsettabletokenlist" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMSettableTokenList</code></a> (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=845067" title="Send Email screen update">bug 845067</a>).</p> <h3 id="Firefox_OS_notes">Firefox OS notes</h3> <p>Firefox OS extend the <code>HTMLIFrameElement</code> interface to support browser iframes. Those extra methods are made for <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS/Security/Application_security" title="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox_OS/Security/Application_security">privileged applications</a> which want to implement a browser like application for Firefox OS devices. Not that in that context, the <code>HTMLIFrameElement</code> also inherit methods from the <a href="eventtarget" title="EventTarget is a DOM interface implemented by objects that can receive DOM events and have listeners for them."><code>EventTarget</code></a> interface. To learn how to implement such applications, see the <a href="https://developer.mozilla.org/en-US/docs/WebAPI/Browser" title="/en-US/docs/WebAPI/Browser">Using the Browser API</a> article.</p> <dl>
+<dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.setVisible" title="The setVisible method is used to change the visibility state of the browser &lt;iframe&gt;."><code>HTMLIFrameElement.setVisible(visible)</code></a>
+</dt> <dd> Allows the parent to explicitly change the visibility state of the browser iframes.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.getVisible" title="The getVisible method is used to request the current visible state of the browser &lt;iframe&gt;."><code>HTMLIFrameElement.getVisible()</code></a>
+</dt> <dd> Returns the current visibility state of the browser iframe. Returns a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMRequest" title="A DOMRequest object represents an ongoing operation. It provides callbacks that are called when the operation completes, as well as a reference to the operation's result. A DOM method that initiates an ongoing operation may return a DOMRequest object that you can use to monitor the progress of that operation."><code>DOMRequest</code></a>.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.sendMouseEvent" title="The sendMouseEvent method allows to fake a mouse event and send it to the browser &lt;iframe&gt;'s content."><code>HTMLIFrameElement.sendMouseEvent(type, x, y, button, clickCount, modifiers)</code></a>
+</dt> <dd> Send a mouse event to the browser iframe.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.sendTouchEvent" title="The sendTouchEvent method allows to fake a touch event and send it to the browser &lt;iframe&gt;'s content."><code>HTMLIFrameElement.sendTouchEvent(type, identifiers, touchesX, touchesY,radiisX, radiisY, rotationAngles, forces,count, modifiers)</code></a>
+</dt> <dd> Send a touch event to the browser iframe.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.goBack" title="The goBack method is used to navigate backwards in the browser &lt;iframe&gt;'s history."><code>HTMLIFrameElement.goBack()</code></a>
+</dt> <dd> Navigate the browser iframe back.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.goForward" title="The goForward method is used to navigate forward in the browser &lt;iframe&gt;'s history."><code>HTMLIFrameElement.goForward()</code></a>
+</dt> <dd> Navigate the browser iframe forward.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.reload" title="The reload method is used to reload the content of the &lt;iframe&gt;."><code>HTMLIFrameElement.reload()</code></a>
+</dt> <dd> Reload the browser iframe.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.stop" title="The stop method is used to stop loading the content of the &lt;iframe&gt;."><code>HTMLIFrameElement.stop()</code></a>
+</dt> <dd> Stop loading the browser iframe content.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.purgeHistory" title="The purgeHistory method is used to clear all the resources (cookies, localStorage, cache, etc.) associated with the browser &lt;iframe&gt;."><code>HTMLIFrameElement.purgeHistory()</code></a>
+</dt> <dd> Allows to remove the all browsing history of the browser iframe.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.getScreenshot" title="The getScreenshot method allows to request a screenshot of the browser &lt;iframe&gt;, scaled to fit within maxWidth and maxHeight pixels (and cropped if necessary but never twisted)."><code>HTMLIFrameElement.getScreenshot(maxWidth, maxHeight)</code></a>
+</dt> <dd> Allows to take a screenshot of the browser iframe's content, scaled to fit within <code>maxWidth</code> and <code>maxHeight</code> pixels. Returns a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMRequest" title="A DOMRequest object represents an ongoing operation. It provides callbacks that are called when the operation completes, as well as a reference to the operation's result. A DOM method that initiates an ongoing operation may return a DOMRequest object that you can use to monitor the progress of that operation."><code>DOMRequest</code></a>.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.addNextPaintListener" title="The addNextPaintListener method is used to define a handler to listen the next MozAfterPaint event coming from the browser &lt;iframe&gt;."><code>HTMLIFrameElement.addNextPaintListener()</code></a>
+</dt> <dd> Add a listener to recieve an event the first time the browser iframe is ready to paint (This listener is sent an event after the first <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers.MozAfterPaint" title="/en-US/docs/Web/API/GlobalEventHandlers.MozAfterPaint">MozAfterPaint</a></code> event is dispacted in the iframe.)</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.removeNextPaintListener" title="The removeNextPaintListener method is used to remove a handler previously set with the addNextPaintListener method."><code>HTMLIFrameElement.removeNextPaintListener()</code></a>
+</dt> <dd> Remove the listener added by the previous function.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.getCanGoBack" title="The getCanGoBack method is used to know if it's possible to go back in the navigation history of the browser &lt;iframe&gt;."><code>HTMLIFrameElement.getCanGoBack()</code></a>
+</dt> <dd> Returns a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMRequest" title="A DOMRequest object represents an ongoing operation. It provides callbacks that are called when the operation completes, as well as a reference to the operation's result. A DOM method that initiates an ongoing operation may return a DOMRequest object that you can use to monitor the progress of that operation."><code>DOMRequest</code></a> which <code>result</code> is a boolean indicating wether the browser iframe can be navigate backward.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement.getCanGoForward" title="The getCanGoForward method is used to know if it's possible to go forward in the navigation history of the browser &lt;iframe&gt;."><code>HTMLIFrameElement.getCanGoForward()</code></a>
+</dt> <dd> Returns a <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMRequest" title="A DOMRequest object represents an ongoing operation. It provides callbacks that are called when the operation completes, as well as a reference to the operation's result. A DOM method that initiates an ongoing operation may return a DOMRequest object that you can use to monitor the progress of that operation."><code>DOMRequest</code></a> which <code>result</code> is a boolean indicating wether the browser iframe can be navigate forward.</dd> </dl><h2 id="See_also">See also</h2> <ul>
+<li>The HTML element implementing this interface: <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe" title="The HTML &lt;iframe&gt; Element (or HTML inline frame element) represents a nested browsing context, effectively embedding another HTML page into the current page. In HTML 4.01, a document may contain a head and a body or a head and a frame-set, but not both a body and a frame-set. However,an &lt;iframe&gt; can be used within a normal document body. Each browsing context has its own session history and active document. The browsing context that contains the embedded content is called the parent browsing context. The top-level browsing context (which has no parent) is typically the browser window."><code>&lt;iframe&gt;</code></a>
+</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement</a>
+  </p>
+</div>
+</div></div>

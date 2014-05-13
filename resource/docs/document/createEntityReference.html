@@ -1,0 +1,14 @@
+<p>
+	createEntityReference 方法 
+作 用 
+建立一个参照到指定名称的实体。 
+基本语法 
+xmlDocument.createEntityReference(name); 
+
+说 明 
+name 是一个区分大小写的字符串，来指定新实体参照的名称。一个新的实体参照被建立，但是并没有被加到文件树中。若要将实体参照加到文件树中，必须使用一种插入方法，例如：insertBefore，replaceChild，或appendChild。 
+范 例 
+objNewER ＝ xmlDoc.createEntityReference("eRef"); 
+alert(objNewER.xml); 
+</p>
+<h2>经测试在chrome里居然包dom错误不知为何,name参数不知道传什么比如&amp;lt,&amp;#62,&lt都不行 </h2>

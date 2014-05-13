@@ -1,0 +1,100 @@
+<article id="wikiArticle">
+                                          <p></p><div class="notice experimental"> 
+    <p><strong>这是一个实验中的功能</strong><br>此功能某些浏览器尚在开发中,请参考<a href="#Browser_compatibility">浏览器兼容性表格</a>以得到在不同浏览器中适合使用的前缀.由于该功能对应的标准文档可能被重新修订,所以在未来版本的浏览器中该功能的语法和行为可能随之改变.</p> 
+</div><p></p>
+<h2 id=".E6.A6.82.E8.BF.B0">概述</h2>
+<p>取消一个先前通过调用<a href="/zh-CN/docs/DOM/window.requestAnimationFrame" title="告诉浏览器,你想要执行一个动画,该请求要求浏览器提前安排一下下一帧动画显示时需要进行的浏览器窗口的重绘.该方法接受一个回调函数作为参数,该回调函数会在窗口重绘之前被调用."><code>window.requestAnimationFrame()</code></a>方法添加到计划中的动画帧请求.</p>
+<h2 id=".E8.AF.AD.E6.B3.95">语法</h2>
+<pre class="eval language-html">window.mozCancelAnimationFrame(<em>requestID</em>);               // Firefox
+</pre>
+<h2 id=".E5.8F.82.E6.95.B0">参数</h2>
+<dl>
+  <dt>
+    <code>requestID</code></dt>
+  <dd>
+    先前调用<a href="/zh-CN/docs/DOM/window.requestAnimationFrame" title="告诉浏览器,你想要执行一个动画,该请求要求浏览器提前安排一下下一帧动画显示时需要进行的浏览器窗口的重绘.该方法接受一个回调函数作为参数,该回调函数会在窗口重绘之前被调用."><code>window.requestAnimationFrame()</code></a>方法时返回的ID.</dd>
+</dl>
+<h2 id="Notes" name="Notes">示例</h2>
+<pre class="deki-transform language-html">var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+var cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
+var start = window.mozAnimationStartTime;&nbsp; // 只有Firefox支持mozAnimationStartTime属性,其他浏览器可以使用Date.now()来替代.
+
+function step(timestamp) {
+&nbsp; var progress = timestamp - start;
+&nbsp; d.style.left = Math.min(progress/10, 200) + "px";
+&nbsp; if (progress &lt; 2000) {
+&nbsp;&nbsp;&nbsp; requestAnimationFrame(step);
+&nbsp; }
+}
+var myReq = requestAnimationFrame(step);
+
+window.cancelAnimationFrame(myReq);
+
+
+window.cancelAnimationFrame(myReq);
+</pre>
+<h2 id="Browser_Compatibility" name="Browser_Compatibility">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari (WebKit)</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>
+          <p>21.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span></p>
+          <p>24.0 脱前缀</p>
+        </td>
+        <td>
+          <p>11.0 (11.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span>&nbsp;</p>
+        </td>
+        <td>10</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>
+          <p>6.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Chrome for Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE Phone</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>
+          <p><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></p>
+        </td>
+        <td>11.0 (11.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+ </article>

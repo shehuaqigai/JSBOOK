@@ -1,0 +1,139 @@
+<div class="body_content">
+      <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+      <ul class="breadcrumbs">
+        <li><a href="http://w3help.org/" name="top">首页</a> <span>»</span></li>
+        <li><a href="../home/compatibility.html">兼容性</a> <span>»</span></li>
+        <li><a href="index.html">根本原因</a> <span>»</span></li>
+        <li class="current">文章正文</li>
+      </ul>
+      
+    <h1 class="title">SD9009: Firefox 和 Opera 不支持 "document.styleSheets" 通过 STYLE 元素 id 获取 CSSStyleSheet 对象</h1>
+    <ul class="toc">
+      <li><a href="#standard_reference">标准参考</a> <span>•</span></li>
+      <li><a href="#description">问题描述</a> <span>•</span></li>
+      <li><a href="#influence">造成的影响</a> <span>•</span></li>
+      <li><a href="#impacted_browsers">受影响的浏览器</a> <span>•</span></li>
+      <li><a href="#analysis_of_issues">问题分析</a> <span>•</span></li>
+      <li><a href="#solutions">解决方案</a> <span>•</span></li>
+      <li><a href="#see_also">参见</a></li>
+    </ul>
+    
+      <div id="w3h_content">
+        
+      <address class="author">作者：陆远</address>
+      <h2 id="standard_reference">标准参考</h2>
+      <p>根据 W3C DOM Level2 Style 规范中的描述，document.styleSheets 返回一个 StyleSheetList 抽象接口对象，StyleSheetList 是一组类似 collection 的 StyleSheet 接口对象的集合，可以通过以 0 起始的整数作为下标来获取其内的每一个 StyleSheet。</p>
+      <p>而 StyleSheet 则是任意类型的样式表的一个基础抽象接口，它代表了一个单一的与结构化文档相关的样式表。在 HTML 中，StyleSheet 同时代表了由 LINK 元素引入的外部样式表以及由 STYLE 元素创建的内联样式表。</p>
+      <p>CSSStyleSheet 继承自 StyleSheet，它是一个具体的接口，代表一个 CSS 样式表，即一个 content-type 为 "text/css" 的样式表。</p>
+      <p>关于 StyleSheet 等接口的更多资料，请参见 <a href="http://www.w3.org/TR/DOM-Level-2-Style/">DOM Level2 Style</a> 规范中的内容。</p>
+
+      <h2 id="description">问题描述</h2>
+      <p>Firefox Opera 不支持 "document.styleSheets" 通过 STYLE 元素 id 获取 CSSStyleSheet 对象，仅支持整数作为下标获取。</p>
+
+      <h2 id="influence">造成的影响</h2>
+      <p>若通过这种方式获取 CSSStyleSheet 对象则会在 Firefox 及 Opera 中返回 undefined，可能导致后续代码出错。</p>
+
+      <h2 id="impacted_browsers">受影响的浏览器</h2>
+      <table class="list">
+        <tbody><tr>
+          <th>Firefox Opera</th>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody></table>
+
+      <h2 id="analysis_of_issues">问题分析</h2>
+      <p>分析以下代码：</p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style id="s"&gt;
+  body { background:#eee; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;
+  var t = document.styleSheets[0];
+  var s = document.styleSheets["s"];
+  alert(t);
+  alert(s);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p>页面中有一个 id 为 "s" 的 STYLE 元素，其内有内联样式表。在脚本中通过 document.styleSheets[0] 及 document.styleSheets["s"] 欲获取 SYTLE 元素对应的 CSSStyleSheet 对象。</p>
+      <p>在各浏览器中运行结果为：</p>
+      <table class="compare">
+        <tbody><tr>
+          <th>&nbsp;</th>
+          <th>IE6 IE7 IE8 Chrome Safari</th>
+          <th>Firefox Opera</th>
+        </tr>
+        <tr>
+          <td>document.styleSheets[0]</td>
+          <td><span class="hl_2">OK</span></td>
+          <td><span class="hl_2">OK</span></td>
+        </tr>
+        <tr>
+          <td>document.styleSheets["s"]</td>
+          <td><span class="hl_2">OK</span></td>
+          <td><span class="hl_1">FAIL</span></td>
+        </tr>
+      </tbody></table>
+      <p>可见，<em>Firefox Opera</em> 不支持 "document.styleSheets" 通过 STYLE 元素 id 获取 CSSStyleSheet 对象，仅支持整数作为下标获取。<br>
+      而其他浏览器则这两种方式均支持。</p>
+
+
+
+
+      <h2 id="solutions">解决方案</h2>
+      <p>避免使用 "document.styleSheets" 通过 STYLE 元素 id 获取 CSSStyleSheet 对象，使用 W3C 规范中的整数下标方式获取。</p>
+
+      <h2 id="see_also">参见</h2>
+      <h3>知识库</h3>
+      <ul class="see_also">
+        <li><a href="#">...</a></li>
+      </ul>
+
+      <h3>相关问题</h3>
+      <ul class="see_also">
+        <li><a href="#">...</a></li>
+      </ul>
+
+      <div class="appendix">
+        <h2>测试环境</h2>
+        <table class="list">
+          <tbody><tr>
+            <th>操作系统版本:</th>
+            <td>Windows 7 Ultimate build 7600</td>
+          </tr>
+          <tr>
+            <th>浏览器版本:</th>
+            <td>
+              IE6<br>
+              IE7<br>
+              IE8<br>
+              Firefox 3.6.7<br>
+              Chrome 6.0.472.0 dev<br>
+              Safari 5.0<br>
+              Opera 10.60
+            </td>
+          </tr>
+          <tr>
+            <th>测试页面:</th>
+            <td><a href="../../tests/SD9009/CSSStyleSheet.html">CSSStyleSheet.html</a></td>
+          </tr>
+          <tr>
+            <th>本文更新时间:</th>
+            <td>2010-07-23</td>
+          </tr>
+        </tbody></table>
+
+        <h2>关键字</h2>  
+        <!-- keywords begin -->
+        <p>document styleSheet CSS CSSStyleSheet rule style</p>
+        <!-- keywords end -->
+      </div>
+      
+        <div id="forumLink">
+        </div>
+      </div>
+    </div>

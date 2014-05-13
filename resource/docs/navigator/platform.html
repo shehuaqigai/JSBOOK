@@ -1,0 +1,18 @@
+<p>
+	概述
+
+返回一个字符串,表示浏览器所在的系统平台类型.
+
+语法
+
+platform = navigator.platform 
+platform 可能是: "Win32", "Linux i686", "MacPPC", "MacIntel", 等.
+
+例子
+
+alert(navigator.platform);
+备注
+
+在普通网页中,如果about:config中存在general.platform.override项,则该属性的值会返回about:config中general.platform.override项的值. 在特权代码中 (chrome上下文或者拥有"UniversalBrowserRead"特权的网页中),返回的还是真实的平台类型.(译者注:语句:netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead ")用来激活所在网页的UniversalBrowserRead特权.)
+该属性由DOM Level 0提出, 目前已经被添加到HTML5规范中.
+</p>

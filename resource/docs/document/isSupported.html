@@ -1,0 +1,24 @@
+<p>
+	已废弃 Gecko 22 (Firefox 22 / Thunderbird 22 / SeaMonkey 2.19)
+概述
+检测当前环境是否在某个节点上实现了指定的DOM特性.
+
+语法
+node.isSupported(feature, version)
+feature
+需要检测的特性名称.这个参数和DOMImplementation对象上的hasFeature方法的同名参数作用相同,其中所有有效的特性名称都列在了DOM Level 2中的Conformance一节.
+version
+需要检测的特性版本号.在DOM Level 2第一版中,这个参数的值应该写为字符串2.0.如果省略了这个参数,则无论环境实现了哪个版本的需检测特性,这个方法都会返回true.
+
+示例
+&ltdiv id="doc">
+&lt/div>
+
+&ltscript>
+ // 获取一个元素,然后检查它是否支持DOM2 HTML模型.
+ var main = document.getElementById('doc');
+ var output = main.isSupported('HTML', '2.0');
+&lt/script>
+规范
+DOM Level 2 Core: isSupported
+</p>

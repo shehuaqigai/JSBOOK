@@ -1,0 +1,117 @@
+<p>
+	　node-webkit 是一个基于chromium与node.js的应用程序运行器，它允许开发者使用web技术编写桌面程序。通过Node.js和WebKit技术的融合，开发者可以用HTML5技术编写UI，同时又能利用Node.js平台上众多library访问本地OS的能力，最终达到用Web技术就可以编写桌面应用的目的。它提供一个跨Windows、Linux、OS X平台下的客户端应用开发的底层框架，跟移动终端上的PhoneGap等项目的原理类似。node-webkit项目位于Github上。node-webkit特点如下：
+
+使用web技术开发，HTML5、CSS3、JS、WebGL。
+在网页中使用Node.js。
+跨平台运行，兼容Linux，Mac OSX和Windows。
+ 二、实例
+
+　　node-webkit的下载地址为：<a href="https://github.com/rogerwang/node-webkit" target="_blank">https://github.com/rogerwang/node-webkit</a> 。我们可以下载Windows、linux或Mac系统的版本。这里使用Windows版本。
+</p>
+<h1>第二步</h1>
+
+<pre>
+	
+
+喜闻乐见的这个配置文件的名字就是我们熟悉的 package.json 。我们的配置文件看起来像这样：
+
+{
+  "main": "index.html",
+  "name": "Puzzle",
+  "version": "0.1",
+  "window": {
+    "title": "Puzzle",
+    "toolbar": false,
+    "frame": false,
+    "width": 450,
+    "height": 332,
+    "position": "center",
+    "resizable": false,
+    "icon": "img/puzzle.png",
+    "show": false
+  },
+  "chromium-args": "--enable-threaded-compositing"
+}
+现在我们来解读一下，首先映入眼帘的"main"属性指定了我们的应用程序的起始页，
+也就是说当你把这个应用程序打包之后丢给“浏览器”的时候，浏览器要运行的那个页面。
+接下来的"name"是我们的应用程序名字，"version"是版本号。
+
+"window"是关于这个应用程序执行的时候以怎样的窗口形态展示的参数。
+在默认的情况下，你将看到一个相对完整的浏览器窗口。
+顾名思义"title"就是窗口的标题；
+"toolbar"指定了是否显示工具栏；"frame"指定了是否显示浏览器窗口，
+我们这里要使用自定义的窗口外观，
+因此此项为false，我们就看不到浏览器窗口了；
+"show"指定了是否在一开始就显示浏览器窗口。
+大家知道浏览器加载页面是需要一定时间的，
+即使是文件全都在本地的页面。
+因此为了让用户获得较好的体验，
+我们可能让窗口在还没有加载完成的时候处于不可见的状态，
+当窗口加载完毕之后再显示出窗口。因此这里"show"设置为了false。
+除此之外一定记住，除了生成的这个app.exe， 你还需要一起附带一系列的插件。
+
+在 windows 下，nw.pak以及icudt.dll是必须的。
+前者提供了重要的JavaScript库，后者提供了一些重要的网络库。
+带上 ffmpegsumo.dll 用来提供对 <video> 和 <audio> 标签的支持。
+
+libEGL.dll 以及 libGLESv2.dll 提供 WebGL 以及 GPU 加速的支持，
+你应该同样带上他们。带上D3DCompiler_43.dll 以及 d3dx9_43.dll 确保 WebGL 能在更多硬件上正常工作。
+如果你想修改打包出来的可执行文件图标(就像Puzzle做的那样)，可以使用例如 reshacker 这样的工具
+
+</pre>
+
+<p>
+建立一个index.html和package.json 内容如下：
+  {
+  "name": "demo",
+  "main": "index.html"
+ }
+你机器上的压缩工具，rar或者7z或者神马神马的，把这两个文件压缩成demo.zip把demo.zip拷贝到与nw.exe同级的目录下
+然后用鼠标把demo.zip拖动到nw.exe上运行
+按照官方的搞法,demo.zip可改名成demo.nw，这样显得更加高大上一些。
+</p>
+	<a href="http://enigmaprotector.com/en/aboutvb.html" target="_blank">打包工具 Enigma Virtual Box</a>
+	<a href="https://github.com/rogerwang/node-webkit/wiki/How-to-package-and-distribute-your-apps" target="_blank">官方打包工具</a>
+<p>
+	很显然，既然nodejs都被打包进来了，网上众多的npm模块都是可以拿过来使用的，具体做法官方主页上都有比较详细的介绍，参见这里 https://github.com/rogerwang/node-webkit
+</p>
+<a href="https://github.com/rogerwang/node-webkit" target="_blank">https://github.com/rogerwang/node-webkit</a>
+
+<p>
+	展望未来
+
+ 
+
+其实这条路老早就有人在走
+
+ 
+
+网上有很多人在争论，未来究竟是原生的应用会胜出，还是WEB APP会胜出，实际上这两者并不是你死我活的关系，而是会互相融合，走向【混合型应用】这样一种形态。
+</p>
+<p>
+	2011年的时候，我发过一篇文章，《未来五年，桌面应用和WEB走向融合》，当时只是因为看到诸如酷我音乐、腾讯QQ这些桌面应用的开发方式而有 所感悟，对于桌面应用会以什么样的形式和B/S开发模式融合在一起并没有确切的想法。而最近由于打包Ext4.1中文文档的缘故知道了node- webkit，突然有一种恍然大悟的赶脚！
+
+ 
+
+当然，酷我音乐盒和疼讯目前是用什么样的技术实现的小僧不知道其中的细节（人家也不想让外人知道对吧？）。不过，小僧相信，对于屌丝单兵作战来说，疼讯的实现方式肯定会比node-webkit更加复杂，目测个人无法模仿。
+</p>
+<p>
+	毫无疑问，这货会成为2014年的一款神器。因为它具备了以下这些无可比拟的优势：
+
+ 
+
+人力成本最低：招一个会C++的码农要花多少钱？招一个牛逼哄哄的既会C++还对QT、MFC等了如指掌的码 农又要花多少钱？对比一下，招一个会JS+CSS的呢？如果你是老板，你怎么想？再说了，市面上会C++的码农更多，还是会JS+CSS的码农更多？无需 小僧多言，其中的奥妙您自个儿体会。
+APP的体积更小：列位一定还记得当年大明湖畔的疼讯QQ只有十几M的体积，俗话说，岁月是把杀猪刀，在集成了疼讯的各种应用之后，如今的QQ身材早已发福走形。可以想象，如果QQ不使用嵌入浏览器内核的方式，恐怕体积早就超过100M了吧！
+不需要整体更新APP：如果是按照传统的方式开发桌面应用，每次升级的时候都需要用户重新下载整个应用，比如疼讯QQ。但是用node-webkit的这种方式，可以很好地避免这个问题，就像网站一样，网站内容可以不断更新，但是浏览器本身的更新不需要那么频繁。
+跨平台：这一点是由NodeJS来保证的。
+多终端：由于nodejs和chromium本身都是可以在桌面平台和移动平台上运行的，因此用这货来支持多终端开发，保持技术栈的一致性是非常合适的。
+完善的工具链：由于nodejs的兴起，它下面的npm模块数量已经有几十万个；而各种基于chrome内核的定制版浏览器就不用再介绍了。加上传统B/S开发模式下已经具备的完整开发和设计工具，用node-webkit来开发桌面应用已经具备了完善的工具链。
+</p>
+<a href="https://github.com/liu78778/node-webkit" target="_blank">https://github.com/liu78778/node-webkit中文介绍</a>
+
+<pre style="background:black;color:white">
+首先，我们要合并example1.zip和nw.exe，形成一个新文件，
+	名为example1.exe，这一点我们通过windows的命令行下的copy命令可以实现：
+   copy /b nw.exe+example1.zip example1.exe
+        注意，nw.exe必须放在+号前面。
+</pre>

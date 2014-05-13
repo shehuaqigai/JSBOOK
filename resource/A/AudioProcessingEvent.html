@@ -1,0 +1,194 @@
+<div id="wiki-content" class="column-half wiki-column text-content">
+<!-- just the article content -->
+<article id="wikiArticle">
+    <p><span class="breadcrumbs themeUpdated"> « <a href="/en-US/docs/Web_Audio_API">Web Audio API</a></span>
+
+    </p><section class="Quick_links" id="Quick_Links"><!-- --></section><p></p>
+    <p></p><div class="notice experimental">
+    <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p>
+</div><p></p>
+    <p><img alt="The ScriptProcessorNode stores the input in a buffer, send the audioprocess event. The EventHandler takes the input buffer and fill the output buffer which is sent to the output by the ScriptProcessorNode." src="https://mdn.mozillademos.org/files/5157/WebAudioScriptProcessingNode.png" style="width: 306px; height: 174px; float: left;">The <strong><code>ScriptProcessorNode</code></strong><strong> </strong>interface allows the generation, processing, or analyzing of audio using JavaScript. It is an <a href="/en-US/docs/Web/API/AudioNode" title="The AudioNode interface represents an audio-processing module, like an audio source (e.g. an HTML &lt;audio&gt; or &lt;video&gt; element), an audio destination, or an intermediate processing module (e.g. a filter like BiquadFilterNode, or a volume control like GainNode)."><code>AudioNode</code></a>, that is an audio-processing module, that is linked to two buffers, one containing the current input, one containing the output. An event, implementing the <a href="/en-US/docs/Web/API/AudioProcessingEvent" title="The Web Audio API AudioProcessingEvent represents events that occur when a ScriptProcessorNode input buffer is ready to be processed."><code>AudioProcessingEvent</code></a> interface, is sent to the object each time the input buffer contains new data, and the event handler terminates when it has filled the output buffer with data.</p>
+    <p>The size of the input and output buffer are defined at the creation time, when the <a href="/en-US/docs/Web/API/AudioContext.createScriptProcessor" title="The createScriptProcessor() creates a ScriptProcessorNode used for direct audio processing."><code>AudioContext.createScriptProcessor()</code></a> factory method is called. The buffer size must be a power of 2 between <code>256</code> and <code>16384</code>, that is <code>256</code>, <code>512</code>, <code>1024</code>, <code>2048</code>, <code>4096</code>, <code>8192</code> or <code>16384</code>. Small numbers lower the <em>latency</em>, but large number may be necessary to avoid audio breakup and glitches. If the size of the buffers isnot defined, which is recommended, the browser will pick one that its heuristic deems appropriate.</p>
+    <ul class="audionodebox">
+        <li><dfn>Number of inputs</dfn> <code>1</code></li>
+        <li><dfn>Number of outputs</dfn> <code>1</code></li>
+        <li><dfn>Channel count mode</dfn> <code>"max"</code></li>
+        <li><dfn>Channel count</dfn> <code>2</code> (not used in the default count mode)</li>
+        <li><dfn>Channel interpretation</dfn> <code>"speakers"</code></li>
+    </ul>
+    <h2 id="Properties">Properties</h2>
+    <p><em>Inherits properties from its parent, </em><em><a href="/en-US/docs/Web/API/AudioNode" title="The AudioNode interface represents an audio-processing module, like an audio source (e.g. an HTML &lt;audio&gt; or &lt;video&gt; element), an audio destination, or an intermediate processing module (e.g. a filter like BiquadFilterNode, or a volume control like GainNode)."><code>AudioNode</code></a></em>.</p>
+    <dl>
+        <dt>
+            <a class="new" href="/en-US/docs/Web/API/ScriptProcessNode.bufferSize" title="The documentation about this has not yet been written; please consider contributing!"><code>ScriptProcessNode.bufferSize</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span></dt>
+        <dd>
+            Returns an integer representing both the input and output buffer size. It is a power of 2 value between <code>256</code> and <code>16384</code>, included.</dd>
+    </dl>
+    <h3 id="Event_handlers">Event handlers</h3>
+    <dl>
+        <dt>
+            <a class="new" href="/en-US/docs/Web/API/ScriptProcessorNode.onaudioprocess" title="The documentation about this has not yet been written; please consider contributing!"><code>ScriptProcessorNode.onaudioprocess</code></a></dt>
+        <dd>
+            Represents the <a class="new" href="/en-US/docs/Web/API/EventHandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a> to be called.</dd>
+    </dl>
+    <h2 id="Methods">Methods</h2>
+    <p><em>No specific methods; inherits methods from its parent, </em><em><a href="/en-US/docs/Web/API/AudioNode" title="The AudioNode interface represents an audio-processing module, like an audio source (e.g. an HTML &lt;audio&gt; or &lt;video&gt; element), an audio destination, or an intermediate processing module (e.g. a filter like BiquadFilterNode, or a volume control like GainNode)."><code>AudioNode</code></a></em>.</p>
+    <h2 id="Examples">Examples</h2>
+    <h3 id="Example:_Generating_a_sine_wave" name="Example:_Generating_a_sine_wave">Example: Generating a sine wave</h3>
+    <p>The following example shows basic usage of a ScriptProcessorNode to generate a sine wave.</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> context <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AudioContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Create a ScriptProcessorNode with a bufferSize of 4096 and a single output channel
+</span><span class="token keyword">var</span> audioNode <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">createScriptProcessor<span class="token punctuation">(</span></span><span class="token number">4096</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> volume <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// The frequncy of the sine wave tone
+</span><span class="token keyword">var</span> frequency <span class="token operator">=</span> <span class="token number">440</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Give the node a function to process audio events
+</span>audioNode<span class="token punctuation">.</span>onaudioprocess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>audioProcessingEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+ <span class="token comment" spellcheck="true"> // The output buffer contains the samples that will be modified and played
+</span>  <span class="token keyword">var</span> outputBuffer <span class="token operator">=</span> audioProcessingEvent<span class="token punctuation">.</span>outputBuffer<span class="token punctuation">;</span>
+
+ <span class="token comment" spellcheck="true"> // Loop through the output channels (in this case there is only one)
+</span>  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> channel <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> channel <span class="token operator">&lt;</span> outputBuffer<span class="token punctuation">.</span>numberOfChannels<span class="token punctuation">;</span> channel<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> outData <span class="token operator">=</span> outputBuffer<span class="token punctuation">.</span><span class="token function">getChannelData<span class="token punctuation">(</span></span>channel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment" spellcheck="true"> // Loop through the 4096 samples
+</span>    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> sample <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> sample <span class="token operator">&lt;</span> outputBuffer<span class="token punctuation">.</span>length<span class="token punctuation">;</span> sample<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+     <span class="token comment" spellcheck="true"> // The time at which the sample will play
+</span>      <span class="token keyword">var</span> sampleTime <span class="token operator">=</span> audioProcessingEvent<span class="token punctuation">.</span>playbackTime <span class="token operator">+</span> outputBuffer<span class="token punctuation">.</span>duration <span class="token operator">*</span> sample <span class="token operator">/</span> outputBuffer<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+
+     <span class="token comment" spellcheck="true"> // Set the data in the output buffer for each sample
+</span>      outData<span class="token punctuation">[</span>sample<span class="token punctuation">]</span> <span class="token operator">=</span> volume <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">sin<span class="token punctuation">(</span></span>sampleTime <span class="token operator">*</span> frequency <span class="token operator">*</span> Math<span class="token punctuation">.</span>PI <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">
+// Connect the node to the context to start playing the sound
+</span>audioNode<span class="token punctuation">.</span><span class="token function">connect<span class="token punctuation">(</span></span>context<span class="token punctuation">.</span>destination<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Connect to speakers</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div><div class="line-number" data-start="31" style="top: 570px;"></div><div class="line-number" data-start="32" style="top: 589px;"></div><div class="line-number" data-start="33" style="top: 608px;"></div><div class="line-number" data-start="34" style="top: 627px;"></div></code></pre>
+    <h2 id="Specifications">Specifications</h2>
+    <table class="standard-table">
+        <tbody>
+        <tr>
+            <th scope="col">Specification</th>
+            <th scope="col">Status</th>
+            <th scope="col">Comment</th>
+        </tr>
+        <tr>
+            <td><a class="external" href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#ScriptProcessorNode-section" lang="en" title="The definition of 'ScriptProcessorNode' in that specification.">Web Audio API</a></td>
+            <td><span class="spec-WD">Working Draft</span></td>
+            <td>&nbsp;</td>
+        </tr>
+        </tbody>
+    </table>
+    <h2 id="Browser_compatibility">Browser compatibility</h2>
+    <div>
+        <div class="htab">
+            <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a>
+            <ul>
+                <li class="selected"><a>Desktop</a></li>
+                <li><a>Mobile</a></li>
+            </ul>
+            <div id="compat-desktop" style="display: block;">
+                <table class="compat-table">
+                    <tbody>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Chrome</th>
+                        <th>Firefox (Gecko)</th>
+                        <th>Internet Explorer</th>
+                        <th>Opera</th>
+                        <th>Safari (WebKit)</th>
+                    </tr>
+                    <tr>
+                        <td>Basic support</td>
+                        <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span><span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span></td>
+                        <td>Activated on Nightly only</td>
+                        <td><span style="color: #f00;">Not&nbsp;supported</span></td>
+                        <td><span style="color: #f00;">Not&nbsp;supported</span></td>
+                        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><div id="compat-mobile" style="display: none;">
+            <table class="compat-table">
+                <tbody>
+                <tr>
+                    <th>Feature</th>
+                    <th>Android</th>
+                    <th>Firefox Mobile (Gecko)</th>
+                    <th>IE Phone</th>
+                    <th>Opera Mobile</th>
+                    <th>Safari Mobile</th>
+                </tr>
+                <tr>
+                    <td>Basic support</td>
+                    <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+                    <td>Activated on Nightly only</td>
+                    <td><span style="color: #f00;">Not&nbsp;supported</span></td>
+                    <td><span style="color: #f00;">Not&nbsp;supported</span></td>
+                    <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div></div></div>
+
+
+    <h2 id="See_also">See also</h2>
+    <ul>
+        <li>Using Web Audio</li>
+    </ul>
+</article>
+
+<!-- attachments list -->
+<section class="page-meta">
+    <section id="page-attachments">
+
+        <h3><i aria-hidden="true" class="icon-paper-clip"></i>Attachments</h3>
+
+
+        <p id="page-attachments-no-message" class="hidden">
+            This document has no attachments.
+        </p>
+        <table cellpadding="0" cellspacing="0" id="page-attachments-table" class="">
+            <thead>
+            <tr><th>File</th>
+                <th>Size</th>
+                <th>Date</th>
+                <th>Attached by</th>
+            </tr></thead>
+            <tbody>
+            <tr data-revision-id="5467" data-attachment-id="5157">
+                <td class="attachment-name-cell">
+                    <a href="https://mdn.mozillademos.org/files/5157/WebAudioScriptProcessingNode.png" target="_blank">Action of a ScriptProcessorNode</a>
+                    <div class="attachment-description">The ScriptProcessorNode stores the input in a buffer, send the audioprocess event. The EventHandler takes the input buffer and fill the output buffer which is sent to the output by the ScriptProcessorNode.</div>
+                </td>
+                <td>17069 bytes</td>
+                <td>2013-04-23 08:17:54</td>
+                <td><a href="/en-US/profiles/teoli">teoli</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </section>
+</section>
+<!-- contributors -->
+<div class="wiki-block contributors">
+    <h2 class="offscreen">Document Tags and Contributors</h2>
+    <!-- tags if present -->
+    <div class="tag-attach-list tags contributor-sub">
+        <i aria-hidden="true" class="icon-tags"></i><strong>Tags:</strong>
+        <ul class="tag-list"><li><a href="/en-US/docs/tag/API">API</a></li><li><a href="/en-US/docs/tag/Web%20Audio%20API">Web Audio API</a></li><li><a href="/en-US/docs/tag/Experimental">Experimental</a></li></ul>
+    </div>
+    <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/en-US/profiles/Sheppy">Sheppy</a>, <a href="/en-US/profiles/mankyd">mankyd</a>, <a href="/en-US/profiles/cronco">cronco</a>, <a href="/en-US/profiles/rick_carlino">rick_carlino</a>, <a href="/en-US/profiles/Prachi_Dighe">Prachi_Dighe</a>, <a href="/en-US/profiles/Thormme">Thormme</a>, <a href="/en-US/profiles/teoli">teoli</a> </div>                              <div class="contributor-sub">
+    <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+    <a href="/en-US/profiles/Thormme">Thormme</a>,
+    <time datetime="2014-01-12T12:32:50-08:00">Jan 12, 2014 12:32:50 PM</time>
+</div>
+</div>
+</div>

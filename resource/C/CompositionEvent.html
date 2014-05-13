@@ -1,0 +1,49 @@
+<div class="_page _mdn"><h1>CompositionEvent</h1> <p>The DOM <code>CompositionEvent</code> represents events that occur due to the user indirectly entering text.</p> <h2 id="Method_overview">Method overview</h2> <table class="standard-table"><tbody><tr>
+    <td><code>void <a href="compositionevent#initCompositionEvent()" title="DOM/CompositionEvent#initCompositionEvent()">initCompositionEvent</a>(in DOMString typeArg,in boolean canBubbleArg, in boolean cancelableArg, in views::AbstractView viewArg, in DOMString dataArg, in DOMString localeArg);</code></td> </tr></tbody></table><h2 id="Attributes">Attributes</h2> <table class="standard-table"><tbody>
+<tr>
+    <th class="header">Attribute</th> <th class="header">Type</th> <th class="header">Description</th> </tr>
+<tr>
+    <td><code>data</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td> <p>For <code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionstart">compositionstart</a></code> events, this is the currently selected text that will be replaced by the string being composed. This value doesn't change even if content changes the selection range; rather, it indicates the string that was selected when composition started.</p> <p>For <code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionupdate">compositionupdate</a></code>, this is the string as it stands currently as editing is ongoing.</p> <p>For <code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionend">compositionend</a></code> events, this is the string as committed to the editor.</p> <p><strong>Read only</strong>.</p> </td> </tr>
+<tr>
+    <td><code>locale</code></td> <td><a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a></td> <td> <p>The locale of current input method (for example, the keyboard layout locale if the composition is associated with IME). <strong>Read only.</strong></p> </td> </tr>
+</tbody></table><h2 id="Methods">Methods</h2> <h3 id="initCompositionEvent">initCompositionEvent</h3> <p>Initializes the attributes of a composition event.</p> <pre>void initCompositionEvent(
+  in DOMString typeArg,
+  in boolean canBubbleArg,
+  in boolean cancelableArg,
+  in views::AbstractView viewArg,
+  in DOMString dataArg,
+  in DOMString localeArg
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+    <dt> <code>typeArg</code>
+    </dt> <dd> The type of composition event; this will be one of <code>compositionstart</code>, <code>compositionupdate</code>, or <code>compositionend</code>.</dd> <dt> <code>canBubbleArg</code>
+</dt> <dd> Whether or not the event can bubble.</dd> <dt> <code>cancelableArg</code>
+</dt> <dd> Whether or not the event can be canceled.</dd> <dt> <code>viewArg</code>
+</dt> <dd> ?</dd> <dt> <code>dataArg</code>
+</dt> <dd> The value of the <code>data</code> attribute.</dd> <dt> <code>localeArg</code>
+</dt> <dd> The value of the <code>locale</code> attribute.</dd> </dl><h2 id="Specification">Specification</h2> <ul>
+    <li><a href="http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html#events-compositionevents" title="http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html#events-compositionevents">DOM Level 3: Composition Events</a></li> </ul><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+    <th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+    <td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>9.0 (9.0)</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+    <th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+    <td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>9.0 (9.0)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h3 id="Gecko_notes">Gecko notes</h3> <p>The <code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionstart">compositionstart</a></code> and <code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionend">compositionend</a></code> events were fired in versions of Gecko before 9.0, but didn't have the DOM Level 3 attributes and methods. In addition, support for the <code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionupdate">compositionupdate</a></code> event was added in Gecko 9.0 (Firefox 9.0 / Thunderbird 9.0 / SeaMonkey 2.6).</p> <div class="note"> <strong>Note:</strong> Gecko doesn't support the <code>locale</code> attribute for trusted events yet. However, web developers can set this value via <code>initCompositionEvent()</code> when creating untrusted events.</div> <p>Gecko's editors (for example, <code>&lt;input type="text"&gt;</code>, <code>&lt;div contenteditable/&gt;</code>, and <code>designMode</code>) start composition after the bubble phase of <code>compositionstart</code>. So, by the time your <code>compositionstart</code> handler is called, no contents have not been modified.</p> <p>Gecko's editors don't handle the <code>compositionupdate</code> event yet. By the time your <code>compositionupdate</code> handler is called, no contents have been modified.</p> <p>By the time your <code>compositionend</code> event handler is called, composition is complete, and no further changes will occur. For that reason, if you call <a href="event.stoppropagation" title="Prevents further propagation of the current event."><code>event.stopPropagation()</code></a> on the <code>compositionstart</code> or <code>compositionend</code> event, you can break composition behavior and cause editors to fail to manage editing properly. See <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=697842" title="FIXED: cancelling compositonstart causes unexpected result">bug 697842</a> for progress on this problem getting fixed.</p> <h2 id="See_also">See also</h2> <ul>
+    <li><code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionstart">compositionstart</a></code></li> <li><code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionend">compositionend</a></code></li> <li><code><a href="http://developer.mozilla.org/en-US/docs/DOM/DOM_event_reference/compositionupdate">compositionupdate</a></code></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/UIEvent" title="UIEvent">UIEvent</a></li> <li><a href="event" title="Event">Event</a></li> </ul><div class="_attribution">
+    <p class="_attribution-p">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+    </p>
+</div>
+    <div class="_attribution">
+        <p class="_attribution-p">
+            © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent</a>
+        </p>
+    </div>
+</div>

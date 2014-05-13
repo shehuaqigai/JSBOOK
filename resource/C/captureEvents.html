@@ -1,0 +1,142 @@
+<div id="article_content" class="article_content">
+    <p>captureEvent方法&nbsp; </p>
+    <p>语法格式：&nbsp; </p>
+    <p>window.captureEvent(Event)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+    <p>window.captureEvent(事件1|事件2|...|事件n)&nbsp; </p>
+    <p>功能：捕捉指定参数的所有事件。由于能够捕获哪些由本地程序自己处理的事件&nbsp; </p>
+    <p>，所以程序员可以随意定义函数来处理事件。如果有多个事件需要捕捉，各事件&nbsp; </p>
+    <p>之间用管道符“|”隔开。可捕捉的事件类型如下：&nbsp; </p>
+    <p>Event.ABORT&nbsp;&nbsp; </p>
+    <p>Event.BLUR&nbsp;&nbsp; </p>
+    <p>Event.CHANGE&nbsp;&nbsp; </p>
+    <p>Event.CLICK&nbsp;&nbsp; </p>
+    <p>Event.DBLCLICK&nbsp;&nbsp; </p>
+    <p>Event.DRAGDROP&nbsp;&nbsp; </p>
+    <p>Event.ERROR&nbsp;&nbsp; </p>
+    <p>Event.FOCUS&nbsp;&nbsp; </p>
+    <p>Event.KEYDOWN&nbsp;&nbsp; </p>
+    <p>Event.KEYPRESS&nbsp;&nbsp; </p>
+    <p>Event.KEYUP&nbsp;&nbsp; </p>
+    <p>Event.LOAD&nbsp;&nbsp; </p>
+    <p>Event.MOUSEDOWN&nbsp;&nbsp; </p>
+    <p>Event.MOUSUEMOVE&nbsp;&nbsp; </p>
+    <p>Event.MOUSEOUT&nbsp;&nbsp; </p>
+    <p>Event.MOUSEOVER&nbsp;&nbsp; </p>
+    <p>Event.MOUSEUP&nbsp;&nbsp; </p>
+    <p>Event.MOVE&nbsp;&nbsp; </p>
+    <p>Event.RESET&nbsp;&nbsp; </p>
+    <p>Event.RESIZE&nbsp;&nbsp; </p>
+    <p>Event.SELECT&nbsp;&nbsp; </p>
+    <p>Event.SUBMIT&nbsp;&nbsp; </p>
+    <p>Event.UNLOAD</p>
+</div>
+<div class="mod-text-content mod-post-content mod-cs-contentblock">
+    <div class="cs-contentblock-bg"></div>
+    <div class="content-head clearfix">
+        <div class="content-other-info">
+            <span>2011-12-27 21:33</span>
+        </div>   <h2 class="title content-title">setCapture()</h2>
+    </div>  <div id="content" class="content mod-cs-content text-content clearfix">
+    <p>obj.setCapture() //当文档对象调用了此方法，那么绑定在该文档对象上的事件便可以在任何地方被触发，包括浏览器外面（比如电脑桌面）</p>
+    <p>obj.releaseCapture()&nbsp;//与setCapture()相反，用于释放监控</p>
+    <p>注：1.&nbsp;上述方法常用于实现元素的拖拽，这样即使鼠标移除浏览器，依然可以出发onmouseup事件，从而释放被拖拽物。</p>
+    <p>&nbsp; &nbsp; &nbsp; &nbsp;2. 上述方法只被IE支持。</p>
+    <p>&nbsp; &nbsp; &nbsp; &nbsp;3. 上述方法只支持鼠标事件。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. setCapture()与事件绑定函数之间没有先后顺序的要求。</p>
+    <p>-----------------------------------------------------------------------------------------------------------------------------<br></p>
+    <p>例一：<br></p>
+    <p>obj.onclick = function(){alert(1);};</p>
+    <p>obj.setCapture();</p>
+    <p>例二：</p><p>obj.setCapture();</p>
+    <p>obj.onclick = function(){alert(1);};</p>
+
+    <div id="content" class="content mod-cs-content text-content clearfix">
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            网上在很多关于setCapture()函数的讨论中，
+            captureEvents()都是作为其补充（解决FF及chrome兼容）而被采用的，但事实是这样吗？</p>
+        <p>经过我的测试，结论如下：</p>
+        <p>1. setCapture()函数可以使事件在任何区域被触发，包括桌面等屏幕上任何可见区域。</p>
+        <p>&nbsp;&nbsp;&nbsp; 参考文档：
+            <a target="_blank" href="http://hi.baidu.com/flondon/blog/item/d023a4a0fd70f295471064c7.html">
+                http://hi.baidu.com/flondon/blog/item/d023a4a0fd70f295471064c7.html</a>
+        </p>
+        <p>2. FF和chrome并不具备相应的处理模型（setCapture的特性只被IE支持，这与其在windows系统中的原生性有关），而网上很多人讨论的</p>
+        <p>&nbsp;&nbsp;&nbsp; captureEvents()显然也不具备，并且需要明确的是，captureEvents()方法已经被废除。那么在FF和chrome中就没有什么类似的方式了</p>
+        <p>&nbsp;&nbsp;&nbsp; 吗？答案是“有”，但只是类似，请看下面内容：</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;window.onmouseup = function(){alert("hello")};
+            //不建议使用，因为这种方法会“冲”掉其他通过此方法的绑定<br></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; window.addEventListener("mouseup",function(){alert("hello")};);
+            //建议使用<br></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            //上面这两种方式都可以在FF和chrome中正常工作（IE均不支持），并且事件会在整个“网页”内（除iframe）被触发，例外的，</p>
+        <p>&nbsp;&nbsp;&nbsp;onmouseup和onmousemove事件可以在任何地方被触发（除iframe），
+            包括桌面等屏幕上任何可见区域（只有当onmousedown在“网页”</p><p>内被触发时，
+        onmouseup和onmousemove才可以在任何地方被触发，否则它们只能在“网页”内被触发）</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注：iframe与当前window独立，因此iframe中不会触发当前window的事件。</p>
+    </div>
+    <div id="wiki-content" class="column-half wiki-column text-content">
+
+
+
+
+        <!-- just the article content -->
+        <article id="wikiArticle">
+            <div>
+                <span class="breadcrumbs domRef_breadcrumbs themeUpdated">«&nbsp;<a href="/en-US/docs/DOM/DOM_Reference">DOM Reference</a></span>
+
+
+                <section class="Quick_links" id="Quick_Links"><!-- --></section> <div class="overheadIndicator deprecated deprecatedHeader">
+                <p><strong>Deprecated since Gecko 1.9 (Firefox 3)</strong><br>This feature has been removed from the Web. Though some browsers may still support it, it is in the process of being dropped. Do not use it in old or new projects. Pages or Web apps using it may break at any time.</p>
+            </div></div>
+            <h2 id="Summary" name="Summary">Summary</h2>
+            <p>Registers the window to capture all events of the specified type.</p>
+            <h2 id="Syntax" name="Syntax">Syntax</h2>
+<pre class="syntaxbox language-html" data-prism-prevent-line-number="1">window.captureEvents(<em>eventType</em>)
+</pre>
+            <p><code>eventType</code> is a combination of the following values: <code>Event.ABORT</code>, <code>Event.BLUR</code>, <code>Event.CLICK</code>, <code>Event.CHANGE</code>, <code>Event.DBLCLICK</code>, <code>Event.DRAGDDROP</code>, <code>Event.ERROR</code>, <code>Event.FOCUS</code>, <code>Event.KEYDOWN</code>, <code>Event.KEYPRESS</code>, <code>Event.KEYUP</code>, <code>Event.LOAD</code>, <code>Event.MOUSEDOWN</code>, <code>Event.MOUSEMOVE</code>, <code>Event.MOUSEOUT</code>, <code>Event.MOUSEOVER</code>, <code>Event.MOUSEUP</code>, <code>Event.MOVE</code>, <code>Event.RESET</code>, <code>Event.RESIZE</code>, <code>Event.SELECT</code>, <code>Event.SUBMIT</code>, <code>Event.UNLOAD</code>.</p>
+            <h2 id="Example" name="Example">Example</h2>
+<pre class="brush:html  language-html" data-number=""><code class=" language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment" spellcheck="true">&lt;!-- ... --&gt;</span>
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">function</span> <span class="token function">reg<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  window<span class="token punctuation">.</span><span class="token function">captureEvents<span class="token punctuation">(</span></span>Event<span class="token punctuation">.</span>CLICK<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>onclick <span class="token operator">=</span> page_click<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">page_click<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">'page click event detected!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">onload</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>reg();<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>click anywhere on this page.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div></code></pre>
+            <h2 id="Notes" name="Notes">Notes</h2>
+            <p>Events raised in the DOM by user activity (such as clicking buttons or shifting focus away from the current document) generally pass through the high-level <a href="/en-US/docs/Web/API/Window"><code>window</code></a> and <a href="/en-US/docs/Web/API/document"><code>document</code></a> objects first before arriving at the object that initiated the event.</p>
+            <p>When you call the <code>captureEvents()</code> method on the <a href="/en-US/docs/Web/API/Window"><code>window</code></a>, events of the type you specify (for example, <code>Event.CLICK</code>) no longer pass through to "lower" objects in the hierarchy. In order for events to "bubble up" in the way that they normally do, you must call <a href="/en-US/docs/Web/API/window.releaseEvents"><code>window.releaseEvents()</code></a> (<span title="This deprecated API should no longer be used, but will probably still work."><i class="icon-thumbs-down-alt"> </i></span>) on the window to keep it from trapping events.</p>
+            <p>Note that you can pass a list of events to this method using the following syntax: <code>window.captureEvents(Event.KEYPRESS | Event.KEYDOWN | Event.KEYUP)</code>.</p>
+            <h2 id="Specification" name="Specification">Specification</h2>
+            <p>DOM Level 0. Not part of any standard.</p>
+        </article>
+
+        <!-- attachments list -->
+
+        <!-- contributors -->
+        <div class="wiki-block contributors">
+            <h2 class="offscreen">Document Tags and Contributors</h2>
+            <!-- tags if present -->
+            <div class="tag-attach-list tags contributor-sub">
+                <i aria-hidden="true" class="icon-tags"></i><strong>Tags:</strong>
+                <ul class="tag-list"><li><a href="/en-US/docs/tag/DOM_0">DOM_0</a></li><li><a href="/en-US/docs/tag/API">API</a></li><li><a href="/en-US/docs/tag/Gecko%20DOM%20Reference">Gecko DOM Reference</a></li><li><a href="/en-US/docs/tag/DOM">DOM</a></li><li><a href="/en-US/docs/tag/Gecko">Gecko</a></li><li><a href="/en-US/docs/tag/Method">Method</a></li></ul>
+            </div>
+            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/en-US/profiles/Jabez">Jabez</a>, <a href="/en-US/profiles/Sheppy">Sheppy</a>, <a href="/en-US/profiles/ethertank">ethertank</a>, <a href="/en-US/profiles/teoli">teoli</a>, <a href="/en-US/profiles/Nickolay">Nickolay</a>, <a href="/en-US/profiles/Callek">Callek</a>, <a href="/en-US/profiles/JesseW">JesseW</a>, <a href="/en-US/profiles/another_sam">another_sam</a>, <a href="/en-US/profiles/Yoshino">Yoshino</a>, <a href="/en-US/profiles/Mgjbot">Mgjbot</a>, <a href="/en-US/profiles/Ptak82">Ptak82</a>, <a href="/en-US/profiles/rmatt8748">rmatt8748</a>, <a href="/en-US/profiles/Potappo">Potappo</a>, <a href="/en-US/profiles/Dria">Dria</a> </div>                              <div class="contributor-sub">
+            <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+            <a href="/en-US/profiles/rmatt8748">rmatt8748</a>,
+            <time datetime="2014-01-07T12:40:45-08:00">Jan 7, 2014 12:40:45 PM</time>
+        </div>
+        </div>
+    </div>

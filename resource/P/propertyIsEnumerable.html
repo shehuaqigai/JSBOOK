@@ -1,0 +1,111 @@
+<div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <h2 id="Summary" name="Summary">概述</h2>
+<p>返回一个布尔值,表明指定的属性名是否是当前对象可枚举的自身属性.</p>
+<table class="standard-table">
+  <thead>
+    <tr>
+      <th class="header" colspan="2">Method of <a href="/zh-CN/docs/JavaScript/Reference/Global_Objects/Object" title="JavaScript/Reference/Global_Objects/Object"><code>Object</code></a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Implemented in</td>
+      <td>JavaScript ?</td>
+    </tr>
+    <tr>
+      <td>ECMAScript Edition</td>
+      <td>ECMAScript 3rd Edition</td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Syntax" name="Syntax">语法</h2>
+<pre class="syntaxbox  language-html" data-prism-prevent-line-number="1"><code class=" language-html">obj.propertyIsEnumerable(prop)</code></pre>
+<h3 id="Parameters" name="Parameters">参数</h3>
+<dl>
+  <dt>
+    <code>prop</code></dt>
+  <dd>
+    需要测试的属性名.</dd>
+</dl>
+<h2 id="Description" name="Description">描述</h2>
+<p>每个对象都有<code>propertyIsEnumerable</code>方法.该方法可以判断出指定的属性名是否是自身的可枚举属性,也就是说该属性是否可以通过<a href="/zh-CN/docs/JavaScript/Reference/Statements/for...in" title="JavaScript/Reference/Statements/for...in"><code>for...in</code></a>循环等遍历到,不过有些属性虽然可以通过<code>for...in</code>循环遍历到,但因为它们不是自身属性,而是从原型链上继承的属性,所以该方法也会返回<code>false</code>.</p>
+<div class="note">
+  <strong>注:</strong>从JavaScript 1.8.1(Firefox 3.6)开始, <code>propertyIsEnumerable("prototype")</code>返回false,而不是以前的true,这是为了符合ECMAScript 5规范.</div>
+<h2 id="Examples" name="Examples">例子</h2>
+<h3 id="Example:_A_basic_use_of_propertyIsEnumerable" name="Example:_A_basic_use_of_propertyIsEnumerable">例子: <code>propertyIsEnumerable</code>方法的基本用法</h3>
+<p>下面的例子演示了<code>propertyIsEnumerable</code>方法在普通对象和数组上的基本用法:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> o <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+o<span class="token punctuation">.</span>prop <span class="token operator">=</span> <span class="token string">'我是个可枚举属性'</span><span class="token punctuation">;</span>
+a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'我是个可枚举属性'</span><span class="token punctuation">;</span>
+
+o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'prop'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // 返回true
+</span>a<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true"> // 返回true</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div></code></pre>
+<h3 id="Example:_User-defined_versus_built-in_objects" name="Example:_User-defined_versus_built-in_objects">例子: 用户自定义对象和引擎内置对象</h3>
+<p>下面的例子演示了用户自定义对象和引擎内置对象上属性可枚举性的区别.</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'我是个可枚举属性'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+a<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment" spellcheck="true"> // 返回true
+</span>a<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'length'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // 返回false
+</span>
+Math<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'random'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // 返回false
+</span>this<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'Math'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true"> // 返回false</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div></code></pre>
+<h3 id="Example:_Direct_versus_inherited_properties" name="Example:_Direct_versus_inherited_properties">例子: 自身属性和继承属性</h3>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+a<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'constructor'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true"> // 返回false,constructor不是自身属性
+</span>
+<span class="token keyword">function</span> <span class="token function">firstConstructor<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  this<span class="token punctuation">.</span>property <span class="token operator">=</span> <span class="token string">'is not enumerable'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+firstConstructor<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>firstMethod <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">secondConstructor<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  this<span class="token punctuation">.</span>method <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">method<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token string">'is enumerable'</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+secondConstructor<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">firstConstructor</span><span class="token punctuation">;</span>
+secondConstructor<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>constructor <span class="token operator">=</span> secondConstructor<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> o <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">secondConstructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+o<span class="token punctuation">.</span>arbitraryProperty <span class="token operator">=</span> <span class="token string">'is enumerable'</span><span class="token punctuation">;</span>
+
+o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'arbitraryProperty'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // 返回true
+</span>o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'method'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>             <span class="token comment" spellcheck="true"> // 返回true
+</span>o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'property'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment" spellcheck="true"> // 返回false,property是继承属性
+</span>
+o<span class="token punctuation">.</span>property <span class="token operator">=</span> <span class="token string">'is enumerable'</span><span class="token punctuation">;</span>
+
+o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'property'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>           <span class="token comment" spellcheck="true"> // 返回true
+</span><span class="token comment" spellcheck="true">
+// 继承属性都返回false
+</span>o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'prototype'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // 返回false 
+</span>o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'constructor'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // 返回false
+</span>o<span class="token punctuation">.</span><span class="token function">propertyIsEnumerable<span class="token punctuation">(</span></span><span class="token string">'firstMethod'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // 返回false</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div><div class="line-number" data-start="31" style="top: 570px;"></div></code></pre>
+<h2 id="See_also" name="See_also">相关链接</h2>
+<ul>
+  <li><a href="/zh-CN/docs/Enumerability_and_ownership_of_properties" title="/zh-CN/docs/Enumerability_and_ownership_of_properties">Enumerability and ownership of properties</a></li>
+  <li><a href="/zh-CN/docs/JavaScript/Reference/Statements/for...in" title="JavaScript/Reference/Statements/for...in">for...in</a></li>
+  <li><a href="/zh-CN/docs/JavaScript/Reference/Global_Objects/Object/keys" title="JavaScript/Reference/Global Objects/Object/keys">Object.keys</a></li>
+  <li><a href="/zh-CN/docs/JavaScript/Reference/Global_Objects/Object/defineProperty" title="JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty()</a></li>
+</ul>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a>,
+                  <time datetime="2013-01-10T23:47:09-08:00">Jan 10, 2013 11:47:09 PM</time>
+                </div>
+                          </div>
+                  </div>

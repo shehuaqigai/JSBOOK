@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS E:first-line/E::first-line</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:15.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/selectors/pseudo-element/first-line.htm">http://www.phpstudy.net/css3/selectors/pseudo-element/first-line.htm</a><br>
+<b>Title:</b> CSS E:first-line/E::first-line &nbsp;&bull;&nbsp; <b>Size:</b> 7494 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">选择符列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">伪类选择符</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/selectors/pseudo-element/?" class="target">
+				<strong>其它伪对象选择符</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="first-letter.htm">E::first-letter</a></li>
+					<li><a href="first-line.htm">E::first-line</a></li>
+					<li><a href="before.htm">E::before</a></li>
+					<li><a href="after.htm">E::after</a></li>
+					<li><a href="selection.htm">E::selection</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">E:first-line/E::first-line</h1>
+	<ul class="info">
+		<li><strong>版本：CSS1/CSS3</strong></li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>E:first-line/E::first-line</strong>{ sRules }</p>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>设置对象内的第一行的样式。</strong>
+			<ul>
+				<li>此伪对象仅作用于块对象。内联对象要使用该伪对象，必须先将其设置为块级对象。</li>
+				<li>IE6在使用该选择符时有个显式的BUG：<em class="glight">选择符与包含规则的花括号之间不能紧挨着，需留有空格或换行</em>。同时还存在该BUG的选择符包括：<a href="first-letter.htm">E:first-letter</a></li>
+				<li>
+					<p>CSS3将伪对象选择符(Pseudo-Element Selectors)前面的<em class="glight">单个冒号(:)修改为双冒号(::)</em>用以区别伪类选择符(Pseudo-Classes Selectors)，但以前的写法仍然有效。</p>
+					<p>即E:first-line可转化为E::first-line</p>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性(E:first-line)：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>较早版本</th>
+						<td class="partsupport">6.0 <sup><a href="#support1">#1</a></sup></td>
+						<td rowspan="2" class="support">4.0</td>
+						<td rowspan="2" class="support">5.1</td>
+						<td rowspan="2" class="support">13.0</td>
+						<td rowspan="2" class="support">11.50</td>
+					</tr>
+					<tr>
+						<th>最近版本</th>
+						<td class="support">7.0</td>
+					</tr>
+				</tbody>
+			</table>
+			<ol class="support-info">
+				<li id="support1">IE6及更早浏览器下，E:first-line选择符与包含规则的花括号之间不能紧挨着，需留有空格或换行。</li>
+			</ol>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性(E::first-line)：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>较早版本</th>
+						<td class="partsupport">5.5-6.0 <sup><a href="#support2">#1</a></sup></td>
+						<td rowspan="3" class="support">4.0</td>
+						<td rowspan="3" class="support">5.1</td>
+						<td rowspan="3" class="support">13.0</td>
+						<td rowspan="3" class="support">11.50</td>
+					</tr>
+					<tr>
+						<th>较新版本</th>
+						<td class="unsupport">7.0-8.0</td>
+					</tr>
+					<tr>
+						<th>最近版本</th>
+						<td class="support">9.0</td>
+					</tr>
+				</tbody>
+			</table>
+			<ol class="support-info">
+				<li id="support2">IE5.5及IE6本质上并不支持E::first-line的写法，而是忽略掉了E::first-line中的一个冒号，仍以E:first-line来解释，所以它们也变相的支持了E::first-line。</li>
+			</div>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS E::first-line_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+h1{font-size:16px;}
+p{width:200px;padding:5px 10px;border:1px solid #ddd;font:14px/1.5 simsun,serif,sans-serif;}
+p:first-line {color:#090;}
+p::first-line {color:#090;}
+</style>
+</head>
+<body>
+<h1>第一行文字的颜色与其它不同</h1>
+<p>今天，阳光明媚，晴空万里，非常适合户外活动，如踏青、远足之类的。长期坐在办公室的同学们要多注意运动。</p>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

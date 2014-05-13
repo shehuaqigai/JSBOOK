@@ -1,0 +1,100 @@
+<div id="maincontent">
+
+<h1>HTML 5 Audio/Video DOM loadstart 事件</h1>
+
+<div class="backtoreference">
+<p><a href="/html5/html5_ref_audio_video_dom.asp">HTML 5 Audio/Video DOM 参考手册</a></p>
+</div>
+
+<div>
+<h2>实例</h2>
+
+<p>提示音频的元数据已加载：</p>
+
+<pre>myVid=document.getElementById("video1");
+<code>myVid.onloadstart=alert("Starting to load video")</code>;
+</pre>
+
+<p><a href="/tiy/t.asp?f=html5_av_event_loadstart">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>定义和用法</h2>
+
+<p>当浏览器开始寻找指定的音频/视频时，会发生 loadstart 事件。即当加载过程开始时。</p>
+
+<p>当音频/视频处于加载过程中时，会依次发生以下事件：</p>
+
+<ul>
+<li>loadstart</li>
+<li><a href="/html5/av_event_durationchange.asp" title="HTML5 Audio/Video DOM durationchange 事件">durationchange</a></li>
+<li><a href="/html5/av_event_loadedmetadata.asp" title="HTML5 Audio/Video DOM loadedmetadata 事件">loadedmetadata</a></li>
+<li><a href="/html5/av_event_loadeddata.asp" title="HTML5 Audio/Video DOM loadeddata 事件">loadeddata</a></li>
+<li><a href="/html5/av_event_progress.asp" title="HTML5 Audio/Video DOM progress 事件">progress</a></li>
+<li><a href="/html5/av_event_canplay.asp" title="HTML5 Audio/Video DOM canplay 事件">canplay</a></li>
+<li><a href="/html5/av_event_canplaythrough.asp" title="HTML5 Audio/Video DOM canplaythrough 事件">canplaythrough</a></li>
+</ul>
+</div>
+
+
+<div>
+<h2>浏览器支持</h2>
+
+<p>所有主流浏览器都支持 loadstart 事件。</p>
+
+<p class="note"><span>注释：</span>Internet Explorer 8 或更早的浏览器不支持该事件。</p>
+</div>
+
+
+<div>
+<h2>语法</h2>
+
+<p>在 HTML 中：</p>
+<pre>&lt;audio|video onloadstart="<i>SomeJavaScriptCode</i>"&gt;</pre>
+
+<p>在 JavaScript 中：</p>
+<pre>audio|video.onloadstart=<i>SomeJavaScriptCode</i>;</pre>
+
+<p>使用 addEventListener()：</p>
+<pre>audio|video.addEventListener("loadstart", function()
+  {
+  <span>//SomeJavaScriptCode</span>
+  }
+);
+</pre>
+</div>
+
+
+<div>
+<h3>技术细节</h3>
+
+<table class="dataintable">
+<tbody><tr>
+<th style="width:35%;">以下 HTML 标签支持：</th>
+<td>&lt;audio&gt;, &lt;video&gt;</td>
+</tr>
+
+<tr>
+<th>以下 JavaScript 对象支持：</th>
+<td>Audio, Video</td>
+</tr>
+
+
+</tbody></table>
+</div>
+
+
+<div>
+<h2>更多实例</h2>
+
+<p><a href="/tiy/t.asp?f=html5_av_event_loadstart_html">在 HTML 元素上使用 loadstart 属性</a></p>
+
+<p><a href="/tiy/t.asp?f=html5_av_event_loadstart_addeventlistener">使用 addEventListener() 来监听 loadstart 事件</a></p>
+</div>
+
+<div class="backtoreference">
+<p><a href="/html5/html5_ref_audio_video_dom.asp">HTML 5 Audio/Video DOM 参考手册</a></p>
+</div>
+
+</div>

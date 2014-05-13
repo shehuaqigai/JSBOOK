@@ -1,0 +1,210 @@
+
+<p>RTCPeerConnection对象允许用户在两个浏览器之间直接通讯。</p>
+<h2>new webkitRTCPeerConnection(null,null)     返回RTCPeerConnection    实例对象属性和方法</h2>
+
+
+<h3>Constructor</h3>
+<p>
+	new RTCPeerConnection(RTCConfiguration configuration, optional MediaConstraints constraints);<br/>
+	//var pc=new webkitRTCPeerConnection({iceServers: [{url: 'stun:23.21.150.121'}]});
+
+</p>
+
+<p>
+	<article id="wikiArticle">
+<p>The RTCConfiguration is passed into the RTCPeerConnection object to initialize the ice server configuration.</p>
+<h3 id="Example">Example</h3>
+<pre class="language-html">
+var configuration = [{"url": "stun:stun.services.mozilla.com"}];
+/*
+ RTCConfiguration 的成员是iceServers
+iceServers是RTCIceServer类型的数组JS提供的包含STUN和TURN 服务器的数组用在ICE协议中。
+
+RTCIceServer 成员
+credential：可以为空的DOMString
+如果内部数字的url元素是一个 TURN URI, 那么这个credential（凭据）是用在 TURN server上的。
+url ：类型是 DOMString
+一个stun或者turn的 URI，定义在这两个文档中：[STUN-URI] 和 [TURN-URI]。
+  在多层NAT（译者注：看到多层NAT这个词，我马上想到一个例子：国内的宽带运营商，
+  比如长城宽带、中信宽带等一些小的宽带运营商（无贬义），
+  本身分配的ip地址就不多，通过pppoe拨上去以后，
+  运营商本身分配给用户的的就是内网地址，
+  比如10或者172或者192开头的地址，在运营商这一层就做了一次NAT。
+  如果用户自己再接了一个无线路由器，那就是第二层NAT，
+  这就是多层NAT）的网络拓扑图中，除了TURN Server之外，
+  需要在每两层NAT之间设置一个STUN Server，用来减少网络延时。
+  （说实话没理解设置多个STUN Server对于减少网络延时有什么用）
+*/
+var pc = new RTCPeerConnection(configuration)
+
+
+
+
+</pre>
+<h2 id="Properties">Properties</h2>
+<table class="standard-table">
+ <thead>
+  <tr>
+   <th scope="col">Name</th>
+   <th scope="col">Type</th>
+   <th scope="col">Description</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td><code>iceServers</code></td>
+   <td><RTCIceServer[]</td>
+   <td>An array of ice server objects</td>
+  </tr>
+ </tbody>
+</table>
+<p>&nbsp;</p>
+                                    </article>
+</p>
+<ul>
+	
+<li>iceConnectionState: "new"</li>
+
+
+<li>iceGatheringState: "new"</li>
+
+
+<li>localDescription: null</li>
+
+
+<li>onaddstream: null</li>
+
+
+<li>ondatachannel: null</li>
+
+
+<li>onicecandidate: null</li>
+
+
+<li>oniceconnectionstatechange: null</li>
+
+
+<li>onnegotiationneeded: null</li>
+
+
+<li>onremovestream: null</li>
+
+
+<li>onsignalingstatechange: null</li>
+
+
+<li>remoteDescription: null</li>
+
+
+<li>signalingState: "stable"</li>
+
+<li>addIceCandidate</li>
+
+
+<li>addStream</li>
+
+<li>close</li>
+
+<li>createAnswer</li>
+
+<li>createDTMFSender</li>
+
+<li>createDataChannel</li>
+
+<li>createOffer</li>
+
+<li>getLocalStreams</li>
+
+<li>getRemoteStreams</li>
+
+<li>getStats</li>
+
+<li>getStreamById</li>
+
+<li>removeStream</li>
+
+<li>setLocalDescription</li>
+
+<li>setRemoteDescription</li>
+
+<li>updateIce</li>
+
+<pre style="background:black;color:white;">
+	
+
+void createOffer(
+RTCSessionDescriptionCallback successCallback,
+RTCPeerConnectionErrorCallback failureCallback, 
+optional MediaConstraints constraints);
+
+void createAnswer(
+RTCSessionDescriptionCallback successCallback, 
+RTCPeerConnectionErrorCallback failureCallback,
+ optional MediaConstraints constraints)")
+
+void setLocalDescription(
+RTCSessionDescription description, 
+Function successCallback, 
+RTCPeerConnectionErrorCallback failureCallback)
+
+void setRemoteDescription(RTCSessionDescription description, 
+Function successCallback, 
+RTCPeerConnectionErrorCallback failureCallback)
+
+void updateIce(optional RTCConfiguration configuration, 
+optional MediaConstraints constraints)
+
+void addIceCandidate (RTCIceCandidate candidate, 
+Function successCallback, 
+RTCPeerConnectionErrorCallback failureCallback);
+
+MediaStream[] getRemoteStreams()
+
+MediaStream getStreamById(DOMString streamId)
+
+void addStream (MediaStream stream, 
+optional MediaConstraints constraints);
+
+void removeStream (MediaStream stream);
+
+void close()
+
+RTCDataChannel createDataChannel (DOMString label, 
+optional RTCDataChannelInit dataChannelDict);
+
+</pre>
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+<h2>DTMF</h2>
+<p>
+	双音多频：dual-tone multifrequency
+双音多频 DTMF（Dual Tone Multi Frequency），双音多频，由高频群和低频群组成，高低频群各包含4个频率。一个高频信号和一个低频信号叠加组成一个组合信号，代表一个数字。DTMF信号有16个编码。利用DTMF信令可选择呼叫相应的对讲机。
+双音多频信号（DTMF），电话系统中电话机与交换机之间的一种用户信令，通常用于发送被叫号码。
+在使用双音多频信号之前，电话系统中使用一连串的断续脉冲来传送被叫号码，称为脉冲拨号。脉冲拨号需要电信局中的操作员手工完成长途接续(早期方法，很老很古董)。
+双音多频信号是贝尔实验室发明的，其目的是为了自动完成长途呼叫。
+双音多频的拨号键盘是4×4的矩阵，每一行代表一个低频，每一列代表一个高频。每按一个键就发送一个高频和低频的正弦信号组合，比如'1'相当于697和1209赫兹(Hz)。交换机可以解码这些频率组合并确定所对应的按键
+双音多频(DTMF)是由贝尔实验室开发的信令方式，通过承载语音的模拟电话线传送电话拨号信息。每个数字利用两个不同频率突发模式的正弦波编码，选择双音方式是由于它能够可靠地将拨号信息从语音中区分出来。一般情况下，声音信号很难造成对DTMF接收器的错误触发。DTMF是“TouchTone” (早期AT&T的商标)的基础, 替代机械式拨号转盘的按键。
+双音多频
+
+双音多频（DTMF）是一种在话音信道用音调来表示数字的方法，它可以用来在模拟话音信道传输信令，因此在通信中有广泛的应用。
+双音频
+
+所谓双音频（DTMF）是指用一频率较高的信号与一频率较低的信号叠加，“4”是770HZ和1209HZ信号的叠加，“3”是697HZ和1477HZ信号的叠加等。
+功能
+
+在附加功能上，这款显卡支持双音多频功能（DTMF），支持短信息服务功能附加服务来电显示，还支持电话簿管理。
+信号
+
+(1)指令信号传输方式 考虑到本系统的信号传输是加载到电力系统上进行传输的,所以本系统采用双音多频信号(DTMF)作为传输信号,DTMF是由一组低音频信号和一组高音频信号以一定方式的组合构成,每组音频信号各有4个音频信号,而每种组合有一个低音频信号和一个高音频信号.
+</p>
+

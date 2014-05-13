@@ -1,0 +1,66 @@
+<div id="maincontent">
+
+<h1>onload 事件</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>onload 事件会在页面或图像加载完成后立即发生。</p>
+
+<h3>语法</h3>
+<pre>onload="SomeJavaScriptCode"</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>SomeJavaScriptCode</td>
+    <td>必需。规定该事件发生时执行的 JavaScript。</td>
+  </tr>
+</tbody></table>
+
+<h3>支持该事件的 HTML 标签：</h3>
+<pre>&lt;body&gt;, &lt;frame&gt;, &lt;frameset&gt;, &lt;iframe&gt;, &lt;img&gt;, &lt;link&gt;, &lt;script&gt;
+</pre>
+
+<h3>支持该事件的 JavaScript 对象：</h3>
+<pre>image, layer, window</pre>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>在本例中，文本 "Page is loaded" 会被显示在状态栏中：</p>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function load()
+{
+window.status="Page is loaded"
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body <code>onload="load()"</code>&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_onload">onload</a></dt>
+<dd>如何使用 onload 在页面完成加载时在状态栏显示一段文本。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+</div>

@@ -1,0 +1,28 @@
+<p>
+	在JavaScript中，存在有nodeName 、nodeType、 nodeValue这三个属性，今天我们来了解下JavaScript中的nodeName 、nodeType 、nodeValue区别
+nodeName
+<pre>
+	
+
+nodeName 属性含有某个节点的名称。
+* 元素节点的 nodeName 是标签名称
+* 属性节点的 nodeName 是属性名称
+* 文本节点的 nodeName 永远是 #text
+* 文档节点的 nodeName 永远是 #document
+注释：nodeName 所包含的 XML 元素的标签名称永远是大写的.
+
+nodeValue
+对于文本节点，nodeValue 属性包含文本。
+对于属性节点，nodeValue 属性包含属性值。
+nodeValue 属性对于文档节点和元素节点是不可用的。
+nodeType
+nodeType 属性可返回节点的类型。
+最重要的节点类型是：
+元素类型 节点类型
+元素element 1
+属性attr 2
+文本text 3
+注释comments 8
+文档document 9
+</pre>
+</p>

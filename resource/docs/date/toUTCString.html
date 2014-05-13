@@ -1,0 +1,29 @@
+<pre>
+	定义和用法
+toUTCString() 方法可根据世界时 (UTC) 把 Date 对象转换为字符串，并返回结果。
+语法
+dateObject.toUTCString()
+返回值
+dateObject 的字符串表示，用世界时表示。
+实例
+例子 1
+在下面的例子中，我们将使用 toUTCString() 来把今天的日期转换为（根据 UTC）字符串：
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write (d.toUTCString())
+
+&lt/script>
+输出：
+Sat, 22 Feb 2014 06:57:46 GMT
+例子 2
+在下面的例子中，我们将把具体的日期转换为（根据 UTC）字符串：
+&ltscript type="text/javascript">
+
+var born = new Date("July 21, 1983 01:15:00")
+document.write(born.toUTCString())
+
+&lt/script>
+输出：
+Wed, 20 Jul 1983 17:15:00 GMT
+</pre>

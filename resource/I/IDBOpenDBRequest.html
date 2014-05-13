@@ -1,0 +1,67 @@
+<div class="_content"><div class="_page _mdn"><h1>IDBOpenDBRequest</h1> <div class="summary"> <p>The <code>IDBOpenDBRequest</code> interface of the IndexedDB API provides access to results of requests to open databases using specific event handler attributes.</p> </div> <p>Inherits from: <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a></p> <h2 id="Methods">Methods</h2> <p>No methods.</p> <h2 id="Properties">Properties</h2> <h3 id="Event_handlers">Event handlers</h3> <dl>
+<dt> <a href="idbopendbrequest.onblocked" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBOpenDBRequest.onblocked</code></a>
+</dt> <dd> The event handler for the blocked event. This event is triggered when the <code>upgradeneeded</code> should be triggered because of a version change but the database is still in use (ie not closed) somewhere, even after the <code>versionchange</code> event was sent.</dd> <dt> <a href="idbopendbrequest.onupgradeneeded" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBOpenDBRequest.onupgradeneeded</code></a>
+</dt> <dd> The event handler for the <code>upgradeneeded</code> event, fired when a database of a bigger version number than the existing stored database is loaded.</dd> </dl><h2 id="Derived_interface">Derived interface</h2> <p><em>No derived interface</em></p> <h2 id="Example">Example</h2> <pre class=" language-javascript"><span class="token keyword">var</span> db<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Let us open our database
+</span><span class="token keyword">var</span> request <span class="token operator">=</span> window<span class="token punctuation">.</span>indexedDB<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// these two event handlers act on the database being opened successfully, or not
+</span>request<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Error loading database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+request<span class="token punctuation">.</span>onsuccess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Database initialised.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+ 
+ <span class="token comment" spellcheck="true"> // store the result of opening the database in the db variable. This is used a lot below
+</span>  db <span class="token operator">=</span> request<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+ 
+ <span class="token comment" spellcheck="true"> // Run the displayData() function to populate the task list with all the to-do list data already in the IDB
+</span>  <span class="token function">displayData<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// This event handles the event whereby a new version of the database needs to be created
+</span><span class="token comment" spellcheck="true">// Either one has not been created before, or a new version number has been submitted via the
+</span><span class="token comment" spellcheck="true">// window.indexedDB.open line above
+</span><span class="token comment" spellcheck="true">//it is only implemented in recent browsers
+</span>request<span class="token punctuation">.</span>onupgradeneeded <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> db <span class="token operator">=</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+ 
+  db<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Error loading database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ <span class="token comment" spellcheck="true"> // Create an objectStore for this database   
+</span>  <span class="token keyword">var</span> objectStore <span class="token operator">=</span> db<span class="token punctuation">.</span><span class="token function">createObjectStore<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> keyPath<span class="token punctuation">:</span> <span class="token string">"taskTitle"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></pre> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/IndexedDB/raw-file/tip/Overview.html#idl-def-IDBOpenDBRequest" lang="en" title="The definition of 'IDBOpenDBRequest' in that specification.">Indexed Database API</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td> <p>16<span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span></p> <p>24</p> </td> <td> <p>11.0 (11.0)<span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span></p> <p>16.0 (16.0)</p> </td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Chrome Mobile</th> <th>Firefox Mobile (Gecko)</th> <th>Firefox OS</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.4</td> <td>Yes<span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> <td>6.0 (6.0)</td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/IndexedDB/Using_IndexedDB">Using IndexedDB</a></li> <li>The reference application for the examples in this reference: <a class="external" href="https://github.com/chrisdavidmills/to-do-notifications/tree/gh-pages">To-do Notifications</a> (<a class="external" href="http://chrisdavidmills.github.io/to-do-notifications/">view example live</a>.) Not every snippet appears in this example, but every example uses the same data structure and syntax, and they will make sense in the context of this example.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBOpenDBRequest$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBOpenDBRequest" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/IDBOpenDBRequest</a>
+  </p>
+</div>
+</div></div>

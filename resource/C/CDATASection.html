@@ -1,0 +1,147 @@
+<div id="maincontent">
+
+    <h1>XML DOM CDATASection 对象</h1>
+
+    <div id="tpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_attribute.asp" title="XML DOM Attr 对象">DOM Attr</a></li>
+            <li class="next"><a href="/xmldom/dom_characterdata.asp" title="XML DOM CharacterData 对象">DOM CharacterData</a></li>
+        </ul>
+    </div>
+
+    <div id="intro">
+        <p><strong>CDATASection 对象表示文档中的 CDATA 区段。</strong></p>
+    </div>
+
+
+    <div class="example">
+        <h2>实例</h2>
+
+        <p>在下面的例子中，我们会使用 XML 文件<a href="/example/xdom/books.xml">books.xml</a>，以及 JavaScript 函数 loadXMLDoc()。</p>
+
+        <dl>
+            <dt><a href="/tiy/t.asp?f=xdom_createcdatasection">createCDATASection() - 创建一个 CDATA 区段节点</a></dt>
+        </dl>
+    </div>
+
+
+    <div>
+        <h2>CDATASection 对象</h2>
+
+        <p>CDATASection 对象表示文档中的 CDATA Section。</p>
+
+        <p>CDATASection 接口是 <a href="/xmldom/dom_text.asp" title="XML DOM Text 对象">Text</a> 接口的子接口，没有定义任何自己的属性和方法。通过从 <a href="/xmldom/dom_node.asp" title="XML DOM Node 对象">Node</a> 接口继承 <a href="/xmldom/prop_node_nodevalue.asp" title="XML DOM nodeValue 属性">nodeValue</a> 属性，或通过从 <a href="/xmldom/dom_characterdata.asp" title="XML DOM CharacterData 对象">CharacterData</a> 接口继承 data 属性，可以访问 CDATA Section 的文本内容。</p>
+
+        <p>虽然通常可以把 CDATASection 节点作为 <a href="/xmldom/dom_text.asp" title="XML DOM - Text 对象">Text</a> 节点处理，但要注意，<a href="/xmldom/met_node_normalize.asp" title="XML DOM normalize() 方法
+">Node.normalize()</a> 方法不并入相邻的 CDATA 部分。</p>
+
+        <p>使用 <a href="/xmldom/met_document_createcdatasection.asp" title="XML DOM createCDATASection() 方法">Document.createCDATASection()</a> 来创建一个 CDATASection。</p>
+
+        <p>CDATA 区段包含了不会被解析器解析的文本。CDATA 区段中的标签不会被视为标记，同时实体也不会被展开。主要的目的是为了包含诸如 XML 片段之类的材料，而无需转义所有的分隔符。</p>
+        <p>在一个 CDATA 中唯一被识别的分隔符是 "]]&gt;"，它可标示 CDATA 区段的结束。CDATA 区段不能进行嵌套。</p>
+    </div>
+
+
+    <div>
+        <h2>CDATASection 对象的属性</h2>
+
+        <table class="dataintable">
+            <tbody><tr>
+                <th style="width:20%">属性</th>
+                <th>描述</th>
+                <th style="width:6%">IE</th>
+                <th style="width:6%">F</th>
+                <th style="width:7%">O</th>
+                <th style="width:7%">W3C</th>
+            </tr>
+            <tr>
+                <td>data</td>
+                <td>设置或返回此节点的文本。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>length</td>
+                <td>返回 CDATA 区段的长度。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            </tbody></table>
+    </div>
+
+
+    <div>
+        <h2>CDATASection 对象的方法</h2>
+
+        <table class="dataintable">
+            <tbody><tr>
+                <th style="width:20%">方法</th>
+                <th>描述</th>
+                <th style="width:6%">IE</th>
+                <th style="width:6%">F</th>
+                <th style="width:7%">O</th>
+                <th style="width:7%">W3C</th>
+            </tr>
+            <tr>
+                <td>appendData()</td>
+                <td>向节点追加数据。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>deleteData()</td>
+                <td>从节点删除数据。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>insertData()</td>
+                <td>向节点中插入数据。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>replaceData()</td>
+                <td>替换节点中的数据。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>splitText()</td>
+                <td>把 CDATA 分拆为两个节点。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>substringData()</td>
+                <td>从节点提取数据。</td>
+                <td>6</td>
+                <td>1</td>
+                <td>No</td>
+                <td>Yes</td>
+            </tr>
+            </tbody></table>
+    </div>
+
+
+    <div id="bpn">
+        <ul class="prenext">
+            <li class="pre"><a href="/xmldom/dom_attribute.asp" title="XML DOM Attr 对象">DOM Attr</a></li>
+            <li class="next"><a href="/xmldom/dom_characterdata.asp" title="XML DOM CharacterData 对象">DOM CharacterData</a></li>
+        </ul>
+    </div>
+</div>

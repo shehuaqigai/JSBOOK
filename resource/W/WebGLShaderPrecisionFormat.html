@@ -1,0 +1,75 @@
+<div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Provides the <a href="http://msdn.microsoft.com/en-us/library/ie/dn302464(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">precision</strong></a>, <a href="http://msdn.microsoft.com/en-us/library/ie/dn302466(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">rangeMin</strong></a>, and <a href="http://msdn.microsoft.com/en-us/library/ie/dn302465(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">rangeMax</strong></a> properties returned by the <a href="http://msdn.microsoft.com/en-us/library/ie/dn302419(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getShaderPrecisionFormat</strong></a> method.</p>
+<table>
+<tbody><tr><td><img id="badge_ie11" alt="IE11" src="http://i.msdn.microsoft.com/dynimg/IC677945.png" title="IE11" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_b6724dfc-45f4-4ff3-aa0e-a7e17c1a5d12');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_b6724dfc-45f4-4ff3-aa0e-a7e17c1a5d12" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;body&gt;
+  &lt;canvas ⁯id="canvas"&gt;&lt;/canvas&gt;
+  ...
+&lt;script&gt;
+  var gl = document.getElementById("canvas").getContext("experimental-webgl");
+  ...
+var shaderPrecisionFormat = gl.getShaderPrecisionFormat(gl.VERTEX_SHADER, gl.MEDIUM_FLOAT); 
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>The WebGLShaderPrecisionFormat does not inherit from any class or interface.<h2>Members</h2>
+<p>The <strong>WebGLShaderPrecisionFormat</strong> object has these types of members:</p>
+<ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>WebGLShaderPrecisionFormat</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302464(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">precision</strong></a>
+</p>
+                                </td><td>
+<p>Represents the precision in <strong>bits</strong> for a given data type. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302465(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">rangeMax</strong></a>
+</p>
+                                </td><td>
+<p>Gets the maximum positive value in log base 2  that can be represented by a type. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/dn302466(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">rangeMin</strong></a>
+</p>
+                                </td><td>
+<p>Returns the base 2 log of the absolute value  of the minimum value that can be represented. </p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2>Remarks</h2>
+<p>This object is returned using the <a href="http://msdn.microsoft.com/en-us/library/ie/dn302419(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">getShaderPrecisionFormat</strong></a> method. </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/17/2014</p>
+</div>

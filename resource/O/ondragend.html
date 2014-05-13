@@ -1,0 +1,127 @@
+<div class="viewbox">
+			<div class="title">
+				<h2>突袭HTML5之Javascript API扩展4 - 拖拽</h2>
+			</div><!-- /title -->
+			<div class="info">
+				<small>时间:</small>2012-08-24 02:15<small>来源:</small>博客园 <small>作者:</small>沙场秋点兵 <small>点击:</small>
+				93次</div><!-- /info -->
+
+            	<div class="intro">拖拽(Drag/Drop)是个非常普遍的功能。你可以抓住一个对象，并且拖动到你想放置的区域。 很多javascript都类似实现了相关的功能，例如，jQueryUI的drag and drop组件。在HTML5中，拖拽(drag and drop)成为了标准操作，任何元素都支持。正因为这个功能太普遍了，所有的主流浏览器都支持这个操作。 启用拖拽 - draggable属性</div>
+			<div class="content">
+			　　<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拖拽(Drag/Drop)是个非常普遍的功能。你可以抓住一个对象，并且拖动到你想放置的区域。 很多javascript都类似实现了相关的功能，例如，jQueryUI的drag and drop组件。在HTML5中，拖拽(drag and drop)成为了标准操作，任何元素都支持。正因为这个功能太普遍了，所有的主流浏览器都支持这个操作。</p>
+<p><strong style="color: #0000ff">启用拖拽 - draggable属性</strong><strong><br>
+</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 非常简单，只需要将一个元素的拖动属性修改为draggable，这个元素就支持拖动了，如下所示：</p>
+<div class="cnblogs_code">
+<div><span style="color: #0000ff">&lt;</span><span style="color: #800000">img&nbsp;</span><span style="color: #ff0000">draggable</span><span style="color: #0000ff">="true"</span><span style="color: #ff0000">&nbsp;</span><span style="color: #0000ff">/&gt;</span>&nbsp;</div>
+</div>
+<p><br>
+<strong style="color: #0000ff">拖动中数据的传递</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 拖动的过程中，我们往往需要传递相应的逻辑数据来完成转换的过程，这里主要是使用dataTransfer对象进行数据传递，下面先看看它的成员：<br>
+<strong>方法成员：</strong></p>
+<div class="cnblogs_code">
+<div>setData(format,&nbsp;data)：把被拖动的数据赋值给dataTransfer对象。</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format:一个String型参数，指定被拖动数据的类型。该参数取值可以是“Text”(文本类型)和“URL”(URL类型)。该参数是大小写无关的，所以传入"text"与"Text"是一样的。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data:一个变体类型参数，指定被拖动的数据。该数据可以是文本，图片路径，URL等等。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 该函数有Boolean类型的返回值，true表示数据成功加到dataTransfer中，false代表不成功。如果需要，可以通过这个参数来决定是否应该继续执行某些逻辑。</p>
+<div class="cnblogs_code">
+<div>getData(format)：获取dataTransfer中存放的拖动数据。</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format意义与setData中的一样，取值可以是"Text"(文本类型)和"URL"(URL类型)。</p>
+<div class="cnblogs_code">
+<div>clearData(format)：移除指定类型的数据。</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这里的format除了上面可以指定的"Text"(文本类型)和"URL"(URL类型)外，还可以取下列值：file - 文件，html - html元素，image - 图片。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这个方法可以用于去选择性的处理拖动的数据类型。<br>
+&nbsp;</p>
+<p><strong>属性成员：</strong></p>
+<div class="cnblogs_code">
+<div>effectAllowed：设置或获取数据源元素中的数据可以执行的操作。</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 属性类型为字符串，取值范围如下：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em style="font-size: 10pt">"copy"-复制数据.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "link"-链接数据.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "move"-移动数据<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "copyLink"-复制或链接数据，由目标对象来确定。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "copyMove"-复制或移动数据，由目标对象来确定。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "linkMove"-链接或移动数据，由目标对象来确定。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "all"-所有的操作都是支持的。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "none"-禁止拖动。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "uninitialized"-默认值，采用默认的行为。</em><em><br>
+</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注意设置effectAllowed为none以后，拖动是禁止的，但是鼠标形状还是显示没有可拖动的对象的形状，如果想不显示这个鼠标形状，则需要将window的event事件的属性returnValue设置为false。</p>
+<div class="cnblogs_code">
+<div>dropEffect：设置或获取拖动的目标上允许的操作以及相关的鼠标形状。</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 属性类型为字符串，取值范围如下：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em style="font-size: 10pt">"copy"-鼠标显示为复制时的形状；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "link"-鼠标显示为连接的形状；<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "move"-鼠标显示为移动的形状。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "none"(默认值)-鼠标显示为没有拖动的形状。</em><em><br>
+</em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; effectAllowed指定了数据源支持的操作，所以通常在ondragstart事件中指定。dropEffect指定了拖动放置的目标支持的操作，所以与effectAllowed配合，通常在拖动的目标上的 ondragenter, ondragover和ondrop等事件中使用。</p>
+<div class="cnblogs_code">
+<div>files：返回拖动的文件的列表FileList。<br>
+types：ondragstart中发送的数据(被拖动的数据)类型的列表。</div>
+</div>
+<p><font color="#0000ff"><span style="color: #000000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dataTransfer对象的存在，使得在拖动的数据源和目标元素之间传递逻辑数据变成了可能。通常我们使用setData方法在数据源元素的ondragstart事件中提供数据，然后再目标元素中，使用getData方法获取数据。</span></font></p>
+<p>&nbsp;</p>
+<p><strong><font color="#0000ff">拖动中触发的事件<br>
+</font></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下面是一次拖拽会发生的事件，基本上事件的触发顺序也就是下面的顺序：</p>
+<div class="cnblogs_code">
+<div class="cnblogs_code_toolbar">&nbsp;</div>
+<div>dragstart：要被拖拽的元素开始拖拽时触发，这个事件对象是被拖拽元素。<br>
+drag:拖拽元素时触发，这个事件对象是被拖拽元素。<br>
+dragenter：拖拽元素进入目标元素时触发，这个事件对象是目标元素。<br>
+dragover：拖拽某元素在目标元素上移动时触发，这个事件对象是目标元素。<br>
+dragleave：拖拽某元素离开目标元素时触发，这个事件对象是目标元素。<br>
+drop：将被拖拽元素放在目标元素内时触发，这个事件对象是目标元素。<br>
+dragend：在drop之后触发，就是拖拽完毕时触发，这个事件对象是被拖拽元素。</div>
+<div class="cnblogs_code_toolbar">&nbsp;</div>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 基本上事件的参数event都会传入相关的元素，可以很方便的进行一些修改。这里，我们并不需要处理每个事件，通常只需要挂接主要的几个事件即可。</p>
+<p><strong>拖动开始 - ondragstart事件</strong><strong><br>
+</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 从这个事件传入的参数含有的信息非常丰富，从中可以很方便的获取到被拖动的元素(event.Target)；从中可以设置被拖动数据(event.dataTransfer.setData)；所以你可以很方便实现拖动的背后逻辑(当然你绑定的时候也可以传递其他的参数)。<br>
+<strong>拖动过程中 - ondrag，ondragover，ondragenter和ondragleave事件</strong><strong><br>
+</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ondrag事件的对象是被拖拽元素，通常这个事件处理的比较少。ondragenter事件是当拖动进入当前元素时发生，ondragleave事件是在当拖动离开当前元素时发生，ondragover事件是在拖动在当前元素中移动时发生。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这里只需要注意一点，因为默认情况下，浏览器是禁止元素drop的，所以为了让元素可以drop，需要在这个函数中返回false或者调用event.preventDefault()方法。如下面的例子所示。<br>
+<strong>拖动结束 - ondrop，ondragend事件</strong><strong><br>
+</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 当可拖动的数据被drop的时候，drop事件触发。drop结束后，dragend事件被触发，这个事件使用的也相对少一点。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 看一个简单的例子：</p>
+<div class="cnblogs_code">
+<div class="cnblogs_code_toolbar">&nbsp;</div>
+<div><span style="color: #0000ff">&lt;!</span><span style="color: #ff00ff">DOCTYPE&nbsp;HTML</span><span style="color: #0000ff">&gt;</span><br>
+<span style="color: #0000ff">&lt;</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span><br>
+<span style="color: #0000ff">&lt;</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><br>
+<span style="color: #0000ff">&lt;</span><span style="color: #800000">script&nbsp;</span><span style="color: #ff0000">type</span><span style="color: #0000ff">="text/javascript"</span><span style="color: #0000ff">&gt;</span><span style="background-color: #f5f5f5; color: #000000"><br>
+&nbsp;&nbsp;</span><span style="background-color: #f5f5f5; color: #0000ff">function</span><span style="background-color: #f5f5f5; color: #000000">&nbsp;allowDrop(ev){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ev.preventDefault();<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;</span><span style="background-color: #f5f5f5; color: #0000ff">function</span><span style="background-color: #f5f5f5; color: #000000">&nbsp;drag(ev){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ev.dataTransfer.setData(</span><span style="background-color: #f5f5f5; color: #000000">"</span><span style="background-color: #f5f5f5; color: #000000">Text</span><span style="background-color: #f5f5f5; color: #000000">"</span><span style="background-color: #f5f5f5; color: #000000">,ev.target.id);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;</span><span style="background-color: #f5f5f5; color: #0000ff">function</span><span style="background-color: #f5f5f5; color: #000000">&nbsp;drop(ev){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="background-color: #f5f5f5; color: #0000ff">var</span><span style="background-color: #f5f5f5; color: #000000">&nbsp;data</span><span style="background-color: #f5f5f5; color: #000000">=</span><span style="background-color: #f5f5f5; color: #000000">ev.dataTransfer.getData(</span><span style="background-color: #f5f5f5; color: #000000">"</span><span style="background-color: #f5f5f5; color: #000000">Text</span><span style="background-color: #f5f5f5; color: #000000">"</span><span style="background-color: #f5f5f5; color: #000000">);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ev.target.appendChild(document.getElementById(data));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ev.preventDefault();<br>
+&nbsp;&nbsp;}<br>
+</span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span><br>
+<span style="color: #0000ff">&lt;/</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><br>
+<span style="color: #0000ff">&lt;</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span><br>
+&nbsp;&nbsp;<span style="color: #0000ff">&lt;</span><span style="color: #800000">div&nbsp;</span><span style="color: #ff0000">id</span><span style="color: #0000ff">="div1"</span><span style="color: #ff0000">&nbsp;ondrop</span><span style="color: #0000ff">="drop(event)"</span><span style="color: #ff0000">&nbsp;ondragover</span><span style="color: #0000ff">="allowDrop(event)"</span><span style="color: #0000ff">&gt;&lt;/</span><span style="color: #800000">div</span><span style="color: #0000ff">&gt;</span><br>
+&nbsp;&nbsp;<span style="color: #0000ff">&lt;</span><span style="color: #800000">img&nbsp;</span><span style="color: #ff0000">id</span><span style="color: #0000ff">="drag1"</span><span style="color: #ff0000">&nbsp;src</span><span style="color: #0000ff">="img_logo.gif"</span><span style="color: #ff0000">&nbsp;draggable</span>
+<span style="color: #0000ff">="true"</span><span style="color: #ff0000">&nbsp;ondragstart</span>
+<span style="color: #0000ff">="drag(event)"</span><span style="color: #ff0000">&nbsp;width</span><span style="color: #0000ff">="336"</span>
+<span style="color: #ff0000">&nbsp;height</span>
+<span style="color: #0000ff">="69"</span>
+<span style="color: #ff0000">&nbsp;</span>
+<span style="color: #0000ff">/&gt;</span><br>
+<span style="color: #0000ff">&lt;/</span>
+<span style="color: #800000">body</span>
+<span style="color: #0000ff">&gt;</span><br>
+<span style="color: #0000ff">&lt;/</span>
+<span style="color: #800000">html</span>
+<span style="color: #0000ff">&gt;</span>
+</div>
+</div>
+
+			</div><!-- /content -->
+		</div>

@@ -1,0 +1,32 @@
+<p>
+	
+
+
+
+
+
+webkitMovementX:鼠标的移动距离，主要用在一些3D场景中，比如第一视角的游戏，需要计算用户鼠标的移动距离来反馈画面。下面来自mozilla官网的API
+This API is useful for applications that require significant mouse input to control movements, rotate objects, and change entries. It is particularly essential for highly visual applications, such as those that use first-person perspective, as well as 3D views and modeling.
+For example, you can create apps that let your users control the viewing angle simply by moving the mouse around without any button clicking. The buttons are then freed up for other actions. This kind of mouse input is quite handy for viewing maps, satellite imagery, or first-person scenes (such as in a game or an immersive video).
+当然老式浏览器就不大算指望他了，下面是一段兼容代码：
+<pre>
+	
+
+ 1 document.addEventListener("mousemove", function(e) {
+ 2   var movementX = e.movementX       ||
+ 3                   e.mozMovementX    ||
+ 4                   e.webkitMovementX ||
+ 5                   0,
+ 6       movementY = e.movementY       ||
+ 7                   e.mozMovementY    ||
+ 8                   e.webkitMovementY ||
+ 9                   0;
+10 
+11   // Print the mouse movement delta values
+12   console.log("movementX=" + movementX, "movementY=" + movementY);
+13 }, false);
+</pre>
+ 
+注：IE和FF的定位有个1px的差别，实际上，IE的定位从0开始，FF的定位从1开始，FF永远会比IE大1px，需要根据实际情况处理。
+</p>
+ 

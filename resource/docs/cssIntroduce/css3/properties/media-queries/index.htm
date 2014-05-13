@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS Media Queries Index</title>
+<meta name="Description" content="CSS媒体查询" />
+<meta name="Keywords" content="CSS Media Queries" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/media-queries/index.htm">http://www.phpstudy.net/css3/properties/media-queries/index.htm</a><br>
+<b>Title:</b> CSS Media Queries Index &nbsp;&bull;&nbsp; <b>Size:</b> 9738 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		媒体查询属性
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/media-queries/?" class="target">
+				<strong>其它媒体查询属性</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="width.htm">width</a></li>
+					<li><a href="height.htm">height</a></li>
+					<li><a href="device-width.htm">device-width</a></li>
+					<li><a href="device-height.htm">device-height</a></li>
+					<li><a href="orientation.htm">orientation</a></li>
+					<li><a href="aspect-ratio.htm">aspect-ratio</a></li>
+					<li><a href="device-aspect-ratio.htm">device-aspect-ratio</a></li>
+					<li><a href="color.htm">color</a></li>
+					<li><a href="color-index.htm">color-index</a></li>
+					<li><a href="monochrome.htm">monochrome</a></li>
+					<li><a href="resolution.htm">resolution</a></li>
+					<li><a href="scan.htm">scan</a></li>
+					<li><a href="grid.htm">grid</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">CSS Media Queries Properties</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>&lt;media_query_list&gt;</strong>：[<a href="#dfn-syntax">&lt;media_query&gt;</a>[',' <a href="#dfn-syntax">&lt;media_query&gt;</a>]*]?<p>
+			<p id="dfn-syntax"><strong>&lt;media_query&gt;</strong>：[only | not]? <a href="../../appendix/media-types.htm">&lt;media_type&gt;</a> [and <a href="#dfn-syntax2">&lt;expression&gt;</a>]* | <a href="#dfn-syntax2">&lt;expression&gt;</a> [and <a href="#dfn-syntax2">&lt;expression&gt;</a>]*</p>
+			<p id="dfn-syntax2"><strong>&lt;expression&gt;</strong>：'('<a href="#media-features-listing">&lt;media_feature&gt;</a>[:&lt;value&gt;]?')'</p>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>通过不同的媒体类型和条件定义样式表规则。</strong>
+			<ul>
+				<li>媒体查询让CSS可以更精确作用于不同的媒体类型和同一媒体的不同条件。</li>
+				<li>媒体查询的大部分媒体特性都接受min和max用于表达“大于或等于”和“小与或等于”。如：width会有min-width和max-width</li>
+				<li>
+					<p>媒体查询可以被用在CSS中的@media和@import规则上，也可以被用在HTML和XML中。</p>
+					<div class="gquote">
+						<p class="gquote-tit"><strong>示例代码：</strong></p>
+						<blockquote class="gquote-cont"><pre><code>@media screen and (width:800px){ … }
+@import url(example.css) screen and (width:800px);
+&lt;link media="screen and (width:800px)" rel="stylesheet" href="example.css" /&gt;
+&lt;?xml-stylesheet media="screen and (width:800px)" rel="stylesheet" href="example.css" ?&gt;</code></pre></blockquote>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="media-features-listing" class="gmodule gattr">
+		<h2 class="tit">媒体特性 Media Features</h2>
+		<div class="cont">
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th>Media Features<br />媒体特性</th>
+						<th>Value<br />取值</th>
+						<th>Accepts min/max<br />接受min/max</th>
+						<th>Description<br />简介</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><a href="width.htm" class="linkcss3">width</a></td>
+						<td><a href="../../values/other/length.htm">&lt;length&gt;</a></td>
+						<td>yes</td>
+						<td>定义输出设备中的页面可见区域宽度</td>
+					</tr>
+					<tr>
+						<td><a href="height.htm" class="linkcss3">height</a></td>
+						<td><a href="../../values/other/length.htm">&lt;length&gt;</a></td>
+						<td>yes</td>
+						<td>定义输出设备中的页面可见区域高度</td>
+					</tr>
+					<tr>
+						<td><a href="device-width.htm" class="linkcss3">device-width</a></td>
+						<td><a href="../../values/other/length.htm">&lt;length&gt;</a></td>
+						<td>yes</td>
+						<td>定义输出设备的屏幕可见宽度</td>
+					</tr>
+					<tr>
+						<td><a href="device-height.htm" class="linkcss3">device-height</a></td>
+						<td><a href="../../values/other/length.htm">&lt;length&gt;</a></td>
+						<td>yes</td>
+						<td>定义输出设备的屏幕可见高度</td>
+					</tr>
+					<tr>
+						<td><a href="orientation.htm" class="linkcss3">orientation</a></td>
+						<td>portrait | landscape</td>
+						<td>no</td>
+						<td>定义'height'是否大于或等于'width'。值portrait代表是，landscape代表否</td>
+					</tr>
+					<tr>
+						<td><a href="aspect-ratio.htm" class="linkcss3">aspect-ratio</a></td>
+						<td>&lt;ratio&gt;</td>
+						<td>yes</td>
+						<td>定义'width'与'height'的比率</td>
+					</tr>
+					<tr>
+						<td><a href="device-aspect-ratio.htm" class="linkcss3">device-aspect-ratio</a></td>
+						<td>&lt;ratio&gt;</td>
+						<td>yes</td>
+						<td>定义'device-width'与'device-height'的比率。如常见的显示器比率：4/3, 16/9, 16/10</td>
+					</tr>
+					<tr>
+						<td><a href="color.htm" class="linkcss3">color</a></td>
+						<td><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></td>
+						<td>yes</td>
+						<td>定义每一组输出设备的彩色原件个数。如果不是彩色设备，则值等于0</td>
+					</tr>
+					<tr>
+						<td><a href="color-index.htm" class="linkcss3">color-index</a></td>
+						<td><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></td>
+						<td>yes</td>
+						<td>定义在输出设备的彩色查询表中的条目数。如果没有使用彩色查询表，则值等于0</td>
+					</tr>
+					<tr>
+						<td><a href="monochrome.htm" class="linkcss3">monochrome</a></td>
+						<td><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></td>
+						<td>yes</td>
+						<td>定义在一个单色框架缓冲区中每像素包含的单色原件个数。如果不是单色设备，则值等于0</td>
+					</tr>
+					<tr>
+						<td><a href="resolution.htm" class="linkcss3">resolution</a></td>
+						<td>&lt;resolution&gt;</td>
+						<td>yes</td>
+						<td>定义设备的分辨率。如：96dpi, 300dpi, 118dpcm</td>
+					</tr>
+					<tr>
+						<td><a href="scan.htm" class="linkcss3">scan</a></td>
+						<td>progressive | interlace</td>
+						<td>no</td>
+						<td>定义电视类设备的扫描工序</td>
+					</tr>
+					<tr>
+						<td><a href="grid.htm" class="linkcss3">grid</a></td>
+						<td><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></td>
+						<td>no</td>
+						<td>用来查询输出设备是否使用栅格或点阵。只有1和0才是有效值，1代表是，0代表否</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="related">
+			<p><strong class="linkcss3">这种颜色</strong> 的链接表示是CSS3属性或原属性被CSS3修改并增加了新的属性值</p>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>较早版本</th>
+						<td class="unsupport">6.0-8.0</td>
+						<td rowspan="2" class="support">4.0-6.0</td>
+						<td rowspan="2" class="support">5.1</td>
+						<td rowspan="2" class="support">13.0</td>
+						<td rowspan="2" class="support">11.50-11.51</td>
+					</tr>
+					<tr>
+						<th>较近版本</th>
+						<td class="support">9.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

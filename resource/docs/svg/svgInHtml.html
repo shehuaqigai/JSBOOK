@@ -1,0 +1,151 @@
+<div id="maincontent">
+
+<h1>HTML 页面中的 SVG</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_example.asp" title="SVG 一个例子">SVG 实例</a></li>
+<li class="next"><a href="/svg/svg_rect.asp" title="SVG &lt;rect&gt;">SVG 矩形</a></li>
+</ul>
+</div>
+
+<div class="intro">
+<p><strong>SVG 文件可通过以下标签嵌入 HTML 文档：&lt;embed&gt;、&lt;object&gt; 或者 &lt;iframe&gt;。</strong></p>
+</div>
+
+<div>
+<h2>HTML 页面中的 SVG</h2>
+<p>下面，你会看到三种把 SVG 文件嵌入 HTML 页面的不同方法。</p>
+</div>
+
+<div>
+<h2>使用 &lt;embed&gt; 标签</h2>
+
+<p>&lt;embed&gt; 标签被所有主流的浏览器支持，并允许使用脚本。</p>
+<p class="note"><span>注释：</span>当在 HTML 页面中嵌入 SVG 时使用 &lt;embed&gt; 标签是 Adobe SVG Viewer 推荐的方法！然而，如果需要创建合法的 XHTML，就不能使用 &lt;embed&gt;。任何 HTML 规范中都没有 &lt;embed&gt; 标签。</p>
+
+<h3>语法：</h3>
+<pre>&lt;embed src="rect.svg" width="300" height="100" 
+type="image/svg+xml"
+pluginspage="http://www.adobe.com/svg/viewer/install/" /&gt;</pre>
+<p class="note"><span>注释：</span>pluginspage 属性指向下载插件的 URL。</p>
+</div>
+
+<div>
+<h2>使用 &lt;object&gt; 标签</h2>
+<p>&lt;object&gt; 标签是 HTML 4 的标准标签，被所有较新的浏览器支持。它的缺点是不允许使用脚本。</p>
+<p class="note"><span>注释：</span>假如您安装了最新版本的 Adobe SVG Viewer，那么当使用 &lt;object&gt; 标签时 SVG 文件无法工作（至少不能在 IE 中工作）！</p>
+<h3>语法：</h3>
+<pre>&lt;object data="rect.svg" width="300" height="100" 
+type="image/svg+xml"
+codebase="http://www.adobe.com/svg/viewer/install/" /&gt;</pre>
+<p class="note"><span>注释：</span>codebase 属性指向下载插件的 URL。</p>
+</div>
+
+<div>
+<h2>使用 &lt;iframe&gt; 标签</h2>
+<p>&lt;iframe&gt; 标签可工作在大部分的浏览器中。</p>
+<h3>语法：</h3>
+<pre>&lt;iframe src="rect.svg" width="300" height="100"&gt;
+&lt;/iframe&gt;</pre>
+</div>
+
+<div>
+<h2>我期望....</h2>
+<p>如果仅仅通过引用 SVG 的命名空间，就能够把 SVG 元素之间添加到 HTML 代码中，那就太棒了，这像这样：</p>
+<pre>&lt;html xmlns:svg="http://www.w3.org/2000/svg"&gt;
+&lt;body&gt;
+
+&lt;p&gt;This is an HTML paragraph&lt;/p&gt;
+
+&lt;svg:svg width="300" height="100" version="1.1" &gt;
+&lt;svg:circle cx="100" cy="50" r="40" stroke="black"
+stroke-width="2" fill="red" /&gt;
+&lt;/svg:svg&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_example.asp" title="SVG 一个例子">SVG 实例</a></li>
+<li class="next"><a href="/svg/svg_rect.asp" title="SVG &lt;rect&gt;">SVG 矩形</a></li>
+</ul>
+</div>
+</div><div id="maincontent">
+
+<h1>HTML 页面中的 SVG</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_example.asp" title="SVG 一个例子">SVG 实例</a></li>
+<li class="next"><a href="/svg/svg_rect.asp" title="SVG &lt;rect&gt;">SVG 矩形</a></li>
+</ul>
+</div>
+
+<div class="intro">
+<p><strong>SVG 文件可通过以下标签嵌入 HTML 文档：&lt;embed&gt;、&lt;object&gt; 或者 &lt;iframe&gt;。</strong></p>
+</div>
+
+<div>
+<h2>HTML 页面中的 SVG</h2>
+<p>下面，你会看到三种把 SVG 文件嵌入 HTML 页面的不同方法。</p>
+</div>
+
+<div>
+<h2>使用 &lt;embed&gt; 标签</h2>
+
+<p>&lt;embed&gt; 标签被所有主流的浏览器支持，并允许使用脚本。</p>
+<p class="note"><span>注释：</span>当在 HTML 页面中嵌入 SVG 时使用 &lt;embed&gt; 标签是 Adobe SVG Viewer 推荐的方法！然而，如果需要创建合法的 XHTML，就不能使用 &lt;embed&gt;。任何 HTML 规范中都没有 &lt;embed&gt; 标签。</p>
+
+<h3>语法：</h3>
+<pre>&lt;embed src="rect.svg" width="300" height="100" 
+type="image/svg+xml"
+pluginspage="http://www.adobe.com/svg/viewer/install/" /&gt;</pre>
+<p class="note"><span>注释：</span>pluginspage 属性指向下载插件的 URL。</p>
+</div>
+
+<div>
+<h2>使用 &lt;object&gt; 标签</h2>
+<p>&lt;object&gt; 标签是 HTML 4 的标准标签，被所有较新的浏览器支持。它的缺点是不允许使用脚本。</p>
+<p class="note"><span>注释：</span>假如您安装了最新版本的 Adobe SVG Viewer，那么当使用 &lt;object&gt; 标签时 SVG 文件无法工作（至少不能在 IE 中工作）！</p>
+<h3>语法：</h3>
+<pre>&lt;object data="rect.svg" width="300" height="100" 
+type="image/svg+xml"
+codebase="http://www.adobe.com/svg/viewer/install/" /&gt;</pre>
+<p class="note"><span>注释：</span>codebase 属性指向下载插件的 URL。</p>
+</div>
+
+<div>
+<h2>使用 &lt;iframe&gt; 标签</h2>
+<p>&lt;iframe&gt; 标签可工作在大部分的浏览器中。</p>
+<h3>语法：</h3>
+<pre>&lt;iframe src="rect.svg" width="300" height="100"&gt;
+&lt;/iframe&gt;</pre>
+</div>
+
+<div>
+<h2>我期望....</h2>
+<p>如果仅仅通过引用 SVG 的命名空间，就能够把 SVG 元素之间添加到 HTML 代码中，那就太棒了，这像这样：</p>
+<pre>&lt;html xmlns:svg="http://www.w3.org/2000/svg"&gt;
+&lt;body&gt;
+
+&lt;p&gt;This is an HTML paragraph&lt;/p&gt;
+
+&lt;svg:svg width="300" height="100" version="1.1" &gt;
+&lt;svg:circle cx="100" cy="50" r="40" stroke="black"
+stroke-width="2" fill="red" /&gt;
+&lt;/svg:svg&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/svg/svg_example.asp" title="SVG 一个例子">SVG 实例</a></li>
+<li class="next"><a href="/svg/svg_rect.asp" title="SVG &lt;rect&gt;">SVG 矩形</a></li>
+</ul>
+</div>
+</div>

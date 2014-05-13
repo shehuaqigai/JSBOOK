@@ -1,0 +1,118 @@
+<div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>The  object that specifies what and how content is to be drawn to the screen. </p>
+<table>
+<tbody><tr><td><img id="badge_ie11" alt="IE11" src="http://i.msdn.microsoft.com/dynimg/IC677945.png" title="IE11" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_f71a81bc-3042-4c79-8862-2b5f9fd1005c');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_f71a81bc-3042-4c79-8862-2b5f9fd1005c" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;body&gt;
+  &lt;canvas ⁯id="canvas"&gt;&lt;/canvas&gt;
+  ...
+&lt;script&gt;
+  var gl = document.getElementById("canvas").getContext("experimental-webgl");
+  ...
+  var webGLShader = gl.createShader(type);
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/dn302359(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">WebGLObject</strong></a>
+<div>&nbsp;&nbsp;&nbsp;WebGLShader</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>WebGLShader</strong> object does not define any members.</p>
+<h2>Remarks</h2>
+<p>Shaders are created using <a href="http://msdn.microsoft.com/en-us/library/ie/dn302386(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">createShader</strong></a>. </p>
+<h2>Examples</h2>
+<p>The following example gets shader code from a &lt;script&gt; tag in an HTML document, and creates a fragment or vertex shader based on its type. For more info on this example, see <a href="http://msdn.microsoft.com/en-us/library/ie/dn385807(v=vs.85).aspx">Get started with WebGL</a>.</p>
+
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_02359a2d-083c-4c4c-90d1-300b5ec098ed');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_02359a2d-083c-4c4c-90d1-300b5ec098ed" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+// Loads a shader from a script tag
+// Parameters:
+//   WebGL context
+//   id of script element containing the shader to load
+function getShader(gl, id) {
+  var shaderScript = document.getElementById(id);
+
+  // error - element with supplied id couldn't be retrieved
+  if (!shaderScript) {
+    return null;
+  }
+
+  // If successful, build a string representing the shader source
+  var str = "";
+  var k = shaderScript.firstChild;
+  while (k) {
+    if (k.nodeType == 3) {
+      str += k.textContent;
+    }
+    k = k.nextSibling;
+  }
+
+  var shader;
+
+  // Create shaders based on the type we set
+  //   note: these types are commonly used, but not required
+  if (shaderScript.type == "x-shader/x-fragment") {
+    shader = gl.createShader(gl.FRAGMENT_SHADER);
+  } else if (shaderScript.type == "x-shader/x-vertex") {
+    shader = gl.createShader(gl.VERTEX_SHADER);
+  } else {
+    return null;
+  }
+
+  gl.shaderSource(shader, str);
+  gl.compileShader(shader);
+
+  // Check the compile status, return an error if failed
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    console.log(gl.getShaderInfoLog(shader));
+    return null;
+  }
+
+  return shader;
+}
+
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/17/2014</p>
+</div>

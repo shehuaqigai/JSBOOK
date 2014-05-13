@@ -1,0 +1,46 @@
+<pre>
+	
+	八、接收二进制数据（方法A：改写MIMEType）
+老版本的XMLHttpRequest对象，
+只能从服务器取回文本数据（否则它的名字就不用XML起首了），
+新版则可以取回二进制数据。
+这里又分成两种做法。较老的做法是改写数据的MIMEType，
+将服务器返回的二进制数据伪装成文本数据，
+并且告诉浏览器这是用户自定义的字符集。
+　　xhr.overrideMimeType("text/plain; charset=x-user-defined");
+然后，用responseText属性接收服务器返回的二进制数据。
+　　var binStr = xhr.responseText;
+由于这时，浏览器把它当做文本数据，所以还必须再一个个字节地还原成二进制数据。
+　　for (var i = 0, len = binStr.length; i < len; ++i) {
+　　　　var c = binStr.charCodeAt(i);
+　　　　var byte = c & 0xff;
+　　}
+最后一行的位运算"c & 0xff"，表示在每个字符的两个字节之中，
+只保留后一个字节，将前一个字节扔掉。
+原因是浏览器解读字符的时候，会把字符自动解读成Unicode的0xF700-0xF7ff区段。
+
+八、接收二进制数据（方法B：responseType属性）
+从服务器取回二进制数据，较新的方法是使用新增的responseType属性。
+如果服务器返回文本数据，这个属性的值是"TEXT"，这是默认值。较新的浏览器还支持其他值，
+也就是说，可以接收其他格式的数据。
+你可以把responseType设为blob，表示服务器传回的是二进制对象。
+　　var xhr = new XMLHttpRequest();
+　　xhr.open('GET', '/path/to/image.png');
+　　xhr.responseType = 'blob';
+接收数据的时候，用浏览器自带的Blob对象即可。
+　　var blob = new Blob([xhr.response], {type: 'image/png'});
+注意，是读取xhr.response，而不是xhr.responseText。
+你还可以将responseType设为arraybuffer，把二进制数据装在一个数组里。
+　　var xhr = new XMLHttpRequest();
+　　xhr.open('GET', '/path/to/image.png');
+　　xhr.responseType = "arraybuffer";
+接收数据的时候，需要遍历这个数组。
+　　var arrayBuffer = xhr.response;
+　　if (arrayBuffer) {
+　　　　var byteArray = new Uint8Array(arrayBuffer);
+　　　　for (var i = 0; i < byteArray.byteLength; i++) {
+　　　　　　// do something
+　　　　}
+　　}
+
+</pre>

@@ -1,0 +1,77 @@
+<div class="_content"><div class="_page _mdn"><h1>MouseEvent</h1> <p>The DOM <code>MouseEvent</code> interface represents events that occur due to the user interacting with a pointing device (such as a mouse).</p> <p>Common events using this interface include <code><a href="globaleventhandlers.click" title="/en-US/docs/Web/API/GlobalEventHandlers.click">click</a></code>, <code><a href="globaleventhandlers.dblclick" title="/en-US/docs/Web/API/GlobalEventHandlers.dblclick">dblclick</a></code>, <code><a href="globaleventhandlers.mouseup" title="/en-US/docs/Web/API/GlobalEventHandlers.mouseup">mouseup</a></code>, <code><a href="globaleventhandlers.mousedown" title="/en-US/docs/Web/API/GlobalEventHandlers.mousedown">mousedown</a></code>. The list of all events using this interface is provided in the <a href="https://developer.mozilla.org/en-US/docs/Web/Reference/Events" title="/en-US/docs/Web/Reference/Events">Events reference</a>.</p> <p><code>MouseEvent</code> derives from <a href="uievent" title="The DOM UIEvent represents simple user interface events."><code>UIEvent</code></a>, which in turn derives from <a href="event" title="This chapter describes the DOM Event Model. The Event interface itself is described, as well as the interfaces for event registration on nodes in the DOM, and event listeners, and several longer examples that show how the various event interfaces relate to one another."><code>Event</code></a>.</p> <h2 id="Properties">Properties</h2> <dl>
+<dt> <a href="mouseevent.altkey" title="The altKey property indicates if the alt key was pressed (true) or not (false) when the event occured."><code>MouseEvent.altKey</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> <code>true</code> if the alt key was down when the mouse event was fired.</dd> <dt> <a href="mouseevent.button" title="Editorial review completed."><code>MouseEvent.button</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The button number that was pressed when the mouse event was fired. </dd> <dt> <a href="mouseevent.buttons" title="The buttons property indicates which buttons were pressed on the mouse to trigger the event."><code>MouseEvent.buttons</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span> <span class="inlineIndicator domLevel domLevelInline">DOM level 3</span> </dt> <dd> <p>The buttons being pressed when the mouse event was fired</p> </dd> <dt> <a href="mouseevent.clientx" title="Editorial review completed."><code>MouseEvent.clientX</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The X coordinate of the mouse pointer in local (DOM content) coordinates.</dd> <dt> <a href="mouseevent.clienty" title="The clientY property provides the Y coordinate of the mouse pointer in local (DOM content)&nbsp;coordinates."><code>MouseEvent.clientY</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The Y coordinate of the mouse pointer in local (DOM content) coordinates.</dd> <dt> <a href="mouseevent.ctrlkey" title="The ctrlKey property indicates if the control key was pressed (true) or not (false) when the event occured."><code>MouseEvent.ctrlKey</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> <code>true</code> if the control key was down when the mouse event was fired.</dd> <dt> <a href="mouseevent.metakey" title="The metaKey property indicates if the meta key was pressed (true) or not (false) when the event occured."><code>MouseEvent.metaKey</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> <code>true</code> if the meta key was down when the mouse event was fired.</dd> <dt> <a href="mouseevent.movementx" title="The movementX property provides the shift in the X coordinate of the mouse pointer between that event and the previous mousemove event. In other words, the value of that property is computed that way : currentEvent.movementX = currentEvent.screenX - previousEvent.screenX."><code>MouseEvent.movementX</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The X coordinate of the mouse pointer relative to the position of the last <code><a href="globaleventhandlers.mousemove" title="/en-US/docs/Web/API/GlobalEventHandlers.mousemove">mousemove</a></code> event.</dd> <dt> <a href="mouseevent.movementy" title="The movementY property provides the shift in the Y coordinate of the mouse pointer between that event and the previous mousemove event. In other words, the value of that property is computed that way : currentEvent.movementY = currentEvent.screenY - previousEvent.screenY."><code>MouseEvent.movementY</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The Y coordinate of the mouse pointer relative to the position of the last <code><a href="globaleventhandlers.mousemove" title="/en-US/docs/Web/API/GlobalEventHandlers.mousemove">mousemove</a></code> event.</dd> <dt> <a href="mouseevent.relatedtarget" title="The relatedTarget property is the secondary target for the event, if there is one."><code>MouseEvent.relatedTarget</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> <p>The secondary target for the event, if there is one.</p> </dd> <dt> <a href="mouseevent.screenx" title="The screenX property provides the X coordinate of the mouse pointer in global (screen)&nbsp;coordinates."><code>MouseEvent.screenX</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The X coordinate of the mouse pointer in global (screen) coordinates.</dd> <dt> <a href="mouseevent.screeny" title="The screenY property provides the Y coordinate of the mouse pointer in global (screen)&nbsp;coordinates."><code>MouseEvent.screenY</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The Y coordinate of the mouse pointer in global (screen) coordinates.</dd> <dt> <a href="mouseevent.shiftkey" title="The shiftKey property indicates if the shift key was pressed (true) or not (false) when the event occurred."><code>MouseEvent.shiftKey</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> <code>true</code> if the shift key was down when the mouse event was fired.</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.mozPressure" title="The documentation about this has not yet been written; please consider contributing!"><code>MouseEvent.mozPressure</code></a>  <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The amount of pressure applied to a touch or tablet device when generating the event; this value ranges between 0.0 (minimum pressure) and 1.0 (maximum pressure).</dd> <dt> <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.mozInputSource" title="The documentation about this has not yet been written; please consider contributing!"><code>MouseEvent.mozInputSource</code></a>  <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> <p>The type of device that generated the event (one of the <code>MOZ_SOURCE_*</code> constants listed below).</p> <p>This lets you, for example, determine whether a mouse event was generated by an actual mouse or by a touch event (which might affect the degree of accuracy with which you interpret the coordinates associated with the event).</p> </dd> </dl><h2 id="Methods">Methods</h2> <dl>
+<dt> <a href="mouseevent.getmodifierstate" title="The documentation about this has not yet been written; please consider contributing!"><code>MouseEvent.getModifierState()</code></a> <span class="inlineIndicator domLevel domLevelInline">DOM level 3</span> </dt> <dd> Returns the current state of the specified modifier key. See the <a href="keyboardevent#getModifierState()" title=""><code>KeyboardEvent.getModifierState()</code></a> documentation for details.</dd> </dl><h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-MouseEvent" lang="en" title="The definition of 'MouseEvent' in that specification.">Document Object Model (DOM) Level 2 Events Specification</a></td> <td><span class="spec-REC">Recommendation</span></td> <td> </td> </tr>
+<tr>
+<td><a class="external" href="http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/#events-mouseevents" lang="en" title="The definition of 'MouseEvent' in that specification.">Document Object Model (DOM) Level 3 Events Specification</a></td> <td><span class="spec-WD">Working Draft</span></td> <td> </td> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/d4e/raw-file/tip/source_respec.htm#constructor-mouseevent" lang="en" title="The definition of 'MouseEvent' in that specification.">UI Events</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Extend DOM3</td> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/pointerlock/raw-file/default/index.html#extensions-to-the-mouseevent-interface" lang="en" title="The definition of 'MouseEvent' in that specification.">Pointer Lock</a></td> <td><span class="spec-WD">Working Draft</span></td> <td>Extend the <code>MouseEvent</code> interface</td> </tr>
+</tbody></table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Firefox (Gecko)</th> <th>Chrome</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+<tr>
+<td>
+<a href="mouseevent.movementx" title="The movementX property provides the shift in the X coordinate of the mouse pointer between that event and the previous mousemove event. In other words, the value of that property is computed that way : currentEvent.movementX = currentEvent.screenX - previousEvent.screenX."><code>movementX</code></a><br><a href="mouseevent.movementy" title="The movementY property provides the shift in the Y coordinate of the mouse pointer between that event and the previous mousemove event. In other words, the value of that property is computed that way : currentEvent.movementY = currentEvent.screenY - previousEvent.screenY."><code>movementY</code></a>
+</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span>
+</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Firefox Mobile (Gecko)</th> <th>Android</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 id="Gecko_notes">Gecko notes</h2> <div> <h3 id="Specific_constants">Specific constants</h3> <p>The possible values for <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent.mozInputSource" title="The documentation about this has not yet been written; please consider contributing!"><code>MouseEvent.mozInputSource</code></a> are listed in the following table. They are available as properties on the <code>MouseEvent</code> interface (e.g. <code>MouseEvent.MOZ_SOURCE_UNKNOWN</code>).</p> <table class="standard-table"><tbody>
+<tr>
+<th>Constant name</th> <th>Value</th> <th>Desription</th> </tr>
+<tr>
+<td><code>MOZ_SOURCE_UNKNOWN</code></td> <td>0</td> <td>The input device is unknown.</td> </tr>
+<tr>
+<td><code>MOZ_SOURCE_MOUSE</code></td> <td>1</td> <td>The event was generated by a mouse (or mouse-like device).</td> </tr>
+<tr>
+<td><code>MOZ_SOURCE_PEN</code></td> <td>2</td> <td>The event was generated by a pen on a tablet.</td> </tr>
+<tr>
+<td><code>MOZ_SOURCE_ERASER</code></td> <td>3</td> <td>The event was generated by an eraser on a tablet.</td> </tr>
+<tr>
+<td><code>MOZ_SOURCE_CURSOR</code></td> <td>4</td> <td>The event was generated by a cursor.</td> </tr>
+<tr>
+<td><code>MOZ_SOURCE_TOUCH</code></td> <td>5</td> <td>The event was generated on a touch interface.</td> </tr>
+<tr>
+<td><code>MOZ_SOURCE_KEYBOARD</code></td> <td>6</td> <td>The event was generated by a keyboard.</td> </tr>
+</tbody></table>
+</div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent</a>
+  </p>
+</div>
+</div></div>

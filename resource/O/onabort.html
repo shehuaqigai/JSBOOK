@@ -1,0 +1,90 @@
+<div id="maincontent">
+
+<h1>onabort 事件</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>onabort 事件会在图像加载被中断时发生。</p>
+<p>当用户在图像完成载入之前放弃图像的装载（如单击了 stop 按钮）时，就会调用该句柄。</p>
+
+<h3>语法</h3>
+<pre>onabort="SomeJavaScriptCode"</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>SomeJavaScriptCode</td>
+    <td>必需。规定该事件发生时执行的 JavaScript。</td>
+  </tr>
+  </tbody></table>
+
+<h3>支持该事件的 HTML 标签：</h3>
+<pre>&lt;img&gt;</pre>
+
+<h3>支持该事件的 JavaScript 对象：</h3>
+<pre>image</pre>
+</div>
+
+<div>
+<h2>实例 1</h2>
+<p>在本例中，如果图像的加载被中断，则会显示一个对话框：</p>
+<pre>&lt;img src="image_w3default.gif"
+<code>onabort="alert('Error: Loading of the image was aborted')"</code> /&gt;</pre>
+</div>
+
+<div>
+<h2>实例 2</h2>
+<p>在本例中，如果图像的加载中断，我们将调用一个函数：</p>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function abortImage()
+{
+alert('Error: Loading of the image was aborted')
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;img src="image_w3default.gif" <code>onabort="abortImage()"</code> /&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+
+
+
+<h1>HTML DOM onabort 事件句柄</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_image.asp">HTML DOM Image 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>当用户放弃图像的装载时调用的事件句柄。</p>
+
+<h3>语法</h3>
+<pre>imageObject.onabort</pre>
+
+<h3>说明</h3>
+<p>Image 对象的属性 onabort 声明了一个事件句柄函数，当用户在图像完成载入之前放弃图像的装载（如单击了 Stop 按钮）时，就会调用这个句柄。</p>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_image.asp">HTML DOM Image 对象参考手册</a></p>
+</div>
+
+</div>

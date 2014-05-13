@@ -1,0 +1,798 @@
+<div class="_page _mdn"><h1>IDBObjectStore</h1> <div class="summary"> <p>The <code>IDBObjectStore</code> interface of the <a href="https://developer.mozilla.org/en/IndexedDB" title="en/IndexedDB">IndexedDB API</a> represents an <a href="https://developer.mozilla.org/en/IndexedDB#gloss_object_store" title="en/IndexedDB#gloss object store">object store</a> in a database. Records within an object store are sorted according to their keys. This sorting enables fast insertion, look-up, and ordered retrieval.</p> </div> <h2 id="Methods">Methods</h2> <dl>
+<dt> <a href="idbobjectstore.add" title="To determine if the add operation has completed successfully, listen for the transaction’s complete event in addition to the IDBObjectStore.add request’s success event, because the transaction may still fail after the success event fires. In other words, the success event is only triggered when the transaction has been successfully queued."><code>IDBObjectStore.add</code></a>
+</dt> <dd> Returns an <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a> object, and, in a separate thread, creates a <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-dom-interfaces.html#structured-clone">structured clone</a> of the <code>value</code>, and stores the cloned value in the object store.</dd> <dt> <a href="idbobjectstore.clear" title="Clearing an object store consists of removing all records from the object store and removing all records in indexes that reference the object store."><code>IDBObjectStore.clear</code></a>
+</dt> <dd> Creates and immediately returns an <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a> object, and clears this object store in a separate thread.</dd> <dt> <a href="idbobjectstore.delete" title="This method may raise a DOMException with a DOMError of the following types:"><code>IDBObjectStore.delete</code></a>
+</dt> <dd> returns an <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a> object, and, in a separate thread, deletes the current object store.</dd> <dt> <a href="idbobjectstore.get" title="If a value is successfully found, then a structured clone of it is created and set as the result of the request object."><code>IDBObjectStore.get</code></a>
+</dt> <dd> returns an <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a> object, and, in a separate thread, returns the object store selected by the specified key.</dd> <dt> <a href="idbobjectstore.createindex" title="Note that this method must be called only from a VersionChange&nbsp;transaction mode callback."><code>IDBObjectStore.createIndex</code></a>
+</dt> <dd> Creates and returns a new <a href="idbindex" title="You can retrieve records in an object store through their keys or by using an index (cursors provide a third way: see IDBCursor). An index lets you look up records in an object store using properties of the values in the object stores records."><code>IDBIndex</code></a> object in the connected database.</dd> <dt> <a href="idbobjectstore.deleteindex" title="Note that this method must be called only from a VersionChange&nbsp;transaction mode callback. Note that this method synchronously modifies the IDBObjectStore.indexNames property."><code>IDBObjectStore.deleteIndex</code></a>
+</dt> <dd> Destroys the index with the specified name in the connected database.</dd> <dt> <a href="idbobjectstore.index" title="This method may raise a DOMException with a DOMError of the following types:"><code>IDBObjectStore.index</code></a>
+</dt> <dd> Opens the named index in this object store.</dd> <dt> <a href="idbobjectstore.put" title="If the record is successfully stored, then a success event is fired on the returned request object&nbsp;with the result set to the key for the stored record, and the transaction set to the transaction in which this object store is opened."><code>IDBObjectStore.put</code></a>
+</dt> <dd> Returns an <a href="idbrequest" title="The request object does not initially contain any information about the result of the operation, but once information becomes available, an event is fired on the request, and the information becomes available through the properties of the IDBRequest instance."><code>IDBRequest</code></a> object, and, in a separate thread, creates a <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-dom-interfaces.html#structured-clone">structured clone</a> of the <code>value</code>, and stores the cloned value in the object store.</dd> </dl><h2 id="Properties">Properties</h2> <dl>
+<dt> <a href="idbobjectstore.indexnames" title="A DOMStringList."><code>IDBObjectStore.indexNames</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A list of the names of <a href="https://developer.mozilla.org/en/IndexedDB#gloss_index" title="en/IndexedDB#gloss index">indexes</a> on objects in this object store.</dd> <dt> <a href="idbobjectstore.keypath" title="If this property is null, the application must provide a key for each modification operation."><code>IDBObjectStore.keyPath</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The <a href="https://developer.mozilla.org/en/IndexedDB#gloss_key_path" title="en/IndexedDB#gloss key path">key path</a> of this object store. If this attribute is null, the application must provide a key for each modification operation.</dd> <dt> <a href="idbobjectstore.name" title="A DOMString."><code>IDBObjectStore.name</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The name of this object store.</dd> <dt> <a href="idbobjectstore.transaction" title="An IDBTransaction object."><code>IDBObjectStore.transaction</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The name of the transaction to which this object store belongs.</dd> <dt> <a href="idbobjectstore.autoincrement" title="A Boolean:"><code>IDBObjectStore.autoIncrement</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> The value of the auto increment flag for this object store.</dd> </dl><h2 id="Example">Example</h2> <pre class=" language-javascript"><span class="token comment" spellcheck="true">// Let us open our database
+</span><span class="token keyword">var</span> request <span class="token operator">=</span> window<span class="token punctuation">.</span>indexedDB<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+request<span class="token punctuation">.</span>onsuccess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Database initialised.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+ 
+ <span class="token comment" spellcheck="true"> // store the result of opening the database in the db variable.
+</span>  db <span class="token operator">=</span> request<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// This event handles the event whereby a new version of the database needs to be created
+</span><span class="token comment" spellcheck="true">// Either one has not been created before, or a new version number has been submitted via the
+</span><span class="token comment" spellcheck="true">// window.indexedDB.open line above
+</span>request<span class="token punctuation">.</span>onupgradeneeded <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> db <span class="token operator">=</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+ 
+  db<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Error loading database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ <span class="token comment" spellcheck="true"> // Create an objectStore for this database
+</span> 
+  <span class="token keyword">var</span> objectStore <span class="token operator">=</span> db<span class="token punctuation">.</span><span class="token function">createObjectStore<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> keyPath<span class="token punctuation">:</span> <span class="token string">"taskTitle"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+ <span class="token comment" spellcheck="true"> // define what data items the objectStore will contain
+</span> 
+  objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"hours"</span><span class="token punctuation">,</span> <span class="token string">"hours"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"minutes"</span><span class="token punctuation">,</span> <span class="token string">"minutes"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"day"</span><span class="token punctuation">,</span> <span class="token string">"day"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"month"</span><span class="token punctuation">,</span> <span class="token string">"month"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"year"</span><span class="token punctuation">,</span> <span class="token string">"year"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"notified"</span><span class="token punctuation">,</span> <span class="token string">"notified"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Object store created.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// Create a new item to add in to the object store
+</span><span class="token keyword">var</span> newItem <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span> taskTitle<span class="token punctuation">:</span> <span class="token string">"Walk dog"</span><span class="token punctuation">,</span> hours<span class="token punctuation">:</span> <span class="token number">19</span><span class="token punctuation">,</span> minutes<span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span> day<span class="token punctuation">:</span> <span class="token number">24</span><span class="token punctuation">,</span> month<span class="token punctuation">:</span> December<span class="token punctuation">,</span> year<span class="token punctuation">:</span> <span class="token number">2013</span><span class="token punctuation">,</span> notified<span class="token punctuation">:</span> <span class="token string">"no"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// open a read/write db transaction, ready for adding the data
+</span><span class="token keyword">var</span> transaction <span class="token operator">=</span> db<span class="token punctuation">.</span><span class="token function">transaction<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">"toDoList"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"readwrite"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">
+// report on the success of opening the transaction
+</span>transaction<span class="token punctuation">.</span>oncomplete <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Transaction opened for task addition.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+transaction<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Transaction not opened due to error. Duplicate items not allowed.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// create an object store on the transaction
+</span><span class="token keyword">var</span> objectStore <span class="token operator">=</span> transaction<span class="token punctuation">.</span><span class="token function">objectStore<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+// add our newItem object to the object store
+</span><span class="token keyword">var</span> request <span class="token operator">=</span> objectStore<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>newItem<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        
+
+request<span class="token punctuation">.</span>onsuccess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;New item added to database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/IndexedDB/raw-file/tip/Overview.html#idl-def-IDBObjectStore" lang="en" title="The definition of 'IDBObjectStore' in that specification.">Indexed Database API</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>12</td> <td>4.0 (2.0)</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td><code>count()</code></td> <td>23</td> <td>10.0 (10.0)</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>Firefox OS</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.4</td> <td>6.0 (6.0)</td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+<tr>
+<td><code>count()</code></td> <td>4.4</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div class="warning"> <p>Be careful in Chrome as it still implements the old specification along the new one. Similarly it still has the prefixed <code>webkitIndexedDB</code> property even if the unprefixed <code>indexedDB</code> is present.</p> </div> <h2 id="See_also">See also</h2> <p>To learn more about various topics, see the following</p> <ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/IndexedDB/Using_IndexedDB">Using IndexedDB</a></li> <li>Starting transactions: <a href="idbdatabase" title="Everything you do in IndexedDB always happens in the context of a transaction, representing interactions with data in the database. All objects in IndexedDB—including object stores, indexes, and cursors—are tied to a particular transaction. Thus, you cannot execute commands, access data, or open anything outside of a transaction."><code>IDBDatabase</code></a>
+</li> <li>Setting transaction modes: <a href="idbtransaction" title="Inherits from: EventTarget"><code>IDBTransaction</code></a>
+</li> <li>The reference application for the examples in this reference: <a class="external" href="https://github.com/chrisdavidmills/to-do-notifications/tree/gh-pages">To-do Notifications</a> (<a class="external" href="http://chrisdavidmills.github.io/to-do-notifications/">view example live</a>.) Not every snippet appears in this example, but every example uses the same data structure and syntax, and they will make sense in the context of this example.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore</a>
+  </p>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div id="wiki-column-container" class="wiki-right-present wiki-left-closed wiki-left-none">
+
+      
+      <!-- content row with three strips -->
+      <div class="column-container column-container-reverse">
+
+                  <!-- TOC, approvals, etc -->
+          <div class="column-strip wiki-column" id="wiki-right">
+                    <!-- table of contents -->
+          <div id="toc" class="toc toggleable" style="width: auto; max-height: none;">
+            <a href="#toc" class="title toggler" data-open-icon="icon-plus" data-closed-icon="icon-minus" aria-haspopup="true">In This Article<i class="icon-minus"></i></a>
+            <ol class="toggle-container">
+              <li><a href="#.E6.96.B9.E6.B3.95.E9.A2.84.E8.A7.88" rel="internal">方法预览</a><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code></li><li><a href="#.E5.B1.9E.E6.80.A7" rel="internal">属性</a><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code><code></code></li><li><a href="#.E6.96.B9.E6.B3.95" rel="internal">方法</a><ol><li><a href="#add()" rel="internal">add()</a><code></code><code></code></li><li><a href="#clear()" rel="internal">clear()</a></li><li><a href="#count()" rel="internal">count()</a><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px;"></code></li><li><a href="#createIndex()" rel="internal">createIndex()</a><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code></code><code></code><code style="font-size: 14px;"></code><code></code><code style="font-size: 14px;"></code></li><li><a href="#delete()" rel="internal">delete()</a><code></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code></code><code></code></li><li><a href="#deleteIndex()" rel="internal">deleteIndex()</a><code></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px;"></code><code style="font-size: 14px;"></code><code style="font-size: 14px;"></code></li><li><a href="#get()" rel="internal">get()</a><code></code><code></code><code></code><code></code><code style="font-size: 14px;"></code></li><li><a href="#index()" rel="internal">index()</a><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code style="font-size: 14px; color: rgb(51, 51, 51);"></code><code></code><code style="font-size: 14px;"></code><code style="font-size: 14px;"></code></li><li><a href="#openCursor()" rel="internal">openCursor()</a><code></code><code></code><code></code><code style="font-size: 14px;"></code><code></code><code></code></li><li><a href="#put()" rel="internal">put()</a><code></code><code></code><code></code><code style="font-size: 14px;"></code><code style="font-size: 14px;"></code></li></ol></li><li><a href="#Browser_compatibility" rel="internal">Browser compatibility</a><code></code><code></code>
+            </li></ol>
+          </div>
+                    </div>
+        
+        <!-- just the article content -->
+                          
+        <!-- center: main article content -->
+        <div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p>IDBObjectStore接口描述了一个数据库中的“对象存储空间”。对象存储空间中的按照对象的键存储着不同的记录。这样的存储方式可以快速插入、查询、和有序检索。</p>
+<p>注：为了方便理解，可以把“对象存储空间”想象成关系数据库的“表”结构，下文也会把对象存储空间称为表。</p>
+<h2 id=".E6.96.B9.E6.B3.95.E9.A2.84.E8.A7.88">方法预览</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> <a href="#add()">add</a> (in any value, in optional any key) raises (<a href="/En/DOM/DOMException" title="en/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> <a href="#clear()">clear</a>&nbsp;() raises&nbsp;(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> <a href="#count()">count</a> (in optional any key) raises</code><code>(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBIndex" title="en/IndexedDB/IDBIndex">IDBIndex</a> <a href="#createIndex()">createIndex</a>&nbsp; (in <a href="/En/DOM/DOMString" title="en/DOM/DOMString">DOMString</a> name, in </code><code><a href="/En/DOM/DOMString" title="en/DOM/DOMString">DOMString</a></code><code> keyPath, in optional boolean unique) raises&nbsp;(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> <a href="#delete()">delete</a> (in any key) raises&nbsp;</code><code>(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a href="#deleteIndex()">deleteIndex</a> (in any </code><code><a href="/En/DOM/DOMString" title="en/DOM/DOMString">DOMString</a></code><code> indexName) raises&nbsp;(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> <a href="#get()">get</a> (in any key) raises&nbsp;(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBIndex" title="en/IndexedDB/IDBIndex">IDBIndex</a> <a href="#index()">index</a> (in </code><code><a href="/En/DOM/DOMString" title="en/DOM/DOMString">DOMString</a></code><code> name) raises&nbsp;(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> <a href="#openCursor()">openCursor</a> (in optional <a href="/en/IndexedDB/IDBKeyRange" title="en/IndexedDB/IDBKeyRange">IDBKeyRange</a> range, in optional unsigned short direction) raises(<a href="/en-US/docs/DOM/DOMException" style="line-height: 18px;" title="/en-US/docs/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+    <tr>
+      <td><code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> <a href="#put()">put</a>&nbsp;(in any value, in optional any key) raises (<a href="/En/DOM/DOMException" title="en/DOM/DOMException">DOMException</a>);</code></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=".E5.B1.9E.E6.80.A7">属性</h2>
+<table class="standard-table">
+  <thead>
+    <tr>
+      <th scope="col">Attribute</th>
+      <th scope="col">Type</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="attr_indexNames"><code>indexNames</code></td>
+      <td><code>readonly DOMStringList</code></td>
+      <td>表中对象的<a href="https://developer.mozilla.org/en/IndexedDB#gloss_index" title="https://developer.mozilla.org/en/IndexedDB#gloss_index">索引</a>名列表。</td>
+    </tr>
+    <tr>
+      <td id="attr_keyPath"><code>keyPath</code></td>
+      <td><code>readonly </code><code><a href="/En/DOM/DOMString" title="en/DOM/DOMString">DOMString</a></code></td>
+      <td>表中的<a href="https://developer.mozilla.org/en/IndexedDB#gloss_key_path" title="https://developer.mozilla.org/en/IndexedDB#gloss_key_path">键路径</a>，如果该属性为null，每次操作表时必须提供一个键名。</td>
+    </tr>
+    <tr>
+      <td id="attr_name"><code>name</code></td>
+      <td><code>readonly </code><code><a href="/En/DOM/DOMString" title="en/DOM/DOMString">DOMString</a></code></td>
+      <td>表名</td>
+    </tr>
+    <tr>
+      <td id="transaction"><code>transaction</code></td>
+      <td><code>readonly <a href="/en-US/docs/IndexedDB/IDBTransaction" title="/en-US/docs/IndexedDB/IDBTransaction">IDBTransaction</a></code></td>
+      <td>事务的名称，该表属于此事务。</td>
+    </tr>
+    <tr>
+      <td id="autoincrement"><code>autoIncrement</code></td>
+      <td><code>readonly boolean</code></td>
+      <td>表中自增字段的值</td>
+    </tr>
+  </tbody>
+</table>
+<h2 id=".E6.96.B9.E6.B3.95">方法</h2>
+<h3 id="add()">add()</h3>
+<p>返回一个IDBRequest对象，并且在新线程中克隆一个值，该值存储在表中。</p>
+<p>想知道是否成功添加数据，可以在事务的complete事件中进行监听，而不是success，因为事务在success事件之后还有可能失败。</p>
+<p>add方法只能插入数据。如果以key参数作为某记录的关键字，并且该条记录已存在，则其所返回的请求对象会产生ConstrainError错误。</p>
+<pre class="language-html"><a href="/en/IndexedDB/IDBRequest" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/IndexedDB/IDBRequest">IDBRequest</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> </span><a href="#add" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="#add">add</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> (in any value, in optional any key) raises (</span><a href="/En/DOM/DOMException" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/DOM/DOMException">DOMException</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;">);</span></pre>
+<h5 id=".E5.8F.82.E6.95.B0">参数</h5>
+<dl>
+  <dt>
+    value</dt>
+  <dd>
+    被存储的值。</dd>
+  <dt>
+    key</dt>
+  <dd>
+    标识某条记录的键，如果不指定，它会被设为null。</dd>
+</dl>
+<h5 id=".E8.BF.94.E5.9B.9E">返回</h5>
+<dl>
+  <dt>
+    <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a></dt>
+  <dd>
+    一个请求对象，可以在其中绑定事件。</dd>
+</dl>
+<h5 id=".E5.BC.82.E5.B8.B8">异常</h5>
+<p>该方法会抛出DOMError类型的DOMException异常。</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ReadOnlyError</td>
+      <td>The transaction associated with this operation is in read-only&nbsp;<a href="/en-US/docs/IndexedDB/IDBTransaction#mode_constants" title="/en-US/docs/IndexedDB/IDBTransaction#mode_constants">mode</a>.</td>
+    </tr>
+    <tr>
+      <td>TransactionInactiveError</td>
+      <td>This IDBObjectStore's transaction is inactive.</td>
+    </tr>
+    <tr>
+      <td><span style="line-height: normal;">DataError</span></td>
+      <td>
+        <p>Any of the following conditions apply:</p>
+        <ul>
+          <li>The object store uses in-line keys or has a key generator, and a key parameter was provided.</li>
+          <li>The object store uses out-of-line keys and has no key generator, and no key parameter was provided.</li>
+          <li>The object store uses in-line keys but no key generator, and the object store's key path does not yield a valid key.</li>
+          <li>The key parameter was provided but does not contain a valid key.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><code>InvalidStateError</code></td>
+      <td>The&nbsp;IDBObjectStore&nbsp;has been deleted or removed.</td>
+    </tr>
+    <tr>
+      <td><code>DataCloneError</code></td>
+      <td>The data being stored could not be cloned by the internal structured cloning algorithm.</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="clear()">clear()</h3>
+<p>Creates and immediately returns an <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> object, and clears this object store in a separate thread. Clearing an object store consists of removing all records from the object store and removing all records in indexes that reference the object store.</p>
+<pre class="language-html"><a href="/en/IndexedDB/IDBRequest" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/IndexedDB/IDBRequest">IDBRequest</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> </span><a href="#clear" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="#clear">clear</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> () raises (</span><a href="/en-US/docs/DOM/DOMException" style="font-family: 'Courier New', 'Andale Mono', monospace;" title="/en-US/docs/DOM/DOMException">DOMException</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;">);</span></pre>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a></dt>
+  <dd>
+    A request object on which subsequent events related to this operation are fired.</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ReadOnlyError</td>
+      <td>The transaction associated with this operation is in read-only&nbsp;<a href="/en-US/docs/IndexedDB/IDBTransaction#mode_constants" title="/en-US/docs/IndexedDB/IDBTransaction#mode_constants">mode</a>.</td>
+    </tr>
+    <tr>
+      <td>TransactionInactiveError</td>
+      <td>This IDBObjectStore's transaction is inactive.</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="count()">count()</h3>
+<p>立即返回一个IDERequest对象，并在新线程中计算符合条件的对象的数量，该方法的参数可以是键，或键范围（key range）。在IDBRequest对象中，source属性就是IDBObjectStore对象，result属性持有计算后的数量值。如果参数非法将会抛出异常。</p>
+<pre class="  language-html" data-number=""><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">IDBRequest count (in optional any key) raises<div class="line-number" data-start="1" style="top: 0px;"></div></code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">(DOMException);</code></pre>
+<h5 id=".E5.8F.82.E6.95.B0">参数</h5>
+<dl>
+  <dt>
+    key</dt>
+  <dd>
+    计算被该键或键范围（key range）所标识的记录数。</dd>
+</dl>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a></dt>
+  <dd>
+    一个请求对象，可绑定事件。</dd>
+</dl>
+<h5 id=".E5.BC.82.E5.B8.B8">异常</h5>
+<p>该方法会引发如下异常：</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TransactionInactiveError</td>
+      <td>事务已闲置</td>
+    </tr>
+    <tr>
+      <td>DataError</td>
+      <td>
+        <p>key参数非法</p>
+      </td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">InvalidStateError</code></td>
+      <td>IDBObjectStore对象已被删除</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="createIndex()">createIndex()</h3>
+<dl>
+</dl>
+<p>创建并返回新的IDBIndex对象，该方法只能从versionchange事务模式的回调方法中被调用。</p>
+<pre class="  language-html" data-number=""><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">IDBIndex createIndex  (in DOMString name, in <div class="line-number" data-start="1" style="top: 0px;"></div></code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">DOMString</code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html"> keyPath, in optional boolean unique) raises (DOMException);</code></pre>
+<h5 id="Parameters">Parameters</h5>
+<dl>
+  <dt>
+    name</dt>
+  <dd>
+    The name of the index to create.</dd>
+  <dt>
+    keyPath</dt>
+  <dd>
+    The key path for the index to use.</dd>
+  <dt>
+    optionalParameters</dt>
+  <dd>
+    <p class="warning">The IDBIndexParameters object whose attributes are optional parameters to the method. It includes the following properties:</p>
+    <table class="standard-table">
+      <thead>
+        <tr>
+          <th scope="col">Attribute</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>unique</code></td>
+          <td>If true, the index will not allow duplicate values for a single key.</td>
+        </tr>
+        <tr>
+          <td><code>multiEntry</code></td>
+          <td>If true, the index will add an entry in the index for each array element when the <em>keypath</em> resolves to an Array. If false, it will add one single entry containing the Array.</td>
+        </tr>
+      </tbody>
+    </table>
+  </dd>
+</dl>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    <a href="/en/IndexedDB/IDBIndex" title="en/IndexedDB/IDBIndex">IDBIndex</a></dt>
+  <dd>
+    The newly created index.</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code style="font-size: 14px;">InvalidStateError</code></td>
+      <td>The&nbsp;IDBObjectStore&nbsp;has been deleted or removed or the method was not called from a <code><a href="/en-US/docs/IndexedDB/IDBTransaction#VERSION_CHANGE" title="/en-US/docs/IndexedDB/IDBTransaction#VERSION_CHANGE">versionchange</a></code> transaction mode callback.</td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">ConstraintError</code></td>
+      <td>An index with the same name (case-sensitive) already exists in the database.<br>
+        &nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="delete()">delete()</h3>
+<dl>
+</dl>
+<p>Immediately returns an <code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a></code> object, and removes the records specified by the given key or key range from this object store, and any indexes that reference it, in a separate thread.</p>
+<pre class="  language-html" data-number=""><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">IDBRequest delete (in any key) raises <div class="line-number" data-start="1" style="top: 0px;"></div></code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">(DOMException);</code></pre>
+<h5 id="Parameters">Parameters</h5>
+<dl>
+  <dt>
+    key</dt>
+  <dd>
+    The key or key range that identifies the records.</dd>
+</dl>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a></dt>
+  <dd>
+    A request object on which subsequent events related to this operation are fired. As <a class="external" href="http://www.w3.org/TR/IndexedDB/#object-store-deletion-operation" title="http://www.w3.org/TR/IndexedDB/#object-store-deletion-operation">per spec</a> the result of the Object Store Deletion Operation algorithm is <code>undefined</code>, so it's not possible to know if some records were actually deleted by looking at the request result.</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TransactionInactiveError</td>
+      <td>This IDBObjectStore's transaction is inactive.</td>
+    </tr>
+    <tr>
+      <td>ReadOnlyError</td>
+      <td>
+        <p>The transaction associated with this operation is in read-only&nbsp;<a href="/en-US/docs/IndexedDB/IDBTransaction#mode_constants" title="/en-US/docs/IndexedDB/IDBTransaction#mode_constants">mode</a>.</p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>DataError</code></td>
+      <td>The key or key range provided contains an invalid key.</td>
+    </tr>
+  </tbody>
+</table>
+<dl>
+</dl>
+<div class="note">
+  <p>If the key that identifies the record is a Number, the key passed to the delete method must be a Number too, and not a String. So for example you might need to do the following:</p>
+  <pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> key_val <span class="token operator">=</span> <span class="token string">'42'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> key <span class="token operator">=</span> <span class="token function">Number<span class="token punctuation">(</span></span>key_val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+objectstore<span class="token punctuation">.</span><span class="token function">delete<span class="token punctuation">(</span></span>key<span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div></code></pre>
+</div>
+<h3 id="deleteIndex()">deleteIndex()</h3>
+<p>Destroys the index with the specified name in the connected database. Note that this method must be called only from a <code><a href="/en/IndexedDB/IDBTransaction#VERSION_CHANGE" title="en/IndexedDB/IDBTransaction#VERSION CHANGE">VersionChange</a></code>&nbsp;transaction mode callback. Note that this method synchronously modifies the <a href="#attr_indexNames" title="#attr_indexNames">indexNames</a> property.</p>
+<pre class="  language-html" data-number=""><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">void deleteIndex (in any <div class="line-number" data-start="1" style="top: 0px;"></div></code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">DOMString</code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html"> indexName) raises (DOMException);</code></pre>
+<h5 id="Parameters">Parameters</h5>
+<dl>
+  <dt>
+    indexName</dt>
+  <dd>
+    The name of the existing index to remove.</dd>
+  <dt>
+    Returns</dt>
+  <dd>
+    Void</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code style="font-size: 14px;">InvalidStateError</code></td>
+      <td>The method was not called from a&nbsp;<code style="font-size: 14px;"><a href="/en-US/docs/IndexedDB/IDBTransaction#VERSION_CHANGE" title="/en-US/docs/IndexedDB/IDBTransaction#VERSION_CHANGE">versionchange</a></code>&nbsp;transaction mode callback.</td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">NotFoundError</code></td>
+      <td>There is no index with the given name (case-sensitive) in the database.</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="get()">get()</h3>
+<p>Immediately returns an <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> object, and retrieves the requested record from the object store in a separate thread. If the operation is successful, then a success event is fired on the returned object,&nbsp;with its <code><a href="/en/IndexedDB/IDBSuccessEvent#attr_result" title="en/IndexedDB/IDBSuccessEvent#attr result">result</a></code> set to the retrieved value, and <code><a href="/en/IndexedDB/IDBTransactionEvent#attr_transaction" title="en/IndexedDB/IDBTransactionEvent#attr transaction">transaction</a></code> set to the transaction in which this object store is opened.&nbsp;</p>
+<pre class="language-html"><a href="/en/IndexedDB/IDBRequest" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/IndexedDB/IDBRequest">IDBRequest</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> </span><a href="#get" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="#get">get</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> (in any key) raises (</span><a href="/en-US/docs/DOM/DOMException" style="font-family: 'Courier New', 'Andale Mono', monospace;" title="/en-US/docs/DOM/DOMException">DOMException</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;">);</span></pre>
+<p></p><div class="note"><strong>Note:</strong>&nbsp;This function produces the same result if no record with the given key exists in the database as when a record exists, but with an <code>undefined</code> value. To tell these situations apart, call the openCursor() method with the same key. That method provides a cursor if the record exists, and no cursor if it does not.</div><p></p>
+<h5 id="Parameters">Parameters</h5>
+<dl>
+  <dt>
+    key</dt>
+  <dd>
+    The key or key range identifying the record to retrieve. In the case of a key range, the record returned is the first record associated with the first key in the range.</dd>
+</dl>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    <code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a></code></dt>
+  <dd>
+    A request object on which subsequent events related to this operation are fired.</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>&nbsp;</p>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TransactionInactiveError</td>
+      <td>This IDBObjectStore's transaction is inactive.</td>
+    </tr>
+    <tr>
+      <td>DataError</td>
+      <td>
+        <p>The key or key range provided contains and invalid key.</p>
+      </td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">InvalidStateError</code></td>
+      <td>The&nbsp;IDBObjectStore&nbsp;has been deleted or removed.<br>
+        &nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="index()">index()</h3>
+<p>Opens the named index in this object store.</p>
+<pre class="  language-html" data-number=""><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">IDBIndex index (in <div class="line-number" data-start="1" style="top: 0px;"></div></code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html">DOMString</code><code style="font-size: 14px; color: rgb(51, 51, 51);" class=" language-html"> name) raises (DOMException);</code></pre>
+<h5 id="Parameters">Parameters</h5>
+<dl>
+  <dt>
+    name</dt>
+  <dd>
+    The name of the index to open.</dd>
+</dl>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    <code><a href="/en/IndexedDB/IDBIndex" title="en/IndexedDB/IDBIndex">IDBIndex</a></code></dt>
+  <dd>
+    An object for accessing the index.</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code style="font-size: 14px;">InvalidStateError</code></td>
+      <td>The source object store has been deleted, or the transaction for the object store has finished.</td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">NotFoundError</code></td>
+      <td>There is no index with the given name (case-sensitive) in the database.<br>
+        &nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="openCursor()">openCursor()</h3>
+<p>Immediately returns an <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> object, and creates a <a href="/en-US/docs/IndexedDB/IDBCursor" title="en/IndexedDB#gloss cursor">cursor</a> over the records in this object store, in a separate thread. If there is even a single record that matches the <a href="/en/IndexedDB#gloss_key_range" title="en/IndexedDB#gloss key range">key range</a>, then a success event is fired on the returned object, with its <code><a href="/en/IndexedDB/IDBSuccessEvent#attr_result" title="en/IndexedDB/IDBSuccessEvent#attr result">result</a></code> set to the <a href="/en/IndexedDB/IDBCursor" title="en/IndexedDB/IDBCursor">IDBCursor</a> object for the new cursor. If no records match the key range, then a success event is fired on the returned object, with its <code><a href="/en/IndexedDB/IDBSuccessEvent#attr_result" title="en/IndexedDB/IDBSuccessEvent#attr result">result</a></code> set to null.</p>
+<pre class="language-html"><a href="/en/IndexedDB/IDBRequest" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/IndexedDB/IDBRequest">IDBRequest</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> </span><a href="#openCursor" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="#openCursor">openCursor</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> (in optional </span><a href="/en/IndexedDB/IDBKeyRange" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/IndexedDB/IDBKeyRange">IDBKeyRange</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> range, in optional unsigned short direction) raises(</span><a href="/en-US/docs/DOM/DOMException" style="font-family: 'Courier New', 'Andale Mono', monospace;" title="/en-US/docs/DOM/DOMException">DOMException</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;">);</span></pre>
+<h5 id="Parameters">Parameters</h5>
+<dl>
+  <dt>
+    range</dt>
+  <dd>
+    The key range to use as the cursor's range. If this parameter is unspecified or null, then the range includes all the records in the object store.</dd>
+  <dt>
+    direction</dt>
+  <dd>
+    The cursor's&nbsp;<a href="/en-US/docs/IndexedDB/IDBCursor" title="/en-US/docs/IndexedDB/IDBCursor">direction</a>.</dd>
+</dl>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    <code><a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a></code></dt>
+  <dd>
+    A request object on which subsequent events related to this operation are fired.</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TransactionInactiveError</td>
+      <td>This IDBObjectStore's transaction is inactive.</td>
+    </tr>
+    <tr>
+      <td>DataError</td>
+      <td>
+        <p>The key or key range provided contains and invalid key.</p>
+      </td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">InvalidStateError</code></td>
+      <td>The&nbsp;IDBObjectStore&nbsp;has been deleted or removed.</td>
+    </tr>
+    <tr>
+      <td><code>TypeError</code></td>
+      <td>The value of the <code>direction</code> parameter is invalid.</td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="put()">put()</h3>
+<p>Returns an <a href="/en/IndexedDB/IDBRequest" title="en/IndexedDB/IDBRequest">IDBRequest</a> object, and, in a separate thread, creates a <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-dom-interfaces.html#structured-clone">structured clone</a> of the <code>value</code>, and stores the cloned value in the object store. If the record is successfully stored, then a success event is fired on the returned request object&nbsp;with the <code><a href="/en-US/docs/IndexedDB/IDBRequest" title="en/IndexedDB/IDBSuccessEvent#attr result">result</a></code> set to the key for the stored record, and <code><a href="/en-US/docs/IndexedDB/IDBRequest" title="en/IndexedDB/IDBTransactionEvent#attr transaction">transaction</a></code> set to the transaction in which this object store is opened.</p>
+<p>The put method is an<span class="database"> <em>update or insert</em> </span>method. See also the <a href="#add()">add()</a> method</p>
+<pre class="language-html"><a href="/en/IndexedDB/IDBRequest" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/IndexedDB/IDBRequest">IDBRequest</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> </span><a href="#put" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="#put">put</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;"> (in any value, in optional any key) raises (</span><a href="/En/DOM/DOMException" style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;" title="en/DOM/DOMException">DOMException</a><span style="font-family: 'Courier New', 'Andale Mono', monospace; line-height: normal;">);</span></pre>
+<h5 id="Parameters">Parameters</h5>
+<dl>
+  <dt>
+    value</dt>
+  <dd>
+    The value to be stored.</dd>
+  <dt>
+    key</dt>
+  <dd>
+    The key to use to identify the record. If unspecified, it results to null.</dd>
+</dl>
+<h5 id="Returns">Returns</h5>
+<dl>
+  <dt>
+    IDBRequest</dt>
+  <dd>
+    A request object on which subsequent events related to this operation are fired.</dd>
+</dl>
+<h5 id="Exceptions">Exceptions</h5>
+<p>This method may raise a&nbsp;<a href="/en-US/docs/DOM/DOMException" title="/en-US/docs/DOM/DOMException">DOMException</a>&nbsp;with a&nbsp;<a href="/en-US/docs/DOM/DOMError" title="/en-US/docs/DOM/DOMError">DOMError</a>&nbsp;of the following types:</p>
+<table class="standard-table" style="font-size: 14px;">
+  <thead>
+    <tr>
+      <th scope="col">Exception</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ReadOnlyError</td>
+      <td>The transaction associated with this operation is in read-only <a href="/en-US/docs/IndexedDB/IDBTransaction#mode_constants" title="/en-US/docs/IndexedDB/IDBTransaction#mode_constants">mode</a>.</td>
+    </tr>
+    <tr>
+      <td>TransactionInactiveError</td>
+      <td>This IDBObjectStore's transaction is inactive.</td>
+    </tr>
+    <tr>
+      <td>DataError</td>
+      <td>
+        <p>Any of the following conditions apply:</p>
+        <ul>
+          <li>The object store uses in-line keys or has a key generator, and a key parameter was provided.</li>
+          <li>The object store uses out-of-line keys and has no key generator, and no key parameter was provided.</li>
+          <li>The object store uses in-line keys but no key generator, and the object store's key path does not yield a valid key.</li>
+          <li>The key parameter was provided but does not contain a valid key.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">InvalidStateError</code></td>
+      <td>The&nbsp;IDBObjectStore&nbsp;has been deleted or removed.</td>
+    </tr>
+    <tr>
+      <td><code style="font-size: 14px;">DataCloneError</code></td>
+      <td>The data being stored could not be cloned by the internal structured cloning algorithm.</td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Browser_compatibility">Browser compatibility</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari (WebKit)</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>12</td>
+        <td>4.0 (2.0)</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+      <tr>
+        <td><code>count()</code></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>10.0 (10.0)</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE&nbsp;Phone</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td>6.0 (6.0)</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+      <tr>
+        <td><code>count()</code></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+
+
+<p>&nbsp;</p>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/ZhangJianxiang">ZhangJianxiang</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/ZhangJianxiang">ZhangJianxiang</a>,
+                  <time datetime="2012-12-19T22:45:31-08:00">Dec 19, 2012 10:45:31 PM</time>
+                </div>
+                          </div>
+                  </div>
+
+              </div>
+    </div>

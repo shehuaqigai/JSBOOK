@@ -1,0 +1,54 @@
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/hutaoer06051/article/details/8609538">
+        使用scrollX, pageXOffset, scrollLeft获取滚动条到窗口做边界的距离，及其各自的特点
+        </a></span>
+    </h3>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/hutaoer06051/article/category/1185432">javascript</a> 
+        </span>
+    <span class="link_postdate">2013-02-25 15:31</span>
+    <span class="link_view" title="阅读次数">311人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shoucang']);collectArticle('使用scrollX, pageXOffset, scrollLeft获取滚动条到窗口做边界的距离，及其各自的特点','8609538');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report" onclick="javascript:_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_jubao']);report(8609538,2);return false;" title="举报">举报</a></span>
+    
+</div>
+
+    
+<div id="article_content" class="article_content">
+
+<p><span style="white-space:pre"></span>在开发页面的时候，我们常常会用到一个值，就是滚动条到窗口左边界的距离，通常可以使用的属性有三个，分别是：</p>
+<p><span style="white-space:pre"></span>1.&nbsp;window.scrollX;</p>
+<p><span style="white-space:pre"></span>2. window.pageXOffset;</p>
+<p><span style="white-space:pre"></span>3. document.documenetElement.scrollLeft</p>
+<p><span style="white-space:pre"></span>每个方法都有自己的一些特点和需要注意的地方。</p>
+<p><span style="white-space:pre"></span></p>
+<p><span style="white-space:pre"></span>先通过一篇文章来了解下，，地址：<a href="http://help.dottoro.com/ljfswxte.php">http://help.dottoro.com/ljfswxte.php</a></p>
+<p><span style="white-space:pre"></span>翻译如下：</p>
+<p><span style="white-space:pre"></span>如果你想获取文档距离左边滚动的像素大小，你可以采用以下方法：</p>
+<p></p>
+<ul>
+<li>windwo对象的pageXOffset属性总是可以返回滚动的长度，不管doctype是什么类型的，所有浏览器都支持这个属性，除了IE8及其更低版本的IE浏览器。</li><li>window对象的scrollX属性总是可以返回滚动的长度，不管doctype是什么类型，Firefox, Chrome和Safari都支持该属性。</li><li>如果文档中没有指明文档类型，在IE, Firefox, Opera, Chrome和Safari中，通过body的scrollLeft可以获取滚动的数值。</li><li>如果有指明文档类型，那么在IE, Firefox和Opera中，可以通过html的scrollLeft属性获取滚动的数值，但是在Chrome和Safari中的值总是为0.</li><li>如果没有指明文档类型，那么html的scrollLeft属性总是返回0.</li></ul>
+<div><span style="white-space:pre"></span>综合以上的信息，我们可以得出获取滚动条滚动数值的方法如下：</div>
+<div><span style="white-space:pre"><span style="white-space:pre"></span></span><div class="dp-highlighter bg_javascript"><div class="bar"><div class="tools"><b>[javascript]</b> <a href="#" class="ViewSource" title="view plain" onclick="dp.sh.Toolbar.Command('ViewSource',this);return false;">view plain</a><a href="#" class="CopyToClipboard" title="copy" onclick="dp.sh.Toolbar.Command('CopyToClipboard',this);return false;">copy</a><a href="#" class="PrintSource" title="print" onclick="dp.sh.Toolbar.Command('PrintSource',this);return false;">print</a><a href="#" class="About" title="?" onclick="dp.sh.Toolbar.Command('About',this);return false;">?</a><div style="position: absolute; left: 431px; top: 876px; width: 21px; height: 11px; z-index: 99;"><embed id="ZeroClipboardMovie_1" src="http://static.blog.csdn.net/scripts/ZeroClipboard/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="21" height="11" name="ZeroClipboardMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=21&amp;height=11" wmode="transparent"></div></div></div><ol start="1" class="dp-c"><li class="alt"><span><span class="keyword">var</span><span>&nbsp;scrollLeft&nbsp;=&nbsp;&nbsp;window.scrollX&nbsp;!=&nbsp;undefined&nbsp;?&nbsp;window.scrollX&nbsp;:&nbsp;window.pageXOffset;&nbsp;&nbsp;</span></span></li><li class=""><span>scrollLeft&nbsp;=&nbsp;scrollLeft&nbsp;!=&nbsp;undefined&nbsp;?&nbsp;scrollLeft&nbsp;:&nbsp;(document.documentElement&nbsp;||&nbsp;document.body).scrollLeft;&nbsp;&nbsp;</span></li></ol></div><pre name="code" class="javascript" style="display: none;">var scrollLeft =  window.scrollX != undefined ? window.scrollX : window.pageXOffset;
+scrollLeft = scrollLeft != undefined ? scrollLeft : (document.documentElement || document.body).scrollLeft;</pre><br>
+</div>
+<p></p>
+<p><br>
+</p>
+
+</div>
+
+
+
+
+
+
+</div>

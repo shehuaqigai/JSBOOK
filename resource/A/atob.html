@@ -1,0 +1,40 @@
+ <p>
+     <span>DOM 参考</span>
+ </p>
+    <h3>概述</h3>
+    <p>将已经被base64编码过的数据进行解码.关于Unicode和UTF-8编码字符串的解码</p>
+    <h3>语法</h3>
+<pre class="eval language-html">
+    var decodedData = window.atob(<em>encodedData</em>);
+</pre>
+    <h3>例子</h3>
+<pre class="eval language-html">
+    var encodedData = window.btoa("Hello, world"); // 编码
+    var decodedData = window.atob(encodedData); // 解码
+</pre>
+    <h3>备注</h3>
+    <p>由于一些网络通讯协议的限制,你必须使用
+        <code>window.btoa()</code>
+        方法对原数据进行编码后,才能进行发送.接收方使用相当于
+        <code>window.atob()</code>
+        的方法对接受到的base64数据进行解码,得到原数据.例如, 发送某些含有ASCII码表中0到31之间的控制字符的数据.
+    </p>
+    <p>
+        在用javascript编写XPCOM组件时,
+        <code>atob()</code>
+        <code>方法也是可用的,虽然</code>
+        全局对象已经不是window了.
+    </p>
+    <h3>规范</h3>
+    <p>DOM Level 0 不属于任何标准.</p>
+    <h3>浏览器兼容性</h3>
+    <p></p><div class="htab">
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a>
+    <ul>
+        <li class="selected"><a>Desktop</a></li>
+        <li><a>Mobile</a></li>
+    </ul>
+    <div id="compat-desktop" style="display: block;"> <table class="compat-table"> <tbody> <tr> <th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr> <tr> <td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr> </tbody> </table>
+    </div><div id="compat-mobile" style="display: none;"> <table class="compat-table"> <tbody> <tr> <th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr> <tr> <td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr> </tbody> </table>
+</div></div><p></p>
+    <p></p>

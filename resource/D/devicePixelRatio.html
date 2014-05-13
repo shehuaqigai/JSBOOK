@@ -1,0 +1,36 @@
+			
+
+				window.devicePixelRatio, 被所有WebKit浏览器以及Opera所支持，在Firefox 18上面也支持设备像素比window.devicePixelRatio了。做手机webapp屏幕适配用window.devicePixelRatio 在FF下不认的时候，最好判断一下FF的版本，当为Firefox18就可以完美支持了。 <span>[喝小酒的网摘]http://blog.const.net.cn/a/17115.htm</span><br>
+<br>
+&nbsp;&nbsp;&nbsp; window.devicePixelRatio是设备上物理像素和设备独立像素(device-independent pixels (dips))的比例。<br>
+&nbsp;&nbsp;&nbsp; 公式表示就是：window.devicePixelRatio = 物理像素 / dips<br>
+<br>
+dip或dp,（device independent pixels，设备独立像素）与屏幕密度有关。dip可以用来辅助区分视网膜设备还是非视网膜设备。<br>
+<br>
+在Android上面，window.devicePixelRatio 同样值有3个（0.75,1,1.5对应3种分辨率），Android浏览器和WebView支持查询当前设别密度的DOM特性。<br>
+<br>
+JS中查询设备密度的方法<br>
+&nbsp;&nbsp;&nbsp; if (window.devicePixelRatio == 1.5) { &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert("This is a high-density screen"); &nbsp;<br>
+&nbsp;&nbsp;&nbsp; } else if (window.devicePixelRation == 0.75) { &nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert("This is a low-density screen"); &nbsp;<br>
+&nbsp;&nbsp;&nbsp; } &nbsp;<br>
+<br>
+所有非视网膜屏幕的iphone在垂直的时候，宽度为320物理像素。当你使用&lt;meta name="viewport" content="width=device-width"&gt;的时候，会设置视窗布局宽度为320px, 于是，页面很自然地覆盖在屏幕上。<br>
+<br>
+当页面设置了&lt;meta name="viewport" content="width=device-width"&gt;时候，document.documentElement.clientWidth在大部分浏览器下，得到的是布局视区的宽度，等同于dips的宽度。<br>
+<br>
+对于screen.width的值：<br>
+<br>
+&nbsp;&nbsp;&nbsp; 在iOS视网膜设备上，screen.width返回dips宽。因此，在竖着显示的时候，视网膜显示屏的ipad和非视网膜显示屏的ipad返回的都是768.<br>
+&nbsp;&nbsp;&nbsp; 在上面提到的三个Android设备上，screen.width返回的是物理像素宽度，分别480, 720, 和800. 该设备上的所有浏览器都是该值。<br>
+<br>
+Vasilis有一个很好的理论：苹果像素，因为它想使显示更清晰，更流畅，而Android厂商增加的像素在屏幕上塞进更多的东西。它解释了为什么苹果强调非视网膜视网膜的连续性，而Android集中在原始像素数。<br>
+<br>
+Nokia Lumia Windows Phone上的IE9 screen.width的值与Android设备一样，返回的是物理像素。而且其不支持devicePixelRatio. 因此，我们无法从中看出其对待像素的态度是如何的。<br>
+<br>
+小小结论<br>
+<br>
+&nbsp;&nbsp;&nbsp; devicePixelRatio在大多数浏览器是值得信赖的。<br>
+&nbsp;&nbsp;&nbsp; 在iOS设备，screen.width乘以devicePixelRatio得到的是物理像素值。<br>
+&nbsp;&nbsp;&nbsp; 在Android以及Windows Phone设备，screen.width除以devicePixelRatio得到的是设备独立像素(dips)值。<br>

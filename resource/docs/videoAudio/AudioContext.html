@@ -1,0 +1,109 @@
+<h1>AudioContext</h1>
+<pre>
+audiocontext结构
++---------------+------------------------------------+
+02.
+| AudioContext  |                                    |
+03.
++---------------+                                    |
+04.
+|        +-------+    +-------+    +-------+         |
+05.
+|        |       |    |       |    |       |         |
+06.
+==========>| Source|===>|Lots of|===>|  Dest | Output  |
+07.
+Multi Input|       |    |       |    |       |===========>
+08.
+==========>|  Node |===>| Nodes |===>|  Node |         |
+09.
+|        |       |    |       |    |       |         |
+10.
+|        +-------+    +-------+    +-------+         |
+11.
+|                         |                          |
+12.
+|                         |    Created By Barret Lee |
+13.
++-------------------------|--------------------------+
+14.
+|         +-------------+
+15.
++========>| Other Tools |
+16.
+signal  +-------------+
+在 AudioContext 中，通过一个结点（AudioNode）来接受输入源，中间的一些结点可以过滤、
+放大、去杂等处理 Source Node 的信号，处理之后可以送到 AudioContext 的输出结点，
+然后启用 source.start() 播放音频信息；也可以将处理的信息送到外部交给其他对象来处理，
+比如本文要谈到的，将信号交给 Canvas 来处理，这样就能看到音频信号的波形图了。
+
+   //创建一个声音上下文
+    var context = new webkitAudioContext();
+    var audioBuffer = null;
+    var url="dahai.mp3";
+    //加载声音
+     var request = new XMLHttpRequest();
+    //返回类型为二进制
+         request.responseType = 'arraybuffer';
+         request.onreadystatechange=function(e){
+           if(request.readyState == 4){
+               //解码成声音数据
+               context.decodeAudioData(request.response, function(buffer) {
+                   audioBuffer = buffer;
+                   //播放声音
+                   playSound();
+               }, function(e){console.log(e);});
+           }
+         }
+        request.onerror=function(e){
+            console.log(e);
+        }
+        request.open('GET', url, true);
+        request.send();
+
+    function playSound() {
+        source = context.createBufferSource();   // 创建一个声音源
+        source.buffer = audioBuffer;    // 告诉该源播放何物
+        source.loop = true;
+        source.connect(context.destination); //将该源与硬件相连
+        source.noteOn(0); //立即播放  现在播放该实例
+    }
+
+
+ var context=new webkitAudioContext();
+ 创建AudioContext的一个实例对象有如下属性和方法
+
+
+activeSourceCount: 0
+currentTime: 0
+destination: AudioDestinationNode
+listener: AudioListener
+oncomplete: null
+sampleRate: 44100
+__proto__: AudioContext
+constructor: function AudioContext() { [native code] }
+createAnalyser: function createAnalyser() { [native code] }
+createBiquadFilter: function createBiquadFilter() { [native code] }
+createBuffer: function createBuffer() { [native code] }
+createBufferSource: function createBufferSource() { [native code] }
+createChannelMerger: function createChannelMerger() { [native code] }
+createChannelSplitter: function createChannelSplitter() { [native code] }
+createConvolver: function createConvolver() { [native code] }
+createDelay: function createDelay() { [native code] }
+createDelayNode: function createDelayNode() { [native code] }
+createDynamicsCompressor: function createDynamicsCompressor() { [native code] }
+createGain: function createGain() { [native code] }
+createGainNode: function createGainNode() { [native code] }
+createJavaScriptNode: function createJavaScriptNode() { [native code] }
+createMediaElementSource: function createMediaElementSource() { [native code] }
+createMediaStreamDestination: function createMediaStreamDestination() { [native code] }
+createMediaStreamSource: function createMediaStreamSource() { [native code] }
+createOscillator: function createOscillator() { [native code] }
+createPanner: function createPanner() { [native code] }
+createPeriodicWave: function createPeriodicWave() { [native code] }
+createScriptProcessor: function createScriptProcessor() { [native code] }
+createWaveShaper: function createWaveShaper() { [native code] }
+decodeAudioData: function decodeAudioData() { [native code] }
+startRendering: function startRendering() { [native code] }
+__proto__: EventTarget
+</pre>

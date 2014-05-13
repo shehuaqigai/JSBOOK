@@ -1,0 +1,251 @@
+<h1>规范</h1>
+<p>
+Server-sent Events 规范是 HTML 5 规范的一个组成部分，具体的规范文档见参考资源。该规范比较简单，主要由两个部分组成：第一个部分是服务器端与浏览器端之间的通讯协议，第二部分则是在浏览器端可供 JavaScript 使用的 EventSource 对象。通讯协议是基于纯文本的简单协议。服务器端的响应的内容类型是“text/event-stream”。响应文本的内容可以看成是一个事件流，由不同的事件所组成。每个事件由类型和数据两部分组成，同时每个事件可以有一个可选的标识符。不同事件的内容之间通过仅包含回车符和换行符的空行（“\r\n”）来分隔。每个事件的数据可能由多行组成。代码清单 1 给出了服务器端响应的示例。
+</p>
+<p>
+	在浏览器支持方面，服务器推送事件已经在除 IE 外的大部分桌面和移动浏览器上得到了支持。支持服务器推送事件的浏览器及其版本包括：Firefox 6.0+、Chrome 6.0+、Safari 5.0+、Opera 11.0+、iOS Safari 4.0+、Opera Mobile 11.1+、Chrome for Android 25.0+、Firefox for Android 19.0+ 以及 Blackberry Browser 7.0+ 等。关于 IE 的支持，在下面的章节中有详细的介绍。
+</p>
+
+<div id="ibm-access-cntr" role="main"><div id="ibm-leadspace-head">
+	<!-- LEADSPACE_BODY_BEGIN --> 
+	<div id="ibm-leadspace-body">
+		<!-- Navigation_Trail_BEGIN -->
+      <ul id="ibm-navigation-trail" role="navigation" aria-label="Bread Crumbs"><li><a href="http://www.ibm.com/developerworks/cn/">developerWorks 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/topics/">技术主题</a></li><li><a href="http://www.ibm.com/developerworks/cn/web/">Web development</a></li><li><a href="http://www.ibm.com/developerworks/cn/views/web/libraryview.jsp">文档库</a></li></ul>
+		<!-- END_Navigation_Trail -->
+			<!-- Title_Subtitle -->
+			<h1>HTML5 服务器推送事件（Server-sent Events）实战开发</h1>
+	</div>
+	<!-- LEADSPACE_BODY_END --> 
+	<!-- SUMMARY_BEGIN -->
+	<div id="dw-summary-area" class="dw-summary-columns">
+		<div class="ibm-col-6-4">
+		<p>服务器推送事件（Server-sent Events）是 HTML 5 规范中的一个组成部分，可以用来从服务端实时推送数据到浏览器端。相对于与之类似的 COMET 和 WebSocket 技术来说，服务器推送事件的使用更简单，对服务器端的改动也比较小。对于某些类型的应用来说，服务器推送事件是最佳的选择。本文对服务器推送技术进行了详细的介绍，包含浏览器端和服务器端的相应实现细节，为在实践中使用该技术提供了指南。</p>
+		<p class="ibm-no-print ibm-ind-link">
+
+			
+			<span id="nCmts"><span>0</span><img class="dw-cmts-arrow" alt="" src="//dw1.s81c.com/developerworks/i/v17/dw-cmts-arrow.png" height="7" width="7"> <a href="#icomments" class="dw-cmt-link">评论：</a></span>
+		</p>
+		</div>
+		<div class="ibm-col-6-2 dw-toc-margin">
+			<p class="dw-summary-author"><a href="#authorN10018" class="ibm-popup-link" onclick="ibmweb.overlay.show('authorN10018',this);return false;">成 富</a>, 高级软件工程师</p>
+<div id="authorN10018" class="ibm-common-overlay"><div class="ibm-head"><p><a href="#close" class="ibm-common-overlay-close">关闭 [x]</a></p></div><div class="ibm-body"><div class="ibm-main"><div class="ibm-title"><!--this is where the h2 usually goes--></div><div class="ibm-container ibm-alternate"><div class="ibm-container-body">
+<p><!--.-->
+成富毕业于北京大学，获得计算机软件与理论专业硕士学位，曾经在 developerWorks 和 InfoQ 中文站上发表多篇技术文章。个人网站是 <a href="http://www.cheng-fu.com">http://www.cheng-fu.com</a>。</p><br><br></div></div></div></div><div class="ibm-footer"><!----></div></div>
+			<p class="dw-summary-date">2013 年 7 月 18 日</p>
+			
+
+
+			<div aria-hidden="true" class="ibm-container" id="dw-toc"><div class="ibm-container-body"><ul class="ibm-twisty"><li><a href="#toggle" class="ibm-twisty-trigger ibm-twisty-trigger-closed"><img src="//www.ibm.com/i/c.gif" alt="+"></a><span class="ibm-twisty-head">内容</span><div class="ibm-twisty-body" style="display: none;"><ul style="font-size:0.8em" class="ibm-link-list">
+<li><a class="ibm-anchor-down-em-link" href="#major2">简介</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#major3">规范</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#major4">服务器端和浏览器端实现</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#major5">IE 支持</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#major6">小结</a></li>
+<li><a class="ibm-anchor-down-em-link" href="#resources">参考资料 </a></li>
+<li><a class="ibm-anchor-down-em-link" href="#icomments">评论</a></li></ul></div></li></ul></div></div>
+		</div>
+	</div>
+	<!-- SUMMARY_END -->
+</div><div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+
+<p>对于一般的 Web 应用开发，大多数开发人员并不陌生。在 Web 应用中，浏览器和服务器之间使用的是请求 / 响应的交互模式。浏览器发出请求，服务器根据收到的请求来生成相应的响应。浏览器再对收到的响应进行处理，展现给用户。响应的格式可能是 HTML、XML 或 JSON 等。随着 REST 架构风格和 AJAX 的流行，服务器更多地使用 JSON 作为响应的数据格式。Web 应用使用 XMLHttpRequest 对象来发送请求，并根据服务器端返回的数据，对页面的内容进行动态更新。通常来说，用户在页面上的操作，比如点击或移动鼠标，会触发相应的事件。由 XMLHttpRequest 对象来发出请求，得到服务器响应之后进行页面的局部更新。这种方式的不足之处在于：服务器端产生的数据变化不能及时地通知浏览器，而是需要等到下次请求发出时才能被浏览器获取。对于某些对数据实时性要求很高的应用来说，这种延迟是不能接受的。</p><p>为了满足这类应用的需求，就需要有某种方式能够从服务器端推送数据给浏览器，以保证服务器端的数据变化可以在第一时间通知给用户。目前常见的解决办法有不少，主要可以分成两类。这两类方法的区别在于是否基于 HTTP 协议来实现。不使用 HTTP 协议的做法是使用 HTML 5 新增的 WebSocket 规范，而使用 HTTP 协议的做法则包括简易轮询、COMET 技术和本文中要介绍的 HTML 5 服务器推送事件。下面会对这几种技术进行介绍。</p><h2 id="major2">简介</h2><p>在介绍 HTML 5 服务器推送事件之前，首先介绍一些上面提到的几种服务器端数据推送技术。第一种是 WebSocket。WebSocket 规范是 HTML 5 中的一个重要组成部分，已经被很多主流浏览器所支持，也有不少基于 WebSocket 开发的应用。正如名称所表示的一样，WebSocket 使用的是套接字连接，基于 TCP 协议。使用 WebSocket 之后，实际上在服务器端和浏览器之间建立一个套接字连接，可以进行双向的数据传输。WebSocket 的功能是很强大的，使用起来也灵活，可以适用于不同的场景。不过 WebSocket 技术也比较复杂，包括服务器端和浏览器端的实现都不同于一般的 Web 应用。</p><p>除了 WebSocket 之外，其他的实现方式是基于 HTTP 协议来达到实时推送的效果。第一种做法是简易轮询，即浏览器端定时向服务器端发出请求，来查询是否有数据更新。这种做法比较简单，可以在一定程度上解决问题。不过对于轮询的时间间隔需要进行仔细考虑。轮询的间隔过长，会导致用户不能及时接收到更新的数据；轮询的间隔过短，会导致查询请求过多，增加服务器端的负担。</p><p>COMET 技术改进了简易轮询的缺点，使用的是长轮询。长轮询的方式在每次请求时，服务器端会保持该连接在一段时间内处于打开状态，而不是在响应完成之后就立即关闭。这样做的好处是在连接处于打开状态的时间段内，服务器端产生的数据更新可以被及时地返回给浏览器。当上一个长连接关闭之后，浏览器会立即打开一个新的长连接来继续请求。不过 COMET 技术的实现在服务器端和浏览器端都需要第三方库的支持。</p><p>综合比较上面提到的 4 种不同的技术，简易轮询由于其本身的缺陷，并不推荐使用。COMET 技术并不是 HTML 5 标准的一部分，从兼容标准的角度出发，也不推荐使用。WebSocket 规范和服务器推送技术都是 HTML 5 标准的组成部分，在主流浏览器上都提供了原生的支持，是推荐使用的。不过 WebSocket 规范更加复杂一些，适用于需要进行复杂双向数据通讯的场景。对于简单的服务器数据推送的场景，使用服务器推送事件就足够了。</p><p>在浏览器支持方面，服务器推送事件已经在除 IE 外的大部分桌面和移动浏览器上得到了支持。支持服务器推送事件的浏览器及其版本包括：Firefox 6.0+、Chrome 6.0+、Safari 5.0+、Opera 11.0+、iOS Safari 4.0+、Opera Mobile 11.1+、Chrome for Android 25.0+、Firefox for Android 19.0+ 以及 Blackberry Browser 7.0+ 等。关于 IE 的支持，在下面的章节中有详细的介绍。</p><p>下面对服务器推送事件的规范进行具体的说明。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="major3">规范</h2><p>Server-sent Events 规范是 HTML 5 规范的一个组成部分，具体的规范文档见参考资源。该规范比较简单，主要由两个部分组成：第一个部分是服务器端与浏览器端之间的通讯协议，第二部分则是在浏览器端可供 JavaScript 使用的 EventSource 对象。通讯协议是基于纯文本的简单协议。服务器端的响应的内容类型是“text/event-stream”。响应文本的内容可以看成是一个事件流，由不同的事件所组成。每个事件由类型和数据两部分组成，同时每个事件可以有一个可选的标识符。不同事件的内容之间通过仅包含回车符和换行符的空行（“\r\n”）来分隔。每个事件的数据可能由多行组成。代码清单 1 给出了服务器端响应的示例。</p><h5 id="list1">清单 1. 服务器端响应的示例</h5><div class="codesection"><pre class="displaycode">data: first event
+
+data: second event
+id: 100
+
+event: myevent
+data: third event
+id: 101
+
+: this is a comment
+data: fourth event
+data: fourth event continue</pre></div><p>如代码清单 1 所示，每个事件之间通过空行来分隔。对于每一行来说，冒号（“:”）前面表示的是该行的类型，冒号后面则是对应的值。可能的类型包括：</p><ul class="ibm-bullet-list"><li>
+类型为空白，表示该行是注释，会在处理时被忽略。</li><li>
+类型为 data，表示该行包含的是数据。以 data 开头的行可以出现多次。所有这些行都是该事件的数据。</li><li>
+类型为 event，表示该行用来声明事件的类型。浏览器在收到数据时，会产生对应类型的事件。</li><li>
+类型为 id，表示该行用来声明事件的标识符。</li><li>
+类型为 retry，表示该行用来声明浏览器在连接断开之后进行再次连接之前的等待时间。</li></ul><p>在代码清单 1 中，第一个事件只包含数据“first event”，会产生默认的事件；第二个事件的标识符是 100，数据为“second event”；第三个事件会产生类型为“myevent”的事件；最后一个事件的数据为“fourth event\nfourth event continue”。当有多行数据时，实际的数据由每行数据以换行符连接而成。</p><p>如果服务器端返回的数据中包含了事件的标识符，浏览器会记录最近一次接收到的事件的标识符。如果与服务器端的连接中断，当浏览器端再次进行连接时，会通过 HTTP 头“Last-Event-ID”来声明最后一次接收到的事件的标识符。服务器端可以通过浏览器端发送的事件标识符来确定从哪个事件开始来继续连接。</p><p>对于服务器端返回的响应，浏览器端需要在 JavaScript 中使用 EventSource 对象来进行处理。EventSource 使用的是标准的事件监听器方式，只需要在对象上添加相应的事件处理方法即可。EventSource 提供了三个标准事件，如表 1 所示。</p><h5 id="N1006E">表 1. EventSource 对象提供的标准事件</h5><table border="0" cellpadding="0" cellspacing="0" class="ibm-data-table" summary="表 1. EventSource 对象提供的标准事件"><thead xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><th><strong>名称</strong></th><th><strong>说明</strong></th><th><strong>事件处理方法</strong></th></tr></thead><tbody xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><tr><td>
+ open 
+</td><td>
+当成功与服务器建立连接时产生
+</td><td>
+ onopen 
+</td></tr><tr><td>
+ message 
+</td><td>
+当收到服务器发送的事件时产生
+</td><td>
+ onmessage 
+</td></tr><tr><td>
+ error 
+</td><td>
+当出现错误时产生
+</td><td>
+ onerror 
+</td></tr></tbody></table><p>如之前所述，服务器端可以返回自定义类型的事件。对于这些事件，可以使用 addEventListener 方法来添加相应的事件处理方法。代码清单 2 给出了 EventSource 对象的使用示例。</p><h5 id="list2">清单 2. EventSource 对象的使用示例</h5><div class="codesection"><pre class="displaycode">var es = new EventSource('events');
+es.onmessage = function(e) {
+    console.log(e.data);
+};
+
+es.addEventListener('myevent', function(e) {
+    console.log(e.data);
+});</pre></div><p>如代码清单 2 所示，在指定 URL 创建出 EventSource 对象之后，可以通过 onmessage 和 addEventListener 方法来添加事件处理方法。当服务器端有新的事件产生，相应的事件处理方法会被调用。EventSource 对象的 onmessage 属性的作用类似于 addEventListener( ‘ message ’ )，不过 onmessage 属性只支持一个事件处理方法。</p><p>在介绍完服务器推送事件的规范内容之后，下面介绍服务器端的实现。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="major4">服务器端和浏览器端实现</h2><p>从上一节中对通讯协议的描述可以看出，服务器端推送事件是一个比较简单的协议。服务器端的实现也相对比较简单，只需要按照协议规定的格式，返回响应内容即可。在开源社区可以找到各种不同的服务器端技术相对应的实现。自己开发的难度也不大。本文使用 Java 作为服务器端的实现语言。相应的实现基于开源的 jetty-eventsource-servlet 项目，见参考资源。下面通过一个具体的示例来说明如何使用 jetty-eventsource-servlet 项目。示例用来模拟一个物体在某个限定空间中的随机移动。该物体从一个随机位置开始，然后从上、下、左和右四个方向中随机选择一个方向，并在该方向上移动随机的距离。服务器端不断改变该物体的位置，并把位置信息推送给浏览器，由浏览器来显示。</p><h3 id="minor4.1">服务器端实现</h3><p>服务器端的实现由两部分组成：一部分是用来产生数据的 org.eclipse.jetty.servlets.EventSource 接口的实现，另一部分是作为浏览器访问端点的继承自 org.eclipse.jetty.servlets.EventSourceServlet 类的 servlet 实现。代码清单 3 给出了 EventSource 接口的实现类。</p><h5 id="listing1">清单 3. EventSource 接口的实现类 MovementEventSource</h5><div class="codesection"><pre class="displaycode"> public class MovementEventSource implements EventSource {
+	
+	private int width = 800;
+	private int height = 600;
+	private int stepMax = 5;
+	private int x = 0;
+	private int y = 0;
+	private Random random = new Random();
+	private Logger logger = Logger.getLogger(getClass().getName());
+	
+	public MovementEventSource(int width, int height, int stepMax) {
+		this.width = width;
+		this.height = height;
+		this.stepMax = stepMax;
+		this.x = random.nextInt(width);
+		this.y = random.nextInt(height);
+	}
+
+	@Override
+	public void onOpen(Emitter emitter) throws IOException {
+		query(emitter); //开始生成位置信息
+	}
+
+	@Override
+	public void onResume(Emitter emitter, String lastEventId)
+			throws IOException {
+		updatePosition(lastEventId); //更新起始位置
+		query(emitter);  //开始生成位置信息
+	}
+	
+	//根据Last-Event-Id来更新起始位置
+	private void updatePosition(String id) {
+		if (id != null) {
+			String[] pos = id.split(",");
+			if (pos.length &gt; 1) {
+				int xPos = -1, yPos = -1;
+				try {
+					xPos = Integer.parseInt(pos[0], 10);
+					yPos = Integer.parseInt(pos[1], 10);
+				} catch (NumberFormatException e) {
+					
+				}
+				if (isValidMove(xPos, yPos)) {
+					x = xPos;
+					y = yPos;
+				}
+			}
+		}
+	}
+	
+	private void query(Emitter emitter) throws IOException {
+		emitter.comment("Start sending movement information.");
+		while(true) {
+			emitter.comment("");
+			move(); //移动位置
+			String id = String.format("%s,%s", x, y);
+			emitter.id(id); //根据位置生成事件标识符
+			emitter.data(id); //发送位置信息数据
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				logger.log(Level.WARNING, \
+               "Movement query thread interrupted. Close the connection.", e);
+				break;
+			}
+		}
+		emitter.close(); //当循环终止时，关闭连接
+	}
+
+	@Override
+	public void onClose() {
+		
+	}
+	
+	//获取下一个合法的移动位置
+	private void move() {
+		while (true) {
+			int[] move = getMove();
+			int xNext = x + move[0];
+			int yNext = y + move[1];
+			if (isValidMove(xNext, yNext)) {
+				x = xNext;
+				y = yNext;
+				break;
+			}
+		}
+	}
+
+	//判断当前的移动位置是否合法
+	private boolean isValidMove(int x, int y) {
+		return x &gt;= 0 &amp;&amp; x &lt;= width &amp;&amp; y &gt;=0 &amp;&amp; y &lt;= height;
+	}
+	
+	//随机生成下一个移动位置
+	private int[] getMove() {
+		int[] xDir = new int[] {-1, 0, 1, 0};
+		int[] yDir = new int[] {0, -1, 0, 1};
+		int dir = random.nextInt(4);
+		return new int[] {xDir[dir] * random.nextInt(stepMax), \
+		   yDir[dir] * random.nextInt(stepMax)};
+	}
+}</pre></div><p>代码清单 3 中，类 MovementEventSource 需要实现 EventSource 接口的 onOpen、onResume 和 onClose 方法，其中 onOpen 方法在浏览器端的连接打开的时候被调用，onResume 方法在浏览器端重新建立连接时被调用，onClose 方法则在浏览器关闭连接的时候被调用。onOpen 和 onResume 方法都有一个 EventSource.Emitter 接口类型的参数，可以用来发送数据。EventSource.Emitter 接口中包含的方法包括 data、event、comment、id 和 close 等，分别对应于通讯协议中各种不同类型的事件。而 onResume 方法还额外包含一个参数 lastEventId，表示通过 Last-Event-ID 头发送过来的最近一次事件的标识符。</p><p>MovementEventSource 类中事件生成的主要逻辑在 query 方法中。该方法中包含一个无限循环，每隔 2 秒钟改变一次位置，同时把更新之后的位置通过 EventSource.Emitter 接口的 data 方法发送给浏览器端。每个事件都有对应的标识符，而标识符的值就是位置本身。如果连接断开之后，浏览器重新进行连接，可以从上一次的位置开始继续移动该物体。</p><p>与 MovementEventSource 类对应的 servlet 实现比较简单，只需要继承自 EventSourceServlet 类并覆写 newEventSource 方法即可。在 newEventSource 方法的实现中，需要返回一个 MovementEventSource 类的对象，如代码清单 4 所示。每当浏览器端建立连接时，该 servlet 会创建一个新的 MovementEventSource 类的对象来处理该请求。</p><h5 id="listing2">清单 4. servlet 实现类 MovementServlet</h5><div class="codesection"><pre class="displaycode"> public class MovementServlet extends EventSourceServlet { 
+
+ @Override 
+ protected EventSource newEventSource(HttpServletRequest request, 
+ String clientId) { 
+ return new MovementEventSource(800, 600, 20); 
+ } 
+ }</pre></div><p>在服务器端实现中，需要注意的是要添加相应的 servlet 过滤器支持。这是 jetty-eventsource-servlet 项目所依赖的 Jetty Continuations 框架的要求，否则的话会出现错误。添加过滤器的方式是在 web.xml 文件中添加代码清单 5 中所示的配置内容。</p><h5 id="listing3">清单 5. Jetty Continuations 所需 servlet 过滤器的配置</h5><div class="codesection"><pre class="displaycode"> &lt;filter&gt; 
+    &lt;filter-name&gt;continuation&lt;/filter-name&gt; 
+    &lt;filter-class&gt;org.eclipse.jetty.continuation.ContinuationFilter&lt;/filter-class&gt; 
+ &lt;/filter&gt; 
+ &lt;filter-mapping&gt; 
+    &lt;filter-name&gt;continuation&lt;/filter-name&gt; 
+    &lt;url-pattern&gt;/sse/*&lt;/url-pattern&gt; 
+ &lt;/filter-mapping&gt;</pre></div><h3 id="minor4.2">浏览器端实现</h3><p>浏览器端的实现也比较简单，只需要创建出 EventSource 对象，并添加相应的事件处理方法即可。代码清单 6 给出了相应的实现。在页面中使用一个方块表示物体。当接收到新的事件时，根据事件数据中给出的坐标信息，更新方块在页面上的位置。</p><h5 id="listing4">清单 6. 浏览器端的实现代码</h5><div class="codesection"><pre class="displaycode"> var es = new EventSource('sse/movement'); 
+ es.addEventListener('message', function(e) { 
+     var pos = e.data.split(','), x = pos[0], y = pos[1]; 
+     $('#box').css({ 
+         left : x + 'px', 
+         top : y + 'px' 
+         }); 
+     });</pre></div><p>在介绍完基本的服务器端和浏览器端实现之后，下面介绍比较重要的 IE 的支持。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="major5">IE 支持</h2><p>使用浏览器原生的 EventSource 对象的一个比较大的问题是 IE 并不提供支持。为了在 IE 上提供同样的支持，一般有两种办法。第一种办法是在其他浏览器上使用原生 EventSource 对象，而在 IE 上则使用简易轮询或 COMET 技术来实现；另外一种做法是使用 polyfill 技术，即使用第三方提供的 JavaScript 库来屏蔽浏览器的不同。本文使用的是 polyfill 技术，只需要在页面中加载第三方 JavaScript 库即可。应用本身的浏览器端代码并不需要进行改动。一般推荐使用第二种做法，因为这样的话，在服务器端只需要使用一种实现技术即可。</p><p>在 IE 上提供类似原生 EventSource 对象的实现并不简单。理论上来说，只需要通过 XMLHttpRequest 对象来获取服务器端的响应内容，并通过文本解析，就可以提取出相应的事件，并触发对应的事件处理方法。不过问题在于 IE 上的 XMLHttpRequest 对象并不支持获取部分的响应内容。只有在响应完成之后，才能获取其内容。由于服务器端推送事件使用的是一个长连接。当连接一直处于打开状态时，通过 XMLHttpRequest 对象并不能获取响应的内容，也就无法触发对应的事件。更具体的来说，当 XMLHttpRequest 对象的 readyState 为 3（READYSTATE_INTERACTIVE）时，其 responseText 属性是无法获取的。</p><p>为了解决 IE 上 XMLHttpRequest 对象的问题，就需要使用 IE 8 中引入的 XDomainRequest 对象。XDomainRequest 对象的作用是发出跨域的 AJAX 请求。XDomainRequest 对象提供了 onprogress 事件。当 onprogress 事件发生时，可以通过 responseText 属性来获取到响应的部分内容。这是 XDomainRequest 对象和 XMLHttpRequest 对象的最大不同，也是使用 XDomainRequest 对象来实现类似原生 EventSource 对象的基础。在使用 XDomainRequest 对象打开与服务器端的连接之后，当服务器端有新的数据产生时，可以通过 XDomainRequest 对象的 onprogress 事件的处理方法来进行处理，对接收到的数据进行解析，根据数据的内容触发相应的事件。</p><p>不过由于 XDomainRequest 对象本来的目的是发出跨域 AJAX 请求，考虑到跨域访问的安全性问题，XDomainRequest 对象在使用时的限制也比较严格。这些限制会影响到其作为 EventSource 对象的实现方式。具体的限制和解决办法如下所示：</p><ul class="ibm-bullet-list"><li>
+服务器端的响应需要包含 Access-Control-Allow-Origin 头，用来声明允许从哪些域访问该 URL。“*”表示允许来自任何域的访问，不推荐使用该值。一般使用与当前应用相同的域，限制只允许来自当前域的访问。</li><li>
+ XDomainRequest 对象发出的请求不能包含自定义的 HTTP 头，这就限制了不能使用 Last-Event-ID 头来声明浏览器端最近一次接收到的事件的标识符。只能通过 HTTP 请求的其他方式来传递该标识符，如 GET 请求的参数或 POST 请求的内容体。</li><li>
+ XDomainRequest 对象的请求的内容类型（Content-Type）只能是“text/plain”。这就意味着，当使用 POST 请求时，服务器端使用的框架，如 servlet，不会对 POST 请求的内容进行自动解析，无法使用 HttpServletRequest 类的 getParameter 方法来获取 POST 请求的内容。只能在服务器端对原始的请求内容进行解析，获取到其中的参数的值。</li><li>
+ XDomainRequest 对象发出的请求中不包含任何与用户认证相关的信息，包括 cookie 等。这就意味着，如果服务器端需要认证，则需要通过 HTTP 请求的其他方式来传递用户的认证信息，比如 session 的 ID 等。</li></ul><p>由于 XDomainRequest 对象的这些限制，服务器端的实现也需要作出相应的改动。这些改动包括返回 Access-Control-Allow-Origin 头；对于浏览器端发送的“text/plain”类型的参数进行解析；处理请求中包含的用户认证相关的信息。</p><p>本文的示例使用的 polyfill 库是 GitHub 上的 Yaffle 开发的 EventSource 项目，具体的地址见参考资源。在使用该 polyfill 库，并对服务器端的实现进行修改之后，就可以在 IE 8 及以上的浏览器中使用服务器推送事件。如果需要支持 IE 7，则只能使用简易轮询或 COMET 技术。本文的示例代码见参考资源。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="major6">小结</h2><p>如果需要从服务器端推送数据给浏览器，可以使用的基于 HTML 5 规范标准的技术包括 WebSocket 和服务器推送事件。开发人员可以根据应用的具体需求来选择合适的技术。如果只是需要从服务器端推送数据，服务器推送事件的规范更加简单，实现起来更容易。本文对服务器推送事件的规范内容、服务器端和浏览器端的实现都进行了详细的介绍，对如何支持 IE 浏览器也进行了具体的分析。</p><!--CMA ID: 937446--><!--Site ID: 10--><!--XSLT stylesheet used to transform this file: dw-document-html-7.0.xsl-->
+
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+
+
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div></div>

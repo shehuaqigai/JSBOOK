@@ -1,0 +1,214 @@
+<pre>
+近来前端组小盆友开发的类库越来越多，很多情况下彼此不知道写了些什么方法，
+为了更好的合作提高工作效率，找了个比较好的api文档生成方法。
+使用jsdoc-toolkit来自动生成js api文档。
+一、 环境搭建
+1) 首先要安装java环境，如果不太了解的参看：
+<a href="http://jingyan.baidu.com/article/e75aca85b29c3b142edac6a8.html">点这里</a>
+2) 安装jsdoc-toolkit
+下载地址：http://code.google.com/p/jsdoc-toolkit/downloads/list
+解压下载的压缩包（可以随便指定目录），并进入该目录，
+shift+鼠标右击，在菜单中选择打开cmd命令：敲入如下命令：
+java -jar jsrun.jar app/run.js
+如果出现：
+WARNING: No source files to work on. Nothing to do.
+就代表一切安装成功了。
+由于本文着重写如何生成js api，所以有关jdk安装就不多述了。
+二、 准备符合规范的注释代码文件
+1) 符合规定的注释
+用sublime的小盆友，安装下sublime插件DocBlockr。
+其他编辑器有没有辅助插件我就不知道了，就以此来说明下注释规范。
+安装成功后，在写好的函数上一行敲入/**然后回车，就会出现：
+/**
+  * [__ description]
+  * @param  {[type]} key [description]
+  * @return {[type]}     [description]
+  */
+以上就是符合api规范的注释，三行分别为函数描述，参数及返回值。
+写好的注释如：
+/**
+ * 翻译函数
+ * @param  {String} key 参数字符串
+ * @return {String}     返回字符串
+ * @example __('test')
+ */
+特别列出常用注释命令参数：
+命令名 描述 
+@param
+@argument 指定参数名和说明来描述一个函数参数。 
+@return
+@example 函数使用示例
+@returns 描述函数的返回值。 
+@author 指示代码的作者。
+@deprecated 指示一个函数已经废弃，不建议使用，
+而且在将来版本的代码中可能会彻底删除。要避免使用这段代码。 
+@see 创建一个HTML链接指向指定类的描述。 
+@version 指定发布版本。 
+@requires 创建一个HTML链接，指向这个类所需的指定类。 
+@throws
+@exception 描述函数可能抛出的异常的类型。 
+@link 创建一个HTML链接，指向指定的类。这与@see很类似，
+但@link能嵌在注释文本中。 @author 指示代码的作者。
+（译者注：这个标记前面已经出现过，建议去掉） 
+@fileoverview 这是一个特殊的标记，
+如果在文件的第一个文档块中使用这个标记，则指定该文档块的余下部分将用来提供文件的一个概述。 
+@class 提供类的有关信息，用在构造函数的文档中。 
+@constructor 明确一个函数是某个类的构造函数。 
+@type 指定函数的返回类型。 
+@extends 指示一个类派生了另一个类。通常JSDoc自己就可以检测出这种信息，
+不过，在某些情况下则必须使用这个标记。 
+@private 指示一个类或函数是私有的。私有类和函数不会出现在HTML文档中，
+除非运行JSDoc时提供了---private命令行选项。 
+@final 指示一个值是常量值。要记住JavaScript无法真正保证一个值是常量。 
+@ignore JSDoc 会忽略有这个标记的函数。
+2) 符合规定的代码
+命名空间规范
+示例代码test1.js
+/**
+ * @namespace 通用工具函数.
+ */
+    Utils = {
+        /**
+         * 翻译函数
+         * @param  {String} str 参数字符串
+         * @return {String}     返回字符串
+         */
+        helloApi: function(str) {
+            return str;
+        }
+　　}
+
+Utils上的namespace说明一定要加，指定该命名空间。
+helloApi就是Utils的静态函数。
+修改一下，utils前加var：
+/**
+ * @namespace 通用工具函数.
+ */
+    var Utils = {
+　　　　/**
+         * 翻译函数
+         * @param  {String} str 参数字符串
+         * @return {String}     返回字符串
+         */
+　　　　　helloApi: function(str) {
+            return str;
+        }
+　　}
+
+加了var之后效果和上面一段代码一样， 因为Utils都是全局变量。
+生成的都是Utils下的静态函数说明。
+如果使用闭包：
+define(function(require){
+/**
+ * @namespace 通用工具函数.
+ */
+    var Utils = {
+        /**
+         * 翻译函数
+         * @param  {String} str 参数字符串
+         * @return {String}     返回字符串
+         */
+　　　　　helloApi: function(str) {
+            return str;
+        }
+　　}
+    return Utils;
+})
+将不能生成代码，因为Utils变为闭包内的变量，所以jsdoc不能找到公开命名空间。
+目前我能想到的方法就是在生成doc时临时将var去掉，之后再加上，有点麻烦，
+不知道各位有没有更好的方式。
+生成工具类静态函数及类函数
+上面在讲命名空间的时候是以静态类为例的，于是这里就讲一下如何生成类方法。
+define(function(require){
+/**
+ * @namespace 通用工具函数.
+ */
+　　Utils = function() {};
+　　Utils.prototype = {
+        /**
+         * 翻译函数
+         * @param  {String} str 参数字符串
+         * @return {String}     返回字符串
+         */
+　　　　 helloApi: function(str) {
+            return str;
+        }
+　　}
+    return Utils;
+})
+这样就生成了一个utils类，__为他的方法。中途不能有参数传递，如：
+define(function(require){
+/**
+ * @namespace 通用工具函数.
+ */
+　　Utils = function() {};
+　　var fn = Utils.prototype;
+　　fn = {
+        /**
+         * 翻译函数
+         * @param  {String} str 参数字符串 * @return {String} 返回字符串 */
+　　　　helloApi: function(str) {
+       　　return str;
+       }
+　　}
+    return Utils;
+})
+三、使用jsdoc生成文档
+1) 生成test1.js的文档
+将test1.js文件放入jsdoc目录下的app文件夹中：
+然后敲入命令：
+java -jar jsrun.jar app/run.js -a -t=templates/jsdoc app/test1.js 
+如果成功的话，你就会看到当前文件夹里多出了一个叫做 out 的文件夹，生成的文档就在里面了！然后你就可以在浏览器中查看了。
+java -jar jsrun.jar app/run.js -a -t=templates/jsdoc app/test1.js
+如果写成：
+java -jar jsrun.jar app/run.js -a -t=templates/jsdoc app
+将生成app文件夹下所有文件的api文档。
+如果想了解所有命令参数，通过-help可以查看
+java -jar jsrun.jar app/run.js --help
+简单介绍几个：
+-a 或者 --allfunctions ：为全部函数生成文档，包括那些没有写注释的。
+-c 或者 --conf ：使用配置文件
+-d= 或者 --directory=：指定生成文档的输出目录，默认是 “out”
+-e= 或者 --encoding=：指定编码方式
+-n 或者 --nocode ：忽略所有代码，只为有 @name 标签的注释生成文档。
+-o= 或者 --out= ： 将日志信息输出到指定文件
+-q 或者 --quiet ： 不输出任何信息，包括警告。
+-t= 或者 --template= ：指定文档的模板，这个参数必须提供。
+2) 使用配置文件
+为了更方便的生成文档，一定需要使用配置文件来指定各项参数，包括指定输入输出目录。下面讲一下如何使用配置文件。
+在jsdoc目录下的conf文件夹中有个sample.conf文件。按注释修改目录。
+/*
+    This is an example of one way you could set up a configuration file to more
+    conveniently define some commandline options. You might like to do this if
+    you frequently reuse the same options. Note that you don't need to define
+    every option in this file, you can combine a configuration file with
+    additional options on the commandline if your wish.
+ 
+    You would include this configuration file by running JsDoc Toolkit like so:
+    java -jar jsrun.jar app/run.js -c=conf/sample.conf
+ 
+*/
+{
+    // source files to use源文件路径
+    // 如修改为['app'],将分析app下所有文件，注意一定要写成反斜杠'/'，如果是'\'不能分析路径。
+    _: ['app/test1.js'],
+ 
+    // document all functions, even uncommented ones
+    a: true,
+ 
+    // including those marked @private
+    p: true,
+ 
+    // some extra variables I want to include
+    D: {generatedBy: "Michael Mathews", copyright: "2008"},
+ 
+    // use this directory as the output directory
+    d: "docs",
+ 
+    // use this template
+    t: "templates/jsdoc"
+}
+然后在cmd中输入：
+java -jar jsrun.jar app/run.js -c=conf/test.conf
+便可以方便的生成文档，随时改变conf内容而不用在cmd中改变命令。
+</pre>

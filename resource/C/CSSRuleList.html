@@ -1,0 +1,48 @@
+CSSRuleList
+
+在本章中，您将学习：
+
+如何使用CSSRuleList在Javascript
+个人风格
+
+该CSSStyleSheet.cssRules属性返回一个CSSRuleList对象，该对象提供了访问在样式表中的个人风格。
+
+这个对象的成员在下表中进行了描述。
+
+会员	描述	回报
+项目（POS）	返回CSS样式的指定索引处。	 CSSStyleRule
+长度	返回样式在样式表的数量。	数
+在样式表中的每个CSS样式是由一个代表CSSStyleRule对象。 的成员CSSStyleRule示于下表中。
+
+会员	描述	回报
+CSSText中	获取或设置文本（包括选择器）的风格。	串
+parentStyleSheet	获取到这个样式所属的样式表。	 CSSStyleSheet
+selectorText	获取或设置选择文本样式。	串
+风格	获取表示该样式的对象。	的CSSStyleDeclaration
+下面的代码显示了如何使用CSSRuleList 。
+< ! DOCTYPE   HTML >
+ < head >
+< style title= "core styles" >
+p { border : medium double black; background - color : lightgray; }
+#block1 { color : white; border : thick solid black; background - color : gray; }
+
+<code>
+< body >
+< p id= "block1" > This is a test. </p>
+< p id= "block2" > This is a test. </p>
+< div id= "placeholder" > </div>
+
+ var placeholder = document.getElementById( "placeholder" ); processStyleSheet();
+function processStyleSheet() {
+    var rulesList = document.styleSheets[0].cssRules;
+    for ( var i = 0; i < rulesList.length; i++) {
+    var rule = rulesList.item(i);
+    var newElem = document.createElement( "table" );
+    newElem.setAttribute( "border" , "1" );
+    newElem.innerHTML += "<tr><td>parentStyleSheet:</td><td>" + rule.parentStyleSheet.title + "</td></tr>" ;
+    newElem.innerHTML += "<tr><td>selectorText:</td><td>" + rule.selectorText + "</td></tr>" ;
+    newElem.innerHTML += "<tr><td>cssText:</td><td>" + rule.cssText + "</td></tr>" ;
+    placeholder.appendChild(newElem);
+}
+    }
+    </code>

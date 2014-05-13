@@ -1,0 +1,28 @@
+<p>
+	document.addEventListener("click",doclick,false);
+当为true时 最先执行
+顺序为 addEventListener->标签的onclick事件->document.onclick
+当为false的时候
+顺序为 标签的onclick事件->document.onclick->addEventListener
+
+document.addEventListener("DOMContentLoaded", init, false);
+
+DOMContentLoaded是firefox下特有的Event, 当所有DOM解析完以后会触发这个事
+
+件。
+与DOM中的onLoad事件与其相近。但onload要等到所有页面元素加载完成才会触发
+
+, 包括页面上的图片等等。
+    如果页面的图片很多的话, 从用户访问到onload触发可能需要较长的时间,
+
+而在Ajax运用中, 常常需要在onload中加入许多初始化的动作, 如果由于网络问
+
+题引起的图片加载过慢( 见: Ajax优化(2) -- lazierLoad img && js), 则必然
+
+影响用户的体验。
+    在这种情况下firefox的DOMContentLoaded事件, 恰恰是我们需要的。
+
+目前,跨平台的DOMContentLoaded的解决方案有很多, 比如jQuery, Prototype...
+
+等等, 其实现原理大同小异.
+</p>

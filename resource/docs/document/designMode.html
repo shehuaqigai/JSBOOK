@@ -1,0 +1,45 @@
+<p>
+	Mozilla 1.3 引入了能执行微软IE浏览器designMode的功能。Mozilla 1.3支持的富文本编辑器提供的designMode功能能将HTML文档转成富文本编辑器。从Firefox 3开始，Mozilla也支持IE的contentEditable属性，该属性能允许任意元素变成编辑模式或非编辑模式。（后者能阻止在可编辑环境中对固定元素的改变）
+</p>
+<p>可以让文档可编辑,通常使用在&ltiframe />中:
+
+iframe_node.contentDocument.designMode = "on";</p>
+<p>
+	document.designMode
+将文档设置为设计模式
+当文档处于设计模式时，将不运行脚本。
+举一个简单的例子
+&ltscript for="btnDesign" event="onclick">
+targetDoc = document.frames(0).document;
+if (targetDoc.designMode == "On")
+targetDoc.designMode = "Off";
+else
+targetDoc.designMode = "On";
+&lt/script>
+&ltbutton id=btnDesign>DesignMode&lt/button>
+&ltiframe style="border: black thin; width:100%; height:200px">&lt/iframe>
+可以控制打开和关闭设计模式。 关闭之后，里面输入的内容也都清空了。
+这2个属性都是做在线文本编辑器时必须学会的。恩希望这次我能够做成功。
+&lt/p>
+<p>
+	contentEditable
+
+IE5.0以上版本有一个编辑状态,designMode是document的属性,意思是设置或获取表明文档是否可被编辑的值,默认值为off或Inherit
+HtmlEdit.document.designMode="On"; 
+
+HtmlEdit是iframe对象ID
+
+IE 中可以设置contentEditable="true" 
+
+把div的contentEditable属性设置为 true，在IE浏览器中就可以看到效果了，div中元素都变成可以编辑的了。
+&ltdiv id="tt" contentEditable="true">
+&lt/div>
+
+&ltbody contentEditable="true">   则整个页面都可以编辑了。
+Firefox中可以  使用javascript语句设置属性contentDocument.designMode为 "on"
+
+iframeName.document.designMode="on" ;
+其中iframeName 为iframe控件的name属性。
+
+在 IE7和 FireFox2.0中测试通过
+</p>

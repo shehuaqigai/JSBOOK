@@ -1,0 +1,155 @@
+
+	为什么CoffeeScript这么美?
+先说JavaScript
+<p>
+JavaScript让人又爱又恨， 因为它独特， 卓越， 而且不可或缺。 尽管如此， 要说JavaScript很美， 恐怕也有些勉强。 JavaScript现在如日中天， 未来发展更是不可小觑。 但毕竟它的设计非常仓促&ltsup>1&lt/sup>, 有些陷阱&ltsup>2&lt/sup>, 有些晦涩&ltsup>3&lt/sup>; 要不为啥Douglas Crockford的书名字叫《The Good Parts of JavaScript》呢? (题外话: 中文翻译叫"JavaScript语言精粹", 这实在是春秋笔法, 为圣者讳:D)
+</p>
+
+所以, 要是中肯的评价JavaScript: “就是不美”.
+
+JavaScript为什么不美
+
+
+
+我觉得amix讲的很清楚&ltsup>4&lt/sup>:
+
+
+
+JavaScript是函数式语言;
+
+
+是基于prototype实现的面向对象语言;
+
+
+是动态语言, 更像Lisp而非C/Java; 但却使用了C/Java的语法;
+
+
+名字里面叫Java, 其实和Java根本不搭边;
+
+
+
+<p>
+结论就是JavaScript的诞生是个悲剧. 它是函数式+动态语言的优秀内核, 却硬被绑上了C/Java的语法; 如同高分屏贴膜, 又如同剑宗人士非摆出气宗架势; 带有这种语法的JavaScript就如同包裹石头的璞玉&ltsup>5&lt/sup>, 外壳和内涵大不相称.
+</p>
+
+
+所以最大的别扭, 就在语法上.
+
+CoffeeScript为什么美
+
+
+
+语法从Lisp系重生
+
+<p>
+CoffeeScript打 蛇打到七寸了. 它的最大功绩, 就是将JavaScript硬绑的C/Java语法抛弃了; 改为采用类似Ruby/Python的语法. Ruby/Python本来就是深受Lisp影响的, 和JavaScript算是同门师兄, 他们的语法经过了实践考验, 是更适合函数式+动态语言内核的.
+</p>
+Good Parts
+
+
+<p>
+CoffeeScript只使用了JavaScript的"Good Parts(精粹)",
+ 抛弃了原来JavaScript晦涩的,容易出问题的那部分东西. 比如, 全局变量声明, with 啥的.
+</p>
+语法糖和ECMAScript
+
+
+<p>
+CoffeeScript提供了很多语法糖, 让代码更优雅可读. 去主页仔细看看CoffeeScript的语法清单, 就会发现边边角角到处是创新. 这让编程语言真的成了开发者的朋友, 而不是机器的朋友.
+</p>
+
+<p>
+CoffeeScript还提供了一个机会, 让你现在就可以使用ECMAScript&ltsup>6&lt/sup>里面的特性. 将来有个更多新特性, CoffeeScript也有机会在浏览器支持之前实现它们. 程序员面对的是CoffeeScript的优雅接口, 它是程序员和JavaScript之间的中间层, 脏活累活它都干了.
+</p>
+八卦一下未来
+
+
+<p>
+CoffeeScript构建在JavaScript上层, 这让人联想起.Net和C#/F#/VB… , 以及JVM和Java/JRuby/Scala…
+
+在JavaScript上层做事情的, 不只CoffeeScript, 还有很多其他的. 比如lua就有通过LLVM转换成JavaScript的实现. 前段时间的JavaScript PC模拟器&ltsup>7&lt/sup>也证明了这种思路的威力.
+
+也许JavaScript就是下一个JVM, 上面会有最适用于各种场景的各种语言. 很多人盼望JavaScript成为为未来的唯一语言, 看起来这是不切实际的幻想了.
+
+CoffeeScript首页的一段展示代码
+</p>
+
+<pre>
+# Assignment:
+
+number   = 42
+
+opposite = true
+
+
+
+# Conditions:
+
+number = -42 if opposite
+
+
+
+# Functions:
+
+square = (x) -> x  x
+
+
+
+# Arrays:
+
+list = [1, 2, 3, 4, 5]
+
+
+
+# Objects:
+
+math =
+
+  root:   Math.sqrt
+
+  square: square
+
+  cube:   (x) -> x  square x
+
+
+
+# Splats:
+
+race = (winner, runners...) ->
+
+  print winner, runners
+
+
+
+# Existence:
+
+alert "I knew it!" if elvis?
+
+
+
+# Array comprehensions:
+
+cubes = (math.cube num for num in list)
+
+
+
+
+
+
+
+
+1: Javascript诞生记
+
+2: Javascript的10个设计缺陷
+
+3: JavaScript: 世界上最被误解的语言
+
+4: CoffeeScript: The beautiful way to write JavaScript
+
+5: JavaScript: 死或新生(4)
+
+6: ECMAScript – WikiPedia
+
+7: JavaScript PC emulator
+
+</pre>

@@ -1,0 +1,54 @@
+<p>
+	概览
+
+随着Firefox支持getUserMedia，三个主要的桌面浏览器能够实现无需使用插件即可从摄像头中获取数据。因为现在仍处于初期阶段，所以浏览器之间的实现略有不同。下面的例子展示如何应对这些不同，并用一个脚本来帮助你做这些繁重的工作，但是首先必须了解这三款浏览器都是怎么工作的。
+</p>
+<p>
+	getUserMedia 是通过在about:config中将 media.peerconnection.enabled option 设置为 true 启用的.
+
+
+开始编码时会遇到各种差异，不过没关系，现在就让我们一起来一步一步看怎么解决这些问题。成功使用getUserMedia将按如下步骤为大家一一介绍：
+
+1.    一点HTML5小知识
+2.    特征检测
+3.    视频流
+4.    准备就绪
+5.    最后一点小提示
+深吸一口气哦，好戏即将开始…
+
+
+一点HTML5小知识
+
+在这个简短的教程中，我们的主要任务是只是为了将一个动态图像显示在一个页面中。视频都是普通视频，所以第一步是在HTML文件中引入一个简单的&ltvideo>元素：
+
+
+
+就这样。没有控制，没有源码，什么都没有。
+
+在JavaScript中，需要得到关联到&ltvideo>元素，我们可以这样做（或者用一个id）：
+
+
+
+
+
+特征检测
+
+在我们检查getUserMedia支持时事情就变得有趣起来。我们绝对不会使用不可靠的用户代理去做嗅探 – 绝不，我们将用检查navigator.getUserMedia对象这种最简单的方式来实现。它是在Firefox和Chrome对前缀中，所以在所有的浏览器中将其分配到一个共同的对象会非常的方便。比如为window.URL对象采用这种方式，以便稍后使用。
+
+navigator.getUserMedia= navigator.getUserMedia|| navigator.webkitGetUserMedia|| navigator.mozGetUserMedia|| navigator.msGetUserMedia;window.URL= window.URL|| window.webkitURL|| window.mozURL|| window.msURL;
+
+然后实际存在性的检查如下：
+if(navigator.getUserMedia){// Call the getUserMedia method here}else{    console.log('Native device media streaming (getUserMedia) not supported in this browser.');// Display a friendly "sorry" message to the user.}
+
+如果getUserMedia支持，我们需要为它传递三个参数 – 一个选项对象，一个成功的回调函数和一个错误回调函数。需要注意的是错误回调函数在Firefox是必须的，但在Opera和Chrome是可选的。选项参数是一个JSON风格的对象，指定是否要使用音频，视频或两者都将使用。下面的示例代码仅适用于视频：
+navigator.getUserMedia({video:true}, successCallback, errorCallback);
+视频流
+
+到目前为止，一切都很好，让我们看看接下来会发生什么。成功回调函数接收一个参数，包含摄像头的视频流，我们需要将该视频流发送到我们的<video>元素。为此，我们设定它的src属性，但有几件事情要牢记：
+
+    Firefox使用mozSrcObject的属性，而Opera和Chrome使用src属性。
+    Chrome使用createObjectURL的方法，而Firefox和Opera直接发送视频流。
+
+在Firefox中，video.mozSrcObject最初为null，而不是未定义的，所以我们可以靠这个来检测Firefox的支持（hat tip to Florent）。一旦视频流知道去哪儿了，我们就可以告诉视频流播放了。
+
+</p>

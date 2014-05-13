@@ -1,0 +1,102 @@
+<div id="wiki-content" class="column-half wiki-column text-content">
+
+          
+          
+                                    <div class="warning warning-review"><p>This article is in need of a technical review.</p></div>
+                                            
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <div>
+  <span class="breadcrumbs domRef_breadcrumbs themeUpdated">«&nbsp;<a href="/en-US/docs/DOM/DOM_Reference">DOM Reference</a></span> 
+ 
+ 
+<section class="Quick_links" id="Quick_Links"><!-- --></section></div>
+<h2 id="Summary" name="Summary">Summary</h2>
+<p>Returns the statusbar object, whose visibility can be toggled in the window.</p>
+<h2 id="Syntax" name="Syntax">Syntax</h2>
+<pre class="syntaxbox language-html" data-prism-prevent-line-number="1"><var>objRef</var> = window.statusbar
+</pre>
+<h2 id="Example" name="Example">Example</h2>
+<p>The following complete HTML example shows a way that the visible property of the various "bar" objects is used, and also the change to the privileges necessary to write to the visible property of any of the bars on an existing window.</p>
+<pre class="brush:html  language-html" data-number=""><code class=" language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Various DOM Tests<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token comment" spellcheck="true">
+// changing bar states on the existing window
+</span>netscape<span class="token punctuation">.</span>security<span class="token punctuation">.</span>PrivilegeManager<span class="token punctuation">.</span><span class="token function">enablePrivilege<span class="token punctuation">(</span></span><span class="token string">"UniversalBrowserWrite"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+window<span class="token punctuation">.</span>statusbar<span class="token punctuation">.</span>visible<span class="token operator">=</span><span class="token operator">!</span>window<span class="token punctuation">.</span>statusbar<span class="token punctuation">.</span>visible<span class="token punctuation">;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Various DOM Tests<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div></code></pre>
+<h2 id="Notes" name="Notes">Notes</h2>
+<p>When you load the example page above, the browser displays the following dialog: <img height="262" src="https://mdn.mozillademos.org/files/550/Modify_any_open_window_dialog.png" width="607"></p>
+<p>To toggle the visibility of these bars, you must either sign your scripts or enable the appropriate privileges, as in the example above. Also be aware that dynamically updating the visibilty of the various toolbars can change the size of the window rather dramatically, and may affect the layout of your page.</p>
+<h2 id="Specification" name="Specification">Specification</h2>
+<ul>
+  <li>DOM Level 0. Not part of any standard.</li>
+</ul>
+<h2 id="See_also" name="See_also">See also</h2>
+<ul>
+  <li><a href="/en-US/docs/Web/API/Window.locationbar">window.locationbar</a>, <a href="/en-US/docs/Web/API/Window.menubar">window.menubar</a>, <a href="/en-US/docs/Web/API/Window.personalbar">window.personalbar</a>, <a href="/en-US/docs/Web/API/Window.scrollbars">window.scrollbars</a>, <a href="/en-US/docs/Web/API/Window.toolbar">window.toolbar</a></li>
+</ul>
+                                    </article>
+
+                      <!-- attachments list -->
+                          <section class="page-meta">
+<section id="page-attachments">
+
+  <h3><i aria-hidden="true" class="icon-paper-clip"></i>Attachments</h3>
+
+  
+  <p id="page-attachments-no-message" class="hidden">
+    This document has no attachments.
+  </p>
+
+ 
+
+
+    <table cellpadding="0" cellspacing="0" id="page-attachments-table" class="">
+      <thead>
+        <tr><th>File</th>
+        <th>Size</th>
+        <th>Date</th>
+        <th>Attached by</th>
+      </tr></thead>
+      <tbody>
+                  <tr data-revision-id="651" data-attachment-id="550">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/550/Modify_any_open_window_dialog.png" target="_blank">Modify_any_open_window_dialog.png</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>22168 bytes</td>
+  <td>2007-12-19 14:58:45</td>
+  <td><a href="/en-US/profiles/Potappo">Potappo</a></td>
+</tr>
+              </tbody>
+    </table>
+
+
+  </section>
+</section>            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <!-- tags if present -->
+              <div class="tag-attach-list tags contributor-sub">
+                <i aria-hidden="true" class="icon-tags"></i><strong>Tags:</strong>
+                <ul class="tag-list"><li><a href="/en-US/docs/tag/API">API</a></li><li><a href="/en-US/docs/tag/Reference">Reference</a></li><li><a href="/en-US/docs/tag/Property">Property</a></li><li><a href="/en-US/docs/tag/R%C3%A9f%C3%A9rence">Référence</a></li><li><a href="/en-US/docs/tag/Gecko%20DOM%20Reference">Gecko DOM Reference</a></li><li><a href="/en-US/docs/tag/DOM">DOM</a></li><li><a href="/en-US/docs/tag/Gecko">Gecko</a></li></ul>
+              </div>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/en-US/profiles/Jabez">Jabez</a>, <a href="/en-US/profiles/Sheppy">Sheppy</a>, <a href="/en-US/profiles/teoli">teoli</a>, <a href="/en-US/profiles/ethertank">ethertank</a>, <a href="/en-US/profiles/JesseW">JesseW</a>, <a href="/en-US/profiles/kscarfone">kscarfone</a>, <a href="/en-US/profiles/Mgjbot">Mgjbot</a>, <a href="/en-US/profiles/iamanupmenon">iamanupmenon</a>, <a href="/en-US/profiles/Potappo">Potappo</a>, <a href="/en-US/profiles/Dria">Dria</a>, <a href="/en-US/profiles/Bzbarsky">Bzbarsky</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/en-US/profiles/teoli">teoli</a>,
+                  <time datetime="2013-09-25T04:21:22-07:00">Sep 25, 2013 4:21:22 AM</time>
+                </div>
+                          </div>
+                  </div>

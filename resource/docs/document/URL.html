@@ -1,0 +1,21 @@
+<p>
+	document 表示的是一个文档对象，windows 表示一个窗口对象。 
+一个窗口下面可以有很多的document对象。每个document 都有 一个URL。 
+</p>
+<p>
+	但是，这不是所有的区别。比如一个链接 http://www.qiuge.net/#server 
+打印 alert(document.URL ); 和 alert(windows.location.href); 
+发现，这两个的值不一样， 
+document.URL ： http://www.qiuge.net/ 
+windows.location.href ：http://www.qiuge.net/#server 
+所以，如果要用 fragment 进行相应的处理的话，最好是用 windows.location.href 
+否则会出现很奇怪的错误。
+</p>
+<p>
+	定义和用法
+URL 属性可返回当前文档的 URL。
+语法
+document.URL
+说明
+一般情况下，该属性的值与包含文档的 Window 的 location.href 属性相同。不过，在 URL 重定向发生的时候，这个 URL 属性保存了文档的实际 URL，而 location.href 保存了请求的 URL。
+</p>

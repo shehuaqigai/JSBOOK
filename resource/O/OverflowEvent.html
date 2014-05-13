@@ -1,0 +1,244 @@
+<div class="content" id="content">
+						<div>
+							<noscript>
+								&lt;div class="noscript" style="margin:24px;"&gt;
+									&lt;img src="http://dottorocdn.com/images/help/noscript.gif" alt="In order to access this site you need to enable JavaScript!" /&gt;
+								&lt;/div&gt;
+							</noscript>
+							<!--BOOKMARK_LOCATION-->
+	<div class="location">You are here: <a href="/llqwxqoe.php">Reference</a> &gt; <a href="/ljsdaoxj.php">JavaScript</a> &gt; <a href="/ljswgnnf.php">client-side</a> &gt; <a href="/ljtdqwlx.php">event handling</a> &gt; <a href="/ljfvvdnm.php">events</a> &gt; overflow</div>
+
+<!--BOOKMARK_HEADER-->
+	<h1 style="margin:16px 0px;"><a name="overflow">overflow</a> event</h1>
+								<div class="contentHeader">
+									<div class="contentHeaderItem" style="padding-left:4px;">
+										<div class="content_btns add_content_btn" onclick="AddContent ();" title="Add new content"></div>
+									</div>
+									<div class="contentHeaderItem" style="padding:3px 0 0 15px;">
+										<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fhelp.dottoro.com&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowtransparency="true"></iframe>
+									</div>
+									<div class="contentHeaderItem" style="padding:2px 0 0 12px;">
+										<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background-color: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background-position: initial initial; background-repeat: initial initial;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1391319231725" name="I0_1391319231725" src="https://apis.google.com/u/0/_/+1/fastbutton?usegapi=1&amp;bsv=o&amp;size=medium&amp;origin=http%3A%2F%2Fhelp.dottoro.com&amp;url=http%3A%2F%2Fhelp.dottoro.com%2Fljgsfkbc.php&amp;gsrc=3p&amp;ic=1&amp;jsh=m%3B%2F_%2Fscs%2Fapps-static%2F_%2Fjs%2Fk%3Doz.gapi.en.p2j6_8CIHqo.O%2Fm%3D__features__%2Fam%3DIQ%2Frt%3Dj%2Fd%3D1%2Ft%3Dzcms%2Frs%3DAItRSTMwXNMOsHUhb-iA5azRW_-Cro3pPQ#_methods=onPlusOne%2C_ready%2C_close%2C_open%2C_resizeMe%2C_renderstart%2Concircled%2Cdrefresh%2Cerefresh&amp;id=I0_1391319231725&amp;parent=http%3A%2F%2Fhelp.dottoro.com&amp;pfname=&amp;rpctoken=31998859" data-gapiattached="true" title="+1"></iframe></div>
+									</div>
+									<div class="contentHeaderItem" style="padding:3px 0 0 0;">
+										<div class="content_btns share_btn" onclick="ShowBookmarkDialog ();" title="Share"></div>
+									</div>
+									<div class="clear"></div>
+								</div>
+
+
+<!--BOOKMARK_BROWSERSUPPORT-->
+	<b>Browser support:</b>
+	<div style="margin:10px 30px 22px 30px;"><table cellpadding="0px" cellspacing="0px" border="0px" class="supportTable_Large"><tbody><tr class="supportRow_Icons"><td class="browserIconIE_22_no" title="Not supported by Internet Explorer"></td><td class="browserIconFF_22" title="Supported by Firefox"></td><td class="browserIconOP_22_no" title="Not supported by Opera"></td><td class="browserIconSA_22_no" title="Not supported by Safari"></td><td class="browserIconCH_22_no" title="Not supported by Google Chrome"></td></tr></tbody></table></div>
+
+
+<!--BOOKMARK_SHORTDESC-->
+	<div class="desc">Occurs when the contents or the size of an element is changed and it causes a scrollbar to appear.</div>
+<!--BOOKMARK_REMARKS-->
+	<div class="remarks">The opposite event is the <a href="/ljgsgpvd.php">underflow</a> event, which fires when the contents or the size of an element is changed and it causes a scrollbar to disappear.
+Use the <a href="/ljrxdxdw.php">detail</a> property for the <b>overflow</b> and <a href="/ljgsgpvd.php">underflow</a> events to identify the scrollbars whose visibility has changed.
+A value of 0 means the vertical scrollbar, a value of 1 means the horizontal scrollbar and a value of 2 means both the horizontal and vertical scrollbars.
+
+<div style="border:1px solid #d2d4c7; background-color:#edece8; margin:16px 10px; padding:5px;">
+	The <a href="/ljbnnejo.php">overflowchanged</a> event provides similar functionality in Google Chrome and Safari.
+</div>
+
+To modify the behavior of the scrollbars for an element, use the <a href="/ljrmdnar.php">overflow</a> style property.</div>
+
+<!--BOOKMARK_SYNTAX-->
+	<h2 style="margin-top:40px;">How to register:</h2>
+	<div class="line" style="margin-bottom:16px;"></div>
+	<div class="container" style="margin:0px 20px;"><b>In HTML:</b> <div style="margin:0px 20px 16px 20px;">This event cannot be registered in HTML.</div><br><b>In JavaScript:</b> <div style="margin:0px 20px;"><nobr>object.<a href="/ljeuqqoq.php">addEventListener</a> ("overflow", handler, useCapture);</nobr></div></div>
+
+	<div style="margin:16px 30px;">
+		The <a href="/ljogqtqm.php">event</a> object is accessible to all event handlers in all browsers.
+		The properties of the <a href="/ljogqtqm.php">event</a> object contain additional information about the current event.
+		To get further details about these properties and the possible event handler registration methods, please see the page for the <a href="/ljogqtqm.php">event</a> object.
+	</div>
+
+<!--BOOKMARK_CROSSREFERENCE-->
+	<table class="crossReference" cellpadding="0px" cellspacing="0px">
+		<tbody><tr><td>
+			For a complete list of events, see the page for <a href="/larrqqck.php">Events in JavaScript</a>.
+		</td></tr>
+	</tbody></table>
+
+<!--BOOKMARK_INVOKEREMARKS-->
+	<div><h2 style="margin-top:40px;">Basic information:</h2>
+	<div class="line" style="margin-bottom:16px;"></div>
+
+	<table class="basicEventInfo" cellpadding="3px" cellspacing="2px">
+		<tbody><tr>
+			<td><b>Bubbles</b></td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td><b>Cancelable</b></td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td><b>Event object</b></td>
+			<td><a href="/lagstsiq.php/#UIEvent">UIEvent</a></td>
+		</tr>
+	</tbody></table>
+
+	<h2 style="margin-top:40px;">Actions that invoke the <b>overflow</b> event:</h2>
+	<div class="line" style="margin-bottom:16px;"></div>
+
+	<div class="container" style="margin:0px 30px;">
+		<ul style="margin:0px; padding-left:20px;">
+			<li>Modifying the contents of an element (by script or by the user).</li>
+			<li>Changing the width or height of an element (by script or by the user).</li>
+		</ul>
+	</div></div>
+
+<!--BOOKMARK_EXAMPLES-->
+	<h2 style="margin-top:50px;">Example HTML code 1:</h2>
+	<div class="line" style="margin-bottom:16px;"></div>
+	
+	<div style="margin:0px 30px 16px 30px;">This example illustrates the use of the <b>overflow</b> event.</div>
+
+<!-- google_ad_section_start(weight=ignore) -->
+	<div class="exampleWrapper">
+		<table cellpadding="0px" cellspacing="0px">
+			<tbody><tr>
+				<td>
+					<table class="tabsTable" cellpadding="0px" cellspacing="0px">
+						<tbody><tr class="tabsRow">
+
+						</tr>
+					</tbody></table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="example_0" class="example" style="border-left:8px solid #95b7d8;"><pre><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">head</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">script</span><span class="exam_def"> </span><span class="exam_htmlattr">type</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"text/javascript"</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+        </span><span class="exam_jskeyword">function</span><span class="exam_def"> Init () {
+            </span><span class="exam_jskeyword">var</span><span class="exam_def"> div = </span><span class="exam_jsprop">document</span><span class="exam_def">.</span><span class="exam_jsmethod">getElementById</span><span class="exam_def"> (</span><span class="exam_jsstring">"myDiv"</span><span class="exam_def">);
+            </span><span class="exam_jskeyword">if</span><span class="exam_def"> (div.</span><span class="exam_jsmethod">addEventListener</span><span class="exam_def">) {
+                div.</span><span class="exam_jsmethod">addEventListener</span><span class="exam_def"> (</span><span class="exam_jsstring">'overflow'</span><span class="exam_def">, OnOverflowChanged, </span><span class="exam_jskeyword">false</span><span class="exam_def">);
+                div.</span><span class="exam_jsmethod">addEventListener</span><span class="exam_def"> (</span><span class="exam_jsstring">'underflow'</span><span class="exam_def">, OnOverflowChanged, </span><span class="exam_jskeyword">false</span><span class="exam_def">);
+            }
+        }
+
+        </span><span class="exam_jskeyword">function</span><span class="exam_def"> OnOverflowChanged (</span><span class="exam_jsprop">event</span><span class="exam_def">) {
+            </span><span class="exam_jskeyword">if</span><span class="exam_def"> (</span><span class="exam_jsprop">event</span><span class="exam_def">.</span><span class="exam_jsprop">type</span><span class="exam_def"> == </span><span class="exam_jsstring">"overflow"</span><span class="exam_def">) {
+                </span><span class="exam_jskeyword">switch</span><span class="exam_def"> (</span><span class="exam_jsprop">event</span><span class="exam_def">.</span><span class="exam_jsprop">detail</span><span class="exam_def">) {
+                    </span><span class="exam_jskeyword">case</span><span class="exam_def"> </span><span class="exam_jsnumber">0</span><span class="exam_def">:
+                        </span><span class="exam_jsmethod">alert</span><span class="exam_def"> (</span><span class="exam_jsstring">"The vertical scrollbar has appeared."</span><span class="exam_def">);
+                        </span><span class="exam_jskeyword">break</span><span class="exam_def">;
+                    </span><span class="exam_jskeyword">case</span><span class="exam_def"> </span><span class="exam_jsnumber">1</span><span class="exam_def">:
+                        </span><span class="exam_jsmethod">alert</span><span class="exam_def"> (</span><span class="exam_jsstring">"The horizontal scrollbar has appeared."</span><span class="exam_def">);
+                        </span><span class="exam_jskeyword">break</span><span class="exam_def">;
+                    </span><span class="exam_jskeyword">case</span><span class="exam_def"> </span><span class="exam_jsnumber">2</span><span class="exam_def">:
+                        </span><span class="exam_jsmethod">alert</span><span class="exam_def"> (</span><span class="exam_jsstring">"The horizontal and vertical scrollbars have both appeared."</span><span class="exam_def">);
+                        </span><span class="exam_jskeyword">break</span><span class="exam_def">;
+                }
+            }
+            </span><span class="exam_jskeyword">else</span><span class="exam_def"> {
+                </span><span class="exam_jskeyword">switch</span><span class="exam_def"> (</span><span class="exam_jsprop">event</span><span class="exam_def">.</span><span class="exam_jsprop">detail</span><span class="exam_def">) {
+                    </span><span class="exam_jskeyword">case</span><span class="exam_def"> </span><span class="exam_jsnumber">0</span><span class="exam_def">:
+                        </span><span class="exam_jsmethod">alert</span><span class="exam_def"> (</span><span class="exam_jsstring">"The vertical scrollbar has disappeared."</span><span class="exam_def">);
+                        </span><span class="exam_jskeyword">break</span><span class="exam_def">;
+                    </span><span class="exam_jskeyword">case</span><span class="exam_def"> </span><span class="exam_jsnumber">1</span><span class="exam_def">:
+                        </span><span class="exam_jsmethod">alert</span><span class="exam_def"> (</span><span class="exam_jsstring">"The horizontal scrollbar has disappeared."</span><span class="exam_def">);
+                        </span><span class="exam_jskeyword">break</span><span class="exam_def">;
+                    </span><span class="exam_jskeyword">case</span><span class="exam_def"> </span><span class="exam_jsnumber">2</span><span class="exam_def">:
+                        </span><span class="exam_jsmethod">alert</span><span class="exam_def"> (</span><span class="exam_jsstring">"The horizontal and vertical scrollbars have both disappeared."</span><span class="exam_def">);
+                        </span><span class="exam_jskeyword">break</span><span class="exam_def">;
+                }
+            }
+        }
+
+        </span><span class="exam_jskeyword">function</span><span class="exam_def"> ResizeTo (w, h) {
+            </span><span class="exam_jskeyword">var</span><span class="exam_def"> div = </span><span class="exam_jsprop">document</span><span class="exam_def">.</span><span class="exam_jsmethod">getElementById</span><span class="exam_def"> (</span><span class="exam_jsstring">"myDiv"</span><span class="exam_def">);
+            div.</span><span class="exam_jsprop">style</span><span class="exam_def">.</span><span class="exam_jsprop">width</span><span class="exam_def"> = w + </span><span class="exam_jsstring">"px"</span><span class="exam_def">;
+            div.</span><span class="exam_jsprop">style</span><span class="exam_def">.</span><span class="exam_jsprop">height</span><span class="exam_def"> = h + </span><span class="exam_jsstring">"px"</span><span class="exam_def">;
+        }
+    </span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">script</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">head</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+</span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">body</span><span class="exam_def"> </span><span class="exam_htmlattr">onload</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"Init ();"</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">div</span><span class="exam_def"> </span><span class="exam_htmlattr">id</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"myDiv"</span><span class="exam_def"> </span><span class="exam_htmlattr">style</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"width:200px;height:200px; overflow:auto; background-color:#e0a0a0;"</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+        </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Text of the first line.</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_htmltagop">/&gt;</span><span class="exam_def">
+        </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Text of the second line.</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_htmltagop">/&gt;</span><span class="exam_def">
+        </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Text of the third line.</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_htmltagop">/&gt;</span><span class="exam_def">
+        </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Text of the fourth line.</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_htmltagop">/&gt;</span><span class="exam_def">
+        </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Text of the fifth line.</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_htmltagop">/&gt;</span><span class="exam_def">
+        </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Text of the sixth line.</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">nobr</span><span class="exam_htmltagop">&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_htmltagop">/&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">div</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">br</span><span class="exam_def"> </span><span class="exam_htmltagop">/&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_def"> </span><span class="exam_htmltagop">/&gt;&lt;</span><span class="exam_htmltag">br</span><span class="exam_def"> </span><span class="exam_htmltagop">/&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">button</span><span class="exam_def"> </span><span class="exam_htmlattr">onclick</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"ResizeTo (100, 100);"</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Resize to 100*100</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">button</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">button</span><span class="exam_def"> </span><span class="exam_htmlattr">onclick</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"ResizeTo (200, 100);"</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Resize to 200*100</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">button</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">button</span><span class="exam_def"> </span><span class="exam_htmlattr">onclick</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"ResizeTo (100, 200);"</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Resize to 100*200</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">button</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+    </span><span class="exam_htmltagop">&lt;</span><span class="exam_htmltag">button</span><span class="exam_def"> </span><span class="exam_htmlattr">onclick</span><span class="exam_htmltagop">=</span><span class="exam_htmlattrvalue">"ResizeTo (200, 200);"</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">Resize to 200*200</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">button</span><span class="exam_htmltagop">&gt;</span><span class="exam_def">
+</span><span class="exam_htmltagop">&lt;/</span><span class="exam_htmltag">body</span><span class="exam_htmltagop">&gt;</span></pre></div>
+
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table class="example_footer" cellpadding="0px" cellspacing="0px">
+						<tbody><tr>
+							<td style="border-left:none;" onclick="CopyToClip (this);">Copy Code</td>
+							<td onclick="PrintExample (this);">Print</td>
+							<td style="color:#b64b4b;" onclick="window.open ('/external/examples/ljgsfkbc/overflow_1.htm', '_blank', 'width=500, height=350, scrollbars=yes, resizable=yes, location=no, status=no, menubar=no, toolbar=no');">Preview</td>
+							<td class="example_trademarkCell" align="right"><a target="_blank" href="http://tools.dottoro.com/services/highlighter/">Syntax Highlighter</a></td>
+						</tr>
+					</tbody></table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="example_vote">
+						<b>Did you find this example helpful?</b> 
+						<span style="padding:0px 6px;">
+							<span class="button" onclick="ExampleVote (this, 1, '1');" ondblclick="return false;">yes</span>
+							<span class="button" onclick="ExampleVote (this, 0, '1');" ondblclick="return false;">no</span>
+						</span>
+					</div>
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+<!-- google_ad_section_end -->
+
+
+<!--BOOKMARK_SUPPORTED-->
+
+
+<!--BOOKMARK_RELPAGES-->
+	<h2 style="margin-top:50px;">Related pages:</h2>
+	<div class="line" style="margin-bottom:16px;"></div>
+	<div class="link_container"><a href="/ljgsgpvd.php">underflow event</a><br><a href="/ljbnnejo.php">overflowchanged event</a><br><a href="/ljrmdnar.php">overflow style property</a><br></div>
+
+<!--BOOKMARK_LINKS-->
+
+
+
+<!--BOOKMARK_COPYRIGHT-->
+	
+															<div class="share_line" style="margin-top:30px;">
+									<span class="share">Share:</span>
+									<span onclick="Bookmark.Open ('digg');">Digg</span>
+									<span onclick="Bookmark.Open ('delicious');">Del.icio.us</span>
+									<span onclick="Bookmark.Open ('reddit');">Reddit</span>
+									<span onclick="Bookmark.Open ('facebook');">Facebook</span>
+									<span onclick="Bookmark.Open ('twitter');">Twitter</span>
+									<span onclick="Bookmark.Open ('diigo');">Diigo</span>
+									<div class="content_btns share_btn" onclick="ShowBookmarkDialog ();" title="Share"></div>
+									<div class="clear"></div>
+								</div>
+														<div style="clear:both;padding-top:30px;">
+								
+								<!-- 728x90, help_bottom_leaderboard -->
+								<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1919504931917262" data-ad-slot="9156969242" data-adsbygoogle-status="done"><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+								
+							</div>
+							<div class="add_content_line">
+								<div style="padding:8px 20px; white-space:nowrap">User Contributed Comments</div>
+							</div>
+								
+
+						</div>
+					</div>

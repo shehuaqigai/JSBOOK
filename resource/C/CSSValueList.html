@@ -1,0 +1,88 @@
+org.w3c.dom.css
+接口CSSValueList
+
+所有超级：
+CSSValue
+公共接口CSSValueList
+扩展CSSValue
+该CSSValueList接口提供的CSS值的有序集合的抽象。
+
+有些属性允许一个空列表到他们的语法。 在这种情况下，这些属性有none标识符。 因此，一个空列表意味着该属性的值是none 。
+
+在该项目CSSValueList是通过一个整数索引访问，从0开始。
+
+另请参阅文档对象模型（DOM）级别2样式规范 。
+
+因为：
+DOM Level 2中
+字段从接口org.w3c.dom.css继承。 CSSValue
+CSS_CUSTOM , CSS_INHERIT , CSS_PRIMITIVE_VALUE , CSS_VALUE_LIST
+方法摘要
+int	getLength ()
+数CSSValues ​​在列表中。
+CSSValue	item (int index)
+用于检索CSSValue按序号索引。
+方法从接口org.w3c.dom.css继承。 CSSValue
+getCssText , getCssValueType , setCssText
+方法详细信息
+的getLength
+
+公众诠释的getLength（）
+数CSSValues ​​在列表中。 该指数的有效值的范围是0到length-1包容性。
+项目
+
+公共CSSValue 项目 （INT指数）
+用于检索CSSValue按序号索引。 在这个集合中的顺序代表了CSS样式属性值的顺序。 如果指数大于或等于值在列表中的个数，则返回null 。
+参数：
+index -指数到集合中。
+返回：
+该CSSValue在index中的位置CSSValueList ，或null ，如果这不是一个有效的索引。
+
+
+
+代表一个复杂的样式属性的值及其类型。
+该CSSValue对象是所有可用的样式值的基本接口。
+有迹象表明，从继承在JavaScript中两个对象CSSValue对象：
+一个是CSSPrimitiveValue简单的样式值（对象的颜色 ， 宽度 ， 高度 ，...）。
+另一种是复杂的样式值（该CSSValueList对象backgroundPosition ， borderSpacing ， 光标 ，...）。
+该getPropertyCSSValue方法返回一个CSSPrimitiveValue或CSSValueList对象，根据不同的样式属性的值的类型。 如遇某些特殊样式属性，该getPropertyCSSValue方法返回自定义对象。 自定义对象也继承了CSSValue对象。
+该cssValueType返回对象的属性可以帮助确定其类型。
+注：所有可能返回的对象支持cssValueType属性，因为它是从继承CSSValue对象。
+该CSSValueList集合表示的复数值作为列表CSSValue对象。 详情参见下面的例子。
+语法：
+方法返回的对象：
+•	 对象 。 getPropertyCSSValue （属性）
+相关的对象：
+的CSSStyleDeclaration ， 风格
+的基本接口，通过它您可以添加新的功能到CSSValueList集合，是CSSValueList接口。
+继承自：
+CSSValue
+可能的成员​​：
+属性：
+CSSText中
+设置或检索的样式声明的内容作为一个字符串。
+cssValueType
+返回属于当前对象的样式值的类型。
+长度
+返回一个整数，指定当前集合中对象的数目。
+
+此属性为只读。
+方法：
+[ 指数 ]
+返回CSSValue通过索引对象从当前集合。
+参数：
+
+指数
+要求。 从零开始的整数，指定对象的位置来检索。
+返回值：
+
+返回CSSValue对象。
+项目（ 指数 ）
+返回CSSValue通过索引对象从当前集合。
+参数：
+
+指数
+要求。 从零开始的整数，指定对象的位置来检索。
+返回值：
+
+返回CSSValue对象。

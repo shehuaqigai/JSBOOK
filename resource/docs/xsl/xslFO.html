@@ -1,0 +1,222 @@
+<p>
+XSL-FO是用于格式化XML数据的语言，全称为Extensible Stylesheet Language Formatting Objects（格式化对象的可扩展样式表语言），是W3C参考标准，现在通常叫做XSL。
+什么是 XSL-FO
+
+XSL-FO 是用于格式化 XML 数据的语言
+XSL-FO 指可扩展样式表语言格式化对象（Extensible Stylesheet Language Formatting Objects）
+XSL-FO 是一个 W3C 推荐标准
+XSL-FO 目前通常被称为 XSL
+通常被称为 XSL
+
+为什么会存在这样的混淆呢？XSL-FO 和 XSL 是一回事吗？
+可以这么说，不过我们需要向您作一个解释：
+样式化（Styling）是关于转换信息和格式化信息两方面的信息。在万维网联盟编写他们的首个 XSL 工作草案的时候，这个草案包括了有关转换和格式化 XML 文档的语言语法。
+后来，XSL 工作组把这个原始的草案分为独立的标准：
+XSLT，用于转换 XML 文档的语言
+XSL 和 XSL-FO，用于格式化 XML 文档的语言
+XPath，是通过元素和属性在 XML 文档中进行导航的语言
+XSL-FO 使用矩形框（区域）来显示输出。
+2XSL-FO 区域
+编辑
+
+XSL 格式化模型定义了一系列的矩形区域（框）来显示输出。
+所有的输出（文本、图片，等等）都会被格式化到这些框中，然后会被显示或打印到某个目标媒介。
+让我们研究一下下面这些区域：[1]
+Pages（页面）
+Regions（区）
+Block areas（块区域）
+Line areas（行区域）
+Inline areas（行内区域）
+XSL-FO Pages（页面）
+
+XSL-FO 输出会被格式化到页面中。打印输出通常会分为许多分割的页面。浏览器输出经常会成为一个长的页面。
+XSL-FO Pages（页面）包含区（Region）。
+XSL-FO Regions（区）
+
+每个 XSL-FO 页面均包含一系列的 Regions（区）：
+region-body（页面的主体）
+region-before（页面的页眉）
+region-after（页面的页脚）
+region-start（左侧栏）
+region-end（右侧栏）
+XSL-FO Regions（区）包含块区域（Block Area）。
+XSL-FO Block Areas（块区域）
+
+XSL-FO Block Areas（块区域）定义了小的块元素（通常由一个新行开始），比如段落、表格以及列表。
+XSL-FO Block Areas（块区域）包含其他的块区域，不过大多数时候它们包含的是行区域（Line Area）。
+XSL-FO Line Areas（行区域）
+
+XSL-FO Line Areas（行区域）定义了块区域内部的文本行。
+XSL-FO Line Areas（行区域）包含行内区域（Inline Area）。
+XSL-FO Inline Areas（行内区域）
+
+XSL-FO Inline Areas（行内区域）定义了行内部的文本（着重号、单字符、图像，等等）。
+3XSL-FO 文档
+编辑
+
+XSL-FO 文档是带有输出信息的 XML 文件。
+XSL-FO 文档是带有输出信息的 XML 文件。它们包含着有关输出布局以及输出内容的信息。
+XSL-FO 文档存储在以 .fo 或 .fob 为后缀的文件中。以 .xml 为后缀存储的 XSL-FO 文档也很常见，这样做的话可以使 XSL-FO 文档更易被 XML 编辑器存取。
+XSL-FO 文档的结构
+XSL-FO 的文档结构类似这样：
+<pre>
+	
+
+&lt?xml version="1.0" encoding="ISO-8859-1"?>
+&ltfo:root xmlns:fo="/1999/XSL/Format">
+&ltfo:layout-master-set>
+&ltfo:simple-page-master master-name="A4">
+&lt!-- Page template goes here -->
+&lt/fo:simple-page-master>
+&lt/fo:layout-master-set>
+&ltfo:page-sequence master-reference="A4">
+&lt!-- Page content goes here -->
+&lt/fo:page-sequence>
+&lt/fo:root>结构解释
+XSL-FO 文档属于 XML 文档，因为也需要以 XML 声明来起始：
+&lt?xml version="1.0" encoding="ISO-8859-1"?>&ltfo:root> 
+元素是 XSL-FO 文档的根元素。这个根元素也要声明 XSL-FO 的命名空间：
+&ltfo:root xmlns:fo=org/1999/XSL/Format">
+&lt!-- 此处是 XSL-FO 文档的内容 -->
+&lt/fo:root><fo:layout-master-set> 元素含有一个或多个页面模板：
+&ltfo:layout-master-set>
+&lt!-- 此处是所有的页面模板 -->
+&lt/fo:layout-master-set>&ltfo:simple-page-master> 
+元素包含一个单一的页面模板。每个模板须有一个唯一的名称(master-name)：
+&ltfo:simple-page-master master-name="A4">
+&lt!-- 此处是某一个页面模板 -->
+&lt/fo:simple-page-master>一个或多个 &ltfo:page-sequence> 
+元素可描述页面的内容。master-reference 属性使用相同的名称来引用 simple-page-master 模板：
+vfo:page-sequence master-reference="A4">
+&lt!-- 此处是页面内容 -->
+&lt/fo:page-sequence>注释：master-reference 的值 "A4" 
+</pre>
+实际上并没有描述某个预定义的页面格式。它仅仅是一个名称。
+您可以使用任何名称，比如 "MyPage"、"MyTemplate" 等等。
+4XSLFO 对象
+编辑
+<pre>
+	
+
+对象
+描述
+basic-link
+定义一个链接的起始资源
+bidi-override
+Overrides the default Unicode BIDI direction
+block
+定义一个输出块（比如段落和标题）
+block-container
+定义一个块级的引用区域（reference-area）
+character
+定义一个字符，该字符会被映射为供呈现的字形
+color-profile
+定义样式表的一个颜色配置文件
+conditional-page-master-reference
+规定一个当所定义的条件成立时使用的page-master
+declarations
+组合针对某个样式表的全局声明
+external-graphic
+用于图像数据位于XML结果树之外的某个图形
+float
+典型的用法是，在页面起始位置的某个单独的区域放置一幅图片，
+或者把一幅图片放置到一侧，而内容则流动至图片的旁边。
+flow
+包含所有被输出到页面的元素
+footnote
+定义在页面的region-body内部的一个脚注
+footnote-body
+定义脚注的内容
+initial-property-set
+格式化&ltfo:block>的第一行
+inline
+通过背景或者将其包围在一个边框中，来格式化文本的某个部分
+inline-container
+定义一个行内的引用区域（inline reference-area）
+instream-foreign-object
+用于行内图形（inline graphics）或用于普通对象，
+其中对象的数据作为&ltfo:instream-foreign-object>的后代存在。
+layout-master-set
+存有所有用在文档中的master
+leader
+用来生成"."由内容表格中的页码来分隔标题，
+或者创建表单中的输入域，或者创建水平线
+list-block
+定义列表
+list-item
+包含列表中的每个项目
+list-item-body
+包含列表项的内容或主体
+list-item-label
+包含列表项的标号（有代表性的是数据、字符等等）
+marker
+与fo:retrieve-marker使用来创建连续的页面或页脚
+multi-case
+包含 XSL-FO对象的每个供选择的子树（在&ltfo:multi-switch>内部）。
+父元素&ltfo:multi-switch>会选择显示那个选项并隐藏其余的选项。
+multi-properties
+用来在两个或更多的属性集（property-sets）间转换
+multi-property-set
+规定一个可供选择的属性集，这个属性集会被根据用户代理的状态来进行应用。
+multi-switch
+存有一个或多个&ltfo:multi-case>对象，
+并控制它们之间的切换（通过&ltfo:multi-toggle>激活）
+multi-toggle
+用来切换到另一个&ltfo:multi-case>
+page-number
+表示当前的页面
+page-number-citation
+为页面引用页码，此页面包含首个由被引用对象返回的标准区域。
+page-sequence
+一个针对页面输出元素的容器。
+在其中一个&ltfo:page-sequence>对象针对每个页面布局。
+page-sequence-master
+规定使用哪个simple-page-master，以及使用次序。
+region-after
+定义页脚
+region-before
+定义页眉
+region-body
+定义页面主体
+region-end
+定义页面的右侧栏
+region-start
+定义页面的左侧栏
+repeatable-page-master-alternatives
+定义一套simple-page-master的副本
+repeatable-page-master-reference
+规定一个简单的simple-page-master的副本
+retrieve-marker
+与&ltfo:marker>一同使用来创建连续页眉或者页脚
+root
+XSL-FO文档的根（顶）节点
+simple-page-master
+定义页面的尺寸和形状
+single-page-master-reference
+规定用在页面序列的某个给定的点的一个
+static-content
+包含在许多页面上重复的静态内容（比如页眉和页脚）
+table
+格式化一个表格的表格式的材料
+table-and-caption
+格式化一个表格及其标题
+table-body
+表格行和表格单元的容器
+table-caption
+包含一个表格的标题
+table-cell
+定义表格单元
+table-column
+格式化表格的列
+table-footer
+定义表格的页脚
+table-header
+定义表格的页眉
+table-row
+定义表格的行
+title
+为页面序列定义一个标题
+wrapper
+为一组XSL-FO对象规定继承属性
+</pre>
+</p>

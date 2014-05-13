@@ -1,0 +1,240 @@
+<div id="article_content" class="article_content">
+
+video 和 audio标签简介<br>
+资源共享<br>
+手机界面：<br>
+3G门户：<br>
+http://mobile.3g.cn/mobile3g.aspx?cin=518&amp;waped=9&amp;sid=006A062D696<br>
+手机网易：http://3g.163.com/x/<br>
+HTML5网站实例：http://www.20ju.com/content/V164969.htm<br>
+HTML5界面实例：<br>
+http://www.jsfoot.com/html5/tx/2012-04-14/561.html<br>
+10个精美的HTML5企业网站：<br>
+http://www.cnblogs.com/lhb25/archive/2011/07/26/awesome-html5-corporate-sites.html<br>
+几个比较好的HTML5学习的经典网站<br>
+HTML5吧：http://www.html58.net/<br>
+HTML5中文论坛：http://bbs.html5china.com/<br>
+HTML5中国：http://www.html5cn.org/<br>
+HTML5中文学习网：http://www.html5cn.com.cn/<br>
+HTML5研究小组：http://www.mhtml5.com/<br>
+HTML5中文网：http://www.html5china.com/&nbsp;<br>
+HTML5官方网站：http://www.html5-html5.com/&nbsp;<br>
+维基百科HTML5：http://zh.wikipedia.org/wiki/Html5&nbsp;<br>
+GBin1专题之HTML5教程：<br>
+http://www.gbin1.com/tutorials/html5-tutorial/&nbsp;<br>
+炫意HTML5：http://www.xyhtml5.com/&nbsp;<br>
+HTML5搜：http://www.html5so.com/portal.php&nbsp;<br>
+应用共产HTML5专区：http://html5.189works.com/&nbsp;<br>
+红黑联盟：<br>
+http://www.2cto.com/index.php?m=search&amp;c=index&amp;a=init&amp;siteid=1&amp;typeid=1&amp;q=html5&amp;Submit1=%CB%D1%CB%F7<br>
+进入正题<br>
+瞎扯一下：从开始知道视频这个具有传奇色彩的东西之后，大家肯定知道，在网上看个视频，听个音乐，通常都要你下个什么快播，百度影音之类的播放器，还有什么flashplayer之类的，但是下软件，装软件又是比较麻烦的事情，于是，HTML5出现了，有了HTML5，看视频，听音乐就瞬间从屌丝变成了白富美和高富帅，有句话这样说，许多时髦的网站都提供视频和音频，但是HTML5提供了展示视频的标准，播放音频的标准。<br>
+Video（播放视频的标签）<br>
+支持视频格式：<br>
+目前video标签支持三种视频格式：Ogg，MPEG4，WebM<br>
+Ogg = 带有 Theora 视频编码和 Vorbis 音频编码的 Ogg 文件<br>
+MPEG4 = 带有 H.264 视频编码和 AAC 音频编码的 MPEG 4 文件<br>
+WebM = 带有 VP8 视频编码和 Vorbis 音频编码的 WebM 文件<br>
+<br>
+<br>
+主流浏览器支持：<br>
+Ogg：Firefox3.5+ <span style="white-space:pre"></span>Opera10.5+<span style="white-space:pre">
+</span>Chrome5.0+<br>
+MPEG 4：IE9.0+ &nbsp; Chrome5.0+<span style="white-space:pre"> </span>Safari3.0+<br>
+WebM: Firefox 4.0+<span style="white-space:pre"> </span>Opera10.6+<span style="white-space:pre">
+</span>Chrome 6.0+<span style="white-space:pre"> </span><br>
+属性介绍：<br>
+autoplay: 自动播放视频；<br>
+controls: 使用浏览器自带的视频播放器；<br>
+loop: 循环播放；<br>
+preload: 预加载，auto（当页面加载完之后载入整个视频），meta ( 当页面加载后只加载元数据)，none ( 当页面加载完后不加载视频)<br>
+src： 要播放视频的url；&nbsp;<br>
+poster: 当视频未响应或缓冲不足时，该属性值链接到一个图像。该图像将以一定比例被显示出来(url)<br>
+(height, width 属性就不讲了)。<br>
+<br>
+<br>
+一个内部使用的标签&lt;source&gt;，source 标签用于给媒体指定多个可选择的文件地址，且只能在媒体标签没有使用src 属性时使用。<br>
+浏览器按source 标签的顺序检测标签指定的视频是否能够播放，如果不能播放，换下一个。此方法多用于兼容不同的浏览器。Source 标签本身不代表任何含义，不能单独出现。<br>
+此标签包含src、type、media 三个属性。<br>
+Src 属性： 用于指定媒体的地址，和 video 标签的一样。<br>
+Type 属性： 用于说明 src 属性指定媒体的类型，帮助浏览器在获取媒体前判断是否支持此类别的媒体格式。<br>
+Media 属性： 用于说明媒体在何种媒介中使用，不设置时默认值为all， 表示支持所有媒介。<br>
+Video 标签内除了可以包含 &lt;source&gt; 标签外，还可以包含当指定的视频都不能播放时，返回的内容。<br>
+Audio（播放音频的标签）<br>
+支持音频格式：<br>
+三种音频格式，Ogg Vorbis，MP3，Wav<br>
+浏览器支持：<br>
+Ogg Vorbis：Firefox3.5+ <span style="white-space:pre"></span>Opera10.5+<span style="white-space:pre">
+</span>Chrome3.0+<br>
+MP3：IE9.0+ &nbsp; Chrome3.0+<span style="white-space:pre"> </span>Safari3.0+<br>
+Wav: Firefox 3.5+<span style="white-space:pre"> </span>Opera10.5+<span style="white-space:pre">
+</span>Safari3.0+<br>
+<br>
+<br>
+属性介绍：<br>
+除了没有height，width属性之外，其他属性和video相同<br>
+内部标签和video也一样，只是&lt;source&gt; 标签的 type 属性不同。<br>
+<br>
+<br>
+Video 和 Audio Dom属性<br>
+媒体属性<br>
+媒介属性包括error、currentsrc、networkState、preload、buffered、readyState、seeking、currentTime、startTime、duration、paused、defaultPlaybackRate、playbackRate、played、seekable、ended、autoplay、loop、controls、volume、muted等，可以用于返回或改变媒介的状态。<br>
+获取一个媒体对象：<br>
+&lt;video id="video1" height="400" width="400" loop="loop"&gt;<br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="white-space:pre"> </span>&lt;source src="video/oceans-clip.mp4" type="video/ogg" /&gt;<br>
+<span style="white-space:pre"></span>&nbsp; &nbsp; &nbsp;&lt;/video&gt;<br>
+var myvideo = document.getElementById("video1");<br>
+error属性<br>
+只读属性。使用myvideo.error返回一个MediaError对象表明当前的错误状态，如果没有出错，返回null。<br>
+currentSrc 属性<br>
+只读属性。使用myvideo.currentSrc返回该媒介标签的src属性值。<br>
+networkState 属性<br>
+只读属性。使用myvideo.networkState返回媒介的网络状态，共有4个可能值。<br>
+NETWORK_EMPTY（数字值为0）：尚未初始化；<br>
+NETWORK_IDLE（数字值为1）：加载完成，网络空闲；<br>
+NETWORK_LOADING（数字值为2）：视频加载中；<br>
+NETWORK_NO_SOURCE（数字值为3）：加载失败。<br>
+preload属性<br>
+可读写属性。使用myvideo.preload返回媒介标签的preload属性值，或者对其进行赋值，改变媒介标签的preload属性值。<br>
+buffered属性<br>
+只读属性。使用myvideo.buffered返回一个TimeRanges对象，确认浏览器已缓存媒介文件。<br>
+readyState属性<br>
+只读属性。使用myvideo.readyState返回媒介当前播放位置的就绪状态，共有5个可能值。<br>
+HAVE_NOTHING（数字值为0）：当前播放位置无有效媒介资源；<br>
+HAVE_METADATA（数字值为1）：加载中，媒介资源确认存在，但当前位置没有能够加载到有效媒介数据进行播放；<br>
+HAVE_CURRENT_DATA（数字值为2）：已获取到当前播放数据，但没有足够的数据进行播放；<br>
+HAVE_FUTURE_DATA（数字值为3）：已获取到后续播放数据，可以进行播放；<br>
+HAVE_ENOUGH_DATA（数字值为4）：可以进行播放，且浏览器确认媒体数据以某一种速度进行加载，可以保证有足够的后续数据进行播放，而不会使浏览器的播放进度赶上加载数据的末端。<br>
+seeking、seekable属性<br>
+均为只读属性。<br>
+使用myvideo.seeking返回一个布尔值，表明浏览器是否正在请求数据，ture表示浏览器正在请求数据，false表示浏览器已停止请求。<br>
+使用myvideo.seekable发挥一个TimeRanges对象，表明可以对当前媒介资源进行请求。<br>
+currentTime、startTime、duration属性<br>
+三者的值均为时间，单位为秒，currentTime为可读写属性，其余两个均为只读属性。<br>
+使用myvideo.currentTime返回当前媒介的播放位置，或者对其赋值，改变媒介的播放位置。<br>
+对于使用myvideo.currentTime的时候，如果返回的时间超出了浏览器的请求能力，将抛出一个INDEX_SIZE_ERR异常；如果没有选中的媒体资源，将抛出一个INVALID_STATE_ERR异常。<br>
+使用myvideo.startTime返回媒介文件播放的开始时间，通常为0。<br>
+使用myvideo.duration返回媒介文件总的播放时长。<br>
+played、paused、ended属性<br>
+三者均为只读属性。<br>
+使用myvideo. played返回一个TimeRanges对象，标明浏览器已播放的媒介资源范围。<br>
+使用myvideo.paused返回一个布尔值，表明媒介是否暂停播放，ture表示媒介暂停播放，false表示媒介正在播放。<br>
+使用myvideo.ended返回一个布尔值，表明媒介是否已结束，ture表示媒介已经播放完毕，false表示还未播放完毕。<br>
+defaultPlaybackRate、playbackRate属性<br>
+两者均为可读写属性。<br>
+使用myvideo.defaultPlaybackRate返回媒介默认的播放速率，或对其赋值，改变媒介的默认播放速率。<br>
+使用myvideo.playbackRate返回当前的媒介播放速率，或对其赋值，改变当前的媒介播放速率。<br>
+autoplay、loop属性<br>
+两者均为可读写属性。<br>
+使用myvideo.autoplay返回一个布尔值，表明当前媒介是否设置了自动播放，ture表示当前媒介为自动播放，false表示非自动播放，或对其赋值，设置是否自动播放。<br>
+使用myvideo.loop返回一个布尔值，表明当前媒介是否设置了循环播放，ture表示当前媒介设置了循环播放，false表示没有设置循环播放，或对其赋值，设置是否循环播放。<br>
+controls、volume、muted属性<br>
+三者均为可读写属性。<br>
+使用myvideo.controls返回一个布尔值，表明当前媒介是否使用了浏览器默认的播放控制栏，ture表示加载了，false表示没有加载，或对其赋值，设置是否使用浏览器默认的播放控制栏。<br>
+使用myvideo.volume返回当前媒介的音量值，或对其赋值，改变媒介的播放音量，范围为0到1，0相当于静音，1为最大音量<br>
+使用myvideo.muted返回一个布尔值，表明当前媒介播放是否开启静音，ture表示没有开启静音，false表示静音，或对其赋值，设置播放是否静音。<br>
+<br>
+<br>
+<br>
+<br>
+方法：<br>
+play()、pause()、load()方法<br>
+使用myvideo.play()播放视频，并会将myvideo.paused的值强行设为false。<br>
+使用myvideo.pause()暂停视频，并会将myvideo.paused的值强行设为ture。<br>
+使用myvideo.load()重新载入视频，并会将myvideo.playbackRate的值强行设为myvideo.defaultPlaybackRate的值，且强行将myvideo.error的值设为null。<br>
+canPlayType(type)方法<br>
+使用canPlayType(type)方法测试浏览器是否支持特定的媒介类型。<br>
+方法返回3个可能值（均为浏览器判断的结果）。<br>
+空字符串：浏览器不支持此种媒体类型；<br>
+maybe：浏览器可能支持此种媒体类型；<br>
+probably：浏览器确定支持此种媒体类型。<br>
+addTextTrack()<br>
+向视频添加新的文本轨道<br>
+事件<br>
+媒介事件可以作用于各种媒介元素，如视频、音频、图片等，主要包括loadstart、progress、suspend、abort、error、emptied、stalled、play、pause、loadedmetadata、loadeddata、waiting、playing、canplay、canplaythrough、seeking、seeked、timeupdate、ended、ratechange、durationchange、volumechange等事件。<br>
+事件处理方式：<br>
+一般有两种方式处理事件。<br>
+一种是监听的方式：addEventListener(“事件名”,处理函数,处理方式)。例如，如果需要在浏览器对媒介进行播放时执行begin_playing函数，那么可以这样：<br>
+myvideo. addEventListener(“play”, begin_playing,false)。<br>
+另一种是直接赋值的方式：on事件名=处理函数，这是我们相对用的较多的方法，也就是“当XXX事件触发时”。例如，要进行和上面相同的处理，可以这样myvideo.onplay= begin_playing。<br>
+事件介绍：<br>
+loadstart事件：<br>
+触发：浏览器开始请求媒介；<br>
+前提：networkState属性值等于NETWORK_LOADING(数字值为2);<br>
+<br>
+progress事件：<br>
+触发：浏览器正在获取媒介；<br>
+前提：networkState属性值等于NETWORK_LOADING(数字值为2);<br>
+<br>
+suspend事件：<br>
+触发：浏览器非主动获取媒介数据，但没有加载完整个媒介资源；<br>
+前提：networkState属性值等于NETWORK_IDLE（数字值为1）;<br>
+<br>
+abort事件：<br>
+触发：浏览器在完全加载前中止获取媒介数据；<br>
+前提：error的code属性值是MEDIA_ERR_ABORTED（数字值为1），networkState属性值等于NETWORK_EMPTY（数字值为0），NETWORK_IDLE（数字值为1）<br>
+<br>
+error事件：<br>
+触发：获取媒介数据出错；<br>
+前提：error的code属性值是MEDIA_ERR_NETWORK（数字值为2）或更高，networkState属性值等于NETWORK_EMPTY（数字值为0），NETWORK_IDLE（数字值为1）<br>
+<br>
+emptied事件：<br>
+触发：媒介元素的网络状态突然变为未初始化；<br>
+前提：networkState属性值等于NETWORK_EMPTY（数字值为0）。<br>
+<br>
+stalled事件：<br>
+触发：浏览器获取媒介数据异常；<br>
+前提：networkState属性值等于NETWORK_LOADING(数字值为2);<br>
+<br>
+play事件：<br>
+触发：即将开始播放<br>
+前提：paused的属性值为true；<br>
+<br>
+pause事件：<br>
+触发：暂停播放<br>
+前提：play事件的值为true；<br>
+<br>
+loadedmetadata事件：<br>
+触发：浏览器获取完媒介资源的时长和尺寸<br>
+前提：readyState属性值第一次转换为HAVE_METADATA（数字值为1）或者更高<br>
+<br>
+<br>
+loadeddata事件：<br>
+触发：已加载当前播放位置的媒介数据；<br>
+前提：readyState属性值第一次转换为HAVE_CURRENT_DATA（数字值为2）或者更高<br>
+<br>
+waiting事件：<br>
+触发：播放由于下一帧无效（例如未加载）而已停止（但浏览器确认下一帧会马上有效）；<br>
+前提：readyState属性值转换为HAVE_CURRENT_DATA（数字值为2）或者更低状态。Paused属性为false，或者seeking属性值是true，或者当前播放位置不包含在缓冲范围内。播放停止可能有两个原因（播放结束，错误播放），这两种情况导致paused的属性值为false将不会触发waiting事件。<br>
+<br>
+<br>
+playing事件：<br>
+触发：已经开始播放<br>
+前提：readyState属性值转换为HAVE_FUTURE_DATA（数字值为3）或者更高状态，Paused属性为true，或者seeking属性值是false，或者当前播放位置包含在缓冲范围内。<br>
+<br>
+canplay事件：<br>
+触发：浏览器能够开始媒介播放，但估计以当前速率播放不能直接将媒介播放完（播放期间需要缓冲）；<br>
+前提：readyState属性值转换为HAVE_FUTURE_DATA（数字值为3）或者更高状态&nbsp;<br>
+<br>
+canplaythrough事件：<br>
+触发：浏览器估计以当前速率直接播放可以直接播放完整个媒介资源（期间不需要缓冲）；<br>
+前提：readyState属性值转换为HAVE_ENOUGH_DATA（数字值为4）或者更高状态&nbsp;<br>
+<br>
+seeking事件：浏览器正在请求数据（seeking属性值为true）；<br>
+<br>
+seeked事件：浏览器停止请求数据（seeking属性值为false）；<br>
+<br>
+timeupdate事件：当前播放位置（currentTime属性）改变；<br>
+<br>
+ended事件：<br>
+触发：播放由于媒介结束而停止；<br>
+前提：currentTime等于媒体播放结束时间，且ended属性为true；<br>
+<br>
+ratechange事件：默认播放速率（defaultPlaybackRate属性）改变或播放速率（playbackRate属性）改变；<br>
+<br>
+durationchange事件：媒介时长（duration属性）改变；<br>
+<br>
+volumechange事件：音量（volume属性）改变或静音（muted属性）。<br>
+实例：http://www.w3.org/2010/05/video/mediaevents.html &nbsp; &nbsp; &nbsp;
+
+</div>

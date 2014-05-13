@@ -1,0 +1,104 @@
+<div id="wiki-content" class="column-half wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p><span class="breadcrumbs domRef_breadcrumbs themeUpdated">«&nbsp;<a href="/zh-CN/docs/Gecko_DOM_Reference">DOM 参考</a></span> 
+ 
+ 
+</p><section class="Quick_links" id="Quick_Links"><!-- --></section><p></p>
+<p><code>TouchEvent</code> 是一类描述手指在触摸平面（触摸屏、触摸板等）的状态变化的事件。这类事件用于描述一个或多个触点，使开发者可以检测触点的移动，触点的增加和减少，等等。</p>
+<p>每 个 <a href="/zh-CN/docs/DOM/Touch" title="每个Touch 对象代表一个人和触摸设备(例如触摸屏和触摸板)接触的触点."><code>Touch</code></a> 对象代表一个触点; 每个触点都由其位置，大小，形状，压力大小，和目标 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 描述。 <a href="/zh-CN/docs/DOM/TouchList" title="一个 TouchList 代表一个触摸平面上所有触点的列表; 举例来讲, 如果一个用户用三根手指接触屏幕(或者触控板), 与之相关的TouchList 对于每根手指都会生成一个 Touch 对象, 共计三个."><code>TouchList</code></a> 对象代表多个触点的一个列表.</p>
+<h2 id=".E5.B1.9E.E6.80.A7.E5.88.97.E8.A1.A8">属性列表</h2>
+<dl>
+  <dt>
+    <a href="/zh-CN/docs/DOM/event.altKey" title="表明当事件触发时,ALT键是否处于按下的状态."><code>TouchEvent.altKey</code></a></dt>
+  <dd>
+    布尔值，指明触摸事件触发时，键盘 alt 键是否被按下。只读属性。</dd>
+  <dt>
+    <a href="/zh-CN/docs/DOM/TouchEvent.changedTouches" title="这个 TouchList 对象列出了和这个触摸事件对应的 Touch 对象。"><code>TouchEvent.changedTouches</code></a></dt>
+  <dd>
+    一个 <a href="/zh-CN/docs/DOM/TouchList" title="一个 TouchList 代表一个触摸平面上所有触点的列表; 举例来讲, 如果一个用户用三根手指接触屏幕(或者触控板), 与之相关的TouchList 对于每根手指都会生成一个 Touch 对象, 共计三个."><code>TouchList</code></a> 对象，包含了代表所有从上一次触摸事件到此次事件过程中，状态发生了改变的触点的 <a href="/zh-CN/docs/DOM/Touch" title="每个Touch 对象代表一个人和触摸设备(例如触摸屏和触摸板)接触的触点."><code>Touch</code></a> 对象。<strong>只读属性。</strong></dd>
+  <dt>
+    <a class="new" href="/zh-CN/docs/DOM/event.ctrlKey" title="The documentation about this has not yet been written; please consider contributing!"><code>TouchEvent.ctrlKey</code></a></dt>
+  <dd>
+    布尔值，指明触摸事件触发时，键盘 ctrl 键是否被按下。只读属性。</dd>
+  <dt>
+    <a class="new" href="/zh-CN/docs/DOM/event.metaKey" title="The documentation about this has not yet been written; please consider contributing!"><code>TouchEvent.metaKey</code></a></dt>
+  <dd>
+    布尔值，指明触摸事件触发时，键盘 meta 键 （<a class="external" href="http://en.wikipedia.org/wiki/Meta_key" title="http://en.wikipedia.org/wiki/Meta_key">Wikipedia - meta Key</a>）是否被按下。只读属性。</dd>
+  <dt>
+    <a href="/zh-CN/docs/DOM/event.shiftKey" title="表明当事件触发时,SHIFT键是否处于按下状态."><code>TouchEvent.shiftKey</code></a></dt>
+  <dd>
+    布尔值，指明触摸事件触发时，键盘 shift 键是否被按下。只读属性。</dd>
+  <dt>
+    <a class="new" href="/zh-CN/docs/DOM/TouchEvent.targetTouches" title="The documentation about this has not yet been written; please consider contributing!"><code>TouchEvent.targetTouches</code></a></dt>
+  <dd>
+    一个 <a href="/zh-CN/docs/DOM/TouchList" title="一个 TouchList 代表一个触摸平面上所有触点的列表; 举例来讲, 如果一个用户用三根手指接触屏幕(或者触控板), 与之相关的TouchList 对于每根手指都会生成一个 Touch 对象, 共计三个."><code>TouchList</code></a> 对象，是包含了如下触点的 <a href="/zh-CN/docs/DOM/Touch" title="每个Touch 对象代表一个人和触摸设备(例如触摸屏和触摸板)接触的触点."><code>Touch</code></a> 对象：触摸起始于当前事件的目标 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 上，并且仍然没有离开触摸平面的触点. <strong>只读属性.</strong></dd>
+  <dt>
+    <a class="new" href="/zh-CN/docs/DOM/TouchEvent.touches" title="The documentation about this has not yet been written; please consider contributing!"><code>TouchEvent.touches</code></a></dt>
+  <dd>
+    一 个 <a href="/zh-CN/docs/DOM/TouchList" title="一个 TouchList 代表一个触摸平面上所有触点的列表; 举例来讲, 如果一个用户用三根手指接触屏幕(或者触控板), 与之相关的TouchList 对于每根手指都会生成一个 Touch 对象, 共计三个."><code>TouchList</code></a> 对象，包含了所有当前接触触摸平面的触点的 <a href="/zh-CN/docs/DOM/Touch" title="每个Touch 对象代表一个人和触摸设备(例如触摸屏和触摸板)接触的触点."><code>Touch</code></a> 对象，无论它们的起始于哪个 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 上，也无论它们状态是否发生了变化。<strong>只读属性.</strong></dd>
+  <dt>
+    <strong><a href="/zh-CN/docs/DOM/event.type" title="返回一个字符串, 表示该事件对象的事件类型."><code>TouchEvent.type</code></a></strong></dt>
+  <dd>
+    此次触摸事件的类型。 <a href="#Touch_event_types">Touch event types</a> 中列出了可能的类型值和详细描述。</dd>
+  <dt>
+    <strong><a class="new" href="/zh-CN/docs/DOM/event.target" title="The documentation about this has not yet been written; please consider contributing!"><code>TouchEvent.target</code></a></strong></dt>
+  <dd>
+    此 次触摸事件的目标 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 。这个目标元素对应 <a href="/zh-CN/docs/DOM/TouchEvent.changedTouches" title="这个 TouchList 对象列出了和这个触摸事件对应的 Touch 对象。"><code>TouchEvent.changedTouches</code></a> 中的触点的起始元素（在之后的事件类型中有说明），但是请注意：此次事件中其他的触点的起始元素可能有所不同。以防万一，应使用和每一个单独触点相关联的<a href="/en-US/docs/DOM/Touch.clientX" title="/en-US/docs/DOM/Touch.clientX">目标</a> 。</dd>
+</dl>
+<h2 id=".E8.A7.A6.E6.91.B8.E4.BA.8B.E4.BB.B6.E7.9A.84.E7.B1.BB.E5.9E.8B">触摸事件的类型</h2>
+<p>为了区别触摸相关的状态改变，存在多种类型的触摸事件。可以通过检查触摸事件的 <a href="/zh-CN/docs/DOM/event.type" title="返回一个字符串, 表示该事件对象的事件类型."><code>TouchEvent.type</code></a> 属性来确定当前事件属于哪种类型</p>
+<div class="note">
+  <strong>注意:</strong> 在很多情况下，触摸事件和鼠标事件会同时被触发（目的是让没有对触摸设备优化的代码仍然可以在触摸设备上正常工作）。如果你使用了触摸事件，可以调用 <a href="/zh-CN/docs/DOM/event.preventDefault" title="如果事件对象的cancelable属性为true,则该方法可以取消事件的默认动作.但并不取消事件的冒泡行为."><code>event.preventDefault()</code></a> 来阻止鼠标事件被触发。</div>
+<h3 id="touchstart">touchstart</h3>
+<p>当用户在触摸平面上放置了一个触点时触发。事件的目标 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 将是触点位置上的那个目标 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a></p>
+<h3 id="touchend">touchend</h3>
+<p>当一个触点被用户从触摸平面上移除（当用户将一个手指离开触摸平面）时触发。当触点移出触摸平面的边界时也将触发。例如用户将手指划出屏幕边缘。</p>
+<p>事件的目标 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 和这个 <code>touchend </code>事件对应的 <code>touchstart 事件的目标</code> <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 相同，哪怕 <code>touchend</code> 事件触发时，触点已经移出了该 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 。</p>
+<p>已经被从触摸平面上移除的触点，可以在 <code>changedTouches 属性定义的 </code><a href="/zh-CN/docs/DOM/TouchList" title="一个 TouchList 代表一个触摸平面上所有触点的列表; 举例来讲, 如果一个用户用三根手指接触屏幕(或者触控板), 与之相关的TouchList 对于每根手指都会生成一个 Touch 对象, 共计三个."><code>TouchList</code></a> 中找到。</p>
+<h3 id="touchmove">touchmove</h3>
+<p>当用户在触摸平面上移动触点时触发。事件的目标 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 和这个<code> touchend </code>事件对应的 <code>touchstart 事件的目标</code> <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 相同，哪怕当 <code>touchend</code> 事件触发时，触点已经移出了该 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 。</p>
+<p>当触点的半径、旋转角度以及压力大小发生变化时，也将触发此事件。</p>
+<div class="note">
+  <strong>注意:</strong> <code>不同浏览器上 touchmove 事件的触发频率并不相同。这个触发频率还和硬件设备的性能有关。因此决不能让程序的运作依赖于某个特定的触发频率</code></div>
+<h3 id="touchenter">touchenter</h3>
+<p>当触点进入某个 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 时触发。</p>
+<div class="note">
+  <strong>注意:</strong> 此事件没有冒泡过程。</div>
+<h3 id="touchleave">touchleave</h3>
+<p>当触点离开某个 <a href="/zh-CN/docs/DOM/element" title="This chapter provides a brief reference for the general methods, properties, and events available to most HTML and XML elements in the Gecko DOM."><code>element</code></a> 时触发。</p>
+<div class="note">
+  <strong>注意:</strong> 此事件没有冒泡过程。</div>
+<h3 id="touchcancel">touchcancel</h3>
+<p>当触点由于某些原因被中断时触发。有几种可能的原因如下（具体的原因根据不同的设备和浏览器有所不同）：</p>
+<ul>
+  <li>由于某个事件取消了触摸：例如触摸过程被一个模态的弹出框打断。</li>
+  <li>触点离开了文档窗口，而进入了浏览器的界面元素、插件或者其他外部内容区域。</li>
+  <li>当用户产生的触点个数超过了设备支持的个数，从而导致 <a href="/zh-CN/docs/DOM/TouchList" title="一个 TouchList 代表一个触摸平面上所有触点的列表; 举例来讲, 如果一个用户用三根手指接触屏幕(或者触控板), 与之相关的TouchList 对于每根手指都会生成一个 Touch 对象, 共计三个."><code>TouchList</code></a> 中最早的 <a href="/zh-CN/docs/DOM/Touch" title="每个Touch 对象代表一个人和触摸设备(例如触摸屏和触摸板)接触的触点."><code>Touch</code></a> 对象被取消。</li>
+</ul>
+<h2 id=".E5.AE.9E.E4.BE.8B">实例</h2>
+<p>请看 <a href="/en/DOM/Touch_events#Example" title="en/DOM/Touch events#Example">example on the main Touch events article</a>.</p>
+<h2 id=".E7.9B.B8.E5.85.B3.E9.93.BE.E6.8E.A5">相关链接</h2>
+<ul>
+  <li><a href="/en/DOM/Touch_events" title="en/DOM/Touch events">Touch events</a></li>
+  <li><a href="/zh-CN/docs/DOM/Touch" title="每个Touch 对象代表一个人和触摸设备(例如触摸屏和触摸板)接触的触点."><code>Touch</code></a></li>
+  <li><a href="/zh-CN/docs/DOM/TouchList" title="一个 TouchList 代表一个触摸平面上所有触点的列表; 举例来讲, 如果一个用户用三根手指接触屏幕(或者触控板), 与之相关的TouchList 对于每根手指都会生成一个 Touch 对象, 共计三个."><code>TouchList</code></a></li>
+</ul>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/hyspace">hyspace</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/hyspace">hyspace</a>,
+                  <time datetime="2013-03-29T04:20:02-07:00">Mar 29, 2013 4:20:02 AM</time>
+                </div>
+                          </div>
+                  </div>

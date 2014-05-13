@@ -1,0 +1,260 @@
+<div class="body_content">
+      <p id="printButton"><a href="javascript:printArticle()" title="打印本文">打印</a></p>
+      <ul class="breadcrumbs">
+        <li><a href="http://w3help.org/" name="top">首页</a> <span>»</span></li>
+        <li><a href="../home/compatibility.html">兼容性</a> <span>»</span></li>
+        <li><a href="index.html">根本原因</a> <span>»</span></li>
+        <li class="current">文章正文</li>
+      </ul>
+      
+    <h1 class="title">SD9015: 各浏览器对于 DOM 对象的鼠标滚轮事件事件存在差异</h1>
+    <ul class="toc">
+      <li><a href="#standard_reference">标准参考</a> <span>•</span></li>
+      <li><a href="#description">问题描述</a> <span>•</span></li>
+      <li><a href="#influence">造成的影响</a> <span>•</span></li>
+      <li><a href="#impacted_browsers">受影响的浏览器</a> <span>•</span></li>
+      <li><a href="#analysis_of_issues">问题分析</a> <span>•</span></li>
+      <li><a href="#solutions">解决方案</a> <span>•</span></li>
+      <li><a href="#see_also">参见</a></li>
+    </ul>
+    
+      <div id="w3h_content">
+        
+      <address class="author">作者：武利剑</address>
+      <h2 id="standard_reference">标准参考</h2>
+      <p>无。</p>
+      
+      <h2 id="description">问题描述</h2>
+      <p>元素的 mousewheel 事件在各浏览器中存在差异。</p>
+      
+      <h2 id="influence">造成的影响</h2>
+      <p>此问题可能会使预想的动作无法执行。</p>
+      <h2 id="impacted_browsers">受影响的浏览器</h2>
+      <table class="list">
+        <tbody><tr>
+          <th>所有浏览器</th>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody></table>
+      
+      <h2 id="analysis_of_issues">问题分析</h2>
+      <h3>1. onmousewheel 事件</h3>
+      <p>鼠标滚轮事件是 onmousewheel，它适合所有的 HTML element，也就是所有 HTML 对象和 XHTML 对象 </p>
+      <p>onmousewheel 事件存在于 HTML5 规范草案中，现行 DOM 规范中没有这个消息，详细信息请参考：<a href="http://www.w3.org/TR/2010/WD-html5-20100624/webappapis.html#event-handlers-on-elements-document-objects-and-window-objects">6.1.6.2 Event handlers on elements</a>。</p>
+      <p><em>IE</em> 自从 IE6 版本就引入了 onmousewheel，后续版本也都提供了很好的支持。见 MSDN：<a href="http://msdn.microsoft.com/en-us/library/ms536951(VS.85).aspx">onmousewheel Event</a>。</p>
+      <p><em>Chrome Safari Opera</em> 也都支持 onmousewheel 事件。</p>
+      <p><strong>Element 的onmousewheel事件</strong></p>
+      <p>分析以下代码：</p>
+          <pre>&lt;script type="text/javascript"&gt;
+    window.onload = function() {
+        document.getElementById("one").<span class="hl_1">onmousewheel</span> = function() {
+            document.getElementById("info").innerHTML="It worked";
+        }
+    }
+&lt;/script&gt;
+&lt;div id="one" style="width:100px; height:100px; overflow:auto; background-color:gold;"&gt;
+&lt;/div&gt;
+&lt;div id="info"&gt;&lt;/div&gt;</pre>
+      <p>上面代码中，给 one 绑定了 <span class="hl_1">onmousewheel</span> 事件。如果 <span class="hl_1">onmousewheel</span> 生效，在 one 的下方会生成一行字："It worked"。</p>
+      <p>此测试用例不涉及事件绑定差异，因此采用元素后直接绑定的方式。</p>
+      <p>这段代码在不同的浏览器环境中表现如下 (在鼠标光标定位到金色区域时滚动鼠标后的截图)：</p>
+      <table class="compare">
+        <tbody><tr>
+          <th>IE Opera Safari Chrome</th>
+          <th>Firefox</th>
+        </tr>
+        <tr>
+          <td><img src="../../tests/SD9015/SD9015-1.jpg" alt=""></td>
+          <td><img src="../../tests/SD9015/SD9015-2.jpg" alt=""></td>
+        </tr>
+      </tbody></table>
+      <p>可见，在 Firefox 中没有任何的反应，也就是说，Firefox 不支持 <span class="hl_1">onmousewheel</span> 事件。</p>
+      <p><strong>window和document的onmousewheel事件</strong></p>
+      <p>分析以下代码：</p>
+      <pre>&lt;script type="text/javascript"&gt;
+    window.onload = function() {
+        document.<span class="hl_1">onmousewheel</span> = function() {
+            document.getElementById("info").innerHTML = "It worked";
+        }
+    }
+&lt;/script&gt;
+&lt;div id="info"&gt;&lt;/div&gt;</pre>
+      <p>当鼠标在浏览器中滚动时，<em>IE6 IE7 IE8 Safari Chrome Opera</em> 都有“It worked”字样输出。</p>
+      <p>修改 <strong>document</strong> 为 <strong>window</strong> 后，只有 <em>Safari Chrome Opera</em> 输出了“It worked”。</p>
+      <p>浏览器对 <span class="hl_1">onmousewheel</span> 事件的支持情况汇总，如下表：</p>
+      <table class="compare">
+        <tbody><tr>
+          <th>元素类型</th>
+          <th>IE6</th>
+          <th>IE7</th>
+          <th>IE8</th>
+          <th>Firefox</th>
+          <th>Safari</th>
+          <th>Opera</th>
+          <th>Chrome</th>
+        </tr>
+        <tr>
+          <td>普通元素</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_1">N</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+        </tr>
+        <tr>
+          <td>window</td>
+          <td class="hl_1">N</td>
+          <td class="hl_1">N</td>
+          <td class="hl_1">N</td>
+          <td class="hl_1">N</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+        </tr>
+        <tr>
+          <td>document</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_1">N</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+          <td class="hl_2">Y</td>
+        </tr>
+      </tbody></table>
+      <br>
+      <h3>2. Firefox 中独有的 DOMMouseScroll 事件</h3>
+      <p>Firefox 浏览器与其他浏览器不同，有自己独有的鼠标滚轮事件。</p>
+      <p><a href="https://developer.mozilla.org/en/Gecko-Specific_DOM_Events">mozilla开发者中心（mozilla developer center）</a>的页面上提供了一些 Gecko 相关的事件，其中的 DOMMouseScroll 事件就是用来捕捉鼠标滚轮事件的。</p>
+      <p>分析以下代码：</p>
+      <pre>&lt;script type="text/javascript"&gt;
+    window.onload = function() {
+        document.getElementById("one").addEventListener('<span class="hl_1">DOMMouseScroll</span>', function() {
+            document.getElementById("info").innerHTML = "It worked";
+        }, false);
+    }
+&lt;/script&gt;
+&lt;div id="one" style="width:100px; height:100px; overflow:auto; background-color:gold;"&gt;
+&lt;/div&gt;
+&lt;div id="info"&gt;&lt;/div&gt;</pre>
+      <p>以上代码，在鼠标滚轮滚动时，只有在 Firefox 中才会出现“It worked”。</p>
+      <br>
+      <h3>3. detail 与 wheelDelta</h3>
+      <p>可以用 detail 或 wheelDelta 来判断鼠标滚动的方向是向上还是向下。</p>
+      <p>detail 是 Firefox 事件对象中的属性，即 event.detail，它定义了鼠标滚轮移动的单位，detail 只取 ±3，其中正数值表示向下向右滚动，负数值则表示向上向左滚动。</p>
+      <p>wheelDelta 是其他浏览器鼠标滚动事件的属性，wheelDelta 只取 ±120，其中正数表示为向上滚动，负数表示向下滚动。参见 MSDN：<a href="http://msdn.microsoft.com/en-us/library/ms535142(VS.85).aspx">wheelDelta Property</a>。</p>
+      <p></p>
+      
+      <h2 id="solutions">解决方案</h2>
+      <p>利用浏览器类型判断，给各浏览器绑定各自支持的鼠标滚轮事件。如，<em>res.html</em></p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;script&gt;
+  var ua = navigator.userAgent;
+  Test = {
+    version: (ua.match(/.+(?:rv|it|ra|ie|me)[\/: ]([\d.]+)/i)||[])[1],
+    ie: /msie/i.test(ua) &amp;&amp; !/opera/i.test(ua),
+    op: /opera/i.test(ua),
+    sa: /version.*safari/i.test(ua),
+    ch: /chrome/.test(ua),
+    ff: /gecko/i.test(ua) &amp;&amp; !/webkit/i.test(ua),
+    wk: /webkit/i.test(ua),
+    mz: /mozilla/i.test(ua)&amp;&amp;!/(compatible|webkit)/i.test(ua)
+  }
+  
+  function $(id) { return document.getElementById(id); }
+  
+  function addEvent(el, type, fn){
+    (el.attachEvent) ? (el.attachEvent("on" + type, fn)) : (el.addEventListener(type, fn, false));
+  };
+
+  function fixMouseWheel(elem, fn) {
+    var mousewheel = Test.ff ? "DOMMouseScroll" : "mousewheel";
+    (elem == null || elem == window ) &amp;&amp; (elem = document);
+    return {
+      type: mousewheel,
+      elem: elem,
+      fn: function(e){
+        var delta = 0;
+        e = e || window.event;
+        if (e.wheelDelta) {
+          delta = event.wheelDelta / 120;
+          if ( Test.op &amp;&amp; Test.version &lt; 10 ) delta = -delta;
+        } else if (e.detail) {
+          delta = -e.detail / 3;
+        }
+        e.delta = Math.round(delta);
+        fn.call(elem, e);
+      }
+    }
+  }
+  var a = fixMouseWheel($("d"), function (e) {
+    $("e").innerHTML = e.delta;
+  });
+  addEvent(a.elem, a.type, a.fn);
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="d" style="width:200px; height:200px; border:1px solid black; overflow:scroll; position:relative;"&gt;
+    &lt;div id="e" style="position:absolute; top:0; left:0;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      
+      <h2 id="see_also">参见</h2>
+      <h3>知识库</h3>
+      <ul class="see_also">
+        <li><a href="#">...</a></li>
+      </ul>
+      <h3>相关问题</h3>
+      <ul class="see_also">
+        <li><a href="#">...</a></li>
+      </ul>
+      
+      <div class="appendix">
+        <h2>测试环境</h2>
+        <table class="list">
+          <tbody><tr>
+            <th>操作系统版本:</th>
+            <td>Windows 7 Ultimate build 7600</td>
+          </tr>
+          <tr>
+            <th>浏览器版本:</th>
+            <td>IE6<br>
+              IE7<br>
+              IE8<br>
+              Firefox 3.6.4<br>
+              Chrome 6.0.437.3 dev<br>
+              Safari 5.0<br>
+              Opera 10.60
+            </td>
+          </tr>
+          <tr>
+            <th>&nbsp;</th>
+            <td><a href="../../tests/SD9015/normal_element_onmousewheel_event.html">normal_element_onmousewheel_event.html</a><br>
+              <a href="../../tests/SD9015/document_mousewheel.html">document_mousewheel.html</a><br>
+              <a href="../../tests/SD9015/window_mousewheel.html">window_mousewheel.html</a><br>
+              <a href="../../tests/SD9015/res.html">res.html</a><br>
+            </td>
+          </tr>
+          <tr>
+            <th>本文更新时间:</th>
+            <td>2010-08-02</td>
+          </tr>
+        </tbody></table>
+        
+        <h2>关键字</h2>  
+        <!-- keywords begin -->
+        <p>onmousewheel DOMMouseScroll document window wheel mouse 滚轮</p>
+        <!-- keywords end -->
+      </div>
+      
+        <div id="forumLink">
+          <div>本篇文章正在公测阶段，错误在所难免，欢迎大家提出宝贵的意见和建议。</div>
+          <a href="http://topic.csdn.net/u/20100830/13/2caf5fc5-098c-46ba-b016-d729fc0dbf36.html">发表评论 »</a>
+        </div>
+      </div>
+    </div>

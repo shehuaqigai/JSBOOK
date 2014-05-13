@@ -1,0 +1,101 @@
+<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/22/2148793.html">使用requestAnimationFrame更好的实现javascript动画(转)</a>
+		</h2>
+		<div id="cnblogs_post_body"><p>一直以来，JavaScript的动画都是通过定时器和间隔来实现的。虽然使用CSS transitions 和 animations使Web开发实现动画更加方便，但多年来以JavaScript为基础来实现动画却很少有所改变。直到Firefox 4的发布，才带来了第一种对JavaScript动画的改善的方法。但要充分认识改善，这有利于帮助我们了解web动画是如何演变改进的。</p>
+<h3>定时器Timer</h3>
+<p>用于创建动画的第一个模式是使用链式setTimeout()调用。在Netscape 3′s hayday的很长一段时期，开发者都记得一种在网络上随处可见的固定式最新行情状态栏，通常它类似于这样：</p>
+<div><div id="highlighter_703750" class="syntaxhighlighter nogutter  js"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">(</code><code class="js keyword">function</code><code class="js plain">(){</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">msg = </code><code class="js string">"新的广告"</code><code class="js plain">,</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">len = 25,</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">pos = 0,</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">padding = msg.replace(/./g, </code><code class="js string">" "</code><code class="js plain">).substr(0,len),</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">finalMsg = padding + msg;</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">function</code> <code class="js plain">updateText(){</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">curMsg = finalMsg.substr(pos++, len);</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">window.status = curMsg;</code></div><div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">(pos == finalMsg.length){ pos = 0; }</code></div><div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">setTimeout(updateText, 100);</code></div><div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">setTimeout(updateText, 100);</code></div><div class="line number14 index13 alt1"><code class="js plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p>如果你想在浏览器中测试这段代码，你可以新建一个&lt;pre&gt;标签用来模拟window.status，例如：<a href="http://www.nczonline.net/experiments/animation/newsticker.htm">newsticker example</a></p>
+<p>这种让人烦恼的web模式，后来遭到对window.status禁用的抵抗，但随着Explorer 4和Netscape 4的发布，浏览器第一次给开发者更多对页面元素的控制权限，这种技术再次出现。这样就出现了使用javascript动态改变元素大小、位置、颜色等的一种全新动画模式。例如，下面就是一个将div宽度变化成100%的动画（类似于进度条）：</p>
+<div><div id="highlighter_399281" class="syntaxhighlighter nogutter  js"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">(</code><code class="js keyword">function</code><code class="js plain">(){</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">function</code> <code class="js plain">updateProgress(){</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">div = document.getElementById(</code><code class="js string">"status"</code><code class="js plain">);</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">div.style.width = (parseInt(div.style.width, 10) + 5) + </code><code class="js string">"%"</code><code class="js plain">;</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">(div.style.width != </code><code class="js string">"100%"</code><code class="js plain">){ setTimeout(updateProgress, 100); }</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">setTimeout(updateProgress, 100);</code></div><div class="line number8 index7 alt1"><code class="js plain">})();</code></div></div></td></tr></tbody></table></div></div>
+<p>尽管动画在页面上的地方不同，但基本原理却是一样的：做出改变，用setTimeout()间隔使页面更新，然后setTimeout又执行下一次变化，这个过程反复执行，直到动画完成（见进度条动画），早期的状态栏动画是相同的技术，只是动画不一样而已。</p>
+<h3>间隔动画intervals</h3>
+<p>随着成功将动画引入web，新的探索开始了。一个动画已经无法满足了，现在需要多个动画。首次尝试为每个动画创建多个动画循环，在早期的浏览器中使用setTimeout()来创建多个动画是有点复杂的，所以开发商开始使用setInterval()一创建单一的动画循环，来管理页面上所有的动画，一个使用wetInterval()的基本动画像这样：</p>
+<div><div id="highlighter_163228" class="syntaxhighlighter nogutter  js"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js plain">(</code><code class="js keyword">function</code><code class="js plain">(){</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">function</code> <code class="js plain">updateAnimations(){</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">updateText(); </code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">updateProgress();</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">setInterval(updateAnimations, 100);</code></div><div class="line number7 index6 alt2"><code class="js plain">})();</code></div></div></td></tr></tbody></table></div></div>
+
+<p>创建一个小动画库，updateAnimations（）方法将每一个动画(同时看到一个新闻股票和进度条在一起运行)循环执行并进行适当的改变。如果没有动画需要更新，该方法可以退出而不做任何事情，甚至停止动画循环，直到有更多的动画更新做好准备。</p>
+<p>动画问题比较棘手的问题是延迟应该为多少。间隔一方面必须足够短，从而使不同的动画都能流畅的进行，别一方面还要足够长，使得浏览器可以完成渲染。大多数浏览器的刷新频率为60HZ，即每秒60次刷新，大多数浏览器的刷新频率都不会比这个更频繁，因为他们知道，最终用户是得不到更好的体验的。</p>
+<p>鉴于此，为流畅动画的最佳时间间隔为1000毫秒/ 60，约17ms。在这个频率你会看到流畅的动画，那是因为你最大的接近了浏览器能达到的频率。跟以前的动画相比，你会发现17ms间隔的动画更加平滑，也更快（因为动画更新更频繁，没有做其他任何修改的情况下），多个动画可能需要节流，以免17ms的动画完成得太快。</p>
+<h3>问题</h3>
+<p>即使使用setInterval()为基础的动画循环比多套使用setTimeout()的动画循环高效，这里还是存在问题。无论是setInterval()还是setTimeout()都无法达到精确，这个延迟即你指定的第二个参数仅仅表示何时代码会添加到浏览器的可能被执行的UI线程队列中。如果队列中有其他工作在此之前，那代码将会等到他完成才会执行。简而言之，毫秒级的延迟不是表示何时代码会执行，而是表示何时代码会添加进队列。如果UI线程处于繁忙状态或在处理用户动作，那么代码将不会被马上执行。</p>
+<p>平滑动画的关键是理解下一帧何时被执行，直到现在都没有一个方法来保证下一帧将会在浏览器中被绘制。随着&lt;canvas&gt;的日益流行和新的基于浏览器的游戏的出现，开发商对setInterval()和setTimeout()的不精准越来越感到失望。</p>
+<p>浏览器的计时器分辨率加剧了这个问题，计时器对毫秒不精准，这里有一些常见的计时器分辨率：</p>
+    <ul>
+      <li>Internet Explorer 8 and earlier 15.625ms</li>
+      <li>Internet Explorer 9 and later 4ms.</li>
+      <li>Firefox and Safari ~10ms.</li>
+      <li>Chrome has a timer 4ms.</li>
+    </ul>
+<p>IE在版本9之前的的分辨率为15.625，所以0~15之间的任意值可能是0或15，但没有分别。IE9的计时器分辨率改进为4ms，但涉及到动画时也是不具体的，chrome的计时器分辨率为4ms，firefox 和 safari的为10ms。因此即使你把间隔设定为最佳的显示效果，你也仅仅是得到这个近似值。</p>
+<h3>mozRequestAnimationFrame</h3>
+
+<p>Mozilla 的 Robert O’Callahan 在思考这个问题，并想出了一个独特的方案。他指出CSS transitions 和 animations的优势在于浏览器知道哪些动画将会发生，所以得到正确的间隔来刷新UI。而javascript动画，浏览器不知道动画正在发生。他的解决方案是创建一个mozRequestAnimationFrame()方法来告诉浏览器哪些javascript代码正在执行，这使得浏览在执行一些代码后得到优化。</p>
+<p>mozRequestAnimationFrame()方法接受一个参数，是一个屏幕重绘前被调用的函数。这个函数用来对生成下合适的dom样式的改变，这些改变用在下一次重绘中。你可以像调用setTimeout()一样的方式链式调用mozRequestAnimationFrame()，例如：</p>
+<div><div id="highlighter_62770" class="syntaxhighlighter nogutter  js"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">function</code> <code class="js plain">updateProgress(){</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">div = document.getElementById(</code><code class="js string">"status"</code><code class="js plain">);</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">div.style.width = (parseInt(div.style.width, 10) + 5) + </code><code class="js string">"%"</code><code class="js plain">;</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">if</code> <code class="js plain">(div.style.left != </code><code class="js string">"100%"</code><code class="js plain">){</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">mozRequestAnimationFrame(updateProgress);</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">}</code></div><div class="line number7 index6 alt2"><code class="js plain">}</code></div><div class="line number8 index7 alt1"><code class="js plain">mozRequestAnimationFrame(updateProgress);</code></div></div></td></tr></tbody></table></div></div>
+<p>由于mozRequestAnimationFrame()只运行给定的函数一次，你需要在下一次UI动画的时候再次调用它。你也需要相同的方法来管理何时停止调用。很酷，是非常流畅的动画增强的实例。</p>
+<p>因此，mozRequestAnimationFrame()解决了浏览器不知道Javascript动画正在执行和不知道多少才是合适的间隔的问题，但对于不知道何时你的代码才被真正执行，也是由这个方案来解决的。</p>
+<p>传递给mozRequestAnimationFrame()的函数实际是一个下一次重绘何时发生的的时间码（以毫秒为单位自1970年1月1日计算）。这是很重要的一点：mozRequestAnimationFrame()实际上列表出将要重绘的点并可以告诉你他们所处的时间。这样你就能够决定怎样更好的来调整你的动画。</p>
+<p>为了得到上次重绘过去的时间，你可以查询mozAnimationStartTime，其中包含了过去重绘的时间代码。减去传递回调时的这个值可以计算出下一次重绘到屏幕时所用的时间。使用这些值的典型模式如下：</p>
+<div><div id="highlighter_11546" class="syntaxhighlighter nogutter  js"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">function</code> <code class="js plain">draw(timestamp){</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//calculate difference since last repaint</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">diff = timestamp - startTime;</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//use diff to determine correct next step</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//reset startTime to this repaint</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">startTime = timestamp;</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//draw again</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">mozRequestAnimationFrame(draw);</code></div><div class="line number9 index8 alt2"><code class="js plain">}</code></div><div class="line number10 index9 alt1"><code class="js keyword">var</code> <code class="js plain">startTime = mozAnimationStartTime;</code></div><div class="line number11 index10 alt2"><code class="js plain">mozRequestAnimationFrame(draw);</code></div></div></td></tr></tbody></table></div></div>
+<p>关键是第一次不是通过callback调用时，mozAnimationStartTime是到mozRequestAnimationFrame()经过的时间。如果是在回调函数中，mozAnimationStartTime是通过参数传递进来的时间代码平均值。</p>
+<h3>webkitRequestAnimationFrame</h3>
+
+<p>在很多人热忠于chrome时，随即创建了webkitRequestAnimationFrame()方法。这个版本与firefox的版本在两方面有着细微的差别。一方面，它不通过回调函数传递时间代码，你将无法知道下次重绘何时发生，另一方面，它添加了第二个可选参数来确定哪一个DOM元素发生改变。因此，如果你知道重绘发生在页面哪个部分的元素内，你可以限制重绘发生的区域。</p>
+<p>应该不会感到惊讶，有没有相应的mozAnimationStartTime，因为如果没有下一个重绘的时间信息不是很有益。有，只是webkitCancelAnimationFrame()取消了之前计划的重绘。</p>
+<p>如果你不需要精确的时间差异，你可以用下面的方式来创建一个用于Firefox4和chrome10+的动画：</p>
+<div><div id="highlighter_808333" class="syntaxhighlighter nogutter  js"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="js keyword">function</code> <code class="js plain">draw(timestamp){</code></div><div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//calculate difference since last repaint</code></div><div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js keyword">var</code> <code class="js plain">drawStart = (timestamp || Date.now()),</code></div><div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">diff = drawStart - startTime;</code></div><div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//use diff to determine correct next step</code></div><div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//reset startTime to this repaint</code></div><div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">startTime = drawStart;</code></div><div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;</code><code class="js comments">//draw again</code></div><div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;</code><code class="js plain">requestAnimationFrame(draw);</code></div><div class="line number10 index9 alt1"><code class="js plain">}</code></div><div class="line number11 index10 alt2"><code class="js keyword">var</code> <code class="js plain">requestAnimationFrame = window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame,</code></div><div class="line number12 index11 alt1"><code class="js plain">startTime = window.mozAnimationStartTime || Date.now();</code></div><div class="line number13 index12 alt2"><code class="js plain">requestAnimationFrame(draw);</code></div></div></td></tr></tbody></table></div></div>
+<p>这种模式使用可用的方法来创建以花费多少时间为理念的循环动画。Firefox使用时间代码信息是有用的，而Chrome默认为欠精准的时间对象。当用这种模式的时候，时间的差异给你一种多少时间过去了的想法，但不会告诉你Chrome的下一次重绘出现在何时。不过这比只有多少时间过去了的模糊概念要好些。</p>
+<h3>总结</h3>
+<p>mozRequestAnimationFrame()方法的介绍为推动Javascript 动画及web的历史发展有着非常重要的作用。如前所述，JavaScript动画的态几乎和JavaScript的初期一样。随着浏览器逐渐推出CSS transitions 和 animations，很高兴看到基于JavaScript的动画的关注，因为这些在基于&lt;canvas&gt;的游戏领域将变得更重要和更与CUP联系紧密。知道Javascript何时尝试动画，允许浏览器做更多的优化处理，包括在tab处于后台或移动设备电量过低时停止进程。</p>
+<p>该requestAnimationFrame（）API现在正由W3C起草一个新议案，并正由Mozilla和Google努力使之成为Web大舞台的一部分。很高兴能看到这两大集团这么迅速的兼容（可能不完全）实现。</p>
+<p><a href="http://kimhou.com/2011/05/09/%E4%BD%BF%E7%94%A8requestanimationframe%E6%9B%B4%E5%A5%BD%E7%9A%84%E5%AE%9E%E7%8E%B0javascript%E5%8A%A8%E7%94%BB%EF%BC%88%E8%AF%91%EF%BC%89/">原贴地址</a></p><p>如果您觉得这文章对您有帮助，可以打赏点钱给我，鼓励我继续写博，<a href="https://me.alipay.com/jslouvre">我的支付宝</a></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/rubylouvre/tag/javascript/">javascript</a></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e5%8f%b8%e5%be%92%e6%ad%a3%e7%be%8e" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="http://static.cnblogs.com/images/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/rubylouvre/" target="_blank"><img src="http://pic.cnitblog.com/face/u65123.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/rubylouvre/">司徒正美</a><br>
+<a href="http://home.cnblogs.com/u/rubylouvre/followees">关注 - 70</a><br>
+<a href="http://home.cnblogs.com/u/rubylouvre/followers">粉丝 - 2512</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,'Digg')"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/rubylouvre/archive/2011/08/22/2147058.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/rubylouvre/archive/2011/08/22/2147058.html" title="发布于2011-08-22 09:04">我的模块加载系统 v9(附例子下载)</a><br><a href="http://www.cnblogs.com/rubylouvre/archive/2011/08/22/2148797.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/rubylouvre/archive/2011/08/22/2148797.html" title="发布于2011-08-22 17:24">requestAnimationFrame 动画接口</a><br></div>
+</div>
+
+
+		<p class="postfoot">
+			posted on <span id="post-date">2011-08-22 09:10</span> <a href="http://www.cnblogs.com/rubylouvre/">司徒正美</a> 阅读(<span id="post_view_count">5086</span>) 评论(<span id="post_comment_count">8</span>)  <a href="http://www.cnblogs.com/rubylouvre/admin/EditPosts.aspx?postid=2148793" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2148793);return false;">收藏</a>
+		</p>
+	</div>

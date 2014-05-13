@@ -1,0 +1,33 @@
+<p>
+	定义和用法
+acos() 方法可返回一个数的反余弦。
+语法
+Math.acos(x)
+参数	描述
+x	必需。必须是 -1.0 ~ 1.0 之间的数。
+返回值
+x 的反余弦值。返回的值是 0 到 PI 之间的弧度值。
+提示和注释
+注释：如果参数 x 超过了 -1.0 ~ 1.0 的范围，那么浏览器将返回 NaN。
+注释：如果参数 x 取值 -1，那么将返回 PI。
+实例
+在本例中，我们将取得不同数的反余弦值：
+<pre>
+	
+
+&ltscript type="text/javascript">
+
+document.write(Math.acos(0.64) + "&ltbr />")
+document.write(Math.acos(0) + "&ltbr />")
+document.write(Math.acos(-1) + "&ltbr />")
+document.write(Math.acos(1) + "&ltbr />")
+document.write(Math.acos(2))
+&lt/script>
+输出：
+0.8762980611683406
+1.5707963267948965
+3.141592653589793
+0
+NaN 
+</pre>
+</p>

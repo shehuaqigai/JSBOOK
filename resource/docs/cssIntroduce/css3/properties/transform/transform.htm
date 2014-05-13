@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS transform</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/transform/transform.htm">http://www.phpstudy.net/css3/properties/transform/transform.htm</a><br>
+<b>Title:</b> CSS transform &nbsp;&bull;&nbsp; <b>Size:</b> 11082 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">2D变换属性</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/transform/?" class="target">
+				<strong>其它2D变换属性</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="transform.htm">transform</a></li>
+					<li><a href="transform-origin.htm">transform-origin</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">transform</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+		<li>继承性：无</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>transform</strong>：none | matrix(&lt;number&gt;,&lt;number&gt;,&lt;number&gt;,&lt;number&gt;,&lt;number&gt;,&lt;number&gt;)? translate(&lt;length&gt;[,&lt;length&gt;])? translateX(&lt;length&gt;)? translateY(&lt;length&gt;)? rotate(&lt;angle&gt;)? scale(&lt;number&gt;[,&lt;number&gt;])? scaleX(&lt;number&gt;)? scaleY(&lt;number&gt;)? skew(&lt;angle&gt;[,&lt;angle&gt;])? skewX(&lt;angle&gt;) || skewY(&lt;angle&gt;)?</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">none</mark></p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt>none：</dt>
+				<dd>无转换</dd>
+				<dt>matrix(&lt;number&gt;,&lt;number&gt;,&lt;number&gt;,&lt;number&gt;,&lt;number&gt;,&lt;number&gt;)：</dt>
+				<dd>以一个含六值的(a,b,c,d,e,f)变换矩阵的形式指定一个2D变换，相当于直接应用一个[a,b,c,d,e,f]变换矩阵</dd>
+				<dt>translate(&lt;length&gt;[, &lt;length&gt;])：</dt>
+				<dd>指定对象的2D translation（2D平移）。第一个参数对应X轴，第二个参数对应Y轴。如果第二个参数未提供，则默认值为0</dd>
+				<dt>translateX(&lt;length&gt;)：</dt>
+				<dd>指定对象X轴（水平方向）的平移</dd>
+				<dt>translateY(&lt;length&gt;)：</dt>
+				<dd>指定对象Y轴（垂直方向）的平移</dd>
+				<dt>rotate(&lt;angle&gt;)：</dt>
+				<dd>指定对象的2D rotation（2D旋转），需先有transform-origin属性的定义</dd>
+				<dt>scale(&lt;number&gt;[, &lt;number&gt;])：</dt>
+				<dd>指定对象的2D scale（2D缩放）。第一个参数对应X轴，第二个参数对应Y轴。如果第二个参数未提供，则默认取第一个参数的值</dd>
+				<dt>scaleX(&lt;number&gt;)：</dt>
+				<dd>指定对象X轴的（水平方向）缩放</dd>
+				<dt>scaleY(&lt;number&gt;)：</dt>
+				<dd>指定对象Y轴的（垂直方向）缩放</dd>
+				<dt>skew(&lt;angle&gt; [, &lt;angle&gt;])：</dt>
+				<dd>指定对象skew transformation（斜切扭曲）。第一个参数对应X轴，第二个参数对应Y轴。如果第二个参数未提供，则默认值为0</dd>
+				<dt>skewX(&lt;angle&gt;)：</dt>
+				<dd>指定对象X轴的（水平方向）扭曲</dd>
+				<dt>skewY(&lt;angle&gt;)：</dt>
+				<dd>指定对象Y轴的（垂直方向）扭曲</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>设置或检索对象的转换。</strong>
+			<ul>
+				<li>对应的脚本特性为<strong>transform</strong>。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="unsupport">6.0-8.0</td>
+						<td rowspan="2" class="experimentsupport">4.0-9.0</td>
+						<td rowspan="2" class="experimentsupport">5.1</td>
+						<td rowspan="2" class="experimentsupport">13.0-16.0</td>
+						<td rowspan="2" class="experimentsupport">11.50-11.60</td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="experimentsupport">9.0-10.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="way" class="gmodule gattr">
+		<h2 class="tit">写法：</h2>
+		<div class="cont">
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th>内核类型</th>
+						<th>写法</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Webkit(Chrome/Safari)</th>
+						<td>-webkit-transform</td>
+					</tr>
+					<tr>
+						<th>Gecko(Firefox)</th>
+						<td>-moz-transform</td>
+					</tr>
+					<tr>
+						<th>Presto(Opera)</th>
+						<td>-o-transform</td>
+					</tr>
+					<tr>
+						<th>Trident(IE)</th>
+						<td>-ms-transform</td>
+					</tr>
+					<tr>
+						<th>W3C</th>
+						<td>transform</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS 2D transform_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+h1{clear:both;padding-top:10px;font-size:16px;font-family:Arial;}
+.test{zoom:1;width:700px;margin:0;padding:0;list-style:none;}
+.test li{float:left;margin:20px 30px 0 0;border:1px solid #000;}
+.test li p{width:300px;height:100px;margin:0;background:#ddd;}
+.test .matrix{-moz-transform:matrix(0,1,1,1,10px,10px);-webkit-transform:matrix(0,1,1,1,10,10);-o-transform:matrix(0,1,1,1,10,10);-ms-transform:matrix(0,1,1,1,10,10);transform:matrix(0,1,1,1,10,10);}
+.test .translate p{-moz-transform:translate(5%,10px);-webkit-transform:translate(10px,10px);-o-transform:translate(10px,10px);-ms-transform:translate(10px,10px);transform:translate(10px,10px);}
+.test .translate2 p{-moz-transform:translate(-10px,-10px);-webkit-transform:translate(-10px,-10px);-o-transform:translate(-10px,-10px);-ms-transform:translate(-10px,-10px);transform:translate(-10px,-10px);}
+.test .translateX p{-moz-transform:translateX(20px);-webkit-transform:translateX(20px);-o-transform:translateX(20px);-ms-transform:translateX(20px);transform:translateX(20px);}
+.test .translate3 p{-moz-transform:translate(20px);-webkit-transform:translate(20px);-o-transform:translate(20px);-ms-transform:translate(20px);transform:translate(20px);}
+.test .translateY p{-moz-transform:translateY(10px);-webkit-transform:translateY(10px);-o-transform:translateY(10px);-ms-transform:translateY(10px);transform:translateY(10px);}
+.test .translate4 p{-moz-transform:translate(0,10px);-webkit-transform:translate(0,10px);-o-transform:translate(0,10px);-ms-transform:translate(0,10px);transform:translate(0,10px);}
+.test .rotate{-moz-transform:rotate(-5deg);-webkit-transform:rotate(-5deg);-o-transform:rotate(-5deg);-ms-transform:rotate(-5deg);transform:rotate(-5deg);}
+.test .rotate2{-moz-transform:rotate(5deg);-webkit-transform:rotate(5deg);-o-transform:rotate(5deg);-ms-transform:rotate(5deg);transform:rotate(5deg);}
+.test .scale{-moz-transform:scale(.8);-webkit-transform:scale(.8);-o-transform:scale(.8);-ms-transform:scale(.8);transform:scale(.8);}
+.test .scale2{-moz-transform:scale(1.2);-webkit-transform:scale(1.2);-o-transform:scale(1.2);-ms-transform:scale(1.2);transform:scale(1.2);}
+.test .skew{-moz-transform:skew(-5deg);-webkit-transform:skew(-5deg);-o-transform:skew(-5deg);-ms-transform:skew(-5deg);transform:skew(-5deg);}
+.test .skew2{-moz-transform:skew(-5deg,-5deg);-webkit-transform:skew(-5deg,-5deg);-o-transform:skew(-5deg,-5deg);-ms-transform:skew(-5deg,-5deg);transform:skew(-5deg,-5deg);}
+</style>
+</head>
+<body>
+<h1>矩阵变换：matrix()</h1>
+<ul class="test">
+	<li class="matrix">
+		<p>transform:matrix(0,1,1,1,10,10)</p>
+	</li>
+</ul>
+<h1>平移：translate(), translateX(), translateY()</h1>
+<ul class="test">
+	<li class="translate">
+		<p>transform:translate(5%,10px)</p>
+	</li>
+	<li class="translate2">
+		<p>transform:translate(-10px,-10px)</p>
+	</li>
+	<li class="translateX">
+		<p>transform:translateX(20px)</p>
+	</li>
+	<li class="translate3">
+		<p>transform:translate(20px)</p>
+	</li>
+	<li class="translateY">
+		<p>transform:translateY(10px)</p>
+	</li>
+	<li class="translate4">
+		<p>transform:translate(0,10px)</p>
+	</li>
+</ul>
+<h1>旋转：rotate()</h1>
+<ul class="test">
+	<li class="rotate">
+		<p>transform:rotate(-15deg)</p>
+	</li>
+	<li class="rotate2">
+		<p>transform:rotate(15deg)</p>
+	</li>
+</ul>
+<h1>缩放：scale()</h1>
+<ul class="test">
+	<li class="scale">
+		<p>transform:scale(.8)</p>
+	</li>
+	<li class="scale2">
+		<p>transform:scale(1.2)</p>
+	</li>
+</ul>
+<h1>扭曲：skew()</h1>
+<ul class="test">
+	<li class="skew">
+		<p>transform:skew(-5deg)</p>
+	</li>
+	<li class="skew2">
+		<p>transform:skew(-5deg,-5deg)</p>
+	</li>
+</ul>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

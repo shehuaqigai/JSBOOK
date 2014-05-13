@@ -1,0 +1,95 @@
+<div class="_content"><div class="_page _mdn"><h1>Int16Array</h1> <p>The <code>Int16Array</code> type represents an array of twos-complement 16-bit signed integers in the platform byte order. If control over byte order is needed, use <a href="dataview">DataView</a> instead.</p> <p>Once established, you can reference elements in the array using the object's methods, or using standard array index syntax (that is, using bracket notation).</p> <h2 id="Constructors">Constructors</h2> <div class="note"> <strong>Note:</strong> In these methods, <code><em>TypedArray</em></code> represents any of the <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBufferView#Typed_array_subclasses" title="en/JavaScript typed arrays/ArrayBufferView#Typed array subclasses">typed array object types</a>.</div> <table class="standard-table"><tbody>
+<tr>
+<td><code>Int16Array <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Int16Array#Int16Array()" title="en/JavaScript typed arrays/Int16Array#Int16Array()">Int16Array</a>(unsigned long length);</code></td> </tr>
+<tr>
+<td>
+<code>Int16Array </code><code><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Int16Array#Int16Array%28%29" title="en/JavaScript typed arrays/Int16Array#Int16Array()">Int16Array</a></code><code>(<em>TypedArray</em> array);</code>
+</td> </tr>
+<tr>
+<td>
+<code>Int16Array </code><code><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Int16Array#Int16Array%28%29" title="en/JavaScript typed arrays/Int16Array#Int16Array()">Int16Array</a></code><code>(sequence&lt;type&gt; array);</code>
+</td> </tr>
+<tr>
+<td>
+<code>Int16Array </code><code><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Int16Array#Int16Array%28%29" title="en/JavaScript typed arrays/Int16Array#Int16Array()">Int16Array</a></code><code>(ArrayBuffer buffer, optional unsigned long byteOffset, optional unsigned long length);</code>
+</td> </tr>
+</tbody></table><h2 id="Method_overview" name="Method_overview">Method overview</h2> <div class="note"> <strong>Note:</strong> In these methods, <code><em>TypedArray</em></code> represents any of the <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBufferView#Typed_array_subclasses" title="en/JavaScript typed arrays/ArrayBufferView#Typed array subclasses">typed array object types</a>.</div> <table class="standard-table"><tbody>
+<tr>
+<td><code>void <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Int8Array#set%28%29" title="en/JavaScript typed arrays/Int8Array#set()">set</a>(<em>TypedArray</em> array, optional unsigned long offset);</code></td> </tr>
+<tr>
+<td><code>void <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Int8Array#set%28%29" title="en/JavaScript typed arrays/Int8Array#set()">set</a>(type[] array, optional unsigned long offset);</code></td> </tr>
+<tr>
+<td><code>Int16Array <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/Int8Array#subarray%28%29" title="en/JavaScript typed arrays/Int8Array#subarray()">subarray</a>(long begin, optional long end);</code></td> </tr>
+</tbody></table><h2 id="Attributes">Attributes</h2> <table class="standard-table" style="width: auto;"><tbody>
+<tr>
+<th class="header">Attribute</th> <th class="header">Type</th> <th class="header">Description</th> </tr>
+<tr>
+<td>buffer</td> <td>ArrayBuffer</td> <td>The ArrayBuffer object used to contain the TypedArray datas. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td>byteOffset</td> <td>unsigned long</td> <td>The index at wich starts the TypedArray in it underlying ArrayBuffer. <strong>Read only.</strong>
+</td> </tr>
+<tr>
+<td>length</td> <td>unsigned long</td> <td>The number of entries in the array. <strong>Read only.</strong>
+</td> </tr>
+</tbody></table><h2 id="Constants" name="Constants">Constants</h2> <h3 id="Element_size">Element size</h3> <table class="standard-table"><tbody>
+<tr>
+<th class="header">Constant</th> <th class="header">Value</th> <th class="header">Description</th> </tr>
+<tr>
+<td><code>BYTES_PER_ELEMENT</code></td> <td>2</td> <td>The size, in bytes, of each array element.</td> </tr>
+</tbody></table><h2 id="Constructor">Constructor</h2> <p>Returns a new <code>Int16Array</code> object.</p> <pre>Int16Array Int16Array(
+&nbsp; unsigned long length
+);
+
+Int16Array Int16Array(
+&nbsp; <em>TypedArray</em> array
+);
+
+Int16Array Int16Array(
+&nbsp; sequence&lt;type&gt; array
+);
+
+Int16Array Int16Array(
+&nbsp; ArrayBuffer buffer,
+&nbsp; optional unsigned long byteOffset,
+&nbsp; optional unsigned long length
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>length</code>
+</dt> <dd> The number of elements in the byte array. If unspecified, length of the array view will match the buffer's length.</dd> <dt> <code>array</code>
+</dt> <dd> An object of any of the typed array types (such as <code>Int32Array</code>), or a sequence of objects of a particular type, to copy into a new <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a>. Each value in the source array is converted to a 16-bit signed integer before being copied into the new array.</dd> <dt> <code>buffer</code>
+</dt> <dd> An existing <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a> to use as the storage for the new <code>Int16Array</code> object.</dd> <dt> <code>byteOffset</code>
+</dt> <dd> The offset, in bytes, to the first byte in the specified buffer for the new view to reference. If not specified, the <code>Int16Array</code>'s view of the buffer will start with the first byte.</dd> </dl><h6 id="Return_value">Return value</h6> <p>A new <code>Int16Array</code> object representing the specified data buffer.</p> <h6 id="Notes">Notes</h6> <p>The first form of the constructor, accepting only a length, creates a new <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a> object that can hold the specified number of signed 16-bit integers, then creates and returns a typed array view referring to that new buffer. The <code>length</code> must be specified in this case.</p> <p>The second form creates a new <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a> object that is a duplicate of the specified array, except with each element in the new array converted to a 16-bit signed integer.</p> <p>The third form of the constructor likewise creates a new <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a> object that is a duplicate of the specified JavaScript array, with each element in the new array converted to a 16-bit signed integer.</p> <p>The final form of the constructor creates a new <code>Int16Array</code> object, using the specified <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a> as its storage. This lets you access the existing buffer in a different format. If specified, the <code>byteOffset</code> and <code>length</code> parameters let you create the new view to only a portion of the buffer.</p> <h6 id="Exceptions_thrown">Exceptions thrown</h6> <dl>
+<dt> <code>INDEX_SIZE_ERR</code>
+</dt> <dd> The specified <code>byteOffset</code> isn't a multiple of the element size, or the <code>byteOffset</code> and <code>length</code> result in the specified view extending past the end of the buffer.</dd> </dl><h2 id="Methods">Methods</h2> <h3 id="set()">set()</h3> <p>Sets multiple values in the typed array, reading input values from a specified array.</p> <pre>void set(
+&nbsp; <em>TypedArray</em> array,
+&nbsp; optional unsigned long offset
+);
+
+void set(
+&nbsp; type[] array,
+&nbsp; optional unsigned long offset
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>array</code>
+</dt> <dd> An array from which to copy values. All values from the source array are copied into the target array, unless the length of the source array plus the offset exceeds the length of the target array, in which case an exception is thrown. If the source array is a typed array, the two arrays may share the same underlying <code><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer">ArrayBuffer</a></code>; the browser will intelligently copy the source range of the buffer to the destination range.</dd> <dt> offset <span class="inlineIndicator optional optionalInline">Optional</span>
+</dt> <dd> The offset into the target array at which to begin writing values from the source <code>array</code>. If you omit this value, 0 is assumed (that is, the source <code>array</code> will overwrite values in the target array starting at index 0).</dd> </dl><h3 id="subarray()">subarray()</h3> <p>Returns a new <code>Int16Array</code> view on the <a href="https://developer.mozilla.org/en/JavaScript_typed_arrays/ArrayBuffer" title="en/JavaScript typed arrays/ArrayBuffer"><code>ArrayBuffer</code></a> store for this <code>Int16Array</code> object.</p> <pre>Int16Array subarray(
+&nbsp; long begin,
+&nbsp; optional long end
+);
+</pre> <h6 id="Parameters">Parameters</h6> <dl>
+<dt> <code>begin</code>
+</dt> <dd> The offset to the first element in the array to be referenced by the new <code>Int16Array</code> object.</dd> <dt> <code>end</code> <span class="inlineIndicator optional optionalInline">Optional</span>
+</dt> <dd> The offset to the last element in the array to be referenced by the new <code>Int16Array</code> object; if not specified, all elements from the one specified by <code>begin</code> to the end of the array are included in the new view.</dd> </dl><h6 id="Notes">Notes</h6> <p>The range specified by <code>begin</code> and <code>end</code> is clamped to the valid index range for the current array; if the computed length of the new array would be negative, it's clamped to zero. If either <code>begin</code> or <code>end</code> is negative, it refers to an index from the end of the array instead of from the beginning.</p> <div class="note"> <strong>Note:</strong> Keep in mind that this is creating a new view on the existing buffer; changes to the new object's contents will impact the original object and vice versa.</div> <h2 id="See_also">See also</h2> <ul>
+<li><a class="link-https" href="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/doc/spec/TypedArray-spec.html" title="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/doc/spec/TypedArray-spec.html">Typed Array Specification</a></li> <li><a href="https://developer.mozilla.org/en/JavaScript_typed_arrays" title="en/JavaScript typed arrays">JavaScript typed arrays</a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Int16Array$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/Int16Array" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/Int16Array</a>
+  </p>
+</div>
+</div></div>

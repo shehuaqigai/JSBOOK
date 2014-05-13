@@ -1,0 +1,103 @@
+<div class="twelve columns">
+
+<h1> Web Speech </h1>
+
+<aside class="right"><p>来自<a href="/">《JavaScript 标准参考教程（alpha）》</a>，by 阮一峰</p></aside>
+
+<h2>目录</h2><div id="toc" class="panel callout radius"><ul><li class="toc-h2 toc-active"><a href="#toc0">概述</a></li><li class="toc-h2"><a href="#toc1">SpeechRecognition对象</a></li><li class="toc-h2"><a href="#toc2">事件</a></li><li class="toc-h2"><a href="#toc3">参考链接</a></li></ul></div>
+
+
+<span id="toc0"></span><div class="chapter"><h2>概述</h2></div>
+
+<p>这个API用于浏览器接收语音输入。</p>
+
+<p>它最早是由Google提出的，目的是让用户直接进行语音搜索，即对着麦克风说出你所要搜索的词，搜索结果就自动出现。Google首先部署的是input元素的speech属性（加上浏览器前缀x-webkit）。</p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"query"</span> <span class="na">type=</span><span class="s">"search"</span> <span class="na">class=</span><span class="s">"k-input k-textbox"</span> 
+ <span class="na">x-webkit-speech</span> <span class="na">speech</span> <span class="nt">/&gt;</span>
+</code></pre></div>
+
+
+<p>加上这个属性以后，输入框的右端会出现了一个麦克风标志，点击该标志，就会跳出语音输入窗口。</p>
+
+<p>由于这个操作过于简单，Google又在它的基础上提出了Web Speech API，使得JavaScript可以操作语音输入。</p>
+
+<p>目前，只有Chrome浏览器支持该API。</p>
+
+<span id="toc1"></span><div class="chapter"><h2>SpeechRecognition对象</h2></div>
+
+<p>这个API部署在SpeechRecognition对象之上。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">SpeechRecognition</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">SpeechRecognition</span> <span class="o">||</span> 
+                        <span class="nb">window</span><span class="p">.</span><span class="nx">webkitSpeechRecognition</span> <span class="o">||</span> 
+                        <span class="nb">window</span><span class="p">.</span><span class="nx">mozSpeechRecognition</span> <span class="o">||</span> 
+                        <span class="nb">window</span><span class="p">.</span><span class="nx">oSpeechRecognition</span> <span class="o">||</span> 
+                        <span class="nb">window</span><span class="p">.</span><span class="nx">msSpeechRecognition</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>为了将来的兼容性考虑，上面的代码列出了所有浏览器的前缀。但是实际上，目前只有window.webkitSpeechRecognition是可用的。</p>
+
+<p>确定浏览器支持以后，新建一个SpeechRecognition的实例对象。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">if</span> <span class="p">(</span><span class="nx">SpeechRecognition</span><span class="p">)</span> <span class="p">{</span>       
+  <span class="kd">var</span> <span class="nx">recognition</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SpeechRecognition</span><span class="p">();</span>
+  <span class="nx">recognition</span><span class="p">.</span><span class="nx">maxAlternatives</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>maxAlternatives属性等于5，表示最多返回5个语音匹配结果。</p>
+
+<span id="toc2"></span><div class="chapter"><h2>事件</h2></div>
+
+<p>目前，该API部署了11个事件。下面对其中的3个定义回调函数（假定speak是语音输入框）。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">speak</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#speak'</span><span class="p">);</span>
+
+<span class="nx">recognition</span><span class="p">.</span><span class="nx">onaudiostart</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">speak</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s2">"Speak now..."</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">recognition</span><span class="p">.</span><span class="nx">onnomatch</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">speak</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s2">"Try again please..."</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">recognition</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">speak</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s2">"Error. Try Again..."</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>首先，浏览器会询问用户是否许可浏览器获取麦克风数据。如果用户许可，就会触发audiostart事件，准备接收语音输入。如果找不到与语音匹配的值，就会触发nomatch事件；如果发生错误，则会触发error事件。</p>
+
+<p>如果得到与语音匹配的值，则会触发result事件。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">recognition</span><span class="p">.</span><span class="nx">onresult</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span> 
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">results</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 
+    
+    <span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+        <span class="nx">topResult</span> <span class="o">=</span> <span class="nx">results</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">topResult</span><span class="p">.</span><span class="nx">confidence</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">speechSearch</span><span class="p">(</span><span class="nx">results</span><span class="p">,</span> <span class="nx">topResult</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">speak</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s2">"Try again please..."</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>result事件回调函数的参数，是一个SpeechRecognitionEvent对象。它的results属性就是语音匹配的结果，是一个数组，按照匹配度排序，最匹配的结果排在第一位。该数组的每一个成员是SpeechRecognitionResult对象，该对象的transcript属性是实际匹配的文本，confidence属性是可信度（在0与1之间）。</p>
+
+<span id="toc3"></span><div class="chapter"><h2 class="reference">参考链接</h2></div>
+
+<ul class="reference-list">
+<li>Brandon Satrom, <a href="http://www.adobe.com/devnet/html5/articles/voice-to-drive-the-web-introduction-to-speech-api.html">Using voice to drive the web: Introduction to the Web Speech API</a></li>
+</ul>
+
+
+
+</div>

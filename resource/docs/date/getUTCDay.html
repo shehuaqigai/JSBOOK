@@ -1,0 +1,42 @@
+<pre>
+	定义和用法
+getUTCDay() 方法根据世界时返回表示星期的一天的一个数字。
+语法
+dateObject.getUTCDay()
+返回值
+dateObject 用世界时表示时，返回该星期中的某一天 ，该值是 0（星期天） ~ 6（星期六） 中的一个值。
+提示和注释：
+注释：该方法总是结合一个 Date 对象来使用。
+提示：有关通用协调时间 (UTC) 的更多资料，请参阅百度百科。
+实例
+例子 1
+在本例中，我们将取得本周的当前 UTC 天（以一个数字）：
+&ltscript type="text/javascript">
+
+var d=new Date()
+document.write(d.getUTCDay())
+
+&lt/script>
+输出：
+6
+例子 2
+现在，我将创建一个数组，使得上面的例子能够输出星期的名称，而不仅仅是一个数字：
+&ltscript type="text/javascript">
+
+var d=new Date()
+
+var weekday=new Array(7)
+weekday[0]="Sunday"
+weekday[1]="Monday"
+weekday[2]="Tuesday"
+weekday[3]="Wednesday"
+weekday[4]="Thursday"
+weekday[5]="Friday"
+weekday[6]="Saturday"
+
+document.write("Today it is " + weekday[d.getUTCDay()])
+
+&lt/script>
+输出：
+Today it is Saturday
+</pre>

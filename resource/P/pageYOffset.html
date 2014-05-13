@@ -1,0 +1,3 @@
+
+<ul><li>
+windwo对象的pageXOffset属性总是可以返回滚动的长度，不管doctype是什么类型的，所有浏览器都支持这个属性，除了IE8及其更低版本的IE浏览器。</li><li>window对象的scrollX属性总是可以返回滚动的长度，不管doctype是什么类型，Firefox, Chrome和Safari都支持该属性。</li><li>如果文档中没有指明文档类型，在IE, Firefox, Opera, Chrome和Safari中，通过body的scrollLeft可以获取滚动的数值。</li><li>如果有指明文档类型，那么在IE, Firefox和Opera中，可以通过html的scrollLeft属性获取滚动的数值，但是在Chrome和Safari中的值总是为0.</li><li>如果没有指明文档类型，那么html的scrollLeft属性总是返回0.</li></ul>

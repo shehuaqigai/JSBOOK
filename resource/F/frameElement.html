@@ -1,0 +1,35 @@
+<div class="_content"><div class="_page _mdn"><h1>window.frameElement</h1>  <p>Returns the element (such as <code>&lt;iframe&gt;</code> or <code>&lt;object&gt;</code>) in which the window is embedded, or <code>null</code> if the window is top-level.</p> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="syntaxbox"><var>frameEl</var> = window.frameElement;
+</pre> <ul>
+<li>
+<code>frameEl</code> is the element which the window is embedded into, or <code>null</code> if the window is top-level.</li> </ul><h2 id="Example" name="Example">Example</h2> <pre class=" language-javascript"><span class="token keyword">var</span> frameEl <span class="token operator">=</span> window<span class="token punctuation">.</span>frameElement<span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+// If we are inside a frame, then change its URL to 'http://mozilla.org/'
+</span><span class="token keyword">if</span> <span class="token punctuation">(</span>frameEl<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  frameEl<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">'http://mozilla.org/'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre> <h2 id="Notes" name="Notes">Notes</h2> <p>Note that despite its name, the property also works for documents inside <code>&lt;object&gt;</code> and other embedding points.</p> <h2 id="Specification" name="Specification">Specification</h2> <p><a href="http://www.whatwg.org/specs/web-apps/current-work/#dom-frameelement">WHATWG</a></p> <h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td>18</td> <td>1.0 (1.7 or earlier)</td> <td>5.5?</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>1.0 (1.7 or earlier)</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also" name="See_also">See also</h2> <ul>
+<li>
+<a href="window.frames" title="Returns the window itself, which is an array-like object, listing the direct sub-frames of the current window."><code>window.frames</code></a> returns an array-like object, listing the direct sub-frames of the current window.</li> <li>
+<a href="window.parent" title="A reference to the parent of the current window or subframe."><code>window.parent</code></a> returns the parent window, which is the window containing the <code>frameElement</code> of the child window.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.frameElement$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.frameElement" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/window.frameElement</a>
+  </p>
+</div>
+</div></div>

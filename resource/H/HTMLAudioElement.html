@@ -1,0 +1,789 @@
+<td valign="top" style="padding-left:20px">
+				
+
+<div class="singlepost">
+	<div class="posttitle">
+		<a id="cb_post_title_url" class="singleposttitle" href="http://www.cnblogs.com/guozhenyp/archive/2011/11/01/2231414.html">HTML5 audio 详解</a>
+	</div>
+	<div id="cnblogs_post_body"><p><span style="color: #ff0000;">注：本文内容来源自W3C ，对原文进行了浓缩，但只对chrome浏览器进行了测试和验证。</span></p>
+<p>W3C草案原文地址：<a href="http://www.w3.org/TR/html5/video.html">http://www.w3.org/TR/html5/video.html</a></p>
+<h3>&lt;audio&gt; 标签属性：</h3>
+<ul>
+<li>src：音乐的URL</li>
+<li>preload：预加载</li>
+<li>autoplay：自动播放</li>
+<li>loop：循环播放</li>
+<li>controls：浏览器自带的控制条</li>
+</ul>
+<div id="highlighter_164835" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>1</code></td>
+<td class="content"><code class="plain">&lt;</code><code class="keyword">audio</code> <code class="color1">id</code><code class="plain">=</code><code class="string">"media"</code> <code class="color1">src</code><code class="plain">=</code><code class="string">"<a href="http://www.abc.com/test.mp3">http://www.abc.com/test.mp3</a>"</code> <code class="plain">controls&gt;&lt;/</code><code class="keyword">audio</code><code class="plain">&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h3>&lt;video&gt; 标签属性：</h3>
+<ul>
+<li>src：视频的URL</li>
+<li>poster：视频封面，没有播放时显示的图片</li>
+<li>preload：预加载</li>
+<li>autoplay：自动播放</li>
+<li>loop：循环播放</li>
+<li>controls：浏览器自带的控制条</li>
+<li>width：视频宽度</li>
+<li>height：视频高度</li>
+</ul>
+<div id="highlighter_863762" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>1</code></td>
+<td class="content"><code class="plain">&lt;</code><code class="keyword">video</code> <code class="color1">id</code><code class="plain">=</code><code class="string">"media"</code> <code class="color1">src</code><code class="plain">=</code><code class="string">"<a href="http://www.abc.com/test.mp4">http://www.abc.com/test.mp4</a>"</code> <code class="plain">controls </code><code class="color1">width</code><code class="plain">=</code><code class="string">"400px"</code> <code class="color1">heigt</code><code class="plain">=</code><code class="string">"400px"</code><code class="plain">&gt;&lt;/</code><code class="keyword">video</code><code class="plain">&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h3>获取HTMLVideoElement和HTMLAudioElement对象</h3>
+<div id="highlighter_459405" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>1</code></td>
+<td class="content"><code class="comments">//audio可以直接通过new创建对象</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>2</code></td>
+<td class="content"><code class="plain">Media = </code><code class="keyword">new</code> <code class="plain">Audio(</code><code class="string">"<a href="http://www.abc.com/test.mp3">http://www.abc.com/test.mp3</a>"</code><code class="plain">);</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>3</code></td>
+<td class="content"><code class="comments">//audio和video都可以通过标签获取对象</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>4</code></td>
+<td class="content"><code class="plain">Media = document.getElementById(</code><code class="string">"media"</code><code class="plain">);</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h3>Media方法和属性：</h3>
+<p>HTMLVideoElement 和 HTMLAudioElement 均继承自 HTMLMediaElement</p>
+<div id="highlighter_118620" class="syntaxhighlighter  ">
+<div class="lines">
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>01</code></td>
+<td class="content"><code class="comments">//错误状态</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>02</code></td>
+<td class="content"><code class="plain">Media.error; </code><code class="comments">//null:正常</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>03</code></td>
+<td class="content"><code class="plain">Media.error.code; </code><code class="comments">//1.用户终止 2.网络错误 3.解码错误 4.URL无效</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>04</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table style="width: 142px; height: 22px;">
+<tbody>
+<tr>
+<td class="number"><code>05</code></td>
+<td class="content"><code class="comments">//网络状态</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table style="width: 455px; height: 40px;">
+<tbody>
+<tr>
+<td class="number"><code>06</code></td>
+<td class="content"><code class="plain">Media.currentSrc; </code><code class="comments">//返回当前资源的URL</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table style="width: 384px; height: 26px;">
+<tbody>
+<tr>
+<td class="number"><code>07</code></td>
+<td class="content"><code class="plain">Media.src = value; </code><code class="comments">//返回或设置当前资源的URL</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table style="width: 460px; height: 28px;">
+<tbody>
+<tr>
+<td class="number"><code>08</code></td>
+<td class="content"><code class="plain">Media.canPlayType(type); </code><code class="comments">//是否能播放某种格式的资源</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>09</code></td>
+<td class="content"><code class="plain">Media.networkState; </code><code class="comments">//0.此元素未初始化&nbsp; 1.正常但没有使用网络&nbsp; 2.正在下载数据&nbsp; 3.没有找到资源</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>10</code></td>
+<td class="content"><code class="plain">Media.load(); </code><code class="comments">//重新加载src指定的资源</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>11</code></td>
+<td class="content"><code class="plain">Media.buffered; </code><code class="comments">//返回已缓冲区域，TimeRanges</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>12</code></td>
+<td class="content"><code class="plain">Media.preload; </code><code class="comments">//none:不预载 metadata:预载资源信息 auto:</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>13</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>14</code></td>
+<td class="content"><code class="comments">//准备状态</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>15</code></td>
+<td class="content"><code class="plain">Media.readyState;&nbsp;&nbsp; </code><code class="comments">//1:HAVE_NOTHING 2:HAVE_METADATA 3.HAVE_CURRENT_DATA 4.HAVE_FUTURE_DATA 5.HAVE_ENOUGH_DATA</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>16</code></td>
+<td class="content"><code class="plain">Media.seeking; </code><code class="comments">//是否正在seeking</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>17</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>18</code></td>
+<td class="content"><code class="comments">//回放状态</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>19</code></td>
+<td class="content"><code class="plain">Media.currentTime = value; </code><code class="comments">//当前播放的位置，赋值可改变位置</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>20</code></td>
+<td class="content"><code class="plain">Media.startTime; </code><code class="comments">//一般为0，如果为流媒体或者不从0开始的资源，则不为0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>21</code></td>
+<td class="content"><code class="plain">Media.duration; </code><code class="comments">//当前资源长度 流返回无限</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>22</code></td>
+<td class="content"><code class="plain">Media.paused; </code><code class="comments">//是否暂停</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>23</code></td>
+<td class="content"><code class="plain">Media.defaultPlaybackRate = value;</code><code class="comments">//默认的回放速度，可以设置</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>24</code></td>
+<td class="content"><code class="plain">Media.playbackRate = value;</code><code class="comments">//当前播放速度，设置后马上改变</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>25</code></td>
+<td class="content"><code class="plain">Media.played; </code><code class="comments">//返回已经播放的区域，TimeRanges，关于此对象见下文</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>26</code></td>
+<td class="content"><code class="plain">Media.seekable; </code><code class="comments">//返回可以seek的区域 TimeRanges</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>27</code></td>
+<td class="content"><code class="plain">Media.ended;&nbsp;&nbsp;&nbsp; </code><code class="comments">//是否结束</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>28</code></td>
+<td class="content"><code class="plain">Media.autoPlay; </code><code class="comments">//是否自动播放</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>29</code></td>
+<td class="content"><code class="plain">Media.loop; </code><code class="comments">//是否循环播放</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>30</code></td>
+<td class="content"><code class="plain">Media.play();&nbsp;&nbsp; </code><code class="comments">//播放</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>31</code></td>
+<td class="content"><code class="plain">Media.pause();&nbsp; </code><code class="comments">//暂停</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>32</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>33</code></td>
+<td class="content"><code class="comments">//控制</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>34</code></td>
+<td class="content"><code class="plain">Media.controls;</code><code class="comments">//是否有默认控制条</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>35</code></td>
+<td class="content"><code class="plain">Media.volume = value; </code><code class="comments">//音量最大为１最小为０　　</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>36</code></td>
+<td class="content"><code class="plain">Media.muted = value; </code><code class="comments">//静音</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>37</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>38</code></td>
+<td class="content"><code class="comments">//TimeRanges(区域)对象</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>39</code></td>
+<td class="content"><code class="plain">TimeRanges.length; </code><code class="comments">//区域段数</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>40</code></td>
+<td class="content"><code class="plain">TimeRanges.start(index) </code><code class="comments">//第index段区域的开始位置</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>41</code></td>
+<td class="content"><code class="plain">TimeRanges.end(index) </code><code class="comments">//第index段区域的结束位置</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h3>事件：</h3>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>01</code></td>
+<td class="content"><code class="plain">eventTester = </code><code class="keyword">function</code><code class="plain">(e){</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>02</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Media.addEventListener(e,</code><code class="keyword">function</code><code class="plain">(){</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>03</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">console.log((</code><code class="keyword">new</code> <code class="plain">Date()).getTime(),e);</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>04</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">});</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>05</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>06</code></td>
+<td class="content">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>07</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"loadstart"</code><code class="plain">);&nbsp;&nbsp; </code><code class="comments">//客户端开始请求数据</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>08</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"progress"</code><code class="plain">);&nbsp;&nbsp;&nbsp; </code><code class="comments">//客户端正在请求数据</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>09</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"suspend"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//延迟下载</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>10</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"abort"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//客户端主动终止下载（不是因为错误引起），</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>11</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"error"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//请求数据时遇到错误</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>12</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"stalled"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//网速失速</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>13</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"play"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//play()和autoplay开始播放时触发</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>14</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"pause"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//pause()触发</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>15</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"loadedmetadata"</code><code class="plain">);&nbsp; </code><code class="comments">//成功获取资源长度</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>16</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"loadeddata"</code><code class="plain">);&nbsp; </code><code class="comments">//</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>17</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"waiting"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//等待数据，并非错误</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>18</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"playing"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//开始回放</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>19</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"canplay"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//可以播放，但中途可能因为加载而暂停</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>20</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"canplaythrough"</code><code class="plain">); </code><code class="comments">//可以播放，歌曲全部加载完毕</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>21</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"seeking"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//寻找中</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>22</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"seeked"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//寻找完毕</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>23</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"timeupdate"</code><code class="plain">);&nbsp; </code><code class="comments">//播放时间改变</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>24</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"ended"</code><code class="plain">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </code><code class="comments">//播放结束</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt1">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>25</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"ratechange"</code><code class="plain">);&nbsp; </code><code class="comments">//播放速率改变</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="line alt2">
+<table>
+<tbody>
+<tr>
+<td class="number"><code>26</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"durationchange"</code><code class="plain">);&nbsp; </code><code class="comments">//资源长度改变</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<table>
+<tbody>
+<tr>
+<td class="number"><code>27</code></td>
+<td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">eventTester(</code><code class="string">"volumechange"</code><code class="plain">);&nbsp;&nbsp;&nbsp; </code><code class="comments">//音量改变</code></td>
+</tr>
+</tbody>
+</table></div>
+
+
+		</td>

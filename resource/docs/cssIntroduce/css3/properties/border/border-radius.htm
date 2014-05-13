@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS border-radius</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/border/border-radius.htm">http://www.phpstudy.net/css3/properties/border/border-radius.htm</a><br>
+<b>Title:</b> CSS border-radius &nbsp;&bull;&nbsp; <b>Size:</b> 9311 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">边框属性</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/border/?" class="target">
+				<strong>其它边框属性参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="border.htm">border</a></li>
+					<li><a href="border-width.htm">border-width</a></li>
+					<li><a href="border-style.htm">border-style</a></li>
+					<li><a href="border-color.htm">border-color</a></li>
+					<li><a href="border-colors.htm">border-colors</a></li>
+					<li><a href="border-top.htm">border-top</a></li>
+					<li><a href="border-top-width.htm">border-top-width</a></li>
+					<li><a href="border-top-style.htm">border-top-style</a></li>
+					<li><a href="border-top-color.htm">border-top-color</a></li>
+					<li><a href="border-top-colors.htm">border-top-colors</a></li>
+					<li><a href="border-right.htm">border-right</a></li>
+					<li><a href="border-right-width.htm">border-right-width</a></li>
+					<li><a href="border-right-style.htm">border-right-style</a></li>
+					<li><a href="border-right-color.htm">border-right-color</a></li>
+					<li><a href="border-right-colors.htm">border-right-colors</a></li>
+					<li><a href="border-bottom.htm">border-bottom</a></li>
+					<li><a href="border-bottom-width.htm">border-bottom-width</a></li>
+					<li><a href="border-bottom-style.htm">border-bottom-style</a></li>
+					<li><a href="border-bottom-color.htm">border-bottom-color</a></li>
+					<li><a href="border-bottom-colors.htm">border-bottom-colors</a></li>
+					<li><a href="border-left.htm">border-left</a></li>
+					<li><a href="border-left-width.htm">border-left-width</a></li>
+					<li><a href="border-left-style.htm">border-left-style</a></li>
+					<li><a href="border-left-color.htm">border-left-color</a></li>
+					<li><a href="border-left-colors.htm">border-left-colors</a></li>
+					<li><a href="border-image.htm">border-image</a></li>
+					<li><a href="border-radius.htm">border-radius</a></li>
+					<li><a href="border-top-left-radius.htm">border-top-left-radius</a></li>
+					<li><a href="border-top-right-radius.htm">border-top-right-radius</a></li>
+					<li><a href="border-bottom-right-radius.htm">border-bottom-right-radius</a></li>
+					<li><a href="border-bottom-left-radius.htm">border-bottom-left-radius</a></li>
+					<li><a href="box-shadow.htm">box-shadow</a></li>
+					<li><a href="box-reflect.htm">box-reflect</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">border-radius</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+		<li>继承性：无</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>border-radius</strong>：[ <a href="../../values/other/length.htm">&lt;length&gt;</a> | <a href="../../values/other/percentage.htm">&lt;percentage&gt;</a> ]{1,4} [ / [ <a href="../../values/other/length.htm">&lt;length&gt;</a> | <a href="../../values/other/percentage.htm">&lt;percentage&gt;</a> ]{1,4} ]?</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">0</mark></p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt><a href="../../values/other/length.htm">&lt;length&gt;</a>：</dt>
+				<dd>用长度值设置对象的圆角半径长度。不允许负值</dd>
+				<dt><a href="../../values/other/percentage.htm">&lt;percentage&gt;</a>：</dt>
+				<dd>用百分比设置对象的圆角半径长度。不允许负值</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>设置或检索对象使用圆角边框。提供2个参数，2个参数以“/”分隔，每个参数允许设置1~4个参数值，第1个参数表示水平半径，第2个参数表示垂直半径，如第2个参数省略，则默认等于第1个参数</strong>
+			<ul>
+				<li>水平半径：如果提供全部四个参数值，将按上左(top-left)、上右(top-right)、下右(bottom-right)、下左(bottom-left)的顺序作用于四个角。</li>
+				<li>如果只提供一个，将用于全部的于四个角。</li>
+				<li>如果提供两个，第一个用于上左(top-left)、下右(bottom-right)，第二个用于上右(top-right)、下左(bottom-left)。</li>
+				<li>如果提供三个，第一个用于上左(top-left)，第二个用于上右(top-right)、下左(bottom-left)，第三个用于下右(bottom-right)。</li>
+				<li>垂直半径也遵循以上4点。</li>
+				<li>对应的脚本特性为<strong>borderRadius</strong>。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>较早版本</th>
+						<td class="unsupport">6.0-8.0</td>
+						<td rowspan="2" class="support">4.0</td>
+						<td rowspan="2" class="support">5.1</td>
+						<td rowspan="2" class="support">13.0</td>
+						<td rowspan="2" class="support">11.50</td>
+					</tr>
+					<tr>
+						<th>较新版本</th>
+						<td class="support">9.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS border-radius_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+ul{margin:0;padding:0;}
+li{list-style:none;margin:10px 0 0 0;padding:10px;background:#bbb;}
+.test .one{border-radius:10px;}
+.test .two{border-radius:10px 20px;}
+.test .three{border-radius:10px 20px 30px;}
+.test .four{border-radius:10px 20px 30px 40px;}
+.test2 .one{border-radius:10px/5px;}
+.test2 .two{border-radius:10px 20px/5px 10px;}
+.test2 .three{border-radius:10px 20px 30px/5px 10px 15px;}
+.test2 .four{border-radius:10px 20px 30px 40px/5px 10px 15px 20px;}
+</style>
+</head>
+<body>
+<h2>水平与垂直半径相同时：</h2>
+<ul class="test">
+	<li class="one">提供1个参数<br />border-radius:10px;</li>
+	<li class="two">提供2个参数<br />border-radius:10px 20px;</li>
+	<li class="three">提供3个参数<br />border-radius:10px 20px 30px;</li>
+	<li class="four">提供4个参数<br />border-radius:10px 20px 30px 40px;</li>
+</ul>
+<h2>水平与垂直半径不同时：</h2>
+<ul class="test2">
+	<li class="one">提供1个参数<br />border-radius:10px/5px;</li>
+	<li class="two">提供2个参数<br />border-radius:10px 20px/5px 10px;</li>
+	<li class="three">提供3个参数<br />border-radius:10px 20px 30px/5px 10px 15px;</li>
+	<li class="four">提供4个参数<br />border-radius:10px 20px 30px 40px/5px 10px 15px 20px;</li>
+</ul>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

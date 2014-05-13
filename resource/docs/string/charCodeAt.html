@@ -1,0 +1,25 @@
+<pre>
+	定义和用法
+charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。
+这个返回值是 0 - 65535 之间的整数。
+方法 charCodeAt() 与 charAt() 方法执行的操作相似，
+只不过前者返回的是位于指定位置的字符的编码，
+而后者返回的是字符子串。
+语法
+stringObject.charCodeAt(index)
+参数	描述
+index	必需。表示字符串中某个位置的数字，即字符在字符串中的下标。
+提示和注释
+注释：字符串中第一个字符的下标是 0。
+如果 index 是负数，或大于等于字符串的长度，则 charCodeAt() 返回 NaN。
+实例
+在字符串 "Hello world!" 中，我们将返回位置 1 的字符的 Unicode 编码：
+&ltscript type="text/javascript">
+
+var str="Hello world!"
+document.write(str.charCodeAt(1))
+
+&lt/script>
+以上代码的输出是：
+101
+</pre>

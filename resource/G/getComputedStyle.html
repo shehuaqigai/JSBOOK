@@ -1,0 +1,192 @@
+<div class="post-2378 post type-post status-publish format-standard hentry category-js tag-css tag-currentstyle tag-getattribute tag-getcomputedstyle tag-getpropertyvalue tag-ie9 tag-style tag-140" id="post-2378">
+			<h2>获取元素CSS值之getComputedStyle方法熟悉</h2>
+			<div class="entry">
+				<p>by <a href="http://www.zhangxinxu.com/">zhangxinxu</a> from <a href="http://www.zhangxinxu.com/">http://www.zhangxinxu.com</a><br>
+本文地址：<a href="http://www.zhangxinxu.com/wordpress/?p=2378">http://www.zhangxinxu.com/wordpress/?p=2378</a></p>
+<h3>一、碎碎念~前言</h3>
+<p>我们都用过jQuery的<code>CSS()</code>方法，其底层运作就应用了getComputedStyle以及getPropertyValue方法。</p>
+<p>对于那些只想混口饭吃的人来讲，晓得<code>CSS()</code>如何使用就足够了。对于希望在JS道路上越走越远的来人说，简单了解一些JS库底层实现对自己的学习很有帮助。可能谈不上信手拈来的使用，至少对创造一些创意新颖的新技术拓宽了思路。</p>
+<p>jQuery为何受欢迎，其中原因之一就是方法名称比较短。好比打架一样，块头大的潜意识认为厉害，就不由得心生畏惧，退避三舍；小个子（或村妇，小孩）嘛，自然以为是软豆腐，愿意接受作为对手。<br>
+</p>
+<p>因此，当看到类似<code>getComputedStyle</code>这么长的方法名的时候，我们身体里那个懒惰小人突然就醒了：哎哟哟，这东西，就跟放心食品一样，几年才见一回。看上去又蛮复杂，想到晚上还要跟妹子聊天。这东西，就让它从旁边过吧，反正不会掉块肉的。</p>
+<p>网上不是有这么个段子嘛：<strong>可怕的是，比你聪明的人比你更勤奋</strong>。那么，这里的“勤奋”的差异体现在什么地方呢？就拿这个<code>getComputedStyle</code>举例：懒惰青年是看一下，立马像看见凤姐一样视线离开；普通青年是看一下，发现自己不了解，百一下或谷一下，熟悉了解之；勤奋青年是不仅了解，还抽出时间实践之（如做个简单demo测试），熟悉方法的特异性，验证一些观点正确性。</p>
+<p>您可以按照你现在的心理状态看看你是哪类青年：如果此时，您已经对本文的内容没有兴趣了（当然，您的工作与JS关系亲密），您是……（你懂的）；如果您看完本文内容，发现，还是有不少收获，心中回味下，然后ctrl+w去其他地方觅食，不再回来，那您是普通青年；如果您看完本文，然后对所说的一些内容作了额外的测试，例如IE9浏览器是否支持测试等，并通过评论形式指出可能的错误，不得不说您是勤奋青年，假以时日，必有一番技术作为。从我文章的些评论来看，有不少同行就是这样的勤奋人儿。</p>
+<p> の, 好久没写文章，话又多了，打住，进入正题。</p>
+<h3>二、getComputedStyle是？</h3>
+<p><code>getComputedStyle</code>是一个可以获取当前元素所有最终使用的CSS属性值。返回的是一个CSS样式声明对象([object CSSStyleDeclaration])，只读。</p>
+<blockquote><p><code>getComputedStyle()</code> gives the final used values of all the CSS properties of an element.</p></blockquote>
+<p><strong>语法</strong>如下：</p>
+<div class="zxx_code">
+<pre>var style = window.getComputedStyle("元素", "伪类");</pre>
+</div>
+<p>例如：</p>
+<div class="zxx_code">
+<pre>var dom = document.getElementById("test"),
+    style = window.getComputedStyle(dom , ":after");</pre>
+</div>
+<p>就两个参数，大家都懂中文的，没什么好说的。只是额外提示下：Gecko 2.0 (Firefox 4 / Thunderbird 3.3 / SeaMonkey 2.1) 之前，第二个参数“伪类”是必需的（如果不是伪类，设置为<code>null</code>），不过现在嘛，不是必需参数了。</p>
+<h3>三、getComputedStyle与style的区别</h3>
+<p>我们使用<code>element.style</code>也可以获取元素的CSS样式声明对象，但是其与<code>getComputedStyle</code>方法还有有一些差异的。</p>
+<ol>
+<li><strong>只读与可写</strong><br>
+正如上面提到的<code>getComputedStyle</code>方法是只读的，只能获取样式，不能设置；而<code>element.style</code>能读能写，能屈能伸。</li>
+<li><strong>获取的对象范围</strong><br>
+<code>getComputedStyle</code>方法获取的是最终应用在元素上的所有CSS属性对象（即使没有CSS代码，也会把默认的祖宗八代都显示出来）；而<code>element.style</code>只能获取元素<code>style</code>属性中的CSS样式。因此对于一个光秃秃的元素<code>&lt;p&gt;</code>，<code>getComputedStyle</code>方法返回对象中<code>length</code>属性值（如果有）就是<code>190+</code>(据我测试FF:192, IE9:195, Chrome:253, 不同环境结果可能有差异), 而<code>element.style</code>就是<code>0</code>。</li>
+</ol>
+<h3>四、getComputedStyle与defaultView</h3>
+<p>如果我们查看jQuery源代码，会发现，其<code>css()</code>方法实现不是使用的<code>window.getComputedStyle</code>而是<code>document.defaultView.getComputedStyle</code>，唷？这是怎么一回事？<br>
+<img alt="jQuery源码使用document.defaultView.getComputedStyle截图证明" data-src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_211408.png" title="jQuery源码使用document.defaultView.getComputedStyle截图证明" class="alignnone" width="594" height="166" src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_211408.png"></p>
+<p>实际上，使用<code>defaultView</code>基本上是没有必要的，<code>getComputedStyle</code>本身就存在<code>window</code>对象之中。根据<a href="https://developer.mozilla.org/User:DennisHall">DennisHall</a>的说法，使用<code>defaultView</code>可能一是人们不太乐意在window上专门写个东西，二是让API在Java中也可用（这我不懂，忘指点~~）。</p>
+<p>不过有个特殊情况，在FireFox3.6上不使用<code>defaultView</code>方法就搞不定的，就是<a href="https://github.com/jquery/jquery/pull/524">访问框架(frame)的样式</a>.</p>
+<div class="hidden"><em>如果您看到下面的文字，可能是由于在其他网站或是RSS中阅读本文，本文原地址：<a href="http://www.zhangxinxu.com/wordpress/?p=2378">http://www.zhangxinxu.com/wordpress/?p=2378</a>，本文作者：<a href="http://www.zhangxinxu.com/">张鑫旭</a>，来自张鑫旭-鑫空间-鑫生活，访问原出处阅读体验更佳。</em></div>
+<h3>五、getComputedStyle兼容性</h3>
+<p>对于桌面设备：</p>
+<table class="params_table">
+<tbody>
+<tr>
+<th>&nbsp;</th>
+<th>Chrome</th>
+<th>Firefox (Gecko)</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+</tr>
+<tr>
+<td>基本支持</td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td>9</td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+</tr>
+<tr>
+<td>伪类元素支持</td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="不支持"><img data-src="http://www.zhangxinxu.com/study/image/error.gif" alt="不支持" src="http://www.zhangxinxu.com/study/image/error.gif"></span></td>
+<td><span title="不支持"><img data-src="http://www.zhangxinxu.com/study/image/error.gif" alt="不支持" src="http://www.zhangxinxu.com/study/image/error.gif"></span> </td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span> </td>
+</tr>
+</tbody>
+</table>
+<p>对于手机设备：</p>
+<table class="params_table">
+<tbody>
+<tr>
+<th>&nbsp;</th>
+<th>Android</th>
+<th>Firefox Mobile (Gecko)</th>
+<th>IE Mobile</th>
+<th>Opera Mobile</th>
+<th>Safari Mobile</th>
+</tr>
+<tr>
+<td>基本支持</td>
+<td><span title="最新版本支持"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="最新版本支持"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td>WP7 Mango</td>
+<td><span title="最新版本支持"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="最新版本支持"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+</tr>
+<tr>
+<td>伪元素支持</td>
+<td><span style="color: rgb(255, 153, 0);" title="兼容性未知，有劳更新">?</span></td>
+<td><span style="color: rgb(255, 153, 0);" title="兼容性未知，有劳更新">?</span></td>
+<td><span title="Not supported." style="color: rgb(255, 0, 0);"><img data-src="http://www.zhangxinxu.com/study/image/error.gif" alt="不支持" src="http://www.zhangxinxu.com/study/image/error.gif"></span></td>
+<td><span style="color: rgb(255, 153, 0);" title="兼容性未知，有劳更新">?</span></td>
+<td><span style="color: rgb(255, 153, 0);" title="兼容性未知，有劳更新">?</span></td>
+</tr>
+</tbody>
+</table>
+<p>上面打问号的表示没有测试，是否兼容不知。如果您方便测试，欢迎将测试结果告知，这里将及时更新，并附上您的姓名，以谢您做的贡献。</p>
+<p>我们先把注意力放在桌面设备上，可以看到，<code>getComputedStyle</code>方法IE6~8是不支持的，得，背了半天的媳妇，发现是孙悟空变的——郁闷了。不急，IE自有自己的一套东西。</p>
+<h3>六、getComputedStyle与currentStyle</h3>
+<p><code>currentStyle</code>是IE浏览器自娱自乐的一个属性，其与<code>element.style</code>可以说是近亲，至少在使用形式上类似，<code>element.currentStyle</code>，差别在于<code>element.currentStyle</code>返回的是元素当前应用的最终CSS属性值（包括外链CSS文件，页面中嵌入的<code>&lt;style&gt;</code>属性等）。</p>
+<p>因此，从作用上将，<code>getComputedStyle</code>方法与<code>currentStyle</code>属性走的很近，形式上则<code>style</code>与<code>currentStyle</code>走的近。不过，<code>currentStyle</code>属性貌似不支持伪类样式获取，这是与<code>getComputedStyle</code>方法的差异，也是jQuery <code>css()</code>方法无法体现的一点。</p>
+<p><span class="s">//zxx: 如果你只知jQuery css()方法，你是不会知道伪类样式也是可以获取的，虽然部分浏览器不支持。</span></p>
+<p>例如，我们要获取一个元素的高度，可以类似下面的代码：</p>
+<div class="zxx_code">
+<pre>alert((element.currentStyle? element.currentStyle : window.getComputedStyle(element, null)).height);</pre>
+</div>
+<p>您可以狠狠地点击这里：<a class="a_link" target="_blank" href="http://www.zhangxinxu.com/study/201205/currentstyle-getcomputedstyle-element-height.html">使用getComputedStyle和currentStyle 获取元素高度demo</a></p>
+<p>结果FireFox下显示<code>24px</code>(经过计算了), 而IE浏览器下则是CSS中的<code>2em</code>属性值：<br>
+<img alt="Firefox下显示的计算后的24px值 张鑫旭-鑫空间-鑫生活" data-src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_220826.png" title="Firefox下显示的计算后的24px值" class="alignnone" width="315" height="211" src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_220826.png"> <img alt="IE9下显示的CSS中的2em值 张鑫旭-鑫空间-鑫生活" data-src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_220905.png" title="IE9下显示的CSS中的2em值 " class="alignnone" width="307" height="226" src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_220905.png"></p>
+<p><code>getComputedStyle</code>方法与<code>currentStyle</code>属性其他具体差异还有很多，我以一个普通按钮做元素，遍历了其中靠谱的属性名和属性值，您可以狠狠地点击这里：<a class="a_link" target="_blank" href="http://www.zhangxinxu.com/study/201205/currentstyle-getcomputedstyle-test.html">getComputedStyle和currentStyle属性展示demo</a></p>
+<p>仔细对比查看，我们可以看到不少差异，例如浮动属性，FireFox浏览器下是这个(<code>cssFloat</code>)：<br>
+<img alt="FireFox下的浮动属性名 " data-src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_221607.png" title="FireFox下的浮动属性名" class="alignnone" width="227" height="107" src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_221607.png"></p>
+<p>IE7浏览器下则是<code>styleFloat</code> ：<br>
+<img alt="IE7浏览器下的styleFloat属性 张鑫旭-鑫空间-鑫生活" data-src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_221737.png" title="IE7浏览器下的styleFloat属性" class="alignnone" width="263" height="136" src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_221737.png"></p>
+<p>而IE9浏览器下则是<code>cssFloat</code>和<code>styleFloat</code>都有。</p>
+<p>等其他N多差异。</p>
+<h3>七、getPropertyValue方法</h3>
+<p><code>getPropertyValue</code>方法可以获取CSS样式申明对象上的属性值（直接属性名称），例如：</p>
+<div class="zxx_code">
+<pre>window.getComputedStyle(element, null).getPropertyValue("float");</pre>
+</div>
+<p>如果我们不使用<code>getPropertyValue</code>方法，直接使用键值访问，其实也是可以的。但是，比如这里的的<code>float</code>，如果使用键值访问，则不能直接使用<code>getComputedStyle(element, null).float</code>，而应该是<code>cssFloat</code>与<code>styleFloat</code>，自然需要浏览器判断了，比较折腾！</p>
+<p>使用<code>getPropertyValue</code>方法不必可以驼峰书写形式（不支持驼峰写法），例如：<code>style.getPropertyValue("border-top-left-radius")</code>;</p>
+<p><strong>兼容性</strong><br>
+<code>getPropertyValue</code>方法IE9+以及其他现代浏览器都支持，见下表：</p>
+<table class="params_table">
+<tbody>
+<tr>
+<th>&nbsp;</th>
+<th>Chrome</th>
+<th>Firefox (Gecko)</th>
+<th>Internet Explorer</th>
+<th>Opera</th>
+<th>Safari</th>
+</tr>
+<tr>
+<td>基本支持</td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td>9</td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+<td><span title="升级到最近的版本"><img data-src="http://www.zhangxinxu.com/study/image/ok.gif" alt="支持" src="http://www.zhangxinxu.com/study/image/ok.gif"></span></td>
+</tr>
+</tbody>
+</table>
+<p>OK，一涉及到兼容性问题(IE6-8肿么办)，感觉头开始微微作痛了~~，不急，IE自由一套自己的套路，就是<code>getAttribute</code>方法。</p>
+<h3>八、getPropertyValue和getAttribute</h3>
+<p>在老的IE浏览器（包括最新的），<code>getAttribute</code>方法提供了与<code>getPropertyValue</code>方法类似的功能，可以访问CSS样式对象的属性。用法与<code>getPropertyValue</code>类似：</p>
+<div class="zxx_code">
+<pre>style.getAttribute("float");</pre>
+</div>
+<p>注意到没，使用<code>getAttribute</code>方法也不需要<code>cssFloat</code>与<code>styleFloat</code>的怪异写法与兼容性处理。不过，还是有一点差异的，就是属性名需要驼峰写法，如下：</p>
+<div class="zxx_code">
+<pre>style.getAttribute("backgroundColor");</pre>
+</div>
+<p>如果不考虑IE6浏览器，貌似也是可以这么写：</p>
+<div class="zxx_code">
+<pre>style.getAttribute("background-color");</pre>
+</div>
+<p>实例才是王道，您可以狠狠地点击这里：<a class="a_link" target="_blank" href="http://www.zhangxinxu.com/study/201205/getpropertyvalue-getAttribute-background-color.html">getPropertyValue和getAttribute获取背景色demo</a></p>
+<p>结果FireFox下一如既往的rgb颜色返回(Chrome也是返回rgb颜色)：<br>
+<img alt="FireFox浏览器下一如既往的RGB颜色返回 张鑫旭-鑫空间-鑫生活" data-src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_230119.png" title="FireFox浏览器下一如既往的RGB颜色返回" class="alignnone" width="355" height="211" src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_230119.png"></p>
+<p>对于IE9浏览器，虽然应用的是<code>currentStyle</code>, 但是从结果上来讲，<code>currentStyle</code>返回的对象是完全支持<code>getPropertyValue</code>方法的。<br>
+<img alt="" data-src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_230242.png" title="IE9下截图" class="alignnone" width="421" height="253" src="http://image.zhangxinxu.com/image/blog/201205/2012-05-08_230242.png"></p>
+<h3>九、getPropertyValue和getPropertyCSSValue</h3>
+<p>从长相上看<code>getPropertyCSSValue</code>与<code>getPropertyValue</code>是近亲，但实际上，<code>getPropertyCSSValue</code>要顽劣的多。</p>
+<p><code>getPropertyCSSValue</code>方法返回一个CSS最初值(CSSPrimitiveValue)对象(width, height, left, …)或CSS值列表(CSSValueList)对象(backgroundColor, fontSize, …)，这取决于<code>style</code>属性值的类型。在某些特别的style属性下，其返回的是自定义对象。该自定义对象继承于CSSValue对象（就是上面所说的<code>getComputedStyle</code>以及<code>currentStyle</code>返回对象）。</p>
+<p><code>getPropertyCSSValue</code>方法兼容性不好，IE9浏览器不支持，Opera浏览器也不支持（实际支持，只是老是抛出异常）。而且，虽然FireFox中，<code>style</code>对象支持<code>getPropertyCSSValue</code>方法，但总是返回<code>null</code>. 因此，目前来讲，<code>getPropertyCSSValue</code>方法可以先不闻不问。</p>
+<h3>十、补充~结语</h3>
+<p>有了jQuery等优秀库，我们有熟悉底层的<code>getComputedStyle</code>方法的必要吗？</p>
+<p>实际上，本文一直没有深入展开<code>getComputedStyle</code>方法一个很重要的，类似<code>css()</code>方法没有的功能——获取伪类元素样式。但从这一点上将，熟悉<code>getComputedStyle</code>方法有必要。</p>
+<p>下一篇文章，我就将介绍如何实现<code>getComputedStyle</code>方法在伪类元素上的特异功能，实现CSS3 media queries下一些JS交互，及实际应用。</p>
+<p>well, 开篇已经啰哩吧嗦不少内容了，这里就不再讲废话了。行文匆忙，文中难免有表述不准确之处，欢迎指正。欢迎补充，感谢阅读，希望本文的内容能够对您的学习有所帮助。</p>
+<p>原创文章，转载请注明来自<a href="http://www.zhangxinxu.com/">张鑫旭-鑫空间-鑫生活</a>[<a href="http://www.zhangxinxu.com/">http://www.zhangxinxu.com</a>]<br>
+本文地址：<a href="http://www.zhangxinxu.com/wordpress/?p=2378">http://www.zhangxinxu.com/wordpress/?p=2378</a></p>
+<div class="hidden">
+<p>觉得这里的文章不错，希望他一直走下去？您可以：<a target="_blank" href="https://me.alipay.com/zhangxinxu" title="小小赞助大大帮助"><img data-src="/wordpress/wp-content/themes/default/images/pay_encourage.png" width="159" height="37" alt="支付鼓励" align="absmiddle"></a></p>
+</div>
+<p>（本篇完）</p>
+<p class="alipay_support">如果您觉得本文的内容对您的学习有所帮助：<a target="_blank" href="https://me.alipay.com/zhangxinxu" title="小小赞助大大帮助"><img src="/wordpress/wp-content/themes/default/images/pay_encourage.png" width="159" height="37" alt="支付鼓励" align="absmiddle"></a></p><div class="similarity"><div class="similar_title">相关文章</div><ul><li><a href="http://www.zhangxinxu.com/wordpress/2012/05/after-js-content-css3-media-queries/">伪类+js实现CSS3 media queries跨界准确判断</a> (0.469)</li><li><a href="http://www.zhangxinxu.com/wordpress/2011/03/style%e6%a0%87%e7%ad%be%e4%b8%8b%e7%9a%84css%e4%bb%a3%e7%a0%81%e7%9a%84%e6%98%be%e7%a4%ba%e4%b8%8e%e5%ae%9e%e6%97%b6%e7%bc%96%e8%be%91/">style标签下的CSS代码的显示与实时编辑</a> (0.402)</li><li><a href="http://www.zhangxinxu.com/wordpress/2011/07/js%e6%8a%a4%e8%88%aa%e4%b8%8bcss3%e6%95%88%e6%9e%9c%e7%9a%84%e6%b8%90%e8%bf%9b%e5%a2%9e%e5%bc%ba%e4%bd%bf%e7%94%a8/">JS护航下CSS3效果的渐进增强使用</a> (0.129)</li><li><a href="http://www.zhangxinxu.com/wordpress/2013/12/iebetter-js-make-ie6-ie8-like-modern-browser-ie9-chrome/">ieBetter.js-让IE6-IE8拥有IE9+,Chrome等浏览器特性</a> (0.129)</li><li><a href="http://www.zhangxinxu.com/wordpress/2010/09/ie9%e5%af%b9css3%e7%9a%84%e6%94%af%e6%8c%81%e6%83%85%e5%86%b5%e6%a6%82%e8%bf%b0/">IE9对CSS3的支持情况概述</a> (0.115)</li><li><a href="http://www.zhangxinxu.com/wordpress/2011/06/css3%e9%80%89%e6%8b%a9%e5%99%a8nth-child%e5%92%8cnth-of-type%e4%b9%8b%e9%97%b4%e7%9a%84%e5%b7%ae%e5%bc%82/">CSS3选择器:nth-child和:nth-of-type之间的差异</a> (0.115)</li><li><a href="http://www.zhangxinxu.com/wordpress/2011/08/%e5%b0%8ftip%e5%b7%a7%e7%94%a8css3%e5%b1%9e%e6%80%a7%e4%bd%9c%e4%b8%bacss-hack/">小tip:巧用CSS3属性作为CSS hack</a> (0.115)</li><li><a href="http://www.zhangxinxu.com/wordpress/2013/11/css-css3-box-shadow-%e7%9b%92%e9%98%b4%e5%bd%b1-%e5%9b%be%e5%bd%a2%e7%94%9f%e6%88%90%e6%8a%80%e6%9c%af/">CSS3 box-shadow盒阴影图形生成技术</a> (0.115)</li><li><a href="http://www.zhangxinxu.com/wordpress/2010/04/css-%e6%b8%90%e8%bf%9b%e5%a2%9e%e5%bc%ba%e5%9c%a8web%e5%88%b6%e4%bd%9c%e4%b8%ad%e5%b8%b8%e8%a7%81%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b/">CSS "渐进增强"在web制作中常见应用举例</a> (0.081)</li><li><a href="http://www.zhangxinxu.com/wordpress/2010/09/after%e4%bc%aa%e7%b1%bbcontent%e5%86%85%e5%ae%b9%e7%94%9f%e6%88%90%e5%b8%b8%e8%a7%81%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b/">:after伪类+content内容生成经典应用举例</a> (0.081)</li><li><a href="http://www.zhangxinxu.com/wordpress/2010/11/css3-transitions-transforms%e5%92%8canimation%e4%bd%bf%e7%94%a8%e7%ae%80%e4%bb%8b%e4%b8%8e%e5%ba%94%e7%94%a8%e5%b1%95%e7%a4%ba/">CSS3 Transitions, Transforms和Animation使用简介与应用展示</a> (RANDOM - 0.014)</li></ul></div><!-- Tag -->				<div class="wp_share_box">
+                	<!-- Baidu Button BEGIN -->
+
+                </div>
+								
+				
+
+			</div>
+		</div>

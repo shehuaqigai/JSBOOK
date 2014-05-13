@@ -1,0 +1,80 @@
+<div id="maincontent">
+
+<h1>HTML 5 Audio/Video DOM controller 属性</h1>
+
+<div class="backtoreference">
+<p><a href="/html5/html5_ref_audio_video_dom.asp">HTML 5 Audio/Video DOM 参考手册</a></p>
+</div>
+
+<div>
+<h2>实例</h2>
+
+<p>检测该视频是否有媒体控制器：</p>
+
+<pre>myVid=document.getElementById("video1");
+alert("Controller: " + <code>myVid.controller</code>);
+</pre>
+
+<p><a href="/tiy/t.asp?f=html5_av_prop_controller">亲自试一试</a></p>
+</div>
+
+
+<div>
+<h2>定义和用法</h2>
+
+<p>controller 属性返回音视频的当前媒体控制器。</p>
+
+<p>默认地，音视频元素不会有媒体控制器。如果规定了媒体控制器，controller 属性将以 MediaController 的形式返回它。</p>
+</div>
+
+
+<div>
+<h2>浏览器支持</h2>
+
+<p>任何主流浏览器都不支持 controller 属性。</p>
+</div>
+
+
+<div>
+<h2>语法</h2>
+
+<pre>audio|video.controller</pre>
+
+<h3>返回值</h3>
+
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%;">值</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>MediaController 对象</td>
+<td>
+	<p>表示音视频的媒体控制器。</p>
+	<p>MediaController 对象属性/方法：</p>
+	<ul class="listintable">
+	<li>buffered - 获得音视频的缓冲范围</li>
+	<li>seekable - 或者音视频的可寻址范围</li>
+	<li>duration - 获得音视频的时长</li>
+	<li>currentTime - 获得或设置音视频的当前播放位置</li>
+	<li>paused - 检测音视频是否已暂停</li>
+	<li>play() - 播放音视频</li>
+	<li>pause() - 暂停音视频</li>
+	<li>played - 检测音视频是否已播放过</li>
+	<li>defaultPlaybackRate - 获得或设置音视频的默认播放速率</li>
+	<li>playbackRate - 获得或设置音视频的当前播放速率</li>
+	<li>volume - 获得或设置音视频的音量</li>
+	<li>muted - 获得或设置音视频是否已静音</li>
+	</ul>
+</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div class="backtoreference">
+<p><a href="/html5/html5_ref_audio_video_dom.asp">HTML 5 Audio/Video DOM 参考手册</a></p>
+</div>
+
+</div>

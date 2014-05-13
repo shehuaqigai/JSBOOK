@@ -1,0 +1,192 @@
+<h2>var eventsource=new EventSource("http://192.168.1.166/www/test/eventSource.php")</h2>
+<h3>返回一个EventSource对象</h3>
+
+<pre>
+URL: "http://192.168.1.166/www/test/eventSource.php"
+onerror: null
+onmessage: null
+onopen: null
+readyState: 1
+url: "http://192.168.1.166/www/test/eventSource.php"
+__proto__: EventSource
+CLOSED: 2
+CONNECTING: 0
+OPEN: 1
+addEventListener: 
+close:
+dispatchEvent:
+removeEventListener:
+</pre>
+
+<article id="wikiArticle">
+                                          <p>在Web应用程序中使用服务器发送事件很简单.在服务器端,只需要按照一定的格式返回事件流,在客户端中,只需要为一些事件类型绑定监听函数,和处理其他普通的事件没多大区别.</p>
+<p>这里有<a class="external" href="/samples/sse" title="https://developer.mozilla.org/samples/sse/">一个使用服务器发送事件的例子</a>(但不能正常运行).</p>
+<h2 id=".E4.BB.8E.E6.9C.8D.E5.8A.A1.E5.99.A8.E6.8E.A5.E5.8F.97.E4.BA.8B.E4.BB.B6">从服务器接受事件</h2>
+<p>服务器发送事件API也就是<a href="/zh-CN/Server-sent_events/EventSource" title="zh-CN/Server-sent events/EventSource"><code>EventSource</code></a>接口,在你创建一个新的<a href="/zh-CN/Server-sent_events/EventSource" title="zh-CN/Server-sent events/EventSource"><code>EventSource</code></a>对象的同时,你可以指定一个接受事件的URI.例如:</p>
+<pre class="language-html">var evtSource = new EventSource("ssedemo.php");
+</pre>
+<div class="note">
+  <strong>注:</strong>从Firefox 11开始,<code>EventSource</code>开始支持<a href="/zh-CN/HTTP_access_control" title="zh-CN/HTTP_access_control">CORS</a>.虽然该特性目前并不是标准,但很快会成为标准.</div>
+<p>一旦你成功初始化了一个事件源,就可以开始监听它的消息了:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js">evtSource<span class="token punctuation">.</span>onmessage <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> newElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"li"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  newElement<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">"message: "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+  eventList<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>newElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div></code></pre>
+<p>上面的代码监听了那些从服务器发送来的所有没有指定事件类型的消息(没有<code>event字段的消息</code>),然后把消息内容显示在页面文档中.</p>
+<p>你也可以使用<code>addEventListener()方法来监听其他类型的事件</code>:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js">evtSource<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">"ping"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> newElement <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"li"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token keyword">var</span> obj <span class="token operator">=</span> JSON<span class="token punctuation">.</span><span class="token function">parse<span class="token punctuation">(</span></span>e<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  newElement<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">"ping at "</span> <span class="token operator">+</span> obj<span class="token punctuation">.</span>time<span class="token punctuation">;</span>
+  eventList<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>newElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div></code></pre>
+<p>这段代码也类似,只是只有在服务器发送的消息中包含一个值为"ping"的<code>event</code>字段的时候才会触发对应的处理函数,也就是将<code>data字段的字段值解析为JSON数据,然后在页面上显示出所需要的内容</code>.</p>
+<h2 id=".E6.9C.8D.E5.8A.A1.E5.99.A8.E7.AB.AF.E5.A6.82.E4.BD.95.E5.8F.91.E9.80.81.E4.BA.8B.E4.BB.B6.E6.B5.81">服务器端如何发送事件流</h2>
+<p>服务器端发送的响应内容应该使用值为"text/event-stream"的MIME类型.这里有一个事件流文件的例子: <a href="#Event_stream_format">Event stream format</a>.</p>
+<p>演示的PHP代码如下:</p>
+<pre class="brush: php  language-html" data-number=""><code class=" language-html">date_default_timezone_set("America/New_York");
+header("Content-Type: text/event-stream\n\n");
+
+$counter = rand(1, 10);
+while (1) {
+  // Every second, sent a "ping" event.
+  
+  echo "event: ping\n";
+  $curDate = date(DATE_ISO8601);
+  echo 'data: {"time": "' . $curDate . '"}';
+  echo "\n\n";
+  
+  // Send a simple message at random intervals.
+  
+  $counter--;
+  
+  if (!$counter) {
+    echo 'data: This is a message at time ' . $curDate . "\n\n";
+    $counter = rand(1, 10);
+  }
+  
+  ob_flush();
+  flush();
+  sleep(1);
+}<div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div></code></pre>
+<p>上面的代码会让服务器每隔一秒生成一个事件流并返回,其中每条消息的事件类型为"ping",数据字段都使用了JSON格式,数组字段中包含了每个事件流生成时的时间字符串.而且会随机返回一些无事件类型的消息.</p>
+<h2 id=".E4.BA.8B.E4.BB.B6.E6.B5.81.E6.A0.BC.E5.BC.8F">事件流格式</h2>
+<p>事件流仅仅是一个简单的文本数据流,文本应该使用UTF- 8格式的编码.每条消息后面都由一个空行作为分隔符.以冒号开头的行为注释行,会被忽略.</p>
+<div class="note">
+  <strong>注:</strong>注释行可以用来防止连接超时,服务器可以定期发送消息一条注释行,以保持连接不断.</div>
+<p>每条消息是由多个字段组成的,每个字段由字段名,一个冒号,以及字段值组成.</p>
+<h3 id=".E5.AD.97.E6.AE.B5">字段</h3>
+<p>规范中规定了下面这些字段:</p>
+<dl>
+  <dt>
+    <code>event</code></dt>
+  <dd>
+    事件类型.如果指定了该字段,则在客户端接收到该条消息时,会在当前的<code>EventSource</code>对象上触发一个事件,事件类型就是该字段的字段值,你可以使用<code>addEventListener()方法在当前EventSource</code>对象上监听任意类型的命名事件,如果该条消息没有<code>event</code>字段,则会触发<code>onmessage属性上的事件处理函数</code>.</dd>
+  <dt>
+    <code>data</code></dt>
+  <dd>
+    消息的数据字段.如果该条消息包含多个<code>data</code>字段,则客户端会用换行符把它们连接成一个字符串来作为字段值.</dd>
+  <dt>
+    <code>id</code></dt>
+  <dd>
+    事件ID,会成为当前<code>EventSource</code>对象的内部属性"最后一个事件ID"的属性值.</dd>
+  <dt>
+    <code>retry</code></dt>
+  <dd>
+    <span class="short_text" id="result_box" lang="zh-CN"><span>一个</span><span>整数值</span><span>,</span><span>指定了</span><span>重新连接的时间(</span><span>单位为毫秒),</span></span>如果该字段值不是整数,则会被忽略.</dd>
+</dl>
+<p>除了上面规定的字段名,其他所有的字段名都会被忽略.</p>
+<div class="note">
+  <strong>注:</strong> 如果一行文本中不包含冒号,则整行文本会被解析成为字段名,其字段值为空.</div>
+<h3 id=".E4.BE.8B.E5.AD.90">例子</h3>
+<h4 id=".E6.9C.AA.E5.91.BD.E5.90.8D.E4.BA.8B.E4.BB.B6">未命名事件</h4>
+<p>下面的例子中发送了三条消息,第一条仅仅是个注释,因为它以冒号开头.第二条消息只包含了一个<code>data</code>字段,值为"some text".第三条消息包含的两个<code>data</code>字段会被解析成为一个字段,值为"another message\nwith two lines".其中每两条消息之间是以一个空行为分割符的.</p>
+<pre class="language-html">: this is a test stream
+
+data: some text
+
+data: another message
+data:&nbsp;with two lines 
+</pre>
+<h4 id=".E5.91.BD.E5.90.8D.E4.BA.8B.E4.BB.B6">命名事件</h4>
+<p>下面的事件流中包含了一些命名事件.每个事件的类型都是由<code>event字段指定的</code>,另外每个<code>data</code>字段的值可以使用JSON格式,当然也可以不是.</p>
+<pre class="language-html">event: userconnect
+data: {"username": "bobby", "time": "02:33:48"}
+
+event: usermessage
+data:&nbsp;{"username": "bobby", "time":&nbsp;"02:34:11", "text":&nbsp;"Hi everyone."}
+
+event:&nbsp;userdisconnect
+data: {"username": "bobby", "time": "02:34:23"}
+
+event: usermessage
+data:&nbsp;{"username": "sean", "time":&nbsp;"02:34:36", "text":&nbsp;"Bye, bobby."}
+</pre>
+<h4 id=".E6.B7.B7.E5.90.88.E4.B8.A4.E7.A7.8D.E4.BA.8B.E4.BB.B6">混合两种事件</h4>
+<p>你可以在一个事件流中同时使用命名事件和未命名事件.</p>
+<pre class="language-html">event: userconnect
+data: {"username": "bobby", "time": "02:33:48"}
+
+data: Here's a system message of some kind that will get used
+data:&nbsp;to accomplish some task.
+
+event: usermessage
+data:&nbsp;{"username": "bobby", "time":&nbsp;"02:34:11", "text":&nbsp;"Hi everyone."}
+</pre>
+<h2 id=".E6.B5.8F.E8.A7.88.E5.99.A8.E5.85.BC.E5.AE.B9.E6.80.A7">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari</th>
+      </tr>
+      <tr>
+        <td>EventSource support</td>
+        <td>9</td>
+        <td>6.0 (6.0)</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td>11</td>
+        <td>5</td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE Mobile</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>EventSource support</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>11.1</td>
+        <td>4</td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+
+
+<p>&nbsp;</p>
+                                    </article>

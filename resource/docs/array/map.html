@@ -1,0 +1,51 @@
+<p>
+	语法
+
+ 
+var mappedArray = array.map(callback[, thisObject]);
+参数说明
+
+callback： 要对每个数组元素执行的回调函数。
+thisObject ： 在执行回调函数时定义的this对象。
+
+功能说明
+
+对数组中的每个元素都执行一次指定的函数（callback），并且以每次返回的结果为元素创建一个新数组。它只对数组中的非空元素执行指定的函数，没有赋值或者已经删除的元素将被忽略。
+
+回调函数可以有三个参数：当前元素，当前元素的索引和当前的数组对象。
+
+如参数 thisObject 被传递进来，它将被当做回调函数（callback）内部的 this 对象，如果没有传递或者为null，那么将会使用全局对象。
+
+map 不会改变原有数组，记住：只有在回调函数执行前传入的数组元素才有效，在回调函数开始执行后才添加的元素将被忽略，而在回调函数开始执行到最后一个元素这一期间，数组元素被删除或者被更改的，将以回调函数访问到该元素的时间为准，被删除的元素将被忽略。
+
+在不支持此属性的浏览器下可以用下面的代码：
+<pre>
+&ltscript language="JavaScript" type="text/javascript">
+  
+// 说明：Javascript Array 的 map() 方法
+// 整理：http://www.CodeBit.cn
+// 来源：http://developer.mozilla.org
+  
+if (!Array.prototype.map)
+{
+    Array.prototype.map = function(fun /*, thisp*/)
+    {
+        var len = this.length;
+        if (typeof fun != "function")
+            throw new TypeError();
+  
+        var res = new Array(len);
+        var thisp = arguments[1];
+        for (var i = 0; i < len; i++)
+        {
+            if (i in this)
+                res[i] = fun.call(thisp, this[i], i, this);
+        }
+  
+        return res;
+    };
+}
+  
+&lt/script>
+</pre>
+</p>

@@ -1,0 +1,40 @@
+<p>
+	
+	概述
+
+返回用户的do-not-track设置,如果用户不允许网站,内容和广告等进行跟踪,则该值为yes.
+
+语法
+
+dnt = navigator.doNotTrack;
+navigator.doNotTrack的值并不是 HTTP请求中do-not-track请求头的值. 当do-not-track请求头发送的值为"1", navigator.doNotTrack 的值为 "yes".  当do-not-track请求头发送的值为unset, navigator.doNotTrack的值为"unspecified". 当do-not-track请求头发送的值为 "0" (Firefox目前不支持), navigator.doNotTrack的值为"no".
+
+例子
+
+dump(window.navigator.doNotTrack); 
+//Firefox中:如果开启了DNT,输出"yes";否则输出"unspecified".
+</p>
+
+<p>
+	请勿追踪（英语：Do Not Track，简称 DNT，又译为“请勿跟踪”）是一项被提名的 HTTP 头。当用户提出启用“请勿追踪”功能后，具有“请勿追踪”功能的浏览器会在 http 数据传输中添加一个“头信息”（headers），这个头信息向商业网站的服务器表明用户不希望被追踪。这样，遵守该规则的网站就不会追踪用户的个人信息来用于更精准的在线广告。
+
+自 Firefox 浏览器成为世界上首个支持“请勿追踪”功能的浏览器后，Internet Explorer（9及以上）、Safari 和 Opera 浏览器也相继添加了对“请勿追踪”功能的支持。最后 Chrome 23 浏览器也宣布支持此功能。当前，国内许多浏览器也已经支持了“请勿追踪”功能，甚至一些浏览器设置成默认启用。
+
+那么，身为网站技术人员或开发者，我们若要遵守该规则，就需要判断用户的浏览器是否开启了这个功能。其思路为，判断 HTTP 头信息中是否含有 HTTP-DNT 参数。有的话，获得其值，进行判断，进而就能判断“请勿追踪”的开启与否了。
+</p>
+<p>
+	JavaScript
+至少我是找不到用 JavaScript 读出我想要的东西的方法了，其读出来的所谓的“HTTP 头信息”不完整，很多东西都是用其它属性实现的；JavaScript 的属性具有“多样性”——对，是不是有专门的属性来判断“请勿追踪”呢？我终于找到了这个属性，但还是让我大失所望。
+
+首先，火狐运行这 JavaScript 代码，“我想被追踪”也会被判为“我不想被追踪”；其次，Chrome 似乎不支持该属性；再一个，navigator.doNotTrack 的值并不是 HTTP 请求中 do-not-track 请求头的值，然而 IE9、Opera 12和 Safari 5.1 遵循了旧规范，navigator.doNotTrack 的值就是 do-not-track 请求头中的值；最后，Internet Explorer 使用专门的 navigator.msDoNotTrack 属性。
+
+因此在此就不列出代码了。若要实现我们想实现的，必定会要写一大坨的。建议不要使用 JavaScript 来判断，可以变通一下，使用上面 5 种语言的其中一种判断后，定义一个 JavaScript 变量，给它赋值，然后下面就能判断了。
+</p>
+
+<a href="http://blog.sina.com.cn/s/blog_45bf5d7a0102e18q.html" target="_blank">详细参考</a>
+
+
+	<p>当然，如果你实在有兴趣写一大坨代码，可以使用下面的链接了解这两个 JavaScript 属性：<a href="https://developer.mozilla.org/zh-CN/docs/DOM/navigator.doNotTrack" target="_blank">navigator.doNotTrack</a> | <a href="http://msdn.microsoft.com/zh-cn/library/ie/gg699483%28v=vs.85%29.aspx" target="_blank">navigator.msDoNotTrack</a></p>
+
+
+	<p>英文好的人需要进一步了解的话，可以查看 <a href="http://donottrack.us/" target="_blank">donottrack.us</a>。<a href="http://zh.wikipedia.org/wiki/%E8%AF%B7%E5%8B%BF%E8%BF%BD%E8%B8%AA" target="_blank">维基百科的“请勿追踪”词条</a>也是不错的选择，不过请看英文版，中文版的简介就是本文第一段。</p>

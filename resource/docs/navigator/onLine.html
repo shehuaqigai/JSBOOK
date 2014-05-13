@@ -1,0 +1,35 @@
+<p>
+	概述
+
+返回浏览器的联网状态.正常联网(在线)返回true,不正常联网(离线)返回false.一旦浏览器的联网状态发生改变,该属性值也会随之变化. 当用户点击链接或者脚本进行网络请求时,如果发现浏览器连接不上互联网.则该属性会被赋值为false.
+
+各浏览器对该属性的实现有些不同.
+
+在Chrome和Safari中,如果浏览器连接不上局域网 (LAN)或者路由器,就是离线状态; 其他情况都是在线状态. 所以当该属性值为false的时候,你可以说浏览器不能正常联网, 但如果该属性值为true的时候, 并不意味着浏览器一定能连接上互联网.还有其他一些可能引起误判的原因,比如你的电脑安装了虚拟化软件,可能会有一个虚拟网卡.它总是显示正常联网.因此,如果你想得到浏览器确切的联网状态,应该使用其他额外的检查手段.
+
+在Firefox和Internet Explorer中, 如果浏览器处于"脱机工作"状态,则返回 false,其他情况都返回true.
+
+你可以在 window.onOnline和window.onOffline上监听事件,来获取浏览器联网状态的改变情况.
+
+语法
+
+online = window.navigator.onLine;
+online是个布尔值 true 或 false.
+
+例子
+
+查看 在线演示.
+
+想要查看你是否连接上了互联网, 判断 window.navigator.onLine 的值是否为true:
+
+if (navigator.onLine) {
+  alert('online')
+} else {
+  alert('offline');
+}
+想要监听浏览器的联网状态, 使用window.onOnline和window.onOffline事件:
+
+window.addEventListener("offline", function(e) {alert("offline");})
+
+window.addEventListener("online", function(e) {alert("online");})
+</p>

@@ -1,0 +1,225 @@
+<div id="maincontent">
+
+<h1>HTML DOM Text 对象</h1>
+
+
+<div>
+<h2>Text 对象</h2>
+<p>Text 对象代表 HTML 表单中的文本输入域。</p>
+<p>在 HTML 表单中 &lt;input type="text"&gt; 每出现一次，Text 对象就会被创建。</p>
+<p>该元素可创建一个单行的文本输入字段。当用户编辑显示的文本并随后把输入焦点转移到其他元素的时候，会触发 onchange 事件句柄。</p>
+<p>您可以使用 HTML &lt;textarea&gt; 标记来创建多行文本输入。参阅 <a href="/htmldom/dom_obj_textarea.asp">Textarea 对象</a>。</p>
+<p>对于掩码文本输入，把 &lt;input type="text"&gt; 中的 type 设置为 "password"。参阅 <a href="/htmldom/dom_obj_password.asp">Input Password</a>。</p>
+<p>您可以通过表单的 elements[] 数组来访问文本输入域，或者通过使用 document.getElementById()。</p>
+<p class="note"><span>IE:</span> Internet Explorer, <span>F:</span> Firefox, <span>O:</span> Opera, <span>W3C:</span> W3C 标准.</p>
+</div>
+
+
+<div>
+<h2>Text 对象属性</h2>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:18%">属性</th>
+    <th>描述</th>
+    <th style="width:6%">IE</th>
+    <th style="width:6%">F</th>
+    <th style="width:6%">O</th>
+    <th style="width:7%">W3C</th>
+  </tr>
+  <tr>
+    <td><a href="prop_text_accesskey.asp">accessKey</a></td>
+    <td>设置或返回访问文本域的快捷键。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_alt.asp">alt</a></td>
+    <td>设置或返回当浏览器不支持文本域时供显示的替代文本。</td>
+    <td>5</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_defaultvalue.asp">defaultValue</a></td>
+    <td>设置或返回文本域的默认值。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_disabled.asp">disabled</a></td>
+    <td>设置或返回文本域是否应被禁用。</td>
+    <td>5</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_form.asp">form</a></td>
+    <td>返回一个对包含文本域的表单对象的引用。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_id.asp">id</a></td>
+    <td>设置或返回文本域的 id。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_maxlength.asp">maxLength</a></td>
+    <td>设置或返回文本域中的最大字符数。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_name.asp">name</a></td>
+    <td>设置或返回文本域的名称。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_readonly.asp">readOnly</a></td>
+    <td>设置或返回文本域是否应是只读的。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_size.asp">size</a></td>
+    <td>设置或返回文本域的尺寸。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_tabindex.asp">tabIndex</a></td>
+    <td>设置或返回文本域的 tab 键控制次序。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_type.asp">type</a></td>
+    <td>返回文本域的表单元素类型。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_text_value.asp">value</a></td>
+    <td>设置或返回文本域的 value 属性的值。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  </tbody></table>
+</div>
+
+
+<div>
+<h2>标准属性</h2>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:18%">属性</th>
+    <th>描述</th>
+    <th style="width:6%">IE</th>
+    <th style="width:6%">F</th>
+    <th style="width:6%">O</th>
+    <th style="width:7%">W3C</th>
+  </tr>
+  <tr>
+    <td><a href="prop_classname.asp">className</a></td>
+    <td>设置或返回元素的 class 属性。</td>
+    <td>5</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_dir.asp">dir</a></td>
+    <td>设置或返回文本的方向。</td>
+    <td>5</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_lang.asp">lang</a></td>
+    <td>设置或返回元素的语言代码。</td>
+    <td>5</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td><a href="prop_title.asp">title</a></td>
+    <td>设置或返回元素的 title 属性。</td>
+    <td>5</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>Text 对象方法</h2>
+
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:18%">方法</th>
+    <th>描述</th>
+    <th style="width:6%">IE</th>
+    <th style="width:6%">F</th>
+    <th style="width:6%">O</th>
+    <th style="width:7%">W3C</th>
+  </tr>
+  <tr>
+    <td><a href="met_text_blur.asp">blur()</a></td>
+    <td>从文本域上移开焦点。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+    </tr>
+  <tr>
+    <td><a href="met_text_focus.asp">focus()</a></td>
+    <td>在文本域上设置焦点。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+    </tr>
+  <tr>
+    <td><a href="met_text_select.asp">select()</a></td>
+    <td>选取文本域中的内容。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    <td>Yes</td>
+    </tr>
+</tbody></table>
+</div>
+
+</div>

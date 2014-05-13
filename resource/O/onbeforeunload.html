@@ -1,0 +1,96 @@
+
+
+<div class="lcnt bdwr bds0 bdc0 ">
+      
+     <div class="mcnt ztag">
+      <div class="nbw-bitm bdwb bds2 bdc0 ">
+        <div class="multicntwrap">
+        <div class="multicnt">
+          <div>
+          <h3 class="title pre fs1"><span class="tcnt">window.Onunload与window.onbeforeunload的区别</span>&nbsp;&nbsp;<span class="bgc0 fc07 fw0 fs0"></span></h3>
+          
+        </div>
+        </div>
+        </div>
+        <div class="nbw-blog-start"></div>
+        <div class="bct fc05 fc11 nbw-blog ztag"><p>Onunload，onbeforeunload都是在刷新或关闭时调用，可以在&lt;script&gt;脚本中通过window.onunload来指定或者在&lt;body&gt;里指定。<br>区别在于onbeforeunload在onunload之前执行，它还可以阻止onunload的执行。</p>  <p>　　Onbeforeunload也是在页面刷新或关闭时调用，Onbeforeunload是正要去服务器读取新的页面时调用，此时还没开始读取；而onunload则已经从服务器上读到了需要加载的新的页面，在即将替换掉当前页面时调用。Onunload是无法阻止页面的更新和关闭的。而 Onbeforeunload 可以做到。</p>  <p>1、onbeforeunload事件：</p>  <p>　　说明：目前三大主流浏览器中firefox和IE都支持onbeforeunload事件,opera尚未支持。</p>  <p>　　用法：</p>  <p>　　　·object.onbeforeunload = handler</p>  <p>　　　·&lt;element onbeforeunload = “handler” … &gt;&lt;/element&gt;</p>  <p>　　描述：</p>  <p>　　　事件触发的时候弹出一个有确定和取消的对话框，确定则离开页面，取消则继续待在本页。handler可以设一个返回值作为该对话框的显示文本。</p>  <p>　　触发于：</p>  <p>　　　·关闭浏览器窗口</p>  <p>　　　·通过地址栏或收藏夹前往其他页面的时候</p>  <p>　　　·点击返回，前进，刷新，主页其中一个的时候</p>  <p>　　　·点击 一个前往其他页面的url连接的时候</p>  <p>　　　·调用以下任意一个事件的时候：click，document write，document open，document close，window close ，window navigate ，window NavigateAndFind,location replace,location reload,form submit.</p>  <p>　　　·当用window open打开一个页面，并把本页的window的名字传给要打开的页面的时候。</p>  <p>　　　·重新赋予location.href的值的时候。</p>  <p>　　　·通过input type=”submit”按钮提交一个具有指定action的表单的时候。</p>  <p>　　可以用在以下元素：</p>  <p>　　　·BODY, FRAMESET, window</p>  <p>　　平台支持：</p>  <p>　　　IE4+/Win, Mozilla 1.7a+, Netscape 7.2+, Firefox0.9+</p>  <p>　　示例：</p>  <p>　　　&lt;html xmlns=”<a target="_blank" rel="nofollow" href="http://student.csdn.net/link.php?url=http://www.w3.org%2F1999%2Fxhtml">http://www.w3.org/1999/xhtml</a>“&gt;</p>  <p>　　　&lt;head&gt;</p>  <p>　　　&lt;meta http-equiv=”Content-Type” content=”text/html; charset=gb2312″ /&gt;</p>  <p>　　　&lt;title&gt;onbeforeunload测试&lt;/title&gt;</p>  <p>　　　&lt;script&gt;</p>  <p>　　　function checkLeave(){</p>  <p>　　　　event.returnValue=”确定离开当前页面吗？”;</p>  <p>　　　}</p>  <p>　　　&lt;/script&gt;</p>  <p>　　　&lt;/head&gt;</p>  <p>　　　&lt;body onbeforeunload=”checkLeave()”&gt;</p>  <p>　　　&lt;/body&gt;</p>  <p>　　　&lt;/html&gt;</p>  <p></p>  <p>2、onunload事件</p>  <p>　　用法：</p>  <p>　　　·object.onbeforeunload = handler</p>  <p>　　　·&lt;element onbeforeunload = “handler”&gt;&lt;/element&gt;</p>  <p>　　描述：</p>  <p>　　　当用户关闭一个页面时触发 onunload 事件。</p>  <p>　　触发于：</p>  <p>　　　·关闭浏览器窗口</p>  <p>　　　·通过地址栏或收藏夹前往其他页面的时候</p>  <p>　　　·点击返回，前进，刷新，主页其中一个的时候</p>  <p>　　　·点击 一个前往其他页面的url连接的时候</p>  <p>　　　·调用以下任意一个事件的时候：click，document write，document open，document close，window close ，window navigate ，window NavigateAndFind,location replace,location reload,form submit.</p>  <p>　　　·当用window open打开一个页面，并把本页的window的名字传给要打开的页面的时候。</p>  <p>　　　·重新赋予location.href的值的时候。</p>  <p>　　　·通过input type=”submit”按钮提交一个具有指定action的表单的时候。</p>  <p>　　示例：</p>  <p>　　　&lt;html xmlns=http://www.w3.org/1999/xhtml&gt;</p>  <p>　　　&lt;head&gt;</p>  <p>　　　&lt;meta http-equiv=”Content-Type” content=”text/html; charset=gb2312″ /&gt;</p>  <p>　　　&lt;title&gt;onunload测试&lt;/title&gt;</p>  <p>　　　&lt;script&gt;</p>  <p>　　　function checkLeave(){</p>  <p>　　　　alert(”欢迎下次再来！”);</p>  <p>　　　}</p>  <p>　　　&lt;/script&gt;</p>  <p>　　　&lt;/head&gt;</p>  <p>　　　&lt;body onunload=”checkLeave()”&gt;</p>  <p>　　　&lt;/body&gt;</p>  <p>　　　&lt;/html&gt;</p><wbr></div>
+       
+
+      
+       
+   
+    </div>
+
+
+
+        
+      </div>
+      
+      
+      
+    </div>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="_content"><div class="_page _mdn"><h1>window.onbeforeunload</h1>  <p>An event that fires when a window is about to <a href="window.onunload" title="The unload event is raised when the window is unloading its content and resources. The resources removal is processed
+  
+    &nbsp;after
+  the unload event occurs."><code>unload</code></a> its resources. The document is still visible and the <a href="event.preventdefault" title="Cancels the event if it is cancelable, without stopping further propagation of the event."><code>event is still cancelable</code></a>.</p> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="syntaxbox">window.onbeforeunload = <var>funcRef</var></pre> <ul>
+<li>
+<code>funcRef</code> is a reference to a function or a function expression.</li> <li>The function should assign a string value to the <code>returnValue</code> property of the Event object and return the same string.</li> <li>Note that in Firefox 4 and later the returned string is not displayed to the user. See <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=588292" title="FIXED: Remove site-supplied text for beforeunload and onunload dialogs, and improve button text">bug 588292</a>.</li> </ul><h2 id="Example" name="Example">Example</h2> <pre class=" language-javascript">window<span class="token punctuation">.</span>onbeforeunload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token string">'Dialog text here.'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</pre> <h2 id="Notes">Notes</h2> <p>When this event returns a non-void value, the user is prompted to confirm the page unload. In most browsers, the return value of the event is displayed in this dialog.</p> <p>Since 25 May 2011, the <a href="http://www.w3.org/TR/html5-diff/#changes-2011-05-25" title="http://www.w3.org/TR/html5-diff/#changes-2011-05-25">HTML5 specification</a> states that calls to <a href="window.showmodaldialog" title="Creates and displays a modal dialog box containing a specified HTML document."><code>window.showModalDialog()</code></a>, <a href="window.alert" title="{{ DomRef }}"><code>window.alert()</code></a>, <a href="window.confirm" title="The Window.confirm() method displays a modal dialog with an optional message and two buttons, OK and Cancel."><code>window.confirm()</code></a>, and <a href="window.prompt" title="The Window.prompt() displays a dialog with an optional message prompting the user to input some text."><code>window.prompt()</code></a> methods may be ignored during this event.</p> <p>You <em>can</em> and <em>should</em> handle this event through <a href="eventtarget.addeventlistener" title="The EventTarget.addEventListener() method registers the specified listener on the EventTarget it's called on. The event target may be an Element in a document, the Document itself, a Window, or any other object that supports events (such as XMLHttpRequest)."><code>window.addEventListener()</code></a> and the <a href="https://developer.mozilla.org/en-US/docs/Mozilla_event_reference/beforeunload" title="Mozilla_event_reference/unload"><code>beforeunload</code> event</a>. More documentation is available there.</p> <h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>1</td> <td>1</td> <td>4</td> <td>12</td> <td>3</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 id="Specification" name="Specification">Specification</h2> <p>The event was originally introduced by Microsoft in Internet Explorer 4 and standardized in the HTML5 specification.</p> <ul>
+<li>
+<a href="http://dev.w3.org/html5/spec-LC/history.html#unloading-documents">HTML5: Browsing the Web, Unloading documents</a><span style="color: #fff; background: #e2a669; display: inline-block; font-size: x-small; margin-left: 6px; white-space: nowrap; padding: 2px 5px;" title="Last Call">LC</span>
+</li> </ul><h2 id="See also" name="See also">See also</h2> <ul>
+<li><a href="http://msdn.microsoft.com/en-us/library/ms536907(VS.85).aspx">MSDN: onbeforeunload event</a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.onbeforeunload$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.onbeforeunload" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/window.onbeforeunload</a>
+  </p>
+</div>
+</div></div>

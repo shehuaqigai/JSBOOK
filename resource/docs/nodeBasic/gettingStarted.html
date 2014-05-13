@@ -1,0 +1,244 @@
+<div id="ibm-pcon">
+
+<!-- BEGIN_IBM-CONTENT -->
+<div id="ibm-content">
+
+<!-- BEGIN_IBM-CONTENT-BODY -->
+<div id="ibm-content-body">
+
+<!-- BEGIN_IBM-CONTENT-MAIN -->
+<div id="ibm-content-main">
+
+<!-- 1_1_COLUMN_BEGIN -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+
+<div class="dw-sidebar ibm-inset"><h2 id="N10041">编者按</h2><p>本文的第一版发表后，文中谈到的各种观点在社区中引起了广泛的讨论。因此，本文作者修改了第一版，其中借鉴了社区成员提出的观点。这种同行审阅和讨论是开源世界的关键组成部分。感谢那些提出建设性意见的同行。</p><p>与所有开源项目一样，Node.js 将继续向前发展，开发人员将探索可以克服任何限制的新资源和新技术。按照惯例，我们鼓励读者亲自尝试新技术。</p></div><h2 id="N10048">简介</h2><p>如果您听说过 Node，或者阅读过一些文章，宣称 Node 是多么多么的棒，那么您可能会想：“Node 究竟是什么东西？” 即便是在参阅 Node 的主页之后，您甚至可能<em>还是</em> 不明白 Node 为何物？Node 肯定不适合每个程序员，但它可能是某些程序员一直苦苦追寻的东西。</p><p>为试图解释什么是 Node.js，本文将简要介绍一些背景信息：它要解决的问题，它如何工作，如何运行一个简单应用程序，最后，Node 在什么情况下是一个好的解决方案。本文不涉及如何编写一个复杂的 Node 应用程序，也不是一份全面的 Node 教程。阅读本文应该有助于您决定是否应该继续学习 Node，以便将其用于您的业务。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N10055">Node 旨在解决什么问题？</h2><p>Node 公开宣称的目标是 “旨在提供一种简单的构建可伸缩网络程序的方法”。当前的服务器程序有什么问题？我们来做个数学题。在 Java™ 和 PHP 这类语言中，每个连接都会生成一个新线程，每个新线程可能需要 2 MB 的配套内存。在一个拥有 8 GB RAM 的系统上，理论上最大的并发连接数量是 4,000 个用户。随着您的客户群的增长，如果希望您的 Web 应用程序支持更多用户，那么，您必须添加更多服务器。当然，这会增加服务器成本、流量成本和人工成本等成本。除这些成本上升外，还有一个潜在技术问题，即用户可能针对每个请求使用不同的服务器，因此，任何共享资源都必须在所有服务器之间共享。鉴于上述所有原因，整个 Web 应用程序架构（包括流量、处理器速度和内存速度）中的瓶颈是：服务器能够处理的并发连接的最大数量。</p><p>Node 解决这个问题的方法是：更改连接到服务器的方式。每个连接发射一个在 Node 引擎的进程中运行的事件，而不是为每个连接生成一个新的 OS 线程（并为其分配一些配套内存）。Node 声称它绝不会死锁，因为它根本不允许使用锁，它不会直接阻塞 I/O 调用。Node 还宣称，运行它的服务器能支持数万个并发连接。</p><p>现在您有了一个能处理数万个并发连接的程序，那么您能通过 Node 实际构建什么呢？如果您有一个 Web 应用程序需要处理这么多连接，那将是一件很 “恐怖” 的事！那是一种 “如果您有这个问题，那么它根本不是问题” 的问题。在回答上面的问题之前，我们先看看 Node 的工作原理以及它的设计运行方式。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N10063">Node 肯定不是什么？</h2><p>没错，Node 是一个服务器程序。但是，基础 Node 产品肯定<em>不</em> 像 Apache 或 Tomcat。本质上，那些服务器 “安装就绪型” 服
+务器产品，支持立即部署应用程序。通过这些产品，您可以在一分钟内启动并运行一个服务器。Node 肯定不是这种产品。Apache 能通过添加一个 PHP 模块来允许开发人员创建动态 Web 页，添加一个 SSL 模块来实现安全连接，与此类似，Node 也有模块概念，允许向 Node 内核添加模块。实际上，可供选择的用于 Node 的模块有数百个之多，社区在创建、发布和更新模块方面非常活跃，一天甚至可以处理数十个模块。本文后面将讨论 Node 的整个模块部分。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N1006E">Node
+ 如何工作？</h2><p>Node 本身运行 V8 JavaScript。等等，服务器上的 JavaScript？没错，您没有看错。对于只在客户机上使用 JavaScript 的程序员而言，服务器端 JavaScript 可能是一个新概念，但这个概念本身并非遥不可及，因此为何不能在服务器上使用客户机上使用的编程语言？</p><p>什么是 V8？V8 JavaScript 引擎是 Google 用于其 Chrome 浏览器的底层 JavaScript 引擎。很少有人考虑 JavaScript 在客户机上实际做了些什么？实际上，JavaScript 引擎负责解释并执行代码。Google 使用 V8 创建了一个用 C++ 编写的超快解释器，该解释器拥有另一个独特特征；您可以下载该引擎并将其嵌入<em>任何</em> 应用程序。V8 JavaScript 引擎并不仅限于在一个浏览器中运行。因此，Node 实际上会使用 Google 编写的 V8 JavaScript 引擎，并将其重建为可在服务器上使用。太完美了！既然已经有一个不错的解决方案可用，为何还要创建一种新语言呢？</p><h3 id="N1007B">事件驱动编程</h3><p>许多程序员接受的教育使他们认为，面向对象编程是完美的编程设计，这使得他们对其他编程方法不屑一顾。Node 使用了一个所谓的事件驱动编程模型。</p><h5 id="listing1">清单 1. 客户端上使用 jQuery 的事件驱动编程</h5><div class="codesection"><pre class="displaycode">// jQuery code on the client-side showing how Event-Driven programming works
+
+// When a button is pressed, an Event occurs - deal with it
+// directly right here in an anonymous function, where all the
+// necessary variables are present and can be referenced directly
+$("#myButton").click(function(){
+     if ($("#myTextField").val() != $(this).val())
+         alert("Field must match button text");
+});</pre></div><p>实际上，服务器端和客户端没有任何区别。没错，这没有按钮点击操作，也没有向文本字段键入的操作，但在一个更高的层面上，事件<em>正在</em> 发生。一个连接被建立，这是一个事件！数据通过连接进行接收，这也是一个事件！数据通过连接停止，这还是一个事件！</p><p>为什么这种设置类型对 Node 很理想？JavaScript 是一种很棒的事件驱动编程语言，因为它允许使用匿名函数和闭包，更重要的是，任何写过代码的人都熟悉它的语法。事件发生时调用的回调函数可以在捕获事件处进行编写。这样可以使代码容易编写和维护，没有复杂的面向对象框架，没有接口，没有过度设计的可能性。只需监听事件，编写一个回调函数，其他事情都可以交给系统处理！</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N10090">示例 Node 应用程序</h2><p>最后，我们来看一些代码！让我们将讨论过的所有内容汇总起来，从而创建我们的第一个 Node 应用程序。我们已经知道，Node 对于处理高流量应用程序很理想，所以我们将创建一个非常简单的 Web 应用程序，一个为实现最快速度而构建的应用程序。下面是 “老板” 交代的关于我们的样例应用程序的具体要求：创建一个随机数字生成器 RESTful API。这个应用程序应该接受一个输入：一个名为 “number” 的参数。然后，应用程序返回一个介于 0 和该参数之间的随机数字，并将生成的数字返回给调用者。由于 “老板” 希望该应用程序成为一个广泛流行的应用程序，因此它应该能处理 50,000 个并发用户。我们来看看以下代码：</p><h5 id="listing2">清单 2. Node 随机数字生成器</h5><div class="codesection"><pre class="displaycode">// these modules need to be imported in order to use them.
+// Node has several modules.  They are like any #include
+// or import statement in other languages
+var http = require("http");
+var url = require("url");
+
+// The most important line in any Node file.  This function
+// does the actual process of creating the server.  Technically,
+// Node tells the underlying operating system that whenever a
+// connection is made, this particular callback function should be
+// executed.  Since we're creating a web service with REST API,
+// we want an HTTP server, which requires the http variable
+// we created in the lines above.
+// Finally, you can see that the callback method receives a 'request'
+// and 'response' object automatically.  This should be familiar
+// to any PHP or Java programmer.
+http.createServer(function(request, response) {
+
+     // The response needs to handle all the headers, and the return codes
+     // These types of things are handled automatically in server programs
+     // like Apache and Tomcat, but Node requires everything to be done yourself
+     response.writeHead(200, {"Content-Type": "text/plain"});
+
+     // Here is some unique-looking code.  This is how Node retrives
+     // parameters passed in from client requests.  The url module
+     // handles all these functions.  The parse function
+     // deconstructs the URL, and places the query key-values in the
+     // query object.  We can find the value for the "number" key
+     // by referencing it directly - the beauty of JavaScript.
+     var params = url.parse(request.url, true).query;
+     var input = params.number;
+
+     // These are the generic JavaScript methods that will create
+     // our random number that gets passed back to the caller
+     var numInput = new Number(input);
+     var numOutput = new Number(Math.random() * numInput).toFixed(0);
+     
+     // Write the random number to response
+     response.write(numOutput);
+     
+     // Node requires us to explicitly end this connection.  This is because
+     // Node allows you to keep a connection open and pass data back and forth,
+     // though that advanced topic isn't discussed in this article.
+     response.end();
+
+   // When we create the server, we have to explicitly connect the HTTP server to
+   // a port.  Standard HTTP port is 80, so we'll connect it to that one.
+}).listen(80);
+
+// Output a String to the console once the server starts up, letting us know everything
+// starts up correctly
+console.log("Random Number Generator Running...");</pre></div><h3 id="N1009F">启动应用程序</h3><p>将上面的代码放入一个名为 “random.js” 的文件中。现在，要启动这个应用程序并运行它（以便创建 HTTP 服务器并监听端口 80 上的连接），只需在您的命令提示中输入以下命令：<code>% node random.js</code>。下面是服务器已经启动并运行时看起来的样子：</p><div class="codesection"><pre class="displaycode">root@ubuntu:/home/moila/ws/mike# node random.js
+Random Number Generator Running...</pre></div><h3 id="N100AD">访问应用程序</h3><p>应用程序已经启动并运行。Node 正在监听所有连接，我们来测试一下。由于我们创建了一个简单的 RESTful API，所以可以使用 Web 浏览器来访问这个应用程序。键入以下地址（确保您已完成了上面的步骤）：http://localhost/?number=27。 </p><p>您的浏览器窗口将更改到一个介于 0 到 27 之间的随机数字。单击浏览器上的 “重新载入” 按钮，您会得到另一个随机数字。就是这样，这就是您的第一个 Node 应用程序！</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N100B6">Node 对什么有好处？</h2><p>到此为止，您可能能够回答 “Node 是什么” 这个问题了，但您可能还有一个问题：“Node 有什么用途？” 这是一个需要提出的重要问题，因为肯定有些东西能受益于 Node。</p><h3 id="N100BE">它对什么有好处？</h3><p>正如您此前所看到的，Node 非常适合以下情况：在响应客户端之前，您预计可能有很高的流量，但所需的服务器端逻辑和处理不一定很多。Node 表现出众的典型示例包括：</p><ul class="ibm-bullet-list"><li><strong>RESTful API</strong><p>提供 RESTful API 的 Web 服务接收几个参数，解析它们，组合一个响应，并返回一个响应（通常是较少的文本）给用户。这是适合 Node 的理想情况，因为您可以构建它来处理数万条连接。它仍然不需要大量逻辑；它本质上只是从某个数据库中查找一些值并将它们组成一个响应。由于响应是少量文本，入站请求也是少量的文本，因此流量不高，一台机器甚至也可以处理最繁忙的公司的 API 需求。</p></li><li><strong>Twitter 队列</strong><p>想像一下像 Twitter 这样的公司，它必须接收 tweets 并将其写入数据库。实际上，每秒几乎有数千条 tweet 达到，数据库不可能及时处理高峰时段所需的写入数量。Node 成为这个问题的解决方案的重要一环。如您所见，Node 能处理数万条入站 tweet。它能快速而又轻松地将它们写入一个内存排队机制（例如 memcached），另一个单独进程可以从那里将它们写入数据库。Node 在这里的角色是迅速收集 tweet，并将这个信息传递给另一个负责写入的进程。想象一下另一种设计（常规 PHP 服务器会自己尝试处理对数据库本身的写入）：每个 tweet 都会在写入数据库时导致一个短暂的延迟，因为数据库调用正在阻塞通道。由于数据库延迟，一台这样设计的机器每秒可能只能处理 2000 条入站 tweet。每秒处理 100 万条 tweet 则需要 500 个服务器。相反，Node 能处理每个连接而不会阻塞通道，从而能够捕获尽可能多的 tweets。一个能处理 50,000 条 tweet 的 Node 机器仅需 20 台服务器即可。</p></li><li><strong>电子游戏统计数据</strong><p>如果您在线玩过《使命召唤》这款游戏，当您查看游戏统计数据时，就会立即意识到一个问题：要生成那种级别的统计数据，必须跟踪海量信息。这样，如果有数百万玩家同时在线玩游戏，而且他们处于游戏中的不同位置，那么很快就会生成海量信息。Node 是这种场景的一种很好的解决方案，因为它能采集游戏生成的数据，对数据进行最少的合并，然后对数据进行排队，以便将它们写入数据库。使用整个服务器来跟踪玩家在游戏中发射了多少子弹看起来很愚蠢，如果您使用 Apache 这样的服务器，可能会
+有一些有用的限制；但相反，如果您专门使用一个服务器来跟踪一个游戏的所有统计数据，就像使用运行 Node 的服务器所做的那样，那看起来似乎是一种明智之举。</p></li></ul><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N100D5">Node 模块</h2><p>尽管不是本文最初计划讨论的主题，但应广大读者要求，本文已经扩展为包含一个 Node Modules 和 Node Package Manager 简介。正如已经习惯使用 Apache 的开发人员那样，您也可以通过安装模块来扩展 Node 的功能。但是，可用于 Node 的模块<em>极大地</em> 增强了这个产品，那些模块非常有用，将使用 Node 的开发人员通常会安装几个模块。因此，模块也就变得越来越重要，甚至成为整个产品的一个关键部分。</p><p>在 “参考资料” 部分，我提供了一个指向模块页面的链接，该页面列示了所有可用模块。为了展示模块能够提供的可能性，我在数十个可用模块中包含了以下几个模块：一个用于编写动态创建的页面（比如 PHP），一个用于简化 MySQL 使用，一个用于帮助使用 WebSockets，还有一个用来协助文本和参数解析的模块。我不会详细介绍这些模块，这是因为这篇概述文章旨在帮助您了解 Node 并确定是否需要深入学习（再次重申），如果需要，那么您肯定有机会用到这些可用模块。</p><p>另外，Node 的一个特性是 Node Package Module，这是一个内置功能，用于安装和管理 Node 模块。它自动处理依赖项，因此您可以确定：您想要安装的任何模块都将正确安装并包含必要的依赖项。它还支持将您自己的模块发布到 Node 社区，假如您选择加入社区并编写自己的模块的话。您可以将 NPM 视为一种允许轻松扩展 Node 功能的方法，不必担心这会破坏您的 Node 安装。同样，如果您选择深入学习 Node，那么 NPM 将是您的 Node 解决方案的一个重要组成部分。</p><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><h2 id="N100E4">结束语</h2><p>阅读本文之后，您在本文开头遇到的问题 “Node.js 究竟是什么东西?” 应该已经得到了解答，您应该能通过几个清晰简洁的句子回答这个问题。如果这样，那么您已经走到了许多程序员的前面。我和许多人都谈论过 Node，但他们对 Node 究竟用于做什么一直很迷惑。可以理解，他们具有的是 Apache 的思维方式，认为服务器就是一个应用程序，将 HTML 文件放入其中，一切就会正常运转。由于大多数程序员都熟悉 Apache 及其用途，因此，描述 Node 的最简单方法就是将它与 Apache 进行比较。Node 是一个程序，能够完成 Apache 能够完成的所有任务（借助一些模块），而且，作为一个可以将其作为基础进行构建的可扩展 JavaScript 平台，Node 还能完成更多的任务。</p><p>从本文可以看出，Node 完成了它提供高度可伸缩服务器的目标。它使用了 Google 的一个非常快速的 JavaScript 引擎，即 V8 引擎。它使用一个事件驱动设计来保持代码最小且易于阅读。所有这些因素促成了 Node 的理想目标，即编写一个高度可伸缩的解决方案变得比较容易。
+</p><p>与理解 Node <em>是</em> 什么同样重要的是，理解它<em>不是</em> 什么。Node 并不只是 Apache 的一个替代品，它旨在使 PHP Web 应用程序更容易伸缩。事实远非如此。尽管 Node 还处于初始阶段，但它发展得非常迅速，社区参与度非常高，社区成员创建了大量优秀模块，一年之内，这个不断发展的产品就有可能出现在您的企业中。</p><!--CMA ID: 680425--><!--Site ID: 10--><!--XSLT stylesheet used to transform this file: dw-document-html-7.0.xsl-->
+
+
+</div>
+</div>
+<!-- 1_1_COLUMN_END -->
+
+<!-- SPLIT_COLUMNS_BEGIN -->
+<div class="ibm-columns">
+
+<!-- 6_4_COLUMN_BEGIN -->
+<div class="ibm-col-6-4">
+
+<h2 id="resources" class="ibm-rule">参考资料 </h2><h3 class="dw-resources-category-heading">学习</h3><ul class="ibm-bullet-list"><li><a href="http://www.nodejs.org/">Node.js 主页</a> 是了解这个应用程序的切入点。</li><li><a href="http://www.nodejs.org/#download">在这里下载 Node.js</a>。您还将需要 <a href="http://www.python.org/">Python</a>。</li><li>浏览 <a href="http://www.nodejs.org/api.html">Node.js API 页</a>。注意，不同发布的语法可能不同，因此，请仔细检查您已下载的版本和正在浏览的 API。</li><li>参见 <a href="https://github.com/joyent/node/wiki/modules">Node 模块页</a>，该页列出了所有可用于 Node 中的模块。</li><li>搜索 <a href="http://search.npmjs.org/">NPM</a>，轻松扩展您的 Node 安装的功能。</li><li>随时关注 developerWorks <a href="http://www.ibm.com/developerworks/cn/offers/techbriefings/">技术活动</a>和<a href="http://www.ibm.com/developerworks/cn/swi/">网络广播</a>。 </li><li> 访问 developerWorks <a href="http://www.ibm.com/developerworks/cn/opensource/">Open source 专区</a>获得丰富的 how-to 信息、工具和项目更新以及<a href="http://www.ibm.com/developerworks/cn/opensource/best2009/index.html">最受欢迎的文章和教程</a>，帮助您用开放源码技术进行开发，并将它们与 IBM 产品结合使用。</li><li>
+查看免费的 <a href="http://www.ibm.com/developerworks/cn/offers/lp/demos/">developerWorks 演示中心</a>，观看并了解 IBM 及开源技术和产品功能。</li></ul><h3 class="dw-resources-category-heading">获得产品和技术</h3><ul class="ibm-bullet-list"><li>参见 Wikipedia 上不断变化的 <a href="http://en.wikipedia.org/wiki/List_of_free_and_open_source_software_packages">开源软件包列表</a>。</li><li>
+使用 <a href="http://www.ibm.com/developerworks/cn/downloads/">IBM 产品评估试用版软件</a> 改进您的下一个开源开发项目，这些软件可以通过下载获得。</li></ul><h3 class="dw-resources-category-heading">讨论</h3><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=965&amp;cat=82" onmouseover="linkQueryAppend(this)">参与讨论论坛</a>。</li><li>帮助构建 developerWorks 社区中的 <a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/communityview?communityUuid=6e6f6d1b-95c3-46df-8a26-b7efd8ee4b57" onmouseover="linkQueryAppend(this)">真实世界开源</a> 讨论组。</li><li>加入 <a href="http://www.ibm.com/developerworks/cn/community/">developerWorks 中文社区</a>，developerWorks 社区是一个面向全球 IT 专业人员，可以提供博客、书签、wiki、群组、联系、共享和协作等社区功能的专业社交网络社区。</li><li>加入 <a href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/communityview?communityUuid=38997896-bb16-451a-aa97-189a27a3cd5a/?lang=zh">IBM 软件下载与技术交流群组</a>，参与在线交流。</li></ul>
+
+<!-- INLINE_COMMENTS_BEGIN -->
+<h2 id="icomments" class="ibm-alternate-rule ibm-no-print">条评论</h2>
+    
+<div class="ibm-no-print" id="dw-icomments-container">	
+	<div id="threadShow"><img id="imgPlHdr" src="//1.w3.s81c.com/i/v17/animated-progress-38x38c.gif" alt="" style="display: none;"><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect">请 <a onclick="var e=arguments[0] || window.event; dwsi.siInst &amp;&amp; dwsi.siInst.showSignIn(); if (e.stopPropagation){ e.stopPropagation();} else { e.cancelBubble = true; } e.preventDefault &amp;&amp; e.preventDefault(); return false;" href="#">登录</a> 或 <a href="/developerworks/dwwi/DWAuthRouter?m=register&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fopensource%2Fos-nodejs%2F%23icomments">注册</a>  后发表评论。</p><p id="cmtHead"><label for="newCmt"><strong>添加评论:</strong></label></p><p>注意：评论中不支持 HTML 语法</p><div id="infoCmt"></div><form focus="name" enctype="multipart/form-data" method="post" action="" name="form" class="ibm-column-form ibm-styled-form"><p class="6-4-textarea"><textarea rows="5" name="newCmt" id="newCmt" class="dw-inoperable" disabled=""></textarea><br></p><span class="ibm-input-group"><input type="checkbox" value="1" name="comment_notification" id="comment_notification" disabled="disabled"><label id="notifyText" class="ibm-form-note dw-btn-cancel-sec" for="comment_notification">有新评论时提醒我</label></span><span class="ibm-form-note dw-btn-cancel-sec notifySection" id="maxCharsCount">剩余 <span id="charCount">1000</span> 字符</span><p class="ibm-buttons-row"><input type="button" value="发布" name="postCmt" id="postCmt" class="ibm-btn-sec ibm-btn-small ibm-disabled" disabled="disabled"></p></form></div></div><div class="ibm-alternate-rule"><hr></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style=""><div class="ibm-container-body"><form id="selectComments" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts">13</span>)</strong></span><span class="dw-how-many-comments-label" style="" id="dropdownCmts"><label for="howManyComments"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论   </option><option value="all">所有评论</option></select><input type="image" class="ibm-btn-go" name="ibm-go" value="Go" src="//1.www.s81c.com/i/v17/buttons/short-btn.gif" alt="Go"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>"Node.JS最大的特点是性能好，因为他是单线程，事件驱动的，<br>最大的缺点是异步性编程难以掌握。<br>最大的优点是内存消耗可控，设计好了可以不随流量而变化，因此可以在配置很差的服务器上提供高性能服务， 这一点比其它语言强很多，可以看看这篇性能评测：<br><br>http://ourjs.com/detail/52954f16f45056c314000001<br></p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/c2u">c2u</a></strong>  于 2013年12月02日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/opensource/os-nodejs/&amp;mymessage=评论： %22Node.JS%E6%9C%80%E5%A4%A7%E7%9A%84%E7%89%B9%E7%82%B9%E6%98%AF%E6%80%A7%E8%83%BD%E5%A5%BD%EF%BC%8C%E5%9B%A0%E4%B8%BA%E4%BB%96%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%EF%BC%8C%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E7%9A%84%EF%BC%8C%E6%9C%80%E5%A4%A7%E7%9A%84%E7%BC%BA%E7%82%B9%E6%98%AF%E5%BC%82%E6%AD%A5%E6%80%A7%E7%BC%96%E7%A8%8B%E9%9A%BE%E4%BB%A5%E6%8E%8C%E6%8F%A1%E3%80%82%E6%9C%80%E5%A4%A7%E7%9A%84%E4%BC%98%E7%82%B9%E6%98%AF%E5%86%85%E5%AD%98%E6%B6%88%E8%80%97%E5%8F%AF%E6%8E%A7%EF%BC%8C%E8%AE%BE%E8%AE%A1%E5%A5%BD%E4%BA%86%E5%8F%AF%E4%BB%A5%E4%B8%8D%E9%9A%8F%E6%B5%81%E9%87%8F%E8%80%8C%E5%8F%98%E5%8C%96%EF%BC%8C%E5%9B%A0%E6%AD%A4%E5%8F%AF%E4%BB%A5%E5%9C%A8%E9%85%8D%E7%BD%AE%E5%BE%88%E5%B7%AE%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%8F%90%E4%BE%9B%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%EF%BC%8C%20%E8%BF%99%E4%B8%80%E7%82%B9%E6%AF%94%E5%85%B6%E5%AE%83%E8%AF%AD%E8%A8%80%E5%BC%BA%E5%BE%88%E5%A4%9A%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9C%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%80%A7%E8%83%BD%E8%AF%84%E6%B5%8B%EF%BC%9Ahttp%3A%2F%2Fourjs.com%2Fdetail%2F52954f16f45056c314000001%0D%E7%94%B1%20c2u%20%20%E4%BA%8E%202013%E5%B9%B412%E6%9C%8802%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>"看看这篇文章对你也许有帮助 http://www.9958.pw/post/nodejs_lesson （主要是我当时做的demo可以参考参考）</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/ldl_xz">ldl_xz</a></strong>  于 2013年07月09日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/opensource/os-nodejs/&amp;mymessage=评论： %22%E7%9C%8B%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%AF%B9%E4%BD%A0%E4%B9%9F%E8%AE%B8%E6%9C%89%E5%B8%AE%E5%8A%A9%20http%3A%2F%2Fwww.9958.pw%2Fpost%2Fnodejs_lesson%20%EF%BC%88%E4%B8%BB%E8%A6%81%E6%98%AF%E6%88%91%E5%BD%93%E6%97%B6%E5%81%9A%E7%9A%84demo%E5%8F%AF%E4%BB%A5%E5%8F%82%E8%80%83%E5%8F%82%E8%80%83%EF%BC%89%0D%E7%94%B1%20ldl_xz%20%20%E4%BA%8E%202013%E5%B9%B407%E6%9C%8809%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>这个正在学习中.....</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/Tops">Tops</a></strong>  于 2013年03月22日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/opensource/os-nodejs/&amp;mymessage=评论： %E8%BF%99%E4%B8%AA%E6%AD%A3%E5%9C%A8%E5%AD%A6%E4%B9%A0%E4%B8%AD.....%0D%E7%94%B1%20Tops%20%20%E4%BA%8E%202013%E5%B9%B403%E6%9C%8822%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>回复smilesmith：<br>100万/50000=20，每秒处理100万条tweet只需要20台可以每秒处理50000条tweet的Node机器。</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/6XEQ_美银_李">6XEQ_美银_李</a></strong>  于 2013年03月08日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/opensource/os-nodejs/&amp;mymessage=评论： %E5%9B%9E%E5%A4%8Dsmilesmith%EF%BC%9A100%E4%B8%87%2F50000%3D20%EF%BC%8C%E6%AF%8F%E7%A7%92%E5%A4%84%E7%90%86100%E4%B8%87%E6%9D%A1tweet%E5%8F%AA%E9%9C%80%E8%A6%8120%E5%8F%B0%E5%8F%AF%E4%BB%A5%E6%AF%8F%E7%A7%92%E5%A4%84%E7%90%8650000%E6%9D%A1tweet%E7%9A%84Node%E6%9C%BA%E5%99%A8%E3%80%82%0D%E7%94%B1%206XEQ_%E7%BE%8E%E9%93%B6_%E6%9D%8E%20%20%E4%BA%8E%202013%E5%B9%B403%E6%9C%8808%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div><div class="ibm-rule"><hr></div><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>"一台这样设计的机器每秒可能只能处理 2000 条入站 tweet。每秒处理 100 万条 tweet 则需要 500 个服务器。相反，Node 能处理每个连接而不会阻塞通道，从而能够捕获尽可能多的 tweets。一个能处理 50,000 条 tweet 的 Node 机器仅需 20 台服务器即可。" 意思是：php一秒处理2000条，node一秒处理50000/20=2500条，不知我理解的对不对。</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">由 <strong><a href="https://www.ibm.com/developerworks/community/profiles/user/fakeid">fakeid</a></strong>  于 2012年10月12日发布 </p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="/developerworks/community/report?lang=zh&amp;referingURL=http://www.ibm.com/developerworks/cn/opensource/os-nodejs/&amp;mymessage=评论： %22%E4%B8%80%E5%8F%B0%E8%BF%99%E6%A0%B7%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%9C%BA%E5%99%A8%E6%AF%8F%E7%A7%92%E5%8F%AF%E8%83%BD%E5%8F%AA%E8%83%BD%E5%A4%84%E7%90%86%202000%20%E6%9D%A1%E5%85%A5%E7%AB%99%20tweet%E3%80%82%E6%AF%8F%E7%A7%92%E5%A4%84%E7%90%86%20100%20%E4%B8%87%E6%9D%A1%20tweet%20%E5%88%99%E9%9C%80%E8%A6%81%20500%20%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82%E7%9B%B8%E5%8F%8D%EF%BC%8CNode%20%E8%83%BD%E5%A4%84%E7%90%86%E6%AF%8F%E4%B8%AA%E8%BF%9E%E6%8E%A5%E8%80%8C%E4%B8%8D%E4%BC%9A%E9%98%BB%E5%A1%9E%E9%80%9A%E9%81%93%EF%BC%8C%E4%BB%8E%E8%80%8C%E8%83%BD%E5%A4%9F%E6%8D%95%E8%8E%B7%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%20tweets%E3%80%82%E4%B8%80%E4%B8%AA%E8%83%BD%E5%A4%84%E7%90%86%2050%2C000%20%E6%9D%A1%20tweet%20%E7%9A%84%20Node%20%E6%9C%BA%E5%99%A8%E4%BB%85%E9%9C%80%2020%20%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8D%B3%E5%8F%AF%E3%80%82%22%20%E6%84%8F%E6%80%9D%E6%98%AF%EF%BC%9Aphp%E4%B8%80%E7%A7%92%E5%A4%84%E7%90%862000%E6%9D%A1%EF%BC%8Cnode%E4%B8%80%E7%A7%92%E5%A4%84%E7%90%8650000%2F20%3D2500%E6%9D%A1%EF%BC%8C%E4%B8%8D%E7%9F%A5%E6%88%91%E7%90%86%E8%A7%A3%E7%9A%84%E5%AF%B9%E4%B8%8D%E5%AF%B9%E3%80%82%0D%E7%94%B1%20fakeid%20%20%E4%BA%8E%202012%E5%B9%B410%E6%9C%8812%E6%97%A5%E5%8F%91%E5%B8%83%20%0D%0D--%E5%9C%A8%E4%B8%8B%E6%96%B9%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA--" target="_self">报告滥用</a></p><div class="dw-clear-both"></div></div></div></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display:none"><div class="ibm-container-body"><form id="selectComments2" method="get" action=""><p>&nbsp;<span class="dw-comment-totals-label"><strong>共有评论 (<span id="numCmts2">13</span>)</strong></span><span class="dw-how-many-comments-label" style="" id="dropdownCmts2"><label for="howManyComments2"><strong>显示：</strong></label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">最新评论   </option><option value="all">所有评论</option></select><input type="image" class="ibm-btn-go" name="ibm-go" value="Go" src="//1.www.s81c.com/i/v17/buttons/short-btn.gif" alt="Go"><br></span></p></form></div></div></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE -->
+    
+<!-- Sign in OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#" onclick="dwsi.siInst.clearForm();">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+
+ <div class="ibm-title">
+<h2>developerWorks: 登录</h2>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*<span class="ibm-access">required</span></span>）号的字段是必填字段。</p> 
+<form class="ibm-column-form" id="sFormId" action="" method="post" name="sForm" onsubmit="return false;">
+<p><label for="ibmid">IBM ID:<span class="ibm-required">*<span class="ibm-access">required</span></span></label><span>
+    <input name="ibm-id" id="ibmid" size="25" value="" class="required" type="text" onkeypress="dwsi.siInst.handleEP(event,this.form);">
+    <br><a onclick="window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=zh_CN&amp;d='+encodeURIComponent(location.protocol + '//' + location.hostname + location.pathname + '#icomments'); return false;" href="#" class="ibm-forward-link">需要一个 IBM ID？</a> <br>
+    <a class="ibm-forward-link" href="/developerworks/dwwi/jsp/WSHelp.jsp?lang=zh_CN">忘记 IBM ID？</a> 
+</span>
+</p> 
+<p><label for="password">密码：<span class="ibm-required">*<span class="ibm-access">required</span></span></label><span>
+    <input name="password" id="password" size="25" value="" class="required" type="password" onkeypress="dwsi.siInst.handleEP(event,this.form);">
+    <br><a class="ibm-forward-link" href="#" onclick="(function ()
+        {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=zh_CN&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(dwsi.siInst.getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Dzh_CN%26d%3D'+encodeURIComponent(location.href);})();">忘记密码？</a>
+    <br><a class="ibm-forward-link" href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=zh_CN&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();">更改您的密码</a></span></p> 
+<p class="dw-perm-box">
+	<span><input id="perm" type="checkbox" name="perm_name"><label for="perm"> 保持登录。</label></span>
+</p>
+<p>单击提交则表示您同意developerWorks 的条款和条件。 <a href="/developerworks/community/terms?lang=zh">查看条款和条件</a>。</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" onclick="dwsi.siInst.signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="dwsi.siInst.clearForm();ibmweb.overlay.hide('signin_overlay');return false;"></p>
+</div>
+</form>
+ <div class="ibm-overlay-rule"><hr></div> 
+
+<p>这是您第一次登陆到 developerWorks，已经自动为您创建了您的概要文件。 <strong>选择您概要文件中可以公开的信息的信息（如姓名、国家/地区，以及公司），这些信息同时也会与您所发布的内容相关联。 </strong>您可以随时更新您的 IBM 账号。</p>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY STARTS HERE -->
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#" onclick="dwsi.siInst.clearForm();">关闭 [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title">
+<h2>选择您的昵称</h2><br><br>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">当您初次登录到 developerWorks 时，将会为您创建一份概要信息，您需要指定一个昵称。您的昵称将和您在 developerWorks 发布的内容显示在一起。</p><p><strong>昵称长度在 3 至 31 个字符之间</strong>。 
+    您的昵称在 developerWorks 社区中必须是唯一的，并且出于隐私保护的原因，不能是您的电子邮件地址。</p>
+<p class="ibm-overlay-intro">标有星（<span class="ibm-required">*<span class="ibm-access">required</span></span>）号的字段是必填字段。</p> 
+<form id="dFormId" method="post" action="" name="dForm" onsubmit="return false;" class="ibm-column-form">
+<p><label for="displayname">昵称：<span class="ibm-required">*<span class="ibm-access">required</span></span></label><span>
+    <input name="displayname" id="displayname" size="25" value="" type="text" onkeypress="dwsi.siInst.handleEP(event,this.form);"></span>
+    <span class="ibm-form-note">(昵称长度在 3 至 31 个字符之间)</span>
+</p>
+<p>单击<strong>提交</strong>则表示您同意developerWorks 的条款和条件。 <a href="/developerworks/community/terms?lang=zh">查看条款和条件</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="提交" onclick="dwsi.siInst.signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="取消" type="button" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="dwsi.siInst.clearForm();ibmweb.overlay.hide('displayname_overlay');return false;"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div><p class="dw-c-overlay-secure">所有提交的信息确保安全。</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+
+<!-- INLINE_COMMENTS_END -->
+
+</div>
+<!-- 6_4_COLUMN_END -->
+
+<!-- 6_2_COLUMN_BEGIN -->
+<div class="ibm-col-6-2">
+
+<!-- Next_Steps -->
+<!-- Dig_Deeper -->
+
+
+<!-- Promotion_Module -->
+    
+<!-- PROMOTION_MODULE_START -->
+<div class="ibm-alternate-rule"><hr></div>
+<ul class="ibm-portrait-module-list">
+<li><a class="" href="http://www.ibm.com/developerworks/cn/puresystems/" tabindex="-1" role="presentation"><img height="60" width="60" src="//www.ibm.com/developerworks/i/sm-f-cl-puresystems70.jpg" alt=""></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/puresystems/">IBM PureSystems</a></h3>
+<p>IBM PureSystems™ 系列解决方案是一个专家集成系统</p></li>
+<li><a class="" href="http://www.ibm.com/developerworks/cn/views/global/libraryview.jsp?type_by=Knowledge+paths" tabindex="-1" role="presentation"><img height="60" width="60" src="//www.ibm.com/developerworks/i/sm-f-knowledgepath50.jpg" alt=""></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/views/global/libraryview.jsp?type_by=Knowledge+paths">developerWorks 学习路线图</a></h3>
+<p>通过学习路线图系统掌握软件开发技能</p></li>
+<li><a class="" href="http://www.ibm.com/developerworks/cn/downloads/" tabindex="-1" role="presentation"><img height="60" width="60" src="//www.ibm.com/developerworks/i/sm-f-evaluationsoftware60.png" alt=""></a>
+<h3><a class="ibm-feature-link" href="http://www.ibm.com/developerworks/cn/downloads/">软件下载资源中心</a></h3>
+<p>软件下载、试用版及云计算</p></li>
+</ul>
+<!-- PROMOTION_MODULE_END -->
+
+</div>
+<!-- 6_2_COLUMN_END -->
+
+</div>
+<!-- SPLIT_COLUMNS_END -->
+
+<!-- BOTTOM_BACK_TO_TOP -->
+<div class="ibm-columns">
+<div class="ibm-col-1-1">
+	<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p>
+</div>
+</div>
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Open source</div><div class="metavalue">ArticleID=680425</div><div class="metavalue">ArticleTitle=Node.js 究竟是什么？</div><div class="metavalue">publish-date=10092011</div>
+<div class="metavalue">url=http://www.ibm.com/developerworks/cn/opensource/os-nodejs/</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- END_IBM_CONTENT_MAIN -->
+
+</div>
+<!-- END_IBM_CONTENT_BODY -->
+
+</div>
+<!-- END_IBM_CONTENT -->
+
+</div>

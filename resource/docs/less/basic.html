@@ -1,0 +1,132 @@
+<p>
+	近两年移动市场不断扩大，HTML5也逐渐升温，为了使我们前端工作更有效率，各种框架层出不穷，本章将介绍LESSCSS框架。LESSCSS是一种动态样式语言，属于CSS预处理语言的一种，它使用类似CSS的语法，为CSS的赋予了动态语言的特性，如变量、继承、运算、函数等，更方便CSS的编写和维护。
+LESSCSS可以在多种语言、环境中使用，包括浏览器端、桌面客户端、服务端。
+因为LESSCSS的语言特性比较多，所以我们将分开介绍，本文将介绍LESS的引入方式及其语法中的变量部分。
+一、引入方式：
+1
+2
+&ltlink rel="stylesheet/less" type="text/css" href="css/style.css">
+&ltscript src="js/less.js" type="text/javascript">&lt/script>
+link中rel的值必须跟上/less，href链接的文件后缀可以是css也可以是less文件。
+script是less这个js文件，如果想要正常使用LESS的话必须引入，这里还需要注意一点的是如果您需要在IE6、7、8中使用，请先在引入less.js前先引入es5-shim。
+还需注意的是引入文件的位置也是有讲究的，js要在css文件下方，这样才能去编译我们的LESSCSS。
+二、LESS语法：
+作为CSS的一种扩展，LESSCSS不仅向下兼容CSS的语法，而且连新增的特性也是使用CSS的语法。这样的设计使得学习LESS很轻松，而且你可以在任何时候回退到CSS。
+A、变量 
+LESS中的变量允许你在样式中的某个地方对常用的值进行定义，然后应用到样式中，这样只要改变你定义的变量参数值就可以达到改变全局的效果，我们先来看一段代码：
+<pre>
+LESS写法：
+@color: #999;
+@fontSzie : 24px;
+@line-h :1 ;
+body{
+    background-color: @color;
+    font-size: @fontSzie;
+}
+编译成CSS：
+body{
+    background-color: #999;
+    font-size:24px;
+}
+LESS变量还具有计算功能，如：
+LESS写法：
+@line-h :1 ;
+@line-he : @line-h + 1;
+body{
+    line-height:@line-he;
+}
+编译成CSS：
+body{
+    line-height:2;
+}
+LESS可以在定义变量值时使用其它的变量：
+LESS写法：
+@color: red;
+@rgb: "color";
+Body {color: @@rgb;}
+在@rgb中的color引用的就是它上边的@color变量。
+编译成CSS：
+body {color: red;}
+在LESS中如果对同一个变量定义两次的话，
+在当前作用域中最后一次定义的将被使用。
+这与CSS的机制类似，最后一次定义的值会成为这个属性的值。
+LESS写法：
+@var: 0;
+.class1 {
+    @var: 1;
+    .class {
+        @var: 2;
+        three: @var;
+        @var: 3;
+    }
+    one: @var;
+}
+编译成CSS：
+.class1 .class {
+    three: 3;
+}
+.class1 {
+    one: 1;
+}
+在使用变量的方法的时候还需要注意一点的是：
+变量是“按需加载”（lazy loaded）的，因此不必强制在使用之前声明。
+下面是一个有效的LESS代码片段：
+lazy-eval {
+    width: @var;
+}
+@var: @a;
+@a: 9%;
+同时LESS变量还很灵活，下面这个片段也是有效的：
+.lazy-eval-scope {
+    width: @var;
+    @a: 9%;
+}
+@var: @a;
+@a: 100%;
+而以上两段代码都会编译成以下CSS：
+1
+2
+3
+.lazy-eval-scope {
+    width: 9%;
+}
+以上我们看到的变量都是存的属性值，此处不要有误区，
+变量很灵活，灵活在它的存储方式上，我们也可以用来存CSS属性。
+例如:
+@backg : background;
+#player_btn{
+    @backg: #d6d6d6;
+    @backg: -webkit-linear-gradient(#fff, #d6d6d6);
+    @backg:-moz-linear-gradient(top, #fff, #d6d6d6);
+    @backg:-o-linear-gradient(top, #fff, #d6d6d6);
+    @backg:linear-gradient(to bottom, #fff, #d6d6d6);
+}
+变量可以用像 @{name} 这样的结构，以类似ruby和php的方式嵌入到字符串中：
+
+@base-url: "http://assets.fnord.com/";
+background-image: url("@{base-url}/images/bg.png");
+同时，变量也可以存放选择器，例如：
+@name: blocked;
+.@{name} {
+    color: black;
+}
+Media也可以放在变量中，例如：
+
+@singleQuery: ~"(max-width: 500px)";
+@media screen, @singleQuery {
+    set {
+        padding: 3 3 3 3;
+    }
+}
+被编译为：
+@media screen, (max-width: 500px) {
+    set {
+        padding: 3 3 3 3;
+    }
+}
+</pre>
+变量必须包含完整的media query。这样写会导致报错：@media screen and @partial {。
+在1.4.0中，在开启严格运算模式的情况下，你也可以在media query的条件中插入变量。如@media screen, (max-width: @width) {。
+以上为LESS语法中的变量部分，对于现在一站多平台兼容的市场需求下，此变量还是非常实用的。
+下期将为大家介绍LESS语法中的混合部分。
+</p>

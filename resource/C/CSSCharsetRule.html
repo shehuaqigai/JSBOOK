@@ -1,0 +1,162 @@
+<div class="blog_main">
+<div class="blog_title">
+    <h3>
+        <a href="/blog/1465177">CSS语法简单入门</a>
+        <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong>
+        <li><a href="/category/102517">html/css</a></li><li><a href="/category/27974">程序员</a></li> </ul>
+    <div class="news_tag">&nbsp;</div>
+</div>
+
+<div id="blog_content" class="blog_content">
+    <p>&nbsp;</p>
+    <div class="entry-content" style="padding-top: 12px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; vertical-align: baseline; clear: both; color: #333333; font-family: Georgia, 'Bitstream Charter', serif; font-size: 14px; line-height: 24px; margin: 0px;">
+        <h3 style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 20px; margin-left: 0px; vertical-align: baseline; clear: both; color: #000000; line-height: 1.5em; padding: 0px;">整体组成</h3>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">在CSS中，顶层元素被称为Rule，而CSS中的Rule又分为2类：CSSStyleRule和CSSAtKeywordRule。</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSSStyleRule是最基本的，即我们最常见的，由选择器+属性+值组成的部分，以下就是一个简单的示例：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">#nav&gt;li~li {
+    float: left;
+    margin-left: 7px;
+    padding-left: 7px;
+    border-left: 1px solid blue;
+    }
+</code></pre>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">而CSSAtKeywordRule则是另一类，这个名词是我起的，事实上<a title="Hierarchy For Package org.w3c.dom.css" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/package-tree.html">在w3c给出的JAVA API</a>中，他被分成很多个类：</p>
+        <ul style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 1.5em; vertical-align: baseline; padding: 0px;">
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">
+                <a title="Interface CSSCharsetRule" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/CSSCharsetRule.html">CSSCharsetRule</a>&nbsp;– 代表@charset。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">
+                <a title="Interface CSSFontFaceRule" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/CSSFontFaceRule.html">CSSFontFaceRule</a>&nbsp;– 代表@font-face。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">
+                <a title="Interface CSSImportRule" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/CSSImportRule.html">CSSImportRule</a>&nbsp;– 代表@import。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">
+                <a title="Interface CSSMediaRule" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/CSSMediaRule.html">CSSMediaRule</a>&nbsp;– 代表@media。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">
+                <a title="Interface CSSPageRule" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/css/CSSPageRule.html">CSSPageRule</a>&nbsp;– 代表@page。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">CSS3又加了一个CSSAtNamespaceRule，但是由于针对CSS3的w3c JAVA API还未完成，这里没有相关的页面，其代表的是@namespace。</li>
+        </ul>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">一目了然，所谓CSSAtKeywordRule，就是以@起始的那一批关键字类型的规则，CSS3一共就规定了以上6个，不多不少。</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">除了CSSStyleRule和CSSAtKeywordRule以外的，所有不能正确解释的，统统被称为CSSUnknownRule，这个自然没有太大的意义，就不详细说明。</p>
+        <h3 style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 20px; margin-left: 0px; vertical-align: baseline; clear: both; color: #000000; line-height: 1.5em; padding: 0px;">元素顺序</h3>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSS对元素的顺序没有太大的要求，多数位置可以出现在任意位置，出现任意的次数，除了2个特例：</p>
+        <ul style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 1.5em; vertical-align: baseline; padding: 0px;">
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">@charset只能出现在文档头部，前面不能有任何字符。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">@import必须出现在@charset（如果有的话）之后，其他规则之前，当然可以有多个。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">@import不能出现在大括号之间（语法上称为block内部）。</li>
+        </ul>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">因此一个CSS文档的顺序基本是这样的：</p>
+        <ol style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 1.5em; vertical-align: baseline; padding: 0px;">
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">@charset声明。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">@import引入其他样式。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">其他规则任意次序任意次数依次叠放。</li>
+        </ol>
+        <h3 style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 20px; margin-left: 0px; vertical-align: baseline; clear: both; color: #000000; line-height: 1.5em; padding: 0px;">CSSAtKeywordRule</h3>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">着重讲解一下几个CSSAtKeywordRule的定义：</p>
+
+        <dt style="background-color: transparent; vertical-align: baseline; font-weight: bold; color: #000000; padding: 0px; margin: 0px;">@font-face</dt>
+        <dd style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 0px; vertical-align: baseline; padding: 0px;">
+            <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">嵌入字体，在CSS3被大肆宣传的今日，开发者应该蛮熟悉了，用<code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">src</code>指定地址，用<code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">font-family</code>指定名称，如：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">@font-face {
+    font-family: "Title Only";
+    src: url(xxx.ttf) format("truetype");
+    }
+</code></pre>
+            <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">具体可以<a title="CSS3 @Font-Face" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3cplus.com/content/css3-font-face">看看这里</a>，有很详细的介绍。</p>
+        </dd>
+        <dt style="background-color: transparent; vertical-align: baseline; font-weight: bold; color: #000000; padding: 0px; margin: 0px;">@media</dt>
+        <dd style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 0px; vertical-align: baseline; padding: 0px;">
+            <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">指定样式作用的媒体类型，如screen代表屏幕、projection代表投影仪等，需要注意的是@media是一个<em style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">可嵌套规则</em>的规则，即他本身就带有类似CSS文档的效果，内部可以定义其他的规则，因此以下代码是合理的：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">@media projection {
+    /* 长得就像一份完整的CSS文档 */
+    body {
+    width: 960px;
+    background-color: #efefef;
+    }
+    }
+</code></pre>
+        </dd>
+        <dt style="background-color: transparent; vertical-align: baseline; font-weight: bold; color: #000000; padding: 0px; margin: 0px;">@page</dt>
+        <dd style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 0px; vertical-align: baseline; padding: 0px;">
+            <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">根据标准，是给<a title="CSS3 Module: Paged Media" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/TR/css3-page/">Paged Media</a>使用的，在探寻过程中，发现基本可以认为是给打印机用的特定样式规则，其内部使用一些比较特殊的属性，以下是个简单的列表：</p>
+            <ul style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 1.5em; vertical-align: baseline; padding: 0px;">
+                <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">size – 指定页面大小，或者A4、B5之类的预设大小，也可以是landscape或portrait指定打印方向。</li>
+                <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">margin – 已经不是指元素的边距了，指定打印时的页边距。</li>
+                <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">background、border、padding、color、font、text等都指打印时的效果。</li>
+            </ul>
+        </dd>
+
+        <h3 style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 20px; margin-left: 0px; vertical-align: baseline; clear: both; color: #000000; line-height: 1.5em; padding: 0px;">CSSStyleRule</h3>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">然后是重头戏CSSStyleRule，CSS中真正起作用的还不就是那些属性+值的样式么。一个CSSStyleRule的组成如下：</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;"><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">Selector { CSSStyleDeclaration* }</code>。</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">关于选择器即Selector，<a title="Selectors Level 3" style="background-color: transparent; vertical-align: baseline; color: #743399; padding: 0px; margin: 0px;" href="http://www.w3.org/TR/css3-selectors/">CSS3标准的相关章节</a>中有详细的介绍，本文不考虑这方面的展开了。</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSSStyleDeclaration就是一个键值对，他的组成如下：</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">property : value;</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">需要注意的是分号不能省略，CSS可不像javascript一样有自动分号补全功能，事实上在CSS中不存在换行符的特殊处理，换行符会被当空格同等对待，所以下面这样的样式：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">div {
+    background: red
+    padding: 3px;
+    }
+</code></pre>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">会等同于：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">div {
+    background: red padding: 3px;
+    }
+</code></pre>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">而<code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">padding:</code>和<code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">3px</code>分别被认为是属性<code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">background</code>的值的一部分，根据CSS3的定义，分别对应<code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">background-image</code>和<code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">background-position</code>属性，形成非法的样式值。因此分号是CSS的同一个CSSStyleRule内多个并列样式间的唯一的分隔符，不可省略。唯独一个CSSStyleRule中的最后一个Declaration的分号可以省略，因为其后其父规则已经结束了。</p>
+        <h3 style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 20px; margin-left: 0px; vertical-align: baseline; clear: both; color: #000000; line-height: 1.5em; padding: 0px;">值类型</h3>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSS也是有数据类型的，大致有这么几类：</p>
+        <ul style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 24px; margin-left: 1.5em; vertical-align: baseline; padding: 0px;">
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">数字，即普通的数字，可以带负号，可以有小数。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">长度，有3个相对单位，分别是em、ex和px；5个绝对单位，分别是in、cm、mm、pt、pc。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">百分比，数字后跟一个百分号就行了。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">URL/URI，使用一个叫url的函数来定义，如url(http://www.google.com)。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">计数器：大概有人用过，但用得不广泛，用来给ol标序号的时候用得比较多吧。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">颜色：CSS2规定的颜色是RGB色，到了CSS3变成RGBA，颜色的表示形式有#rgb[a]、#rrggbb[aa]、rgb[a](r, g, b, [a])这么几种，注意#ff009不是一个合法的颜色，因为即不符合3|4位，也不符合2*(3|4)位。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">角度，有3个单位，分别是deg、grad、rad。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">时间，单位有ms和s。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">频度，真没见用过，单位有Hz和kHz。</li>
+            <li style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">字符串，使用配对的双引号或单引号包含，内部的引号要转义，这是基本常识。CSS支持多行字符串，\后紧跟换行即可。不过要注意的是，CSS中的多行字符串里的换行符好像会被<em style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">忽略</em>掉，真正要用到换行符的时候，使用<em style="background-color: transparent; vertical-align: baseline; padding: 0px; margin: 0px;">\A</em>来代表一个换行符。</li>
+        </ul>
+        <h3 style="background-color: transparent; margin-top: 0px; margin-right: 0px; margin-bottom: 20px; margin-left: 0px; vertical-align: baseline; clear: both; color: #000000; line-height: 1.5em; padding: 0px;">总结</h3>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">以下是一般性的、以阅读为目的的总结，并不是对标准语法的描述：</p>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSS文档的组成：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">CSSDocument :
+    CSSAtCharsetRule? +
+    CSSAtImportRule* +
+    [CSSStyleRule | CSSAtMediaRule | CSSAtPageRule]*
+</code></pre>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSSStyleRule的组成：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">CSSStyleRule :
+    Selector +
+    { +
+    CSSDeclaration* +
+    }
+</code></pre>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSSDeclaration的组成：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">CSSDeclaration :
+    Property +
+    : +
+    Value +
+    ;
+</code></pre>
+        <p style="background-color: transparent; margin-bottom: 24px; vertical-align: baseline; padding: 0px;">CSSAtMediaRule的组成：</p>
+<pre><code style="background-color: transparent; vertical-align: baseline; font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace; font-size: 13px; padding: 0px; margin: 0px;">CSSAtMediaRule :
+    @media +
+    CSSMediaType+ +
+    { +
+    [CSSStyleRule | CSSAtMediaRule | CSSAtPageRule]* +
+    }
+</code></pre>
+    </div>
+    <div class="entry-utility" style="vertical-align: baseline; font-family: 'Helvetica Neue', Arial, Helvetica, 'Nimbus Sans L', sans-serif; clear: both; color: #888888; line-height: 18px; padding: 0px; margin: 0px;"><br></div>
+</div>
+
+
+
+
+
+
+
+
+</div>

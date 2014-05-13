@@ -1,0 +1,132 @@
+<div id="maincontent">
+
+<h1>XML DOM XPathResult 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_xpathexpression.asp" title="XML DOM XPathExpression 对象">DOM XPathExpression</a></li>
+<li class="next"><a href="/xmldom/dom_xsltprocessor.asp" title="XML DOM XSLTProcessor 对象">DOM XSLTProcessor</a></li>
+</ul>
+</div>
+
+<div id="intro">
+<p><strong>XPath 查询的结果。</strong></p>
+</div>
+
+<div>
+<h2>XPathResult 对象</h2>
+
+<p>XPathResult 对象表示一个 XPath 表达式的值。该类型的对象由 <a href="/xmldom/met_document_evaluate.asp" title="XML DOM evaluate() 方法">Document.evaluate()</a> 和 <a href="/xmldom/dom_xpathexpression.asp" title="XML DOM - XPathExpression 对象">XPathExpression.evaluate()</a> 返回。XPath 查询可以计算为字符串、数字、布尔值、节点以及节点的列表。XPath 实现可以以几种不同的方式返回节点的列表，因此，这个对象为获取一个 XPath 查询的实际结果而定义了略为复杂的 API。</p>
+
+<p>要使用一个 XPathResult，首先检查 resultType 属性。它将保存一个 XPathResult 常量。这个属性的值告诉你需要使用哪个属性和方法来确定结果值。调用不是为当前的 resultType 定义的方法或者读取不是为它定义的属性会导致异常。</p>
+
+<p>IE 不支持 XPathResult API。要在 IE 中执行 XPath 查询，参阅 <a href="/xmldom/met_node_selectnodes.asp" title="XML DOM selectNodes() 方法">Node.selectNodes()</a> 和 <a href="/xmldom/met_node_selectsinglenode.asp" title="XML DOM selectSingleNode() 方法">Node.selectSingleNode()</a> 。</p>
+</div>
+
+<div>
+<h2>XPathResult 对象的常量</h2>
+
+<p>如下常量定义了一个 XPath 查询可能返回的类型。XPathResult 对象的 resultType 属性保存了这些值中的一个，用来指定对象保存何种结果。这些常量与 Document.evaluate() 和 XPathExpression.evaluate() 一起使用，用来指定期待的结果类型。</p>
+
+<p>这些常量及其含义如下：</p>
+
+<dl class="define">
+<dt>ANY_TYPE</dt>
+<dd>把这个值传递给 Document.evaluate() 或 XPathExpression.evaluate() 来指定可接受的结果类型。属性 resultType 并不设置这个值。</dd>
+
+<dt>NUMBER_TYPE</dt>
+<dd>numbervalue 保存结果。</dd>
+
+<dt>STRING_TYPE</dt>
+<dd>stringvalue 保存结果。</dd>
+
+<dt>BOOLEAN_TYPE</dt>
+<dd>booleanValue 保存结果。</dd>
+
+<dt>UNORDERED_NODE_ITERATOR_TYPE</dt>
+<dd>这个结果是节点的无序集合，可以通过重复调用 iterateNext() 直到返回 null 来依次访问。在此迭代过程中，文档必须不被修改。</dd>
+
+<dt>ORDERED_NODE_ITERATOR_TYPE</dt>
+<dd>结果是节点的列表，按照文档中的属性排列，可以通过重复调用 iterateNext() 直到返回 null 来依次访问。在此迭代过程中，文档必须不被修改。</dd>
+
+<dt>UNORDERED_NODE_SNAPSHOT_TYPE</dt>
+<dd>结果是一个随机访问的节点列表。snapshotLength 属性指定了列表的长度，并且 snapshotItem() 方法返回指定下标的节点。节点可能和它们出现在文档中的顺序不一样。既然这种结果是一个“快照”，因此即便文档发生变化，它也有效。</dd>
+
+<dt>ORDERED_NODE_SNAPSHOT_TYPE</dt>
+<dd>这个结果是一个随机访问的节点列表，就像 UNORDERED_NODE_SNAPSHOT_TYPE，只不过这个列表是按照文档中的顺序排列的。</dd>
+
+<dt>ANY_UNORDERED_NODE_TYPE</dt>
+<dd>singleNodeValue 属性引用和查询匹配的一个节点，如果没有匹配的节点则为 null。如果有多个节点和查询匹配，singleNodeValue 可能是任何一个匹配节点。</dd>
+
+<dt>FIRST_ORDERED_NODE_TYPE</dt>
+<dd>singleNodeValue 保存了文档中的第一个和查询匹配的节点，如果没有匹配的节点，则为 null。</dd>
+</dl>
+</div>
+
+
+<div>
+<h2>XPathResult 对象的实例属性</h2>
+
+<p>这里的很多属性只有当 resultType 保存了一个特定的值时才有效。访问并非为当前 resultType 定义的属性会导致异常。</p>
+
+<dl class="define">
+<dt>booleanValue </dt>
+<dd>当 resultType 为 BOOLEAN_TYPE 时，保存结果值。</dd>
+
+<dt>invalidIteratorState</dt>
+<dd>如果 resultType 是 ITERATOR_TYPE 常量中的一个并且文档已经修改，则为 true；它使迭代无效，因为结果已经返回。</dd>
+
+<dt>numberValue</dt>
+<dd>当 resultType 为 NUMBER_TYPE 时，保存结果值。</dd>
+
+<dt>resultType</dt>
+<dd>使用 XPath 查询返回何种结果。它的值是前面列出等常量之一。这个属性的值告诉你可以使用那些其他属性和方法。</dd>
+
+<dt>singleNodeValue</dt>
+<dd>当 resultType 为 XPathResult.ANY_UNORDERED_NODE_TYPE 或 XPathResult.FIRST_UNORDERED_NODE_TYPE 时，保存结果值。</dd>
+
+<dt>snapshotLength</dt>
+<dd>当 resultType 为 UNORDERED_NODE_SNAPSHOT_TYPE 或 ORDERED_NODE_ITERATOR_TYPE 时，指定返回的节点数。和 snapshotItem() 联合使用这一属性。</dd>
+
+<dt>stringValue</dt>
+<dd>当 resultType 为 STRING_TYPE 时，保存结果值。</dd>
+</dl>
+
+</div>
+
+
+<div>
+<h2>XPathResult 对象的方法</h2>
+
+<table class="dataintable">
+<tbody><tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+
+<tr>
+	<td class="no_wrap"><a href="/xmldom/met_iteratenext.asp" title="XML DOM iterateNext() 方法">iterateNext()</a></td>
+	<td>如果 resultType 是 UNORDERED_NODE_ITERATOR_TYPE 或 ORDERED_NODE_ITERATOR_TYPE，使用这个一方法。</td>
+</tr>
+
+<tr>
+	<td class="no_wrap"><a href="/xmldom/met_snapshotitem.asp" title="XML DOM snapshotItem() 方法">snapshotItem()</a></td>
+	<td>返回结果节点列表中指定下标的节点。这个方法只有在 resultType 是 UNORDERED_NODE_SNAPSHOT_TYPE 或 ORDERED_NODE_SNAPSHOT_TYPE 的时候才能使用。snapshotLength 属性和这个方法一起使用。</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>相关页面</h2>
+<p><a href="/xmldom/met_document_evaluate.asp" title="XML DOM evaluate() 方法">Document.evaluate()</a> 和 <a href="/xmldom/dom_xpathexpression.asp#evaluate" title="XPathExpression.evaluate()">XPathExpression.evaluate()</a></p>
+</div>
+
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_xpathexpression.asp" title="XML DOM XPathExpression 对象">DOM XPathExpression</a></li>
+<li class="next"><a href="/xmldom/dom_xsltprocessor.asp" title="XML DOM XSLTProcessor 对象">DOM XSLTProcessor</a></li>
+</ul>
+</div>
+</div>

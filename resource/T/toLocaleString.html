@@ -1,0 +1,54 @@
+<div id="maincontent">
+
+<h1>JavaScript toLocaleString() 方法</h1>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_array.asp" title="JavaScript Array 对象参考手册">JavaScript Array 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+
+<p>把数组转换为本地字符串。</p>
+
+<h3>语法</h3>
+<pre>arrayObject.toLocaleString()</pre>
+
+<h3>返回值</h3>
+<p>arrayObject 的本地字符串表示。</p>
+
+<h3>说明</h3>
+<p>首先调用每个数组元素的 toLocaleString() 方法，然后使用地区特定的分隔符把生成的字符串连接起来，形成一个字符串。</p>
+</div>
+	
+<div>
+<h2>实例</h2>
+
+<pre>&lt;script type="text/javascript"&gt;
+
+var arr = new Array(3)
+arr[0] = "George"
+arr[1] = "John"
+arr[2] = "Thomas"
+
+document.write(<code>arr.toLocaleString()</code>)
+
+&lt;/script&gt;</pre>
+
+<p>输出：</p>
+<pre>George, John, Thomas</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_toLocaleString_array">toLocaleString()</a></dt>
+<dd>如何使用 toLocaleString() 来更改数组。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_array.asp" title="JavaScript Array 对象参考手册">JavaScript Array 对象参考手册</a></p>
+</div>
+
+</div>

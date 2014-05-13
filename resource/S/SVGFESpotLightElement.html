@@ -1,0 +1,126 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">feSpotlightElement element | SVGFESpotLightElement object</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Defines a spotlight source.</p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects"><img id="badge_svg" alt="Scalable Vector Graphics: Filter Effects, Section 15.25.16" src="http://i.msdn.microsoft.com/dynimg/IC536350.png" title="Scalable Vector Graphics: Filter Effects, Section 15.25.16" xmlns=""></a><img id="badge_ie10" alt="Internet Explorer&nbsp;10" src="http://i.msdn.microsoft.com/dynimg/IC600829.png" title="Internet Explorer&nbsp;10" xmlns=""></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_a242646f-fccc-4c18-af57-6798578d493f');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_a242646f-fccc-4c18-af57-6798578d493f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;feSpecularLighting in="blur" surfaceScale="5" specularConstant=".75" 
+   specularExponent="20" lighting-color="#bbbbbb"  
+   result="specOut"&gt;
+   &lt;feSpotLight x="-50" y="-100" z="200"/&gt;
+ &lt;/feSpecularLighting&gt;
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869750(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Node</strong></a>
+<div>&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/hh869681(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Element</strong></a>
+<div>&nbsp;&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/ie/gg305566(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">SVGElement</strong></a>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVGFESpotLightElement</div>
+</div>
+</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>SVGFESpotLightElement</strong> object has these types of members:</p>
+<ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>SVGFESpotLightElement</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773385(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">limitingConeAngle</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that specifies a limiting cone that restricts the region where the light is projected.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773386(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">pointsAtX</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that specifies the x location in the coordinate system established by attribute <a href="http://msdn.microsoft.com/en-us/library/ie/hh773403(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">primitiveUnits</strong></a> on the <a href="http://msdn.microsoft.com/en-us/library/ie/hh773399(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">filter</strong></a> element of the point at which the light source is pointing.
+</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773387(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">pointsAtY</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that specifies the y location in the coordinate system established by attribute <a href="http://msdn.microsoft.com/en-us/library/ie/hh773403(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">primitiveUnits</strong></a> on the <a href="http://msdn.microsoft.com/en-us/library/ie/hh773399(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">filter</strong></a> element of the point at which the light source is pointing.
+</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773388(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">pointsAtZ</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that specifies the z location in the coordinate system established by attribute <a href="http://msdn.microsoft.com/en-us/library/ie/hh773403(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">primitiveUnits</strong></a> on the <a href="http://msdn.microsoft.com/en-us/library/ie/hh773399(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">filter</strong></a> element of the point at which the light source is pointing.
+</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773389(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">specularExponent</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that indicates an exponent value that controls the focus for the light source.
+</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972029(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">x</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the x-coordinate value.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/ff972039(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">y</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the y-coordinate value.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/ie/hh773390(v=vs.85).aspx"><strong xmlns="http://www.w3.org/1999/xhtml">z</strong></a>
+</p>
+                                </td><td>
+<p>Gets a value that indicates the z location for the light source</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects">Scalable Vector Graphics: Filter Effects</a>, Section 15.25.16</li>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/13/2014</p>
+</div>
+</div>

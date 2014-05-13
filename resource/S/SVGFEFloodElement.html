@@ -1,0 +1,144 @@
+<div class="topic" xmlns="http://www.w3.org/1999/xhtml">
+  <h1 class="title">feFlood element | SVGFEFloodElement object</h1>
+  
+  <div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Creates a rectangle with specified color and opacity values.</p>
+<table>
+<tbody><tr><td><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects"><img id="badge_svg" alt="Scalable Vector Graphics: Filter Effects, Section 15.25.18" src="http://i.msdn.microsoft.com/dynimg/IC536350.png" title="Scalable Vector Graphics: Filter Effects, Section 15.25.18" xmlns=""></a></td></tr>
+</tbody></table>
+<h2>Syntax</h2>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_9786014b-1c21-499e-bcf4-03d919d49b85');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_9786014b-1c21-499e-bcf4-03d919d49b85" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;feFlood flood-color="colorvalue" flood-opacity="opacityvalue"/&gt;
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2>DOM Information</h2>
+<h3>Inheritance Hierarchy</h3>
+<div>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh868952.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Node</strong></a>
+<div>&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh868639.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">Element</strong></a>
+<div>&nbsp;&nbsp;&nbsp;<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453747.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">SVGElement</strong></a>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SVGFEFloodElement</div>
+</div>
+</div>
+</div>
+<h2>Members</h2>
+<p>The <strong>SVGFEFloodElement</strong> object has these types of members:</p>
+<ul>
+<li><a href="#properties">Properties</a></li>
+</ul>
+<h3><a id="properties"></a>Properties</h3>
+<p>The <strong>SVGFEFloodElement</strong> object has these properties.</p>
+<table id="memberListProperties" class="members">
+<tbody><tr><th>Property</th><th>Description</th></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453592.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">height</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets  the height of an element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453883.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">result</strong></a>
+</p>
+                                </td><td>
+<p>Provides a reference for the output result of a filter. </p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453639.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">width</strong></a>
+</p>
+                                </td><td>
+<p>Defines the width of an element.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453641.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">x</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the x-coordinate value.</p>
+</td></tr>
+<tr data="declared;"><td>
+                                    <p>
+<a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453651.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">y</strong></a>
+</p>
+                                </td><td>
+<p>Gets or sets the y-coordinate value.</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2>Standards information</h2>
+<ul>
+<li><a href="http://go.microsoft.com/fwlink/p/?linkid=226062" title="Scalable Vector Graphics: Filter Effects">Scalable Vector Graphics: Filter Effects</a>, Section 15.25.18</li>
+</ul>
+<h2>Remarks</h2>
+<p>The purpose of this filter is to provide a rectangular area that can be part of a larger filter chain. If you do not supply a color or opacity, the default values will be used. You can supply the <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453641.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">x</strong></a>, <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453651.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">y</strong></a>, <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453639.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">width</strong></a>, and <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh453592.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">height</strong></a> values, but if you do not, they will be defined by the general filter region.</p>
+<h2>Examples</h2>
+<p>This example shows a simple flood filter that is green colored and has an opacity of 50%.</p>
+<p>The image will look like this.</p><img id="feFlood" alt="feFlood graphic" src="http://i.msdn.microsoft.com/dynimg/IC536367.png" title="feFlood graphic" xmlns="">
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="Copy to clipboard." href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_2a2fe44e-5b1f-453c-8c62-c97ba99209e8');">Copy</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_2a2fe44e-5b1f-453c-8c62-c97ba99209e8" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+    
+    &lt;head&gt;
+    &lt;/head&gt;
+    
+    &lt;body&gt;
+        &lt;svg width="400" height="400"&gt;
+        
+            &lt;defs&gt;
+               &lt;filter id="MyFilter" filterUnits="userSpaceOnUse" 
+                 x="0" y="0"  width="400" height="400"&gt;
+                  &lt;feFlood x="100" y="100" width="100" height="100" 
+                    flood-color="green" flood-opacity="0.5"/&gt;
+               &lt;/filter&gt;
+            &lt;/defs&gt;
+            &lt;use filter="url(#MyFilter)" x='0' y='0'/&gt;				
+            &lt;/svg&gt;
+    &lt;/body&gt;
+
+&lt;/html&gt;
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Build date: 1/20/2014</p>
+</div>
+</div>

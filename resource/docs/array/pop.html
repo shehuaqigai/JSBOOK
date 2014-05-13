@@ -1,0 +1,34 @@
+<p>
+	定义和用法
+pop() 方法用于删除并返回数组的最后一个元素。
+语法
+arrayObject.pop()
+返回值
+arrayObject 的最后一个元素。
+说明
+pop() 方法将删除 arrayObject 的最后一个元素，把数组长度减 1，并且返回它删除的元素的值。如果数组已经为空，则 pop() 不改变数组，并返回 undefined 值。
+实例
+在本例中，我们将创建一个数组，然后删除数组的最后一个元素。请注意，这也会改变数组的程度：
+&ltscript type="text/javascript">
+
+var arr = new Array(3)
+arr[0] = "George"
+arr[1] = "John"
+arr[2] = "Thomas"
+
+document.write(arr)
+
+document.write("<br />")
+
+document.write(arr.pop())
+
+document.write("<br />")
+
+document.write(arr)
+
+&lt/script>
+输出：
+George,John,Thomas
+Thomas
+George,John
+</p>

@@ -1,0 +1,53 @@
+<pre>
+之前，我们想要实现一个完美的宽度自适应的输入框好麻烦，
+曾经也被作为对前端技术的一个挑战。
+类似的常见场景还有100%宽+边框的容器等。
+遇到这些情况，我们不得不分外小心，因为各个浏览器的表现可能不一致。
+现在，firefox和webkit相继支持calc()功能了，我们也可以学习下了。
+calc()是干嘛的？
+calc()是单词calculate(计算)的缩写，是css3的一个新的长度单位功能，
+可以使用简单的数学运算。
+嗯，CSS3越来越高级了。
+运算规则
+calc()使用通用的数学运算规则，但是也提供更智能的功能：
+使用“+”“-”“*”“/”四则运算；
+可以使用百分比、px、em、rem等单位；
+可以混合使用各种单位进行计算。
+实例：
+我们来看几个小例子来理解下calc()功能吧：
+.box{
+border:1px solid #ddd;
+width:calc(100%-2px)
+}
+容器宽度加上边框宽度正好100%。
+.box{
+width:calc(10em+20px)
+}
+宽度，10em加20px。
+.box{
+margin-left:20px;
+width:calc(100%/3-20px);
+}
+.box:nth-child(3n){
+margin-left:0;
+}
+3栏等宽布局。
+浏览器支持
+firefox 4.0+已经开支支持calc()功能，不过要使用-moz-calc()私有属性，
+chrome从19 dev版，也开始支持私有的-webkit-calc()写法，
+IE9这次则牛逼了一次，原生支持标准的不带前缀的写法了。
+Opera貌似还不支持～～
+所以如果我们要用这个属性的话，要记得带上各浏览器的兼容性。
+eric meyer提到w3c规范的一条备注(评论里面的同学也有提到)：
+Note that the grammar requires spaces around binary ‘+’ 
+and ‘-’ operators. The ‘*’ and ‘/’ operators do not require spaces. 
+via CSS3 Values and Units specification
+也就是说，”+”、”-”两个符号边上必须要有空格，而”*”、”/”符号则不是必须的。
+然后我们可能要这样写：
+width: calc(100%/3 - 2*1em - 2*1px);
+这样写也是可以的：
+width: calc(100% / 3 - 2 * 1em - 2 * 1px);
+但是这样写就是错的：
+width: calc(100%/3-2*1em-2*1px);
+嗯，这样很容易写错啊。还好现在支持的浏览器还不太多，我会继续观望并保持更新~~
+</pre>

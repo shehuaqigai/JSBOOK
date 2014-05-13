@@ -1,0 +1,370 @@
+<section class="_container">
+    <div class="_content"><div class="_page _mdn"><h1>IDBDatabase</h1> <div class="summary"> <p>The <strong><code>IDBDatabase</code></strong> interface of the IndexedDB API provides asynchronous access to a <a href="https://developer.mozilla.org/en-US/docs/IndexedDB#database_connection">connection to a database</a>. Use it to create, manipulate, and delete objects in that database. The interface also provides the only way to get a <a href="https://developer.mozilla.org/en-US/docs/IndexedDB#gloss_transaction">transaction</a> and manage versions on that database.</p> </div> <p>Everything you do in IndexedDB always happens in the context of a <a href="https://developer.mozilla.org/en-US/docs/IndexedDB/Basic_Concepts_Behind_IndexedDB#gloss_transaction">transaction</a>, representing interactions with data in the database. All objects in IndexedDB—including object stores, indexes, and cursors—are tied to a particular transaction. Thus, you cannot execute commands, access data, or open anything outside of a transaction.</p> <h2 id="Methods">Methods</h2> <p>Inherits from: <a href="eventtarget">EventTarget</a></p> <dl>
+<dt> <a href="idbdatabase.close" title="The connection is not actually closed until all transactions created using this connection are complete. No new transactions can be created for this connection once this method is called. Methods that create transactions throw an exception if a closing operation is pending."><code>IDBDatabase.close</code></a>
+</dt> <dd> Returns immediately and closes the connection in a separate thread.</dd> <dt> <a href="idbdatabase.createobjectstore" title="The method takes the name of the store as well as a parameter object. The parameter object lets you define important optional properties. You can use the property to uniquely identify individual objects in the store. As the property is an identifier, it should be unique to every object, and every object should have that property."><code>IDBDatabase.createObjectStore</code></a>
+</dt> <dd> Creates and returns a new object store or index.</dd> <dt> <a href="idbdatabase.deleteobjectstore" title="As with createObjectStore, this method can be called only within a versionchange transaction. So for WebKit browsers you must call the IDBVersionChangeRequest.setVersion method first before you can remove any object store or index."><code>IDBDatabase.deleteObjectStore</code></a>
+</dt> <dd> Destroys the object store with the given name in the connected database, along with any indexes that reference it.</dd> <dt> <a href="idbdatabase.transaction" title="This method may raise a DOMException with a DOMError of the following types:"><code>IDBDatabase.transaction</code></a>
+</dt> <dd> Immediately returns a transaction object (<a href="idbtransaction" title="Inherits from: EventTarget"><code>IDBTransaction</code></a>) containing the <a href="idbtransaction.objectstore" title="Every call to this method on the same transaction object, with the same name, returns the same IDBObjectStore instance. If this method is called on a different transaction object, a different IDBObjectStore instance is returned."><code>IDBTransaction.objectStore</code></a> method, which you can use to access your object store. Runs in a separate thread.</dd> </dl><h2 id="Properties">Properties</h2> <dl>
+<dt> <a href="idbdatabase.name" title="A string containing the name of the connceted database."><code>IDBDatabase.name</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A <a href="domstring" title="A UTF-16 String. As JavaScript already uses such strings, DOMString is mapped directly to a String."><code>DOMString</code></a> that contains the name of the connected database.</dd> <dt> <a href="idbdatabase.version" title="An integer containing the version of the connected database."><code>IDBDatabase.version</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A <a href="https://developer.mozilla.org/en-US/docs/NSPR_API_Reference/Long_Long_(64-bit)_Integers">64-bit integer</a> that contains the version of the connected database. When a database is first created, this attribute is the empty string.</dd> <dt> <a href="idbdatabase.objectstorenames" title="A DOMStringList containing a list of the names of the object stores currently in the connected database."><code>IDBDatabase.objectStoreNames</code></a> <span class="inlineIndicator readOnly readOnlyInline" title="This value may not be changed.">Read only </span>
+</dt> <dd> A <a href="https://developer.mozilla.org/en-US/docs/Web/API/DOMStringList" title="A type returned by DOMConfiguration.parameterNames which contains a list of DOMString (strings)."><code>DOMStringList</code></a> that contains a list of the names of the <a href="https://developer.mozilla.org/en-US/docs/IndexedDB#gloss_object_store">object stores</a> currently in the connected database.</dd> </dl><h3 id="Event_handlers">Event handlers</h3> <dl>
+<dt> <a href="idbdatabase.onabort" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBDatabase.onabort</code></a>
+</dt> <dd> Fires when access of the database is aborted.</dd> <dt> <a href="idbdatabase.onerror" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBDatabase.onerror</code></a>
+</dt> <dd> Fires when access to the database fails.</dd> <dt> <a href="idbdatabase.onversionchange" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBDatabase.onversionchange</code></a>
+</dt> <dd> <p>Fires when a database structure change (<a href="idbopendbrequest.onupgradeneeded" title="The documentation about this has not yet been written; please consider contributing!"><code>IDBOpenDBRequest.onupgradeneeded</code></a> event or<a href="idbfactory.deletedatabase" title="The deletion operation (performed in a different thread) consists of the following steps:"><code>IDBFactory.deleteDatabase</code></a> was requested elsewhere (most probably in another window/tab on the same computer). This is different from the version change transaction (see <a href="idbversionchangeevent" title="The specification has changed and some not up-to-date browsers only support the deprecated unique attribute, version, from an early draft version."><code>IDBVersionChangeEvent</code></a>), but it is related.</p> </dd> </dl><h2 id="example" name="example">Example</h2> <p>In the following code snippet, we open a database asynchronously (<a href="idbfactory" title="In the following code snippet, we open a database asynchronously and make a request:"><code>IDBFactory</code></a>), handle success and error cases, and create a new object store in the case that an upgrade is needed (<a href="idbdatabase" title="Everything you do in IndexedDB always happens in the context of a transaction, representing interactions with data in the database. All objects in IndexedDB—including object stores, indexes, and cursors—are tied to a particular transaction. Thus, you cannot execute commands, access data, or open anything outside of a transaction."><code>IDBdatabase</code></a>):</p> <pre class=" language-javascript"><span class="token comment" spellcheck="true">// Let us open our database
+</span>  <span class="token keyword">var</span> request <span class="token operator">=</span> window<span class="token punctuation">.</span>indexedDB<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment" spellcheck="true"> // these two event handlers act on the IDBDatabase object, when the database is opened successfully, or not
+</span>  request<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Error loading database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ 
+  request<span class="token punctuation">.</span>onsuccess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Database initialised.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+    
+   <span class="token comment" spellcheck="true"> // store the result of opening the database in the db variable. This is used a lot later on
+</span>    db <span class="token operator">=</span> request<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+    
+   <span class="token comment" spellcheck="true"> // Run the displayData() function to populate the task list with all the to-do list data already in the IDB
+</span>    <span class="token function">displayData<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ 
+ <span class="token comment" spellcheck="true"> // This event handles the event whereby a new version of the database needs to be created
+</span> <span class="token comment" spellcheck="true"> // Either one has not been created before, or a new version number has been submitted via the
+</span> <span class="token comment" spellcheck="true"> // window.indexedDB.open line above
+</span> 
+  request<span class="token punctuation">.</span>onupgradeneeded <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> db <span class="token operator">=</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+    
+    db<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Error loading database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+   <span class="token comment" spellcheck="true"> // Create an objectStore for this database using IDBDatabase.createObjectStore
+</span>    
+    <span class="token keyword">var</span> objectStore <span class="token operator">=</span> db<span class="token punctuation">.</span><span class="token function">createObjectStore<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> keyPath<span class="token punctuation">:</span> <span class="token string">"taskTitle"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+   <span class="token comment" spellcheck="true"> // define what data items the objectStore will contain
+</span>    
+    objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"hours"</span><span class="token punctuation">,</span> <span class="token string">"hours"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"minutes"</span><span class="token punctuation">,</span> <span class="token string">"minutes"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"day"</span><span class="token punctuation">,</span> <span class="token string">"day"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"month"</span><span class="token punctuation">,</span> <span class="token string">"month"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"year"</span><span class="token punctuation">,</span> <span class="token string">"year"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    objectStore<span class="token punctuation">.</span><span class="token function">createIndex<span class="token punctuation">(</span></span><span class="token string">"notified"</span><span class="token punctuation">,</span> <span class="token string">"notified"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> unique<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Object store created.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span></pre> <p>This next line opens up a transaction on the Database, then creates an object store that we can use to manipulate the data.</p> <pre class=" language-javascript">    <span class="token keyword">var</span> objectStore <span class="token operator">=</span> db<span class="token punctuation">.</span><span class="token function">transaction<span class="token punctuation">(</span></span><span class="token string">'toDoList'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">objectStore<span class="token punctuation">(</span></span><span class="token string">'toDoList'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </pre> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/IndexedDB/raw-file/tip/Overview.html#idl-def-IDBDatabase" lang="en" title="The definition of 'IDBDatabase' in that specification.">Indexed Database API</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td> <p>12<span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span><br> 23 without prefix</p> </td> <td>4.0 (2.0)</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>Firefox OS</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.4</td> <td>6.0 (6.0)</td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <p>To learn more about various topics, see the following</p> <ul>
+<li>Setting transaction modes: <a href="idbtransaction" title="Inherits from: EventTarget"><code>IDBTransaction</code></a>
+</li> <li>Setting a range of keys: <a href="idbkeyrange" title="A key range can have a single value or a range with upper and lower bounds or endpoints. If the key range has both upper and lower bounds, then it is bounded; if it has no bounds, it is unbounded. A bounded key range can either be open (the endpoints are excluded) or closed (the endpoints are included). To retrieve all keys within a certain range, you can use the following code constructs:"><code>IDBKeyRange</code></a>
+</li> <li>Creating cursors: <a href="idbcursor" title="The cursor has a source that indicates which index or object store it is iterating. It has a position within the range, and moves in a direction that is increasing or decreasing in the order of record keys. The cursor enables an application to asynchronously process all the records in the cursor's range."><code>IDBCursor</code></a>
+</li> <li>The reference application for the examples in this reference: <a href="https://github.com/chrisdavidmills/to-do-notifications/tree/gh-pages">To-do Notifications</a> (<a href="http://chrisdavidmills.github.io/to-do-notifications/">view example live</a>.) Not every snippet appears in this example, but every example uses the same data structure and syntax, and will make sense in the context of this application.</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase</a>
+  </p>
+</div>
+</div></div>
+  </section>
+
+
+
+
+  <div id="cnblogs_post_body"><p>在<a href="http://www.cnblogs.com/dolphinX/p/3405335.html">HTML5本地存储——Web SQL Database</a>提到过Web SQL Database实际上已经被废弃，而HTML5的支持的本地存储实际上变成了</p>
+<p><a href="http://www.cnblogs.com/dolphinX/p/3348469.html" target="_blank">Web Storage</a>（Local Storage和Session Storage）与IndexedDB。Web Storage使用简单字符串键值对在本地存储数据，方便灵活，但是对于大量结构化数据存储力不从心，IndexedDB是为了能够在客户端存储大量的结构化数据，并且使用索引高效检索的API。</p>
+<h3>异步API</h3>
+<p>在IndexedDB大部分操作并不是我们常用的调用方法，返回结果的模式，而是请求——响应的模式，比如打开数据库的操作</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">var</span> request=window.indexedDB.open('testDB');</pre>
+</div>
+<p>这条指令并不会返回一个DB对象的句柄，我们得到的是一个IDBOpenDBRequest对象，而我们希望得到的DB对象在其result属性中，</p>
+<p><a href="http://images.cnitblog.com/blog/349217/201311/10131539-526fb7bed23e468b8a88beffd99f2020.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/349217/201311/10131539-077ebb85a9c24aa7adb799a9ae3bdd40.png" alt="image" width="251" height="165" border="0"></a></p>
+<p>这条指令请求的响应是一个 IDBDatabase对象，这就是IndexedDB对象，</p>
+<p><a href="http://images.cnitblog.com/blog/349217/201311/10131541-5309e86fb7eb45d687ca94a0eed326b3.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/349217/201311/10131542-5a74401a0e304d57b7079b798823fba1.png" alt="image" width="381" height="158" border="0"></a></p>
+<p>&nbsp;</p>
+<p>除了result，IDBOpenDBRequest接口定义了几个重要属性</p>
+<ul>
+<li>onerror: 请求失败的回调函数句柄</li>
+<li>onsuccess:请求成功的回调函数句柄</li>
+<li>onupgradeneeded:请求数据库版本变化句柄</li>
+</ul>
+<p>&nbsp;</p>
+<p>所谓异步API是指并不是这条指令执行完毕，我们就可以使用request.result来获取indexedDB对象了，就像使用ajax一样，语句执行完并不代表已经获取到了对象，所以我们一般在其回调函数中处理。</p>
+<h3>创建数据库</h3>
+<p>刚才的语句已经展示了如何打开一个indexedDB数据库，调用indexedDB.open方法就可以创建或者打开一个indexedDB。看一个完整的处理</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> openDB (name) {
+            </span><span style="color: #0000ff;">var</span> request=<span style="color: #000000;">window.indexedDB.open(name);
+            request.onerror</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                console.log(</span>'OPen Error!'<span style="color: #000000;">);
+            };
+            request.onsuccess</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                myDB.db</span>=<span style="color: #000000;">e.target.result;
+            };
+        }
+
+        </span><span style="color: #0000ff;">var</span> myDB=<span style="color: #000000;">{
+            name:</span>'test'<span style="color: #000000;">,
+            version:</span>1<span style="color: #000000;">,
+            db:</span><span style="color: #0000ff;">null</span><span style="color: #000000;">
+        };
+        openDB(myDB.name);</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>代码中定义了一个myDB对象，在创建indexedDB request的成功毁掉函数中，把request获取的DB对象赋值给了myDB的db属性，这样就可以使用myDB.db来访问创建的indexedDB了。</p>
+<h3>version</h3>
+<p>我们注意到除了onerror和onsuccess，IDBOpenDBRequest还有一个类似回调函数句柄——onupgradeneeded。这个句柄在我们请求打开的数据库的版本号和已经存在的数据库版本号不一致的时候调用。</p>
+<p>indexedDB.open()方法还有第二个可选参数，数据库版本号，数据库创建的时候默认版本号为1，当我们传入的版本号和数据库当前版本号不一致的时候onupgradeneeded就会被调用，当然我们不能试图打开比当前数据库版本低的version，否则调用的就是onerror了，修改一下刚才例子</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> openDB (name,version) {
+            </span><span style="color: #0000ff;">var</span> version=version || 1<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">var</span> request=<span style="color: #000000;">window.indexedDB.open(name,version);
+            request.onerror</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                console.log(e.currentTarget.error.message);
+            };
+            request.onsuccess</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                myDB.db</span>=<span style="color: #000000;">e.target.result;
+            };
+            request.onupgradeneeded</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                console.log(</span>'DB version changed to '+<span style="color: #000000;">version);
+            };
+        }
+
+        </span><span style="color: #0000ff;">var</span> myDB=<span style="color: #000000;">{
+            name:</span>'test'<span style="color: #000000;">,
+            version:</span>3<span style="color: #000000;">,
+            db:</span><span style="color: #0000ff;">null</span><span style="color: #000000;">
+        };
+        openDB(myDB.name,myDB.version);</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>由于刚才已经创建了版本为1的数据库，打开版本为3的时候，会在控制台输出：DB version changed to 3</p>
+<h3>关闭与删除数据库</h3>
+<p>关闭数据库可以直接调用数据库对象的close方法</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> closeDB(db){
+            db.close();
+        }</span></pre>
+</div>
+<p>删除数据库使用indexedDB对象的deleteDatabase方法</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> deleteDB(name){
+            indexedDB.deleteDatabase(name);
+        }</span></pre>
+</div>
+<p>简单调用</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">var</span> myDB=<span style="color: #000000;">{
+            name:</span>'test'<span style="color: #000000;">,
+            version:</span>3<span style="color: #000000;">,
+            db:</span><span style="color: #0000ff;">null</span><span style="color: #000000;">
+        };
+        openDB(myDB.name,myDB.version);
+        setTimeout(</span><span style="color: #0000ff;">function</span><span style="color: #000000;">(){
+            closeDB(myDB.db);
+            deleteDB(myDB.name);
+        },</span>500);</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>由于异步API愿意，不能保证能够在closeDB方法调用前获取db对象（实际上获取db对象也比执行一条语句慢得多），所以用了setTimeout延迟了一下。当然我们注意到每个indexedDB实例都有onclose回调函数句柄，用以数据库关闭的时候处理，有兴趣同学可以试试，原理很简单，不演示了。</p>
+<p>&nbsp;</p>
+<h3>object store</h3>
+<p>有了数据库后我们自然希望创建一个表用来存储数据，但indexedDB中没有表的概念，而是objectStore，一个数据库中可以包含多个objectStore，objectStore是一个灵活的数据结构，可以存放多种类型数据。也就是说一个objectStore相当于一张表，里面存储的每条数据和一个键相关联。</p>
+<p>我们可以使用每条记录中的某个指定字段作为键值（keyPath），也可以使用自动生成的递增数字作为键值（keyGenerator），也可以不指定。选择键的类型不同，objectStore可以存储的数据结构也有差异</p>
+<table style="width: 962px;" border="1" cellspacing="4" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="156">键类型</td>
+<td valign="top" width="792">存储数据</td>
+</tr>
+<tr>
+<td valign="top" width="160">不使用</td>
+<td valign="top" width="806">任意值，但是没添加一条数据的时候需要指定键参数</td>
+</tr>
+<tr>
+<td valign="top" width="161">keyPath</td>
+<td valign="top" width="808">Javascript对象，对象必须有一属性作为键值</td>
+</tr>
+<tr>
+<td valign="top" width="162">keyGenerator</td>
+<td valign="top" width="807">任意值</td>
+</tr>
+<tr>
+<td valign="top" width="163">都使用</td>
+<td valign="top" width="806">Javascript对象，如果对象中有keyPath指定的属性则不生成新的键值，如果没有自动生成递增键值，填充keyPath指定属性</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>事务</h3>
+<p>在对新数据库做任何事情之前，需要开始一个事务。事务中需要指定该事务跨越哪些object store。</p>
+<p>事务具有三种模式</p>
+<ol>
+<li>只读：read，不能修改数据库数据，可以并发执行</li>
+<li>读写：readwrite，可以进行读写操作</li>
+<li>版本变更：verionchange</li>
+</ol>
+<p>&nbsp;</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">var</span> transaction=db.transaction([students','taecher'<span style="color: #000000;">]);  //打开一个事务，使用students 和teacher object store
+var objectStore=transaction.objectStore(</span>'students'); //获取students object store</pre>
+</div>
+<h3>给object store添加数据</h3>
+<p>&nbsp;</p>
+<p>调用数据库实例的createObjectStore方法可以创建object store，方法有两个参数：store name和键类型。调用store的add方法添加数据。有了上面知识，我们可以向object store内添加数据了</p>
+<p>&nbsp;</p>
+<p><strong>keyPath</strong></p>
+<p>因为对新数据的操作都需要在transaction中进行，而transaction又要求指定object store，所以我们只能在创建数据库的时候初始化object store以供后面使用，这正是onupgradeneeded的一个重要作用，修改一下之前代码</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> openDB (name,version) {
+            </span><span style="color: #0000ff;">var</span> version=version || 1<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">var</span> request=<span style="color: #000000;">window.indexedDB.open(name,version);
+            request.onerror</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                console.log(e.currentTarget.error.message);
+            };
+            request.onsuccess</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                myDB.db</span>=<span style="color: #000000;">e.target.result;
+            };
+            request.onupgradeneeded</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                </span><span style="color: #0000ff;">var</span> db=<span style="color: #000000;">e.target.result;
+                </span><span style="color: #0000ff;">if</span>(!db.objectStoreNames.contains('students'<span style="color: #000000;">)){
+                    db.createObjectStore(</span>'students',{keyPath:"id"<span style="color: #000000;">});
+                }
+                console.log(</span>'DB version changed to '+<span style="color: #000000;">version);
+            };
+        }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>这样在创建数据库的时候我们就为其添加了一个名为students的object store，准备一些数据以供添加</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">var</span> students=<span style="color: #000000;">[{ 
+            id:</span>1001<span style="color: #000000;">, 
+            name:</span>"Byron"<span style="color: #000000;">, 
+            age:</span>24<span style="color: #000000;"> 
+        },{ 
+            id:</span>1002<span style="color: #000000;">, 
+            name:</span>"Frank"<span style="color: #000000;">, 
+            age:</span>30<span style="color: #000000;"> 
+        },{ 
+            id:</span>1003<span style="color: #000000;">, 
+            name:</span>"Aaron"<span style="color: #000000;">, 
+            age:</span>26<span style="color: #000000;"> 
+        }];</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> addData(db,storeName){
+            </span><span style="color: #0000ff;">var</span> transaction=db.transaction(storeName,'readwrite'<span style="color: #000000;">); 
+            </span><span style="color: #0000ff;">var</span> store=<span style="color: #000000;">transaction.objectStore(storeName); 
+
+            </span><span style="color: #0000ff;">for</span>(<span style="color: #0000ff;">var</span> i=0;i&lt;students.length;i++<span style="color: #000000;">){
+                store.add(students[i]);
+            }
+        }
+
+
+openDB(myDB.name,myDB.version);
+        setTimeout(</span><span style="color: #0000ff;">function</span><span style="color: #000000;">(){
+            addData(myDB.db,</span>'students'<span style="color: #000000;">);
+        },</span>1000);</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>这样我们就在students object store里添加了三条记录，以id为键，在chrome控制台看看效果</p>
+<p><a href="http://images.cnitblog.com/blog/349217/201311/10131542-89767b068ae946aea7f5aafb0955106b.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/349217/201311/10131543-e023f428b82e421ab19332d050494537.png" alt="image" width="839" height="254" border="0"></a></p>
+<p>&nbsp;</p>
+<p><strong>keyGenerate</strong></p>
+<p>&nbsp;</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> openDB (name,version) {
+            </span><span style="color: #0000ff;">var</span> version=version || 1<span style="color: #000000;">;
+            </span><span style="color: #0000ff;">var</span> request=<span style="color: #000000;">window.indexedDB.open(name,version);
+            request.onerror</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                console.log(e.currentTarget.error.message);
+            };
+            request.onsuccess</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                myDB.db</span>=<span style="color: #000000;">e.target.result;
+            };
+            request.onupgradeneeded</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){
+                </span><span style="color: #0000ff;">var</span> db=<span style="color: #000000;">e.target.result;
+                </span><span style="color: #0000ff;">if</span>(!db.objectStoreNames.contains('students'<span style="color: #000000;">)){
+                    db.createObjectStore(</span>'students',{autoIncrement: <span style="color: #0000ff;">true</span><span style="color: #000000;">});
+                }
+                console.log(</span>'DB version changed to '+<span style="color: #000000;">version);
+            };
+        }</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><a href="http://images.cnitblog.com/blog/349217/201311/10131543-9f65220f975041bb91083a7207c3877a.png"><img style="display: inline; border: 0px;" title="image" src="http://images.cnitblog.com/blog/349217/201311/10131544-6d7b21f0d6934d25a199f3946cf1d8d2.png" alt="image" width="780" height="253" border="0"></a></p>
+<p>剩下的两种方式有兴趣同学可以自己摸索一下了</p>
+<h3>查找数据</h3>
+<p>可以调用object store的get方法通过键获取数据，以使用keyPath做键为例</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> getDataByKey(db,storeName,value){
+            </span><span style="color: #0000ff;">var</span> transaction=db.transaction(storeName,'readwrite'<span style="color: #000000;">); 
+            </span><span style="color: #0000ff;">var</span> store=<span style="color: #000000;">transaction.objectStore(storeName); 
+            </span><span style="color: #0000ff;">var</span> request=<span style="color: #000000;">store.get(value); 
+            request.onsuccess</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){ 
+                </span><span style="color: #0000ff;">var</span> student=<span style="color: #000000;">e.target.result; 
+                console.log(student.name); 
+            };
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<h3>更新数据</h3>
+<p>可以调用object store的put方法更新数据，会自动替换键值相同的记录，达到更新目的，没有相同的则添加，以使用keyPath做键为例</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> updateDataByKey(db,storeName,value){
+            </span><span style="color: #0000ff;">var</span> transaction=db.transaction(storeName,'readwrite'<span style="color: #000000;">); 
+            </span><span style="color: #0000ff;">var</span> store=<span style="color: #000000;">transaction.objectStore(storeName); 
+            </span><span style="color: #0000ff;">var</span> request=<span style="color: #000000;">store.get(value); 
+            request.onsuccess</span>=<span style="color: #0000ff;">function</span><span style="color: #000000;">(e){ 
+                </span><span style="color: #0000ff;">var</span> student=<span style="color: #000000;">e.target.result; 
+                student.age</span>=35<span style="color: #000000;">;
+                store.put(student); 
+            };
+}</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<h3>删除数据及object store</h3>
+<p>&nbsp;</p>
+<p>调用object store的delete方法根据键值删除记录</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> deleteDataByKey(db,storeName,value){
+            </span><span style="color: #0000ff;">var</span> transaction=db.transaction(storeName,'readwrite'<span style="color: #000000;">); 
+            </span><span style="color: #0000ff;">var</span> store=<span style="color: #000000;">transaction.objectStore(storeName); 
+            store.</span><span style="color: #0000ff;">delete</span><span style="color: #000000;">(value); 
+        }</span></pre>
+</div>
+<p>调用object store的clear方法可以清空object store</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">function</span><span style="color: #000000;"> clearObjectStore(db,storeName){
+            </span><span style="color: #0000ff;">var</span> transaction=db.transaction(storeName,'readwrite'<span style="color: #000000;">); 
+            </span><span style="color: #0000ff;">var</span> store=<span style="color: #000000;">transaction.objectStore(storeName); 
+            store.clear();
+}</span></pre>
+</div>
+<p>调用数据库实例的deleteObjectStore方法可以删除一个object store，这个就得在onupgradeneeded里面调用了</p>
+<div class="cnblogs_code" style="background-color: #f5f5f5; border: #cccccc 1px solid; padding: 5px;">
+<pre><span style="color: #0000ff;">if</span>(db.objectStoreNames.contains('students'<span style="color: #000000;">)){ 
+                    db.deleteObjectStore(</span>'students'<span style="color: #000000;">); 
+}</span></pre>
+</div>
+<h3>最后</h3>
+<p>&nbsp;</p>
+<p>这就是关于indexedDB的基本使用方式，很多同学看了会觉得很鸡肋，和我们正常自己定义个对象使用没什么区别，也就是能保存在本地罢了，这是因为我们还没有介绍indexedDB之所以称为indexed的杀器——索引，这个才是让indexedDB大显神通的东西，<a title="下篇" href="http://www.cnblogs.com/dolphinX/p/3416889.html" target="_blank">下篇</a>我们就来看看这个杀器。</p></div>

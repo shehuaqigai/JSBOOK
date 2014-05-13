@@ -1,0 +1,262 @@
+<div id="cnblogs_post_body"><p>ICE(Internet Communications Engine)是Zeroc提供的一款高性能的中间件。使用ICE能使得php(或c++,java,python)与java,c++,.net,python等进行交互。基于ICE可以实现电信级的解决方案。</p>  <p>&nbsp;</p>  <p>1第一个问题：<span style="font-size: 14pt;">为什么要使用中间件？</span></p>  <p>设想一个这样的场景：对于一个大型网站来说，往往有很多个web服务器，每个web服务器都存在很多对于数据库的操作。如果直接在php程序上直接操作数据库，那么势必要在每台web服务器都配置数据库的用户名，密码等信息，这是极度不安全的。并且如果我们要统一对数据库的操作进行管理和修改等，那么久要去每个web服务器上修改。因此，这时候中间件就产生了。它是基于SOA(面向服务架构)的思想，将对数据库的操作统一成一个服务，放置于一台服务机上，每个web服务器要对数据库进行操作，就可以直接访问这个提供中间件服务的服务器。</p>  <p>还有一点，考虑到性能问题，这里的提供服务的机子我们不使用html和xml传输数据，一般使用TCP，UDP这层的通信。</p>  <p>因此ICE就是现在非常流行的网站开发中间件之一。</p>  <p>&nbsp;</p>  <p>关于更多理解为何使用中间件的原因这里有两个链接：</p>  <p><a title="http://blog.csdn.net/phphot/archive/2009/04/18/4089806.aspx" href="http://blog.csdn.net/phphot/archive/2009/04/18/4089806.aspx">http://blog.csdn.net/phphot/archive/2009/04/18/4089806.aspx</a></p>  <p><a title="http://hi.baidu.com/xdh2571/blog/item/8f01fafc4debfc89b801a04b.html" href="http://hi.baidu.com/xdh2571/blog/item/8f01fafc4debfc89b801a04b.html">http://hi.baidu.com/xdh2571/blog/item/8f01fafc4debfc89b801a04b.html</a></p>  <p>&nbsp;</p>  <p>2 <span style="font-size: 14pt;">对于ICE，它是怎么样通信结构？</span></p>  <p>ICE有分为提供服务的一方Server和寻求服务的一方Client，两台机子上都需要安装ICE组件，他们的通信结构如下：</p>  <p><a href="http://images.cnblogs.com/cnblogs_com/yjf512/201106/201106071837168404.png"><img style="background-image: none; border-bottom: 0px; border-left: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top: 0px; border-right: 0px; padding-top: 0px" title="ICE" alt="ICE" src="http://images.cnblogs.com/cnblogs_com/yjf512/201106/201106071837171337.png" width="478" border="0" height="245"></a></p>  <p>&nbsp;</p>  <p>Client端应该事先知道Server端能提供的服务是什么，有什么格式？这就是图中的Proxy Code，在Proxy Code中定义好了类和接口。Server端中接口定义的就是Skeleton，具体实现接口的是Server Application，Server Application可以是C++,java,C#等写的，但是ICE不提供PHP写Server端。</p>  <p>&nbsp;</p>  <p>3<span style="font-size: 14pt;"> 安装ICE</span></p>  <p>安装环境: CentOS</p>  <pre>1)</pre>
+
+<pre><font face="Verdana">cd /etc/yum.repos.d/</font></pre>
+
+<pre><font face="Verdana">wget </font><a href="http://www.zeroc.com/download/Ice/3.4/rhel5/zeroc-ice.repo"><font face="Verdana">http://www.zeroc.com/download/Ice/3.4/rhel5/zeroc-ice.repo</font></a></pre>
+
+<p>2)</p>
+
+<p>编辑zeroc-ice.repo：</p>
+
+<p>[zeroc-ice]</p>
+
+<p>name=Ice 3.4 for Red Hat Enterprise Linux $releasever - $basearch</p>
+
+<p>baseurl=http://www.zeroc.com/download/Ice/3.4/rhel5/$basearch</p>
+
+<p>enabled=1</p>
+
+<p>gpgcheck=1</p>
+
+<p>gpgkey=http://www.zeroc.com/download/RPM-GPG-KEY-zeroc-release</p>
+
+<p>3)</p>
+
+<p>使用yum安装</p>
+
+<p>yum install ice* db46* mcpp-devel</p>
+
+<p>4)</p>
+
+<p>确认机子是否安装g++，如果没有，则安装：</p>
+
+<p>yum install gcc-c++ libstdc++-devel</p>
+
+<p>&nbsp;</p>
+
+<p>4<span style="font-size: 14pt;"> 写一个ICE例子</span>，目的：Client端每调用一次服务，Server端就打出一个"hello world”;</p>
+
+<p>&nbsp;</p>
+
+<p>基本环境：由于是实验目的，我仅仅将Client和Server同当做一台CentOS机子</p>
+
+<p>&nbsp;</p>
+
+<p>A 建文件夹: mkdir ice_demo</p>
+
+<p>&nbsp;</p>
+
+<p>B 创建文件Printer.ice,这个.ice文件是ICE的slice文件，在其中定义了服务的对象和接口</p>
+
+<p>module Demo {
+  <br>interface Printer {
+
+  <br>void printString(string s);
+
+  <br>};
+
+  <br>};</p>
+
+<p>&nbsp;</p>
+
+<p>C #slice2cpp Printer.ice //产生出了Printer.h和Printer.cpp两个文件</p>
+
+<p>D 创建Server.cpp</p>
+
+<blockquote>
+  <p>#include &lt;Ice/Ice.h&gt; 
+    <br>#include &lt;Printer.h&gt; 
+
+    <br>&nbsp; <br>using namespace std; 
+
+    <br>using namespace Demo; 
+
+    <br>&nbsp; <br>class PrinterI : public Printer { 
+
+    <br>public: 
+
+    <br>virtual void printString(const string&amp; s, 
+
+    <br>const Ice::Current&amp;); 
+
+    <br>}; 
+
+    <br>&nbsp; <br>void&nbsp; <br>PrinterI:: 
+
+    <br>printString(const string&amp; s, const Ice::Current&amp;) 
+
+    <br>{ 
+
+    <br>cout &lt;&lt; s &lt;&lt; endl; 
+
+    <br>} 
+
+    <br>&nbsp; <br>int 
+
+    <br>main(int argc, char* argv[]) 
+
+    <br>{ 
+
+    <br>int status = 0; 
+
+    <br>Ice::CommunicatorPtr ic; 
+
+    <br>try { 
+
+    <br>ic = Ice::initialize(argc, argv); 
+
+    <br>Ice::ObjectAdapterPtr adapter 
+
+    <br>= ic-&gt;createObjectAdapterWithEndpoints( 
+
+    <br>"SimplePrinterAdapter", "default -p 10000"); 
+
+    <br>Ice::ObjectPtr object = new PrinterI; 
+
+    <br>adapter-&gt;add(object, 
+
+    <br>ic-&gt;stringToIdentity("SimplePrinter")); 
+
+    <br>adapter-&gt;activate(); 
+
+    <br>ic-&gt;waitForShutdown(); 
+
+    <br>} catch (const Ice::Exception&amp; e) { 
+
+    <br>cerr &lt;&lt; e &lt;&lt; endl; 
+
+    <br>status = 1; 
+
+    <br>} catch (const char* msg) { 
+
+    <br>cerr &lt;&lt; msg &lt;&lt; endl; 
+
+    <br>status = 1; 
+
+    <br>} 
+
+    <br>if (ic) { 
+
+    <br>try { 
+
+    <br>ic-&gt;destroy(); 
+
+    <br>} catch (const Ice::Exception&amp; e) { 
+
+    <br>cerr &lt;&lt; e &lt;&lt; endl; 
+
+    <br>status = 1; 
+
+    <br>} 
+
+    <br>} 
+
+    <br>return status; 
+
+    <br>}</p>
+</blockquote>
+
+<p>E </p>
+
+<p>#c++ -I. -I$ICE_HOME/include -c Printer.cpp Server.cpp</p>
+
+<p># c++ -o server Printer.o Server.o \ -L$ICE_HOME/lib -lIce –lIceUtil&nbsp;&nbsp; //在同文件夹下会出现：server执行文件</p>
+
+<p>&nbsp;</p>
+
+<p>F #slice2php Printer.ice</p>
+
+<p>G 创建Client.php </p>
+
+<blockquote>
+  <p>&lt;?php
+    <br>require 'Ice.php';
+
+    <br>require 'Printer.php';</p>
+
+  <p>$ic = null;
+    <br>try
+
+    <br>{
+
+    <br>$ic = Ice_initialize();
+
+    <br>$base = $ic-&gt;stringToProxy("SimplePrinter:default -p 10000");
+
+    <br>$printer = Demo_PrinterPrxHelper::checkedCast($base);
+
+    <br>if(!$printer)
+
+    <br>throw new RuntimeException("Invalid proxy");</p>
+
+  <p>$printer-&gt;printString("Hello World!");
+    <br>}
+
+    <br>catch(Exception $ex)
+
+    <br>{
+
+    <br>echo $ex;
+
+    <br>}</p>
+
+  <p>if($ic)
+    <br>{
+
+    <br>// Clean up
+
+    <br>try
+
+    <br>{
+
+    <br>$ic-&gt;destroy();
+
+    <br>}
+
+    <br>catch(Exception $ex)
+
+    <br>{
+
+    <br>echo $ex;
+
+    <br>}
+
+    <br>}
+
+    <br>?&gt;</p>
+</blockquote>
+
+<p>H </p>
+
+<p>打开一个终端运行 #./server</p>
+
+<p>打开另一个终端运行 php Client.php</p>
+
+<p>&nbsp;</p>
+
+<p>发现每运行一次Client.php,第一个终端就打出一个Hello World. ICE 运行成功.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>附注：大型的网站对于ICE的使用是很多的。比如需要实现一个分词搜索的功能使用lucence，对数据库的访问，对memcached的访问都可以直接在ICE中写一个服务来提供统一管理和使用</p>
+
+<p>&nbsp;</p><p>&nbsp;</p>
+
+<p>作者：轩脉刃(yjf512)
+  <br>出处：（<a href="http://www.cnblogs.com/yjf512/">http://www.cnblogs.com/yjf512/</a>）
+
+  <br>版权声明：本文的版权归作者与博客园共有。欢迎转载阅读，转载时须注明本文的详细链接。&nbsp;</p><p>&nbsp;</p>
+
+<p>[参考文章]</p>
+
+<p><a title="http://blog.csdn.net/phphot/archive/2009/04/18/4089806.aspx" href="http://blog.csdn.net/phphot/archive/2009/04/18/4089806.aspx">http://blog.csdn.net/phphot/archive/2009/04/18/4089806.aspx</a></p>
+
+<p><a title="http://hi.baidu.com/xdh2571/blog/item/8f01fafc4debfc89b801a04b.html" href="http://hi.baidu.com/xdh2571/blog/item/8f01fafc4debfc89b801a04b.html">http://hi.baidu.com/xdh2571/blog/item/8f01fafc4debfc89b801a04b.html</a></p>
+
+<p><a title="http://www.zeroc.com/" href="http://www.zeroc.com/">http://www.zeroc.com/</a></p>
+
+<p>(特别是里面的Document)</p>
+
+<p><a title="http://blog.csdn.net/cnhome/archive/2008/11/18/3331279.aspx" href="http://blog.csdn.net/cnhome/archive/2008/11/18/3331279.aspx">http://blog.csdn.net/cnhome/archive/2008/11/18/3331279.aspx</a></p></div>

@@ -1,0 +1,57 @@
+<article id="post-119" class="post-119 post type-post status-publish format-standard hentry category-html tag-html5 tag-ipad tag-javascript-2 tag-onstalled tag-video">
+	
+	<header class="entry-header">
+		
+				<h2 class="entry-title">
+									<a href="http://popotang.com/blog/html5-video-onstalled.html" title="点击查看捕获HTML5的video标签读取视频失败的错误" rel="bookmark">捕获HTML5的video标签读取视频失败的错误</a>
+					</h2>
+	
+					<div class="entry-meta">
+				发布日期<a href="http://popotang.com/blog/html5-video-onstalled.html" title="23:47" rel="bookmark"><time class="entry-date" datetime="2010-11-02T23:47:23+00:00">2010-11-02</time></a><span class="byline"> 作者：<span class="author vcard"><a class="url fn n" href="http://popotang.com/blog/author/popotang" title="查看所有文章 popotang" rel="author">popotang</a></span></span>			</div><!-- .entry-meta -->
+			</header><!-- .entry-header -->
+  
+	  
+		<div class="entry-content">
+    				<p>iPad日趋流行，QQLive官网也专门开辟了iPad专区，所有视频全面支持iPad，就连页面制作也都使用HTML5新的标签，当然播放视频也使用的是&lt;video&gt;标签。</p>
+<p>为了提升用户体验，当获取的视频文件无法加载或者无法播放时，&lt;video&gt;标签会触发onerror事件，这个很简单，没有问题。</p>
+<p>但是视频在iPad上不是一次全部加载完的，而是分段加载，先加载视频文件的一部分，然后播放，待播放到加载的这段视频快结束的时候，再加载后面一段，以节省流量，如果最开始加载视频成功，但是在播放过程中加载后面的内容的时候失败了，该怎么捕获这个错误呢？</p>
+<p>反复研究，发现这个时候会触发&lt;video&gt;的onstalled事件：</p>
+<p><span id="more-119"></span><br>
+onstalled的解释是：浏览器尝试拉取视频文件数据，但是发生意外无法成功获取。</p>
+<p>触发这个事件必须满足的前置条件是：网络状态属性 networkState 的值等于 NETWORK_LOADING。</p>
+
+<div class="wp_syntax"><table><tbody><tr><td class="code"><pre class="html" style="font-family:monospace;">&lt;script type="text/javascript" language="javascript"&gt;
+// &lt;![CDATA[
+ function showMsg(msg){ 	
+     document.getElementById("divMsg").innerHTML+=msg+""; 
+  }
+ function video_stalled(){
+     showMsg("播放错误，视频停在 "+ document.getElementById("videoplayer").currentTime+" 秒");
+  }
+//]]&gt;
+&lt;/script&gt;</pre></td></tr></tbody></table></div>
+
+
+<div class="wp_syntax"><table><tbody><tr><td class="code"><pre class="html" style="font-family:monospace;">&lt;video id="videoplayer" width="650px" height="500px" autobuffer="true" autoplay="autoplay" controls="controls" tabindex="0" onstalled="video_stalled();" src="7TaOutiwFtR.mp4"&gt;
+&lt;object id="videoplayer" width="650px" height="500px" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"&gt;
+&lt;param name="src" value="http://popotang.com/blog/wp-includes/js/tinymce/plugins/media/moxieplayer.swf" /&gt;
+&lt;param name="flashvars" value="url=/blog/wp-admin/7TaOutiwFtR.mp4&amp;amp;poster=/blog/wp-admin/" /&gt;
+&lt;param name="allowfullscreen" value="true" /&gt;&lt;param name="allowscriptaccess" value="true" /&gt;
+&lt;embed id="videoplayer" width="650px" height="500px" type="application/x-shockwave-flash" src="http://popotang.com/blog/wp-includes/js/tinymce/plugins/media/moxieplayer.swf" flashvars="url=/blog/wp-admin/7TaOutiwFtR.mp4&amp;amp;poster=/blog/wp-admin/" allowfullscreen="true" allowscriptaccess="true" /&gt;
+&lt;/object&gt;
+&lt;/video&gt;</pre></td></tr></tbody></table></div>
+
+<p>更多内容 <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html" target="_blank">http://www.whatwg.org/specs/web-apps/current-work/multipage/video.html</a></p>
+<div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><div style="float:left"><!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_qzone" title="分享到QQ空间"><span class="jiathis_txt jtico jtico_qzone"></span></a>
+	<a class="jiathis_button_tsina" title="分享到新浪微博"><span class="jiathis_txt jtico jtico_tsina"></span></a>
+	<a class="jiathis_button_tqq" title="分享到腾讯微博"><span class="jiathis_txt jtico jtico_tqq"></span></a>
+	<a class="jiathis_button_weixin" title="分享到微信"><span class="jiathis_txt jtico jtico_weixin"></span></a>
+	<a class="jiathis_button_renren" title="分享到人人网"><span class="jiathis_txt jtico jtico_renren"></span></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"><span class="jiathis_button_expanded jiathis_counter jiathis_bubble_style" id="jiathis_counter_18" title="累计分享0次">0</span></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1371784108753998" charset="utf-8"></script>
+<!-- JiaThis Button END --></div><div style="clear:both; margin-top:5px; margin-bottom:5px;"></div>					</div><!-- .entry-content -->
+</article>

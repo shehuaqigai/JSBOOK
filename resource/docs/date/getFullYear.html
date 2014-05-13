@@ -1,0 +1,36 @@
+<p>
+	定义和用法
+getFullYear() 方法可返回一个表示年份的 4 位数字。
+语法
+dateObject.getFullYear()
+返回值
+当 dateObject 用本地时间表示时返回的年份。
+返回值是一个四位数，表示包括世纪值在内的完整年份，而不是两位数的缩写形式。
+提示和注释：
+注释：该方法总是结合一个 Date 对象来使用。
+实例
+例子 1
+在本例中，我们将取得当前的年份，并输出它：
+<pre>
+
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.getFullYear())
+
+&lt/script>
+输出：
+2014
+例子 2
+在本例中，我们将从具体到日期提取年份：
+&ltscript type="text/javascript">
+
+var born = new Date("July 21, 1983 01:15:00")
+document.write("I was born in " + born.getFullYear())
+
+&lt/script>
+输出：
+I was born in 1983
+	
+</pre>
+</p>

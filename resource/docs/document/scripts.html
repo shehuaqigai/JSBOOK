@@ -1,0 +1,25 @@
+<p>
+	概述
+
+返回一个HTMLCollection对象,包含了当前文档中所有&ltscript>元素的集合.
+
+语法
+
+var scriptList = document.scripts;
+scriptList是一个HTMLCollection对象.你可以像使用数组一样通过索引来获取其中包含的&ltscript>元素.
+
+例子
+
+下例演示了如何查看当前页面是否包含有&ltscript>元素.
+
+var scripts = document.scripts;
+
+if (scripts.length) {
+  alert("该页面存在script标签!");
+}
+浏览器兼容性
+
+Desktop Mobile
+Feature	Chrome	Firefox (Gecko)	Internet Explorer	Opera	Safari
+Basic support	(Yes)	9.0 (9.0)	(Yes)	(Yes)	(Yes)
+</p>

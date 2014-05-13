@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS transform-origin</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/transform/transform-origin.htm">http://www.phpstudy.net/css3/properties/transform/transform-origin.htm</a><br>
+<b>Title:</b> CSS transform-origin &nbsp;&bull;&nbsp; <b>Size:</b> 7185 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">2D变换属性</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/transform/?" class="target">
+				<strong>其它2D变换属性</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="transform.htm">transform</a></li>
+					<li><a href="transform-origin.htm">transform-origin</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">transform-origin</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+		<li>继承性：无</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>transform-origin</strong>：[ <a href="../../values/other/percentage.htm">&lt;percentage&gt;</a> | <a href="../../values/other/length.htm">&lt;length&gt;</a> | left | center① | right ] [ <a href="../../values/other/percentage.htm">&lt;percentage&gt;</a> | <a href="../../values/other/length.htm">&lt;length&gt;</a> | top | center② | bottom ]?</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">50% 50%</mark>，效果等同于center center</p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt><a href="../../values/other/percentage.htm">&lt;percentage&gt;</a>：</dt>
+				<dd>用百分比指定坐标值。可以为负值。</dd>
+				<dt><a href="../../values/other/length.htm">&lt;length&gt;</a>：</dt>
+				<dd>用长度值指定坐标值。可以为负值。</dd>
+				<dt>left：</dt>
+				<dd>指定原点的横坐标为left</dd>
+				<dt>center①：</dt>
+				<dd>指定原点的横坐标为center</dd>
+				<dt>right：</dt>
+				<dd>指定原点的横坐标为right</dd>
+				<dt>top：</dt>
+				<dd>指定原点的纵坐标为top</dd>
+				<dt>center②：</dt>
+				<dd>指定原点的纵坐标为center</dd>
+				<dt>bottom：</dt>
+				<dd>指定原点的纵坐标为bottom</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>设置或检索对象以某个原点进行转换。</strong>
+			<ul>
+				<li>该属性提供2个参数值。</li>
+				<li>如果提供两个，第一个用于横坐标，第二个用于纵坐标。</li>
+				<li>如果只提供一个，该值将用于横坐标；纵坐标将默认为50%。</li>
+				<li>对应的脚本特性为<strong>transformOrigin</strong>。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="unsupport">6.0-8.0</td>
+						<td rowspan="2" class="experimentsupport">4.0-9.0</td>
+						<td rowspan="2" class="experimentsupport">5.1</td>
+						<td rowspan="2" class="experimentsupport">13.0-16.0</td>
+						<td rowspan="2" class="experimentsupport">11.50-11.60</td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="experimentsupport">9.0-10.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="way" class="gmodule gattr">
+		<h2 class="tit">写法：</h2>
+		<div class="cont">
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th>内核类型</th>
+						<th>写法</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Webkit(Chrome/Safari)</th>
+						<td>-webkit-transform-origin</td>
+					</tr>
+					<tr>
+						<th>Gecko(Firefox)</th>
+						<td>-moz-transform-origin</td>
+					</tr>
+					<tr>
+						<th>Presto(Opera)</th>
+						<td>-o-transform-origin</td>
+					</tr>
+					<tr>
+						<th>Trident(IE)</th>
+						<td>-ms-transform-origin</td>
+					</tr>
+					<tr>
+						<th>W3C</th>
+						<td>transform-origin</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS transform-origin_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+.test{margin:0;padding:0;list-style:none;border:1px solid #000;}
+.test li{width:50px;height:50px;border:1px solid #000;background:#ddd;
+	-moz-transform-origin:0 0;-moz-transform:rotate(45deg);
+	-webkit-transform-origin:0 0;-webkit-transform:rotate(45deg);
+	-o-transform-origin:0 0;-o-transform:rotate(45deg);
+	-ms-transform-origin:0 0;-ms-transform:rotate(45deg);
+	transform-origin:0 0;transform:rotate(45deg);
+}
+</style>
+</head>
+<body>
+<ul class="test">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

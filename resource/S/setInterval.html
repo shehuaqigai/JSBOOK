@@ -1,0 +1,69 @@
+<div id="maincontent">
+
+<h1>HTML DOM setInterval() 方法</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。</p>
+<p>setInterval() 方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。</p>
+
+<h3>语法</h3>
+<pre>setInterval(code,millisec[,"lang"])</pre>
+
+<table class="dataintable">
+    <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+    </tr>
+    <tr>
+    <td>code</td>
+    <td>必需。要调用的函数或要执行的代码串。</td>
+    </tr>
+    <tr>
+    <td>millisec</td>
+    <td>必须。周期性执行或调用 code 之间的时间间隔，以毫秒计。</td>
+    </tr>
+</tbody></table>
+
+<h3>返回值</h3>
+<p>一个可以传递给 Window.clearInterval() 从而取消对 code 的周期性执行的值。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+<pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;input type="text" id="clock" size="35" /&gt;
+&lt;script language=javascript&gt;
+var int=<code>self.setInterval("clock()",50)</code>
+function clock()
+  {
+  var t=new Date()
+  document.getElementById("clock").value=t
+  }
+&lt;/script&gt;
+&lt;/form&gt;
+&lt;button onclick="int=<code>window.clearInterval(int)"&gt;</code>
+Stop interval&lt;/button&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_setinterval">使用 setInterval() 和 clearInterval()</a></dt>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+</div>

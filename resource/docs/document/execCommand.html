@@ -1,0 +1,331 @@
+<pre>
+	document.execCommand()用法说明
+2D-Position 允许通过拖曳移动绝对定位的对象。 
+AbsolutePosition 设定元素的 position 属性为“absolute”(绝对)。 
+BackColor 设置或获取当前选中区的背景颜色。 
+BlockDirLTR 目前尚未支持。 
+BlockDirRTL 目前尚未支持。 
+Bold 切换当前选中区的粗体显示与否。 
+BrowseMode 目前尚未支持。 
+Copy 将当前选中区复制到剪贴板。 
+CreateBookmark 创建一个书签锚或获取当前选中区或插入点的书签锚的名称。 
+CreateLink 在当前选中区上插入超级链接，或显示一个对话框允许用户指定要为当前选中区插入的超级链接的 URL。 
+Cut 将当前选中区复制到剪贴板并删除之。 
+Delete 删除当前选中区。 
+DirLTR 目前尚未支持。 
+DirRTL 目前尚未支持。 
+EditMode 目前尚未支持。 
+FontName 设置或获取当前选中区的字体。 
+FontSize 设置或获取当前选中区的字体大小。 
+ForeColor 设置或获取当前选中区的前景(文本)颜色。 
+FormatBlock 设置当前块格式化标签。 
+Indent 增加选中文本的缩进。 
+InlineDirLTR 目前尚未支持。 
+InlineDirRTL 目前尚未支持。 
+InsertButton 用按钮控件覆盖当前选中区。 
+InsertFieldset 用方框覆盖当前选中区。 
+InsertHorizontalRule 用水平线覆盖当前选中区。 
+InsertIFrame 用内嵌框架覆盖当前选中区。 
+InsertImage 用图像覆盖当前选中区。 
+InsertInputButton 用按钮控件覆盖当前选中区。 
+InsertInputCheckbox 用复选框控件覆盖当前选中区。 
+InsertInputFileUpload 用文件上载控件覆盖当前选中区。 
+InsertInputHidden 插入隐藏控件覆盖当前选中区。 
+InsertInputImage 用图像控件覆盖当前选中区。 
+InsertInputPassword 用密码控件覆盖当前选中区。 
+InsertInputRadio 用单选钮控件覆盖当前选中区。 
+InsertInputReset 用重置控件覆盖当前选中区。 
+InsertInputSubmit 用提交控件覆盖当前选中区。 
+InsertInputText 用文本控件覆盖当前选中区。 
+InsertMarquee 用空字幕覆盖当前选中区。 
+InsertOrderedList 切换当前选中区是编号列表还是常规格式化块。 
+InsertParagraph 用换行覆盖当前选中区。 
+InsertSelectDropdown 用下拉框控件覆盖当前选中区。 
+InsertSelectListbox 用列表框控件覆盖当前选中区。 
+InsertTextArea 用多行文本输入控件覆盖当前选中区。 
+InsertUnorderedList 切换当前选中区是项目符号列表还是常规格式化块。 
+Italic 切换当前选中区斜体显示与否。 
+JustifyCenter 将当前选中区在所在格式化块置中。 
+JustifyFull 目前尚未支持。 
+JustifyLeft 将当前选中区所在格式化块左对齐。 
+JustifyNone 目前尚未支持。 
+JustifyRight 将当前选中区所在格式化块右对齐。 
+LiveResize 迫使 MSHTML 编辑器在缩放或移动过程中持续更新元素外观，而不是只在移动或缩放完成后更新。 
+MultipleSelection 允许当用户按住 Shift 或 Ctrl 键时一次选中多于一个站点可选元素。 
+Open 打开。 
+Outdent 减少选中区所在格式化块的缩进。 
+OverWrite 切换文本状态的插入和覆盖。 
+Paste 用剪贴板内容覆盖当前选中区。 
+PlayImage 目前尚未支持。 
+Print 打开打印对话框以便用户可以打印当前页。 
+Redo 重做。 
+Refresh 刷新当前文档。 
+RemoveFormat 从当前选中区中删除格式化标签。 
+RemoveParaFormat 目前尚未支持。 
+SaveAs 将当前 Web 页面保存为文件。 
+SelectAll 选中整个文档。 
+SizeToControl 目前尚未支持。 
+SizeToControlHeight 目前尚未支持。 
+SizeToControlWidth 目前尚未支持。 
+Stop 停止。 
+StopImage 目前尚未支持。 
+StrikeThrough 目前尚未支持。 
+Subscript 目前尚未支持。 
+Superscript 目前尚未支持。 
+UnBookmark 从当前选中区中删除全部书签。 
+Underline 切换当前选中区的下划线显示与否。 
+Undo 撤消。 
+Unlink 从当前选中区中删除全部超级链接。 
+Unselect 清除当前选中区的选中状态。
+&ltHTML>
+        &ltHEAD>
+            &ltTITLE>JavaScript--execCommand指令集*lt/TITLE>
+            &ltSCRIPT LANGUAGE="javascript">
+&lt!--
+/*
+*该function执行copy指令
+*/
+function fn_doufucopy(){
+edit.select();
+document.execCommand('Copy');
+}
+/*
+*该function执行paste指令
+*/
+function fn_doufupaste() {
+tt.focus();
+document.execCommand('paste');
+}
+/*
+*该function用来创建一个超链接
+*/
+function fn_creatlink()
+{
+     document.execCommand('CreateLink',true,'true');//弹出一个对话框输入URL
+     //document.execCommand('CreateLink',false,'http://www.51js.com');
+}
+/*
+*该function用来将选中的区块设为指定的背景色
+*/
+function fn_change_backcolor()
+{
+     document.execCommand('BackColor',true,'#FFbbDD');//true或false都可以
+}
+/*
+*该function用来将选中的区块设为指定的前景色,改变选中区块的字体大小,改变字体,字体变粗变斜
+*/
+function fn_change_forecolor()
+{
+//指定前景色
+document.execCommand('ForeColor',false,'#BBDDCC');//true或false都可以
+//指定背景色
+document.execCommand('FontSize',false,7);      //true或false都可以
+//字体必须是系统支持的字体
+document.execCommand('FontName',false,'标楷体');      //true或false都可以
+//字体变粗
+document.execCommand('Bold');
+//变斜体
+document.execCommand('Italic');
+}
+/*
+*该function用来将选中的区块加上不同的线条
+*/
+function fn_change_selection()
+{
+//将选中的文字加下划线
+document.execCommand('Underline');
+//在选中的文字上划粗线
+document.execCommand('StrikeThrough');
+//将选中的部分文字变细
+document.execCommand('SuperScript');
+//将选中区块的下划线取消掉
+document.execCommand('Underline');
+}
+/*
+     *该function用来将选中的区块排成不同的格式
+     */
+function fn_format()
+{
+//有序列排列
+document.execCommand('InsertOrderedList');
+//实心无序列排列
+document.execCommand('InsertUnorderedList');
+//空心无序列排列
+document.execCommand('Indent');
+}
+/*
+*该function用来将选中的区块剪下或是删除掉
+*/
+function fn_CutOrDel()
+{
+//删除选中的区块
+//document.execCommand('Delete');
+//剪下选中的区块
+document.execCommand('Cut');
+}
+/*
+*该function用来将选中的区块重设为一个相应的物件
+*/
+function fn_InsObj()
+{
+/*
+     ******************************************
+     * 以下指令都是为选中的区块重设一个object;
+     * 如没有特殊说明,第二个参数true或false是一样的;
+     * 参数三表示为该object的id;
+     * 可以用在javascript中通过其指定的id来控制它
+     ******************************************
+*/
+/*重设为一个button(InsertButton和InsertInputButtong一样,
+只不前者是button,后者是input)*/
+/*document.execCommand('InsertButton',false,"aa"); //true或false无效
+document.all.aa.value="风舞九天";*/
+//重设为一个fieldset
+/*document.execCommand('InsertFieldSet',true,"aa");
+document.all.aa.innerText="刀剑如梦";*/
+//插入一个水平线
+//document.execCommand('InsertHorizontalRule',true,"aa");
+//插入一个iframe
+//document.execCommand('InsertIFrame',true,"aa");
+//插入一个InsertImage,设为true时需要图片,false时不需图片
+//document.execCommand('InsertImage',false,"aa");
+//插入一个checkbox
+//document.execCommand('InsertInputCheckbox',true,"aa");
+//插入一个file类型的object
+//document.execCommand('InsertInputFileUpload',false,"aa");
+//插入一个hidden
+/*document.execCommand('InsertInputHidden',false,"aa");
+alert(document.all.aa.id);*/
+//插入一个InputImage
+/*document.execCommand('InsertInputImage',false,"aa");
+document.all.aa.src="F-a10.gif";*/
+//插入一个Password
+//document.execCommand('InsertInputPassword',true,"aa");
+//插入一个Radio
+//document.execCommand('InsertInputRadio',false,"aa");
+//插入一个Reset
+//document.execCommand('InsertInputReset',true,"aa");
+//插入一个Submit
+//document.execCommand('InsertInputSubmit',false,"aa");
+//插入一个input text
+//document.execCommand('InsertInputText',false,"aa");
+//插入一个textarea
+//document.execCommand('InsertTextArea',true,"aa");
+//插入一个 select list box
+//document.execCommand('InsertSelectListbox',false,"aa");
+//插入一个single select
+document.execCommand('InsertSelectDropdown',true,"aa");
+//插入一个line break(硬回车??)
+//document.execCommand('InsertParagraph');
+//插入一个marquee
+/*document.execCommand('InsertMarquee',true,"aa");
+document.all.aa.innerText="bbbbb";*/
+//用于取消选中的阴影部分
+//document.execCommand('Unselect');
+//选中页面上的所有元素
+//document.execCommand('SelectAll');
+}
+/*
+*该function用来将页面保存为一个文件
+*/
+function fn_save()
+{
+//第二个参数为欲保存的文件名
+document.execCommand('SaveAs','mycodes.txt');
+//打印整个页面
+//document.execCommand('print');
+}
+-->
+            &lt/SCRIPT>
+        &lt/HEAD>
+        &ltbody>
+            &ltinput id="edit" value="范例" NAME="edit">&ltbr>
+            &ltbutton onclick="fn_doufucopy()" ID="Button1">Copy&lt/button> 
+            &ltbutton onclick="fn_doufupaste()" ID="Button2">
+                 paste&lt/button>&ltbr>
+            &lttextarea id="tt" rows="10" cols="50" NAME="tt">&lt/textarea>
+            &lthr>
+            &ltbr>
+            浮沉聚散变化又再,但是总可卷土重来.&ltbr>
+            天若有情天亦老,人间正道是沧桑.&ltbr>
+            都怪我,太执着,却也等不到花开叶落.&ltbr>
+            &ltbr>
+            Please select above letters, then click following buttons:&ltbr>
+            &lthr>
+            &ltinput type="button" value="创建CreateLink" 
+            onclick="fn_creatlink()" ID="Button3" NAME="Button3">&ltbr>
+            &ltinput type="button" value="改变文字背景色" 
+            onclick="fn_change_backcolor()" ID="Button4" NAME="Button4">&ltbr>
+            &ltinput type="button" value="改变文字前景色" 
+            onclick="fn_change_forecolor()" ID="Button5" NAME="Button5">&ltbr>
+            &ltinput type="button" value="给文字加线条" 
+            onclick="fn_change_selection()" ID="Button6" NAME="Button6">&ltbr>
+           &ltinput type="button" value="改变文字的排列" 
+           onclick="fn_format()" ID="Button7" NAME="Button7">&ltbr>
+            &ltinput type="button" value="删除或剪下选中的部分"
+             onclick="fn_CutOrDel()" ID="Button8" NAME="Button8">&ltbr>
+            &ltinput type="button" value="插入Object" onclick="fn_InsObj()" 
+            ID="Button9" NAME="Button9">&ltbr>
+            &ltinput type="button" value="保存或打印文件" 
+            onclick="fn_save()" ID="Button10" NAME="Button10">&ltbr>
+            &ltinput type="button" value="测试Refresh属性"
+             onclick="document.execCommand('Refresh')" ID="Button11"
+                 NAME="Button11">
+       &lt/body>
+&lt/HTML>
+普通的方式是激活一个&ltiframe>进入编辑状态，命令如下
+IframeNamer.document.designMode="On"
+字体--宋体、黑体、楷体等
+execCommand("fontname","",字体)
+字号--字号大小
+execCommand("fontsize","",字号)
+加重
+execCommand("Bold")
+斜体
+execCommand("Italic")
+下划线
+execCommand("Underline")
+删除线
+execCommand("StrikeThrough")
+上标
+execCommand("SuperScript")
+下标
+execCommand("SubScript")
+有序排列--数字序号
+execCommand("InsertOrderedList")
+无序排列--圆点序号
+execCommand("InsertUnorderedList")
+向前缩进
+execCommand("Outdent")
+向后缩进
+execCommand("Indent")
+居左
+execCommand("JustifyLeft")
+居右
+execCommand("JustifyRight")
+居中
+execCommand("JustifyCenter")
+剪切
+execCommand("Cut")
+拷贝
+execCommand("Copy")
+粘贴
+execCommand("Paste")
+覆盖
+execCommand("Overwrite")
+取消操作--IE5.0以后可以无限取消
+execCommand("Undo")
+重复操作
+execCommand("Redo")
+设置链接--若按以下写法，在IE5.0版本中会激活一个内建窗口，
+可以完成输入链接的功能，
+而且还可以选择MAILTO、FTP等各种链接类型，比较方便
+execCommand("CreateLink")
+在IE4.0中，没有内建链接输入窗口，所以就需要用以下方式嵌入链接
+execCommand("CreateLink","",TURL)
+插入图片--由于IE中嵌入的可编控件是针对本地资源的，
+所以其默认的图片资源来自本地，所以基于WEB内容的编辑最好自己做输入框，然后用如下命令实现。
+execCommand("InsertImage","",ImgURL)
+字体颜色
+execCommand("ForeColor","",CColor)
+</pre>

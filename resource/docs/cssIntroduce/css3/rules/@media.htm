@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS @media</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:15.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/rules/@media.htm">http://www.phpstudy.net/css3/rules/@media.htm</a><br>
+<b>Title:</b> CSS @media &nbsp;&bull;&nbsp; <b>Size:</b> 7753 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="http://www.phpstudy.net/css3/index.htm">语法与规则列表</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/rules/?" class="target">
+				<strong>其它语法与规则参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="!important.htm">!important</a></li>
+					<li><a href="comment.htm">comment</a></li>
+					<li><a href="@import.htm">@import</a></li>
+					<li><a href="@charset.htm">@charset</a></li>
+					<li><a href="@media.htm">@media</a></li>
+					<li><a href="@font-face.htm">@font-face</a></li>
+					<li><a href="@page.htm">@page</a></li>
+					<li><a href="@keyframes.htm">@keyframes</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">@media</h1>
+	<ul class="info">
+		<li><strong>版本：CSS2/CSS3</strong></li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>@media</strong>：<a href="#dfn-syntax">&lt;media_query_list&gt;</a><p>
+			<p id="dfn-syntax"><strong>&lt;media_query_list&gt;</strong>：[<a href="#dfn-syntax2">&lt;media_query&gt;</a>[',' <a href="#dfn-syntax2">&lt;media_query&gt;</a>]*]?<p>
+			<p id="dfn-syntax2"><strong>&lt;media_query&gt;</strong>：[only | not]? <a href="../appendix/media-types.htm">&lt;media_type&gt;</a> [and <a href="#dfn-syntax3">&lt;expression&gt;</a>]* | <a href="#dfn-syntax3">&lt;expression&gt;</a> [and <a href="#dfn-syntax3">&lt;expression&gt;</a>]*</p>
+			<p id="dfn-syntax3"><strong>&lt;expression&gt;</strong>：'('<a href="http://www.phpstudy.net/css3/properties/media-queries/index.htm#media-features-listing">&lt;media_feature&gt;</a>[:&lt;value&gt;]?')'</p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt><a href="../appendix/media-types.htm">&lt;media_type&gt;</a>：</dt>
+				<dd>指定设备类型。媒体类型包括：参阅<a href="../appendix/media-types.htm">媒体类型</a>。(CSS2)</dd>
+				<dt>&lt;expression&gt;：</dt>
+				<dd>指定媒体查询使用的媒体特性。这类似于CSS属性，如：max-width:960px。(CSS3)</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>指定样式表规则用于指定的媒体类型和查询条件。</strong>
+			<ul>
+				<li><em class="glight">IE8及以下只能实现CSS2中的部分，即只可以设置媒体类型。</em></li>
+				<li>
+					<p>媒体查询可以被用在CSS中的@media和@import规则上，也可以被用在HTML和XML中。</p>
+					<div class="gquote">
+						<p class="gquote-tit"><strong>示例代码：</strong></p>
+						<blockquote class="gquote-cont"><pre><code>@media screen and (width:800px){ … }
+@import url(example.css) screen and (width:800px);
+&lt;link media="screen and (width:800px)" rel="stylesheet" href="example.css" /&gt;
+&lt;?xml-stylesheet media="screen and (width:800px)" rel="stylesheet" href="example.css" ?&gt;</code></pre></blockquote>
+					</div>
+				</li>
+				<li class="gquote">
+					<p class="gquote-tit"><strong>列举几种使用方式：</strong></p>
+					<blockquote class="gquote-cont"><pre><code>@media all and (width:1024px){
+	body{color:#f00;}
+}
+@media all and (device-height:800px){ … }
+@media all and (orientation:landscape){ … }
+@media all and (device-aspect-ratio:16/10){ … }
+@media all and (min-color:1){ … }
+@media all and (monochrome:0){ … }
+@media all and (grid:0){ … }</code></pre></blockquote>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性(指定媒体类型)：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="partsupport">6.0-8.0 <sup><a href="#support1">#1</a></sup></td>
+						<td rowspan="2" class="support">4.0</td>
+						<td rowspan="2" class="support">5.1</td>
+						<td rowspan="2" class="support">13.0</td>
+						<td rowspan="2" class="support">11.50</td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="support">9.0</td>
+					</tr>
+				</tbody>
+			</table>
+			<ol class="support-info">
+				<li id="support1">IE8及更早浏览器不支持媒体查询。</li>
+			</ol>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS @media_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+.test,.test2{display:none;}
+/* 本条为CSS2部分，IE8及以下只支持本条 */
+@media screen{
+	body{color:#f00;}
+}
+/* 下列为CSS3部分 */
+@media screen and (min-width:960px){
+	body{background:#999;}
+}
+@media screen and (device-width:1024px){
+	.test{display:block;}
+}
+@media screen and (width:1024px){
+	.test2{display:block;}
+}
+</style>
+</head>
+<body>
+<div>Media Queries媒体查询</div>
+<div class="test">如果你的显示器水平分辨率为1024px的话将能看到本条规则的效果（取决于输出设备屏幕分辨率的大小，不随包括浏览器在内的窗体大小而改变）</div>
+<div class="test2">如果视口宽度为1024px的话将能看到本条规则的效果（随包括浏览器在内的窗体大小而改变）</div>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../js/phpstudy.js"></script>
+<script src="../js/style.js"></script>
+</body>
+</html>

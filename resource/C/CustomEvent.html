@@ -1,0 +1,79 @@
+<div class="_page _mdn"><h1>CustomEvent</h1><p>The DOM <code>CustomEvent</code> are events initialized by an application for any purpose.</p> <h2 id="Method_overview" name="Method_overview">Method overview</h2> <table class="standard-table"><tbody><tr>
+    <td><code>void <a href="#initCustomEvent()">initCustomEvent</a>(in DOMString type, in boolean canBubble, in boolean cancelable, in any detail);</code></td> </tr></tbody></table><h2 id="Attributes" name="Attributes">Attributes</h2> <table class="standard-table"><tbody>
+<tr>
+    <th>Attribute</th> <th>Type</th> <th>Description</th> </tr>
+<tr>
+    <td><code>detail</code></td> <td><code>any</code></td> <td>The data passed when initializing the event.</td> </tr>
+</tbody></table><h2 id="Methods" name="Methods">Methods</h2> <h3 id="initCustomEvent()" name="initCustomEvent()">initCustomEvent()</h3> <p>Initializes the event in a manner analogous to the similarly-named method in the DOM Events interfaces.</p> <pre class="eval">void initCustomEvent(
+  in DOMString type,
+  in boolean canBubble,
+  in boolean cancelable,
+  in any detail
+);
+</pre> <h4 id="Parameters" name="Parameters">Parameters</h4> <dl>
+    <dt> <code>type</code>
+    </dt> <dd> The name of the event.</dd> <dt> <code>canBubble</code>
+</dt> <dd> A boolean indicating whether the event bubbles up through the DOM or not.</dd> <dt> <code>cancelable</code>
+</dt> <dd> A boolean indicating whether the event is cancelable.</dd> <dt> <code>detail</code>
+</dt> <dd> The data passed when initializing the event.</dd> </dl><h2 id="Constructor">Constructor</h2> <p>The <a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html">DOM4 specification</a> has added support for the <code>CustomEvent</code> constructor.</p> <pre>CustomEvent(
+  DOMString type,
+  optional CustomEventInit eventInitDict
+)
+</pre> <h3 id="Parameters" name="Parameters">Parameters</h3> <dl>
+    <dt> <code>type</code>
+    </dt> <dd> The name of the event.</dd> <dt> <code>eventInitDict</code>
+</dt> <dd> An object which provides properties for the event. Check out <a href="#CustomEventInit">CustomEventInit</a> section for details.</dd> </dl><h4 id="CustomEventInit" name="CustomEventInit">CustomEventInit</h4> <dl>
+    <dt> <code>bubbles</code>
+    </dt> <dd> A boolean indicating whether the event bubbles up through the DOM or not. (default: <code>false</code>)</dd> <dt> <code>cancelable</code>
+</dt> <dd> A boolean indicating whether the event is cancelable. (default: <code>false</code>)</dd> <dt> <code>detail</code>
+</dt> <dd> The data passed when initializing the event.</dd> </dl><h3 id="CustomEvent_example_usage" name="CustomEvent_example_usage">CustomEvent example usage</h3>  <pre class=" language-javascript"><span class="token comment" spellcheck="true">// add an appropriate event listener
+</span>obj<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">"cat"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">process<span class="token punctuation">(</span></span>e<span class="token punctuation">.</span>detail<span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// create and dispatch the event
+</span><span class="token keyword">var</span> event <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CustomEvent</span><span class="token punctuation">(</span><span class="token string">"cat"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token string">"detail"</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">"hazcheeseburger"</span><span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span><span class="token function">dispatchEvent<span class="token punctuation">(</span></span>event<span class="token punctuation">)</span><span class="token punctuation">;</span></pre> <h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+    <th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+    <td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td>6</td> <td>9</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>
+    <span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span> (533.3)</td> </tr>
+<tr>
+    <td>
+        <code>CustomEvent()</code> constructor</td> <td>15</td> <td>11</td> <td><span style="color: #f00;">Not supported</span></td> <td>11.60</td> <td>
+    <em>Nightly build</em> (535.2)</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+    <th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+    <td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h3 id="Gecko_notes">Gecko notes</h3> <p>It's represented by the <code><a href="https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIDOMCustomEvent" title="">nsIDOMCustomEvent</a></code> interface, which extends the <code><a href="https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIDOMEvent" title="">nsIDOMEvent</a></code> interface.</p> <h2 id="Polyfill">Polyfill</h2> <p>You can polyfill the CustomEvent() constructor functionality in Internet Explorer 9 and 10 with the following code:</p> <pre class=" language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">function</span> CustomEvent <span class="token punctuation">(</span> event<span class="token punctuation">,</span> params <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    params <span class="token operator">=</span> params <span class="token operator">||</span> <span class="token punctuation">{</span> bubbles<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> cancelable<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> detail<span class="token punctuation">:</span> undefined <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> evt <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createEvent<span class="token punctuation">(</span></span> <span class="token string">'CustomEvent'</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    evt<span class="token punctuation">.</span><span class="token function">initCustomEvent<span class="token punctuation">(</span></span> event<span class="token punctuation">,</span> params<span class="token punctuation">.</span>bubbles<span class="token punctuation">,</span> params<span class="token punctuation">.</span>cancelable<span class="token punctuation">,</span> params<span class="token punctuation">.</span>detail <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> evt<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  CustomEvent<span class="token punctuation">.</span>prototype <span class="token operator">=</span> window<span class="token punctuation">.</span>CustomEvent<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+
+  window<span class="token punctuation">.</span>CustomEvent <span class="token operator">=</span> CustomEvent<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre> <h2 id="Specification" name="Specification">See also</h2> <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Code_snippets/Interaction_between_privileged_and_non-privileged_pages" title="/en-US/docs/Code_snippets/Interaction_between_privileged_and_non-privileged_pages">Interaction between privileged and non-privileged pages</a></li> <li><a href="window.postmessage" title="/en-US/docs/Web/API/window.postMessage">Window.postMessage</a></li> </ul><h2 id="Specification" name="Specification">Specification</h2> <ul>
+    <li>
+        <a href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#interface-customevent">DOM4 : Interface CustomEvent</a><span style="color: #fff; background: #e61919; display: inline-block; font-size: x-small; margin-left: 6px; white-space: nowrap; padding: 2px 5px;" title="Editor's Draft (unofficial)">ED</span>
+    </li> <li>
+    <a href="http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html#interface-CustomEvent">DOM Level 3 Events : CustomEvent</a><span style="color: #fff; background: #e66e33; display: inline-block; font-size: x-small; margin-left: 6px; white-space: nowrap; padding: 2px 5px;" title="Working Draft">WD</span>
+</li> </ul><div class="_attribution">
+    <p class="_attribution-p">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent$edit" class="_attribution-link">Edit this page on MDN</a>
+    </p>
+</div>
+    <div class="_attribution">
+        <p class="_attribution-p">
+            © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent</a>
+        </p>
+    </div>
+</div>

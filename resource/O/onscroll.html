@@ -1,0 +1,81 @@
+<div class="_content"><div class="_page _mdn"><h1>window.onscroll</h1>  <p>Specifies the function to be called when the window is scrolled.</p> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="syntaxbox">window.onscroll = <var>funcRef</var>;
+</pre> <ul>
+<li>
+<code><var>funcRef</var></code> is a reference to a function.</li> </ul><h2 id="Example" name="Example">Examples</h2> <h3 id="Example_1.3A_Generic">Example 1: Generic</h3> <pre class=" language-javascript">window<span class="token punctuation">.</span>onscroll <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>oEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // called when the window is scrolled.
+</span><span class="token punctuation">}</span>
+</pre> <h3 id="Example_2.3A_Detecting_a_scroll">Example 2: Detecting a scroll</h3> <p>The following example will launch an <a href="window.alert" title="DOM/window.alert"><code>alert</code></a> dialog whenever the page is scrolled.</p> <pre class=" language-markup">&lt;!doctype html&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Content-Type<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/html; charset<span class="token punctuation">=</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>onscroll test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+window<span class="token punctuation">.</span>onscroll <span class="token operator">=</span> scroll<span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> scroll <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"scroll event detected! "</span> <span class="token operator">+</span> window<span class="token punctuation">.</span>pageXOffset <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> window<span class="token punctuation">.</span>pageYOffset<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true"> // note: you can use window.innerWidth and window.innerHeight to access the width and height of the viewing area
+</span><span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Resize the window<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>to a very small size,<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>and use the scrollbars<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>to move around the page content<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>in the window.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</pre> <h3 id="Example_3.3A_Showing_a_link_to_the_top_of_the_page_after_a_scroll">Example 3: Showing a link to the top of the page after a scroll</h3> <p>The following example will show a link to the top of the page whenever the vertical scroll exceeds 500 pixels.</p> <pre class=" language-markup">&lt;!doctype html&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Content-Type<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/html; charset<span class="token punctuation">=</span>UTF-8<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>MDN Example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token keyword">var</span> bAppended <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span> oBookmark <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">"div"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+oBookmark<span class="token punctuation">.</span>id <span class="token operator">=</span> <span class="token string">"arrowUp"</span><span class="token punctuation">;</span>
+oBookmark<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">"&lt;a href=\"#\" title=\"Top of the page.\"&gt;&amp;uarr;&lt;\/a&gt;"</span><span class="token punctuation">;</span>
+ 
+onscroll <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> nVScroll <span class="token operator">=</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>scrollTop <span class="token operator">||</span> document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>scrollTop<span class="token punctuation">;</span>
+  bAppended <span class="token operator">=</span> nVScroll <span class="token operator">&gt;</span> <span class="token number">500</span> <span class="token operator">?</span>
+    bAppended <span class="token operator">||</span> <span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild<span class="token punctuation">(</span></span>oBookmark<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+    <span class="token punctuation">:</span> bAppended <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">removeChild<span class="token punctuation">(</span></span>oBookmark<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+<span class="token style"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token selector">#arrowUp </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> fixed<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+  <span class="token property">right</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 48px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">#arrowUp a </span><span class="token punctuation">{</span>
+  <span class="token property">text-decoration</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> black<span class="token punctuation">;</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> serif<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Page content here!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span></pre> <h2 id="Notes" name="Notes">Notes</h2> <p><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=189308" title="FIXED: javascript &lt;body onscroll&gt; -event don't work with mouse scroll, mouse wheel or keyboard arrow">bug 189308</a>, in older versions of Gecko caused onscroll to be fired only when dragging the scroll bar, not when using cursor keys or mousewheel. This was fixed in Gecko 1.8/Firefox 1.5.</p> <p>When the window.scrollX/scrollY isn't 0 -- meaning that some scrolling occurred by either script or manual action -- reloading the current page will trigger the onscroll event immediately.</p> <h2 id="Specification" name="Specification">Specification</h2> <ul>
+<li><a href="http://www.w3.org/TR/html5/webappapis.html#event-handlers-on-elements-document-objects-and-window-objects" title="http://www.w3.org/TR/html5/webappapis.html#event-handlers-on-elements-document-objects-and-window-objects">HTML5: Event handlers on elements, Document objects, and Window objects</a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.onscroll$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.onscroll" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/window.onscroll</a>
+  </p>
+</div>
+</div></div>

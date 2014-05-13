@@ -1,0 +1,142 @@
+<div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p>XMLHttpRequest Level 2添加了一个新的接口<code>FormData</code>.利用<code>FormData对象</code>,我们可以通过JavaScript用一些键值对来模拟一系列表单控件,我们还可以使用XMLHttpRequest的<a href="../../../DOM/XMLHttpRequest#send%28%29" title="zh-CN/XMLHttpRequest#send()"><code>send()</code></a>方法来异步的提交这个"表单".比起普通的ajax,使用<code>FormData</code>的最大优点就是我们可以异步上传一个二进制文件.</p>
+<p>想要更详细的了解如何使用<code>FormData</code>对象, 请查看<a href="../../../../zh-CN/DOM/XMLHttpRequest/FormData/Using_FormData_Objects" title="zh-CN/DOM/XMLHttpRequest/FormData/Using_FormData_objects">使用FormData对象</a>.</p>
+<h2 id="Syntax" name="Syntax">构造函数</h2>
+<pre class="syntaxbox"><code>new FormData (optional </code><code>HTMLFormElement form</code><code>)</code></pre>
+<h3 id="Parameters" name="Parameters">参数</h3>
+<dl>
+  <dt>
+    <code>form</code></dt>
+  <dd>
+    (可选) 一个HTML表单元素,可以包含任何形式的表单控件,包括文件输入框.</dd>
+</dl>
+<h2 id=".E6.96.B9.E6.B3.95">方法</h2>
+<h3 id="append()">append()</h3>
+<p>给当前<code>FormData对象添加一个键/值对</code>.</p>
+<pre>void <a href="/zh-CN/DOM/XMLHttpRequest/FormData#append()" title="zh-CN/DOM/XMLHttpRequest/FormData#append()">append</a>(DOMString name, Blob value, optional DOMString filename);
+void <a href="/zh-CN/DOM/XMLHttpRequest/FormData#append()" title="zh-CN/DOM/XMLHttpRequest/FormData#append()">append</a>(DOMString name, DOMString value);</pre>
+<h6 id=".E5.8F.82.E6.95.B0.E5.80.BC">参数值</h6>
+<dl>
+  <dt>
+    <code>name</code></dt>
+  <dd>
+    字段名称.</dd>
+  <dt>
+    <code>value</code></dt>
+  <dd>
+    字段值.可以是,或者一个字符串,如果全都不是,则该值会被自动转换成字符串.</dd>
+  <dt>
+    <code>filename</code></dt>
+  <dd>
+    (可选) 指定文件的文件名,当<code>value</code>参数被指定为一个<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或者一个<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象时,该文件名会被发送到服务器上,对于<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象来说,这个值默认为"blob".</dd>
+</dl>
+<div class="note">
+  <p><strong>注:</strong>如果你将一个<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象作为字段值添加到一个<code>FormData</code>对象中,则在使用Ajax将这个<code>FormData</code>对象提交到服务器上时,提交数据中代表对应文件的文件名的"Content-Disposition"字段的值可能会因浏览器的不同而不同,规范中规定为"blob",Gecko早期实现版本中为空字符串,查看下面的Gecko附注.</p>
+</div>
+<h2 id=".E6.B5.8F.E8.A7.88.E5.99.A8.E5.85.BC.E5.AE.B9.E6.80.A7">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+</div><p></p>
+<div id="compat-desktop">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>7+</td>
+        <td>4.0 (2.0)</td>
+        <td>10+</td>
+        <td>12+</td>
+        <td>5+</td>
+      </tr>
+      <tr>
+        <td>支持<code>filename</code>参数</td>
+        <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td>
+        <td>22.0 (22.0)</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="compat-mobile">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Chrome for Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE Mobile</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>3.0</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>4.0 (2.0)</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>
+          <p>12+</p>
+        </td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+      <tr>
+        <td>支持<code>filename</code>参数</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td>22.0 (22.0)</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<h3 id="Gecko.E9.99.84.E6.B3.A8">Gecko附注</h3>
+<p>在Gecko 7.0 (Firefox 7.0 / Thunderbird 7.0 / SeaMonkey 2.4)之前,如果你将<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象作为数据添加到一个<code>FormData</code>对象中,则在使用Ajax将这个<code>FormData</code>对象提交到服务器上时,所发送的HTTP请求头中代表那个<code>Blob</code>对象所包含文件的文件名称的"Content-Disposition"请求头的值会是一个空字符串,这会引发某些服务器程序上的错误.从Gecko 7.0开始,这种情况下发送的文件名称改为"blob"这个字符串.</p>
+<h2 id="Specification" name="Specification">规范</h2>
+<ul>
+  <li><a class="external" href="http://www.w3.org/TR/XMLHttpRequest2/#interface-formdata" title="http://www.w3.org/TR/XMLHttpRequest2/#interface-formdata">W3C Specification</a></li>
+  <li><a class="external" href="http://xhr.spec.whatwg.org/#interface-formdata" title="http://xhr.spec.whatwg.org/#interface-formdata">WHATWG Specification</a></li>
+</ul>
+<h2 id=".E7.9B.B8.E5.85.B3.E9.93.BE.E6.8E.A5">相关链接</h2>
+<ul>
+  <li><a href="/zh-CN/docs/DOM/XMLHTTPRequest" title="XMLHttpRequest 是一个 JavaScript 对象,它最初由微软设计,随后被 Mozilla,Apple, 和 Google采纳. 如今,该对象已经被 W3C组织标准化. 通过它,你可以很容易的取回一个URL上的资源数据. 尽管名字里有XML, 但XMLHttpRequest 可以取回所有类型的数据资源,并不局限于XML. 而且除了HTTP ,它还支持file 和 ftp 协议."><code>XMLHTTPRequest</code></a></li>
+  <li><a href="/zh-CN/DOM/XMLHttpRequest/Using_XMLHttpRequest" title="zh-CN/Using XMLHttpRequest">Using XMLHttpRequest</a></li>
+  <li><a href="/zh-CN/DOM/XMLHttpRequest/FormData/Using_FormData_Objects" title="zh-CN/DOM/XMLHttpRequest/FormData/Using_FormData_objects">Using FormData objects</a></li>
+  <li><a class="new" href="/zh-CN/docs/HTML/Element/form" title="This article hasn't been written yet. Please consider contributing!"><code>&lt;form&gt;</code></a></li>
+</ul>
+                                    </article>
+
+                      <!-- attachments list -->
+            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a>,
+                  <time datetime="2013-06-12T20:12:45-07:00">Jun 12, 2013 8:12:45 PM</time>
+                </div>
+                          </div>
+                  </div>

@@ -1,0 +1,25 @@
+<pre>
+	定义和用法
+max() 方法可返回两个指定的数中带有较大的值的那个数。
+语法
+Math.max(x...)
+参数	描述
+x	0 或多个值。在 ECMASCript v3 之前，该方法只有两个参数。
+返回值
+参数中最大的值。如果没有参数，则返回 -Infinity。如果有某个参数为 NaN，或是不能转换成数字的非数字值，则返回 NaN。
+实例
+在本例中，我们将展示如何使用 max() 来返回指定数字中带有最高值的数字：
+&ltscript type="text/javascript">
+
+document.write(Math.max(5,7) + "&ltbr />")
+document.write(Math.max(-3,5) + "&ltbr />")
+document.write(Math.max(-3,-5) + "&ltbr />")
+document.write(Math.max(7.25,7.30))
+
+&lt/script>
+输出：
+7
+5
+-3
+7.3
+</pre>

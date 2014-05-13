@@ -1,0 +1,99 @@
+SourceBuffer对象
+代表包含媒体数据的缓冲区MediaSource的对象。
+重要的是无法在Windows 7支持在Internet Explorer 11这个对象。
+
+句法
+
+ 
+无功缓冲= oMediaSource.addSourceBuffer（“MIME类型”）; 
+
+DOM的信息
+
+继承层次结构
+该SourceBuffer不会从任何类或接口继承。
+会员
+
+该SourceBuffer对象有这些类型的成员：
+活动
+方法
+属性
+活动
+该SourceBuffer对象有这些事件。
+事件	描述
+退出	
+当追加或删除操作是通过调用中断发生时中止 。
+错误	
+当错误追加操作过程中发生发生。
+更新	
+当追加或删除操作已成功完成时发生。
+updateend	
+当追加或删除操作结束时发生。
+updatestart	
+当源缓冲区更新时发生。
+方法
+该SourceBuffer对象有这些方法。
+方法	描述
+退出	
+中止当前的媒体段的处理。
+调用addEventListener	
+注册一个事件处理程序指定的事件类型。
+appendBuffer	
+将指定媒体段的SourceBuffer。
+appendStream	
+从追加指定的流媒体业务的数据到SourceBuffer。
+则dispatchEvent	
+将事件发送到当前元素。
+清除	
+通过移除指定的时间范围从SourceBuffer定义的媒体片段。
+removeEventListener	
+删除的事件处理程序调用addEventListener方法注册。
+属性
+该SourceBuffer对象具有这些属性。
+属性	描述
+appendWindowEnd
+获取或设置的时间戳附加窗口的结束。
+appendWindowStart
+获取或设置时间戳追加窗口的开始。
+audioTracks
+返回一个AudioTrackList对象与音轨对于一个给定的视频元素。
+缓冲
+获取缓冲的时间范围的集合。
+timestampOffset
+获取或设置时间戳追加到SourceBuffer媒体片段偏移。
+更新
+获取一个值，该值指定是否appendBuffer ， appendStream或删除正在进行中。
+备注
+
+W3C媒体来源的扩展规范。
+示例
+
+此示例获取视频对象，创建一个新的MediaSource的对象，而分配MediaSource的对象的SRC视频对象（源）。 然后，它创建一个videoSource缓冲区。
+JavaScript的
+ 
+  功能 setupVideo（）{
+	      / /获得htmlvideoelement
+       无功 videoElement =的document.getElementById（“MYVIDEO”）;  
+
+       / /创建媒体来源
+       MediaSource的= 新 （window.MediaSource | | window.WebKitMediaSource）（）;
+       无功的url = URL.createObjectURL（MediaSource的）;
+       videoElement.src =网址;
+ 
+       / /添加源缓冲区时MediaSource的准备
+       mediaSource.addEventListener（'sourceopen'， 功能 （E）{
+         尝试 {
+           videoSource = mediaSource.addSourceBuffer（'video/mp4'）;
+           initVideo（）; / /初始化的东西
+         } 赶上 （五）{
+          登录（'异常呼叫addSourceBuffer视频'，E）;
+           返回 ;
+         }
+       }）;
+
+另请参阅
+
+activeSourceBuffers
+addSourceBuffer
+sourceBuffers
+构建一个简单的流媒体播放器
+建立日期：2014年1月17日

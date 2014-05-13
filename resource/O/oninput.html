@@ -1,0 +1,22 @@
+用onpropertychange,oninput事件解决onchange事件的不足.
+
+onchange在用于文本框输入框时,有一个明显的不足. 事件不会随着文字的输入而触发,而是等到文本框失去焦点(onblur)时才会触发. 也就是没有即时性!
+
+在IE下,可以用onpropertychange来代替onchange事件,当文本框有任何变化时,能立即触发此事件.
+
+这样一来问题就解决了.
+
+那其他浏览器呢,onpropertychange可是IE的专利. 接下来就是oninput事件了.
+
+但是oninput有个诡异,必须用addEventListener的方式来绑定事件.否则无效.
+
+因此，稍微研究了一下oninput,onpropertychange,onchange的区别和用法，以及onpropertychange在ie浏览器下的一个bug。
+ 
+2、oninput,onpropertychange,onchange的用法
+l          onchange触发事件必须满足两个条件：
+a）当前对象属性改变，并且是由键盘或鼠标事件激发的（脚本触发无效）
+b）当前对象失去焦点(onblur)；
+l          onpropertychange的话，只要当前对象属性发生改变，都会触发事件，但是它是IE专属的；
+l          oninput是onpropertychange的非IE浏览器版本，支持firefox和opera等浏览器，但有一点不同，它绑定于对象时，并非该对象所有属性改变都能触发事件，它只在对象value值发生改变时奏效。
+ 
+在textarea中，如果想捕获用户的键盘输入，用onkeyup检查事件就可以了，但是onkeyup并不支持复制和粘贴，因此需要动态监测textarea中值的变化，这就需要onpropertychange（用在IE浏览器）和oninput（非IE浏览器）结合在一起使用了。

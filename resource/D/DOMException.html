@@ -1,0 +1,86 @@
+<div id="maincontent">
+
+<h1>XML DOM - DOMException 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_documenttype.asp" title="XML DOM DocumentType 对象">DOM DocumentType</a></li>
+<li class="next"><a href="/xmldom/dom_domimplementation.asp" title="XML DOM Implementation 对象">DOM Implementation</a></li>
+</ul>
+</div>
+
+<div id="intro">
+<p><strong>通知核心 DOM 对象的异常或通知。</strong></p>
+</div>
+
+<div>
+<h2>常量</h2>
+
+<p>下面的常量定义了 DOMException 对象的 <a href="#property_code">code</a> 属性的合法值。</p>
+<p class="note"><span>注释：</span>这些常量是 DOMException 的静态属性，不是个别异常对象的属性。</p>
+
+<h3>INDEX_SIZE_ERR</h3>
+<p>说明数组或字符串下标的溢出错误。</p>
+
+<h3>DOMSTRING_SIZE_ERR</h3>
+<p>说明请求的文本太大，文本的指定范围不适合 DOMString。</p>
+
+<h3>HIERARCHY_REQUEST_ERR</h3>
+<p>说明发生了要把节点放在文档树层次中的不合法位置的操作。</p>
+
+<h3>WRONG_DOCUMENT_ERR</h3>
+<p>说明发生了从创建节点的文档以外的文档使用使用该节点的操作。</p>
+
+<h3>INVALID_CHARACTER_ERR</h3>
+<p>说明（比如在元素名中）使用了不合法的字符。</p>
+
+<h3>NO_DATA_ALLOWED_ERR</h3>
+<p>为不支持数据的 Node 指定数据。</p>
+
+<h3>NO_MODIFICATION_ALLOWED_ERR</h3>
+<p>说明发生了修改只读的、不允许修改的节点的操作。</p>
+
+<h3>NOT_FOUND_ERR</h3>
+<p>说明在期望的位置没有找到指定的节点</p>
+
+<h3>NOT_SUPPORTED_ERR</h3>
+<p>说明当前的 DOM 实现不支持某个属性或方法。</p>
+
+<h3>INUSE_ATTRIBUTE_ERR</h3>
+<p>说明在一个 Attr 节点已经关联到另一个 Element 节点时，发生了把一个 Attr 节点关联到另一个 Element 节点的操作。</p>
+
+<h3>INVALID_STATE_ERR</h3>
+<p>说明使用了处于不允许使用状态或不再允许使用状态的对象。</p>
+
+<h3>SYNTAX_ERR</h3>
+<p>说明指定的错误含有语法错误。通常由 CSS 属性声明使用。</p>
+
+<h3>INVALID_MODIFICATION_ERR</h3>
+<p>说明发生了修改 CSSRule 对象或 CSSValue 对象的操作。</p>
+
+<h3>NAMESPACE_ERR</h3>
+<p>说明有涉及元素或属性的命名空间的错误。</p>
+
+<h3>INVALID_ACCESS_ERR</h3>
+<p>说明以一种当前的实现不支持的方法访问对象。</p>
+</div>
+
+<div>
+<h2 id="property_code">code 属性</h2>
+<p>出错代码。提供了引发异常的原因的详细情况。该属性的合法值（和它们的含义）由前面列出的常量定义。</p>
+</div>
+
+<div>
+<h2>描述</h2>
+<p>当错误使用或在不适合的环境中使用某个 DOM 属性或方法时，就会抛出一个 DOMException 对象。code 属性的值说明了发生的异常的一般类型。注意，读写对象的属性或调用对象的方法时，都有可能抛出 DOMException 对象。</p>
+<p>在 W3School 提供的 XML DOM 参考手册中，对象的属性和方法的描述部分列出了可能抛出的异常。</p>
+<p>注意，并非 DOM 中的所有异常都由 DOMException 通知：涉及 DOM Range 模块的异常，会导致抛出 RangeException 异常。</p>
+</div>
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_documenttype.asp" title="XML DOM DocumentType 对象">DOM DocumentType</a></li>
+<li class="next"><a href="/xmldom/dom_domimplementation.asp" title="XML DOM Implementation 对象">DOM Implementation</a></li>
+</ul>
+</div>
+</div>

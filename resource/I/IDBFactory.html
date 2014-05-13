@@ -1,0 +1,56 @@
+<div class="_content"><div class="_page _mdn"><h1>IDBFactory</h1> <div class="summary"> <p>The <code>IDBFactory</code> interface of the <a href="https://developer.mozilla.org/en-US/docs/IndexedDB">IndexedDB API</a> lets applications asynchronously access the indexed databases. The object that implements the interface is <code>window.indexedDB</code>. You open — that is, create and access — and delete a database with the object and not directly with <code>IDBFactory</code>.</p> </div> <h2 id="Methods">Methods</h2> <dl>
+<dt> <a href="idbfactory.open" title="The open operation—which is performed in a separate thread—consists of the following steps:"><code>IDBFactory.open</code></a>
+</dt> <dd> The current method to request opening a <a href="https://developer.mozilla.org/en-US/docs/IndexedDB#gloss_database_connection">connection to a database</a>.</dd> <dt> <code><a href="idbfactory.open-obsolete">IDBFactory.open</a></code> 
+</dt> <dd> An obsolete method to request opening a <a href="https://developer.mozilla.org/en-US/docs/IndexedDB#gloss_database_connection">connection to a database</a>, still implemented by some browsers.</dd> <dt> <a href="idbfactory.deletedatabase" title="The deletion operation (performed in a different thread) consists of the following steps:"><code>IDBFactory.deleteDatabase</code></a>
+</dt> <dd> A method to request the deletion of a database.</dd> <dt> <a href="idbfactory.cmp" title="This method may raise a DOMException with a DOMError of the following types:"><code>IDBFactory.cmp</code></a>
+</dt> <dd> A method that compares two keys and returns a result indicating which one is greater in value.</dd> </dl><h2 id="Example">Example</h2> <p>In the following code snippet, we open a database asynchronously and make a request:</p> <pre class=" language-javascript"><span class="token comment" spellcheck="true">// In the following line, you should include the prefixes of implementations you want to test.
+</span>  window<span class="token punctuation">.</span>indexedDB <span class="token operator">=</span> window<span class="token punctuation">.</span>indexedDB <span class="token operator">||</span> window<span class="token punctuation">.</span>mozIndexedDB <span class="token operator">||</span> window<span class="token punctuation">.</span>webkitIndexedDB <span class="token operator">||</span> window<span class="token punctuation">.</span>msIndexedDB<span class="token punctuation">;</span>
+ <span class="token comment" spellcheck="true"> // DON'T use "var indexedDB = ..." if you're not in a function.
+</span> <span class="token comment" spellcheck="true"> // Moreover, you may need references to some window.IDB* objects:
+</span>  window<span class="token punctuation">.</span>IDBTransaction <span class="token operator">=</span> window<span class="token punctuation">.</span>IDBTransaction <span class="token operator">||</span> window<span class="token punctuation">.</span>webkitIDBTransaction <span class="token operator">||</span> window<span class="token punctuation">.</span>msIDBTransaction<span class="token punctuation">;</span>
+  window<span class="token punctuation">.</span>IDBKeyRange <span class="token operator">=</span> window<span class="token punctuation">.</span>IDBKeyRange <span class="token operator">||</span> window<span class="token punctuation">.</span>webkitIDBKeyRange <span class="token operator">||</span> window<span class="token punctuation">.</span>msIDBKeyRange<span class="token punctuation">;</span>
+ <span class="token comment" spellcheck="true"> // (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
+</span>
+ <span class="token comment" spellcheck="true"> // Let us open version 4 of our database
+</span>  <span class="token keyword">var</span> request <span class="token operator">=</span> window<span class="token punctuation">.</span>indexedDB<span class="token punctuation">.</span><span class="token function">open<span class="token punctuation">(</span></span><span class="token string">"toDoList"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment" spellcheck="true"> // these two event handlers act on the database being opened successfully, or not
+</span>  request<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Error loading database.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ 
+  request<span class="token punctuation">.</span>onsuccess <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    note<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;li&gt;Database initialised.&lt;/li&gt;'</span><span class="token punctuation">;</span>
+    
+   <span class="token comment" spellcheck="true"> // store the result of opening the database in the db variable. This is used a lot later on, for opening transactions and suchlike.
+</span>    db <span class="token operator">=</span> request<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</pre> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/IndexedDB/raw-file/tip/Overview.html#idl-def-IDBFactory" lang="en" title="The definition of 'The IndexedDB specification, IDBFactory section' in that specification.">Indexed Database API</a></td> <td><span class="spec-CR">Candidate Recommendation</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>12<span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span><br> 24</td> <td>10.0 (10.0)</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>Firefox OS</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td>4.4</td> <td>6.0 (6.0)</td> <td>1.0.1</td> <td>10</td> <td>17</td> <td><span style="color: #f00;">Not supported</span></td> </tr>
+</tbody></table>
+</div>  <div class="warning"> <p>Be careful in Chrome as it still implements the old specification along the new one. Similarly it still has the prefixed <code>webkitIndexedDB</code> property even if the unprefixed <code>indexedDB</code> is present.</p> </div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBFactory$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/IDBFactory" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/IDBFactory</a>
+  </p>
+</div>
+</div></div>

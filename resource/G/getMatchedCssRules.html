@@ -1,0 +1,108 @@
+<div class="entry-content">
+		<p>刚发现chrome 下有个window.getMatchedCSSRules 方法，可用于获取元素的样式规则（内部样式&lt;style&gt;以及外部样式&lt;link&gt;中的，但不包括内联的样式elem.style）。</p>
+<p>此方法有些类似于document.styleSheets，不过更为精准，可以获取特定元素的样式，而不需要知道样式的具体定义位置，上段代码吧：</p>
+<div><div id="highlighter_528548" class="syntaxhighlighter  xml"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="xml plain">&lt;!DOCTYPE html&gt;</code></div><div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">html</code><code class="xml plain">&gt;</code></div><div class="line number3 index2 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">head</code><code class="xml plain">&gt;</code></div><div class="line number4 index3 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">meta</code> <code class="xml color1">charset</code><code class="xml plain">=</code><code class="xml string">"utf-8"</code> <code class="xml plain">/&gt;</code></div><div class="line number5 index4 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">title</code><code class="xml plain">&gt;window.getMatchedCSSRules&lt;/</code><code class="xml keyword">title</code><code class="xml plain">&gt;</code></div><div class="line number6 index5 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">style</code><code class="xml plain">&gt;</code></div><div class="line number7 index6 alt2"><code class="xml plain">body p { color:#333; }</code></div><div class="line number8 index7 alt1"><code class="xml plain">#test { font-weight:bold; }</code></div><div class="line number9 index8 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">style</code><code class="xml plain">&gt;</code></div><div class="line number10 index9 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">head</code><code class="xml plain">&gt;</code></div><div class="line number11 index10 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">body</code><code class="xml plain">&gt;</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">p</code> <code class="xml color1">id</code><code class="xml plain">=</code><code class="xml string">"test"</code> <code class="xml color1">style</code><code class="xml plain">=</code><code class="xml string">"font-size:20px"</code><code class="xml plain">&gt;paragraph&lt;/</code><code class="xml keyword">p</code><code class="xml plain">&gt;</code></div><div class="line number14 index13 alt1">&nbsp;</div><div class="line number15 index14 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">script</code><code class="xml plain">&gt;</code></div><div class="line number16 index15 alt1"><code class="xml plain">console.log(window.getMatchedCSSRules(document.getElementById('test')));</code></div><div class="line number17 index16 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">script</code><code class="xml plain">&gt;</code></div><div class="line number18 index17 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">body</code><code class="xml plain">&gt;</code></div><div class="line number19 index18 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">html</code><code class="xml plain">&gt;</code></div></div></td></tr></tbody></table></div></div>
+<p>chrome 下控制台会打出这样的信息：</p>
+<p><img class="alignnone size-full wp-image-33" title="getMatchedCSSRules" src="http://hm.iblogger.org/wp-content/uploads/2012/03/getMatchedCSSRules.png" alt="" width="327" height="190"></p>
+<p>其中第0个CSSStyleRule 是user agent stylesheet，第1个是body p 规则定义的，第2个是#test 规则定义的，可以看到它并不返回元素style 属性的样式。</p>
+<p>以link 标签引入的外部样式也是可以获取到的，但不支持跨域获取~</p>
+			</div>
+
+
+
+
+
+
+			<div class="content_banner"> 
+    
+
+	
+    <div class="text">
+    <style>
+blockquote {
+background:#f9f9f9;
+border-left:10px solid #ccc;
+margin:1.5em 10px;
+padding:.5em 10px;
+quotes:"\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+color:#ccc;
+content:open-quote;
+font-size:4em;
+line-height:.1em;
+margin-right:.25em;
+vertical-align:-.4em;
+}
+blockquote p {
+display:inline;
+font-style: italic;
+}
+em{
+   font-style: italic;
+}
+</style>
+<blockquote><p>做为一个刚吃过肉的人，看过大海，思考过人生，决定还是要静下心做点总结。</p>
+</blockquote>
+<p>最近在做Web工具，做为一个在Web中运行的工具，想要做强大的事情，在不依赖于Server端的支持、不依赖插件下，还要完成这些事情，有时候想想，确实是一件很难的事情。取决于</p>
+<p>浏览器是服务端的代码运行于客户端，出于安全性的考虑，做了很多限制。浏览器是一个相对封闭的环境，说白了，能力有限。<br>
+<span id="more-4898"></span></p>
+<blockquote><p>但是，想想人生，虽然很艰难，还是要快乐的走下去。</p>
+</blockquote>
+<p>比如</p>
+<ul>
+<li>把对JS对DOM修改保存到文档中，JS只能望洋兴叹</li>
+<li>比如一个很好的图片，保存到本地指定路径，JS也只能泪水满地</li>
+</ul>
+<p>因为</p>
+<ul>
+<li>浏览器的JS运行在一个封闭的环境</li>
+</ul>
+<p>但想想做了这么多年的前端，JS还是蛮强大的，它的封闭或许会给我们一些其他的解决方案。</p>
+<h2>使用JS来操作CSS</h2>
+<blockquote><p>现在的需求是，我要做一个类似F12的工具，查看当前元素被应用上CSS规则并可以修改它，然后实时生效这些规则，并且给出在相应文档中做出的修改。</p>
+</blockquote>
+<p>这个需求有两个难点，</p>
+<ol>
+<li>要把CSS文档中命中的规则找出来（甚至告诉我们它在哪个CSS文档的第几行代码做的定义）。</li>
+<li>要给出修改后的整齐的文档</li>
+</ol>
+<blockquote><p>所幸依赖于Chrome这样的老爸，JS也变的很有能力。</p>
+</blockquote>
+<p>命中CSS的规则只需要使用挂载在Window上的全局函数getMatchedCSSRules就能拿到通过命中的CSS规则，getMatchedCSSRules函数接受一个dom元素做为参数，返回一个CSSRuleList集合</p>
+<p>返回的CSSRuleList类似 [CSSStyleRule, CSSStyleRule, ....]<br>
+而CSSStyleRule定义如下</p>
+<div><div id="highlighter_700021" class="syntaxhighlighter  javascript"><table border="0" cellpadding="0" cellspacing="0"><caption>双击选中源代码</caption><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="javascript plain">{</code></div><div class="line number2 index1 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">cssText: </code><code class="javascript string">".t{ color: red;}"</code> <code class="javascript plain">, </code><code class="javascript comments">//命中的CSS规则</code></div><div class="line number3 index2 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">parentRule: </code><code class="javascript keyword">null</code><code class="javascript plain">, </code><code class="javascript comments">//返回包含规则（如果有的话）， 如在@media中定义的</code></div><div class="line number4 index3 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">parentStyleSheet: </code><code class="javascript keyword">null</code><code class="javascript plain">, </code><code class="javascript comments">//返回包含的styleSheet对象</code></div><div class="line number5 index4 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">selectorText: </code><code class="javascript string">".t"</code><code class="javascript plain">, </code><code class="javascript comments">//命中的选择器,</code></div><div class="line number6 index5 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">style: CSSStyleDeclaration, </code><code class="javascript comments">//css声明对象</code></div><div class="line number7 index6 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">type: 1 </code><code class="javascript comments">//规则类型 比如 style声明、media声等、charset声明等</code></div><div class="line number8 index7 alt1"><code class="javascript plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>其实拿到cssText，我们可以做一些简单的解析</p>
+<p>css上下文无关文法是<br>
+<em>cssBlockDefition</em> -&gt; <em>selectorText</em>{<em>styleDefition</em>}<em>cssBlockDefition</em> | 空串<br>
+<em>styleDefition</em> -&gt; <em>name</em>:<em>value</em>;<em>styleDefition</em> | 空串<br>
+……</p>
+<p>其中，斜体是非终结符<br>
+这里只列我们关心的串定义，可见还是很简单的，由于使用JS，正则已经把我们写好，而且命中的规则都是通过语法检查的，所以直接用正则去匹配就可以了，根据上述文法，简单写一个demo如下</p>
+<div><div id="highlighter_984731" class="syntaxhighlighter  javascript"><table border="0" cellpadding="0" cellspacing="0"><caption>双击选中源代码</caption><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="javascript comments">//复制直接在Console中运行</code></div><div class="line number2 index1 alt1"><code class="javascript keyword">var</code> <code class="javascript plain">css = </code><code class="javascript string">"body{color: red; font-size: 12px;} .banner{ width: 12px; height: 16px; background: url(img/banner.png);}"</code><code class="javascript plain">;</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="javascript keyword">function</code> <code class="javascript plain">cssFormat(c){</code></div><div class="line number5 index4 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript comments">//块级定义</code></div><div class="line number6 index5 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">cssBlockDefitionReg = /[^{]*\s*{([^}]*)}\s*/g;</code></div><div class="line number7 index6 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">cssBlockDefition;</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript comments">//样式定义</code></div><div class="line number10 index9 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">styleDefition;</code></div><div class="line number11 index10 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">styleDefitionReg = /([^:\{\}\s]+)\s*:\s*([^;]+);/g;</code></div><div class="line number12 index11 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript keyword">var</code> <code class="javascript plain">styleClaration;</code></div><div class="line number13 index12 alt2">&nbsp;</div><div class="line number14 index13 alt1"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript comments">//拿到块级定义</code></div><div class="line number15 index14 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript keyword">while</code><code class="javascript plain">(cssBlockDefition = cssBlockDefitionReg.exec(c)){</code></div><div class="line number16 index15 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript comments">//拿到样式定义</code></div><div class="line number17 index16 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">styleDefition = cssBlockDefition[1];</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">console.log(</code><code class="javascript string">"样式定义块是: "</code> <code class="javascript plain">+ cssBlockDefition[0]);</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript keyword">while</code><code class="javascript plain">(styleClaration = styleDefitionReg.exec(styleDefition)){</code></div><div class="line number22 index21 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">console.log(</code><code class="javascript string">"属性是： "</code> <code class="javascript plain">+ styleClaration[1]);</code></div><div class="line number23 index22 alt2"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">console.log(</code><code class="javascript string">"值是： "</code> <code class="javascript plain">+ styleClaration[2]);</code></div><div class="line number24 index23 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number25 index24 alt2">&nbsp;</div><div class="line number26 index25 alt1"><code class="javascript spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="javascript plain">console.log(</code><code class="javascript string">"\n\n"</code><code class="javascript plain">);</code></div><div class="line number27 index26 alt2"><code class="javascript spaces">&nbsp;&nbsp;</code><code class="javascript plain">}</code></div><div class="line number28 index27 alt1"><code class="javascript plain">}</code></div><div class="line number29 index28 alt2">&nbsp;</div><div class="line number30 index29 alt1"><code class="javascript plain">cssFormat(css);</code></div></div></td></tr></tbody></table></div></div>
+<p>OK，通过解析CSS String，我们可以拿到我们想要的东西，但问题并非要走这条路，其实对于CSSStyleRule中，style是标准的CSSStyleDeclaration对象，直接可以拿到命中规则的styleDefition，这时候你可以选择去解析styleDefition 字符串，或者选择直接用CSSStyleDeclaration对象中有值属性来显示出来。</p>
+<p>拿到命中的CSS的规则后，通过修改相应的CSS规则，要使规则应用到文档中，直接可以使用CSSStyleDeclaration对象的setProperty方法来设置修改属性，设置完成后通常文档还不会立即生效，这时候就需要触发文档的layout使应用生效，示例代码如下</p>
+<div><div id="highlighter_366636" class="syntaxhighlighter  javascript"><table border="0" cellpadding="0" cellspacing="0"><caption>双击选中源代码</caption><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="javascript keyword">var</code> <code class="javascript plain">style = getMatchedCSSRules(el)[index].style;</code></div><div class="line number2 index1 alt1"><code class="javascript spaces">&nbsp;</code><code class="javascript plain">style.setProperty(proname, value);</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="javascript spaces">&nbsp;</code><code class="javascript comments">//触发layout</code></div><div class="line number5 index4 alt2"><code class="javascript spaces">&nbsp;</code><code class="javascript plain">el.style.zoom = 1;</code></div></div></td></tr></tbody></table></div></div>
+<p>这时候就完成了对CSS文档的读取与修改</p>
+<p>但请注意</p>
+<ul>
+<li>getMatchedCSSRules同样受限于同源安全限制（跨域限制)，对于跨域的文档的CSS会返回null</li>
+<li>getMatchedCSSRules并没有将内联style算在内，所以还要考虑内联Style的定义，但这个相对读取与修改比较简单</li>
+</ul>
+<p>任务并没有完成，遗留的问题</p>
+<ul>
+<li>对于定位文档的中CSS修改代码的位置，可能通过ajax请求css文档搜寻更改位置</li>
+<li>对于ie系的几个倔强大哥们，都不支持getMatchedCSSRules方法，鉴于CSS语法的简单性，可以尝试通过ajax请求文档CSS文档来进行解析CSS语法，然后拿到对应的命中规则。</li>
+</ul>
+<p>肉消化的差不多，CSS篇也写完了，有问题还请指教~</p>
+<div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><div style="float:left"><!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_tqq" title="分享到腾讯微博"><span class="jiathis_txt jiathis_separator jtico jtico_tqq">腾讯微博</span></a>
+<a class="jiathis_button_tsina" title="分享到新浪微博"><span class="jiathis_txt jiathis_separator jtico jtico_tsina">新浪微博</span></a>
+<a onclick="javascript:pageTracker._trackPageview('/outgoing/www.jiathis.com/share');" href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"><span class="jiathis_button_expanded jiathis_counter jiathis_bubble_style" id="jiathis_counter_34" title="累计分享0次">0</span></a>
+</div>
+
+	</div>

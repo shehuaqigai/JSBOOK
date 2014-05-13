@@ -1,0 +1,204 @@
+为什么需要socket.io？
+
+   node.js提供了高效的服务端运行环境，但是由于浏览器端对HTML5的支持不一，为了兼容所有浏览器，提供卓越的实时的用户体验，并且为程序员提供客户端与服务端一致的编程体验，于是socket.io诞生。
+
+    socket.io设计的目标是支持任何的浏览器，任何Mobile设备。目前支持主流的PC浏览器 (IE,Safari,Chrome,Firefox,Opera等)，Mobile浏览器(iphone Safari/ipad Safari/android WebKit/WebOS WebKit等)。socket.io基于node.js并简化了WebSocket API，统一了通信的API。它支持：WebSocket, Flash Socket, AJAX long-polling, AJAX multipart streaming, Forever IFrame, JSONP polling。
+    socket.io解决了实时的通信问题，并统一了服务端与客户端的编程方式。启动了socket以后，就像建立了一条客户端与服务端的管道，两边可以互通有无。
+
+安装<br/>
+在命令行中执行：npm install socket.io 即可安装。<br/>
+服务端编程模型<br/>
+服务端编程还是与普通服务器一样，启动服务器，提供服务，处理事件。比如下面的server.js：<br/>
+var http = require('http'),<br/>
+    url = require('url'),<br/>
+    fs = require('fs'),<br/>
+    server;<br/>
+ 
+server = http.createServer(function(req, res){<br/>
+    // your normal server code<br/>
+    var path = url.parse(req.url).pathname;<br/>
+    switch (path){<br/>
+    case '/':<br/>
+        res.writeHead(200, {'Content-Type': 'text/html'});<br/>
+        res.write('&lth1>Hello! Try the &lta href="/index.html">Socket.io Test&lt/a>&lt/h1>');
+        res.end();<br/>
+        break;<br/>
+    case '/index.html':<br/>
+        fs.readFile(__dirname + path, function(err, data){<br/>
+        if (err) return send404(res);<br/>
+        res.writeHead(200, {'Content-Type': path == 'json.js' ? 'text/javascript' : 'text/html'})
+        res.write(data, 'utf8');<br/>
+        res.end();<br/>
+        });<br/>
+        break;<br/>
+    default: send404(res);<br/>
+    }<br/>
+}),<br/>
+ 
+send404 = function(res){<br/>
+    res.writeHead(404);<br/>
+    res.write('404');<br/>
+    res.end();<br/>
+};<br/>
+ 
+server.listen(8080);<br/>
+ 
+var io = require('socket.io').listen(server);<br/>
+io.sockets.on('connection', function(socket){<br/>
+    console.log("Connection " + socket.id + " accepted.");<br/>
+    socket.on('message', function(message){<br/>
+        console.log("Received message: " + message + " - from client " + socket.id);<br/>
+    });<br/>
+    socket.on('disconnect', function(){<br/>
+        console.log("Connection " + socket.id + " terminated.");<br/>
+    });<br/>
+});
+客户端编程模型 <br/>
+
+客户端编程也是相似的处理方式，连接服务器，交互信息。比如下面的index.html页面：<br/>
+
+<!doctype html><br/>
+&lthtml><br/>
+&lthead><br/>
+&lttitle>Socket.io Test&lt/title><br/>
+&ltscript src="/json.js">&lt/script> <!-- for ie --><br/>
+&ltscript src="/socket.io/socket.io.js">&lt/script><br/>
+&lt/head><br/>
+&ltbody><br/>
+&ltscript><br/>
+var socket;<br/>
+var firstconnect = true;<br/>
+ 
+function connect() {<br/>
+    if(firstconnect) {<br/>
+        socket = io.connect(null);<br/>
+ 
+        socket.on('message', function(data){ message(data); });<br/>
+        socket.on('connect', function(){ status_update("Connected to Server"); });<br/>
+        socket.on('disconnect', function(){ status_update("Disconnected from Server"); });<br/>
+        socket.on('reconnect', function(){ status_update("Reconnected to Server"); });<br/>
+        socket.on('reconnecting', function( nextRetry ){ status_update("Reconnecting in "<br/>
+        + nextRetry + " seconds"); });<br/>
+        socket.on('reconnect_failed', function(){ message("Reconnect Failed"); });<br/>
+ 
+        firstconnect = false;<br/>
+    } else {<br/>
+        socket.socket.reconnect();<br/>
+    }<br/>
+}<br/>
+ 
+function disconnect() {<br/>
+    socket.disconnect();<br/>
+}<br/>
+ 
+function message(data) {<br/>
+    document.getElementById('message').innerHTML = "Server says: " + data;<br/>
+}<br/>
+ <br/>
+function status_update(txt){<br/>
+    document.getElementById('status').innerHTML = txt;<br/>
+}<br/>
+
+function esc(msg){<br/>
+    return msg.replace(/</g, '<').replace(/>/g, '>');<br/>
+}<br/>
+ 
+function send() {<br/>
+    socket.send("Hello Server!");<br/>
+};<br/>
+&lt/script><br/>
+ 
+&lth1>Socket.io Test&lt/h1><br/>
+&ltdiv>&ltp id="status">Waiting for input&lt/p>&lt/div><br/>
+&ltdiv>&ltp id="message">&lt/p>&lt/div><br/>
+&ltbutton id="connect" onClick='connect()'/>Connect&lt/button><br/>
+&ltbutton id="disconnect" onClick='disconnect()'>Disconnect&lt/button><br/>
+&ltbutton id="send" onClick='send()'/>Send Message&lt/button><br/>
+&lt/body><br/>
+&lt/html><br/>
+ 
+
+1. 启动服务器还是交给node，打开命令行窗口，定位到server.js所在文件夹，输入node server.js启动服务器。
+
+    在上面的index.html中，注意这行：&ltscript src="/socket.io/socket.io.js">&lt/script>。如果不想使用本地的socket.io脚本，可以直接使用下面这个公开的脚本：<br/>
+
+&ltscript src="http://cdn.socket.io/stable/socket.io.js">&lt/script><br/>
+ 此外需要注意这行：socket = io.connect(null)。这里的null代表连接本地服务，可以换成"localhost"，效果也是一样的。
+
+2. 可以使用socket.io直接启动http服务。例如：<br/>
+
+var io = require('socket.io').listen(80);<br/>
+ 
+io.sockets.on('connection', function (socket) {<br/>
+    io.sockets.emit('this', { will: 'be received by everyone'});<br/>
+});<br/>
+ 3. socket.io可以直接通过send方法发送消息，使用message事件接收消息，例如：<br/>
+
+//server.js<br/>
+var io = require('socket.io').listen(80);<br/>
+ 
+io.sockets.on('connection', function (socket) {<br/>
+    socket.on('message', function () { });<br/>
+});<br/>
+ 
+//index.html<br/>
+&ltscript><br/>
+var socket = io.connect('http://localhost/');<br/>
+socket.on('connect', function () {<br/>
+    socket.send('hi');<br/>
+    socket.on('message', function (msg) {<br/>
+        // my msg<br/>
+    });<br/>
+});<br/>
+&lt/script><br/>
+ 4. 发送和处理数据<br/>
+
+    两端可以互发事件，互发数据，相互通信。发送事件的代码为：socket.emit(action, data, function)，其中action为事件的名称，data为数据，function为回调函数;处理事件代码 为：socket.on(action,function)，如果emit发送的时候有数据data，则function中参数包含了这个数据。 socket.io除了发送和处理内置事件，如connect, disconnect, message。还允许发送和处理自定义事件，例如:<br/>
+
+//服务端：<br/>
+io.sockets.on('connection', function (socket) {<br/>
+    socket.emit('news', { hello: 'world' });<br/>
+    socket.on('my other event', function (data) {<br/>
+        console.log(data);<br/>
+    });<br/>
+});<br/>
+ 
+//客户端：<br/>
+&ltscript src="/socket.io/socket.io.js">&lt/script><br/>
+&ltscript><br/>
+var socket = io.connect('http://localhost');<br/>
+socket.on('news', function (data) {<br/>
+    console.log(data);<br/>
+    socket.emit('my other event', { my: 'data' });<br/>
+});<br/>
+&lt/script><br/>
+ 5. 从上面可以看出来，发送数据的时候，send和emit是都可以使用的。只不过emit更是强化了自定义事件的处理。
+
+6. 可以在服务端使用socket的get/set方法存储客服端的相关数据，例如：<br/>
+
+//服务端<br/>
+var io = require('socket.io').listen(80);<br/>
+ 
+io.sockets.on('connection', function (socket) {<br/>
+    socket.on('set nickname', function (name) {<br/>
+        socket.set('nickname', name, function () { socket.emit('ready'); });<br/>
+    });<br/>
+ 
+    socket.on('msg', function () {<br/>
+        socket.get('nickname', function (err, name) {<br/>
+            console.log('Chat message by ', name);<br/>
+        });<br/>
+    });<br/>
+});<br/>
+//客户端<br/>
+&ltscript><br/>
+var socket = io.connect('http://localhost');<br/>
+ 
+socket.on('connect', function () {<br/>
+    socket.emit('set nickname', confirm('What is your nickname?'));<br/>
+    socket.on('ready', function () {<br/>
+        console.log('Connected !');<br/>
+        socket.emit('msg', confirm('What is your message?'));<br/>
+    });<br/>
+});<br/>
+&lt/script><br/>

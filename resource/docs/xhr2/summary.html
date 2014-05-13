@@ -1,0 +1,175 @@
+<h2 style="color:red;">XHR=new XMLHttpRequest对象的属性和方法总览</h2>
+<p>
+	XMLHttpRequest继承XMLHttpRequestEventTarget
+</p>
+<p>XMLHttpRequestEventTarget继承EventTarget</p>
+
+<ul>
+	
+
+
+<li>onabort: //传输被用户取消。</li>
+<li>onerror: //传输中出现错误。</li>
+<li>onload: //传输成功完成。</li>
+<li>onloadend: //传输结束，但是不知道成功还是失败。</li>
+<li>onloadstart: //传输开始。</li>
+<li>onprogress: //传送进度</li>
+<li>onreadystatechange: null</li>
+<li>ontimeout: null</li>
+<li>readyState: 0//请求的状态，有5个可能的值，0未初始化，1正在加载，2已加载，3交互中，4完成</li>
+<li>response: ""</li>
+<li>responseText: ""//服务器的响应，表示为一个串</li>
+<li>responseType: ""</li>
+<li>responseXML: //服务器响应，表示为XML，这个对象可以解析为一个DOM对象</li>
+<li>status: 0//服务器的HTTP状态吗，200对应OK，404对应未找到（Not Found）</li>
+<li>statusText: ""//HTTP状态对应的文本，OK或Not Found等等</li>
+<li>timeout: 0</li>
+<li>upload: XMLHttpRequestUpload//文件上传</li>
+<li>withCredentials: false</li>
+<li>要解决第1个问题，使用flush让response分块进行呈现就可以了，具体请参考我另一遍随笔"flush让页面分块,逐步呈现";
+
+   第2个问题，则需要用到XMLHttpRequest的readyState状态，w3c对 readyState 定义如下几个值：
+
+    UNSENT = 0;  // 没有发送请求
+
+    OPENED = 1;    // 已经打开http连接
+
+    HEADERS_RECEIVED = 2; // 接收到response header
+
+    LOADING = 3;          // 真正接收response body   
+
+    DONE = 4;             // 请求接收完毕
+
+   相信状态4大家是天天在用，而我们这里需要用到就是状态3。
+
+</li>
+
+
+
+
+<li>abort()://停止当前请求</li>
+<li>getAllResponseHeaders//把HTTP请求的所有响应首部作为键/值返回</li>
+<li>getResponseHeader//返回指定首部的串值</li>
+<li>open//建立对服务器的调用。Method参数可以是GET,POST或PUT。Url参数可以是相对URL或绝对URL，提供所调用资源的URL上面两个是必填参数，下面这些是可选的。Boolean值指示这个调用是同步和还是异步的，默认为true, 表示异步的，如果为false，处理就会等待，直到从服务器返回响应为止。</li>
+overrideMimeType</li>
+<li>send//向服务器发送请求，如果为异步的，则该方法会立即返回，否则它会等到接收到响应为止。</li>
+<li>setRequestHeader//为Http请求中一个给定的首部设定值，第一个参数表示要设置的首部，第二个参数表示要在首部中放的值，这个方法必须在调用open()方法之后才能调用。</li>
+<li>addEventListener</li>
+<li>dispatchEvent</li>
+<li>removeEventListener</li>
+</ul>
+
+
+<div id="maincontent">
+
+<h1>AJAX - onreadystatechange 事件</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/ajax/ajax_xmlhttprequest_response.asp" title="AJAX - 服务器响应">XHR 响应</a></li>
+<li class="next"><a href="/ajax/ajax_asp_php.asp" title="AJAX ASP/PHP 实例">AJAX ASP/PHP</a></li>
+</ul>
+</div>
+
+
+<div>
+<h2>onreadystatechange 事件</h2>
+
+<p>当请求被发送到服务器时，我们需要执行一些基于响应的任务。</p>
+
+<p>每当 readyState 改变时，就会触发 onreadystatechange 事件。</p>
+
+<p>readyState 属性存有 XMLHttpRequest 的状态信息。</p>
+
+<p>下面是 XMLHttpRequest 对象的三个重要的属性：</p>
+
+<table class="dataintable">
+<tbody><tr>
+<th style="width:25%;">属性</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>onreadystatechange</td>
+<td>存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。</td>
+</tr>
+
+<tr>
+<td>readyState</td>
+<td>
+	<p>存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。</p>
+	<ul class="listintable">
+	<li>0: 请求未初始化</li>
+	<li>1: 服务器连接已建立</li>
+	<li>2: 请求已接收</li>
+	<li>3: 请求处理中</li>
+	<li>4: 请求已完成，且响应已就绪</li>
+	</ul>
+</td>
+</tr>
+
+<tr>
+<td>status</td>
+<td><p>200: "OK"</p><p>404: 未找到页面</p></td>
+</tr>
+</tbody></table>
+
+<p>在 onreadystatechange 事件中，我们规定当服务器响应已做好被处理的准备时所执行的任务。</p>
+
+<p>当 readyState 等于 4 且状态为 200 时，表示响应已就绪：</p>
+
+<pre>xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  }
+</pre>
+
+<p><a href="/tiy/t.asp?f=ajax_async_true">亲自试一试</a></p>
+
+<p class="note"><span>注释：</span>onreadystatechange 事件被触发 5 次（0 - 4），对应着 readyState 的每个变化。</p>
+</div>
+
+
+<div>
+<h2>使用 Callback 函数</h2>
+
+<p>callback 函数是一种以参数形式传递给另一个函数的函数。</p>
+
+<p>如果您的网站上存在多个 AJAX 任务，那么您应该为创建 XMLHttpRequest 对象编写一个<em>标准</em>的函数，并为每个 AJAX 任务调用该函数。</p>
+
+<p>该函数调用应该包含 URL 以及发生 onreadystatechange 事件时执行的任务（每次调用可能不尽相同）：</p>
+
+<pre>function myFunction()
+{
+loadXMLDoc("ajax_info.txt",function()
+  {
+  if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)
+    {
+    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  });
+}
+</pre>
+
+<p><a href="/tiy/t.asp?f=ajax_callback">亲自试一试</a></p>
+</div>
+
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/ajax/ajax_xmlhttprequest_response.asp" title="AJAX - 服务器响应" target="_blank">XHR 响应</a></li>
+<li class="next"><a href="/ajax/ajax_asp_php.asp" title="AJAX ASP/PHP 实例" target="_blank">AJAX ASP/PHP</a></li>
+</ul>
+</div>
+
+</div>
+
+<h2 style="color:red;">withCredentials</h2>
+
+默认情况下，跨源请求不提供凭据(cookie、HTTP认证及客户端SSL证明等)。通过将withCredentials属性设置为true，可以指定某个请求应该发送凭据。如果服务器接收带凭据的请求，会用下面的HTTP头部来响应。
+Access-Control-Allow-Credentials: true
+如果发送的是带凭据的请求，但服务器的相应中没有包含这个头部，那么浏览器就不会把相应交给JavaScript(于是，responseText中将是空字符串，status的值为0，而且会调用onerror()事件处理程序)。另外，服务器还可以在Preflight响应中发送这个HTTP头部，表示允许源发送带凭据的请求。
+支持withCredentials属性的浏览器有Firefox 3.5+、Safari 4+和Chrome。IE10及更早版本都不支持。

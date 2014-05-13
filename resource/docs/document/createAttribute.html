@@ -1,0 +1,53 @@
+<p>
+	概述
+
+createAttribute 方法创建并返回一个新的属性节点.
+
+语法
+
+attribute = document.createAttribute(name) 
+参数
+
+attribute 是一个属性节点.
+name 是属性节点的属性名.
+例子
+
+&lthtml>
+
+&lthead>
+&lttitle> create/set/get Attribute example&lt/title>
+
+&ltscript type="text/javascript">
+
+function doAttrib()
+{
+var node = document.getElementById("div1");
+var a = document.createAttribute("my_attrib");
+a.nodeValue = "属性值";
+node.setAttributeNode(a);
+alert(node.getAttribute("my_attrib")); // "属性值"
+}
+
+//效果和下面的方法等同
+//function doAttrib()
+//{
+//var node = document.getElementById("div1");
+//node.setAttribute("my_attrib", "属性值");
+//alert(node.getAttribute("my_attrib")); // "属性值"
+//}
+
+&lt/script>
+&lt/head>
+
+&ltbody onload="doAttrib();">
+&ltdiv id="div1">
+&ltp>页面内容&lt/p>
+&lt/div>
+&lt/body>
+&lt/html>
+备注
+
+该方法的返回值是一个Attr类型的节点. 你可以通过为该节点的nodeValue属性赋值来设置该属性节点的属性值,也可以使用常用的 setAttribute() 方法来替代该方法.
+
+规范
+</p>

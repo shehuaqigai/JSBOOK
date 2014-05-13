@@ -1,0 +1,34 @@
+<p>
+	toISOString 方法 (Date) (JavaScript)
+
+1（共 1）对本文的评价是有帮助 - 评价此主题
+以字符串值的形式返回采用 ISO 格式的日期。
+JavaScript
+objDate.toISOString()
+返回值
+采用国际标准化组织 (ISO) 格式的日期的字符串表示形式。
+异常
+如果 objDate 不包含有效日期，则将引发 RangeError 异常。
+备注
+ISO 格式是 ISO 8601 格式的简化形式。 有关更多信息，请参见日期和时间字符串 (JavaScript)。
+时区始终为 UTC，在输出中由后缀 Z 表示。
+示例
+下面的示例阐释了 toISOString 方法的用法。
+<pre>
+	
+
+JavaScript
+var dt = new Date("30 July 2010 15:05 UTC");
+document.write(dt.toISOString());
+document.write("&ltbr />");
+document.write(dt.toUTCString());
+
+// Output:
+//  2010-07-30T15:05:00.000Z
+//  Fri, 30 Jul 2010 15:05:00 UTC
+</pre>
+要求
+在以下文档模式中受支持：Internet Explorer 9 标准模式、Internet Explorer 10 标准模式和 Internet Explorer 11 标准模式。Windows 应用商店 应用程序中也支持此项。请参阅版本信息。
+在以下文档模式中不受支持：Quirks、Internet Explorer 6 标准模式、Internet Explorer 7 标准模式、Internet Explorer 8 标准模式。
+
+</p>

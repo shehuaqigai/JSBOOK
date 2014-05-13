@@ -1,0 +1,286 @@
+<h1>WebAudioAPI</h1>
+<p>
+	在HTML5的新特性<audio>标签出现以前，Flash或是其他的浏览器插件是唯一能让网络世界有声的方法。虽然现在我们不再需要依赖插件，但是新的方法却给华丽的游戏和交互式应用带来了很大的麻烦。
+
+Web Audio API是Javascript中主要用于在网页应用中处理音频请求的一个高级应用接口，这个API目的是用于让最新技术与传统的游戏音频引擎的综合处理相兼容，也即尽力提供一些桌面音频处理程序的要求。那么接下来就是对这个API的一个简单介绍。
+</p>
+<p>
+	由AudioContext说起
+
+AudioContext（W3C）是一种管理、播放声音的对象。要让Web Audio API播放声音或是使一个甚至更多的音频源连接到AudioContext实例上，我们并不需要直接去操作该对象，而是可以通过任意数量的处理元，也就是AudioNodes?（W3C）来模块化地处理音频信号。这一过程【英文原文（W3C）】已经被详细地在Web Audio specification（原文）一文中介绍。
+
+几行简单的代码创建一个AudioContext就可以支持声音输出和音频波形的合成，那么于是就像下面这一段那样，一个AudioContext对象就创建好了。
+<pre>
+	
+
+var context;
+window.addEventListener('load', init, false);
+function init() {
+try {
+context = new webkitAudioContext();
+}
+catch(e) {
+alert('您当前的浏览器不支持Web Audio API ');
+}
+}
+</pre>
+对于WebKit核心的浏览器，你需要加上一个webkit前缀，也就是使用webkitAudioContext。
+
+值得一提的是，好多很有意思的Web Audio API功能，比如说创建AudioNodes 或者是解码音频文件，都是AudioContext的方法。
+</p>
+<pre>
+	载入声音
+Web Audio API使用AudioBuffer方法来缓冲中小型的音频文件。
+而最简单的请求音频文件的方法是通过XMLHttpRequest（W3C）来实现的。
+Web Audio API支持多种格式的音频文件，
+比如常见的WAV MP3 AAC OGG，以及其他的一些（Wikipedia）。
+值得一提的是，不同浏览器支持的文件格式是不同的。
+下面是一个载入音频文件的范例。
+
+var dogBarkingBuffer = null;
+var context = new webkitAudioContext();
+&nbsp;
+function loadDogSound(url) {
+var request = new XMLHttpRequest();
+request.open('GET', url, true);
+request.responseType = 'arraybuffer';
+&nbsp;
+// 异步解码
+request.onload = function() {
+context.decodeAudioData(request.response, function(buffer) {
+dogBarkingBuffer = buffer;
+}, onError);
+}
+request.send();
+}
+音频文件是二进制文件而非文本，所以我们需要将responseType设置成’arraybuffer’。
+如果想要对ArrayBuffers这个东西做一点了解的话，来看一下这篇关于XHR2的文章吧。
+接收音频文件之后，接下来要做的就是通过AudioContext的decodeAudioData()方法解码文件。
+这一方法将ArrayBuffer获取的音频文件异步解码（并不打断Javascript的主进程）。
+当decodeAudioData()结束后，
+此函数会调用一个回调函数返回包含未压缩的PCM格式AudioBuffer实例来存放解压后的音频。
+播放音频
+一个简单的音频图表
+当AudioBuffer载入完毕之后，就可以开始播放音频了。
+为了方便叙述，让我们假设我们刚刚载入并处理了一个AudioBuffer实例，
+里面有一段小狗的叫声。那么我们就可以通过下面的代码来播放它。
+var context = new webkitAudioContext();
+&nbsp;
+function playSound(buffer) {
+var source = context.createBufferSource(); // 创建一个声音源
+source.buffer = buffer;                    // 告诉该源播放何物
+source.connect(context.destination);       //将该源与硬件相连
+source.noteOn(0);                          // 现在播放该实例
+}
+playSound()函数可以在任何情况下调用，
+比如说用户的按键或是鼠标单击。
+而函数noteOn(time)可以让我们方便地控制音频播放的时间。
+不过，正常播放的前提是你要正常缓冲好要播放的实例。
+函数化Web Audio API当然了，
+如果能有一个像函数一样的东西来让我们不用硬编码地址到源码中直接播放声音就好了。
+ 以载入文件为例，我们有很多办法来直接调函数读取文件，
+比如使用BufferLoader 类。
+下面这个例子是这个类的使用方法。
+让我们创建两个AudioBuffer，一旦载入完成，就将它们回放出来。
+window.onload = init;
+var context;
+var bufferLoader;
+function init() {
+context = new webkitAudioContext();
+bufferLoader = new BufferLoader(
+context,
+[
+'../sounds/hyper-reality/br-jam-loop.wav',
+'../sounds/hyper-reality/laughter.wav',
+],
+finishedLoading
+);
+
+bufferLoader.load();
+}
+
+function finishedLoading(bufferList) {
+//创建两个实例并同时播放之
+var source1 = context.createBufferSource();
+var source2 = context.createBufferSource();
+source1.buffer = bufferList[0];
+source2.buffer = bufferList[1];
+
+source1.connect(context.destination);
+source2.connect(context.destination);
+source1.noteOn(0);
+source2.noteOn(0);
+}
+掌握时间：按你的想法播放声音
+Web Audio API提供了精确的时间回放函数给开发者，
+为了介绍这一特性，让我们来设定一个简单的回放音轨。首先来看一个常见的鼓点节奏：
+一个简单的鼓点节奏
+一个鼓点在每个八分点上敲击，每四分之一小节有一个音符。
+如果要实现这个乐谱，下面的代码可以实现：
+for (var bar = 0; bar &lt; 2; bar++) {
+var time = startTime + bar * 8 * eighthNoteTime;
+// 在鼓点1、5上播放
+playSound(kick, time);
+playSound(kick, time + 4 * eighthNoteTime);
+// 在3、7上播放另一音效
+playSound(snare, time + 2 * eighthNoteTime);
+playSound(snare, time + 6 * eighthNoteTime);
+//每8点播放一次
+for (var i = 0; i &lt; 8; ++i) {
+playSound(hihat, time + i * eighthNoteTime);
+}
+}
+就这样，我们播放了音乐。
+下面给出的函数playSound()可以提供一种播放指定次数音乐的方法。
+function playSound(buffer, time) {
+var source = context.createBufferSource();
+source.buffer = buffer;
+source.connect(context.destination);
+source.noteOn(time);
+}
+查看此范例
+查看此范例源码
+
+设置音频音量
+
+放出声音了之后，我们还要对之进行控制，比如说调节播放的音量。
+使用Web Audio API，我们可以使用AudioGainNode（W3C）来控制整个音乐。
+这个连接过程可以用如下方法实现：
+// 创建一个gain node
+var gainNode = context.createGainNode();
+// 将实例与gain node相连
+source.connect(gainNode);
+// 将gain node与播放设备连接
+gainNode.connect(context.destination);
+一旦设定完成之后，你就可以通过改变值之后来控制音量了。
+//减少音量
+gainNode.gain.value = 0.5;
+接下来这个范例介绍了一个音量控制组件，音量切换用的是这个元素：
+$ltinput type="range">
+查看此范例
+查看此范例源码
+交叉混合两个音频
+
+现在让我们设想一个更复杂的情况，我们希望播放多个音频，
+并在其间交叉混合。这是一个像是DJ控制台的应用程序，
+比如说我们有两个声音源，并希望在它们之间切换。
+其控制的图示是这样的：
+一张含有两个通过gain nodes连接的音频源的音频路径图
+要设定这个样子，我们只需要创建两个AudioGainNodes（W3C），
+并将每个源连接起来，就像下面这个函数一样。
+function createSource(buffer) {
+var source = context.createBufferSource();
+// 创建一个 gain node.
+var gainNode = context.createGainNode();
+source.buffer = buffer;
+// 启动循环
+source.loop = true;
+// 将源与gain相连接
+source.connect(gainNode);
+// 将gain与目标相连接
+gainNode.connect(context.destination);
+return {
+source: source,
+gainNode: gainNode
+};
+}
+均衡音量混响
+
+简单的线性混响通过改变实例音量来切换音乐。
+
+这个方案看上去简单，但是会带来一些不自然的情况。
+为了解决这个问题，我们使用一个平衡功率曲线来取代这个图形。
+这一非线性曲线相交于更高的位置，在不同层次的地方交叉混响，就可以最大限度地减少骤降。
+下面的例子使用了&ltinput type=”range”>控件来调节两个音乐实例的混响音量。
+查看此范例
+查看此范例源码
+播放交叉淡入淡出
+另外一种需要声音交叉的程序就是音乐播放器了。
+当一首音乐结束，我们需要将它淡出，并渐入下一首曲目。
+只有这样，我们才能避免掉播放音乐之前的不自然。
+要实现交叉淡入淡出，我们可以使用setTimeout来完成任务，
+但这却不能精确地达到我们想要的效果。
+现在，有了Web Audio API，
+我们可以调整AudioGainNode的增益值（位于AudioParam（W3C）接口中）
+来更好地实现我们的效果。
+那么，还是范例。给出一个播放列表，在当前曲目即将播放完成时，
+降低正在播放的曲目的增益值，并将下一首歌的增益值调高：
+function playHelper(bufferNow, bufferLater) {
+var playNow = createSource(bufferNow);
+var source = playNow.source;
+var gainNode = playNow.gainNode;
+var duration = bufferNow.duration;
+var currTime = context.currentTime;
+// 淡入下一首曲目
+gainNode.gain.linearRampToValueAtTime(0, currTime);
+gainNode.gain.linearRampToValueAtTime(1, currTime + ctx.FADE_TIME);
+// 播放当前曲目
+source.noteOn(0);
+// 在曲子快要结束时，淡出之
+gainNode.gain.linearRampToValueAtTime(1, currTime + duration-ctx.FADE_TIME);
+gainNode.gain.linearRampToValueAtTime(0, currTime + duration);
+// 附加一个表来跟踪播放列表中的顺序曲目
+var recurse = arguments.callee;
+ctx.timer = setTimeout(function() {
+  recurse(bufferLater, bufferNow);
+}, (duration - ctx.FADE_TIME) * 1000);
+}
+除此以外，Web Audio API还通过一系列的RampToValue方法提供了使属性值指数渐变的方法，
+比如linearRampToValueAtTime和exponentialRampToValueAtTime。
+如上的几个例子（线性、指数）提供的音量渐变都是内置的，
+您还可以通过使用setValueCurveAtTime函数来自定义你自己的增益值渐变曲线。
+下面这个演示展示了上面给出的函数的一个应用。
+查看此范例
+查看此范例源码
+给音乐加一点简单特效
+通过BiquadFilterNode处理过的一个音频播放实例
+Web Audio API允许你通过管道将音频实例连接起来，
+并组成一个混音组来给音频实例增加一些特效。
+而连接起来的办法有很多，比如上图所示的通过BiquadFilterNode（W3C）。
+这一方法可以为你的音频源增加许多低优先级的图形声效或是效果，
+比如调整每一个频率区间的增益度。
+它支持的滤波器有如下这些：
+-低通滤波器
+-高通滤波器
+-带通滤波器
+-低架滤波器
+-高架滤波器
+-峰值滤波器
+-陷波滤波器
+-全通滤波器
+每一个滤波器都含有一定量的，作用于不同频率的增益和质量控制选项。
+低通滤波器保证低频率的频宽，同时丢弃高频谱段的声波。
+间断点取决于频率值，但是Q点确是不确定的。
+我们只能说Q点由波形决定，却不知道在哪儿。
+增益仅仅影响几个确定的滤波器，比如像低架滤波器和峰值滤波器，却不能影响低通滤波器。
+下面这个例子使用低通滤波器来将音频实例中的低音部分过滤出来。
+// 创建滤波器
+var filter = context.createBiquadFilter();
+// 创建音频混音组
+source.connect(filter);
+filter.connect(context.destination);
+// 设定低通滤波器
+filter.type = 0; // 低通滤波器。请参阅手册
+filter.frequency.value = 440; // 设定频率为440Hz
+// 播放声音
+source.noteOn(0);
+惯例，下面的演示是上面代码的应用。
+不同的是一个开关可以控制是否打开滤波器，两个滑条可以控制滤波器效果。
+查看此范例
+查看此范例源码
+在一般情况下，频率控制需要进行调整。
+因为对数函数控制的规模因人而异（A4是440Hz，A5是880Hz）。
+想知道详细的控制方法，请参考上面演示的源码。
+最后的最后，请注意这个是否打开滤波器的开关。
+因为这个开关可以动态地改变混音组的组成。
+我们调用node.disconnect(outputNumber)来断开与实例的链接。
+如果断开后希望重连，那么我们可以这么做：
+// 将滤波器与实例断开
+source.disconnect(0);
+filter.disconnect(0);
+// 直接与实例相连
+source.connect(context.destination);
+更远的前方
+我们已经将API的概况介绍的差不多了，从最基础的载入播放到特效都有。
+那么，是时间开始试试做自己的网页音频应用了。
+</pre>

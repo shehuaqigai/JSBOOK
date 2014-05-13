@@ -1,0 +1,195 @@
+<div id="cnblogs_post_body"><div style="background-color: silver;">
+<h3>引言</h3>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;在之前我们操作本地文件都是使用flash、silverlight或者第三方的activeX插件等技术，由于使用了这些技术后就很难进行跨平台、或者跨浏览器、跨设备等情况下实现统一的表现，从另外一个角度来说就是让我们的web应用依赖了第三方的插件，而不是很独立，不够通用。在HTML5标准中，默认提供了操作文件的API让这一切直接标准化。有了操作文件的API，让我们的Web应用可以很轻松的通过JS来控制文件的读取、写入、文件夹、文件等一系列的操作，让Web应用不再那么蹩脚，而之前Web应用如果不借助第三方插件，那就是个shit！但是最新的标准中大部分浏览器都已经实现了文件的读取API，文件的写入，文件和文件夹的最新的标准刚制定完毕，相信后面随着浏览器的升级这些功能肯定会实现的非常好，接下来我主要给大家介绍文件读取的几个API。</p>
+<div style="background-color: silver;">
+<h3>几个重要的JS对象</h3>
+</div>
+<p><strong>1):FileList对象</strong><br>&nbsp;    它是File对象的一个集合，在Html4标准中文件上传控件只接受一个文件，而在新标准中，只需要设置multiple，就支持多文件上传，所以从此标签中获取的files属性就是FileList对象实例。demo：&lt;input type="file" multiple="multiple" name="fileDemo" id="fileDemo" /&gt; &nbsp;；下面是关于FileList对象的API的原型：
+   &nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">interface FileList {
+      getter File</span>? item(unsigned <span style="color: #0000ff;">long</span><span style="color: #000000;"> index);
+      readonly attribute unsigned </span><span style="color: #0000ff;">long</span><span style="color: #000000;"> length;
+};</span></pre>
+</div>
+<p><strong>2)Blob对象</strong></p>
+<p>其实就是一个原始数据对象，它提供了slice方法可以读取原始数据中的某块数据。另外有两个属性：size（数据的大小），type（数据的MIME类型）；看下面的是W3C的API原型：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">    interface Blob {
+      
+      readonly attribute unsigned </span><span style="color: #0000ff;">long</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> size;
+      readonly attribute DOMString type;
+      
+      </span><span style="color: #008000;">//</span><span style="color: #008000;">slice Blob into byte-ranged chunks</span><span style="color: #000000;">     
+      Blob slice(optional </span><span style="color: #0000ff;">long</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> start,
+                 optional </span><span style="color: #0000ff;">long</span> <span style="color: #0000ff;">long</span><span style="color: #000000;"> end,
+                 optional DOMString contentType); 
+    
+    };</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p><strong>3）File对象</strong><br>继承自Blob对象，指向一个具体的文件，它还有两个属性：name（文件名), lastModifiedDate（最后修改时间)；然后让我们看一些W3C的标准：<strong><br></strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;"> interface File : Blob {
+
+          readonly attribute DOMString name;
+          readonly attribute Date lastModifiedDate;
+ };</span></pre>
+</div>
+<p><strong>4）FileReader对象</strong><br>设计用来读取文件里面的数据，提供三个常用的读取文件数据的方法，另外读取文件数据使用了异步的方式，非常高效。然后让我们看一些W3C的标准：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #000000;">[Constructor]
+    interface FileReader: EventTarget {
+
+      </span><span style="color: #008000;">//</span><span style="color: #008000;"> async read methods</span>
+      <span style="color: #0000ff;">void</span><span style="color: #000000;"> readAsArrayBuffer(Blob blob);
+      </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> readAsBinaryString(Blob blob);
+      </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> readAsText(Blob blob, optional DOMString encoding);
+      </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> readAsDataURL(Blob blob);
+
+      </span><span style="color: #0000ff;">void</span><span style="color: #000000;"> abort();
+
+      </span><span style="color: #008000;">//</span><span style="color: #008000;"> states  </span>
+      const unsigned <span style="color: #0000ff;">short</span> EMPTY = 0<span style="color: #000000;">;
+      const unsigned </span><span style="color: #0000ff;">short</span> LOADING = 1<span style="color: #000000;">;
+      const unsigned </span><span style="color: #0000ff;">short</span> DONE = 2<span style="color: #000000;">;
+
+
+      readonly attribute unsigned </span><span style="color: #0000ff;">short</span><span style="color: #000000;"> readyState;
+
+      </span><span style="color: #008000;">//</span><span style="color: #008000;"> File or Blob data</span>
+<span style="color: #000000;">      readonly attribute any result;
+
+      readonly attribute DOMError error;
+
+      </span><span style="color: #008000;">//</span><span style="color: #008000;"> event handler attributes</span>
+      attribute [TreatNonCallableAsNull] Function?<span style="color: #000000;"> onloadstart;
+      attribute [TreatNonCallableAsNull] Function</span>?<span style="color: #000000;"> onprogress;
+      attribute [TreatNonCallableAsNull] Function</span>?<span style="color: #000000;"> onload;
+      attribute [TreatNonCallableAsNull] Function</span>?<span style="color: #000000;"> onabort;
+      attribute [TreatNonCallableAsNull] Function</span>?<span style="color: #000000;"> onerror;
+      attribute [TreatNonCallableAsNull] Function</span>?<span style="color: #000000;"> onloadend;
+
+    };</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>这个对象是非常重要第一个对象，它提供了四个读取文件数据的方法，这些方法都是异步的方式读取数据，读取成功后就直接将结果放到属性result中。所以一般就是直接读取数据，然后监听此对象的onload事件，然后在事件里面读取result属性，再做后续处理。当然<span style="color: #000000;">abort</span>就是停止读取的方法。其他的就是事件和状态不再赘述。</p>
+<p><strong>三个方法都介绍一下：</strong></p>
+<p><span style="color: #000000;"><strong>readAsBinaryString(Blob blob);</strong> &nbsp;→&nbsp;传入一个Blob对象，然后读取数据的结果作为二进制字符串的形式放到<span style="color: #000000;">FileReader</span>的result属性中。</span></p>
+<p><span style="color: #000000;"><span style="color: #000000;"><strong>readAsText(Blob blob, optional DOMString encoding);</strong>→第一个参数传入Blog对象，然后第二个参数传入编码格式，异步将数据读取成功后放到result属性中，读取的内容是普通的文本字符串的形式。</span></span></p>
+<p><span style="color: #000000;"><span style="color: #000000;"><span style="color: #000000;"><strong>readAsDataURL(Blob blob);</strong>→<span style="color: #000000;">传入一个Blob对象，</span>读取内容可以做为URL属性，也就是说可以将一个图片的结果指向给一个img的src属性。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></span></span><span style="color: #000000;"><span style="color: #000000;"><span style="color: #000000;"><br></span></span></span></p>
+<div style="background-color: silver;">
+<h3>读取文件上传控件里的文件并将内容已不同的方式展现到浏览器里面实例</h3>
+
+
+</div>
+<p>　　在展示代码之前，之前我们操作一个图片文件，都是先将图片上传到服务器端，然后再使用一个img标签指向到服务器的url地址，然后再进行一个使用第三方插件进行图片处理，而现在这一切都不需要服务器端了，因为FileReader对象提供的几个读取文件的方法变得异常简单，而且全不是客户端js的操作。且看下面的demo：</p>
+<p>案例一：获取上传文件的文件名<a href="http://www.houode.com/3.文件操作Api（一）.htm">(在线演示地址)</a></p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:html;gutter:false;">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;script src="Scripts/jquery-1.5.1.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript"&gt;
+        $(function () {
+            $("#btnGetFile").click(function (e) {
+                var fileList = document.getElementById("fileDemo").files;
+                for (var i = 0; i &lt; fileList.length; i++) {
+                    if (!(/image\/\w+/.test(fileList[i].type))) {
+                         $("#result").append("&lt;span&gt;type:"+fileList[i].type+"--******非图片类型*****--name:"+fileList[i].name+"--size:"+fileList[i].size+"&lt;/span&gt;&lt;br /&gt;");
+                    }
+                    else {
+                        $("#result").append("&lt;span&gt;type:"+fileList[i].type+"--name:"+fileList[i].name+"--size:"+fileList[i].size+"&lt;/span&gt;&lt;br /&gt;");
+                    }
+                }
+            });
+        });
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form action="/home/index" method="POST" novalidate="true"&gt;
+        &lt;input type="file" multiple="multiple" name="fileDemo" id="fileDemo" /&gt;&lt;br/&gt;
+        &lt;input type="button" value="获取文件的名字" id="btnGetFile"/&gt;
+        &lt;div id="result"&gt;&lt;/div&gt;
+    &lt;/form&gt;
+    &lt;hr/&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<p>&nbsp;</p>
+<p>案例二：读取上传文件内容，然后将文件内容直接读取到浏览器上<a href="http://www.houode.com/4.文件操作API（二）.htm">(在线演示地址)</a></p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:html;gutter:false;">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;script src="Scripts/jquery-1.5.1.js" type="text/javascript"&gt;&lt;/script&gt;  
+    &lt;script type="text/javascript"&gt;
+        
+        if(typeof FileReader == "undified") {
+            alert("您老的浏览器不行了！");
+        }
+
+        function showDataByURL() {
+            var resultFile = document.getElementById("fileDemo").files[0];
+            if (resultFile) {
+                var reader = new FileReader();
+                
+                reader.readAsDataURL(resultFile);
+                reader.onload = function (e) {
+                    var urlData = this.result;
+                    document.getElementById("result").innerHTML += "&lt;img src='" + urlData + "' alt='" + resultFile.name + "' /&gt;";
+                }; 
+               
+            }
+            
+        } 
+
+        function showDataByBinaryString() {
+              var resultFile = document.getElementById("fileDemo").files[0];
+            if (resultFile) {
+                var reader = new FileReader();
+                //异步方式，不会影响主线程
+                reader.readAsBinaryString(resultFile);
+                
+                reader.onload = function(e) {
+                    var urlData = this.result;
+                    document.getElementById("result").innerHTML += urlData;
+                };
+            }
+        }
+
+
+        function showDataByText() {
+            var resultFile = document.getElementById("fileDemo").files[0];
+            if (resultFile) {
+                var reader = new FileReader();
+
+                reader.readAsText(resultFile,'gb2312');
+                reader.onload = function (e) {
+                    var urlData = this.result;
+                    document.getElementById("result").innerHTML += urlData;
+                };
+            }
+        }
+        
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;input type="file" name="fileDemo" id="fileDemo" multep/&gt;
+    &lt;input type="button" value="readAsDataURL" id="readAsDataURL" onclick="showDataByURL();"/&gt;
+    &lt;input type="button" value="readAsBinaryString"  id="readAsBinaryString" onclick="showDataByBinaryString();"/&gt;
+    &lt;input type="button" value="readAsText"  id="readAsText" onclick="showDataByText();"/&gt;
+    &lt;div id="result"&gt;
+        
+    &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+<p>&nbsp;</p>
+<h3 style="background-color: silver;">总结</h3>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;有了文件操作的API后，让JS进一步的操作本地文件的得到空前的加强，HTML5对于客户端Web应用得到进一步功能的提升，HTML5的趋势让Web更加富客户端化，而这些都需要让我们的HTML或者JS变得更加强大，而HTML5正是适时地推出了File API!</p></div>

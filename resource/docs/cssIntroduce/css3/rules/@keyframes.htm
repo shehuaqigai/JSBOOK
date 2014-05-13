@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS @keyframes</title>
+<meta name="Description" content="CSS3 animation-delay属性用于指定动画名称和动画效果。" />
+<meta name="Keywords" content="css,css3,animation,@keyframes" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:15.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/rules/@keyframes.htm">http://www.phpstudy.net/css3/rules/@keyframes.htm</a><br>
+<b>Title:</b> CSS @keyframes &nbsp;&bull;&nbsp; <b>Size:</b> 12631 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:17 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="http://www.phpstudy.net/css3/index.htm">语法与规则列表</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/rules/?" class="target">
+				<strong>其它语法与规则参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="!important.htm">!important</a></li>
+					<li><a href="comment.htm">comment</a></li>
+					<li><a href="@import.htm">@import</a></li>
+					<li><a href="@charset.htm">@charset</a></li>
+					<li><a href="@media.htm">@media</a></li>
+					<li><a href="@font-face.htm">@font-face</a></li>
+					<li><a href="@page.htm">@page</a></li>
+					<li><a href="@keyframes.htm">@keyframes</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">@keyframes</h1>
+	<ul class="info">
+		<li><strong>版本：CSS3</strong></li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>@keyframes</strong> <a href="http://www.phpstudy.net/values/textual/identifier.htm">&lt;identifier&gt;</a> '{' <a href="#dfn-syntax">&lt;keyframes-blocks&gt;</a> '}';</p>
+			<p id="dfn-syntax"><strong>&lt;keyframes-blocks&gt;</strong>：[ [ from | to | <a href="../values/other/percentage.htm">&lt;percentage&gt;</a> ]{ sRules } ] [ [ , from | to | <a href="../values/other/percentage.htm">&lt;percentage&gt;</a> ]{ sRules } ]*<p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt><a href="http://www.phpstudy.net/values/textual/identifier.htm">&lt;identifier&gt;</a>：</dt>
+				<dd>identifier定义一个动画名称</dd>
+				<dt>&lt;keyframes-blocks&gt;：</dt>
+				<dd>定义动画在每个阶段的样式，即帧动画。</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>指定动画名称和动画效果。</strong>
+			<ul>
+				<li><a href="@keyframes.htm">@keyframes</a>定义的动画名称用来被<a href="../properties/animation/animation-name.htm">animation-name</a>所使用。</li>
+				<li>
+					<strong>定义动画时，简单的动画可以直接使用关键字from和to，即从一种状态过渡到另一种状态：</strong>
+					<div class="gquote">
+						<p class="gquote-tit"><strong>示例代码：</strong></p>
+						<blockquote class="gquote-cont"><pre><code>@keyframes testanimations{
+	from{opacity:1;}
+	to{opacity:0;}
+}</code></pre></blockquote>
+						<p class="gquote-info">其中testanimations是改动画的名字，该动画表示某个东西将逐渐消失。</p>
+					</div>
+				</li>
+				<li>
+					<strong>如果复杂的动画，可以混合<a href="../values/other/percentage.htm">&lt;percentage&gt;</a>去设置某个时间段内的任意时间点的样式：</strong>
+					<div class="gquote">
+						<p class="gquote-tit"><strong>示例代码：</strong></p>
+						<blockquote class="gquote-cont"><pre><code>@keyframes testanimations{
+	from{transform:translate(0,0);}
+	20%{transform:translate(20,20);}
+	40%{transform:translate(40,0);}
+	60%{transform:translate(60,20);}
+	80%{transform:translate(80,0);}
+	to{transform:translate(100,20);}
+}</code></pre></blockquote>
+					</div>
+				</li>
+				<li>
+					<strong>当然，也可以不适用关键字from和to，而都使用<a href="../values/other/percentage.htm">&lt;percentage&gt;</a>：</strong>
+					<div class="gquote">
+						<p class="gquote-tit"><strong>示例代码：</strong></p>
+						<blockquote class="gquote-cont"><pre><code>@keyframes testanimations{
+	0%{transform:translate(0,0);}
+	20%{transform:translate(20,20);}
+	40%{transform:translate(40,0);}
+	60%{transform:translate(60,20);}
+	80%{transform:translate(80,0);}
+	100%{transform:translate(100,20);}
+}</code></pre></blockquote>
+						<p class="gquote-info">注意，这里的0%不能简写成0。</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="unsupport">6.0-9.0</td>
+						<td class="unsupport">4.0</td>
+						<td rowspan="2" class="experimentsupport">5.1</td>
+						<td rowspan="2" class="experimentsupport">13.0-16.0</td>
+						<td rowspan="2" class="unsupport">11.50-11.60</td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="experimentsupport">10.0</td>
+						<td class="experimentsupport">5.0-9.0</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="way" class="gmodule gattr">
+		<h2 class="tit">写法：</h2>
+		<div class="cont">
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th>内核类型</th>
+						<th>写法</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Webkit(Chrome/Safari)</th>
+						<td>@-webkit-keyframes</td>
+					</tr>
+					<tr>
+						<th>Gecko(Firefox)</th>
+						<td>@-moz-keyframes</td>
+					</tr>
+					<tr>
+						<th>Presto(Opera)</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>Trident(IE)</th>
+						<td>@-ms-keyframes</td>
+					</tr>
+					<tr>
+						<th>W3C</th>
+						<td>@keyframes</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS @keyframes_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+#sport{position:relative;width:500px;height:400px;border:1px solid #ddd;}
+#staff{position:absolute;z-index:3;bottom:10px;left:10px;overflow:hidden;width:180px;height:8px;border-radius:3px;background:#ddd;line-height:20;
+	-moz-animation:staff 3s linear;
+	-webkit-animation:staff 3s linear;
+	-o-animation:staff 3s linear;
+	-ms-animation:staff 3s linear;
+	animation:staff 3s linear;
+}
+#ball{position:absolute;z-index:3;bottom:20px;left:90px;overflow:hidden;width:30px;height:30px;border-radius:15px;box-shadow:0 0 10px rgba(204,102,0,.8);background:#F6D66E;background:-moz-linear-gradient(top,#fff,#F6D66E);background:-webkit-linear-gradient(top,#fff,#F6D66E);background:-o-linear-gradient(top,#fff,#F6D66E);background:-ms-linear-gradient(top,#fff,#F6D66E);background:linear-gradient(top,#fff,#F6D66E);line-height:20;
+	-moz-animation:ball 3s linear;
+	-webkit-animation:ball 3s linear;
+	-o-animation:ball 3s linear;
+	-ms-animation:ball 3s linear;
+	animation:ball 3s linear;
+}
+@-moz-keyframes ball{
+	0%{-moz-transform:translate(0,0);}
+	5%{-moz-transform:translate(-90px,-100px);}
+	18%{-moz-transform:translate(0,-350px);}
+	35%{-moz-transform:translate(200px,0);}
+	46%{-moz-transform:translate(380px,-160px);}
+	60%{-moz-transform:translate(250px,-350px);}
+	78%{-moz-transform:translate(60px,0);}
+	100%{-moz-transform:translate(0,0);}
+}
+@-webkit-keyframes ball{
+	0%{-webkit-transform:translate(0,0);}
+	5%{-webkit-transform:translate(-90px,-100px);}
+	18%{-webkit-transform:translate(0,-350px);}
+	35%{-webkit-transform:translate(200px,0);}
+	46%{-webkit-transform:translate(380px,-160px);}
+	60%{-webkit-transform:translate(250px,-350px);}
+	78%{-webkit-transform:translate(60px,0);}
+	100%{-webkit-transform:translate(0,0);}
+}
+@-o-keyframes ball{
+	0%{-o-transform:translate(0,0);}
+	5%{-o-transform:translate(-90px,-100px);}
+	18%{-o-transform:translate(0,-350px);}
+	35%{-o-transform:translate(200px,0);}
+	46%{-o-transform:translate(380px,-160px);}
+	60%{-o-transform:translate(250px,-350px);}
+	78%{-o-transform:translate(60px,0);}
+	100%{-o-transform:translate(0,0);}
+}
+@-ms-keyframes ball{
+	0%{-ms-transform:translate(0,0);}
+	5%{-ms-transform:translate(-90px,-100px);}
+	18%{-ms-transform:translate(0,-350px);}
+	35%{-ms-transform:translate(200px,0);}
+	46%{-ms-transform:translate(380px,-160px);}
+	60%{-ms-transform:translate(250px,-350px);}
+	78%{-ms-transform:translate(60px,0);}
+	100%{-ms-transform:translate(0,0);}
+}
+@keyframes ball{
+	0%{transform:translate(0,0);}
+	5%{transform:translate(-90px,-100px);}
+	18%{transform:translate(0,-350px);}
+	35%{transform:translate(200px,0);}
+	46%{transform:translate(380px,-160px);}
+	60%{transform:translate(250px,-350px);}
+	78%{transform:translate(60px,0);}
+	100%{transform:translate(0,0);}
+}
+@-moz-keyframes staff{
+	0%{-moz-transform:translate(0,0);}
+	6%{-moz-transform:translate(260px,0);}
+	20%{-moz-transform:translate(300px,0);}
+	30%{-moz-transform:translate(300px,0);}
+	40%{-moz-transform:translate(200px,0);}
+	65%{-moz-transform:translate(40px,0);}
+	79%{-moz-transform:translate(0,0);}
+	100%{-moz-transform:translate(0,0);}
+}
+@-webkit-keyframes staff{
+	0%{-webkit-transform:translate(0,0);}
+	6%{-webkit-transform:translate(260px,0);}
+	20%{-webkit-transform:translate(300px,0);}
+	30%{-webkit-transform:translate(300px,0);}
+	40%{-webkit-transform:translate(200px,0);}
+	65%{-webkit-transform:translate(40px,0);}
+	79%{-webkit-transform:translate(0,0);}
+	100%{-webkit-transform:translate(0,0);}
+}
+@-o-keyframes staff{
+	0%{-o-transform:translate(0,0);}
+	6%{-o-transform:translate(260px,0);}
+	20%{-o-transform:translate(300px,0);}
+	30%{-o-transform:translate(300px,0);}
+	40%{-o-transform:translate(200px,0);}
+	65%{-o-transform:translate(40px,0);}
+	79%{-o-transform:translate(0,0);}
+	100%{-o-transform:translate(0,0);}
+}
+@-ms-keyframes staff{
+	0%{-ms-transform:translate(0,0);}
+	6%{-ms-transform:translate(260px,0);}
+	20%{-ms-transform:translate(300px,0);}
+	30%{-ms-transform:translate(300px,0);}
+	40%{-ms-transform:translate(200px,0);}
+	65%{-ms-transform:translate(40px,0);}
+	79%{-ms-transform:translate(0,0);}
+	100%{-ms-transform:translate(0,0);}
+}
+@keyframes staff{
+	0%{transform:translate(0,0);}
+	6%{transform:translate(260px,0);}
+	20%{transform:translate(300px,0);}
+	30%{transform:translate(300px,0);}
+	40%{transform:translate(200px,0);}
+	65%{transform:translate(40px,0);}
+	79%{transform:translate(0,0);}
+	100%{transform:translate(0,0);}
+}
+</style>
+</head>
+<body>
+<div id="sport">
+	<span id="ball">弹球</span>
+	<span id="staff">滑杆</span>
+</div>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../js/phpstudy.js"></script>
+<script src="../js/style.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<pre>
+	定义和用法
+getYear() 方法可返回表示年份的两位或四位的数字。
+语法
+dateObject.getYear()
+返回值
+返回 Date 对象的年份字段。
+提示和注释：
+注释：由 getYear() 返回的值不总是 4 位的数字！
+对于介于 1900 与 1999 之间的年份，getYear() 方法仅返回两位数字。
+对于 1900 之前或 1999 之后的年份，则返回 4 位数字！
+注释：该方法总是结合一个 Date 对象来使用。
+重要事项：从 ECMAScript v3 开始，JavaScript 
+的实现就不再使用该方法，而使用 getFullYear() 方法取而代之！
+实例
+例子 1
+在本例中，我们将取得当前的年份，并输出它：
+&ltscript type="text/javascript">
+
+var d = new Date()
+document.write(d.getYear())
+
+&lt/script>
+输出：
+114
+例子 2
+在本例中，我们将从具体的日期中提取年份：
+&ltscript type="text/javascript">
+
+var born = new Date("July 21, 1983 01:15:00")
+document.write("I was born in " + born.getYear())
+
+&lt/script>
+输出：
+I was born in 83
+</pre>

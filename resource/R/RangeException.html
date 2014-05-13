@@ -1,0 +1,61 @@
+<div id="maincontent">
+
+<h1>XML DOM - RangeException 对象</h1>
+
+<div id="tpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_range.asp" title="XML DOM Range 对象">DOM Range</a></li>
+<li class="next"><a href="/xmldom/dom_text.asp" title="XML DOM Text 对象">DOM Text</a></li>
+</ul>
+</div>
+
+<div id="intro">
+<p><strong>RangeException 对象通知发生了范围特有的异常。</strong></p>
+</div>
+
+
+<div>
+<h2>RangeException 对象</h2>
+
+<p>RangeException 对象由 Range 接口的某些方法抛出，用于通知某种类型的问题。</p>
+
+<p class="important"><span>注意：</span>Range 接口的方法所抛出的大多数异常都是 DOMException 对象。只有当现有的 DOMException 错误常量不适合表示当前的异常时，才生成 RangeException 对象。</p>
+</div>
+
+<div>
+<h2>RangeException 对象的常量</h2>
+
+<p>下面的常量为 RangeException 对象的 code 属性定义了合法的值。注意，这些常量是 RangeException 接口的静态属性，不是个别异常对象的属性。</p>
+
+<h3>BAD_BOUNDARYPOINTS_ERR</h3>
+<p>对于请求的操作，范围的边界点不合法。</p>
+
+<h3>INVALID_NODE_TYPE_ERR</h3>
+<p>尝试把范围边界点的包容节点设置为一个无效节点或具有无效祖先的节点。</p>
+</div>
+
+<div>
+<h2>RangeException 对象的属性</h2>
+
+<table class="dataintable">
+<tbody><tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+
+<tr>
+<td>code</td>
+<td>提供引发异常的详细信息的出错代码。该属性的合法值（及其含义）由前面列出的常量定义。</td>
+</tr>
+</tbody></table>
+</div>
+
+
+
+<div id="bpn">
+<ul class="prenext">
+<li class="pre"><a href="/xmldom/dom_range.asp" title="XML DOM Range 对象">DOM Range</a></li>
+<li class="next"><a href="/xmldom/dom_text.asp" title="XML DOM Text 对象">DOM Text</a></li>
+</ul>
+</div>
+</div>

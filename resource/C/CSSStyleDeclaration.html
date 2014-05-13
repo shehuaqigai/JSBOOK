@@ -1,0 +1,50 @@
+<div class="_page _mdn"><h1>CSSStyleDeclaration</h1>  <p>A CSSStyleDeclaration is an interface to the <a class="external" href="http://www.w3.org/TR/1998/REC-CSS2-19980512/syndata.html#block">declaration block</a> returned by the <code><a href="cssrule.style" rel="internal" title="en/DOM/cssRule.style">style</a></code> property of a <code><a href="cssrule" rel="internal" title="en/DOM/cssRule">cssRule</a></code> in a <a href="stylesheet" rel="internal" title="en/DOM/stylesheet">stylesheet</a>, when the rule is a <a href="cssrule#CSSStyleRule" title="en/DOM/cssRule#CSSStyleRule">CSSStyleRule</a>.</p> <p>CSSStyleDeclaration is also a <strong>read-only </strong>interface to the result of <a href="window.getcomputedstyle" title="en/DOM/window.getComputedStyle">getComputedStyle</a>.</p> <h3 id="Syntax" name="Syntax">Attributes</h3> <p><strong>cssText</strong><br> Textual representation of the declaration block. Setting this attribute changes the style.</p> <p><strong>length</strong><br> The number of properties. See the <strong>item</strong> method below.</p> <p><strong>parentRule</strong><br> The containing <code><a href="cssrule" rel="internal" title="en/DOM/cssRule">cssRule</a>.</code></p> <h3 id="Syntax" name="Syntax">Methods</h3> <p><strong>getPropertyPriority</strong><strong>(<em>propertyName</em>)</strong><br> Returns the optional priority, "important".<br> Example: <em>priString</em>= <em>styleObj</em>.getPropertyPriority('color')</p> <p><strong>getPropertyValue(<em>propertyName</em>)</strong><br> Returns the property value.<br> Example: <em>valString</em>= <em>styleObj</em>.getPropertyValue('color')</p> <p><strong>item(<em>index</em></strong><strong>)</strong><br> Returns a property name.<br> Example: <em>nameString</em>= <em>styleObj</em>.item(0)<br> Alternative: <em>nameString</em>= <em>styleObj</em>[0]</p> <p><strong>removeProperty(<em>propertyName</em>)</strong><br> Returns the value deleted.<br> Example: <em>valString</em>= <em>styleObj</em>.removeProperty('color')</p> <p><strong>setProperty(<em>propertyName</em>, <em>value</em>, <em>priority</em>)</strong><br> No return.<br> Example: <em>styleObj</em>.setProperty('color', 'red', 'important')</p> <p><strong>getPropertyCSSValue(<em>propertyName</em>)</strong><br><span style="color: rgb(255, 0, 0);">Only supported via getComputedStyle.</span><br> Returns an <a href="rocssprimitivevalue" title="The documentation about this has not yet been written; please consider contributing!"><code>ROCSSPrimitiveValue</code></a> in Firefox (<a href="cssprimitivevalue" title="The documentation about this has not yet been written; please consider contributing!"><code>CSSPrimitiveValue</code></a>, in others, which implements <a class="external" href="http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSValue" title="http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSValue">CSSValue</a>), or <code>null</code> for <a href="https://developer.mozilla.org/en/CSS/Shorthand_properties" title="en/Guide to Shorthand CSS">Shorthand properties</a>.<br> Example: <em>cssString</em>= window.getComputedStyle(<em>elem</em>, <code>null</code>).getPropertyCSSValue('color').cssText;<br> Note: Gecko 1.9 returns null unless using <a href="window.getcomputedstyle" title="en/DOM/window.getComputedStyle">getComputedStyle()</a>.<br> Note: This method may be <a class="external" href="http://lists.w3.org/Archives/Public/www-style/2003Oct/0347.html" title="http://lists.w3.org/Archives/Public/www-style/2003Oct/0347.html">deprecated by the W3C</a> , and it is not present in the latest <a href="http://dev.w3.org/csswg/cssom/#cssstyledeclaration" title="http://dev.w3.org/csswg/cssom/#cssstyledeclaration">CSSOM draft</a>. It is not supported by IE and even though the function exists in Opera, calling it throws a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> NOT_SUPPORTED_ERR.</p> <h3 id="Example" name="Example">Example</h3> <pre class=" language-javascript"><span class="token keyword">var</span> styleObj<span class="token operator">=</span> document<span class="token punctuation">.</span>styleSheets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>cssRules<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>style<span class="token punctuation">;</span>
+<span class="token function">alert<span class="token punctuation">(</span></span>styleObj<span class="token punctuation">.</span>cssText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> styleObj<span class="token punctuation">.</span>length<span class="token number">-1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">var</span> nameString <span class="token operator">=</span> styleObj<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+   styleObj<span class="token punctuation">.</span><span class="token function">removeProperty<span class="token punctuation">(</span></span>nameString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">alert<span class="token punctuation">(</span></span>styleObj<span class="token punctuation">.</span>cssText<span class="token punctuation">)</span><span class="token punctuation">;</span></pre> <h3 id="Notes" name="Notes">Notes</h3> <p>The declaration block is that part of the style rule that appears within the braces and that actually provides the style definitions (for the selector, the part that comes before the braces).</p> <h3 id="See_also.3A">See also:</h3> <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference" title="/en-US/docs/Web/CSS/CSS_Properties_Reference">DOM CSS Properties</a></li> </ul><h3 id="Specification" name="Specification">Specification</h3> <p><a class="external" href="http://dev.w3.org/csswg/cssom/#the-cssstyledeclaration-interface">CSSOM: CSSStyleDeclaration</a></p><div class="_attribution">
+    <p class="_attribution-p">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration$edit" class="_attribution-link">Edit this page on MDN</a>
+    </p>
+</div>
+    <div class="_attribution">
+        <p class="_attribution-p">
+            © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration</a>
+        </p>
+    </div>
+</div>
+
+代表一个元素计算样式设置。
+注：该CSSStyleDeclaration对象从版本9支持在Internet Explorer中。
+有在JavaScript四个对象，用于检索和修改样式设置：
+式 （跨浏览器）
+的CSSStyleDeclaration（所有浏览器，除了IE浏览器版本9之前）
+首页当前 （IE浏览器和Opera）
+runtimeStyle （IE浏览器）。
+这四个对象在以下介绍。
+在HTML中，样式设置可以在三种不同方式的元素中指定：
+内联样式 ​​设置 （与风格属性）
+嵌入式样式表 （在一个样式声明的样式元素）
+外部样式表 （通过导入的样式表链接元素或进口的样式规则）
+内联样式设置具有更高的优先级比嵌入式或外部的样式表，内嵌样式属性的值始终覆盖在嵌入式或外部的样式表中声明的值。 内联样式 ​​声明可以被检索和修改与风格的对象。
+如果你需要一个元素的当前样式设置，使用的样式对象有时是不够的，因为它只能获取内联样式 ​​设置。 为了这个目的，浏览器都支持的CSSStyleDeclaration（所有浏览器，除了IE浏览器版本9之前）和首页当前 （Internet Explorer和Opera）的对象。 他们检索的计算样式的元素，无论它们是由内嵌样式定义或嵌入式或外部的样式表。
+如果没有值的样式属性声明的，该的CSSStyleDeclaration和首页当前对象返回的默认或继承值。
+有时候检索到样式设置为不同的格式比他们以前宣布。 例如，CSSStyleDeclaration对象中检索的RGB颜色值声明的预定义的颜色名称。
+另一个区别是，简写样式属性是由的CSSStyleDeclaration和部分支持首页当前对象。 例如， 边境是一个缩写的样式属性，因为边框的颜色，样式和宽度可以用它在一个地方进行声明。
+该边框属性支持在Opera，但不支持在Internet Explorer，火狐，谷歌Chrome和Safari浏览器。
+该BORDERCOLOR ， 的borderStyle和边框宽度属性在Internet Explorer和Opera的支持，但不支持火狐，谷歌Chrome和Safari浏览器。
+The borderBottomColor , borderBottomStyle , borderBottomWidth , borderLeftColor , borderLeftStyle , borderLeftWidth , ... 属性在IE，火狐，歌剧，谷歌Chrome和Safari浏览器，以及支持。
+因此，如果你需要的电流边框设置，您必须使用borderBottomColor ， borderBottomStyle ， borderBottomWidth ，... 属性一个跨浏览器的解决方案。
+“ 注：的CSSStyleDeclaration和首页当前对象是只读的，样式设置不能被他们修改。
+有一个在Internet Explorer中的其他样式对象，有助于样式设置工作，它是runtimeStyle对象。 它提供了一个层次了内联样式设置。 它的优先级比内嵌样式和嵌入式和外部的样式表高。
+当设置由修改后的runtimeStyle对象，它们有效果的元素（这样该上首页当前对象也一样），但对内嵌样式的设置没有任何影响。 该runtimeStyle对象仅包含由本身指定的样式设置，所以它不能被用于检索一个元素的当前样式设置，它只能用于检索重写的样式设置。
+该runtimeStyle如果需要在运行时修改样式设置恢复到原来的值对象是非常有用的。
+样式属性可以通过访问getPropertyValue ， 的setProperty和removeProperty在所有浏览器的方法除了在版本9之前的Internet Explorer并通过的getAttribute ， setExpression和removeAttribute在Internet Explorer（所有版本）的方法。 此外，所有四个提到的样式对象支持的属性直接访问CSS属性的值。 这些属性的名称往往是从CSS属性的名称不同。 你可以找到网页的CSS属性上的相应名称。
+语法：
+方法返回的对象：
+•	 窗口 。 getComputedStyle （元素，pseudoElementName）
+的基本接口，通过它您可以添加新的功能到CSSStyleDeclaration对象，是的CSSStyleDeclaration或ComputedCSSStyleDeclaration接口。

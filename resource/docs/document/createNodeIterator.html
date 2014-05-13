@@ -1,0 +1,245 @@
+<p>
+	声明NodeFilter在IE中不能使用
+
+第一种方法:使用NodeIterator
+
+可以用document对象的createNodeIterator()方法来创建NodeIterator对象，基本形式如下：
+
+ 
+
+var iterator = document.createNodeIterator(root, whatToShow, filter,entityReferenceExpansion);
+<pre>
+	
+
+用到的四个参数意义如下：
+1、root:从树中的哪个节点开始搜索；
+2、whatToShow:一个数值代码，代表哪些节点需要搜索；
+3、filter:NodeFilter对象，用来决定需要忽略哪些节点；
+4、entityReferenceExpansion:布尔值，表示是否需要扩展实体引用；
+whatToShow参数可以有下列这些常量或其组合的取值：
+1、NodeFilter.SHOW_ALL：搜索所有节点；
+2、NodeFilter.SHOW_ELEMENT：搜索元素节点；
+3、NodeFilter.SHOW_ATRRIBUTE：搜索特性节点；
+4、NodeFilter.SHOW_TEXT：搜索文本节点；
+5、NodeFilter.SHOW_ENTITY_REFERENCE：搜索实体引用节点；
+6、NodeFilter.SHOW_ENTITY：搜索实体节点；
+7、NodeFilter.SHOW_PROCESSING_INSTRUCTION：搜索PI节；
+8、NodeFilter.SHOW_COMMENT：搜索注释节点；
+9、NodeFilter.SHOW_DOCUMENT：搜索文档节点；
+10、NodeFilter.SHOW_DOCUMENT_TYPE：搜索文档类型节点；
+11、NodeFilter.SHOW_DOCUMENT_FRAGMENT：搜索文档碎片节节；
+12、NodeFilter.SHOW_NOTATION：搜索记号节点；
+
+可以使用二进制操作来组合多个值：
+var whattoshow = NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT;
+常用的有按位或运算符"|"和按位取补运算符"~";
+filter参数可以指定一个自定义的NodeFilter对象，但如果不想使用它的话，也可以留空（null）；
+要创建最简单的访问所有节点的NodeIterator对象，可以使用下面的代码：
+var iterator = document.createNodeIterator(document, NodeFilter.SHOW_ALL, null, false);
+要在搜索过程中前进或者后退，可以使用nextNode()和previousNode()方法：
+
+<h3>NodeIterator的实例对象</h3>
+<p>有以下属性</p>
+expandEntityReferences: false
+filter: NodeFilter
+pointerBeforeReferenceNode: true
+referenceNode: document
+root: document
+whatToShow: 4294967295
+detach
+nextNode
+previousNode
+var node1 = iterator.nextNode();
+var node2 = iterator.nextNode();
+var node3 = iterator.previousNode();
+alert(node1 == node3);输出结果为“true”;
+例如，想列出某个区域内指定&ltdiv />中包含的所有元素。下列代码可以完成这个任务：
+&lthtml>
+&lthead>
+&lttitle>dom中的NodeIterator对象示&lt/title>
+&ltscript>
+function makelist()
+{
+   var divnode = document.getElementById("div1");
+   
+   var iterator = document.createNodeIterator(divnode, NodeFilter.SHOW_ELEMENT, null, false);
+   var oput = document.getElementById("textarea1");
+   var node = iterator.nextNode();
+   while(node)
+   {
+      oput.value += node.tagName +"\n";
+      node = iterator.nextNode();
+   }
+}
+&lt/script>
+&lt/head>
+&ltbody>
+&ltdiv id="div1">
+   &ltp>你好&ltb>读者!&lt/b>&lt/p>
+   &ltul>
+      &ltli>列表项一&lt/li>
+      &ltli>列表项二&lt/li>
+      &ltli>列表项三&lt/li>
+      &ltli>列表项四&lt/li>
+   &lt/ul>
+&lt/div>
+&lttextarea id="textarea1" rows="10">&lt/textarea>&ltbr />
+&ltinput type="button" value="生成列表" onclick="makelist()" />
+&lt/body>
+&lt/html>　
+但假设不想在结果中包含&ltp />元素。
+这就不能公用whatToShow参数来完成。
+这种情况下，就要用到filter参数，
+而filter参数需要自定义一个NodeFilter对象，
+该对象只有一个方法acceptNode()。
+如果应该访问给定的节点，那么该方法返回NodeFilter.FILTER_ACCEPT;
+如果不应该访问该节点并且其子节点也没兴趣，
+则返回NodeFilter.FILTER_REJECT;
+如果不应该访问该节点但仍对其子节点有兴趣，
+则返回NodeFilter.FILTER_SKIP。代码如下：
+
+ 
+
+
+
+&lthtml>
+&lthead>
+&lttitle>dom中的NodeIterator对象示例&lt/title>
+&ltscript>
+function makelist()
+{
+   var divnode = document.getElementById("div1");
+   var
+    FILTER= new Object();
+    FILTER.acceptNode = function(node)
+   {
+      return (node.tagName == "P") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+   }
+   var iterator = document.createNodeIterator(divnode, NodeFilter.SHOW_ELEMENT, FILTER, false);
+   var oput = document.getElementById("textarea1");
+   var node = iterator.nextNode();
+   while(node)
+   {
+      oput.value += node.tagName +"\n";
+      node = iterator.nextNode();
+   }
+}
+&lt/script>
+&lt/head>
+&ltbody>
+&ltdiv id="div1">
+   &ltp>你好&ltb>读者!&lt/b>&lt/p>
+   &ltul>
+      &ltli>列表项一&lt/li>
+      &ltli>列表项二&lt/li>
+      &ltli>列表项三&lt/li>
+      &ltli>列表项四&lt/li>
+   &lt/ul>
+&lt/div>
+&lttextarea id="textarea1" rows="10">&lt/textarea>&ltbr />
+&ltinput type="button" value="生成列表" onclick="makelist()" />
+&lt/body>
+&lt/html>
+
+
+第二种方法使用TreeWalker遍历DOM文档
+TreeWalker有点向NodeIterator的大哥一样:它有NodeIterator所有的功能,
+并且添加了下面一些遍历方法:
+parentNode():进入当前节点的父节点;
+firstChild():进入当前节点的第一子节点;
+lastChild():进入当前节点的最后一个子节点
+nextSibling():进入当前节点的下一个兄弟节点
+previousSibling():进入当前节点的前一个兄弟节点
+要开始使用TreeWalker,其实完全可以向使用NodeIterator一样,
+只需要将createNodeIterator()改成createTreeWalker()即可,
+这个函数接收同样的参数:
+
+ 
+
+
+
+&lthtml>
+&lthead>
+&lttitle>dom中的NodeIterator对象示例&lt/title>
+&ltscript>
+function makelist()
+{
+   var divnode = document.getElementById("div1");
+   var
+   FILTER= new Object();
+   FILTER.acceptNode = function(node)
+   {
+      return (node.tagName == "P") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+   }
+   var iterator = document.createTreeWalker(divnode, NodeFilter.SHOW_ELEMENT, FILTER, false);
+   var oput = document.getElementById("textarea1");
+   var node = iterator.nextNode();
+   while(node)
+   {
+      oput.value += node.tagName +"\n";
+      node = iterator.nextNode();
+   }
+}
+&lt/script>
+&lt/head>
+&ltbody>
+&ltdiv id="div1">
+  &ltp>你好&ltb>读者!&lt/b>&lt/p>
+  &ltul>
+     &ltli>列表项一&lt/li>
+     &ltli>列表项二&lt/li>
+      &ltli>列表项三&lt/li>
+      &ltli>列表项四&lt/li>
+  &lt/ul>
+&lt/div>
+&lttextarea id="textarea1" rows="10">&lt/textarea><br />
+&ltinput type="button" value="生成列表" onclick="makelist()" />
+&lt/body>
+&lt/html>
+
+
+
+也可以使用TreeWalker特有的方法来准确的定位DOM文档的某一个节点:如获取<LI>节点
+
+ 
+
+
+
+&lthtml>
+&lthead>
+&lttitle>dom中的NodeIterator对象示例&lt/title>
+&ltscript>
+function makelist()
+{
+    var oDiv = document.getElementById("div1");
+     var oFilter = new Object;
+     oFilter.acceptNode = function(oNode){
+       return (oNode.tagName=="P")?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;
+     };
+     var walker = document.createTreeWalker(oDiv,NodeFilter.SHOW_ELEMENT,oFilter,false);
+     var oOutput = document.getElementById("text1");
+     var oP = walker.firstChild(); //go to &ltp>
+     var oUl = walker.nextSibling(); // go to &ltul>
+     var oLi = walker.firstChild();  //go to &ltli>
+     while(oLi){
+        oOutput.value += oLi.tagName + "\n";
+        oLi = walker.nextSibling();
+     }
+}
+&lt/script>
+&lt/head>
+&ltbody>
+&ltdiv id="div1">
+   &ltp>你好&ltb>读者!&lt/b>&lt/p>
+   &ltul>
+      &ltli>列表项一&lt/li>
+      &ltli>列表项二&lt/li>
+      &ltli>列表项三&lt/li>
+      &ltli>列表项四&lt/li>
+   &lt/ul>
+&lt/div>
+&lttextarea id="textarea1" rows="10">&lt/textarea>&ltbr />
+&ltinput type="button" value="生成列表" onclick="makelist()" />
+&lt/body>
+&lt/html>
+</p>

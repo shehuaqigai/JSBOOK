@@ -1,0 +1,8 @@
+而CMD中是这样的：
+
+define(['./a', './b'], function (require, exports, module) {
+    var a = require('./a'),
+        b = require('./b');
+    // do something
+});
+AMD规范加载与引用是一体的，而CMD规范加载与引用是分离的。

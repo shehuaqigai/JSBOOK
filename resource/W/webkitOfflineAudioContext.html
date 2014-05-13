@@ -1,0 +1,40 @@
+<div class="_page _mdn"><h1>OfflineAudioContext</h1><div>  <div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div>
+</div> <p>The <strong><code>OfflineAudioContext</code></strong> interface is an <a href="audiocontext" title="The AudioContext interface represents an audio-processing graph built from audio modules linked together, each represented by an AudioNode."><code>AudioContext</code></a> that is an interface representing an audio-processing graph built from <a href="audionode" title="The AudioNode interface represents an audio-processing module, like an audio source (e.g. an HTML &lt;audio&gt; or &lt;video&gt; element), an audio destination, or an intermediate processing module (e.g. a filter like BiquadFilterNode, or a volume control like GainNode)."><code>AudioNode</code></a> linked together. In contrast with a basic <code>AudioContext</code>, an <code>OfflineAudioContext</code> doesn't really render the audio but generates it, <em>as fast as it can</em>, in a buffer.</p> <p>An <code>OfflineAudioContext</code> is a regular <code>AudioContext</code> and therefore can be target of events, therefore it implements the <a href="eventtarget" title="EventTarget is a DOM interface implemented by objects that can receive DOM events and have listeners for them."><code>EventTarget</code></a> interface.</p> <h2 id="Properties">Properties</h2> <p><em>Also implements properties from its parents <a href="audiocontext" title="The AudioContext interface represents an audio-processing graph built from audio modules linked together, each represented by an AudioNode."><code>AudioContext</code></a>.</em></p> <dl>
+<dt> <a href="offlineaudiocontext.oncomplete" title="The documentation about this has not yet been written; please consider contributing!"><code>OfflineAudioContext.oncomplete</code></a>
+</dt> <dd> Is an <a href="eventhandler" title="The documentation about this has not yet been written; please consider contributing!"><code>EventHandler</code></a> called when the processing is terminated, that is when the event <code><a href="globaleventhandlers.complete" title="/en-US/docs/Web/API/GlobalEventHandlers.complete">complete</a></code> of type <a href="offlineaudiocompletionevent" title="The Web Audio API OfflineAudioCompletionEvent represents events that occur when the processing of an OfflineAudioContext is terminated. The complete implements this interface."><code>OfflineAudioCompletionEvent</code></a> is raised.</dd> </dl><h2 id="Methods">Methods</h2> <p><em>Also implements methods from its parent <a href="audiocontext" title="The AudioContext interface represents an audio-processing graph built from audio modules linked together, each represented by an AudioNode."><code>AudioContext</code></a>, and therefore of <a href="eventtarget" title="EventTarget is a DOM interface implemented by objects that can receive DOM events and have listeners for them."><code>EventTarget</code></a>.</em></p> <dl>
+<dt> <a href="offlineaudiocontext.startrendering" title="The documentation about this has not yet been written; please consider contributing!"><code>OfflineAudioContext.startRendering()</code></a>
+</dt> <dd> Starts rendering the audio, taking into account the current connections and the current scheduled changes. The event <code><a href="globaleventhandlers.complete" title="/en-US/docs/Web/API/GlobalEventHandlers.complete">complete</a></code> of type <a href="offlineaudiocompletionevent" title="The Web Audio API OfflineAudioCompletionEvent represents events that occur when the processing of an OfflineAudioContext is terminated. The complete implements this interface."><code>OfflineAudioCompletionEvent</code></a>, and containing the resulting buffer, is raised when the rendering is finished</dd> </dl><h2 id="Examples">Examples</h2> <p>---</p> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td><a class="external" href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html#OfflineAudioContext-section" lang="en" title="The definition of 'OfflineAudioContext' in that specification.">Web Audio API</a></td> <td><span class="spec-WD">Working Draft</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>
+<span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span><span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>
+</td> <td>Activated on Nightly only (24)</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>Activated on Nightly only</td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: #f00;">Not supported</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_also">See also</h2> <ul>
+<li>Using Web Audio</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioContext$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioContext" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioContext</a>
+  </p>
+</div>
+</div>
+
+
+

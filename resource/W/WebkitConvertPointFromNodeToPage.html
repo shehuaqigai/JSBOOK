@@ -1,0 +1,115 @@
+<dd>
+    <p> The following 2 functions are added to the <code>Window</code>
+     interface. They provide conversions between the page and node coordinate
+     spaces.</p>
+
+    <dl>
+     <dt> <b>IDL Definition</b>
+
+     </dt><dd>
+      <div class="idl-code">
+       <pre>  interface Window {
+    ...
+    Point convertPointFromPageToNode(in Node node, in Point point);
+    Point convertPointFromNodeToPage(in Node node, in Point point);
+    ...
+  };</pre>
+      </div>
+     </dd>
+     <!-- IDL -->
+
+     <dt> <b>Methods</b>
+
+     </dt><dd>
+      <dl><!-- ============================================================ -->
+
+       <dt> <code class="method-name"><a id="DOM-Window-convertPointFromPageToNode" name="DOM-Window-convertPointFromPageToNode">convertPointFromPageToNode</a></code>
+        
+
+       </dt><dd>
+        <div class="method"> The <code>convertPointFromPageToNode</code> method
+         returns a point in the coordinate space of the passed Node that is
+         at the same location in the page as the passed point, which is in
+         the coordinate space of the page.
+         <div class="parameters"> <b>Parameters</b>
+          <div class="paramtable">
+           <dl>
+            <dt> <code class="parameter-name">node</code> of type
+             <code>Node</code>
+
+            </dt><dd> The Node which defines the desired coordinate space of the
+             returned point.<br>
+
+            </dd><dt> <code class="parameter-name">point</code> of type
+             <code>Point</code>
+
+            </dt><dd> The point, in the page's coordinate space, for which the
+             desired point, in the Node's coordinate space, should be
+             returned.<br>
+           </dd></dl>
+          </div>
+         </div>
+         <!-- parameters -->
+         <div class="return-value"> <b>Return Value</b></div>
+
+         <div class="returnvalue">
+          <dl>
+           <dt> <code>Point</code>
+
+           </dt><dd> The resultant point in the coordinate space of the passed
+            Node.<br>
+          </dd></dl>
+         </div>
+        </div>
+
+        <div> <b>No Exceptions</b></div>
+       </dd>
+       <!-- convertPointFromPageToNode -->
+       <!-- ============================================================ -->
+
+       <dt> <code class="method-name"><a id="DOM-Window-convertPointFromNodeToPage" name="DOM-Window-convertPointFromNodeToPage">convertPointFromNodeToPage</a></code>
+        
+
+       </dt><dd>
+        <div class="method"> The <code>convertPointFromNodeToPage</code> method
+         returns a point in the coordinate space of the page that is at the
+         same location in the page as the passed point, which is in the
+         coordinate space of the passed Node.
+         <div class="parameters"> <b>Parameters</b>
+          <div class="paramtable">
+           <dl>
+            <dt> <code class="parameter-name">node</code> of type
+             <code>Node</code>
+
+            </dt><dd> The Node which defines the coordinate space of the passed
+             point.<br>
+
+            </dd><dt> <code class="parameter-name">point</code> of type
+             <code>Point</code>
+
+            </dt><dd> The point, in the Node's coordinate space, for which the
+             desired point, in the page's coordinate space, should be
+             returned.<br>
+           </dd></dl>
+          </div>
+         </div>
+         <!-- parameters -->
+         <div class="return-value"> <b>Return Value</b></div>
+
+         <div class="returnvalue">
+          <dl>
+           <dt> <code>Point</code>
+
+           </dt><dd> The resultant point in the coordinate space of the page.<br>
+          </dd></dl>
+         </div>
+        </div>
+
+        <div> <b>No Exceptions</b></div>
+       </dd>
+       <!-- convertPointFromNodeToPage -->
+      </dl>
+     </dd>
+     <!-- Methods -->
+    </dl>
+   </dd>

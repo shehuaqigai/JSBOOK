@@ -1,0 +1,167 @@
+代表一个样式属性的值及其类型。
+该CSSValue对象是所有可用的样式值的基本接口。 有在JavaScript中两个对象是从CSSValue对象继承：
+一个是CSSPrimitiveValue简单的样式值（对象的颜色 ， 宽度 ， 高度 ，...）。
+另一种是CSSValueList复杂的样式值（对象backgroundPosition ， borderSpacing ， 光标 ，...）。
+该getPropertyCSSValue方法返回一个CSSPrimitiveValue或CSSValueList对象，根据不同的样式属性的值的类型。 如遇某些特殊样式属性，该getPropertyCSSValue方法返回自定义对象。 自定义对象也继承了CSSValue对象。
+该cssValueType返回对象的属性可以帮助确定其类型注：所有可能返回的对象支持cssValueType属性，因为它是从CSSValue对象继承。 看下面的例子中，了解详情。
+语法：
+方法返回的对象：
+•	 对象 。 getPropertyCSSValue （属性）
+相关的对象：
+的CSSStyleDeclaration ， 风格
+的基本接口，通过它您可以添加新的功能到CSSValue对象，是CSSValue接口。
+可能的成员​​：
+常量：
+下列常数可在CSSValue对象的范围。
+可以通过直接使用它们CSSValue接口（CSSValue.CSS_INHERIT）或通过CSSValue对象的一个实例。 该常数表示该对象所支持的值类型（见cssValueType属性）。
+使用常量，而不是它们的数值将导致更易读的代码。
+CSS_INHERIT
+0	该属性的值是从父元素继承。 使用CSSText中属性检索值。
+CSS_PRIMITIVE_VALUE
+1	该值是一个简单的样式值和当前对象的实例CSSPrimitiveValue对象。
+CSS_VALUE_LIST
+2	该值是一个复杂的样式值和当前对象的实例CSSValueList对象。
+CSS_CUSTOM
+3	属于该值的对象是一个自定义对象。 使用自定义对象或CSSText中属性检索值。
+属性：
+CSSText中
+设置或检索的样式声明的内容作为一个字符串。
+cssValueType
+返回属于当前对象的样式值的类型。
+
+<pre>
+
+< 头 >
+< 风格 >
+＃testDiv {
+边界 ：1px固体＃FF0000;
+背景位置 ：10％20像素 ;
+剪辑 ：RECT（10px的，40PX，150像素，加入5px）;
+}
+</ STYLE>
+< 脚本    类型 =“文/ JavaScript的”>
+功能 GetPrimitiveValue（值）{
+无功 VALUETYPE =值primitiveType;
+
+如果 （VALUETYPE == CSSPrimitiveValue。CSS_NUMBER）{
+。 返回 值getFloatValue（CSSPrimitiveValue CSS_NUMBER。）;
+}
+如果 （VALUETYPE == CSSPrimitiveValue。CSS_PERCENTAGE）{
+。 返回 值getFloatValue（。CSSPrimitiveValue CSS_PERCENTAGE）+“％”;
+}
+如果 （CSSPrimitiveValue。CSS_EMS <= VALUETYPE && VALUETYPE <= CSSPrimitiveValue。CSS_DIMENSION）{
+。 返回 值getFloatValue（CSSPrimitiveValue CSS_PX。）+“PX”;
+}
+如果 （CSSPrimitiveValue。CSS_STRING <= VALUETYPE && VALUETYPE <= CSSPrimitiveValue。CSS_ATTR）{
+。 返回 值getStringValue（）;
+}
+如果 （VALUETYPE == CSSPrimitiveValue。CSS_COUNTER）{
+变种 打击城市=值getCounterValue（）;
+回归    “（标识符：”+ 打击社会 标识符 +
+“，listStyle：”+打击社会 listStyle +
+“，分隔符：”+ 打击城市 分隔符 +“）”;
+}
+如果 （VALUETYPE == CSSPrimitiveValue。CSS_RECT）{
+无功 RECT =值getRectValue（）;
+。 变种 topPX =矩形 顶 getFloatValue（。CSSPrimitiveValue CSS_PX）;
+无功 rightPX =矩形 右边 getFloatValue（CSSPrimitiveValue CSS_PX。）;
+。 变种 bottomPX =矩形 底部 getFloatValue（。CSSPrimitiveValue CSS_PX）;
+。 无功 leftPX =矩形 左 getFloatValue（CSSPrimitiveValue CSS_PX。）;
+回归    “RECT（”+ topPX +“PX”+ rightPX +“PX”+ bottomPX +“PX”+ leftPX +“PX）”;
+}
+如果 （VALUETYPE == CSSPrimitiveValue。CSS_RGBCOLOR）{
+无功 RGB =值getRGBColorValue（）;
+。 变种 R = RGB 红 getFloatValue（。CSSPrimitiveValue CSS_NUMBER）;
+变种 G = RGB 绿色 getFloatValue（CSSPrimitiveValue CSS_NUMBER。）;
+变种 B = RGB 蓝色 getFloatValue（CSSPrimitiveValue CSS_NUMBER。）;
+回归    “RGB（”+ R +“，”+克+“，”+ B +“）”;
+}
+
+返回 值 CSSText中 。;
+}
+
+功能 GetComplexValue（值）{
+变种 valueStr =“”;
+为（VAR = 0; I <值 长度 ;。我+ +）{
+开关 （值[I]。cssValueType）{
+案    。CSSValue CSS_INHERIT：
+valueStr + =值[I] 的toString（）;
+打破 ;
+案    。CSSValue CSS_PRIMITIVE_VALUE：
+valueStr + = GetPrimitiveValue（值由[i]）;
+打破 ;
+案    。CSSValue CSS_VALUE_LIST：
+valueStr + = GetComplexValue（值由[i]）;
+打破 ;
+案    。CSSValue CSS_CUSTOM：
+valueStr + =值[I] 的toString（）;
+打破 ;
+}
+
+valueStr + =“<BR/>”;
+}
+
+返回 valueStr;
+}
+
+功能 GetCssProperties（）{
+。 无功 resTable = 文件 的getElementById（“resTable”）;
+无功 格= 文件 的getElementById（“testDiv”）;
+
+如果 （ 窗口 。getComputedStyle）{
+无功 compStyle = 窗口 getComputedStyle（DIV，NULL）;
+尝试 {
+为（VAR = 0; I <compStyle 长度 ;。我+ +）{
+变种 的propName = compStyle（i） 项 ;
+
+。resTable 的insertRow（I）;
+。resTable 行 [I] insertCell（0）;
+。resTable 行 [I] insertCell（1）;
+。resTable 行 [I] insertCell（2）;
+
+。resTable 行 [I] 细胞 [0] 的innerHTML =的propName;
+
+变种 消息=的propName +“：”;
+无功 值= compStyle getPropertyCSSValue（的propName）;
+
+如果 （值）{
+开关 （value. cssValueType）{
+案    。CSSValue CSS_INHERIT：
+。resTable 行 [I] 细胞 [1] 的innerHTML =“的值是继承自父”;
+。。resTable 行 [I] 细胞 [2] 的innerHTML =值 的toString（）;
+打破 ;
+案    。CSSValue CSS_PRIMITIVE_VALUE：
+。resTable 行 [I] 细胞 [1] 的innerHTML =“的值是一个基本值”;
+。resTable 行 [I] 细胞 [2] 的innerHTML = GetPrimitiveValue（值）;
+打破 ;
+案    。CSSValue CSS_VALUE_LIST：
+。resTable 行 [I] 细胞 [1] 的innerHTML =“的值是一个复杂的价值”;
+。resTable 行 [I] 细胞 [2] 的innerHTML = GetComplexValue（值）;
+打破 ;
+案    。CSSValue CSS_CUSTOM：
+。resTable 行 [I] 细胞 [1] 的innerHTML =“的值是一个自定义的值”;
+。。resTable 行 [I] 细胞 [2] 的innerHTML =值 的toString（）;
+打破 ;
+}
+}
+其他 {
+。resTable 行 [I] 细胞 [1] 的innerHTML =“空”。;
+。resTable 行 [I] 细胞 [2] 的innerHTML =“空”。;
+}
+}
+}
+赶上 （五）{
+警报 （“您的浏览器不支持getPropertyCSSValue方法！”）;
+}
+}
+其他 {
+警报 （“您的浏览器不支持getComputedStyle方法！”）;
+}
+}
+</ SCRIPT>
+</ HEAD>
+< 体    的onload =“GetCssProperties（）”>
+< 格    ID =“testDiv”> 使用自定义样式 </ DIV> 元素师
+
+
+</pre>

@@ -1,0 +1,35 @@
+<p style="line-height: 2em; text-indent: 2em">ArcGIS API for JavaScript （JavaScript API)）是基于浏览器的API，用于开发高性能、易于使用的地图应用。API 允许您很容易地在web页面中嵌入地图。</p>
+<p style="line-height: 2em; text-indent: 2em">JavaScript API由 esri ArcGIS online 托管，并且免费使用。</p>
+
+<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-865" class="post-865 post type-post status-publish format-standard hentry category-knowledge tag-arcgis tag-gis">
+				<header class="entry-header">
+									<h1 class="entry-title">ArcGIS JavaScript API 下载与本地部署</h1>
+										<div class="comments-link">
+					<a href="http://datawarehou.se/knowledge/arcgis-javascript-api-download-and-local-deploy/#respond" title="《ArcGIS JavaScript API 下载与本地部署》上的评论"><span class="leave-reply">发表回复</span></a>				</div><!-- .comments-link -->
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>在这里写关于GIS的东西似乎有些驴唇不对马嘴，不过我目前的工作就是在BI系统中集成GIS的功能（从展现到数据）。想必也会有其他朋友在做这方面的事。</p>
+<p>前阵子实际上已经把JS API本地化部署过了，当时是按照install guide部署到我的笔记本上（IIS服务器），还是非常简单方便的。实际上，如果网络条件允许，我建议使用ArcGIS在线的JS API。免费使用、省去部署的步骤不说，24×7可用也是很省心，v2.4版有了https也更加安全。但是——你知道一定有个“但是”会出现——ArcGIS的javascript api是host在amazon云上的（https://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.4），原因你懂的，至少在我公司里无法访问，所以才会选择将其本地化。</p>
+<p>目前ArcGIS JavaScript API的最新版本是2.4版，api和sdk离线包链接在此（<a href="http://support.esrichina-bj.cn/2011/0223/960.html" target="_blank">http://support.esrichina-bj.cn/2011/0223/960.html</a>）可以找到。</p>
+<p>对于本地化安装部署，如果是用的IIS，那么按照api包中的install文档，去修改几个文件，配置一下IIS服务即可使用。而对于将其部署于ArcGIS Server上就更为简单。</p>
+<ol>
+<li>找到此路径ArcGIS_Server_PATH\java\manager\web_output</li>
+<li>将离线包解压缩后，把“arcgis_js_api”文件夹完整放置于上述路径中</li>
+<li>按照install.htm对文件进行配置，注意，如果是内网访问api，配置过程中要使用ip地址而非主机名；注意2，由于是安装于ArcGIS Server上（实际上就是个tomcat），如果是默认条件对服务器进行的安装，那么端口号是8399，务必不要忘了把端口号也配置了。例如，对esri.js文件的修改，需要找到[HOSTNAME_AND_PATH_TO_JSAPI]，要用“你的ip或主机名:8399/arcgis_js_api/library/2.3/arcgis/”来替换</li>
+<li>毋须配置服务器，尝试访问http://&lt;myserver&gt;/arcgis_js_api/library/2.3/arcgis/和http://&lt;myserver&gt;/arcgis_js_api/library/2.3/arcgis_compact/，在firefox下会显示出arcgis js api的内容，在IE下会弹出窗口询问你是否要下载arcgis文件</li>
+<li>再通过install.htm中的测试代码可以测试访问地图是否正常</li>
+</ol>
+					</div><!-- .entry-content -->
+		
+		
+	</article><!-- #post -->
+
+			
+	
+	

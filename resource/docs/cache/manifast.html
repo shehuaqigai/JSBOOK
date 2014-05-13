@@ -1,0 +1,119 @@
+
+
+  <h2 id="toc-manifest-file-creating">缓存清单文件</h2>
+
+  <p>缓存清单文件是个简单的文本文件，其中列出了浏览器应缓存以供离线访问的资源。</p>
+
+  <h3 id="toc-manifest-file-reference">引用清单文件</h3>
+  <p>要启用某个应用的应用缓存，请在文档的 <code>html</code> 标记中添加 manifest 属性：</p>
+
+  <pre class="prettyprint"><span class="tag">&lt;html</span><span class="pln"> </span><span class="atn">manifest</span><span class="pun">=</span><span class="atv">"example.appcache"</span><span class="tag">&gt;</span><span class="pln">
+  ...
+</span><span class="tag">&lt;/html&gt;</span></pre>
+
+  <p>您应在要缓存的网络应用的每个页面上都添加 <code>manifest</code> 属性。如果网页不包含 <code>manifest</code> 属性，浏览器就不会缓存该网页（除非清单文件中明确列出了该属性）。这就意味着用户浏览的每个包含 <code>manifest</code> 的网页都会隐式添加到应用缓存。因此，您无需在清单中列出每个网页。</p>
+
+  <p><code>manifest</code> 属性可指向绝对网址或相对路径，但绝对网址必须与相应的网络应用同源。清单文件可使用任何文件扩展名，但必须以正确的 MIME 类型提供（参见下文）。</p>
+
+  <pre class="prettyprint"><span class="tag">&lt;html</span><span class="pln"> </span><span class="atn">manifest</span><span class="pun">=</span><span class="atv">"http://www.example.com/example.mf"</span><span class="tag">&gt;</span><span class="pln">
+  ...
+</span><span class="tag">&lt;/html&gt;</span></pre>
+
+  <p>清单文件必须以 <code>text/cache-manifest</code> MIME 类型提供。您可能需要向网络服务器或 <code>.htaccess</code> 配置添加自定义文件类型。</p>
+
+  <p>例如，要在 Apache 中提供此 MIME 类型，请在您的配置文件中添加下面一行内容：
+  </p><pre class="prettyprint"><span class="typ">AddType</span><span class="pln"> text</span><span class="pun">/</span><span class="pln">cache</span><span class="pun">-</span><span class="pln">manifest </span><span class="pun">.</span><span class="pln">appcache</span></pre>
+
+  <p>要在 Google App Engine 的 app.yaml 文件中提供此 MIME 类型，则添加以下内容：</p>
+<pre class="prettyprint"><span class="pun">-</span><span class="pln"> url</span><span class="pun">:</span><span class="pln"> </span><span class="str">/mystaticdir/</span><span class="pun">(.*</span><span class="pln">\.appcache</span><span class="pun">)</span><span class="pln">
+  static_files</span><span class="pun">:</span><span class="pln"> mystaticdir</span><span class="pun">/</span><span class="pln">\1
+  mime_type</span><span class="pun">:</span><span class="pln"> text</span><span class="pun">/</span><span class="pln">cache</span><span class="pun">-</span><span class="pln">manifest
+  upload</span><span class="pun">:</span><span class="pln"> mystaticdir</span><span class="pun">/(.*</span><span class="pln">\.appcache</span><span class="pun">)</span></pre>
+
+  <h3 id="toc-manifest-file-structure">清单文件结构</h3>
+
+  <p>简单的清单格式如下：</p>
+<pre class="prettyprint"><span class="pln">CACHE MANIFEST
+index</span><span class="pun">.</span><span class="pln">html
+stylesheet</span><span class="pun">.</span><span class="pln">css
+images</span><span class="pun">/</span><span class="pln">logo</span><span class="pun">.</span><span class="pln">png
+scripts</span><span class="pun">/</span><span class="pln">main</span><span class="pun">.</span><span class="pln">js</span></pre>
+
+  <p>该示例将在指定此清单文件的网页上缓存四个文件。</p>
+
+  <p>您需要注意以下几点：</p>
+  <ul>
+    <li><code>CACHE MANIFEST</code> 字符串应在第一行，且必不可少。</li>
+    <li>网站的缓存数据量不得超过 5 MB。不过，如果您要编写的是针对 <a href="http://code.google.com/chrome/apps/docs/developers_guide.html">Chrome 网上应用店</a>的应用，可使用 <code>unlimitedStorage</code> 取消该限制。</li>
+    <li>如果清单文件或其中指定的资源无法下载，就无法进行整个缓存更新进程。在这种情况下，浏览器将继续使用原应用缓存。</li>
+  </ul>
+
+  <p>我们再来看看更复杂的示例：</p>
+  <pre class="prettyprint"><span class="pln">CACHE MANIFEST
+</span><span class="com"># 2010-06-18:v2</span><span class="pln">
+
+</span><span class="com"># Explicitly cached 'master entries'.</span><span class="pln">
+CACHE</span><span class="pun">:</span><span class="pln">
+</span><span class="str">/favicon.ico
+index.html
+stylesheet.css
+images/</span><span class="pln">logo</span><span class="pun">.</span><span class="pln">png
+scripts</span><span class="pun">/</span><span class="pln">main</span><span class="pun">.</span><span class="pln">js
+
+</span><span class="com"># Resources that require the user to be online.</span><span class="pln">
+NETWORK</span><span class="pun">:</span><span class="pln">
+login</span><span class="pun">.</span><span class="pln">php
+</span><span class="pun">/</span><span class="pln">myapi
+http</span><span class="pun">:</span><span class="com">//api.twitter.com</span><span class="pln">
+
+</span><span class="com"># static.html will be served if main.py is inaccessible</span><span class="pln">
+</span><span class="com"># offline.jpg will be served in place of all images in images/large/</span><span class="pln">
+</span><span class="com"># offline.html will be served in place of all other .html files</span><span class="pln">
+FALLBACK</span><span class="pun">:</span><span class="pln">
+</span><span class="str">/main.py /</span><span class="kwd">static</span><span class="pun">.</span><span class="pln">html
+images</span><span class="pun">/</span><span class="pln">large</span><span class="pun">/</span><span class="pln"> images</span><span class="pun">/</span><span class="pln">offline</span><span class="pun">.</span><span class="pln">jpg
+</span><span class="pun">*.</span><span class="pln">html </span><span class="pun">/</span><span class="pln">offline</span><span class="pun">.</span><span class="pln">html</span></pre>
+
+  <p>以“#”开头的行是注释行，但也可用于其他用途。应用缓存只在其清单文件发生更改时才会更新。例如，如果您修改了图片资源或更改了 JavaScript 函数，这些更改不会重新缓存。<strong>您必须修改清单文件本身才能让浏览器刷新缓存文件</strong>。使用生成的版本号、文件哈希值或时间戳创建注释行，可确保用户获得您的软件的最新版。您还可以在出现新版本后，以编程方式更新缓存，如<a href="#toc-updating-cache">更新缓存</a>部分中所述。</p>
+
+  <p>清单可包括以下三个不同部分：<code>CACHE</code>、<code>NETWORK</code> 和 <code>FALLBACK</code>。</p>
+
+  <dl>
+    <dt><code>CACHE</code>：</dt>
+    <dd>这是条目的默认部分。系统会在首次下载此标头下列出的文件（或紧跟在 <code>CACHE MANIFEST</code> 后的文件）后显式缓存这些文件。</dd>
+    <dt><code>NETWORK</code>：</dt>
+    <dd>此部分下列出的文件是需要连接到服务器的白名单资源。无论用户是否处于离线状态，对这些资源的所有请求都会绕过缓存。可使用通配符。</dd>
+    <dt><code>FALLBACK</code>：</dt>
+    <dd>此部分是可选的，用于指定无法访问资源时的后备网页。其中第一个 URI 代表资源，第二个代表后备网页。两个 URI 必须相关，并且必须与清单文件同源。可使用通配符。</dd>
+  </dl>
+
+  <p><strong>请注意</strong>：这些部分可按任意顺序排列，且每个部分均可在同一清单中重复出现。</p>
+
+  <p>以下清单定义了用户尝试离线访问网站的根时显示的“综合性”网页 (offline.html)，也表明了其他所有资源（例如远程网站上的资源）均需要互联网连接。</p>
+
+<pre class="prettyprint"><span class="pln">CACHE MANIFEST
+</span><span class="com"># 2010-06-18:v3</span><span class="pln">
+
+</span><span class="com"># Explicitly cached entries</span><span class="pln">
+index</span><span class="pun">.</span><span class="pln">html
+css</span><span class="pun">/</span><span class="pln">style</span><span class="pun">.</span><span class="pln">css
+
+</span><span class="com"># offline.html will be displayed if the user is offline</span><span class="pln">
+FALLBACK</span><span class="pun">:</span><span class="pln">
+</span><span class="str">/ /</span><span class="pln">offline</span><span class="pun">.</span><span class="pln">html
+
+</span><span class="com"># All other resources (e.g. sites) require the user to be online. </span><span class="pln">
+NETWORK</span><span class="pun">:</span><span class="pln">
+</span><span class="pun">*</span><span class="pln">
+
+</span><span class="com"># Additional resources to cache</span><span class="pln">
+CACHE</span><span class="pun">:</span><span class="pln">
+images</span><span class="pun">/</span><span class="pln">logo1</span><span class="pun">.</span><span class="pln">png
+images</span><span class="pun">/</span><span class="pln">logo2</span><span class="pun">.</span><span class="pln">png
+images</span><span class="pun">/</span><span class="pln">logo3</span><span class="pun">.</span><span class="pln">png</span></pre>
+
+  <p><strong>请注意</strong>：系统会自动缓存引用清单文件的 HTML 文件。因此您无需将其添加到清单中，但我们建议您这样做。</p>
+
+  <p><strong>请注意</strong>：HTTP 缓存标头以及对通过 SSL 提供的网页设置的缓存限制将被替换为缓存清单。因此，通过 https 提供的网页可实现离线运行。</p>
+
+ 

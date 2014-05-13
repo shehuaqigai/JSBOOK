@@ -1,0 +1,16 @@
+<p>
+	document对象的referrer属性，返回导航到当前网页的超链接所在网页的URL。
+举例： 
+1. a.html文件内容如下： 
+&lta href="b.html">浏览b.html &lt/a> 
+2. b.html文件中的内容如下： 
+&ltbody> 
+&ltscript type="text/javascript"> 
+document.write(document.referrer); 
+&lt/script> 
+&lt/body> 
+3. 则在通过a.html中的超链接访问b.html的时候，显示的结果是： 
+http://127.0.0.1:8180/a.html
+说明： 
+经过测试，需要将两个文件放在服务器中才能得到想要的结果,若直接在本地文件夹中则得到空字符串，若直接在浏览器地址栏中输入b.html的URL地址或使用打开菜单访问b.html，则document.referrer的值为空字符串。
+</p>

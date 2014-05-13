@@ -1,0 +1,47 @@
+语法
+
+ 
+var index = array.indexOf(searchElement[, fromIndex]);
+参数说明
+
+searchElement： 要搜索的元素
+
+fromIndex ： 开始搜索的位置，默认为 0 ，在这样的情况下，将搜索所有的数组元素。如果传入的值大于或等于数组的范围（length），将返回 -1 ，在这样的情况下，搜索操作将不被执行。如果传入的值小于 0 ，仍然会搜索整个数组。
+
+功能说明
+
+比较 searchElement 和数组的每个元素是否绝对一致（===），当有元素符合条件时，返回当前元素的索引。如果没有发现，就直接返回 -1 。
+
+在不支持此属性的浏览器下可以用下面的代码：
+<pre>
+
+&ltscript language="JavaScript" type="text/javascript">
+  
+// 说明：Javascript Array 的 indexOf() 方法
+// 整理：http://www.CodeBit.cn
+// 来源：http://developer.mozilla.org
+  
+if (!Array.prototype.indexOf)
+{
+    Array.prototype.indexOf = function(elt /*, from*/)
+    {
+        var len = this.length;
+  
+        var from = Number(arguments[1]) || 0;
+        from = (from < 0)
+            ? Math.ceil(from)
+            : Math.floor(from);
+        if (from < 0)
+            from += len;
+  
+        for (; from < len; from++)
+        {
+            if (from in this && this[from] === elt)
+                return from;
+        }
+        return -1;
+    };
+}
+  
+&gt/script>
+</pre>

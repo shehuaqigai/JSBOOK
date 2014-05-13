@@ -1,0 +1,55 @@
+<p>
+	概述
+
+返回一个布尔值,表明当前文档或者当前文档的子节点是否获得了焦点. 该方法可以用来判断当前文档中的活动元素是否获得了焦点.
+
+注意:当查看一个文档时, 当前文档中获得焦点的元素一定是当前文档的活动元素.但一个文档中的活动元素不一定获得了焦点. 例如, 一个在后台的窗口中的活动元素一定没有获得焦点.
+语法
+
+focused = document.hasFocus();
+返回值
+
+如果当前文档的活动元素获得了焦点,返回true,否则返回false
+
+例子
+
+<!DOCTYPE html>
+&lthtml>
+&lthead>
+  &ltstyle type='text/css'>
+    #message { font-weight: bold; }
+  &lt/style>
+
+&ltscript type='text/javascript'>
+      setInterval("CheckPageFocus()", 200);
+  
+      function CheckPageFocus() {
+            var info = document.getElementById("message");
+           if (document.hasFocus()) {
+             info.innerHTML = "该页面获得了焦点.";
+            }
+            else {
+             info.innerHTML = "该页面没有获得焦点.";
+           }
+      }
+ 
+    function OpenWindow() {
+           window.open ("http://developer.mozilla.org/", "mozdev",  
+                     "width=640, height=300, left=150, top=260");
+    }
+&lt/script>
+&lt/head>
+
+&ltbody>
+ document.hasFocus 演示&ltbr />&ltbr />
+&ltdiv id="message">等待用户操作&lt/div><br />
+&ltbutton onclick="OpenWindow()">打开一个新窗口&lt/button>
+&lt/body>
+&lt/html>
+浏览器兼容性
+
+Desktop Mobile
+Feature	Chrome	Firefox (Gecko)	Internet Explorer	Opera	Safari
+Basic support	(Yes)	3.0 (1.9)	6.0	Not supported	(Yes)
+规范
+</p>

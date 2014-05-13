@@ -1,0 +1,676 @@
+<div id="mainSection">
+<div class="clsServerSDKContent">
+
+</div>
+<p>Internet Explorer&nbsp;10 和使用 JavaScript 的 Windows 应用商店应用引入了对 <strong>track</strong> 元素的支持，该元素在万维网联盟 (W3C) 的 HTML5 标准的<a href="http://go.microsoft.com/fwlink/p/?LinkId=234034">第 4.8.9 节</a>进行了说明。使用 <strong>track</strong> 元素，可以为 HTML5&nbsp;<a href="http://go.microsoft.com/fwlink/p/?LinkID=197448"><strong xmlns="http://www.w3.org/1999/xhtml">video</strong></a> 元素添加计时文本轨道（如隐藏字幕、翻译或文字解说词）。</p>
+<p>
+</p><ul>
+<li><a href="#support_track">跟踪元素</a></li>
+<li><a href="#track_file_formats">轨道文件格式</a><ul>
+<li><a href="#WebVTT">WebVTT</a></li>
+<li><a href="#ttml">TTML</a></li>
+</ul>
+</li>
+<li><a href="#multi-track_files">多个轨道文件</a></li>
+<li><a href="#Scripting_the_track_element">为轨道元素编写脚本</a><ul>
+<li><a href="#textTrackList_textTrack">TextTrack 和 textTrackList 对象</a></li>
+<li><a href="#texttrackcuelist___texttrackcue___">TextTrackCueList 和 textTrackCue 对象</a></li>
+</ul>
+</li>
+<li><a href="#working_with_cues">使用提示</a><ul>
+<li><a href="#get_current_cue">获取当前提示</a></li>
+<li><a href="#get_all_cues">获取所有提示</a></li>
+</ul>
+</li>
+<li><a href="#api___">API 参考</a></li>
+<li><a href="#_____">示例和教程</a></li>
+<li><a href="#___internet_explorer___test_drive___">有关 Internet Explorer 的 Test Drive 演示</a></li>
+<li><a href="#ieblog___">IEBlog 文章</a></li>
+<li><a href="#__">规范</a></li>
+<li><a href="#related_topics">相关主题</a></li>
+</ul>
+
+<h2><a id="support_track"></a><a id="SUPPORT_TRACK"></a>跟踪元素</h2>
+<p>元素的语法如下所示。
+</p>
+
+<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_31bf1dfc-64c3-430b-9bbb-8cc2a948d495');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_31bf1dfc-64c3-430b-9bbb-8cc2a948d495" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"mainvideo"</span> <span style="color:Red;">controls</span> <span style="color:Red;">autoplay</span> <span style="color:Red;">loop</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"en_track.vtt"</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">"en"</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">"English"</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">"caption"</span> <span style="color:Red;">default</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span>
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>&lt;track&gt; 元素代表为用户针对视频提供多种语言或解说词的计时文本文件。你可以使用多个轨道，并将其中一个设置为开始播放视频时所使用的默认轨道。</p>
+<p>文本在视频播放器的底部显示。这时无法控制位置和颜色，但你可以通过脚本检索文本，并以自己的方式显示它。
+</p>
+<h2><a id="track_file_formats"></a><a id="TRACK_FILE_FORMATS"></a>轨道文件格式</h2>
+<p>文本轨道使用 Web 视频文本轨道 (WebVTT) 的简化版本，或计时文本标记语言 (TTML) 计时文本文件格式。Internet Explorer 10 和使用 JavaScript 的 Windows 应用商店应用目前仅支持计时提示和文本字幕。</p>
+<h3><a id="WebVTT"></a><a id="webvtt"></a><a id="WEBVTT"></a>WebVTT</h3>
+<p>WebVTT 文件是 8 位 Unicode 转换格式 (UTF-8) 格式的文本文件，如下所示。
+</p>
+
+<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>Text</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_61bc3f63-a2bc-4ac7-b142-f92391721f87');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_61bc3f63-a2bc-4ac7-b142-f92391721f87" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+WEBVTT
+
+00:00:01.878 --&gt; 00:00:05.334
+Good day everyone, my name is John Smith
+
+00:00:08.608 --&gt; 00:00:15.296
+This video will teach you how to 
+build a sand castle on any beach
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>该文件在第一行以标记 <code>WEBVTT</code> 开始，随后换行。计时提示的格式是 <code>HH:MM:SS.sss</code>。“开始”<em></em>和“结束”<em></em>提示之间由一个空格、两个连字符、一个大于号和另一个空格 ( <code>--&gt;</code> ) 进行分隔。计时提示所在行不包含其他内容，并在结尾处换行。紧接着计时提示的是字幕文本。文本字幕可以是一行或多行。唯一的限制是文本行之间不能有空行。WebVTT 文件的 MIME 类型是“text/vtt”""。</p>
+<h3><a id="ttml"></a><a id="TTML"></a>TTML</h3>
+<p>Internet Explorer&nbsp;10 和使用 JavaScript 的 Windows 应用商店应用使用 TTML（计时文本标记语言）文件格式的子集，这是在 TTML 规范中定义的。Windows Internet Explorer 和使用 JavaScript 的 Windows 应用商店应用支持以下结构。</p>
+
+<div id="code-snippet-3" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>XML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_55169e51-3430-4e88-96bc-d800ac144473');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_55169e51-3430-4e88-96bc-d800ac144473" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">&lt;?</span><span style="color:#A31515;">xml</span> <span style="color:Red;">version</span><span style="color:Blue;">=</span><span style="color:Black;">'</span><span style="color:Blue;">1.0</span><span style="color:Black;">'</span> <span style="color:Red;">encoding</span><span style="color:Blue;">=</span><span style="color:Black;">'</span><span style="color:Blue;">UTF-8</span><span style="color:Black;">'</span><span style="color:Blue;">?&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">tt</span> <span style="color:Red;">xmlns</span><span style="color:Blue;">=</span><span style="color:Black;">'</span><span style="color:Blue;">http://www.w3.org/ns/ttml</span><span style="color:Black;">'</span> <span style="color:Red;">xml:lang</span><span style="color:Blue;">=</span><span style="color:Black;">'</span><span style="color:Blue;">en</span><span style="color:Black;">'</span> <span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">p</span> <span style="color:Red;">begin</span><span style="color:Blue;">=</span><span style="color:Black;">"</span><span style="color:Blue;">00:00:01.878</span><span style="color:Black;">"</span> <span style="color:Red;">end</span><span style="color:Blue;">=</span><span style="color:Black;">"</span><span style="color:Blue;">00:00:05.334</span><span style="color:Black;">"</span> <span style="color:Blue;">&gt;</span>Good day everyone, my name is John Smith<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">p</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">p</span> <span style="color:Red;">begin</span><span style="color:Blue;">=</span><span style="color:Black;">"</span><span style="color:Blue;">00:00:08.608</span><span style="color:Black;">"</span> <span style="color:Red;">end</span><span style="color:Blue;">=</span><span style="color:Black;">"</span><span style="color:Blue;">00:00:15.296</span><span style="color:Black;">"</span> <span style="color:Blue;">&gt;</span>This video will teach you how to<span style="color:Blue;">&lt;</span><span style="color:#A31515;">br</span><span style="color:Blue;">/&gt;</span>build a sand castle on any beach<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">p</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">tt</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p>TTML 文件在根元素 (<strong>tt</strong>) 中使用命名空间声明和语言属性。下面紧接着的是 <strong>body</strong> 和 <strong>div</strong> 元素。计时提示位于 <strong>div</strong> 元素内。实际时间被设置为段落开始标记 (&lt;<strong>p</strong>&gt;) 的 (<strong>begin</strong>, <strong>end</strong>) 属性，文本后面以段落结束标记 &lt;<strong>/p</strong>&gt; 作为结尾。空行和空格都将被忽略。如果有多个行，则使用 &lt;<strong>br/</strong>&gt; 标记进行分隔。</p>
+<p>TTML 文件的 MIME 类型是“application/ttml+xml”""或“text/xml”""。有关 TTML 规范的详细信息，请参阅<a href="http://go.microsoft.com/fwlink/p/?LinkId=234037">第 5.2 节</a>。</p>
+<h2><a id="multi-track_files"></a><a id="MULTI-TRACK_FILES"></a>多个轨道文件</h2>
+<p>可以使用多个计时文本文件—例如，为你的用户提供多种语言或备用解说词。如果你使用多个轨道，可将其中一个设置为默认值，以便当页面没有指定或者用户没有选择语言时使用它。在视频播放器内，用户可以通过内置的用户界面选择备用轨道。</p>
+<p>下面的示例显示了包含三个轨道元素的视频元素。
+</p>
+
+<div id="code-snippet-4" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_e362971b-c940-440b-8f86-6dc1406e408d');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_e362971b-c940-440b-8f86-6dc1406e408d" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"mainvideo"</span> <span style="color:Red;">controls</span> <span style="color:Red;">autoplay</span> <span style="color:Red;">loop</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">source</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"video.mp4"</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"video/mp4"</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"enTrack"</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"engtrack.vtt"</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">"English"</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">"subtitles"</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">"en"</span> <span style="color:Red;">default</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"esTrack"</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"spntrack.vtt"</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">"Spanish"</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">"subtitles"</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">"es"</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"deTrack"</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"grmtrack.vtt"</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">"German"</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">"subtitles"</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">"de"</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p> 在此示例中，<a href="http://go.microsoft.com/fwlink/p/?LinkId=234035"><strong xmlns="http://www.w3.org/1999/xhtml">source</strong></a> 元素用于指定视频文件，而每个 <strong>track</strong> 元素则指定一种文本翻译。<strong>track</strong> 元素是 <a href="http://go.microsoft.com/fwlink/p/?LinkID=197448"><strong xmlns="http://www.w3.org/1999/xhtml">video</strong></a> 元素的子元素。
+<strong>track</strong> 元素接受以下属性。
+</p>
+<p></p>
+<table>
+<tbody><tr><th>属性</th><th>描述</th></tr>
+<tr><td>
+<p><a id="kind"></a><a id="KIND"></a><strong>kind</strong></p>
+</td><td>
+<p>指定文本内容的类型。可能的值包括 <strong>subtitles</strong>、<strong>captions</strong>、<strong>descriptions</strong>、<strong>chapters</strong> 和 <strong>metadata</strong>。
+</p>
+</td></tr>
+<tr><td>
+<p><a id="src"></a><a id="SRC"></a><strong>src</strong></p>
+</td><td>
+<p>计时文本文件的 URL。
+ 
+
+</p>
+</td></tr>
+<tr><td>
+<p><a id="srclang"></a><a id="SRCLANG"></a><strong>srclang</strong></p>
+</td><td>
+<p>计时文本文件的语言。仅供参考；不在播放器中使用。
+</p>
+</td></tr>
+<tr><td>
+<p><a id="label"></a><a id="LABEL"></a><strong>label</strong></p>
+</td><td>
+<p>提供一个可用于标识计时文本的标签。每个轨道必须具有唯一的标签。</p>
+</td></tr>
+<tr><td>
+<p><a id="default"></a><a id="DEFAULT"></a><strong>default</strong></p>
+</td><td>
+<p>指定默认的轨道元素。如果未指定，则不显示任何轨道。</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2><a id="Scripting_the_track_element"></a><a id="scripting_the_track_element"></a><a id="SCRIPTING_THE_TRACK_ELEMENT"></a>为轨道元素编写脚本</h2>
+<p>与大多数元素一样，<strong>track</strong> 元素可以通过编写脚本来操作。以下对象、方法和属性可用于管理轨道内容和提示。轨道就是提供与视频相关的时间和文本内容的提示的集合。</p>
+<h3><a id="textTrackList_textTrack"></a><a id="texttracklist_texttrack"></a><a id="TEXTTRACKLIST_TEXTTRACK"></a>TextTrack 和 textTrackList 对象</h3>
+<p></p>
+<table>
+<tbody><tr><th>对象</th><th>描述</th></tr>
+<tr><td>
+<p><a id="textTrack"></a><a id="texttrack"></a><a id="TEXTTRACK"></a><strong>textTrack</strong></p>
+</td><td>
+<p>代表 <strong>track</strong> 元素的计时文本轨道。轨道由多个提示的集合组成。</p>
+<p>
+</p>
+<div id="code-snippet-5" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_683bb52d-c9e2-4407-b867-757fec05492d');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_683bb52d-c9e2-4407-b867-757fec05492d" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>var texttract = document.getElementByID("trackElement");
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+
+</td></tr>
+<tr><td>
+<p><a id="textTrackList"></a><a id="texttracklist"></a><a id="TEXTTRACKLIST"></a><strong>textTrackList</strong></p>
+</td><td>
+<p>代表与特定视频元素有关的轨道列表。</p>
+<p>
+</p>
+<div id="code-snippet-6" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_8ab65fe7-706b-48f4-8c7f-bc1a21c4e8b2');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_8ab65fe7-706b-48f4-8c7f-bc1a21c4e8b2" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>var texttracklist = document.getElementById("videoelement").textTracks;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p><strong>textTrackList</strong> 是与包含 <strong>textTrack</strong> 对象列表的视频元素相关联的对象。为获取用于某个视频的轨道列表（如果有），<a href="http://go.microsoft.com/fwlink/p/?LinkID=197448"><strong xmlns="http://www.w3.org/1999/xhtml">video</strong></a> 对象可提供 <strong>textTracks</strong> 属性。<strong>textTracks</strong> 属性是类型 <strong>textTrackList</strong> 的对象，并且是与视频有关的 <strong>textTrack</strong> 对象的数组。</p>
+
+<div id="code-snippet-7" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>JavaScript</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_5114d3d6-3011-4d34-bd21-597ee726d330');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_5114d3d6-3011-4d34-bd21-597ee726d330" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+  <span style="color:Blue;">var</span> oVideo = document.getElementById(“videoElement”);
+  <span style="color:Blue;">var</span> oTTlist = oVideo.textTracks;   <span style="color:Green;">// get the textTrackList </span>
+  <span style="color:Blue;">var</span> oTrack = oTTlist[0];   	    <span style="color:Green;">// get the first text track on the video object</span>
+  <span style="color:Blue;">var</span> oTrack.track
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<p></p>
+<table>
+<tbody><tr><th>属性</th><th>描述</th></tr>
+<tr><td>
+<p><a id="VideoElement.textTracks.length"></a><a id="videoelement.texttracks.length"></a><a id="VIDEOELEMENT.TEXTTRACKS.LENGTH"></a><strong>VideoElement.textTracks.length</strong></p>
+</td><td>
+<p>返回与 <a href="http://go.microsoft.com/fwlink/p/?LinkID=197448"><strong xmlns="http://www.w3.org/1999/xhtml">video</strong></a> 元素有关的 <strong>textTrack</strong> 对象的数量。</p>
+</td></tr>
+<tr><td>
+<p><a id="VideoElement.textTracks_n_"></a><a id="videoelement.texttracks_n_"></a><a id="VIDEOELEMENT.TEXTTRACKS_N_"></a><strong>VideoElement.textTracks[n]</strong></p>
+</td><td>
+<p>返回 <a href="http://go.microsoft.com/fwlink/p/?LinkID=197448"><strong xmlns="http://www.w3.org/1999/xhtml">video</strong></a> 元素的轨道列表中的第 <em>n</em> 个 <strong>textTrack</strong>。</p>
+</td></tr>
+<tr><td>
+<p><a id="TrackElement.track"></a><a id="trackelement.track"></a><a id="TRACKELEMENT.TRACK"></a><strong>TrackElement.track</strong></p>
+</td><td>
+<p>返回 <strong>track</strong> 元素的文本轨道。</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p>以下示例显示了如何获取 <strong>textTrackList</strong> 对象，该对象可提供元素的所有轨道的列表。视频对象上的 <strong>textTracks</strong> 属性返回 <strong>textTrackList</strong> 对象。<strong>textTrackList</strong> 对象是 <strong>textTrack</strong> 对象的数组。
+</p>
+
+<div id="code-snippet-8" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_9bf9317b-a574-479e-839b-3eb34624243f');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_9bf9317b-a574-479e-839b-3eb34624243f" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;!DOCTYPE html &gt;
+
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">html</span> <span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>Track list example<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"text/javascript"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">function</span> getTracks() {
+         <span style="color:Green;">// get list of tracks</span>
+          <span style="color:Blue;">var</span> allTracks = document.getElementById(<span style="color:#A31515;">"video1"</span>).textTracks;
+         
+         <span style="color:Green;">//append track label</span>
+          <span style="color:Blue;">for</span> (<span style="color:Blue;">var</span> i = 0; i &lt; allTracks.length; i++) {
+              document.getElementById(<span style="color:#A31515;">"display"</span>).innerHTML += (allTracks[i].label + <span style="color:#A31515;">"&lt;br/&gt;"</span>);  
+          }
+      }
+  <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"video1"</span> <span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">source</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"video.mp4"</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"entrack"</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">"English subtitles"</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">"captions"</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"example.vtt"</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">"en"</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"sptrack"</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">"Spanish subtitles"</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">"captions"</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"examplesp.vtt"</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">"es"</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"detrack"</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">"German subtitles"</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">"captions"</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"examplede.vtt"</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">"de"</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">button</span> <span style="color:Red;">onclick</span><span style="color:Blue;">=</span><span style="color:Blue;">"getTracks();"</span><span style="color:Blue;">&gt;</span>click<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">button</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">div</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"display"</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;/</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h3><a id="TextTrackCueList___textTrackCue___"></a><a id="texttrackcuelist___texttrackcue___"></a><a id="TEXTTRACKCUELIST___TEXTTRACKCUE___"></a>TextTrackCueList 和 textTrackCue 对象</h3>
+<p><strong>textTrack.cues</strong> 属性返回 <strong>textTrackCue</strong> 对象的数组。<strong>textTrackCue</strong> 对象或“提示”包括标识符、开始和结束时间以及其他数据。<em></em></p>
+<p></p>
+<table>
+<tbody><tr><th>对象</th><th>描述</th></tr>
+<tr><td>
+<p><a id="textTrackCueList"></a><a id="texttrackcuelist"></a><a id="TEXTTRACKCUELIST"></a><strong>textTrackCueList</strong></p>
+</td><td>
+<p>代表特定轨道的所有提示的数组对象。</p>
+<div id="code-snippet-9" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_af8ba785-f2fa-4f94-b60a-566563272fb2');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_af8ba785-f2fa-4f94-b60a-566563272fb2" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>var texttrackcuelist = trackelement.track.cues;
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue"></a><a id="texttrackcue"></a><a id="TEXTTRACKCUE"></a><strong>textTrackCue</strong></p>
+</td><td>
+<p>代表轨道中的一个提示。</p>
+<div id="code-snippet-10" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_ae45942e-9129-48ce-a163-f10a0bdae513');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_ae45942e-9129-48ce-a163-f10a0bdae513" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>var texttrackcue = texttrackcuelist[i];  // where i == an index into the track cue list array.
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p>这些对象公开以下属性。</p>
+<p></p>
+<table>
+<tbody><tr><th>属性</th><th>描述</th></tr>
+<tr><td>
+<p><a id="textTrackCueList.Item_index_"></a><a id="texttrackcuelist.item_index_"></a><a id="TEXTTRACKCUELIST.ITEM_INDEX_"></a><strong>textTrackCueList.Item(index)</strong></p>
+</td><td>
+<p>返回与给定索引相对应的文本轨道提示。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCueList.Length"></a><a id="texttrackcuelist.length"></a><a id="TEXTTRACKCUELIST.LENGTH"></a><strong>textTrackCueList.Length</strong></p>
+</td><td>
+<p>返回列表中文本轨道提示的数量。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrack.cues"></a><a id="texttrack.cues"></a><a id="TEXTTRACK.CUES"></a><strong>textTrack.cues</strong></p>
+</td><td>
+<p>返回一个 <strong>textTrackCueList</strong> 对象。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrack.activeCues"></a><a id="texttrack.activecues"></a><a id="TEXTTRACK.ACTIVECUES"></a><strong>textTrack.activeCues</strong></p>
+</td><td>
+<p>从当前活动的提示的文本轨道列表中返回提示，作为 <strong>textTrackCueList</strong> 对象。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue.startTime"></a><a id="texttrackcue.starttime"></a><a id="TEXTTRACKCUE.STARTTIME"></a><strong>textTrackCue.startTime</strong></p>
+</td><td>
+<p>返回计时文本提示的开始时间。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue.endTime"></a><a id="texttrackcue.endtime"></a><a id="TEXTTRACKCUE.ENDTIME"></a><strong>textTrackCue.endTime</strong></p>
+</td><td>
+<p>返回计时文本提示的结束时间。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue.Id"></a><a id="texttrackcue.id"></a><a id="TEXTTRACKCUE.ID"></a><strong>textTrackCue.Id</strong></p>
+</td><td>
+<p>返回单个提示的唯一标识符。 </p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue.Pause-on-exit"></a><a id="texttrackcue.pause-on-exit"></a><a id="TEXTTRACKCUE.PAUSE-ON-EXIT"></a><strong>textTrackCue.Pause-on-exit</strong></p>
+</td><td>
+<p>指示当视频播放到指定的 <strong>endTime</strong> 时是否停止。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue.text"></a><a id="texttrackcue.text"></a><a id="TEXTTRACKCUE.TEXT"></a><strong>textTrackCue.text</strong></p>
+</td><td>
+<p>返回 <a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772674.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">TextTrackCue</strong></a> 的文本值。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue.Track"></a><a id="texttrackcue.track"></a><a id="TEXTTRACKCUE.TRACK"></a><strong>textTrackCue.Track</strong></p>
+</td><td>
+<p>返回 <strong>textTrackCue</strong> 所属的文本轨道对象，或返回“null”""。</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p>这些对象公开以下方法。</p>
+<p></p>
+<table>
+<tbody><tr><th>方法</th><th>描述</th></tr>
+<tr><td>
+<p><a id="textTrackCueList.getCueByID_id_"></a><a id="texttrackcuelist.getcuebyid_id_"></a><a id="TEXTTRACKCUELIST.GETCUEBYID_ID_"></a><strong>textTrackCueList.getCueByID(id)</strong></p>
+</td><td>
+<p>按照 ID 从 <strong>textTrackCueList</strong> 获取提示。</p>
+</td></tr>
+<tr><td>
+<p><a id="textTrackCue.getCueAsHTML__"></a><a id="texttrackcue.getcueashtml__"></a><a id="TEXTTRACKCUE.GETCUEASHTML__"></a><strong>textTrackCue.getCueAsHTML()</strong></p>
+</td><td>
+<p>作为文档片段返回文本轨道提示文本，该文档片段由 HTML 元素和其他文档对象模型 (DOM) 节点组成。</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<p><strong>textTrackCue</strong> 对象公开以下事件。</p>
+<p></p>
+<table>
+<tbody><tr><th>事件</th><th>描述</th></tr>
+<tr><td>
+<p><a id="__"></a>退出</p>
+</td><td>
+<p>在提示完成时触发。</p>
+</td></tr>
+<tr><td>
+<p><a id="__"></a>输入</p>
+</td><td>
+<p>在提示处于活动状态时触发。</p>
+</td></tr>
+</tbody></table>
+<p>&nbsp;</p>
+<h2><a id="working_with_cues"></a><a id="WORKING_WITH_CUES"></a>使用提示</h2>
+<p>通过使用 <strong>track</strong> 元素上的 <strong>cues</strong> 属性，你可以获得该轨道上所有提示的列表或数组。<strong>textTrack.cues</strong> 属性返回 <strong>textTrackCue</strong> 对象的数组。<strong>textTrackCue</strong> 对象或“提示”<em></em>包括 ID、开始和结束时间以及文本。</p>
+<h3><a id="get_current_cue"></a><a id="GET_CURRENT_CUE"></a>获取当前提示</h3>
+<p><strong>cues</strong> 属性获取与某个轨道有关的所有提示，相比之下，<strong>activeCues</strong> 属性只获取当前正在显示的提示。下面的示例显示正在显示的字幕的 <strong>startTime</strong> 和 <strong>endTime</strong>。</p>
+
+<div id="code-snippet-11" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_22fc5bff-2fa5-42c8-a532-2b81cefdefdf');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_22fc5bff-2fa5-42c8-a532-2b81cefdefdf" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+&lt;!DOCTYPE html &gt;
+
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">html</span> <span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+    <span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>Current cue example<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+  <span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span> <span style="color:Red;">type</span><span style="color:Blue;">=</span><span style="color:Blue;">"text/javascript"</span><span style="color:Blue;">&gt;</span>
+      <span style="color:Blue;">function</span> eID(elm) {
+          <span style="color:Blue;">return</span> document.getElementById(elm);  <span style="color:Green;">// create short cut to getElementById()</span>
+      }
+
+      <span style="color:Green;">// after elements are loaded, hook the cuechange event on the track element</span>
+      window.addEventListener(<span style="color:#A31515;">"load"</span>, <span style="color:Blue;">function</span> () {
+          eID(<span style="color:#A31515;">"track"</span>).addEventListener(<span style="color:#A31515;">"cuechange"</span>, <span style="color:Blue;">function</span> (e) {
+              <span style="color:Blue;">var</span> myTrack = e.target.track;  <span style="color:Green;">// the target property is the track element</span>
+              <span style="color:Blue;">var</span> myCues = myTrack.activeCues;   <span style="color:Green;">// activeCues is an array of current cues.</span>
+              <span style="color:Green;">//  display the start and end times</span>
+              eID(<span style="color:#A31515;">"display"</span>).innerHTML = myCues[0].startTime + <span style="color:#A31515;">" --&gt; "</span> + myCues[0].endTime;
+          }, <span style="color:Blue;">false</span>);
+
+      }, <span style="color:Blue;">false</span>);
+     
+  <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"video1"</span>  <span style="color:Red;">controls</span> <span style="color:Red;">autoplay</span><span style="color:Blue;">&gt;</span>
+ <span style="color:Blue;">&lt;</span><span style="color:#A31515;">source</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">"movie.mp4"</span>  <span style="color:Blue;">&gt;</span>
+ <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">'track'</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">'English captions'</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">'captions.vtt'</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">'subtitles'</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">'en'</span> <span style="color:Red;">default</span>  <span style="color:Blue;">&gt;</span> 
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">div</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">"display"</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;/</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h3><a id="get_all_cues"></a><a id="GET_ALL_CUES"></a>获取所有提示</h3>
+<p>下面的示例获取与某个轨道有关的所有提示，并将它们显示在 <strong>select</strong> 框中。当你在该框中单击一个项目时，该提示会在视频上播放。使用搜索以针对特定关键字筛选结果。</p>
+
+<div id="code-snippet-12" class="codeSnippetContainer" xmlns="">
+    <div class="codeSnippetContainerTabs">
+        <div class="codeSnippetContainerTabSingle" dir="ltr"><a>HTML</a></div>
+    </div>
+    <div class="codeSnippetContainerCodeContainer">
+        <div class="codeSnippetToolBar">
+            <div class="codeSnippetToolBarText">
+                <a name="CodeSnippetCopyLink" style="display: none;" title="复制到剪贴板。" href="javascript:if (window.epx.codeSnippet)window.epx.codeSnippet.copyCode('CodeSnippetContainerCode_3eeef8fc-0c84-4ee4-9683-2566f27d2334');">复制</a>
+            </div>
+        </div>
+        <div id="CodeSnippetContainerCode_3eeef8fc-0c84-4ee4-9683-2566f27d2334" class="codeSnippetContainerCode" dir="ltr">
+            <div style="color:Black;"><pre>
+<span style="color:Blue;">&lt;!</span><span style="color:#A31515;">DOCTYPE</span> <span style="color:Red;">html</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>All cues example<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">title</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+
+<span style="color:Blue;">function</span> loadCaptions(track) {
+<span style="color:Green;">// retrive cues for track element</span>
+    <span style="color:Blue;">var</span> cues = track.track.cues;
+    <span style="color:Blue;">var</span> list = document.getElementById(<span style="color:#A31515;">'results'</span>);
+    <span style="color:Blue;">for</span> (i = 0; i &lt; cues.length; i++)
+    {
+        <span style="color:Blue;">var</span> x = cues[i].getCueAsHTML(); <span style="color:Green;">//get the text of the cue</span>
+        <span style="color:Blue;">var</span> option = document.createElement(<span style="color:#A31515;">"option"</span>); <span style="color:Green;">// create an option in the select list</span>
+        option.text = x.textContent;        <span style="color:Green;">// assign the text to the option </span>
+        option.setAttribute(<span style="color:#A31515;">'data-time'</span>, cues[i].startTime);  <span style="color:Green;">// assign an attribute called data-time to option</span>
+        list.add(option);       <span style="color:Green;">// add the new option </span>
+    }    
+}
+
+<span style="color:Blue;">function</span> playCaption(control) 
+{
+    <span style="color:Blue;">var</span> o = control.options[control.options.selectedIndex];  <span style="color:Green;">//get the option the user clicked</span>
+    <span style="color:Blue;">var</span> t = o.getAttribute(<span style="color:#A31515;">'data-time'</span>);        <span style="color:Green;">// get the start time of that option</span>
+    <span style="color:Blue;">var</span> video = document.getElementById(<span style="color:#A31515;">'video'</span>);   <span style="color:Green;">// get video element. </span>
+    video.currentTime = t - 0.1;                <span style="color:Green;">//  move the video to start at the time we want (subtrackting a fudge factor)</span>
+}
+
+<span style="color:Blue;">function</span> search(text) 
+{
+    <span style="color:Blue;">var</span> cues = eID(<span style="color:#A31515;">'track'</span>).track.cues;     <span style="color:Green;">// retrieve a list of cues from current track</span>
+    <span style="color:Blue;">var</span> list = eID(<span style="color:#A31515;">'results'</span>);              <span style="color:Green;">// get the select box object</span>
+    list.innerHTML = <span style="color:#A31515;">''</span>;                    <span style="color:Green;">// clear the select box </span>
+    <span style="color:Blue;">for</span> (i = 0; i &lt; cues.length; i++) {     <span style="color:Green;">// scan through list of cues</span>
+        <span style="color:Blue;">var</span> cuetext = cues[i].getCueAsHTML().textContent;  <span style="color:Green;">// get the text content of the current element in cue lists </span>
+        <span style="color:Blue;">if</span> (cuetext.toLowerCase().indexOf(text.toLowerCase()) != -1)  <span style="color:Green;">// does the cue contain the key we're looking for? </span>
+        {                                                             <span style="color:Green;">// if a match, create a new option to add to the select box</span>
+            <span style="color:Blue;">var</span> option = document.createElement(<span style="color:#A31515;">"option"</span>);         
+            option.text = cuetext;                                  
+            option.setAttribute(<span style="color:#A31515;">'data-time'</span>, cues[i].startTime);
+            list.add(option);
+        }
+    }   
+}
+
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">script</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">head</span><span style="color:Blue;">&gt;</span>
+
+<span style="color:Blue;">&lt;</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+   <span style="color:Blue;">&lt;</span><span style="color:#A31515;">video</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">'video'</span> <span style="color:Red;">controls</span> <span style="color:Red;">autoplay</span> <span style="color:Red;">loop</span><span style="color:Blue;">&gt;</span>
+     <span style="color:Blue;">&lt;</span><span style="color:#A31515;">source</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">'movie.mp4'</span><span style="color:Blue;">&gt;</span>
+     <span style="color:Blue;">&lt;</span><span style="color:#A31515;">track</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">'track'</span> <span style="color:Red;">label</span><span style="color:Blue;">=</span><span style="color:Blue;">'English captions'</span> <span style="color:Red;">src</span><span style="color:Blue;">=</span><span style="color:Blue;">'captions.vtt'</span> <span style="color:Red;">kind</span><span style="color:Blue;">=</span><span style="color:Blue;">'subtitles'</span> <span style="color:Red;">srclang</span><span style="color:Blue;">=</span><span style="color:Blue;">'en'</span> <span style="color:Red;">default</span> <span style="color:Red;">onload</span><span style="color:Blue;">=</span><span style="color:Blue;">'loadCaptions(this)'</span><span style="color:Blue;">&gt;</span>
+   <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">video</span><span style="color:Blue;">&gt;</span>
+   <span style="color:Blue;">&lt;</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>Search captions <span style="color:Blue;">&lt;</span><span style="color:#A31515;">input</span> <span style="color:Red;">onkeyup</span><span style="color:Blue;">=</span><span style="color:Blue;">'search(this.value)'</span> <span style="color:Blue;">/&gt;</span> <span style="color:Blue;">&lt;/</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+   <span style="color:Blue;">&lt;</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>Click a caption to jump to that time in the video<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+   <span style="color:Blue;">&lt;</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;</span><span style="color:#A31515;">select</span> <span style="color:Red;">size</span><span style="color:Blue;">=</span><span style="color:Blue;">'10'</span> <span style="color:Red;">id</span><span style="color:Blue;">=</span><span style="color:Blue;">'results'</span> <span style="color:Red;">onchange</span><span style="color:Blue;">=</span><span style="color:Blue;">'playCaption(this)'</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;/</span><span style="color:#A31515;">select</span><span style="color:Blue;">&gt;</span><span style="color:Blue;">&lt;/</span><span style="color:#A31515;">div</span><span style="color:Blue;">&gt;</span>
+
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">body</span><span style="color:Blue;">&gt;</span>
+<span style="color:Blue;">&lt;/</span><span style="color:#A31515;">html</span><span style="color:Blue;">&gt;</span>
+
+
+</pre></div>
+            
+        </div>
+    </div>
+</div>
+
+<h2><a id="API___"></a><a id="api___"></a>API 参考</h2>
+<dl>
+<dd>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh772500.aspx"><strong xmlns="http://www.w3.org/1999/xhtml">HTML5 Audio and Video </strong></a>
+</dd>
+</dl>
+<h2><a id="_____"></a>示例和教程</h2>
+<dl>
+<dd><a href="http://go.microsoft.com/fwlink/p/?LinkId=279049">HTML5 计时文本轨道示例</a></dd>
+<dd>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/jj152143.aspx">使用计时文本轨道让你的视频可供访问</a>
+</dd>
+</dl>
+<h2><a id="___Internet_Explorer___Test_Drive___"></a><a id="___internet_explorer___test_drive___"></a><a id="___INTERNET_EXPLORER___TEST_DRIVE___"></a>有关 Internet Explorer 的 Test Drive 演示</h2>
+<dl>
+<dd><a href="http://go.microsoft.com/fwlink/p/?LinkID=246573">HTML5 视频字幕制作工具</a></dd>
+<dd><a href="http://go.microsoft.com/fwlink/p/?LinkID=254252">IE10 视频字幕</a></dd>
+</dl>
+<h2><a id="IEBlog___"></a><a id="ieblog___"></a><a id="IEBLOG___"></a>IEBlog 文章</h2>
+<dl>
+<dd><a href="http://go.microsoft.com/fwlink/p/?LinkID=248948">HTML5 视频字幕</a></dd>
+</dl>
+<h2><a id="__"></a>规范</h2>
+<dl>
+<dd><a href="http://go.microsoft.com/fwlink/p/?LinkId=279050">HTML5</a>：第 
+        
+      4.8.10.12.5 节</dd>
+</dl>
+<h2><a id="related_topics"></a>相关主题</h2>
+<dl>
+<dt>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/gg589529.aspx">音频</a>
+</dt>
+<dt>
+<a href="http://msdn.microsoft.com/zh-cn/library/ie/hh924820.aspx">视频</a>
+</dt>
+</dl>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>

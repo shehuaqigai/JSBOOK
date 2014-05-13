@@ -1,0 +1,374 @@
+<div class="twelve columns">
+
+<h1> IndexedDB：浏览器端数据库 </h1>
+
+<aside class="right"><p>来自<a href="/">《JavaScript 标准参考教程（alpha）》</a>，by 阮一峰</p></aside>
+
+<h2>目录</h2><div id="toc" class="panel callout radius"><ul><li class="toc-h2"><a href="#toc0">概述</a></li><li class="toc-h2"><a href="#toc1">indexedDB对象</a></li><li class="toc-h3"><a href="#toc2">open方法</a></li><li class="toc-h2"><a href="#toc3">indexedDB实例对象的方法</a></li><li class="toc-h3"><a href="#toc4">createObjectStore方法</a></li><li class="toc-h3"><a href="#toc5">objectStoreNames属性</a></li><li class="toc-h3"><a href="#toc6">transaction方法</a></li><li class="toc-h3"><a href="#toc7">createIndex方法</a></li><li class="toc-h2"><a href="#toc8">IDBKeyRange对象</a></li><li class="toc-h2 toc-active"><a href="#toc9">参考链接</a></li></ul></div>
+
+
+<span id="toc0"></span><div class="chapter"><h2>概述</h2></div>
+
+<p>随着浏览器的处理能力不能增强，越来越多的网站开始考虑，将大量数据储存在客户端，这样可以减少用户等待从服务器获取数据的时间。</p>
+
+<p>现有的浏览器端数据储存方案，都不适合储存大量数据：cookie不超过4KB，且每次请求都会发送回服务器端；Window.name属性缺乏安全性，且没有统一的标准；localStorage在2.5MB到10MB之间（各家浏览器不同）。所以，需要一种新的解决方案，这就是IndexedDB诞生的背景。</p>
+
+<p>通俗地说，IndexedDB就是浏览器端数据库，可以被网页脚本程序创建和操作。它允许储存大量数据，提供查找接口，还能建立索引。这些都是localStorage所不具备的。就数据库类型而言，IndexedDB不属于关系型数据库（不支持SQL查询语句），更接近NoSQL数据库。</p>
+
+<p>IndexedDB内部采用对象仓库（object store）存放数据。所有类型的数据都可以直接存入，包括JavaScript对象。在对象仓库中，数据以“键值对”的形式保存，每一个数据都有对应的键名，键名是独一无二的，不能有重复，否则会抛出一个错误。</p>
+
+<p>IndexedDB也受到同域限制，每一个数据库对应创建该数据库的域名。来自不同域名的网页，只能访问自身域名下的数据库，而不能访问其他域名下的数据库。</p>
+
+<p>目前，Chrome 27+、Firefox 21+、Opera 15+和IE 10+支持这个API。可以说，它在桌面端有良好的支持，但是移动端支持这个API的浏览器还不多。</p>
+
+<p>下面的代码用来检查浏览器是否支持这个API。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">if</span><span class="p">(</span><span class="s2">"indexedDB"</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"支持"</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"不支持"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<span id="toc1"></span><div class="chapter"><h2>indexedDB对象</h2></div>
+
+<p>浏览器原生提供indexedDB对象，作为开发者的操作接口。</p>
+
+<span id="toc2"></span><h3>open方法</h3>
+
+<p>indexedDB.open方法用于打开数据库。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">"test"</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>open方法的第一个参数是数据库名称，第二个参数是数据库版本。上面代码代码表示，打开一个名为test、版本为1的数据库。</p>
+
+<p>打开数据库的结果是，有可能触发4种事件。</p>
+
+<ul>
+<li><strong>success</strong>：打开成功。</li>
+<li><strong>error</strong>：打开失败。</li>
+<li><strong>upgradeneeded</strong>：第一次打开该数据库，或者数据库版本发生变化。</li>
+<li><strong>blocked</strong>：上一次的数据库连接还未关闭。</li>
+</ul>
+
+
+<p>第一次打开数据库时，会先触发upgradeneeded事件，然后触发success事件。</p>
+
+<p>根据不同的需要，对上面4种事件设立回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">openRequest</span> <span class="o">=</span> <span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">"test"</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">db</span><span class="p">;</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Upgrading..."</span><span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Success!"</span><span class="p">);</span>
+    <span class="nx">db</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>上面代码显示，回调函数接受一个事件对象event作为参数。event对象的target.result属性就指向IndexedDB数据库。</p>
+
+<span id="toc3"></span><div class="chapter"><h2>indexedDB实例对象的方法</h2></div>
+
+<p>获得数据库实例以后，就可以用实例对象的方法操作数据库。</p>
+
+<span id="toc4"></span><h3>createObjectStore方法</h3>
+
+<p>createObjectStore方法用于创建存放数据的“对象仓库”（object store），类似于传统关系型数据库的表格。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s2">"firstOS"</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>上面代码创建了一个名为firstOS的对象仓库，如果该对象仓库已经存在，就会抛出一个错误。为了避免出错，需要用到下文的objectStoreNames属性，检查已有哪些对象仓库。</p>
+
+<p>createObject方法还可以接受第二个对象参数，用来设置“对象仓库”的属性。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s2">"test"</span><span class="p">,</span> <span class="p">{</span> <span class="nx">keyPath</span><span class="o">:</span> <span class="s2">"email"</span> <span class="p">});</span> 
+<span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s2">"test2"</span><span class="p">,</span> <span class="p">{</span> <span class="nx">autoIncrement</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div>
+
+
+<p>上面代码的createObjectStore方法的第二个参数，对键名做出了规定。第一行规定，键名是所存入对象的email属性（由于键名不能重复，所以存入之前必须保证数据的email属性值都是不一样的）；第二行规定，键名为自动递增，即第一个数据为1，第二个数据为2，以此类推。</p>
+
+<span id="toc5"></span><h3>objectStoreNames属性</h3>
+
+<p>objectStoreNames属性返回一个DOMStringList对象，里面包含了当前数据库所有“对象仓库”的名称。可以使用DOMStringList对象的contains方法，检查数据库是否包含某个“对象仓库”。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">objectStoreNames</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s2">"firstOS"</span><span class="p">))</span> <span class="p">{</span>
+     <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s2">"firstOS"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>上面代码先判断某个“对象仓库”是否存在，如果不存在就创建该对象仓库。</p>
+
+<span id="toc6"></span><h3>transaction方法</h3>
+
+<p>transaction方法用于创建一个数据库事务。向数据库添加数据之前，必须先创建数据库事务。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"firstOS"</span><span class="p">],</span><span class="s2">"readwrite"</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>transaction方法接受两个参数：第一个参数是一个数组，里面是所涉及的对象仓库，通常是只有一个；第二个参数是一个表示操作类型的字符串。目前，操作类型只有两种：readonly（只读）和readwrite（读写）。添加数据使用readwrite，读取数据使用readonly。</p>
+
+<p>transaction方法返回一个事务对象，该对象的objectStore方法用于获取指定的对象仓库。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"firstOS"</span><span class="p">],</span><span class="s2">"readwrite"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"firstOS"</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>transaction方法有三个事件，可以用来定义回调函数。</p>
+
+<ul>
+<li><strong>abort</strong>：事务中断。</li>
+<li><strong>complete</strong>：事务完成。</li>
+<li><strong>error</strong>：事务出错。</li>
+</ul>
+
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"note"</span><span class="p">],</span> <span class="s2">"readonly"</span><span class="p">);</span>  
+
+<span class="nx">transaction</span><span class="p">.</span><span class="nx">oncomplete</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// some code</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>事务对象有以下方法，用于操作数据。</p>
+
+<p><strong>（1）添加数据：add方法</strong></p>
+
+<p>获取对象仓库以后，就可以用add方法往里面添加数据了。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"firstOS"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span><span class="nx">p</span><span class="o">:</span> <span class="mi">123</span><span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>add方法的第一个参数是所要添加的数据，第二个参数是这条数据对应的键名（key），上面代码将对象o的键名设为1。如果在创建数据仓库时，对键名做了设置，这里也可以不指定键名。</p>
+
+<p>add方法是异步的，有自己的success和error事件，可以对这两个事件指定回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Error"</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="c1">// error handler</span>
+<span class="p">}</span>
+
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"数据添加成功！"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p><strong>（2）读取数据：get方法</strong></p>
+
+<p>读取数据使用get方法，它的参数是数据的键名。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"test"</span><span class="p">],</span> <span class="s2">"readonly"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"test"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">ob</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>get方法也是异步的，会触发自己的success和error事件，可以对它们指定回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">ob</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+ 
+<span class="nx">ob</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>从创建事务到读取数据，所有操作方法也可以写成下面这样链式形式。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"test"</span><span class="p">],</span> <span class="s2">"readonly"</span><span class="p">).</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"test"</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="nx">X</span><span class="p">).</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></div>
+
+
+<p><strong>（3）更新记录：put方法</strong></p>
+
+<p>put方法的用法与add方法相近。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">p</span><span class="o">:</span><span class="mi">456</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p><strong>（4）删除记录：delete方法</strong></p>
+
+<p>删除记录使用delete方法。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"people"</span><span class="p">],</span> <span class="s2">"readwrite"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"people"</span><span class="p">).</span><span class="k">delete</span><span class="p">(</span><span class="nx">thisId</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>delete方法的参数是数据的键名。另外，delete也是一个异步操作，可以为它指定回调函数。</p>
+
+<p><strong>（5）遍历数据：openCursor方法</strong></p>
+
+<p>如果想要遍历数据，就要openCursor方法，它在当前对象仓库里面建立一个读取光标（cursor）。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"test"</span><span class="p">],</span> <span class="s2">"readonly"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"test"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">();</span>
+</code></pre></div>
+
+
+<p>openCursor方法也是异步的，有自己的success和error事件，可以对它们指定回调函数。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nx">cursor</span><span class="p">.</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Key"</span><span class="p">,</span> <span class="nx">res</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="s2">"Data"</span><span class="p">,</span> <span class="nx">res</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+        <span class="nx">res</span><span class="p">.</span><span class="k">continue</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>对象函数接受一个事件对象作为参数，该对象的target.result属性指向当前数据对象。当前数据对象的key和value分别返回键名和键值（即实际存入的数据）。continue方法将光标移到下一个数据对象，如果当前数据对象已经是最后一个数据了，则光标指向null。</p>
+
+<span id="toc7"></span><h3>createIndex方法</h3>
+
+<p>createIndex方法用于创建索引。</p>
+
+<p>假定对象仓库中的数据对象都是下面person类型的。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span><span class="nx">name</span><span class="p">,</span>
+    <span class="nx">email</span><span class="o">:</span><span class="nx">email</span><span class="p">,</span>
+    <span class="nx">created</span><span class="o">:</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>可以指定这个数据对象的某个属性来建立索引。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s2">"people"</span><span class="p">,</span> <span class="p">{</span> <span class="nx">autoIncrement</span><span class="o">:</span><span class="kc">true</span> <span class="p">});</span>
+
+<span class="nx">store</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span><span class="s2">"name"</span><span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">false</span><span class="p">});</span>
+<span class="nx">store</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s2">"email"</span><span class="p">,</span><span class="s2">"email"</span><span class="p">,</span> <span class="p">{</span><span class="nx">unique</span><span class="o">:</span><span class="kc">true</span><span class="p">});</span>
+</code></pre></div>
+
+
+<p>createIndex方法接受三个参数，第一个是索引名称，第二个是建立索引的属性名，第三个是参数对象，用来设置索引特性。unique表示索引所在的属性是否有唯一值，上面代码表示name属性没有唯一值，email属性有。</p>
+
+<p>有了索引以后，就可以针对索引所在的属性读取数据。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"people"</span><span class="p">],</span><span class="s2">"readonly"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"people"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="s2">"name"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">index</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>上面代码打开对象仓库以后，先用index方法指定索引在name属性上面，然后用get方法读取某个name属性所在的数据。如果没有指定索引的那一行代码，get方法只能按照键名读取数据，而不能按照name属性读取数据。需要注意的是，这时get方法有可能取回多个数据对象，因为name属性没有唯一值。</p>
+
+<p>另外，get是异步方法，读取成功以后，只能在success事件的回调函数中处理数据。</p>
+
+<span id="toc8"></span><div class="chapter"><h2>IDBKeyRange对象</h2></div>
+
+<p>索引的有用之处，还在于可以指定读取数据的范围。这需要用到浏览器原生的IDBKeyRange对象。</p>
+
+<p>IDBKeyRange对象的作用是生成一个表示范围的Range对象。生成方法有四种：</p>
+
+<ul>
+<li><strong>lowerBound方法</strong>：指定范围的下限。</li>
+<li><strong>upperBound方法</strong>：指定范围的上限。</li>
+<li><strong>bound方法</strong>：指定范围的上下限。</li>
+<li><strong>only方法</strong>：指定范围中只有一个值。</li>
+</ul>
+
+
+<p>下面是一些代码实例：</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="c1">// All keys ≤ x </span>
+<span class="kd">var</span> <span class="nx">r1</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+
+<span class="c1">// All keys &lt; x </span>
+<span class="kd">var</span> <span class="nx">r2</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// All keys ≥ y  </span>
+<span class="kd">var</span> <span class="nx">r3</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">lowerBound</span><span class="p">(</span><span class="nx">y</span><span class="p">);</span>
+
+<span class="c1">// All keys &gt; y </span>
+<span class="kd">var</span> <span class="nx">r4</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">lowerBound</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// All keys ≥ x &amp;&amp; ≤ y </span>
+<span class="kd">var</span> <span class="nx">r5</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>
+
+<span class="c1">// All keys &gt; x &amp;&amp;&lt; y    </span>
+<span class="kd">var</span> <span class="nx">r6</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// All keys &gt; x &amp;&amp; ≤ y    </span>
+<span class="kd">var</span> <span class="nx">r7</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">// All keys ≥ x &amp;&amp;&lt; y </span>
+<span class="kd">var</span> <span class="nx">r8</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// The key = z </span>
+<span class="kd">var</span> <span class="nx">r9</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">only</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>前三个方法（lowerBound、upperBound和bound）默认包括端点值，可以传入一个布尔值，修改这个属性。</p>
+
+<p>生成Range对象以后，将它作为参数输入openCursor方法，就可以在所设定的范围内读取数据。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s2">"people"</span><span class="p">],</span><span class="s2">"readonly"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s2">"people"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="s2">"name"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">);</span>
+
+<span class="nx">index</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">(</span><span class="nx">range</span><span class="p">).</span><span class="nx">onsuccess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">cursor</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">cursor</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cursor</span><span class="p">.</span><span class="nx">key</span> <span class="o">+</span> <span class="s2">":"</span><span class="p">);</span>
+            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">field</span> <span class="k">in</span> <span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">[</span><span class="nx">field</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="nx">cursor</span><span class="p">.</span><span class="k">continue</span><span class="p">();</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<span id="toc9"></span><div class="chapter"><h2 class="reference">参考链接</h2></div>
+
+<ul class="reference-list">
+<li>Raymond Camden, <a href="http://net.tutsplus.com/tutorials/javascript-ajax/working-with-indexeddb/">Working With IndexedDB – Part 1</a></li>
+<li>Raymond Camden, <a href="http://net.tutsplus.com/tutorials/javascript-ajax/working-with-indexeddb-part-2/">Working With IndexedDB – Part 2</a></li>
+</ul>
+
+
+
+</div>

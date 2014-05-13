@@ -1,0 +1,31 @@
+<p>
+	定义和用法
+shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
+语法
+arrayObject.shift()
+返回值
+数组原来的第一个元素的值。
+说明
+如果数组是空的，那么 shift() 方法将不进行任何操作，返回 undefined 值。请注意，该方法不创建新数组，而是直接修改原有的 arrayObject。
+提示和注释
+注释：该方法会改变数组的长度。
+提示：要删除并返回数组的最后一个元素，请使用 pop() 方法。
+实例
+在本例中，我们将创建一个数组，并删除数组的第一个元素。请注意，这也将改变数组的长度：
+&ltscript type="text/javascript">
+
+var arr = new Array(3)
+arr[0] = "George"
+arr[1] = "John"
+arr[2] = "Thomas"
+
+document.write(arr + "&ltbr />")
+document.write(arr.shift() + "&ltbr />")
+document.write(arr)
+
+&lt/script>
+输出：
+George,John,Thomas
+George
+John,Thomas
+</p>

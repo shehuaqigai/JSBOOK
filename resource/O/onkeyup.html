@@ -1,0 +1,85 @@
+<div id="maincontent">
+
+<h1>onKeyUp 事件</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>onkeyup 事件会在键盘按键被松开时发生。</p>
+
+<h3>语法</h3>
+<pre>onkeyup="SomeJavaScriptCode"</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>SomeJavaScriptCode</td>
+    <td>必需。规定该事件发生时执行的 JavaScript。</td>
+  </tr>
+</tbody></table>
+
+<h3>支持该事件的 HTML 标签：</h3>
+<pre>&lt;a&gt;, &lt;acronym&gt;, &lt;address&gt;, &lt;area&gt;, &lt;b&gt;, &lt;bdo&gt;, &lt;big&gt;, &lt;blockquote&gt;, &lt;body&gt;, 
+&lt;button&gt;, &lt;caption&gt;, &lt;cite&gt;, &lt;code&gt;, &lt;dd&gt;, &lt;del&gt;, &lt;dfn&gt;, &lt;div&gt;, &lt;dt&gt;, &lt;em&gt;, 
+&lt;fieldset&gt;, &lt;form&gt;, &lt;h1&gt; to &lt;h6&gt;, &lt;hr&gt;, &lt;i&gt;, &lt;input&gt;, &lt;kbd&gt;, &lt;label&gt;, &lt;legend&gt;, 
+&lt;li&gt;, &lt;map&gt;, &lt;object&gt;, &lt;ol&gt;, &lt;p&gt;, &lt;pre&gt;, &lt;q&gt;, &lt;samp&gt;, &lt;select&gt;, &lt;small&gt;, 
+&lt;span&gt;, &lt;strong&gt;, &lt;sub&gt;, &lt;sup&gt;, &lt;table&gt;, &lt;tbody&gt;, &lt;td&gt;, &lt;textarea&gt;, &lt;tfoot&gt;, 
+&lt;th&gt;, &lt;thead&gt;, &lt;tr&gt;, &lt;tt&gt;, &lt;ul&gt;, &lt;var&gt;
+</pre>
+
+<h3>支持该事件的 JavaScript 对象：</h3>
+<pre>document, image, link, textarea</pre>
+</div>
+
+<div>
+<h2>实例</h2>
+<p>当您在例子中的输入域中键入字符时，字符会被更改为大写（逐一地）：</p>
+<pre>&lt;html&gt;
+
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function upperCase(x)
+{
+var y=document.getElementById(x).value
+document.getElementById(x).value=y.toUpperCase()
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+	
+输入您的姓名： &lt;input type="text" id="fname" <code>onkeyup="upperCase(this.id)"</code> /&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h3>输出：</h3>
+<script type="text/javascript">
+function upperCase(x)
+{
+var y=document.getElementById(x).value
+document.getElementById(x).value=y.toUpperCase()
+}
+</script>
+<p>输入您的姓名： <input type="text" id="fname" onkeyup="upperCase(this.id)"></p>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_onkeyup">onkeyup</a></dt>
+<dd>如何使用 onkeyup。</dd>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_event.asp">Event 对象参考手册</a></p>
+</div>
+
+</div>

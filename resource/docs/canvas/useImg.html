@@ -1,0 +1,328 @@
+<div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+                      <div class="warning" id="kumascript-errors">
+    <p>There were scripting errors on this page. While those are being addressed by site editors, you can view partial content below.</p>
+</div>          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p>One of the more fun features of the canvas is the abillity to use images. These can be used to do dynamic photo compositing or used as backdrops of graphs etc. It's currently also the only way to add text to them (The specification does not contain any functions to draw text). External images can be used in any format supported by <a href="/cn/Gecko" title="cn/Gecko">Gecko</a> (e.g. PNG, GIF or JPEG format). Other canvas elements on the same page can also be used as the source.</p>
+<p>Canvas 相当有趣的一项功能就是可以引入图像，它可以用于图片合成或者制作背景等。而目前仅可以在图像中加入文字（标准说明中并没有包含绘制文字的功能）。只要是 <a href="/cn/Gecko" title="cn/Gecko">Gecko</a> 支持的图像（如 PNG，GIF，JPEG等）都可以引入到 canvas 中，而且其它的 canvas 元素也可以作为图像的来源。</p>
+<h2 id=".E5.BC.95.E5.85.A5.E5.9B.BE.E5.83.8F_Importing_images">引入图像 Importing images</h2>
+<p>Importing images is basically a two step process:</p>
+<p>引入图像只需要简单的两步：</p>
+<ul> <li>Firstly we need a reference to a JavaScript Image object or other canvas element as a source. It isn't possible to use images by simply providing a URL/path to them.</li> <li>Secondly we draw the image on the canvas using the <code>drawImage</code> function.</li> <li>第一当然是来源图片，不是简单的 URL 路径，但可以是一个 JavaScript 的 Image 对象引用，又或者其它的 canvas 元素。</li> <li>然后用 <code>drawImage</code> 方法将图像插入到 canvas 中。</li>
+</ul>
+<p>Let's look at step one first. There are basically four options available:</p>
+<p>先来看看第一步，基本上有四种可选方式：</p>
+<h4 id=".E5.BC.95.E7.94.A8.E9.A1.B5.E9.9D.A2.E5.86.85.E7.9A.84.E5.9B.BE.E7.89.87_Using_images_which_are_on_the_same_page">引用页面内的图片 Using images which are on the same page</h4>
+<p>We can access all images on a page by using either the <code><a href="/en/DOM/document.images" title="en/DOM/document.images">document.images</a></code> collection, the <code><a href="/en/DOM/document.getElementsByTagName" title="en/DOM/document.getElementsByTagName">document.getElementsByTagName</a></code> method, or if we know the ID attribute of the image, the <code><a href="/en/DOM/document.getElementById" title="en/DOM/document.getElementById">document.getElementById</a></code> method.</p>
+<p>我们可以通过 <code><a href="/en/DOM/document.images" title="en/DOM/document.images">document.images</a></code> 集合、<code><a href="/en/DOM/document.getElementsByTagName" title="en/DOM/document.getElementsByTagName">document.getElementsByTagName</a></code> 方法又或者 <code><a href="/en/DOM/document.getElementById" title="en/DOM/document.getElementById">document.getElementById</a></code> 方法来获取页面内的图片（如果已知图片元素的 ID。</p><h4 id=".E4.BD.BF.E7.94.A8.E5.85.B6.E5.AE.83_canvas_.E5.85.83.E7.B4.A0_Using_other_canvas_elements">使用其它 canvas 元素 Using other canvas elements</h4>
+<p>Just as with normal images we access other canvas elements using either the <code><a href="/en/DOM/document.getElementsByTagName" title="en/DOM/document.getElementsByTagName">document.getElementsByTagName</a></code> method or the <code><a href="/en/DOM/document.getElementById" title="en/DOM/document.getElementById">document.getElementById</a></code> method. Make sure you've drawn something to the source canvas before using it in your target canvas.</p>
+<p>和引用页面内的图片类似地，用 <code><a href="/en/DOM/document.getElementsByTagName" title="en/DOM/document.getElementsByTagName">document.getElementsByTagName</a> </code>或 <code><a href="/en/DOM/document.getElementById" title="en/DOM/document.getElementById">document.getElementById</a> </code>方法来获取其它 canvas 元素。但你引入的应该是已经准备好的 canvas。</p>
+<p>One of the more practical uses of this would be to use a second canvas element as a thumbnail view of the other larger canvas.</p>
+<p>一个常用的应用就是为另一个大的 canvas 做缩略图。</p><h4 id=".E7.94.B1.E9.9B.B6.E5.BC.80.E5.A7.8B.E5.88.9B.E5.BB.BA.E5.9B.BE.E5.83.8F_Creating_an_image_from_scratch">由零开始创建图像 Creating an image from scratch</h4>
+<p>Another option is to create new <code>Image</code> objects in our script. The main disadvantage of this approach is that if we don't want our script to halt in the middle because it needs to wait for an image to load, we need some form of image preloading.</p>
+<p>另外，我们可以用脚本创建一个新的 <code>Image</code> 对象，但这种方法的主要缺点是如果不希望脚本因为等待图片装置而暂停，还得需要突破预装载。</p>
+<p>Basically to create a new image object we do this:</p>
+<p>我们可以通过下面简单的方法来创建图片：</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // Create new Image object
+</span>img<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">'myImage.png'</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Set source path</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div></code></pre>
+<p>When this script gets executed, the image starts loading. If loading isn't finished when a <code>drawImage</code> statement gets executed, the script halts until the image is finished loading. If you don't want this to happen, use an <code>onload</code> event handler:</p>
+<p>当脚本执行后，图片开始装载。若调用 <code>drawImage</code> 时，图片没装载完，脚本会等待直至装载完毕。如果不希望这样，可以使用 <code>onload</code> 事件：</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // Create new Image object
+</span>img<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // execute drawImage statements here
+</span><span class="token punctuation">}</span>
+img<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">'myImage.png'</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // Set source path</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div></code></pre>
+<p>If you're only using one external image this can be a good approach but once you need to track more than one we need to resort to something more cunning. It's beyond the scope of this tutorial to look at image preloading tactics but you can check out <a class="external" href="http://www.webreference.com/programming/javascript/gr/column3/">JavaScript Image Preloader</a> for a complete solution.</p>
+<p>如果你只用到一张图片的话，这已经够了。但一旦需要不止一张图片，那就需要更加复杂的处理方法，但图片预装载策略超出本教程的范围，感兴趣的话可以参考<a class="external" href="http://www.webreference.com/programming/javascript/gr/column3/">JavaScript Image Preloader</a>。</p><h4 id=".E9.80.9A.E8.BF.87_data.3A_url_.E6.96.B9.E5.BC.8F.E5.B5.8C.E5.85.A5.E5.9B.BE.E5.83.8F_Embedding_an_image_via_data.3A_url">通过 data: url 方式嵌入图像 Embedding an image via data: url</h4>
+<p>Another possible way to include images is via the <a class="external" href="http://en.wikipedia.org/wiki/Data:_URL">data: url</a>. Data urls allow you to completely define an image as a Base64 encoded string of characters directly in your code. One advantage of data urls is that the resulting image is available immediately without another round trip to the server. ( Another advantage is that it is then possible to encapsulate in one file all of your CSS, Javascript, HTML, and images, making it more portable to other locations. ) Some disadvantages of this method are that your image is not cached, and for larger images the encoded url can become quite long:</p>
+<p>我们还可以通过 <a class="external" href="http://en.wikipedia.org/wiki/Data:_URL">data: url</a> 方式来引用图像。Data urls 允许用一串 Base64 编码的字符串的方式来定义一个图片。其优点就是图片内容即时可用，无须再到服务器兜一圈。（还有一个优点是，可以将 CSS，JavaScript，HTML 和 图片全部封装在一起，迁移起来十分方便。）缺点就是图像没法缓存，图片大的话内嵌的 url 数据会相当的长：</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> img_src <span class="token operator">=</span> <span class="token string">'data:image/gif;base64,R0lGODlhCwALAIAAAAAA3pn/ZiH5BAEAAAEALAAAAAALAAsAAAIUhA+hkcuO4lmNVindo7qyrIXiGBYAOw=='</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre><h2 id="drawImage"><code>drawImage</code></h2>
+<p>Once we have a reference to our source image object we can use the <code>drawImage</code> method to render it to the canvas. As we we'll see later the <code>drawImage</code> method is overloaded and has three different variants. In its most basic form it looks like this.</p>
+<p>一旦获得了源图对象，我们就可以使用 <code>drawImage</code> 方法将它渲染到 canvas 里。<code>drawImage</code> 方法有三种形态，下面是最基础的一种。</p>
+<div style="border: 1px solid rgb(208, 221, 158); background: rgb(239, 248, 206) none repeat scroll 0% 0%; padding-left: 10px;">
+<p><code><strong>drawImage</strong>(image, x, y)</code></p>
+</div>
+<p>Where <code>image</code> is a reference to our image or canvas object. <code>x</code> and <code>y</code> form the coordinate on the target canvas where our image should be placed.</p>
+<p>其中 <code>image</code> 是 image 或者 canvas 对象，<code>x</code> 和 <code>y 是其在目标 canvas 里的起始坐标。</code></p>
+<h4 id="drawImage_.E7.A4.BA.E4.BE.8B_1"><code>drawImage</code> 示例 1</h4>
+<p><img align="right" alt="" class="internal" src="/@api/deki/files/58/=Canvas_backdrop.png">In the following example I will be using an external image as the backdrop of a small line graph. Using backdrops can make your script considerably smaller because we don't need to draw an elaborate background. I'm only using one image here so I use the image object's <code>onload</code> event handler to execute the drawing statements. The <code>drawImage</code> method places the backdrop on the coordinate (0,0) which is the top left corner of the canvas.</p>
+<p>下面一个例子我用一个外部图像作为一线性图的背景。用背景图我们就不需要绘制负责的背景，省下不少代码。这里只用到一个 image 对象，于是就在它的 <code>onload</code> 事件响应函数中触发绘制动作。<code>drawImage</code> 方法将背景图放置在 canvas 的左上角 (0,0) 处。</p>
+<p><a class="external" href="/samples/canvas-tutorial/3_1_canvas_drawimage.html" title="samples/canvas-tutorial/3_1_canvas_drawimage.html">查看示例</a></p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">function</span> <span class="token function">draw<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> ctx <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'canvas'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getContext<span class="token punctuation">(</span></span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    img<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      ctx<span class="token punctuation">.</span><span class="token function">drawImage<span class="token punctuation">(</span></span>img<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ctx<span class="token punctuation">.</span><span class="token function">beginPath<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ctx<span class="token punctuation">.</span><span class="token function">moveTo<span class="token punctuation">(</span></span><span class="token number">30</span><span class="token punctuation">,</span><span class="token number">96</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ctx<span class="token punctuation">.</span><span class="token function">lineTo<span class="token punctuation">(</span></span><span class="token number">70</span><span class="token punctuation">,</span><span class="token number">66</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ctx<span class="token punctuation">.</span><span class="token function">lineTo<span class="token punctuation">(</span></span><span class="token number">103</span><span class="token punctuation">,</span><span class="token number">76</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ctx<span class="token punctuation">.</span><span class="token function">lineTo<span class="token punctuation">(</span></span><span class="token number">170</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ctx<span class="token punctuation">.</span><span class="token function">stroke<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    img<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">'images/backdrop.png'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div></code></pre>
+<p>&nbsp;</p><h2 id=".E7.BC.A9.E6.94.BE_Scaling">缩放 Scaling</h2>
+<p>The second variant of the <code>drawImage</code> method adds two new parameters and it allows us to place scaled images on the canvas.</p>
+<p><code>drawImage</code> 方法的又一变种是增加了两个用于控制图像在 canvas 中缩放的参数。</p>
+<div style="border: 1px solid rgb(208, 221, 158); background: rgb(239, 248, 206) none repeat scroll 0% 0%; padding-left: 10px;">
+<p><code><strong>drawImage</strong>(image, x, y, width, height)</code></p>
+</div>
+<p>Where <code>width</code> and <code>height</code> is the image's size on the target canvas. 当中 <code>width</code> 和 <code>height</code> 分别是图像在 canvas 中显示大小。</p>
+<h4 id="drawImage_.E7.A4.BA.E4.BE.8B_2"><code>drawImage</code> 示例 2</h4>
+<p><img align="right" alt="" class="internal" src="/@api/deki/files/106/=Canvas_scale_image.png"> In this example I'm going to use an image as a wallpaper and repeat it several times on the canvas. This is done simply by looping and placing the scaled images at different positions. In the code below the first <code>for</code> loops through the rows the second <code>for</code> loop the columns. The image is scaled one third of its original size which is 50x38 pixels. We'll see how this could also have been achieved, by creating a custom pattern, later in this tutorial.</p>
+<p>在这个例子里，我会用一张图片像背景一样在 canvas 中以重复平铺开来。实现起来也很简单，只需要循环铺开经过缩放的图片即可。见下面的代码，第一层 <code>for</code> 循环是做行重复，第二层是做列重复的。图像大小被缩放至原来的三分之一，50x38 px。这种方法可以用来很好的达到背景图案的效果，在下面的教程中会看到。</p>
+<p><strong>Note</strong>: Images can become blurry when scaling up or grainy if they're scaled down too much. Scaling is probably best not done if you've got some text in it which needs to remain legible.</p>
+<p>注意：图像可能会因为大幅度的缩放而变得起杂点或者模糊。如果您的图像里面有文字，那么最好还是不要进行缩放，因为那样处理之后很可能图像里的文字就会变得无法辨认了。</p>
+<p><a class="external" href="/samples/canvas-tutorial/3_2_canvas_drawimage.html" title="samples/canvas-tutorial/3_2_canvas_drawimage.html">查看示例</a> <img align="right" alt="Source image" class="internal" src="/@api/deki/files/101/=Canvas_rhino.jpg"></p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">function</span> <span class="token function">draw<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> ctx <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'canvas'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getContext<span class="token punctuation">(</span></span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    img<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">4</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span><span class="token number">3</span><span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          ctx<span class="token punctuation">.</span><span class="token function">drawImage<span class="token punctuation">(</span></span>img<span class="token punctuation">,</span>j<span class="token operator">*</span><span class="token number">50</span><span class="token punctuation">,</span>i<span class="token operator">*</span><span class="token number">38</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">,</span><span class="token number">38</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    img<span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">'images/rhino.jpg'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div></code></pre><h2 id=".E5.88.87.E7.89.87_Slicing">切片 Slicing</h2>
+<p>The third and last variant of the <code>drawImage</code> method has eight new parameters. We can use this method to slice parts of a source image and draw them to the canvas.</p>
+<p><code>drawImage</code> 方法的第三个也是最后一个变种有8个新参数，用于控制做切片显示的。</p>
+<div style="border: 1px solid rgb(208, 221, 158); background: rgb(239, 248, 206) none repeat scroll 0% 0%; padding-left: 10px; margin-bottom: 10px;">
+<p><code><strong>drawImage</strong>(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)</code></p>
+</div>
+<p><img align="right" alt="" class="internal" src="/@api/deki/files/79/=Canvas_drawimage.jpg">The first parameter <code>image</code>, just as with the other variants, is either a reference to an image object or a reference to a different canvas element. For the other eight parametes it's best to look at the image on the right. The first four parameters define the location and size of the slice on the source image. The last four parameters define the position and size on the destination canvas.</p>
+<p>第一个参数和其它的是相同的，都是一个图像或者另一个 canvas 的引用。其它8个参数最好是参照右边的图解，前4个是定义图像源的切片位置和大小，后4个则是定义切片的目标显示位置和大小。</p>
+<p>Slicing can be a useful tool when you want to make compositions. You could have all elements in a single image file and use this method to composite a complete drawing. For instance, if you want to make a chart you could have a PNG image containing all the necessary text in a single file and depending on your data could change the scale of your chart without very much diffculty. Another advantage is that you don't need to load every image individually.</p>
+<p>切片是个做图像合成的强大工具。假设有一张包含了所有元素的图像，那么你可以用这个方法来合成一个完整图像。例如，你想画一张图表，而手上有一个包含所有必需的文字的 PNG 文件，那么你可以很轻易的根据实际数据的需要来改变最终显示的图表。这方法的另一个好处就是你不需要单独装载每一个图像。</p>
+<h4 id="drawImage_.E7.A4.BA.E4.BE.8B_3"><code>drawImage</code> 示例 3</h4>
+<p><img align="right" alt="" class="internal" src="/@api/deki/files/80/=Canvas_drawimage2.jpg">In this example I'm going to use the same rhino as we've seen above, but now I'm going to slice its head out and composite it into a picture frame. The image of the picture frame includes a dropshadow which has been saved as a 24-bit PNG image. Because 24-bit PNG images include a full 8-bit alpha channel, unlike GIF and 8-bit PNG images, I can place it onto any background and don't have to worry about a matte color.</p>
+<p>在这个例子里面我用到上面已经用过的犀牛图像，不过这次我要给犀牛头做个切片特写，然后合成到一个相框里面去。相框带有阴影效果，是一个以 24-bit PNG 格式保存的图像。因为 24-bit PNG 图像带有一个完整的 8-bit alpha 通道，与 GIF 和 8-bit PNG 不同，我可以将它放成背景而不必担心底色的问题。</p>
+<p>I took a different approach to the loading of the images than the example above. I just placed the images directly in my HTML document and used a CSS rule to hide them from view (<code>display:none</code>). I assigned both images an <code>id</code> attribute to make them easier to select. The script itself is very simple. I first draw the sliced and scaled image on the canvas (first <code>drawImage</code> statement), and then place the frame on top (second <code>drawImage</code> statement).</p>
+<p>我用一个与上面用到的不同的方法来装载图像，直接将图像插入到 HTML 里面，然后通过 CSS 隐藏(<code>display:none</code>)它。两个图像我都赋了 <code>id</code> ，方便后面使用。看下面的脚本，相当简单，首先对犀牛头做好切片(第一个<code> drawImage</code> )放在 canvas 上，然后再上面套个相框(第二个 <code>drawImage</code> )。</p>
+<p><a class="external" href="/samples/canvas-tutorial/3_3_canvas_drawimage.html" title="samples/canvas-tutorial/3_3_canvas_drawimage.html">查看示例</a> <img align="right" alt="Source image" class="internal" src="/@api/deki/files/93/=Canvas_picture_frame.png"></p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">function</span> <span class="token function">draw<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'canvas'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> ctx <span class="token operator">=</span> canvas<span class="token punctuation">.</span><span class="token function">getContext<span class="token punctuation">(</span></span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment" spellcheck="true"> // Draw slice
+</span>  ctx<span class="token punctuation">.</span><span class="token function">drawImage<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'source'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token number">33</span><span class="token punctuation">,</span><span class="token number">71</span><span class="token punctuation">,</span><span class="token number">104</span><span class="token punctuation">,</span><span class="token number">124</span><span class="token punctuation">,</span><span class="token number">21</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">87</span><span class="token punctuation">,</span><span class="token number">104</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+ <span class="token comment" spellcheck="true"> // Draw frame
+</span>  ctx<span class="token punctuation">.</span><span class="token function">drawImage<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'frame'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div></code></pre>
+<h2 id=".E7.A4.BA.E4.BE.8B.EF.BC.9A.E7.94.BB.E5.BB.8A_Art_gallery_example">示例：画廊 Art gallery example</h2>
+<p><img align="right" alt="" class="internal" src="/@api/deki/files/57/=Canvas_art_gallery.jpg">In the final example of this chapter I've made a little art gallery. The gallery consists of a table containing several images. When the page is loaded, for each image in the page a canvas element is inserted and a frame is drawn arround it.</p>
+<p>我这一章最后的示例是弄一个小画廊。画廊由挂着几张画作的格子组成。当页面装载好之后，为每张画创建一个 canvas 元素并用加上画框然后插入到画廊中去。</p>
+<p>In my case, all images have a fixed width and height, and so does the frame that's drawn around it. You could enhance the script so that it uses the image's width and height to make the frame fit perfectly around it.</p>
+<p>在我这个例子里面，所有“画”都是固定宽高的，画框也是。你可以做些改进，通过脚本用画的宽高来准确控制围绕它的画框的大小。</p>
+<p>The code below should be self-explanatory. We loop through the images array and add new canvas elements accordingly. Probably the only thing to note, for those not so familar with the DOM, is the use of the <a href="/En/DOM/Node.insertBefore" title="en/DOM/element.insertBefore">insertBefore</a> method. <code>insertBefore</code> is a method of the parent node (a table cell) of the element (the image) before which we want to insert our new node (the canvas element).</p>
+<p>下面的代码应该是蛮自我解释的了。就是遍历图像对象数组，依次创建新的 canvas 元素并添加进去。可能唯一需要注意的，对于那些并不熟悉 DOM 的朋友来说，是 <a href="/En/DOM/Node.insertBefore" title="en/DOM/element.insertBefore">insertBefore</a> 方法的用法。<code>insertBefore</code> 是父节点（单元格）的方法，用于将新节点（canvas 元素）插入到我们想要插入的节点之前。</p>
+<p><a class="external" href="/samples/canvas-tutorial/3_4_canvas_gallery.html" title="samples/canvas-tutorial/3_4_canvas_gallery.html">查看示例</a></p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">function</span> <span class="token function">draw<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+ <span class="token comment" spellcheck="true"> // Loop through all images
+</span>  <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>document<span class="token punctuation">.</span>images<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+   <span class="token comment" spellcheck="true"> // Don't add a canvas for the frame image
+</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>document<span class="token punctuation">.</span>images<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">getAttribute<span class="token punctuation">(</span></span><span class="token string">'id'</span><span class="token punctuation">)</span><span class="token operator">!</span><span class="token operator">=</span><span class="token string">'frame'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+     <span class="token comment" spellcheck="true"> // Create canvas element
+</span>      canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">'CANVAS'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      canvas<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">'width'</span><span class="token punctuation">,</span><span class="token number">132</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      canvas<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">'height'</span><span class="token punctuation">,</span><span class="token number">150</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     <span class="token comment" spellcheck="true"> // Insert before the image
+</span>      document<span class="token punctuation">.</span>images<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">insertBefore<span class="token punctuation">(</span></span>canvas<span class="token punctuation">,</span>document<span class="token punctuation">.</span>images<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      ctx <span class="token operator">=</span> canvas<span class="token punctuation">.</span><span class="token function">getContext<span class="token punctuation">(</span></span><span class="token string">'2d'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     <span class="token comment" spellcheck="true"> // Draw image to canvas
+</span>      ctx<span class="token punctuation">.</span><span class="token function">drawImage<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span>images<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+     <span class="token comment" spellcheck="true"> // Add frame
+</span>      ctx<span class="token punctuation">.</span><span class="token function">drawImage<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'frame'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div></code></pre>
+<h2 id=".E6.8E.A7.E5.88.B6.E5.9B.BE.E5.83.8F.E7.9A.84.E7.BC.A9.E6.94.BE.E8.A1.8C.E4.B8.BA_Controlling_image_scaling_behavior">控制图像的缩放行为 Controlling image scaling behavior</h2>
+<p>{{ gecko_minversion_header("1.9.2") }}</p>
+<p>Gecko 1.9.2 introduced the <code>mozImageSmoothingEnabled</code> property to the canvas element; if this Boolean value is <code>false</code>, images won't be smoothed when scaled. This property is <code>true</code> by default.</p>
+<p>Gecko 1.9.2 引入了 <code>mozImageSmoothingEnabled</code> 属性，值为 <code>false </code>时，图像不会平滑地缩放。默认是<code> true</code> 。</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js">cx<span class="token punctuation">.</span>mozImageSmoothingEnabled <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre>
+<p>{{ PreviousNext("Canvas tutorial/Drawing shapes", "Canvas tutorial/Applying styles and colors") }}</p>
+<p>{{ languages( { "zh-tw": "zh_tw/Canvas_教學/使用影像", "fr": "fr/Tutoriel_canvas/Utilisation_d\'images", "ja": "ja/Canvas_tutorial/Using_images", "pl": "pl/Przewodnik_po_canvas/Zastosowanie_obrazk\u00f3w", "zh-cn": "cn/Canvas_tutorial/Using_images", "ru": "ru/\u041e\u0431\u0443\u0447\u0435\u043d\u0438\u0435_canvas/\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u0435_\u043a\u0430\u0440\u0442\u0438\u043d\u043e\u043a" } ) }}</p>
+                                    </article>
+
+                      <!-- attachments list -->
+                          <section class="page-meta">
+<section id="page-attachments">
+
+  <h3><i aria-hidden="true" class="icon-paper-clip"></i>Attachments</h3>
+
+  
+  <p id="page-attachments-no-message" class="hidden">
+    This document has no attachments.
+  </p>
+
+    <table cellpadding="0" cellspacing="0" id="page-attachments-table" class="">
+      <thead>
+        <tr><th>File</th>
+        <th>Size</th>
+        <th>Date</th>
+        <th>Attached by</th>
+      </tr></thead>
+      <tbody>
+                  <tr data-revision-id="277" data-attachment-id="205">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/205/Canvas_art_gallery.jpg" target="_blank">Canvas_art_gallery.jpg</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>14756 bytes</td>
+  <td>2005-09-16 19:06:25</td>
+  <td><a href="/zh-CN/profiles/KamielMartinet">KamielMartinet</a></td>
+</tr>
+                  <tr data-revision-id="278" data-attachment-id="206">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/206/Canvas_backdrop.png" target="_blank">Canvas_backdrop.png</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>3516 bytes</td>
+  <td>2005-09-13 16:49:50</td>
+  <td><a href="/zh-CN/profiles/KamielMartinet">KamielMartinet</a></td>
+</tr>
+                  <tr data-revision-id="299" data-attachment-id="225">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/225/Canvas_drawimage.jpg" target="_blank">Canvas_drawimage.jpg</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>13643 bytes</td>
+  <td>2005-09-16 10:58:36</td>
+  <td><a href="/zh-CN/profiles/KamielMartinet">KamielMartinet</a></td>
+</tr>
+                  <tr data-revision-id="300" data-attachment-id="226">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/226/Canvas_drawimage2.jpg" target="_blank">Canvas_drawimage2.jpg</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>11837 bytes</td>
+  <td>2005-09-16 18:35:04</td>
+  <td><a href="/zh-CN/profiles/KamielMartinet">KamielMartinet</a></td>
+</tr>
+                  <tr data-revision-id="317" data-attachment-id="242">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/242/Canvas_picture_frame.png" target="_blank">Canvas_picture_frame.png</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>32212 bytes</td>
+  <td>2005-09-16 18:37:08</td>
+  <td><a href="/zh-CN/profiles/KamielMartinet">KamielMartinet</a></td>
+</tr>
+                  <tr data-revision-id="326" data-attachment-id="247">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/247/Canvas_rhino.jpg" target="_blank">Canvas_rhino.jpg</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>7571 bytes</td>
+  <td>2005-09-13 17:48:09</td>
+  <td><a href="/zh-CN/profiles/KamielMartinet">KamielMartinet</a></td>
+</tr>
+                  <tr data-revision-id="330" data-attachment-id="251">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/251/Canvas_scale_image.png" target="_blank">Canvas_scale_image.png</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>8146 bytes</td>
+  <td>2005-09-13 17:44:55</td>
+  <td><a href="/zh-CN/profiles/KamielMartinet">KamielMartinet</a></td>
+</tr>
+                  <tr data-revision-id="72" data-attachment-id="57">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/57/Ecma.gif" target="_blank">Ecma.gif</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>682 bytes</td>
+  <td>2006-10-26 19:29:05</td>
+  <td><a href="/zh-CN/profiles/Majda">Majda</a></td>
+</tr>
+                  <tr data-revision-id="73" data-attachment-id="58">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/58/Firefox-logo.png" target="_blank">Firefox-logo.png</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>15734 bytes</td>
+  <td>2006-10-27 10:21:13</td>
+  <td><a href="/zh-CN/profiles/Majda">Majda</a></td>
+</tr>
+                  <tr data-revision-id="96" data-attachment-id="79">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/79/Firefox-1.5-rc1.png" target="_blank">Firefox-1.5-rc1.png</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>14661 bytes</td>
+  <td>2005-11-11 18:27:35</td>
+  <td><a href="/zh-CN/profiles/Bas1286">Bas1286</a></td>
+</tr>
+                  <tr data-revision-id="97" data-attachment-id="80">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/80/Firefox-1.5-rc3.png" target="_blank">Firefox-1.5-rc3.png</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>14849 bytes</td>
+  <td>2005-11-18 14:03:45</td>
+  <td><a href="/zh-CN/profiles/Mcaruso">Mcaruso</a></td>
+</tr>
+                  <tr data-revision-id="110" data-attachment-id="93">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/93/TPB_Search.zip" target="_blank">TPB_Search.zip</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>620 bytes</td>
+  <td>2007-10-31 19:59:23</td>
+  <td><a href="/zh-CN/profiles/Badboystar">Badboystar</a></td>
+</tr>
+                  <tr data-revision-id="118" data-attachment-id="101">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/101/04cert.gif" target="_blank">04cert.gif</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>11399 bytes</td>
+  <td>2005-10-31 14:47:58</td>
+  <td><a href="/zh-CN/profiles/Prometeo">Prometeo</a></td>
+</tr>
+                  <tr data-revision-id="123" data-attachment-id="106">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/106/11svauth.gif" target="_blank">11svauth.gif</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>8808 bytes</td>
+  <td>2005-10-31 14:47:22</td>
+  <td><a href="/zh-CN/profiles/Prometeo">Prometeo</a></td>
+</tr>
+              </tbody>
+    </table>
+
+
+  </section>
+</section>            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <!-- tags if present -->
+              <div class="tag-attach-list tags contributor-sub">
+                <i aria-hidden="true" class="icon-tags"></i><strong>Tags:</strong>
+                <ul class="tag-list"><li><a href="/zh-CN/docs/tag/Canvas%20tutorial">Canvas tutorial</a></li></ul>
+              </div>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/Yunmo">Yunmo</a>, <a href="/zh-CN/profiles/leegorous">leegorous</a>, <a href="/zh-CN/profiles/Mgjbot">Mgjbot</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/leegorous">leegorous</a>,
+                  <time datetime="2009-12-27T11:56:02-08:00">Dec 27, 2009 11:56:02 AM</time>
+                </div>
+                          </div>
+                  </div>

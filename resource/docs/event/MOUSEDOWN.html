@@ -1,0 +1,36 @@
+<p>
+	
+Deprecated since Gecko 1.9 (Firefox 3)
+This feature has been removed from the Web. Though some browsers may still support it, it is in the process of being dropped. Do not use it in old or new projects. Pages or Web apps using it may break at any time.
+Summary
+Registers the window to capture all events of the specified type.
+
+Syntax
+window.captureEvents(eventType) 
+eventType is a combination of the following values: Event.ABORT, Event.BLUR, Event.CLICK, Event.CHANGE, Event.DBLCLICK, Event.DRAGDDROP, Event.ERROR, Event.FOCUS, Event.KEYDOWN, Event.KEYPRESS, Event.KEYUP, Event.LOAD, Event.MOUSEDOWN, Event.MOUSEMOVE, Event.MOUSEOUT, Event.MOUSEOVER, Event.MOUSEUP, Event.MOVE, Event.RESET, Event.RESIZE, Event.SELECT, Event.SUBMIT, Event.UNLOAD.
+
+Example
+<!DOCTYPE html>
+&ltscript>
+function reg() {
+  window.captureEvents(Event.CLICK);
+  window.onclick = page_click;
+}
+
+function page_click() {
+  alert('page click event detected!');
+}
+&lt/script>
+
+<p>click anywhere on this page.</p>
+Notes
+Events raised in the DOM by user activity (such as clicking buttons or shifting focus away from the current document) generally pass through the high-level window and document objects first before arriving at the object that initiated the event.
+
+When you call the captureEvents() method on the window, events of the type you specify (for example, Event.CLICK) no longer pass through to "lower" objects in the hierarchy. In order for events to "bubble up" in the way that they normally do, you must call window.releaseEvents() ( ) on the window to keep it from trapping events.
+
+Note that you can pass a list of events to this method using the following syntax: window.captureEvents(Event.KEYPRESS | Event.KEYDOWN | Event.KEYUP).
+
+Specification
+DOM Level 0. Not part of any standard.
+
+</p>

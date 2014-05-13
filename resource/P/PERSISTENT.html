@@ -1,0 +1,10 @@
+请求文件系统
+
+网络应用可通过调用 window.requestFileSystem() 请求对沙盒文件系统的访问权限：
+
+// Note: The file system has been prefixed as of Google Chrome 12:
+window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+
+window.requestFileSystem(type, size, successCallback, opt_errorCallback)
+type
+文件存储是否应该是持久的。可能的值包括 window.TEMPORARY 和 window.PERSISTENT。通过 TEMPORARY 存储的数据可由浏览器自行决定删除（例如在需要更多空间的情况下）。要清除 PERSISTENT 存储，必须获得用户或应用的明确授权，并且需要用户向您的应用授予配额。请参阅请求配额。

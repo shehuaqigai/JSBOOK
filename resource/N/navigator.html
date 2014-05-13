@@ -1,0 +1,178 @@
+<div id="maincontent">
+
+<h1>Navigator 对象</h1>
+
+
+<div>
+<h2>Navigator 对象</h2>
+
+<p>Navigator 对象包含有关浏览器的信息。</p>
+
+<p class="note"><span>注释：</span>没有应用于 navigator 对象的公开标准，不过所有浏览器都支持该对象。</p>
+
+<p><em>IE:</em> Internet Explorer, <em>F:</em> Firefox, <em>O:</em> Opera.</p>
+</div>
+
+
+<div>
+<h2>Navigator 对象集合</h2>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:21%">集合</th>
+    <th style="width:58%">描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+  </tr>
+  <tr>
+    <td class="no_wrap">plugins[]</td>
+    <td>
+	<p>返回对文档中所有嵌入式对象的引用。</p>
+	<p>该集合是一个 Plugin 对象的数组，其中的元素代表浏览器已经安装的插件。Plug-in 对象提供的是有关插件的信息，其中包括它所支持的 MIME 类型的列表。</p>
+	<p>虽然 plugins[] 数组是由 IE 4 定义的，但是在 IE 4 中它却总是空的，因为 IE 4 不支持插件和 Plugin 对象。</p>
+	</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  </tbody></table>
+</div>
+
+
+<div>
+<h2>Navigator 对象属性</h2>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:21%">属性</th>
+    <th style="width:58%">描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_appcodename.asp">appCodeName</a></td>
+    <td>返回浏览器的代码名。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_appminorversion.asp">appMinorVersion</a></td>
+    <td>返回浏览器的次级版本。</td>
+    <td>4</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_appname.asp">appName</a></td>
+    <td>返回浏览器的名称。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_appversion.asp">appVersion</a></td>
+    <td>返回浏览器的平台和版本信息。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_browserlanguage.asp">browserLanguage</a></td>
+    <td>返回当前浏览器的语言。</td>
+    <td>4</td>
+    <td>No</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_cookieenabled.asp">cookieEnabled</a></td>
+    <td>返回指明浏览器中是否启用 cookie 的布尔值。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_cpuclass.asp">cpuClass</a></td>
+    <td>返回浏览器系统的 CPU 等级。</td>
+    <td>4</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_online.asp">onLine</a></td>
+    <td>返回指明系统是否处于脱机模式的布尔值。</td>
+    <td>4</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_platform.asp">platform</a></td>
+    <td>返回运行浏览器的操作系统平台。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_systemlanguage.asp">systemLanguage</a></td>
+    <td>返回 OS 使用的默认语言。</td>
+    <td>4</td>
+    <td>No</td>
+    <td>No</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_useragent.asp">userAgent</a></td>
+    <td>返回由客户机发送服务器的 user-agent 头部的值。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_nav_userlanguage.asp">userLanguage</a></td>
+    <td>返回 OS 的自然语言设置。</td>
+    <td>4</td>
+    <td>No</td>
+    <td>9</td>
+  </tr>
+</tbody></table>
+</div>
+
+
+<div>
+<h2>Navigator 对象方法</h2>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:21%">方法</th>
+    <th style="width:58%">描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+  </tr>
+  <tr>
+    <td><a href="met_nav_javaenabled.asp">javaEnabled()</a></td>
+    <td>规定浏览器是否启用 Java。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="met_nav_taintenabled.asp">taintEnabled()</a></td>
+    <td>规定浏览器是否启用数据污点 (data tainting)。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    </tr>
+  </tbody></table>
+</div>
+
+
+<div>
+<h2>Navigator 对象描述</h2>
+
+<p>Navigator 对象包含的属性描述了正在使用的浏览器。可以使用这些属性进行平台专用的配置。</p>
+
+<p>虽然这个对象的名称显而易见的是 Netscape 的 Navigator 浏览器，但其他实现了 JavaScript 的浏览器也支持这个对象。</p>
+
+<p>Navigator 对象的实例是唯一的，可以用 Window 对象的 navigator 属性来引用它。</p>
+</div>
+
+</div>

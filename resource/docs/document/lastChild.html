@@ -1,0 +1,37 @@
+<p>
+	定义和用法
+lastChild 属性可返回文档的最后一个子节点。
+语法：
+documentObject.lastChild
+提示和注释
+注释：Internet Explorer 会忽略节点间生成的空白文本节点（例如，换行符号），而 Mozilla 不会这样做。因此，在下面的例子中，我们会使用一个函数来检查第一个子节点的节点类型。
+元素节点的节点类型是 1，因此如果首个子节点不是一个元素节点，它就会移至下一个节点，
+然后继续检查此节点是否为元素节点。整个过程会一直持续到首个元素子节点被找到为止。通过这个方法，
+我们就可以在 Internet Explorer 和 Mozilla 得到正确的结果。
+提示：如需更多有关 IE 与 Mozilla 浏览器之间 XML DOM 的差异的内容，请访问我们的 DOM 浏览器 章节。
+实例
+在所有的例子中，我们将使用 XML 文件 books.xml，以及 JavaScript 函数 loadXMLDoc()。
+以下代码片段可显示文档的最后一个子节点的节点名称和节点类型：
+//检查最后一个节点是否是 element 节点
+<pre>
+	
+
+function get_lastchild(n)
+{
+var x=n.lastChild;
+while (x.nodeType!=1)
+{
+x=x.previousSibling;
+}
+return x;
+}
+
+xmlDoc=loadXMLDoc("/example/xdom/books.xml");
+
+var x=get_lastchild(xmlDoc);
+document.write("Nodename: " + x.nodeName);
+document.write(" (nodetype: " + x.nodeType + ")");
+输出：
+Nodename: bookstore (nodetype: 1)
+</pre>
+</p>

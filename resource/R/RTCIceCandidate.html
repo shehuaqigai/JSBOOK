@@ -1,0 +1,512 @@
+RTCIceCandidate ：表示一个ICE协议的候选者。
+
+
+
+<div class="mn">
+<div class="bm vw">
+<div class="h hm">
+<h1 class="ph">WebRTC现状及实现概要 </h1>
+<p class="xg1">
+2012-12-19 16:03<span class="pipe">|</span>
+发布者: <a href="home.php?mod=space&amp;uid=2">sankyu</a><span class="pipe">|</span>
+查看: 8053<span class="pipe">|</span>
+评论: 0<span class="pipe">|</span>原作者: 罗智勇</p>
+</div>
+
+<!--[diy=diysummarytop]--><div id="diysummarytop" class="area"></div><!--[/diy]-->
+
+<div class="s"><div><strong>摘要</strong>: Google 通过把 WebRTC 项目开源，希望浏览器厂商能够将该技术内建在浏览器中，从而使Web应用开发人员能够通过HTML标签和JavaScript API就实现Web音频、视频通信功能。本文讲述浏览器引入 WebRTC技术的必要性、WebRTC ...</div></div>
+<!--[diy=diysummarybottom]--><div id="diysummarybottom" class="area"></div><!--[/diy]-->
+
+<div class="d">
+
+<!--[diy=diycontenttop]--><div id="diycontenttop" class="area"></div><!--[/diy]-->
+
+<table cellpadding="0" cellspacing="0" class="vwtb"><tbody><tr><td id="article_content"><h2 style="margin-bottom:0pt; margin-top:0pt; ">1 引言</h2>
+<h3>1.1 编写目的</h3>
+<div><span class="Apple-tab-span" style="white-space:pre">	</span>本文讲述浏览器引入 WebRTC（Web Real-Time Communication） 技术的必要性、WebRTC现状及实现方法。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>2011&nbsp;年以前，浏览器之间要实现实时通信需要私有技术，这些技术大部分都是通过插件和客户端来安装使用。对于许多用户来说，插件的下载、安装和更新是一个复杂、繁琐和容易出错的操作。对于开发人员来说，插件的的调试、测试、部署、错误修复和维护同样很难，同时涉及到的一些技术是受版权保护的，整合也是很复杂的。另外，有时很难说服用户来安装插件。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>
+Google 在&nbsp;2010 年收购了 GIPS（Global IP Solutions）公司获得 WebRTC 技术，在 2011 年，按 BSD 协议把 WebRTC 开源了，同年 w3c 启动 WebRTC 计划，使 WebRTC成为 HTML5 标准的一部分，目前该规范还在开发中。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>Google 通过把 WebRTC 项目开源，希望浏览器厂商能够将该技术内建在浏览器中，从而使Web应用开发人员能够通过HTML标签和JavaScript API就实现Web音频、视频通信功能。Google 在其官网上列出了使用WebRTC技术的四个理由：</div>
+<div><ol>
+<li>互联网成功的一个关键因素是一些核心技术如HTML、HTTP和TCP/IP是开放和免费实现的。目前，在浏览器通信领域还没有免费、高质量、完整的解决方案。WebRTC就是这样的技术。</li>
+<li>该技术的使用已经超过了&nbsp;8&nbsp;年，集成了最佳的音频、视频引擎，并被部署到数以百万的终端中，同时这些技术&nbsp;Google不收取任何费用。</li>
+<li>该技术包含了使用STUN、ICE、TURN、RTP-over-TCP的关键NAT和防火墙穿透技术，并支持代理。</li>
+<li>通过浏览器，WebRTC把通讯双方的信令状态直接映射到PeerConnection里面来抽象信令处理，这样&nbsp;开发人员按不同的应用场景选择不同的会话协议，比如&nbsp;SIP、XMPP/Jingle<font face="宋体">等等）。</font></li></ol>
+</div>
+<h3>1.2 定义</h3>
+
+<table width="100%" cellspacing="1" cellpadding="0" border="1" style="border:1px solid #AAA;">
+	<tbody>
+         <tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td width="20%" align="center">WebRTC</td>
+		<td>WebRTC 是 Web Real-Time Communication 的缩写，它是一项在浏览器内部进行实时数据、视频和音频通信的技术，是 Google 2010年以6820万美元收购Global IP Solutions公司而获得一项技术。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">MediaStreamTrack</td>
+		<td>媒体数据源，一个媒体数据源构成一个 MediaStreamTrack，比如音频数据源和视频数据源，多个相互之间有关联的媒体数据源（比如有同步关系的音频视频媒体数据源）构成一个媒体流（MediaStream）。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">MediaStream</td>
+		<td>	媒体流，一个媒体流包含 0 个到多个的媒体数据源，媒体流里面的数据源在呈现（render）必须同步。<br>MediaStream 通过 getUserMedia 获得。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">DataChannel</td>
+		<td>数据通道，两个 WebRTC 终端的连接建立后，它们可以通过这个数据通道传输任意类型的数据。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">Peer</td>
+		<td>通过 WebRTC 进行数据交互的节点或用户或终端，它通常是一个 Web App，它们之间的发现，连接的建立和断开通过 signalling（信令）控制。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">PeerConnection</td>
+		<td>表示一个 WebRTC 通讯连接对象，它维护与这个通讯连接相关的 MediaStream，处理通讯双方信令事件，完成通讯数据的传输。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">Signalling</td>
+		<td>信令，WebRTC 网络通过 Signalling 来发现各个 Peer，通过 Signalling 来控制各个 Peer 之间连接的建立和断开。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">STUN</td>
+		<td>STUN（Session Traversal Utilities for NAT，NAT会话传输应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT 路由器之后的主机之间建立UDP通信。该协议由RFC 5389定义。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">ICE</td>
+		<td>	交互式连接建立（Interactive Connectivity Establishment），一种综合性的NAT穿越的技术。<br>ICE 是由IETF的MMUSIC工作组开发出来的一种framework，可整合各种NAT穿透技术，如STUN、TURN、RSIP（Realm Specific IP，特定域IP）等。该framework可以让SIP的客户端利用各种NAT穿透方式打穿远程的防火墙。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">TURN</td>
+		<td>TURN（Traversal Using Relay NAT），是一种资料传输协议（data-transfer protocol）。通过中继服务器，穿透 NAT 或防火墙使两个 TCP 或 UPD 客户端建立连接。</td>
+	</tr>
+</tbody></table>
+
+
+<h2 style="margin-bottom:0pt; margin-top:0pt; ">2 参考资料</h2>
+<ul>
+<li>WebRTC规范 <a href="http://www.w3.org/TR/webrtc/">http://www.w3.org/TR/webrtc/</a>&nbsp;</li>
+<li>WebRTC官网 <a href="http://datatracker.ietf.org/wg/rtcweb/">http://datatracker.ietf.org/wg/rtcweb/</a>&nbsp;</li>
+<li>WebRTC wiki <a href="http://en.wikipedia.org/wiki/WebRTC">http://en.wikipedia.org/wiki/WebRTC</a>&nbsp;</li>
+<li>WebRTC实现 <a href="http://www.webrtc.org/">http://www.webrtc.org/</a>&nbsp;</li>
+<li>Media Capture and Streams <a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">http://dev.w3.org/2011/webrtc/editor/getusermedia.html</a>&nbsp;</li>
+<li>Mozilla对WebRTC的介绍 <a href="https://developer.mozilla.org/zh-CN/docs/WebRTC">https://developer.mozilla.org/zh-CN/docs/WebRTC</a>&nbsp;</li>
+<li>Html5rocks 的 WebRTC 使用例子 <a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/">http://www.html5rocks.com/en/tutorials/webrtc/basics/</a></li>
+</ul>
+<h2 style="margin-bottom:0pt; margin-top:0pt; ">3 现状</h2>
+<h3>3.1 规范现状</h3>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>规范现已经发布 1.0 版，处在草案状态，现只支持 1 对 1 通讯，不支持 1 对多通讯，也不支持多对多通讯。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>按官网的路线图，预计 2013 年第一季度发布正式推荐标准。</div>
+<h3>3.2 Google WebRTC（<a href="http://www.webrtc.org/">http://www.webrtc.org/</a>）库现状</h3>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>WebRTC 已经实现了大部分功能，小部分功能还不是很完善，比如：</div>
+<ul>
+<li>MediaStream 里的音频无法给 audio 标签处理，也无法给其它 Web API（比如 Web Audio）处理；</li>
+<li>ICE 尚未完全兼容规范 RFC 5245，将要发布的 Chrome M23 会有第一个实现；</li>
+<li>DataChannel 尚未实现，这个主要是因为标准委员会还在讨论该规范。</li>
+</ul>
+<h3>3.3 浏览器实现现状</h3>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>Windows 环境下，据说 IE 从版本 10 开始支持，Chrome 从版本 20 开始支持，Firefox 从版本 17（预计在 2013 年 1 月发布）开始支持，Opera 从版本 12 开始支持，爱立信在 2011-05-26（<a href="http://labs.ericsson.com/blog/beyond-html5-experiment-with-real-time-communication-in-a-browser">http://labs.ericsson.com/blog/beyond-html5-experiment-with-real-time-communication-in-a-browser</a>）发布了一个针对 Ubuntu 修改版的 webkit 可以测试 WebRTC 功能。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>手机/平板方面，目前只有爱立信在 2012.10.19 发布的移动浏览器 Bowser 支持（<a href="https://labs.ericsson.com/blog/bowser-the-world-s-first-webrtc-enabled-mobile-browser">https://labs.ericsson.com/blog/bowser-the-world-s-first-webrtc-enabled-mobile-browser</a>）。Bowser 采用自己实现的 WebRTC 框架（没有使用 webrtc.org 的框架），媒体引擎采用 GStreamer，在 iTunes App Store 和 Google Play 有下载，运行效果如下图：</div>
+<p><a href="data/attachment/portal/201212/19/143611ai0aibgg17axmgx3.png" target="_blank"><img src="data/attachment/portal/201212/19/143611ai0aibgg17axmgx3.png"></a></p>
+<h2 style="margin-bottom:0pt; margin-top:0pt; ">4 设计</h2>
+<h3>4.1 系统框架</h3>
+<p><a href="data/attachment/portal/201212/19/144158hjsvw32oirsw2jv2.png" target="_blank"><img src="data/attachment/portal/201212/19/144158hjsvw32oirsw2jv2.png"></a></p>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>如上图，浏览器里的 WebRTC 有两个明显不同的层次：</div>
+<ol>
+<li>浏览器开发人员关注的 WebRTC C++ API 层</li>
+<li>Web App 开发人员关注的 Web API 层</li>
+</ol>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>图中，各个功能模块介绍如下：</div>
+<h4>4.1.1 Your Web App</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>Web开发者开发的程序，Web开发者可以基于集成WebRTC的浏览器提供的web API开发基于视频、音频的实时通信应用。</div>
+<h4>4.1.2 Web API</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>面向第三方开发者的WebRTC标准API（Javascript），使开发者能够容易地开发出类似于网络视频聊天的web应用，对应规范参考：<a href="http://www.w3.org/TR/webrtc/">http://www.w3.org/TR/webrtc/</a>。</div>
+<h4>4.1.3 WebRTC C++ API</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>本地C++ API层，使浏览器厂商容易实现WebRTC标准的Web API。</div>
+<h4>4.1.4 Transport / Session</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>传输/会话层，组件来自 libjingle（但不使用或不要求使用 xmpp/jingle 协议）。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>1.RTP/SRTP Stack</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>实时传输协议(SRTP 带加密)，浏览器之间建立连接后，通过 RTP 协议传输音视频数据。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>2.STUN/ICE</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>STUN/ICE 组件允许不同网络环境下的浏览器建立直接或间接的通讯连接。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>3.Session Management</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>是一个抽象会话层，执行会话建立和管理功能，这层协议留给应用开发者实现。</div>
+<h4>4.1.5 VoiceEngine</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>音频引擎是包含一系列音频多媒体处理的框架，包括从视频采集卡到网络传输端等整个解决方案。功能包括音频 iSAC 编码，iLBC 编码，音频抖动缓冲处理，回声消除，噪音抑制等等。</div>
+<h4>4.1.6 VideoEngine</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>视频引擎是包含一系列视频处理的整体框架，从摄像头采集视频到视频信息网络传输再到视频显示整个完整过程的解决方案。功能包括视频 VP8 编解码，视频抖动缓冲处理和图像质量增强等等。</div>
+<h3>4.2 概要设计</h3>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>WebRTC 由三个部分组成：</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>1.MediaStream</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>来自本地的音频视频流，或者来自远端浏览器的音频视频流。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>2.PeerConnection</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>执行音频视频调用，支持加密和带宽控制。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>3.DataChannel</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>采用点对点传输，用来传输常规数据。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>各部分的关系如下图：</div>
+<p><a href="data/attachment/portal/201212/19/145212v2hgnu00vagfzhju.png" target="_blank"><img src="data/attachment/portal/201212/19/145212v2hgnu00vagfzhju.png"></a></p>
+<h4>4.2.1 MediaStream 实现</h4>
+媒体流，一个媒体流包含 0 个到多个的媒体数据源，媒体流里面的数据在呈现（render）的时候必须同步进行（就是常说的音视频同步）。WebRTC 客户端连接建立后传递的数据流就是这个东西。
+MediaStream 通过 getUserMedia 获得，MediaStream 的实现由 w3c 规范 Media Capture and Streams（<a href="http://dev.w3.org/2011/webrtc/editor/getusermedia.html">http://dev.w3.org/2011/webrtc/editor/getusermedia.html</a>）定义。
+<h4>4.2.2 Signalling 实现</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>Signalling 也叫信令，它不是 WebRTC 的一部分，但对于 WebRTC 应用来说很重要！</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span> 除了使用 PeerConnection 在客户端（Peer）之间传输数据流（MediaStream），还需要一种机制在客户端之间传递控制信息，通过控制信息处理客户端之间的发现、连接建立、连接维护和连接关闭等任务，这种机制就是通信领域常说的信令（Signalling）。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>信令实现的方法和协议 WebRTC 没有指定，这样 WebRTC 应用的开发者就可以采用合适他们的协议，比如 SIP、XMPP 等等，采用其它合适的双向通讯通道，比如 WebSocket、XMLHttpResuest（XHR）、Google Channel API，来完成信令任务。<a href="http://apprtc.appspot.com/">http://apprtc.appspot.com/ </a>的测试例子就是通过 Google Channel API 来实现的。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>启动一个 WebRTC 会话，WebRTC 需要以下几个信息：</div>
+<ul>
+<li>本地客户端的配置信息；</li>
+<li>远程客户端的配置信息；</li>
+<li>远程参与建立P2P连接的信息：主要是 IP 和端口。</li>
+</ul>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>客户端配置信息叫做 SessionDescription，结构必须符合 Session Description Protocol（SDP，<a href="http://tools.ietf.org/html/rfc4566">http://tools.ietf.org/html/rfc4566</a>）的要求。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>信令的处理过程大致如下：</div>
+<ol>
+<li>呼叫方发送 offer；</li>
+<li>被呼叫方接受这个 offer；</li>
+<li>被呼叫方方式 answer；</li>
+<li>呼叫方接受 answer。</li>
+</ol>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>上述信令处理过程叫做 JSEP（JavaScript Session Establishment Protocol，规范为 <a href="http://datatracker.ietf.org/doc/draft-ietf-rtcweb-jsep/">http://datatracker.ietf.org/doc/draft-ietf-rtcweb-jsep/</a>）。JSEP 在最新版本的 chromium 里有实现参考。</div>
+<h4>4.2.3 PeerConnection 实现</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>WebRTC 连接对象，负责客户端信令处理，连接建立，媒体传输等任务。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>PeerConnection 参与了 WebRTC 应用开发三个主要模块：发起连接，接受连接和中止连接。</div>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>1. 客户端发起一个连接的调用图如下：</div>
+<p><a href="data/attachment/portal/201212/19/151112a5zp5sm252kojsmt.png" target="_blank"><img src="data/attachment/portal/201212/19/151112a5zp5sm252kojsmt.png"></a></p>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>2. 客户端接受一个连接的调用图如下：</div>
+<p><a href="data/attachment/portal/201212/19/151140f2n5zsyfnh7v4hfz.png" target="_blank"><img src="data/attachment/portal/201212/19/151140f2n5zsyfnh7v4hfz.png"></a></p>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>3. 客户端中止一个连接的调用图如下：</div>
+<p><a href="data/attachment/portal/201212/19/151224ryl6firxpipu23p6.png" target="_blank"><img src="data/attachment/portal/201212/19/151224ryl6firxpipu23p6.png"></a></p>
+<h4>4.2.4 DataChannel 实现</h4>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>数据通道，现有规范尚未完善，该功能开源库 webrtc.org 还在开发中，待 webrtc.org 库实现后再考虑整合和移植。</div>
+<h2>5 实现</h2>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>Chrome 从版本 20 开始支持 WebRTC，实现主要参考 chromium 里的实现进行移植，主要包括以下几个方面：</div>
+<ul>
+<li>
+    <div>WebKit 库方面，除了适配，已经支持 WebRTC，操作如下：</div>
+    <ol>
+        <li>编译时启用宏 ENABLE_MEDIA_STREAM；</li>
+        <li>采用 http://svn.webkit.org/repository/webkit/trunk/Source/WebCore/Modules/mediastream 下面的所以 idl 文件，并把生成的 cpp 文件添加到 WebCore工程里；</li>
+        <li>把 http://svn.webkit.org/repository/webkit/trunk/Source/WebCore/Modules/mediastream 下面的所有 cpp 文件添加到 WebCore工程里；</li>
+        <li>把 http://svn.webkit.org/repository/webkit/trunk/Source/WebCore/platform/mediastream 下面的所有 cpp 文件添加到 WebCore工程里；</li>
+    </ol>
+</li>
+<li>
+<p>适配开发</p>
+<p>适配的实现主要是要实现 PeerConnection，参考实现是：</p>
+<p>http://svn.webkit.org/repository/webkit/trunk/Source/WebCore/platform/mediastream/chromium</p>
+<p>（chromium 的适配使用了 http://www.webrtc.org/ 库）</p>
+</li>
+<li>
+<p>WebKit已有实现关键类介绍</p>
+<ol>
+    <li>各种事件：
+<p><a href="data/attachment/portal/201212/19/154055heitiiznlc7hiehh.png" target="_blank"><img src="data/attachment/portal/201212/19/154055heitiiznlc7hiehh.png"></a></p>
+</li>
+    <li>MediaStream 的定义及协作图如下：<p><a href="data/attachment/portal/201212/19/1541206kvzq3v9livcxzo9.png" target="_blank"><img src="data/attachment/portal/201212/19/1541206kvzq3v9livcxzo9.png"></a></p></li>
+    <li>
+        <p>MediaStream 适配接口</p>
+        <p><a href="data/attachment/portal/201212/19/154203woowikw8xw6ikkti.png" target="_blank"><img src="data/attachment/portal/201212/19/154203woowikw8xw6ikkti.png"></a></p>
+        <p>其中 MeiaStreamCenterBlackBerry 是 BlackBerry 上的实现，MediaStreamCenterChromium 是 Chromium 的实现，MediaStreamCenterGStreamer 是采用 GStream 框架的实现。</p>
+    </li>
+    <li>PeerConnection<p><a href="data/attachment/portal/201212/19/1543199qnbtw34md4rnwqw.png" target="_blank"><img src="data/attachment/portal/201212/19/1543199qnbtw34md4rnwqw.png"></a></p></li>
+    <li>DataChanne（数据通道）<p><a href="data/attachment/portal/201212/19/1543479fxwdbagwfatu41t.png" target="_blank"><img src="data/attachment/portal/201212/19/1543479fxwdbagwfatu41t.png"></a></p></li>
+    <li>RTCIceServer（RTC Ice 服务器）<p><a href="data/attachment/portal/201212/19/154415np3zq8nn8t30tj32.png" target="_blank"><img src="data/attachment/portal/201212/19/154415np3zq8nn8t30tj32.png"></a></p></li>
+    <li>RTCIceCandidate（RTC 参与者）<p><a href="data/attachment/portal/201212/19/1544420zaj9paao8xaan2t.png" target="_blank"><img src="data/attachment/portal/201212/19/1544420zaj9paao8xaan2t.png"></a></p></li>
+    <li>RTCSessionDescription（RTC 会话描述对象）<p><a href="data/attachment/portal/201212/19/1544568u8bucjwj35858gt.png" target="_blank"><img src="data/attachment/portal/201212/19/1544568u8bucjwj35858gt.png"></a></p></li>
+</ol>
+</li>
+</ul>
+<h2>6 部署</h2>
+<div><span class="Apple-tab-span" style="white-space: pre;">	</span>WebRTC Web APP 应用，不像其它 Web APP 应用，网页提供代码，浏览器支持就可以了。一个典型的 WebRTC Web APP 应用的部署包括以下 3 个部分：</div>
+<ul>
+<li>Web APP 开发
+<p>参考例子为：<a href="http://webrtc-samples.googlecode.com/svn/trunk/apprtc/index.html">http://webrtc-samples.googlecode.com/svn/trunk/apprtc/index.html</a></p>
+</li>
+<li>信令（Signalling）服务器开发及部署
+<p>参考例子为：<a href="http://webrtc-samples.googlecode.com/svn/trunk/apprtc/apprtc.py">http://webrtc-samples.googlecode.com/svn/trunk/apprtc/apprtc.py</a></p>
+</li>
+<li>STUN 或 TURN 服务器开发及部署
+<p>STUN 参考：<a href="http://en.wikipedia.org/wiki/STUN">http://en.wikipedia.org/wiki/STUN</a></p>
+<p>TURN 参考：<a href="http://en.wikipedia.org/wiki/Traversal_Using_Relay_NAT">http://en.wikipedia.org/wiki/Traversal_Using_Relay_NAT</a></p>
+</li>
+</ul>
+<h2>7 测试</h2>
+<ul>
+<li>采用<a href="http://apprtc.appspot.com/ ">http://apprtc.appspot.com/ </a>测试。源码在：<a href="http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/">http://code.google.com/p/webrtc-samples/source/browse/trunk/apprtc/</a>。</li>
+<li>按教程 <a href="http://www.html5rocks.com/en/tutorials/webrtc/basics/">http://www.html5rocks.com/en/tutorials/webrtc/basics/</a> 指导开发 Web APP 进行测试。</li>
+<li>采用目录 <a href="http://svn.webkit.org/repository/webkit/trunk/LayoutTests/fast/mediastream">http://svn.webkit.org/repository/webkit/trunk/LayoutTests/fast/mediastream</a> 下的页面进行测试</li>
+</ul>
+
+<b><div><b><br></b></div>本文为UC原创文章，未经许可或授权不得转载。如需转载请联系</b><a href="mailto:uc_h5dev@163.com" style="font-family: Tahoma; line-height: normal; text-align: -webkit-auto; font-size: medium;">uc_h5dev@163.com</a></td></tr></tbody></table>
+
+<!--[diy=diycontentbottom]--><div id="diycontentbottom" class="area"></div><!--[/diy]-->
+
+<div id="click_div"><table cellpadding="0" cellspacing="0" class="atd">
+<tbody><tr><td>
+<a href="home.php?mod=spacecp&amp;ac=click&amp;op=add&amp;clickid=1&amp;idtype=aid&amp;id=22&amp;hash=98fd30f425ece2c8c6e7ced9eb04b972&amp;handlekey=clickhandle" id="click_aid_22_1" onclick="showWindow(this.id, this.href);doane(event);">
+<div class="atdc">
+<div class="ac3" style="height:50px;">
+<em>3</em>
+</div>
+</div>
+<img src="static/image/click/xianhua.gif" alt=""><br>鲜花</a>
+</td>
+<td>
+<a href="home.php?mod=spacecp&amp;ac=click&amp;op=add&amp;clickid=2&amp;idtype=aid&amp;id=22&amp;hash=98fd30f425ece2c8c6e7ced9eb04b972&amp;handlekey=clickhandle" id="click_aid_22_2" onclick="showWindow(this.id, this.href);doane(event);">
+<img src="static/image/click/woshou.gif" alt=""><br>握手</a>
+</td>
+<td>
+<a href="home.php?mod=spacecp&amp;ac=click&amp;op=add&amp;clickid=3&amp;idtype=aid&amp;id=22&amp;hash=98fd30f425ece2c8c6e7ced9eb04b972&amp;handlekey=clickhandle" id="click_aid_22_3" onclick="showWindow(this.id, this.href);doane(event);">
+<img src="static/image/click/leiren.gif" alt=""><br>雷人</a>
+</td>
+<td>
+<a href="home.php?mod=spacecp&amp;ac=click&amp;op=add&amp;clickid=4&amp;idtype=aid&amp;id=22&amp;hash=98fd30f425ece2c8c6e7ced9eb04b972&amp;handlekey=clickhandle" id="click_aid_22_4" onclick="showWindow(this.id, this.href);doane(event);">
+<img src="static/image/click/luguo.gif" alt=""><br>路过</a>
+</td>
+<td>
+<a href="home.php?mod=spacecp&amp;ac=click&amp;op=add&amp;clickid=5&amp;idtype=aid&amp;id=22&amp;hash=98fd30f425ece2c8c6e7ced9eb04b972&amp;handlekey=clickhandle" id="click_aid_22_5" onclick="showWindow(this.id, this.href);doane(event);">
+<img src="static/image/click/jidan.gif" alt=""><br>鸡蛋</a>
+</td>
+</tr>
+</tbody></table>
+
+
+<h3 class="mbm xs1">
+刚表态过的朋友 (<a href="javascript:;" onclick="show_click('aid', '22', '5')">3 人</a>)
+</h3>
+<div id="trace_div" class="xs1">
+<ul id="trace_ul" class="ml mls cl"><li>
+<div class="avt"><a href="home.php?mod=space&amp;uid=1620" target="_blank" title="鲜花"><img src="http://h5dev.uc.cn/uc_server/avatar.php?uid=1620&amp;size=small"></a></div>
+<p><a href="home.php?mod=space&amp;uid=1620" title="天天::李恒达" target="_blank">天天::李恒达</a></p>
+</li>
+<li>
+<div class="avt"><a href="home.php?mod=space&amp;uid=8" target="_blank" title="鲜花"><img src="http://h5dev.uc.cn/uc_server/avatar.php?uid=8&amp;size=small"></a></div>
+<p><a href="home.php?mod=space&amp;uid=8" title="杰敏" target="_blank">杰敏</a></p>
+</li>
+<li>
+<div class="avt"><a href="home.php?mod=space&amp;uid=23" target="_blank" title="鲜花"><img src="http://h5dev.uc.cn/uc_server/avatar.php?uid=23&amp;size=small"></a></div>
+<p><a href="home.php?mod=space&amp;uid=23" title="网络飞狐" target="_blank">网络飞狐</a></p>
+</li>
+</ul>
+</div>
+</div>
+
+
+<!--[diy=diycontentclickbottom]--><div id="diycontentclickbottom" class="area"></div><!--[/diy]-->
+
+</div>
+
+<div class="o cl ptm pbm">
+<a href="home.php?mod=spacecp&amp;ac=favorite&amp;type=article&amp;id=22&amp;handlekey=favoritearticlehk_22" id="a_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" class="oshr ofav">收藏</a>
+<a href="misc.php?mod=invite&amp;action=article&amp;id=22" id="a_invite" onclick="showWindow('invite', this.href, 'get', 0);" class="oshr oivt">邀请</a>
+</div>
+
+</div>
+
+<!--[diy=diycontentrelatetop]--><div id="diycontentrelatetop" class="area"></div><!--[/diy]-->
+<!--[diy=diycontentrelate]--><div id="diycontentrelate" class="area"></div><!--[/diy]-->
+
+<div id="comment" class="bm">
+<div class="bm_h cl">
+<h3>最新评论</h3>
+</div>
+<div id="comment_ul" class="bm_c"><form id="cform" name="cform" action="portal.php?mod=portalcp&amp;ac=comment" method="post" autocomplete="off">
+<div class="tedt">
+<div class="area">
+<textarea name="message" rows="3" class="pt" id="message" onkeydown="ctrlEnter(event, 'commentsubmit_btn');"></textarea>
+</div>
+</div>
+
+<div class="mtm">
+<input name="sechash" type="hidden" value="ScoxKdk0">
+
+验证问答 <span id="secqaaScoxKdk0" onclick="showMenu(this.id);"><input name="secanswer" id="secqaaverify_ScoxKdk0" type="text" autocomplete="off" style="width:100px" class="txt px vm" onblur="checksec('qaa', 'ScoxKdk0')" tabindex="1">
+<a href="javascript:;" onclick="updatesecqaa('ScoxKdk0');doane(event);" class="xi2">换一个</a>
+<span id="checksecqaaverify_ScoxKdk0"><img src="static/image/common/none.gif" width="16" height="16" class="vm"></span>
+</span><div id="secqaaScoxKdk0_menu" class="p_pop p_opt" style="display:none"><span id="secqaa_ScoxKdk0" style="">输入下面问题的答案<br>89 + 3 = ?</span>
+</div>
+
+验证码 <span id="seccodeScoxKdk0" onclick="showMenu(this.id);"><input name="seccodeverify" id="seccodeverify_ScoxKdk0" type="text" autocomplete="off" style="ime-mode:disabled;width:100px" class="txt px vm" onblur="checksec('code', 'ScoxKdk0')" tabindex="1">
+<a href="javascript:;" onclick="updateseccode('ScoxKdk0');doane(event);" class="xi2">换一个</a>
+<span id="checkseccodeverify_ScoxKdk0"><img src="static/image/common/none.gif" width="16" height="16" class="vm"></span>
+</span><div id="seccodeScoxKdk0_menu" class="p_pop p_opt" style="display:none"><span id="seccode_ScoxKdk0" style="">输入下图中的字符<br><img onclick="updateseccode('ScoxKdk0')" width="150" height="40" src="misc.php?mod=seccode&amp;update=64622&amp;idhash=ScoxKdk0" class="vm" alt=""></span>
+</div>
+
+</div>
+<input type="hidden" name="portal_referer" value="portal.php?mod=view&amp;aid=22#comment">
+<input type="hidden" name="referer" value="portal.php?mod=view&amp;aid=22#comment">
+<input type="hidden" name="id" value="0">
+<input type="hidden" name="idtype" value="">
+<input type="hidden" name="aid" value="22">
+<input type="hidden" name="formhash" value="1edf32e5">
+<input type="hidden" name="replysubmit" value="true">
+<input type="hidden" name="commentsubmit" value="true">
+<p class="ptn"><button type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="true" class="pn"><strong>评论</strong></button></p>
+</form>
+</div>
+</div>
+<!--[diy=diycontentcomment]--><div id="diycontentcomment" class="area"></div><!--[/diy]-->
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="content-bd main-body"><div class="text lazyload" id="sec-content0" lazy-path="/static/lemma/ui/view/describeTips/describeTips.js" lazy-init="done"><div class="bk_title_body"><a id="polyin" class="split-lemma" title="拆分词条" href="/divideload?lemmaid=5855785"></a><div class="collect_btn" id="collectBtn"><div class="collect_icon"></div><span class="collect_txt">收藏</span> <div class="collect-tip">查看<a href="/uc/favolemma" target="_blank">我的收藏</a></div></div><div class="vote_btn vote_btn_1"><div class="vote_icon"></div><span class="vote_num">116</span><span class="vote_text" style="display:none;">有用+1</span></div>
+
+
+
+
+<div id="bdshare" log-set-param="view_sharetop" class="bdshare_t bds_tools get-codes-bdshare bk_share log-set-param" data="{'url':'http://baike.baidu.com/view/5855785.htm','text':'【WebRTC_百度百科】WebRTC，名称源自网页实时通信（Web Real-Time Communication）的缩写，是一个支持网页浏览器进行实时语音对话或视频对话的技术，是谷歌2010年以6820万美元收购Global IP Solutions公司而获得的一项技术。.....（分享自@百度百科）','pic':''}"><span class="bds_more"><img src="/static/lemma/view3/img/icon/share_4088b1af.gif"><a class="shareCount" id="shareCount" href="#" style="visibility: visible;">71</a></span></div></div><h1 class="title" id="5916097"><div class="lemmaTitleH1">WebRTC</div><div class="bk-editable-lemma-btns bk3-title-wrap"><a id="lemma-edit" class="bk-editable-edit" href="javascript:void(0)" data-edit-id="5855785" data-title="编辑">编辑</a></div></h1><span class="bk3-title-layer" style="display:none;"></span>
+
+
+
+
+<div class="clear"></div>           <div class="mod-top" id="card-container" style="clear:both;"><div class="card-summary nslog-area clearfix" data-nslog-type="72"><div class="card-summary-content"><div class="para">WebRTC，名称源自网页实时通信（Web Real-Time Communication）的缩写，是一个支持网页浏览器进行实时语音对话或视频对话的技术，是谷歌2010年以6820万美元收购Global IP Solutions公司而获得的一项技术。</div></div></div></div>                        <div class="z-catalog nslog-area log-set-param" log-set-param="catalogshow" data-nslog-type="1016" id="catalog-0" data-subindex="0" style="width:310px;background-image:url(/static/lemma/view3/img/cate_top_15.png);"> <h2><span>目录</span></h2><dl id="catalog-holder-0" class="holder hideholder">  <dd class="catalog-item 0"><p class="z-catalog-i1"><span class="catalog-item-index1">1</span><a href="#1" class="nslog:1274" catalog="true" name="STAT_ONCLICK_UNSUBMIT_CATALOG" onclick="return false;">简介</a></p></dd>    <dd class="catalog-item 28"><p class="z-catalog-i1"><span class="catalog-item-index1">2</span><a href="#2" class="nslog:1274" catalog="true" name="STAT_ONCLICK_UNSUBMIT_CATALOG" onclick="return false;">架构</a></p></dd>     <dd class="hold-catalog-li er 56"> <span>▪</span> <a href="#2_1" catalog="true" onclick="return false;">WebRTC架构组件介绍</a>   </dd>   <dd class="hold-catalog-li er 77"> <span>▪</span> <a href="#2_2" catalog="true" onclick="return false;">Network Stream API</a>   </dd>   <dd class="hold-catalog-li er 98"> <span>▪</span> <a href="#2_3" catalog="true" onclick="return false;">RTCPeerConnection</a>   </dd>   <dd class="hold-catalog-li er 119"> <span>▪</span> <a href="#2_4" catalog="true" onclick="return false;">Peer-to-peer Data API</a>   </dd>  <dd class="catalog-item 140" style="margin-top:6px;"><p class="z-catalog-i1"><span class="catalog-item-index1">3</span><a href="#3" class="nslog:1274" catalog="true" name="STAT_ONCLICK_UNSUBMIT_CATALOG" onclick="return false;">相关</a></p></dd>    <dd class="catalog-item 168"><p class="z-catalog-i1"><span class="catalog-item-index1">4</span><a href="#4" class="nslog:1274" catalog="true" name="STAT_ONCLICK_UNSUBMIT_CATALOG" onclick="return false;">分析</a></p></dd>     <dd class="hold-catalog-li er 196"> <span>▪</span> <a href="#4_1" catalog="true" onclick="return false;">视频</a>   </dd>   <dd class="hold-catalog-li er 217"> <span>▪</span> <a href="#4_2" catalog="true" onclick="return false;">音频</a>   </dd>  </dl><div id="lemma-catalog-bottombg" style="background-image:url(/static/lemma/view3/img/cate_bottom_18.png);"></div></div><div class="clear"></div>
+
+
+<div id="lemmaContent-0" class="lemma-main-content rainbowlemma--"><h2 class="headline-1"><span class="headline-1-index">1</span><a name="1" class="anchor-1"></a><a name="sub5916097_1" class="anchor-1"></a><span class="headline-content">简介</span><span class="text_edit editable-title" style="margin-left: 10px;" data-edit-id="5855785:5916097:1"><a href="#" class="nslog:1019" title="编辑本段">编辑</a></span></h2><div class="para">WebRTC实现了基于网页的视频会议，标准是WHATWG 协议，目的是通过<a target="_blank" href="/view/7718.htm">浏览器</a>提供简单的javascript就可以达到实时通讯（Real-Time Communications (RTC)）能力。</div>
+<div class="para">WebRTC（Web Real-Time Communication）项目的最终目的主要是让Web开发者能够基于<a target="_blank" href="/view/7718.htm">浏览器</a>（Chrome\FireFox\...）轻易快捷开发出丰富的实时多媒体应用，而无需下载安装任何插件，Web开发者也无需关注多媒体的数字信号处理过程，只需编写简单的Javascript程序即可实现，W3C等组织正在制定Javascript 标准API，目前是WebRTC 1.0版本，Draft状态；另外WebRTC还希望能够建立一个多互联网浏览器间健壮的实时通信的平台，形成开发者与浏览器厂商良好的生态环境。同时，Google也希望和致力于让WebRTC的技术成为HTML5标准之一，可见Google布局之深远。<sup>[1]</sup><a name="ref_[1]_5916097"></a></div>
+<div class="para">WebRTC提供了视频会议的核心技术，包括音视频的采集、编解码、<a target="_blank" href="/view/1542295.htm">网络传输</a>、显示等功能，并且还支持跨平台：windows，linux，mac，android。</div><h2 class="headline-1"><span class="headline-1-index">2</span><a name="2" class="anchor-1"></a><a name="sub5916097_2" class="anchor-1"></a><span class="headline-content">架构</span><span class="text_edit editable-title" style="margin-left: 10px;" data-edit-id="5855785:5916097:2"><a href="#" class="nslog:1019" title="编辑本段">编辑</a></span></h2>
+<div class="para">架构图颜色标识说明：<sup>[2]</sup><a name="ref_[2]_5916097"></a></div>
+<div class="para">（1）紫色部分是Web开发者API层；</div>
+<div class="para">（2）蓝色实线部分是面向<a target="_blank" href="/view/7718.htm">浏览器</a>厂商的API层</div>
+<div class="para">（3）蓝色虚线部分<a target="_blank" href="/view/7718.htm">浏览器</a>厂商可以自定义实现</div><h3 class="headline-2"><a name="2_1" class="anchor-2"></a><a name="sub5916097_2_1" class="anchor-2"></a><span class="headline-content">WebRTC架构组件介绍</span></h3><div class="para"><b>(1) Your Web App</b></div>
+<div class="para">Web开发者开发的程序，Web开发者可以基于集成WebRTC的<a target="_blank" href="/view/7718.htm">浏览器</a>提供的web API开发基于视频、音频的实时通信应用。<sup>[1]</sup><a name="ref_[1]_5916097"></a></div>
+<div class="para"><b><b>(2)</b>Web API</b></div>
+<div class="para">面向第三方开发者的WebRTC标准API（Javascript），使开发者能够容易地开发出类似于网络<a target="_blank" href="/view/135867.htm">视频聊天</a>的web应用，最新的标准化进程可以查看这里。<sup>[3]</sup><a name="ref_[3]_5916097"></a></div>
+<div class="para">这些API可分成Network Stream API、 RTCPeerConnection、Peer-to-peer Data API三类,详细的API说明可以看这里<sup>[4]</sup><a name="ref_[4]_5916097"></a>。</div><h3 class="headline-2"><a name="2_2" class="anchor-2"></a><a name="sub5916097_2_2" class="anchor-2"></a><span class="headline-content">Network Stream API</span></h3><div class="para">MediaStream：MediaStream用来表示一个媒体数据流。</div>
+<div class="para">MediaStreamTrack在浏览器中表示一个媒体源。</div><h3 class="headline-2"><a name="2_3" class="anchor-2"></a><a name="sub5916097_2_3" class="anchor-2"></a><span class="headline-content">RTCPeerConnection</span></h3><div class="para">RTCPeerConnection: 一个RTCPeerConnection对象允许用户在两个浏览器之间直接通讯。</div>
+<div class="para">RTCIceCandidate ：表示一个ICE协议的候选者。</div>
+<div class="para">RTCIceServer:表示一个ICE Server。</div><h3 class="headline-2"><a name="2_4" class="anchor-2"></a><a name="sub5916097_2_4" class="anchor-2"></a><span class="headline-content">Peer-to-peer Data API</span></h3><div class="para">DataChannel:数据通道( DataChannel)接口表示一个在两个节点之间的双向的数据通道 。</div>
+<div class="para"><b><b>(3)</b>WebRTC Native C++ API</b></div>
+<div class="para">本地C++ API层，使<a target="_blank" href="/view/7718.htm">浏览器</a>厂商容易实现WebRTC标准的Web API，抽象地对数字信号过程进行处理。</div>
+<div class="para"><b><b>(4)</b>Transport / Session</b></div>
+<div class="para">传输/会话层</div>
+<div class="para">会话层组件采用了libjingle库的部分组件实现，无须使用xmpp/jingle协议</div>
+<div class="para"><b>a. RTP Stack协议栈</b></div>
+<div class="para">Real Time Protocol</div>
+<div class="para"><b>b. STUN/ICE</b></div>
+<div class="para">可以通过STUN和ICE组件来建立不同类型网络间的呼叫连接。</div>
+<div class="para"><b>c. Session Management</b></div>
+<div class="para">一个抽象的会话层，提供会话建立和管理功能。该层协议留给应用开发者自定义实现。</div>
+<div class="para"><b><b>(5)</b>VoiceEngine</b></div>
+<div class="para">音频引擎是包含一系列音频多媒体处理的框架，包括从<a target="_blank" href="/view/189679.htm">视频采集卡</a>到<a target="_blank" href="/view/1542295.htm">网络传输</a>端等整个解决方案。</div>
+<div class="para">PS：VoiceEngine是WebRTC极具价值的技术之一，是Google收购GIPS公司后开源的。在VoIP上，技术业界领先，后面的文章会详细了解</div>
+<div class="para"><b>a. iSAC</b></div>
+<div class="para">Internet Speech Audio Codec</div>
+<div class="para">针对VoIP和<a target="_blank" href="/view/1141389.htm">音频流</a>的宽带和超宽带音频编解码器，是WebRTC音频引擎的默认的编解码器</div>
+<div class="para">采样频率：16khz，24khz，32khz；（默认为16khz）</div>
+<div class="para">自适应速率为10kbit/s ~ 52kbit/；</div>
+<div class="para">自适应包大小：30~60ms；</div>
+<div class="para">算法延时：frame + 3ms</div>
+<div class="para"><b><b>b.</b>iLBC</b></div>
+<div class="para">Internet Low Bitrate Codec</div>
+<div class="para">VoIP音频流的窄带语音编解码器</div>
+<div class="para">采样频率：8khz；</div>
+<div class="para">20ms帧比特率为15.2kbps</div>
+<div class="para">30ms帧比特率为13.33kbps</div>
+<div class="para">标准由IETF RFC3951和RFC3952定义</div>
+<div class="para"><b><b>c.</b>NetEQ for Voice</b></div>
+<div class="para">针对音频软件实现的语音信号处理元件</div>
+<div class="para">NetEQ算法：自适应抖动控制算法以及语音包丢失隐藏算法。使其能够快速且高解析度地适应不断变化的网络环境，确保音质优美且缓冲延迟最小。</div>
+<div class="para">是GIPS公司独步天下的技术，能够有效的处理由于<a target="_blank" href="/view/4843377.htm">网络抖动</a>和语音包丢失时候对语音质量产生的影响。</div>
+<div class="para">PS：NetEQ 也是WebRTC中一个极具价值的技术，对于提高VoIP质量有明显效果，加以AEC\NR\AGC等模块集成使用，效果更好。</div>
+<div class="para"><b><b>d.</b>Acoustic Echo Canceler (AEC)</b></div>
+<div class="para">回声消除器是一个基于软件的信号处理元件，能实时的去除mic采集到的回声。</div>
+<div class="para"><b><b>e.</b>Noise Reduction (NR)</b></div>
+<div class="para">噪声抑制也是一个基于软件的信号处理元件，用于消除与相关VoIP的某些类型的背景噪声（嘶嘶声，风扇噪音等等… …）</div>
+<div class="para"><b><b>(6)</b>VideoEngine</b></div>
+<div class="para"><a target="_blank" href="/view/5855785.htm">WebRTC</a>视频处理引擎</div>
+<div class="para">VideoEngine是包含一系列视频处理的整体框架，从摄像头采集视频到视频信息<a target="_blank" href="/view/1542295.htm">网络传输</a>再到视频显示整个完整过程的解决方案。</div>
+<div class="para"><b>a. VP8</b></div>
+<div class="para">视频图像<a target="_blank" href="/view/119343.htm">编解码器</a>，是WebRTC视频引擎的默认的编解码器</div>
+<div class="para">VP8适合实时通信应用场景，因为它主要是针对低延时而设计的<a target="_blank" href="/view/119343.htm">编解码器</a>。</div>
+<div class="para">PS:VPx<a target="_blank" href="/view/119343.htm">编解码器</a>是Google收购ON2公司后开源的，VPx现在是WebM项目的一部分，而WebM项目是Google致力于推动的HTML5标准之一</div>
+<div class="para"><b>b. Video Jitter Buffer</b></div>
+<div class="para">视频抖动缓冲器，可以降低由于视频抖动和视频信息包丢失带来的不良影响。</div>
+<div class="para"><b>c. Image enhancements</b></div>
+<div class="para">图像质量增强模块</div>
+<div class="para">对网络摄像头采集到的<a target="_blank" href="/view/42116.htm">图像</a>进行处理，包括明暗度检测、颜色增强、降噪处理等功能，用来提升<a target="_blank" href="/view/2649143.htm">视频质量</a>。</div><h2 class="headline-1"><span class="headline-1-index">3</span><a name="3" class="anchor-1"></a><a name="sub5916097_3" class="anchor-1"></a><span class="headline-content">相关</span><span class="text_edit editable-title" style="margin-left: 10px;" data-edit-id="5855785:5916097:3"><a href="#" class="nslog:1019" title="编辑本段">编辑</a></span></h2><div class="para">谷歌2011年6月3日宣布向开发人员开放WebRTC架构的<a target="_blank" href="/view/60376.htm">源代码</a>。这个<a target="_blank" href="/view/60376.htm">源代码</a>将根据没有专利费的BSD（<a target="_blank" href="/view/709092.htm">伯克利</a>软件发布）式的许可证向用户提供。<sup>[5]</sup><a name="ref_[5]_5916097"></a>目前，开发人员可访问并获取WebRTC的<a target="_blank" href="/view/60376.htm">源代码</a>、规格说明和工具等。<sup>[6]</sup><a name="ref_[6]_5916097"></a></div><h2 class="headline-1"><span class="headline-1-index">4</span><a name="4" class="anchor-1"></a><a name="sub5916097_4" class="anchor-1"></a><span class="headline-content">分析</span><span class="text_edit editable-title" style="margin-left: 10px;" data-edit-id="5855785:5916097:4"><a href="#" class="nslog:1019" title="编辑本段">编辑</a></span></h2><h3 class="headline-2"><a name="4_1" class="anchor-2"></a><a name="sub5916097_4_1" class="anchor-2"></a><span class="headline-content">视频</span></h3><div class="para">WebRTC的视频部分，包含<a target="_blank" href="/view/267501.htm">采集</a>、编解码(I420/VP8)、<a target="_blank" href="/view/40927.htm">加密</a>、媒体文件、<a target="_blank" href="/view/14662.htm">图像处理</a>、显示、<a target="_blank" href="/view/1542295.htm">网络传输</a>与流控(<a target="_blank" href="/view/1149098.htm">RTP/RTCP</a>)等功能。</div>
+<div class="para"><a target="_blank" href="/view/189678.htm">视频采集</a>---video_capture</div>
+<div class="para"><a target="_blank" href="/view/60376.htm">源代码</a>在webrtc\modules\video_capture\main目录下，包含接口和各个平台的源代码。</div>
+<div class="para">在windows平台上，WebRTC采用的是dshow技术，来实现枚举视频的设备信息和视频数据的采集，这意味着可以支持大多数的<a target="_blank" href="/view/189678.htm">视频采集</a>设备；对那些需要单独驱动程序的<a target="_blank" href="/view/189679.htm">视频采集卡</a>（比如<a target="_blank" href="/view/338471.htm">海康</a>高清卡）就无能为力了。</div>
+<div class="para"><a target="_blank" href="/view/189678.htm">视频采集</a>支持多种媒体类型，比如I420、YUY2、RGB、UYUY等，并可以进行帧大小和<a target="_blank" href="/view/58016.htm">帧率</a>控制。</div>
+<div class="para"><b>视频编解码---video_coding</b></div>
+<div class="para">源代码在webrtc\modules\video_coding目录下。</div>
+<div class="para">WebRTC采用I420/VP8编解码技术。<a target="_blank" href="/view/3286228.htm">VP8</a>是google收购ON2后的开源实现，并且也用在<a target="_blank" href="/view/3655243.htm">WebM</a>项目中。VP8能以更少的数据提供更高质量的视频，特别适合视频会议这样的需求。</div>
+<div class="para"><b>视频加密--video_engine_encryption</b></div>
+<div class="para">视频加密是WebRTC的video_engine一部分，相当于视频应用层面的功能，给<a target="_blank" href="/view/1145124.htm">点对点</a>的视频双方提供了数据上的安全保证，可以防止在Web上视频数据的泄漏。</div>
+<div class="para">视频加密在发送端和接收端进行加解密视频数据，<a target="_blank" href="/view/934.htm">密钥</a>由视频双方协商，代价是会影响视频数据处理的性能；也可以不使用视频加密功能，这样在性能上会好些。</div>
+<div class="para">视频加密的数据源可能是原始的<a target="_blank" href="/view/166248.htm">数据流</a>，也可能是编码后的数据流。估计是编码后的数据流，这样加密代价会小一些，需要进一步研究。</div>
+<div class="para"><b>视频媒体文件--media_file</b></div>
+<div class="para">源代码在webrtc\modules\media_file目录下。</div>
+<div class="para">该功能是可以用本地文件作为视频源，有点类似<a target="_blank" href="/view/1366860.htm">虚拟摄像头</a>的功能；支持的格式有<a target="_blank" href="/view/7697.htm">Avi</a>。</div>
+<div class="para">另外，WebRTC还可以录制音视频到本地文件，比较实用的功能。</div>
+<div class="para"><b>视频</b>图像处理--video_processing</div>
+<div class="para">源代码在webrtc\modules\video_processing目录下。</div>
+<div class="para">视频<a target="_blank" href="/view/14662.htm">图像处理</a>针对每一帧的图像进行处理，包括明暗度检测、颜色增强、降噪处理等功能，用来提升视频质量。</div>
+<div class="para"><b>视频显示--video_render</b></div>
+<div class="para">源代码在webrtc\modules\video_render目录下。</div>
+<div class="para">在windows平台，WebRTC采用direct3d9和directdraw的方式来显示视频，只能这样，必须这样。</div>
+<div class="para"><a target="_blank" href="/view/1542295.htm">网络传输</a>与流控</div>
+<div class="para">对于<a target="_blank" href="/view/94301.htm">网络视频</a>来讲，数据的传输与控制是<a target="_blank" href="/view/1660087.htm">核心价值</a>。WebRTC采用的是成熟的RTP/RTCP技术。</div><h3 class="headline-2"><a name="4_2" class="anchor-2"></a><a name="sub5916097_4_2" class="anchor-2"></a><span class="headline-content">音频</span></h3><div class="para">WebRTC的音频部分，包含设备、编解码(iLIBC/iSAC/G722/PCM16/RED/AVT、NetEQ)、加密、声音文件、声音处理、声音输出、音量控制、音视频同步、<a target="_blank" href="/view/1542295.htm">网络传输</a>与流控(RTP/RTCP)等功能。</div>
+<div class="para"><b>音频设备---audio_device</b></div>
+<div class="para">源代码在webrtc\modules\audio_device\main目录下，包含接口和各个平台的源代码。</div>
+<div class="para">在windows平台上，WebRTC采用的是Windows Core Audio和Windows Wave技术来管理音频设备，还提供了一个<a target="_blank" href="/view/226512.htm">混音</a>管理器。</div>
+<div class="para">利用<a target="_blank" href="/view/32162.htm">音频设备</a>，可以实现声音输出，音量控制等功能。</div>
+<div class="para"><b>音频编解码---audio_coding</b></div>
+<div class="para">源代码在webrtc\modules\audio_coding目录下。</div>
+<div class="para">WebRTC采用iLIBC/iSAC/G722/PCM16/RED/AVT编解码技术。</div>
+<div class="para">WebRTC还提供NetEQ功能---抖动缓冲器及丢包补偿模块，能够提高音质，并把延迟减至最小。</div>
+<div class="para">另外一个核心功能是基于语音会议的<a target="_blank" href="/view/226512.htm">混音</a>处理。</div>
+<div class="para"><b>声音加密--voice_engine_encryption</b></div>
+<div class="para">和视频一样，WebRTC也提供声音加密功能。</div>
+<div class="para"><b>声音文件</b></div>
+<div class="para">该功能是可以用本地文件作为音频源，支持的格式有Pcm和Wav。</div>
+<div class="para">同样，WebRTC也可以录制音频到本地文件。</div>
+<div class="para"><b>声音处理--audio_processing</b></div>
+<div class="para">源代码在webrtc\modules\audio_processing目录下。</div>
+<div class="para">声音处理针对音频数据进行处理，包括回声消除(AEC)、AECM(AEC Mobile)、自动增益(AGC)、<a target="_blank" href="/view/675194.htm">降噪</a>(NS)、静音检测(VAD)处理等功能，用来提升声音质量。</div>
+<div class="para"><b>网络传输与流控</b></div>
+<div class="para">和视频一样，WebRTC采用的是成熟的RTP/RTCP技术。</div>
+
+
+<div class="clear"></div></div> <div class="clear"></div><div id="lemmaExtend-5916097" class="reinforce lazyload" lazy-path="/static/lemma/ui/view/reference/urlRmoveParentRefer.js" lazy-init="done"><dl id="viewRefer" class="viewRefer nslog-area log-set-param" data-nslog-type="2" log-set-param="ext_reference"> <dt><span class="z-ref-toggle" onclick="refToggle(this.parentNode.parentNode)" style="visibility: hidden;"></span>参考资料</dt> <dd class="reference"><ul><li class="layout" id="reference-[1]-5916097-wrap">   <p class="refUrl"><span class="ref-index">1．</span><a class="ref-top" name="refIndex_1_5916097" id="refIndex_1_5916097" title="向上跳转" href="#ref_[1]_5916097">&nbsp;&nbsp;</a><a rel="nofollow" href="http://blog.csdn.net/temotemo/article/details/7530504" target="_blank" class="nslog:1968">WebRTC架构分析<span class="linkout">&nbsp;</span></a>  <span>．CSDN</span>   <span>．2012-05-03</span>   <span>[引用日期2012-05-30]</span>  ．</p>   </li><li class="layout" id="reference-[2]-5916097-wrap">   <p class="refUrl"><span class="ref-index">2．</span><a class="ref-top" name="refIndex_2_5916097" id="refIndex_2_5916097" title="向上跳转" href="#ref_[2]_5916097">&nbsp;&nbsp;</a><a rel="nofollow" href="http://www.webrtc.org/reference/architecture" target="_blank" class="nslog:1968">WebRTC Architecture<span class="linkout">&nbsp;</span></a>  <span>．http://www.webrtc.org</span>   <span>．2011-4-30</span>   <span>[引用日期2012-05-30]</span>  ．</p>   </li><li class="layout" id="reference-[3]-5916097-wrap">   <p class="refUrl"><span class="ref-index">3．</span><a class="ref-top" name="refIndex_3_5916097" id="refIndex_3_5916097" title="向上跳转" href="#ref_[3]_5916097">&nbsp;&nbsp;</a><a rel="nofollow" href="http://www.webrtc.org/reference" target="_blank" class="nslog:1968">WebRTC Code and API<span class="linkout">&nbsp;</span></a>  <span>．WebRTC官网</span>    <span>[引用日期2013-09-29]</span>  ．</p>   </li><li class="layout" id="reference-[4]-5916097-wrap">   <p class="refUrl"><span class="ref-index">4．</span><a class="ref-top" name="refIndex_4_5916097" id="refIndex_4_5916097" title="向上跳转" href="#ref_[4]_5916097">&nbsp;&nbsp;</a><a rel="nofollow" href="http://www.iwebrtc.com/blog/webrtc1-0/" target="_blank" class="nslog:1968">WebRTC 1.0: Real-time Communication Between Browsers 协议文档中文版<span class="linkout">&nbsp;</span></a>  <span>．iwebrtc</span>   <span>．2012-10-17</span>   <span>[引用日期2012-10-17]</span>  ．</p>   </li><li class="layout" id="reference-[5]-5916097-wrap">   <p class="refUrl"><span class="ref-index">5．</span><a class="ref-top" name="refIndex_5_5916097" id="refIndex_5_5916097" title="向上跳转" href="#ref_[5]_5916097">&nbsp;&nbsp;</a><a rel="nofollow" href="http://tech.163.com/11/0602/08/75HG6TLL000915BF.html" target="_blank" class="nslog:1968">谷歌开放WebRTC音视频聊天技术源代码<span class="linkout">&nbsp;</span></a>    ．</p>   </li><li class="layout" id="reference-[6]-5916097-wrap">   <p class="refUrl"><span class="ref-index">6．</span><a class="ref-top" name="refIndex_6_5916097" id="refIndex_6_5916097" title="向上跳转" href="#ref_[6]_5916097">&nbsp;&nbsp;</a><a rel="nofollow" href="http://tech.sina.com.cn/i/2011-06-02/00035600165.shtml" target="_blank" class="nslog:1968">谷歌开放实时通信框架WebRTC源代码<span class="linkout">&nbsp;</span></a>    ．</p>   </li></ul> </dd></dl>
+
+
+
+<style>#open-tag{padding-top:8px;padding-bottom:8px;line-height:30px;border-top:2px solid #ccc;border-bottom:0 solid #e6e6e6;overflow:hidden;position:relative;margin-bottom:35px}#open-tag dd{width:755px;*width:680px}.open-tag{background-color:#f5f5f5;border:1px solid #e6e6e6;margin-right:5px;padding:1px 4px;color:#666;white-space:nowrap;text-decoration:none;display:inline-block;margin-bottom:5px;line-height:16px;vertical-align:middle}.open-tag:hover{text-decoration:underline;color:#36c}.open-tag-title{font-weight:bold;float:left;padding-right:15px;height:20px;line-height:25px}.open-tag-collapse{background:url(/static/lemma/view/img/z-ref-toggle_b4eb769b.png) 1px 8px no-repeat;position:absolute;right:0;top:0;width:10px;height:20px;margin:10px;cursor:pointer}.collapse .open-tag-collapse{background:url(/static/lemma/view/img/z-ref-toggle_b4eb769b.png) -9px 8px no-repeat}</style><div id="open-tag" style="height: 22px;_height: 16px;"><div class="open-tag-title">词条标签：</div><dd id="open-tag-item"> <a href="/fenlei/%E6%8A%80%E6%9C%AF" target="_blank" class="open-tag open-tag-mr7 nslog:7336">技术</a>    <a class="taglist" href="/taglist?tag=%BF%C6%BC%BC&amp;tagfromview" target="_blank">科技</a>  </dd><div class="open-tag-collapse" id="open-tag-collapse" onclick="openTagToggle(this.parentNode)" style="display: none;"></div></div><div class="clear"></div>
+
+
+
+
+<div class="clear"></div></div></div><div class="clear"></div></div>

@@ -1,0 +1,36 @@
+<article id="wikiArticle">
+                                          <p><span class="breadcrumbs domRef_breadcrumbs themeUpdated">«&nbsp;<a href="/zh-CN/docs/Gecko_DOM_Reference">DOM 参考</a></span> 
+ 
+ 
+</p><section class="Quick_links" id="Quick_Links"><!-- --></section><p></p>
+<p></p>
+<h3 id=".E6.A6.82.E8.BF.B0">概述</h3>
+<p><code>window.onpopstate</code>是<code>popstate</code>事件在window对象上的事件句柄.</p>
+<p><code>每当处于激活状态的历史记录条目发生变化时,popstate</code>事件就会在<code>对应window</code>对象上触发. 如果当前<code>处于激活状态的历史记录条目是由</code><code>history.pushState()</code>方法创建,或者由<code>history.replaceState()方法修改过</code>的, 则<code>popstate事件对象的</code><code>state</code>属性包含了这个历史记录条目的state对象的一个拷贝.</p>
+<p>调用<code>history.pushState()</code>或者<code>history.replaceState()</code>不会触发popstate事件. <code>popstate</code>事件只会在其他浏览器操作时触发, 比如点击后退按钮(或者在JavaScript中调用<code>history.back()</code>方法).</p>
+<p>当网页加载时,各浏览器对<code>popstate</code>事件是否触发有不同的表现,Chrome 和 Safari会触发<code>popstate</code>事件, 而Firefox不会.</p><h3 id=".E8.AF.AD.E6.B3.95">语法</h3>
+<pre class="eval language-html">window.onpopstate = <em>funcRef</em>;
+</pre>
+<ul> <li><code>funcRef</code> 是个函数名.</li>
+</ul>
+<h3 id="popstate.E4.BA.8B.E4.BB.B6">popstate事件</h3>
+<p>假如当前网页地址为http://example.com/example.html,则运行下述代码后:</p>
+<pre class="brush: js  language-js" data-number=""><code class=" language-js">window<span class="token punctuation">.</span>onpopstate <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"location: "</span> <span class="token operator">+</span> document<span class="token punctuation">.</span>location <span class="token operator">+</span> <span class="token string">", state: "</span> <span class="token operator">+</span> JSON<span class="token punctuation">.</span><span class="token function">stringify<span class="token punctuation">(</span></span>event<span class="token punctuation">.</span>state<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+//绑定事件处理函数. 
+</span>history<span class="token punctuation">.</span><span class="token function">pushState<span class="token punctuation">(</span></span><span class="token punctuation">{</span>page<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"title 1"</span><span class="token punctuation">,</span> <span class="token string">"?page=1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true"> //添加并激活一个历史记录条目 http://example.com/example.html?page=1,条目索引为1
+</span>history<span class="token punctuation">.</span><span class="token function">pushState<span class="token punctuation">(</span></span><span class="token punctuation">{</span>page<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"title 2"</span><span class="token punctuation">,</span> <span class="token string">"?page=2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true"> //添加并激活一个历史记录条目 http://example.com/example.html?page=2,条目索引为2
+</span>history<span class="token punctuation">.</span><span class="token function">replaceState<span class="token punctuation">(</span></span><span class="token punctuation">{</span>page<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"title 3"</span><span class="token punctuation">,</span> <span class="token string">"?page=3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> //修改当前激活的历史记录条目 http://ex..?page=2 变为 http://ex..?page=3,条目索引为2
+</span>history<span class="token punctuation">.</span><span class="token function">back<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // 弹出 "location: http://example.com/example.html?page=1, state: {"page":1}"
+</span>history<span class="token punctuation">.</span><span class="token function">back<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // 弹出 "location: http://example.com/example.html, state: null
+</span>history<span class="token punctuation">.</span><span class="token function">go<span class="token punctuation">(</span></span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true"> // 弹出 "location: http://example.com/example.html?page=3, state: {"page":3}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div></code></pre>
+<p>即便进入了那些非pushState和replaceState方法作用过的(比如http://example.com/example.html)没有state对象关联的那些网页, <code>popstate</code>事件也仍然会被触发.</p>
+<h3 id=".E8.A7.84.E8.8C.83">规范</h3>
+<ul> <li><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/#handler-window-onpopstate" title="http://www.whatwg.org/specs/web-apps/current-work/#handler-window-onpopstate">HTML5 popstate event</a></li>
+</ul>
+<h3 id=".E7.9B.B8.E5.85.B3.E9.93.BE.E6.8E.A5">相关链接</h3>
+<ul> <li><a class="new" href="/zh-CN/docs/DOM/window.history" title="The documentation about this has not yet been written; please consider contributing!"><code>window.history</code></a></li> <li><a href="/zh-cn/DOM/Manipulating_the_browser_history" title="zh-cn/DOM/Manipulating the browser history">Manipulating the browser history</a></li>
+</ul>
+<p></p>
+                                    </article>

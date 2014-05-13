@@ -1,0 +1,57 @@
+SVGElementInstance对象
+代表在实例树中的单个节点（或影子树）的SVG DOM维护。
+Scalable Vector Graphics: Document Structure, Section 5.11.9 Internet Explorer 9
+会员
+
+该SVGElementInstance对象有这些类型的成员：
+方法
+属性
+方法
+该SVGElementInstance对象有这些方法。
+方法	描述
+调用addEventListener	
+注册一个事件处理程序指定的事件类型。
+调用addEventListener	
+注册事件侦听器
+则dispatchEvent	
+将事件发送到当前元素。
+则dispatchEvent	
+调度事件的对象。
+removeEventListener	
+删除的事件处理程序调用addEventListener方法注册。
+removeEventListener	
+删除事件侦听器。
+属性
+该SVGElementInstance对象具有这些属性。
+属性	描述
+子节点
+获取一个SVGElementInstanceList包含此SVGElementInstance对象的实例树内所有儿童的对象。
+correspondingElement
+获取相应的元素，这是对象的一个​​实例。
+correspondingUseElement
+获取相应的使用这个对象所属的元素。
+则firstChild
+获取实例树本SVGElementInstance对象的第一个孩子。
+lastChild [最后一个
+获取实例树本SVGElementInstance对象的最后一个孩子。
+nextSibling
+获取SVGElementInstance对象紧跟这一SVGElementInstance对象。
+parentNode
+获取实例树在此SVGElementInstance对象的父。
+previousSibling
+获取SVGElementInstance对象立即之前该SVGElementInstance对象。
+标准信息
+
+可伸缩矢量图形：文档结构 ，第5.11.9
+备注
+
+注意：除了属性，属性，事件，方法和上面列出的风格，SVG元素也继承了核心HTML属性，属性，事件，方法和风格。
+在实例树的根对象是由指向instanceRoot上的属性SVGUseElement对象为相应的元件使用 。
+若使用元素引用一个简单的图形元素，例如矩形 ，只有一个SVGElementInstance对象，并且correspondingElement此SVGElementInstance对象属性是对应于所引用的矩形元件的SVGRectElement。
+如果使用元素引用一个克一个包含两个元素矩形元素，实例树包含三个SVGElementInstance对象：根SVGElementInstance对象，其correspondingElement属性是SVGGElement对象为G的元素，然后有他们correspondingElement属性的两个孩子SVGElementInstance对象是一个SVGRectElement对象。
+如果引用的对象是使用元素，或者有被引用的对象中使用子元素，实例树包含间接引用的递归扩展，形成一个完整的树。 例如，如果一个用元素引用一个克元件和克元素包含一个使用的元素，并且使用元素引用一个矩形元件，实例树为原始（最外层） 用由SVGElementInstance对象的层次结构中，如下：
+ 
+ SVGElementInstance＃1（parentNode = NULL，则firstChild =＃2，correspondingElement是'G'）
+   SVGElementInstance＃2（parentNode =＃1，则firstChild =＃3，correspondingElement是其他“使用”）
+     SVGElementInstance＃3（parentNode =＃2，则firstChild = NULL，correspondingElement是“矩形”）
+

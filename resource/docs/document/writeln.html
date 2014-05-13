@@ -1,0 +1,29 @@
+<p>
+	document.write()和document.writeln()有什么区别 
+解决思路： 
+    两者都是JavaScript向客户端输出的方法，对比可知写法上的差别是一个ln--line的简写，换言之，writeln 方法是以行输出的，相当于在 winte 输出后加上一个换行符。 
+具体步骤： 
+1.打开一个空白窗口。 
+window.open() 
+2.用 write 方法向空白窗口写入代码。 
+document.write("Line 1") 
+document.write("Line 1") 
+3.用 writeln 方法向空白窗口写入代码。 
+document.writeln("Line 1") 
+document.writeln("Line 2") 
+4．完整代码示例： 
+
+with(window.open()){ 
+document.write("Line 1") 
+document.write("Line 1") 
+document.writeln("Line 1") 
+document.writeln("Line 2") 
+} 
+
+注意：两种方法仅当在查看源代码时才看得出区别。 
+特别提示 
+把上面的代码加入网页中，然后查看弹出窗口的源代码，将会看到： 
+Line 1Line 1Line 1 
+Line 2
+
+</p>

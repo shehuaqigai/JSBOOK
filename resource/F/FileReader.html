@@ -1,0 +1,351 @@
+<div id="wiki-content" class="column-main wiki-column text-content">
+
+          
+          
+                                                      
+          <!-- just the article content -->
+          <article id="wikiArticle">
+                                          <p><code>使用FileReader</code>对象,web应用程序可以异步的读取存储在用户计算机上的文件(或者原始数据缓冲)内容,可以使用<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象或者<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象来指定所要读取的文件或数据.其中File对象可以是来自用户在一个<a href="/zh-CN/docs/HTML/Element/input" title="This article hasn't been written yet. Please consider contributing!"><code>&lt;input&gt;</code></a>元素上选择文件后返回的<a href="/zh-CN/docs/DOM/FileList" title="一个FileList对象通常来自于一个HTML input元素的files属性,你可以通过这个对象访问到用户所选择的文件.该类型的对象还有可能来自用户的拖放操作,查看DataTransfer对象了解详情."><code>FileList</code></a>对象,也可以来自由拖放操作生成的 <a href="/zh-CN/DragDrop/DataTransfer" title="En/DragDrop/DataTransfer"><code>DataTransfer</code></a>对象,还可以是来自在一个<a href="/zh-CN/docs/DOM/HTMLCanvasElement" title="DOM canvas元素暴露了HTMLCanvasElement接口,该接口提供了用来操作一个canvas元素布局和呈现的属性和方法.HTMLCanvasElement接口继承了element接口的属性和方法."><code>HTMLCanvasElement</code></a>上执行<code>mozGetAsFile()方法后的返回结果</code>.</p>
+<p>想要创建一个<code>FileReader对象,</code>很简单,如下:</p>
+<pre class="language-html">var reader = new FileReader();
+</pre>
+<p><a href="/zh-CN/Using_files_from_web_applications" title="en/Using files from web applications">如何在web应用程序中使用文件</a>一文中有更详细的解释和例子.</p>
+<h2 id="Method_overview" name="Method_overview">方法概述</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td><code>void <a href="#abort()">abort</a>();</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a href="#readAsArrayBuffer()">readAsArrayBuffer</a>(in Blob blob);</code> </td>
+    </tr>
+    <tr>
+      <td><code>void <a href="#readAsBinaryString()">readAsBinaryString</a>(in Blob blob);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a href="#readAsDataURL()">readAsDataURL</a>(in Blob </code><code>blob</code><code>);</code></td>
+    </tr>
+    <tr>
+      <td><code>void <a href="#readAsText()">readAsText</a>(in Blob blob, [optional] in DOMString encoding);</code></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="State_constants" name="State_constants">状态常量</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td class="header">常量名</td>
+      <td class="header">值</td>
+      <td class="header">描述</td>
+    </tr>
+    <tr>
+      <td><code>EMPTY</code></td>
+      <td><code>0</code></td>
+      <td>还没有加载任何数据.</td>
+    </tr>
+    <tr>
+      <td><code>LOADING</code></td>
+      <td><code>1</code></td>
+      <td>数据正在被加载.</td>
+    </tr>
+    <tr>
+      <td><code>DONE</code></td>
+      <td><code>2</code></td>
+      <td>已完成全部的读取请求.</td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Properties" name="Properties">属性</h2>
+<table class="standard-table">
+  <tbody>
+    <tr>
+      <td class="header">属性名</td>
+      <td class="header">类型</td>
+      <td class="header">描述</td>
+    </tr>
+    <tr>
+      <td><code>error</code></td>
+      <td><a class="new" href="/zh-CN/docs/DOM/DOMError" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMError</code></a></td>
+      <td>在读取文件时发生的错误. <strong>只读.</strong></td>
+    </tr>
+    <tr>
+      <td><code>readyState</code></td>
+      <td><code><a href="/zh-CN/unsigned_short" title="en/unsigned short">unsigned short</a></code></td>
+      <td>表明<code>FileReader</code>对象的当前状态. 值为<a href="#State_constants">State constants</a>中的一个. <strong>只读</strong></td>
+    </tr>
+    <tr>
+      <td><code>result</code></td>
+      <td></td>
+      <td>读取到的文件内容.这个属性只在读取操作完成之后才有效,并且数据的格式取决于读取操作是由哪个方法发起的. <strong>只读</strong><strong>.</strong></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Methods" name="Methods">方法</h2>
+<h3 id="abort()" name="abort()">abort()</h3>
+<p>中止该读取操作.在返回时,<code>readyState</code>属性的值为<code>DONE</code>.</p>
+<pre class="eval language-html">void abort();
+</pre>
+<h6 id="Parameters" name="Parameters">参数</h6>
+<p>无.</p>
+<h6 id="Exceptions_thrown" name="Exceptions_thrown">抛出的异常</h6>
+<dl>
+  <dt>
+    <code>DOM_FILE_ABORT_ERR</code></dt>
+  <dd>
+    当该FileReader对象没有在进行读取操作时(也就是readyState属性的值不为<code>LOADING</code>时),调用<code>abort()方法会抛出该异常</code>.<div class="note"><strong>Note:</strong>&nbsp;实现于Gecko 6.0.</div></dd>
+</dl>
+<p></p><div> 
+    <span class="indicatorInHeadline standardNote standardNoteMethod">Requires Gecko 7.0 (Firefox 7.0 / Thunderbird 7.0 / SeaMonkey 2.4)</span> 
+    <h3 id="readAsArrayBuffer()" name="readAsArrayBuffer()">readAsArrayBuffer()</h3> 
+</div><p></p>
+<p>开始读取指定的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象中的内容. 当读取操作完成时,<code>readyState</code>属性的值会成为<code>DONE</code>,如果设置了<code>onloadend事件处理程序,则调用之</code>.同时,<code>result</code>属性中将包含一个<code><a href="/zh-CN/JavaScript_typed_arrays/ArrayBuffer" title="/zh-CN/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a>对象</code>以表示所读取文件的内容.</p>
+<pre class="eval language-html">void readAsArrayBuffer(
+  in Blob blob
+);
+</pre>
+<h6 id="Parameters" name="Parameters">参数</h6>
+<dl>
+  <dt>
+    <code>blob</code></dt>
+  <dd>
+    将要读取到一个<code><a href="/zh-CN/JavaScript_typed_arrays/ArrayBuffer" title="/zh-CN/JavaScript_typed_arrays/ArrayBuffer">ArrayBuffer</a></code>中的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或者<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象.</dd>
+</dl>
+<h3 id="readAsBinaryString()" name="readAsBinaryString()">readAsBinaryString()</h3>
+<p>开始读取指定的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象中的内容. 当读取操作完成时,<code>readyState</code>属性的值会成为<code>DONE</code>,如果设置了<code>onloadend事件处理程序,则调用之</code>.同时,<code>result</code>属性中将包含所读取文件的原始二进制数据.</p>
+<pre class="eval language-html">void readAsBinaryString(
+  in Blob blob
+);
+</pre>
+<h6 id="Parameters" name="Parameters">参数</h6>
+<dl>
+  <dt>
+    <code>blob</code></dt>
+  <dd>
+    将要读取的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或者<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象.</dd>
+</dl>
+<h3 id="readAsDataURL()" name="readAsDataURL()">readAsDataURL()</h3>
+<p>开始读取指定的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象中的内容. 当读取操作完成时,<code>readyState</code>属性的值会成为<code>DONE</code>,如果设置了<code>onloadend事件处理程序,则调用之</code>.同时,<code>result</code>属性中将包含一个<code>data:</code> URL格式的字符串以表示所读取文件的内容.</p>
+<pre class="eval language-html">void readAsDataURL(
+  in Blob blob
+);
+</pre>
+<h6 id="Parameters" name="Parameters">参数</h6>
+<dl>
+  <dt>
+    <code>file</code></dt>
+  <dd>
+    将要读取的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或者<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象.</dd>
+</dl>
+<h6 id=".E4.BE.8B.E5.AD.90">例子</h6>
+<p>这个方法很有用,比如,可以实现图片的本地预览(<a class="internal" href="/@api/deki/files/6231/=image_upload_preview.html" title="image_upload_preview.html">在线演示</a>):</p>
+<pre class="brush: html  language-html" data-number=""><code class=" language-html">&lt;!doctype html&gt;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/html; charset<span class="token punctuation">=</span>UTF-8<span class="token punctuation">"</span></span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Content-Type<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Image preview example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+oFReader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rFilter <span class="token operator">=</span> <span class="token regex">/^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i</span><span class="token punctuation">;</span>
+
+oFReader<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>oFREvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"uploadPreview"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>src <span class="token operator">=</span> oFREvent<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">loadImageFile<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"uploadImage"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>files<span class="token punctuation">.</span>length <span class="token operator">==</span><span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">var</span> oFile <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">"uploadImage"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>rFilter<span class="token punctuation">.</span><span class="token function">test<span class="token punctuation">(</span></span>oFile<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"You must select a valid image file!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token keyword">return</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  oFReader<span class="token punctuation">.</span><span class="token function">readAsDataURL<span class="token punctuation">(</span></span>oFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">onload</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>loadImageFile();<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadForm<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tbody</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadPreview<span class="token punctuation">"</span></span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width: 100px; height: 100px;<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%3F%3E%0A%3Csvg%20width%3D%22153%22%20height%3D%22153%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%0A%20%3Cg%3E%0A%20%20%3Ctitle%3ENo%20image%3C/title%3E%0A%20%20%3Crect%20id%3D%22externRect%22%20height%3D%22150%22%20width%3D%22150%22%20y%3D%221.5%22%20x%3D%221.500024%22%20stroke-width%3D%223%22%20stroke%3D%22%23666666%22%20fill%3D%22%23e1e1e1%22/%3E%0A%20%20%3Ctext%20transform%3D%22matrix%286.66667%2C%200%2C%200%2C%206.66667%2C%20-960.5%2C%20-1099.33%29%22%20xml%3Aspace%3D%22preserve%22%20text-anchor%3D%22middle%22%20font-family%3D%22Fantasy%22%20font-size%3D%2214%22%20id%3D%22questionMark%22%20y%3D%22181.249569%22%20x%3D%22155.549819%22%20stroke-width%3D%220%22%20stroke%3D%22%23666666%22%20fill%3D%22%23000000%22%3E%3F%3C/text%3E%0A%20%3C/g%3E%0A%3C/svg%3E<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Image preview<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadImage<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>myPhoto<span class="token punctuation">"</span></span> <span class="token attr-name">onchange</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>loadImageFile();<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tbody</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Send<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div><div class="line-number" data-start="31" style="top: 570px;"></div><div class="line-number" data-start="32" style="top: 589px;"></div><div class="line-number" data-start="33" style="top: 608px;"></div><div class="line-number" data-start="34" style="top: 627px;"></div><div class="line-number" data-start="35" style="top: 646px;"></div><div class="line-number" data-start="36" style="top: 665px;"></div></code></pre>
+<div class="note">
+  <strong>注:</strong> IE10以下的版本不支持<code>FileReader()</code>构造函数.不过可以利用滤镜来兼容旧版本的IE:<a class="internal" href="/@api/deki/files/6232/=crossbrowser_image_preview.html" title="crossbrowser_image_preview.html">兼容IE的图片本地预览</a>.</div>
+<h3 id="readAsText()" name="readAsText()">readAsText()</h3>
+<p>开始读取指定的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象中的内容. 当读取操作完成时,<code>readyState</code>属性的值会成为<code>DONE</code>,如果设置了<code>onloadend事件处理程序,则调用之</code>.同时,<code>result</code>属性中将包含一个字符串以表示所读取的文件内容.</p>
+<pre class="eval language-html">void readAsText(
+  in Blob blob,
+  in DOMString encoding <span class="inlineIndicator optional optionalInline">可选</span>
+);
+</pre>
+<h6 id="Parameters" name="Parameters">参数</h6>
+<dl>
+  <dt>
+    <code>blob</code></dt>
+  <dd>
+    将要读取的<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象或者<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象.</dd>
+  <dt>
+    <code>encoding</code> <span class="inlineIndicator optional optionalInline">可选</span></dt>
+  <dd>
+    一个字符串,表示了返回数据所使用的编码.如果不指定,默认为UTF-8.</dd>
+</dl>
+<h2 id=".E4.BA.8B.E4.BB.B6.E5.A4.84.E7.90.86.E7.A8.8B.E5.BA.8F">事件处理程序</h2>
+<dl>
+  <dt>
+    <code>onabort</code></dt>
+  <dd>
+    当读取操作被终止时调用.</dd>
+  <dt>
+    <code>onerror</code></dt>
+  <dd>
+    当读取操作发生错误时调用.</dd>
+  <dt>
+    <code>onload</code></dt>
+  <dd>
+    当读取操作成功完成时调用.</dd>
+  <dt>
+    <code>onloadend</code></dt>
+  <dd>
+    当读取操作完成时调用,不管是成功还是失败.该处理程序在<code>onload</code>或者<code>onerror之后调用</code>.</dd>
+  <dt>
+    <code>onloadstart</code></dt>
+  <dd>
+    当读取操作将要开始之前调用.</dd>
+  <dt>
+    <code>onprogress</code></dt>
+  <dd>
+    在读取数据过程中周期性调用.</dd>
+</dl>
+<h2 id=".E6.B5.8F.E8.A7.88.E5.99.A8.E5.85.BC.E5.AE.B9.E6.80.A7">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Firefox (Gecko)</th>
+        <th>Chrome</th>
+        <th>Internet Explorer*</th>
+        <th>Opera*</th>
+        <th>Safari</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td>3.6 (1.9.2)</td>
+        <td>7</td>
+        <td>10</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>Android</th>
+        <th>IE Mobile</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Basic support</td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+        <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+
+
+<p>*IE9有一个<a class="external" href="http://html5labs.interoperabilitybridges.com/prototypes/fileapi/fileapi/info" title="http://html5labs.interoperabilitybridges.com/prototypes/fileapi/fileapi/info">File API Lab</a>.Opera从11.10开始<a class="external" href="http://my.opera.com/desktopteam/blog/2011/04/05/stability-gmail-socks" title="http://my.opera.com/desktopteam/blog/2011/04/05/stability-gmail-socks">部分支持</a>该API.</p>
+<h3 id=".E9.92.88.E5.AF.B9Gecko.E7.9A.84.E6.B3.A8.E6.84.8F.E4.BA.8B.E9.A1.B9">针对Gecko的注意事项</h3>
+<ul>
+  <li>在Gecko 2.0 beta 7 (Firefox 4.0 beta 7)之前,上述方法中所有的Blob参数都只能是一个<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象;根据最新的FileAPI草案,现在的所有的Blob参数既可以是<a href="/zh-CN/docs/DOM/Blob" title="一个Blob对象就是一个包含有只读原始数据的类文件对象.Blob对象中的数据并不一定得是JavaScript中的原生形式.File接口基于Blob,继承了Blob的功能,并且扩展支持了用户计算机上的本地文件."><code>Blob</code></a>对象也可以是一个<a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a>对象.</li>
+  <li>在Gecko 13.0 (Firefox 13.0 / Thunderbird 13.0 / SeaMonkey 2.10)之前,<code>FileReader.error</code>属性会返回一个<a href="/zh-CN/docs/DOM/FileError" title="用来表示在使用FileReader接口时发生的错误."><code>FileError</code></a>对象.根据最新的FileAPI草案,现在的<code>FileReader.error</code>会返回一个<a class="new" href="/zh-CN/docs/DOM/DOMError" title="The documentation about this has not yet been written; please consider contributing!"><code>DOMError</code></a>对象.</li>
+</ul>
+<h2 id="See_also" name="See_also">相关链接</h2>
+<ul>
+  <li><a href="/zh-CN/Using_files_from_web_applications" title="en/Using files from web applications">如何在web应用程序中使用文件</a></li>
+  <li><a href="/zh-CN/docs/DOM/File" title="File 接口提供了文件的信息，以及文件内容的存取方法。"><code>File</code></a></li>
+  <li><a class="external" href="http://www.w3.org/TR/FileAPI/#FileReader-interface">Specification:&nbsp;File API: FileReader</a><span style="color: #fff; background: #e66e33; display: inline-block; font-size: x-small; margin-left: 6px; white-space: nowrap; padding: 2px 5px;" title="工作草案">WD</span></li>
+</ul>
+                                    </article>
+
+                      <!-- attachments list -->
+                          <section class="page-meta">
+<section id="page-attachments">
+
+      <h3><i aria-hidden="true" class="icon-paper-clip"></i>Attachments</h3>
+  
+  
+  <p id="page-attachments-no-message" class="hidden">
+    This document has no attachments.
+  </p>
+
+    <table cellpadding="0" cellspacing="0" id="page-attachments-table" class="">
+      <thead>
+        <tr><th>File</th>
+        <th>Size</th>
+        <th>Date</th>
+        <th>Attached by</th>
+      </tr></thead>
+      <tbody>
+                  <tr data-revision-id="4021" data-attachment-id="3698">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/3698/image_upload_preview.html" target="_blank">image_upload_preview.html</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>2235 bytes</td>
+  <td>2012-05-08 17:16:34</td>
+  <td><a href="/zh-CN/profiles/fusionchess">fusionchess</a></td>
+</tr>
+                  <tr data-revision-id="4022" data-attachment-id="3699">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/3699/crossbrowser_image_preview.html" target="_blank">crossbrowser_image_preview.html</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>2021 bytes</td>
+  <td>2012-05-08 20:50:14</td>
+  <td><a href="/zh-CN/profiles/fusionchess">fusionchess</a></td>
+</tr>
+                  <tr data-revision-id="6541" data-attachment-id="6231">
+  <td class="attachment-name-cell">
+    <a href="https://mdn.mozillademos.org/files/6231/podcasts1.jpg" target="_blank">Podcasts example screenshot</a>
+      <div class="attachment-description"></div>
+  </td>
+  <td>19864 bytes</td>
+  <td>2013-09-27 06:42:04</td>
+  <td><a href="/zh-CN/profiles/chrisdavidmills">chrisdavidmills</a></td>
+</tr>
+              </tbody>
+    </table>
+
+
+  </section>
+</section>            
+            <!-- contributors -->
+            <div class="wiki-block contributors">
+              <h2 class="offscreen">Document Tags and Contributors</h2>
+                            <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i><strong>Contributors to this page:</strong> <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a> </div>                              <div class="contributor-sub">
+                  <i aria-hidden="true" class="icon-time"></i><strong>Last updated by:</strong>
+                  <a href="/zh-CN/profiles/ziyunfei">ziyunfei</a>,
+                  <time datetime="2012-12-24T22:56:35-08:00">Dec 24, 2012 10:56:35 PM</time>
+                </div>
+                          </div>
+                  </div>

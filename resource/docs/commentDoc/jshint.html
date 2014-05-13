@@ -1,0 +1,114 @@
+<pre>
+设置JSHint，不要让工具成了绊脚石
+JSHint是一个强大的javascript代码检测工具，
+不仅可以帮助我们检测到可能的代码错误，
+也能帮助我们有效的避免编码的错误。
+JSHint本身是个命令行工具，它提供了灵活了的选项设置方式，
+不过如果你要使用那种毫无节操的内置JSHint的IDE（例如IntellJ）的话，
+就只能选择一些有限的选项，然后终日忍受那满屏幕都是红黄错误警告了。
+JSHint的选项大体可以分三种：
+基于文件夹的设置方式
+JSHint默认使用用户home目录下的.jshintrc文件（json格式）作为配置文件，
+例如我的文件是这样的：
+{
+  "sub":true,
+  "laxbreak":true,
+  "laxcomma":true,
+  "regexp":true,
+  "asi": true,
+  "browser": true,
+  "loopfunc":true,
+  "expr":true,
+  "node": true,
+  "es5": true,
+  "esnext": true,
+  "bitwise": true,
+  "curly": true,
+  "immed": true,
+  "latedef": false,
+  "expr": true,
+  "eqeqeq": false,
+  "eqnull": false,
+  "newcap": true,
+  "noarg": true,
+  "undef": true,
+  "proto": true,
+  "strict": false,
+  "smarttabs": true
+}
+具体的含义请参考文档。你也可以在你的项目目录下添加一个.jshintrc文件，
+JSHint会在检测文件时从文件所在目录往上找，
+直到找到jshintrc文件为止。
+基于文件的设置方式
+对于需要对单个文件进行特定设置的需求，
+我们可以在文件最上方使用注释行来设定JSHint，例如：
+/* jshint undef: true, unused: true */
+/* global MY_GLOBAL */
+某些警告是无法通过错误来进行屏蔽的，这时候你首先需要知道你要屏蔽错误的错误代码，
+通过添加--verbose参数来获得：
+$ jshint --verbose myfile.js
+myfile.js: line 6, col 3, Unnecessary directive "use strict". (W034)
+如果需要屏蔽这个错误，可在文件中加入：
+/* jshint -W034 */
+基于函数的设定方式
+类似基于文件的设定，只要把相应的注释行移到函数内就行了，例如：
+
+// From another file
+function b() {
+  "use strict";
+  /* ... */
+}
+hacker的方式
+上面说的方式官方的文档都有更加详细的说明，
+可如果你总是想禁用掉特定的警告该怎么办呢?比方说对于以下代码：
+
+if (err) return next(err);
+JSHint会警告Expected '{' and instead saw 'return'.，
+因为我（node社区很多人也是）不喜欢在单行的返回代码前后添加大括号，
+但是我也不想总是在文件最上面添加注释添加一块专门的注释来禁用它
+。一种可行的办法是修改编辑器的代码检测插件，
+不过难度有点高，另一种方法就是修改JSHint 的代码，
+我们只需要对一个reporter文件稍做修改即可。
+打开文件jshint/src/reporters/default.js，在var error = result.error;下面加入两行代码：
+var code = error.code;
+if (code === 'W116') return;
+大功告成，保存以后再用JSHint就再也看不到那样的警告了。
+（当然，如果你的JSHint使用别的reporter那就另当别论了）
+相信通过以上方式可以帮你免除99%以上无用警告的困扰了，
+对于代码有洁癖同时有比较懒的人来说，这很重要。
+	JSHint配置
+目前规范还无法完全自动化审查，团队根据实际情况，
+在不与规范冲突的前提下，使用JSHint进行审查，配置文件如下：
+{
+    "jquery": true,//检查预定义的全局变量，防止出现$未定义，该项根据实际代码修改
+    "bitwise": false,//不检查位运算
+    "browser": true,//通过浏览器内置的全局变量检测
+    "devel":true,//允许对调试用的alert和console.log的调用
+    "camelcase": true,//使用驼峰式命名
+    "curly": true,//强制使用花括号
+    "eqeqeq": false,//不强制使用===比较运算符
+    "es3":true,//兼容es3规范，针对旧版浏览器编写的代码
+    "esnext": false, //不使用最新的es6规范
+    "expr": true,//允许未赋值的函数名表达式，例如console && console.log(1)
+    "forin":false,//不强制过滤遍历对象继承的属性    
+    "freeze":false,//不限制对内置对象的扩展
+    "immed": true,//禁止未用括号包含立即执行函数
+    "indent": false,//不强制缩进
+    "latedef": true,//禁止先调用后定义
+    "maxdepth":3,//代码块嵌套最多不超过3层
+    "maxparams":3,//函数最多不超过3个参数
+    "newcap": false,//不对首字母大写的函数强制使用new
+    "noarg": false,//不禁止对arguments.caller和arguments.callee的调用
+    "noempty":false,//禁止空代码块
+    "nonew":false,//允许直接new实例化而不赋值给变量
+    "plusplus":false,//允许++和--运算符使用
+    "quotmark": "single",//字符串使用单引号
+    "smarttabs": true,//允许混合tab和空格缩进
+    "strict": false,//不强制使用es5严格模式
+    "sub": true,//允许用[]形式访问对象属性
+    "undef": true,//禁止明确未定义的变量调用，
+    如果你的变量（myvar）是在其他文件中定义的，可以使用/*global myvar */绕过检测
+    "unused": false,//允许定义没用的变量，在某些函数回调中，
+    经常出现多个参数，但不一定会用
+    "multistr": false//禁止多行字符串，改用加号连接
+</pre>

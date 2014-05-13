@@ -1,0 +1,116 @@
+ <h2 id="toc-updating-cache">更新缓存</h2>
+
+  <p>应用在离线后将保持缓存状态，除非发生以下某种情况：</p>
+  <ol>
+    <li>用户清除了浏览器对您网站的数据存储。</li>
+    <li>清单文件经过修改。请注意：更新清单中列出的某个文件并不意味着浏览器会重新缓存该资源。清单文件本身必须进行更改。</li>
+    <li>应用缓存通过编程方式进行更新。</li>
+  </ol>
+
+  <h3 id="toc-status">缓存状态</h3>
+
+  <p><code>window.applicationCache</code> 对象是对浏览器的应用缓存的编程访问方式。其 <code>status</code> 属性可用于查看缓存的当前状态：</p>
+
+<pre class="prettyprint"><span class="kwd">var</span><span class="pln"> appCache </span><span class="pun">=</span><span class="pln"> window</span><span class="pun">.</span><span class="pln">applicationCache</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">switch</span><span class="pln"> </span><span class="pun">(</span><span class="pln">appCache</span><span class="pun">.</span><span class="pln">status</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">case</span><span class="pln"> appCache</span><span class="pun">.</span><span class="pln">UNCACHED</span><span class="pun">:</span><span class="pln"> </span><span class="com">// UNCACHED == 0</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'UNCACHED'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">case</span><span class="pln"> appCache</span><span class="pun">.</span><span class="pln">IDLE</span><span class="pun">:</span><span class="pln"> </span><span class="com">// IDLE == 1</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'IDLE'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">case</span><span class="pln"> appCache</span><span class="pun">.</span><span class="pln">CHECKING</span><span class="pun">:</span><span class="pln"> </span><span class="com">// CHECKING == 2</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'CHECKING'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">case</span><span class="pln"> appCache</span><span class="pun">.</span><span class="pln">DOWNLOADING</span><span class="pun">:</span><span class="pln"> </span><span class="com">// DOWNLOADING == 3</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'DOWNLOADING'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">case</span><span class="pln"> appCache</span><span class="pun">.</span><span class="pln">UPDATEREADY</span><span class="pun">:</span><span class="pln">  </span><span class="com">// UPDATEREADY == 4</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'UPDATEREADY'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">case</span><span class="pln"> appCache</span><span class="pun">.</span><span class="pln">OBSOLETE</span><span class="pun">:</span><span class="pln"> </span><span class="com">// OBSOLETE == 5</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'OBSOLETE'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">default</span><span class="pun">:</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'UKNOWN CACHE STATUS'</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">break</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">};</span></pre>
+
+  <p>要以编程方式更新缓存，请先调用 <code>applicationCache.update()</code>。此操作将尝试更新用户的缓存（前提是已更改清单文件）。最后，当 <code>applicationCache.status</code> 处于 <code>UPDATEREADY</code> 状态时，调用 <code>applicationCache.swapCache()</code> 即可将原缓存换成新缓存。</p>
+
+<pre class="prettyprint"><span class="kwd">var</span><span class="pln"> appCache </span><span class="pun">=</span><span class="pln"> window</span><span class="pun">.</span><span class="pln">applicationCache</span><span class="pun">;</span><span class="pln">
+
+appCache</span><span class="pun">.</span><span class="pln">update</span><span class="pun">();</span><span class="pln"> </span><span class="com">// Attempt to update the user's cache.</span><span class="pln">
+
+</span><span class="pun">...</span><span class="pln">
+
+</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">appCache</span><span class="pun">.</span><span class="pln">status </span><span class="pun">==</span><span class="pln"> window</span><span class="pun">.</span><span class="pln">applicationCache</span><span class="pun">.</span><span class="pln">UPDATEREADY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  appCache</span><span class="pun">.</span><span class="pln">swapCache</span><span class="pun">();</span><span class="pln">  </span><span class="com">// The fetch was successful, swap in the new cache.</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+  <p><strong>请注意</strong>：以这种方式使用 <code>update()</code> 和 <code>swapCache()</code> 不会向用户提供更新的资源。此流程只是让浏览器检查是否有新的清单、下载指定的更新内容以及重新填充应用缓存。因此，还需要对网页进行两次重新加载才能向用户提供新的内容，其中第一次是获得新的应用缓存，第二次是刷新网页内容。</p>
+
+  <p>好消息是，您可以避免重新加载两次的麻烦。要使用户更新到最新版网站，可设置监听器，以监听网页加载时的 <code>updateready</code> 事件：</p>
+
+<pre class="prettyprint"><span class="com">// Check if a new cache is available on page load.</span><span class="pln">
+window</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'load'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  window</span><span class="pun">.</span><span class="pln">applicationCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'updateready'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">window</span><span class="pun">.</span><span class="pln">applicationCache</span><span class="pun">.</span><span class="pln">status </span><span class="pun">==</span><span class="pln"> window</span><span class="pun">.</span><span class="pln">applicationCache</span><span class="pun">.</span><span class="pln">UPDATEREADY</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="com">// Browser downloaded a new app cache.</span><span class="pln">
+      </span><span class="com">// Swap it in and reload the page to get the new hotness.</span><span class="pln">
+      window</span><span class="pun">.</span><span class="pln">applicationCache</span><span class="pun">.</span><span class="pln">swapCache</span><span class="pun">();</span><span class="pln">
+      </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">confirm</span><span class="pun">(</span><span class="str">'A new version of this site is available. Load it?'</span><span class="pun">))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        window</span><span class="pun">.</span><span class="pln">location</span><span class="pun">.</span><span class="pln">reload</span><span class="pun">();</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="com">// Manifest didn't changed. Nothing new to server.</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="pun">},</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span></pre>
+
+  <h3 id="toc-events">AppCache 事件</h3>
+
+  <p>正如您所预期的那样，附加事件会用于监听缓存的状态。浏览器会对下载进度、应用缓存更新和错误状态等情况触发相应事件。以下代码段为每种缓存事件类型设置了事件监听器：</p>
+
+<pre class="prettyprint"><span class="kwd">function</span><span class="pln"> handleCacheEvent</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">//...</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">function</span><span class="pln"> handleCacheError</span><span class="pun">(</span><span class="pln">e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  alert</span><span class="pun">(</span><span class="str">'Error: Cache failed to update!'</span><span class="pun">);</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+
+</span><span class="com">// Fired after the first cache of the manifest.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'cached'</span><span class="pun">,</span><span class="pln"> handleCacheEvent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Checking for an update. Always the first event fired in the sequence.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'checking'</span><span class="pun">,</span><span class="pln"> handleCacheEvent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// An update was found. The browser is fetching resources.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'downloading'</span><span class="pun">,</span><span class="pln"> handleCacheEvent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// The manifest returns 404 or 410, the download failed,</span><span class="pln">
+</span><span class="com">// or the manifest changed while the download was in progress.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'error'</span><span class="pun">,</span><span class="pln"> handleCacheError</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Fired after the first download of the manifest.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'noupdate'</span><span class="pun">,</span><span class="pln"> handleCacheEvent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Fired if the manifest file returns a 404 or 410.</span><span class="pln">
+</span><span class="com">// This results in the application cache being deleted.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'obsolete'</span><span class="pun">,</span><span class="pln"> handleCacheEvent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Fired for each resource listed in the manifest as it is being fetched.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'progress'</span><span class="pun">,</span><span class="pln"> handleCacheEvent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span><span class="pln">
+
+</span><span class="com">// Fired when the manifest resources have been newly redownloaded.</span><span class="pln">
+appCache</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'updateready'</span><span class="pun">,</span><span class="pln"> handleCacheEvent</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">);</span></pre>
+
+  <p>如果清单文件或其中指定的资源无法下载，整个更新都将失败。在这种情况下，浏览器将继续使用原应用缓存。</p>
+
+ 
+
+      </div>

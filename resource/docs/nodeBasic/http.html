@@ -1,0 +1,387 @@
+<p>cURL</p>
+<p>在mac或者linux,unix下输入curl -I ip地址就可以查看响应头信息！</p>
+
+<h1>var http=require("http")</h1>
+<h3>http对象属性和方法</h3>
+<pre>
+	
+Agent: //一个参数options
+Client://
+ClientRequest://俩个参数options, cb
+IncomingMessage: //一个参数socket
+METHODS: Array[26]
+OutgoingMessage:
+STATUS_CODES: Object
+Server://一个参数requestListener
+ServerResponse://一个参数req
+_connectionListener://一个参数socket
+createClient://
+createServer//requestListener
+get://俩个参数options, cb
+globalAgent: Agent
+parsers: exports.FreeList
+request://俩个参数options, cb
+</pre>
+
+<h2>http.STATUS_CODES</h2>
+
+<pre>
+{
+	    100: "Continue", 
+	    101: "Switching Protocols",
+	    102: "Processing", 
+	    200: "OK", 
+	    201: "Created", 
+	    202: "Accepted", 
+	    203: "Non-Authoritative Information", 
+	    204: "No Content", 
+	    205: "Reset Content", 
+	    206: "Partial Content", 
+	    207: "Multi-Status", 
+	    300: "Multiple Choices", 
+	    301: "Moved Permanently", 
+	    302: "Moved Temporarily", 
+	    303: "See Other", 
+	    304: "Not Modified", 
+	    305: "Use Proxy", 
+	    307: "Temporary Redirect",
+	    400: "Bad Request", 
+	    401: "Unauthorized", 
+	    402: "Payment Required", 
+	    403: "Forbidden", 
+	    404: "Not Found", 
+	    405: "Method Not Allowed", 
+	    406: "Not Acceptable",
+	    407: "Proxy Authentication Required", 
+	    408: "Request Time-out",
+	    409: "Conflict", 
+	    410: "Gone", 
+	    411: "Length Required", 
+	    412: "Precondition Failed", 
+	    413: "Request Entity Too Large", 
+	    414: "Request-URI Too Large", 
+	    415: "Unsupported Media Type", 
+	    416: "Requested Range Not Satisfiable", 
+	    417: "Expectation Failed", 
+	    418: "I'm a teapot", 
+	    422: "Unprocessable Entity", 
+	    423: "Locked", 
+	    424: "Failed Dependency", 
+	    425: "Unordered Collection", 
+	    426: "Upgrade Required", 
+	    428: "Precondition Required", 
+	    429: "Too Many Requests", 
+	    431: "Request Header Fields Too Large", 
+	    500: "Internal Server Error", 
+	    501: "Not Implemented", 
+	    502: "Bad Gateway", 
+	    503: "Service Unavailable", 
+	    504: "Gateway Time-out", 
+	    505: "HTTP Version Not Supported", 
+	    506: "Variant Also Negotiates", 
+	    507: "Insufficient Storage", 
+	    509: "Bandwidth Limit Exceeded", 
+	    510: "Not Extended",
+	    511: "Network Authentication Required"
+	}
+
+</pre>
+
+<h2>http.globalAgent 是http.Agent的一个实例对象</h2>
+
+<pre>
+_events: Object
+_maxListeners: undefined
+defaultPort: 80
+domain: null
+freeSockets: Object
+keepAlive: false
+keepAliveMsecs: 1000
+maxFreeSockets: 256
+maxSockets: Infinity
+options: Object
+protocol: "http:"
+requests: Object
+sockets: Object
+__proto__: Agent
+addRequest: function (req, options) {
+constructor: function Agent(options) {
+createConnection: function () {
+createSocket: function (req, options) {
+destroy: function () {
+get: function (options, cb) {
+getName: function (options) {
+removeSocket: function (s, options) {
+request: function (options, cb) {
+__proto__: EventEmitter
+_events: undefined
+_maxListeners: undefined
+addListener: function (type, listener) {
+constructor: function EventEmitter() {
+domain: undefined
+emit: function (type) {
+listeners: function (type) {
+on: function (type, listener) {
+once: function (type, listener) {
+removeAllListeners: function (type) {
+removeListener: function (type, listener) {
+setMaxListeners: function (n) {
+</pre>
+<h2>http.METHODS是一个数组</h2>
+<pre>
+0: "CHECKOUT"
+1: "CONNECT"
+2: "COPY"
+3: "DELETE"
+4: "GET"
+5: "HEAD"
+6: "LOCK"
+7: "M-SEARCH"
+8: "MERGE"
+9: "MKACTIVITY"
+10: "MKCOL"
+11: "MOVE"
+12: "NOTIFY"
+13: "OPTIONS"
+14: "PATCH"
+15: "POST"
+16: "PROPFIND"
+17: "PROPPATCH"
+18: "PURGE"
+19: "PUT"
+20: "REPORT"
+21: "SEARCH"
+22: "SUBSCRIBE"
+23: "TRACE"
+24: "UNLOCK"
+25: "UNSUBSCRIBE"
+length: 26
+</pre>
+<h2>http.createServer是http.Server的一个实例对象</h2>
+<pre>
+	_connectionKey: "4:127.0.0.1:3000"
+_connections: 0
+_events: Object
+_handle: TCP
+_maxListeners: undefined
+_slaves: Array[0]
+_usingSlaves: false
+allowHalfOpen: true
+connections: (...)
+get connections: function deprecated() {
+set connections: function deprecated() {
+domain: null
+httpAllowHalfOpen: false
+timeout: 120000
+__proto__: Server
+constructor: function Server(requestListener) {
+setTimeout: function (msecs, callback) {
+__proto__: Server
+_emitCloseIfDrained: function () {
+_listen2: function (address, port, addressType, backlog, fd) {
+_setupSlave: function (socketList) {
+address: function () {
+close: function (cb) {
+constructor: function Server(/* [ options, ] listener */) {
+getConnections: function (cb) {
+listen: function () {
+listenFD: function deprecated() {
+ref: function () {
+unref: function () {
+__proto__: EventEmitter
+_events: undefined
+_maxListeners: undefined
+addListener: function (type, listener) {
+constructor: function EventEmitter() {
+domain: undefined
+emit: function (type) {
+listeners: function (type) {
+on: function (type, listener) {
+once: function (type, listener) {
+removeAllListeners: function (type) {
+removeListener: function (type, listener) {
+setMaxListeners: function (n) {
+__proto__: Object
+</pre>
+
+
+<h2>http.createServer(function(req,res){req是http.IncomingMessage的一个实例对象,res是http..ServerResponse的一个实例对象})</h2>
+<h3>req对象</h3>
+<pre>
+_consuming: true
+_dumped: true
+_events: Object
+_maxListeners: undefined
+_pendingIndex: 0
+_pendings: Array[0]
+_readableState: ReadableState
+client: Socket
+complete: true
+connection: Socket
+domain: null
+headers: Object
+httpVersion: "1.1"
+httpVersionMajor: 1
+httpVersionMinor: 1
+method: "GET"
+rawHeaders: Array[14]
+rawTrailers: Array[0]
+read: function (n) {
+readable: false
+socket: Socket
+statusCode: null
+trailers: Object
+upgrade: false
+url: "/favicon.ico"
+__proto__: IncomingMessage
+_addHeaderLine: function (field, value, dest) {
+_addHeaderLines: function (headers, n) {
+_dump: function () {
+_read: function (n) {
+constructor: function IncomingMessage(socket) {
+destroy: function (error) {
+read: function (n) {
+setTimeout: function (msecs, callback) {
+__proto__: Readable
+_read: function (n) {
+addListener: function (ev, fn) {
+constructor: function Readable(options) {
+on: function (ev, fn) {
+pause: function () {
+pipe: function (dest, pipeOpts) {
+push: function (chunk, encoding) {
+read: function (n) {
+resume: function () {
+setEncoding: function (enc) {
+unpipe: function (dest) {
+unshift: function (chunk) {
+wrap: function (stream) {
+__proto__: Stream
+constructor: function Stream() {
+pipe: function (dest, options) {
+__proto__: EventEmitter
+_events: undefined
+_maxListeners: undefined
+addListener: function (type, listener) {
+constructor: function EventEmitter() {
+domain: undefined
+emit: function (type) {
+listeners: function (type) {
+on: function (type, listener) {
+once: function (type, listener) {
+removeAllListeners: function (type) {
+removeListener: function (type, listener) {
+setMaxListeners: function (n) {
+__proto__: Object
+</pre>
+<h3>res对象</h3>
+
+<pre>
+_events: Object
+_hangupClose: false
+_hasBody: true
+_header: "HTTP/1.1 200 OK
+content-type: text/plain
+Date: Mon, 03 Mar 2014 11:58:43 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+_headerSent: true
+_last: false
+_maxListeners: undefined
+_removedHeader: Object
+_trailer: ""
+chunkedEncoding: true
+connection: null
+domain: null
+finished: true
+headersSent: (...)
+output: Array[0]
+outputCallbacks: Array[0]
+outputEncodings: Array[0]
+sendDate: true
+shouldKeepAlive: true
+socket: null
+statusCode: 200
+statusMessage: "OK"
+useChunkedEncodingByDefault: true
+writable: true
+__proto__: ServerResponse
+_finish: function () {
+_implicitHeader: function () {
+assignSocket: function (socket) {
+constructor: function ServerResponse(req) {
+detachSocket: function (socket) {
+headersSent: (...)
+statusCode: 200
+statusMessage: undefined
+writeContinue: function (cb) {
+writeHead: function (statusCode) {
+writeHeader: function () {
+__proto__: OutgoingMessage
+_buffer: function (data, encoding, callback) {
+_finish: function () {
+_flush: function () {
+_renderHeaders: function () {
+_send: function (data, encoding, callback) {
+_storeHeader: function (firstLine, headers) {
+_writeRaw: function (data, encoding, callback) {
+addTrailers: function (headers) {
+constructor: function OutgoingMessage() {
+destroy: function (error) {
+end: function (data, encoding, callback) {
+getHeader: function (name) {
+headersSent: (...)
+get headersSent: function () { return !!this._header; }
+removeHeader: function (name) {
+setHeader: function (name, value) {
+setTimeout: function (msecs, callback) {
+write: function (chunk, encoding, callback) {
+__proto__: Stream
+constructor: function Stream() {
+pipe: function (dest, options) {
+__proto__: EventEmitter
+_events: undefined
+_maxListeners: undefined
+addListener: function (type, listener) {
+constructor: function EventEmitter() {
+domain: undefined
+emit: function (type) {
+listeners: function (type) {
+on: function (type, listener) {
+once: function (type, listener) {
+removeAllListeners: function (type) {
+removeListener: function (type, listener) {
+setMaxListeners: function (n) {
+__proto__: Object
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

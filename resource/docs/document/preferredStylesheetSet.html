@@ -1,0 +1,62 @@
+<p>
+	styleSheets，StyleSheetList类型，只读
+styleSheets特性必需返回一个代表文档样式表列表的StyleSheetList序列。
+注：因为之前的IDL限制，styleSheets特性曾是一个独立的接口：DocumentStyle
+selectedStyleSheetSet，DOMString类型
+selectedStyleSheetSet特性在读取时的步骤如下：
+如果当前只有一个单独的可用样式表集合，且没有其它样式表标题非空且样式表不可用标记未选中的文档样式表列表。则返回该可用样式表集合的样式表集合名，并终止运行。
+否则，如果在不同的样式表集合中，都有样式表不可用标记未选中的情况，则返回null，并终止运行。
+否则，返回空字符串。
+注：这里指所有样式表标题非空的样式表都选中了样式表不可用标记，或没有样式表标题非空的样式表。
+设置selectedStyleSheetSet特性的步骤如下：
+如果值为null，则终止运行。
+否则，选择一个样式表集合为传入的这个值。
+从DOM的角度，所有的视图都有相同的selectedStyleSheetSet。如果用户代理支持多种视图，同时可选择多个备选样式表，那么这个特性(和StyleSheet接口的disabled特性)必需返回默认视图的值。
+lastStyleSheetSet，DOMString类型，只读
+lastStyleSheetSet特性必须返回最近样式表集合名。
+注：该特性初始值为null。
+preferredStyleSheetSet，DOMString类型，只读
+preferredStyleSheetSet特性必需返回首选样式表集合名。
+注：和lastStyleSheetSet不一样，该特性的初始值为空字符串。
+styleSheetSets，DOMStringList类型，只读
+styleSheetSets特性必需返回一个列表，这个列表是文档样式表列表顺序的样式表集合名的列表。
+enableStyleSheetsForSet(DOMString?)，返回void
+enableStyleSheetsForSet被调用时的运行步骤如下：
+如果name是null，则终止运行。
+启用一个样式表集合为name。
+注：样式表标题为空的样式表绝不会被这个方法影响。这个方法不改变lastStyleSheetSet或preferredStyleSheetSet特性。
+与用户界面的交互
+支持样式表的浏览器用户界面应该列出styleSheetSets列表给出的所有样式表标题，将selectedStyleSheetSet作为选中的样式表集合展示出来，如果其为null或空字符串，则保留未选中状态，同时，如果selectedStyleSheetSet和preferredStyleSheetSet都是空字符串，则选择一个额外的“基本页面样式”(或类似的)选项。
+从该列表中选择一个样式表时应该遵循选择一个样式表集合的步骤。它被定义将会影响到lastStyleSheetSet特性。
+保持被选中的样式表集合
+如果用户代理保持选中的样式表集合，则应该使用selectedStyleSheetSet特性的值。或者，如果这个值是null，则当离开这个页面(或某些其它的时候)时，lastStyleSheetSet特性是要存储的名称。如果lastStyleSheetSet是null，则样式表集合不应该被保留。
+当重置样式表集合为保留值时(这可以发生在任何时候，典型的是在第一次通过样式表列表呈现文档样式时、在文档的<head>解析之后、在任何不取决于样式计算结果的脚本运行之后)，如果用户已经手动选择了集合，则样式表集合应该通过选择一个样式表集合的步骤进行设置。
+注：本规范并不对用户代理如何决定保留样式表集合、是否跨页面保留选中的集合、如何跨页面保留选中的集合等问题给定任何建议。
+示例
+因此，下面的HTML片段中：
+&ltlink rel="alternate stylesheet" title="foo" href="a">
+&ltlink rel="alternate stylesheet" title="bar" href="b">
+&ltscript>
+  document.selectedStyleSheetSet = 'foo';
+  document.styleSheets[1].disabled = false;
+&lt/script>
+&ltlink rel="alternate stylesheet" title="foo" href="c">
+&ltlink rel="alternate stylesheet" title="bar" href="d">
+最终启用的样式表是"a"、"b"和"c"，selectedStyleSheetSet特性应该为null，lastStyleSheetSet将返回"foo"，preferredStyleSheetSet将会返回空字符串。
+同样的，下面的HTML片段中：
+&ltlink rel="alternate stylesheet" title="foo" href="a">
+&ltlink rel="alternate stylesheet" title="bar" href="b">
+&ltscript>
+  var before = document.preferredStyleSheetSet;
+  document.styleSheets[1].disabled = false;
+&lt/script>
+&ltlink rel="stylesheet" title="foo" href="c">
+&ltlink rel="alternate stylesheet" title="bar" href="d">
+&ltscript>
+  var after = document.preferredStyleSheetSet;
+&lt/script>
+变量"before"将等于空字符串，变量"after"将等于"foo"，"a"和"c"样式表会被启用。即使第一段脚本设置样式表"b"为可用也是如此，因为解析了接下来的&ltlink>元素之后，preferredStyleSheetSet设置了且enableStyleSheetsForSet()方法被调用(至此selectedStyleSheetSet从未被显式设置，lastStyleSheetSet始终为null)，这个方法改变了哪些样式表开启，哪些不开启。
+样式表关联
+本章节定义了一个样式表所属结点有必要实现的接口，以及XML样式表处理说明和当其关联类型是ASCII大小写不敏感的"stylesheet"时的HTTP的link头的需求。其它地方并没有这个定义。
+注：本编辑衷心的希望HTML和SVG可以在它们各自的规范里、在本规范的术语里进行适当的定义。
+</p>

@@ -1,0 +1,123 @@
+<article id="wikiArticle">
+                                          <p></p><div class="notice experimental"> 
+    <p><strong>这是一个实验中的功能</strong><br>此功能某些浏览器尚在开发中,请参考<a href="#Browser_compatibility">浏览器兼容性表格</a>以得到在不同浏览器中适合使用的前缀.由于该功能对应的标准文档可能被重新修订,所以在未来版本的浏览器中该功能的语法和行为可能随之改变.</p> 
+</div><p></p>
+<p>IndexedDB 是一个为了能够在客户端存储可观数量的结构化数据，并且在这些数据上使用索引进行高性能检索的 API。虽然 <a href="/en-US/docs/DOM/Storage" title="en-US/docs/DOM/Storage">DOM 存储</a> 对于存储少量数据是非常有用的，但是它对大量结构化数据的存储就显得力不从心了。IndexedDB 则提供了这样的一个解决方案。</p>
+<p>此页面从根本上来说是针对该 API 对象技术描述的入口。如果你需要的是一份入门读本，你应该查阅 <a href="/en-US/docs/IndexedDB/Basic_Concepts_Behind_IndexedDB" title="/en-US/docs/IndexedDB/Basic_Concepts_Behind_IndexedDB">有关 IndexedDB 的基本概念</a>。至于更多详细信息，请参见 <a href="https://developer.mozilla.org/en-US/docs/IndexedDB/Using_IndexedDB" title="https://developer.mozilla.org/en-US/docs/IndexedDB/Using_IndexedDB">使用 IndexedDB</a>。</p>
+<p>IndexedDB 分别为同步和异步访问提供了单独的 API 。同步 API 本来是要用于仅供&nbsp;<a href="/en-US/docs/DOM/Worker" title="Worker">Web Workers </a> 内部使用，但是还没有被任何浏览器所实现。异步 API 在 Web Workers 内部和外部都可以使用。</p>
+<h2 id=".E5.BC.82.E6.AD.A5_API">异步 API</h2>
+<p>异步 API 方法调用完后会立即返回，而不会阻塞调用线程。要异步访问数据库，要调用 <a href="/en-US/docs/DOM/window" title="en-US/docs/DOM/window">window</a> 对象 <a href="/en-US/docs/IndexedDB/IDBEnvironment#attr_indexedDB" title="en-US/docs/IndexedDB/IDBEnvironment#attr indexedDB"><code>indexedDB</code></a> 属性的 <code><a href="/en-US/docs/IndexedDB/IDBFactory#open" title="en-US/docs/IndexedDB/IDBFactory#open">open</a>()</code> 方法。该方法返回一个 IDBRequest 对象 (IDBOpenDBRequest)；异步操作通过在 IDBRequest 对象上触发事件来和调用程序进行通信。</p>
+<div class="note">
+  <p>注意： <code>indexedDB</code> 对象在旧版本的浏览器上是带有前缀的 (在 Gecko &lt; 16的情况下是 <code>mozIndexedDB</code> 属性，Chrome 中是 <code>webkitIndexedDB</code> ，以及IE10 的&nbsp;<code>msIndexedDB</code> )。</p>
+</div>
+<ul>
+  <li><a href="/en-US/docs/IndexedDB/IDBFactory" title="en-US/docs/IndexedDB/IDBFactory"><code>IDBFactory</code></a> 提供了对数据库的访问。这是由全局对象 <code>indexedDB</code> 实现的接口，因而也是该 API 的入口。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBCursor" title="en-US/docs/IndexedDB/IDBCursor"><code>IDBCursor</code></a> 遍历对象存储空间和索引。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBCursorWithValue"><code>IDBCursorWithValue</code></a> 遍历对象存储空间和索引并返回游标的当前值。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBDatabase" title="en-US/docs/IndexedDB/IDBDatabase"><code>IDBDatabase</code></a> 表示到数据库的连接。只能通过这个连接来拿到一个数据库事务。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBEnvironment" title="en-US/docs/IndexedDB/IDBEnvironment"><code>IDBEnvironment</code></a> 提供了到客户端数据库的访问。它由 <a class="new" href="/../en-US/docs/DOM/window" rel="internal" title="../en-US/docs/DOM/window">window</a> 对象实现。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBIndex" title="en-US/docs/IndexedDB/IDBIndex"><code>IDBIndex</code></a> 提供了到索引元数据的访问。</li>
+  <li><code><a href="/en-US/docs/IndexedDB/IDBKeyRange" title="en-US/docs/IndexedDB/KeyRange">IDBKeyRange</a></code> 定义键的范围。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBObjectStore" title="en-US/docs/IndexedDB/IDBObjectStore"><code>IDBObjectStore</code></a> 表示一个对象存储空间。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBOpenDBRequest" title="en-US/docs/IndexedDB/IDBOpenDBRequest"><code>IDBOpenDBRequest</code></a> 表示一个打开数据库的请求。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBRequest" title="en-US/docs/IndexedDB/IDBRequest"><code>IDBRequest</code></a> 提供了到数据库异步请求结果和数据库的访问。这也是在你调用一个异步方法时所得到的。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBTransaction" title="en-US/docs/IndexedDB/IDBTransaction"><code>IDBTransaction</code></a> 表示一个事务。你在数据库上创建一个事务，指定它的范围（例如你希望访问哪一个对象存储空间），并确定你希望的访问类型（只读或写入）。</li>
+  <li><a href="/en-US/docs/IndexedDB/IDBVersionChangeEvent" title="IDBVersionChangeEvent"><code>IDBVersionChangeEvent</code></a> 表明数据库的版本号已经改变。</li>
+</ul>
+<p>一个早期版本的规范还定义了下面这些现在已经被删除的接口。因为可能会需要对之前编写的代码进行更新，所以我们依然对这些接口进行了文档化：</p>
+<ul>
+  <li><code><a href="/en-US/docs/IndexedDB/IDBVersionChangeRequest" title="https://developer.mozilla.org/en-US/docs/IndexedDB/IDBVersionChangeRequest">IDBVersionChangeRequest</a></code> 表示更改数据库版本号的请求。更改数据库版本的方式已经自此改变了(调用 <a href="/en-US/docs/IndexedDB/IDBFactory#open" title="en-US/docs/IndexedDB/IDBFactory#open"><code>IDBFactory.open()</code></a> 而不需要再调用 &nbsp;<a href="/en-US/docs/IndexedDB/IDBDatabase#setVersion()" title="en-US/docs/IndexedDB/IDBDatabase#setVersion()"><code>IDBDatabase.setVersion()</code></a>)，并且 <a href="/en-US/docs/IndexedDB/IDBOpenDBRequest" title="en-US/docs/IndexedDB/IDBOpenDBRequest"><code>IDBOpenDBRequest</code></a> 接口现在具有已经移除的 <code>IDBVersionChangeRequest</code> 的功能。</li>
+  <li><code><a href="/en-US/docs/IndexedDB/IDBDatabaseException" title="en-US/docs/IndexedDB/DatabaseException">IDBDatabaseException&nbsp;</a></code>&nbsp;<span title="This is an obsolete API and is no longer guaranteed to work."><i class="icon-trash"> </i></span>&nbsp;表示在执行数据库操作时可能碰到的异常情况。</li>
+</ul>
+<p>规范里面还定义了 <a href="/en-US/docs/IndexedDB/Syncronous_API" title="/en-US/docs/IndexedDB/SyncronousAPI">API 的同步版本</a>。同步 API 还没有在任何浏览器中得以实现。它原本是要和 <a href="/en-US/docs/DOM/Using_web_workers" title="https://developer.mozilla.org/en-US/docs/Using_web_workers">WebWorkers</a> 一起使用的。</p>
+<h2 id=".E5.AD.98.E5.82.A8.E7.A9.BA.E9.97.B4.E9.99.90.E5.88.B6">存储空间限制</h2>
+<p>一个单独的数据库项目的大小没有限制。然而可能会限制每个 IndexedDB 数据库的大小。这个限制（以及用户界面对它进行断言的方式）在各个浏览器上也可能有所不同：</p>
+<ul>
+  <li>
+    <p>Firefox: 对 IndexedDB 数据库的大小没有限制。在用户界面上只会针对存储超过 50 MB 大小的 BLOB（二进制大对象）请求权限。这个大小的限额可以通过 <code>dom.indexedDB.warningQuota</code> 首选项进行自定义 (定义在 <a class="external" href="http://mxr.mozilla.org/mozilla-central/source/modules/libpref/src/init/all.js" title="http://mxr.mozilla.org/mozilla-central/source/modules/libpref/src/init/all.js">http://mxr.mozilla.org/mozilla-central/source/modules/libpref/src/init/all.js</a>)。</p>
+  </li>
+  <li>Google Chrome: 参见 <a class="external link-https" href="https://developers.google.com/chrome/whitepapers/storage#temporary" rel="freelink">https://developers.google.com/chrome...rage#temporary</a></li>
+</ul>
+<h2 id="Example" name="Example">示例</h2>
+<p>网上有一个 Marco Castelluccio 开发的 IndexedDB 能被用来做什么的强大示例，他是 IndexedDB Mozilla DevDerby 的胜出者。 获奖的演示是 <a href="/en-US/demos/detail/elibri" title="https://developer.mozilla.org/en-US/demos/detail/elibri">eLibri</a>，一个图书馆和电子书阅读器应用程序。</p>
+<h2 id="Browser_compatibility" name="Browser_compatibility">浏览器兼容性</h2>
+<p></p><div class="htab"> 
+    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a> 
+    <ul> 
+        <li class="selected"><a>Desktop</a></li> 
+        <li><a>Mobile</a></li> 
+    </ul> 
+<div id="compat-desktop" style="display: block;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari (WebKit)</th>
+      </tr>
+      <tr>
+        <td>同步 API</td>
+        <td>12 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span></td>
+        <td>
+          <p>16.0 (16.0)<br>
+            4.0 (2.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span></p>
+        </td>
+        <td>10 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">ms</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+      <tr>
+        <td>异步 API<br>
+          (用于 <a href="/en-US/docs/DOM/Using_web_workers" title="https://developer.mozilla.org/en-US/docs/Using_web_workers">WebWorkers</a>)</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span><br>
+          See <a class="external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=701634" title="IndexedDB: Support database access from worker threads">bug&nbsp;701634</a></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div><div id="compat-mobile" style="display: none;">
+  <table class="compat-table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Android</th>
+        <th>Firefox Mobile (Gecko)</th>
+        <th>IE Phone</th>
+        <th>Opera Mobile</th>
+        <th>Safari Mobile</th>
+      </tr>
+      <tr>
+        <td>Asynchronous API</td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td>6.0 (6.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+        <td><span style="color: #f00;">Not supported</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div></div><p></p>
+
+
+<p>另外一个浏览器兼容性矩阵请参见： <a class="external" href="http://caniuse.com/indexeddb" title="http://caniuse.com/indexeddb">When Can I Use IndexedDB</a></p>
+<p>通过 <a class="external" href="https://github.com/axemclion/IndexedDBShim" title="https://github.com/axemclion/IndexedDBShim">IndexedDB Polyfill</a> 也有可能在 <a class="external" href="http://caniuse.com/sql-storage" title="http://caniuse.com/sql-storage"> 支持 WebSQL 的浏览器</a> 上使用 IndexedDB。</p>
+<h2 id=".E5.8F.82.E8.A7.81">参见</h2>
+<ul>
+  <li><a href="/en-US/docs/IndexedDB/Basic_Concepts_Behind_IndexedDB" title="en-US/docs/IndexedDB/Basic Concepts Behind IndexedDB">有关 IndexedDB 的一些基本概念</a></li>
+  <li><a href="/en-US/docs/IndexedDB/Using_IndexedDB" title="en-US/docs/IndexedDB/IndexedDB primer">使用 IndexedDB</a></li>
+  <li><a class="external" href="http://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/" title="http://hacks.mozilla.org/2012/02/storing-images-and-files-in-indexeddb/">在 IndexedDB 中存储照片和文件</a></li>
+  <li><a class="external" href="http://www.html5rocks.com/tutorials/indexeddb/todo/" title="http://www.html5rocks.com/tutorials/indexeddb/todo/">使用 HTML5 IndexedDB 的简单待办事项列表</a>. <div class="note"><strong>Note:</strong>&nbsp;This tutorial is based on an old version of the specification and does not work on up-to-date browsers: for example, it still uses the removed <code>setVersion()</code> method.</div></li>
+  <li><a class="external" href="http://www.w3.org/TR/IndexedDB/" title="http://www.w3.org/TR/IndexedDB/">Indexed Database API 规范 </a></li>
+  <li><a class="external" href="http://msdn.microsoft.com/en-us/scriptjunkie/gg679063.aspx" title="http://msdn.microsoft.com/en-us/scriptjunkie/gg679063.aspx">IndexedDB — 使用浏览器存储</a></li>
+  <li><a class="external" href="http://caniuse.com/indexeddb" title="http://caniuse.com/indexeddb">浏览器的 IndexedDB 支持情况</a></li>
+  <li><a class="external" href="http://nparashuram.com/IndexedDB/trialtool/index.html" title="http://nparashuram.com/IndexedDB/trialtool/index.html">IndexedDB 示例</a></li>
+  <li><a class="external" href="https://github.com/axemclion/IndexedDBShim" title="https://github.com/axemclion/IndexedDBShim">IndexedDB Polyfill</a> 为仅支持WebSQL 的浏览器(例如移动版的 WebKit)</li>
+  <li><a class="external" href="http://nparashuram.com/IndexedDBShim/" title="http://nparashuram.com/IndexedDBShim/">JQuery IndexedDB 插件</a></li>
+</ul>
+                                    </article>

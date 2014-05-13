@@ -1,0 +1,70 @@
+<div id="maincontent">
+
+<h1>JavaScript toString() 方法</h1>
+
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_boolean.asp" title="JavaScript Boolean 对象参考手册">JavaScript Boolean 对象参考手册</a></p>
+</div>
+
+
+<div>
+<h2>定义和用法</h2>
+<p>toString() 方法可把一个逻辑值转换为字符串，并返回结果。</p>
+
+<h3>语法</h3>
+<pre>booleanObject.toString()</pre>
+
+<h3>返回值</h3>
+<p>根据原始布尔值或者 booleanObject 对象的值返回字符串 "true" 或 "false"。</p>
+
+<h3>抛出</h3>
+<p>如果调用该方法的对象不是 Boolean，则抛出异常 TypeError。</p>
+</div>
+
+
+<div>
+<h2>提示和注释</h2>
+<p class="note"><span>注释：</span>在 Boolean 对象被用于字符串环境中时，此方法会被自动调用。</p>
+</div>
+
+	
+<div>
+<h2>实例</h2>
+<p>在本例中，我们将创建一个 Boolean 对象，并把它转换成字符串：</p>
+ <pre>&lt;script type="text/javascript"&gt;
+ 
+ var boo = new Boolean(true)
+document.write(boo.toString())
+
+&lt;/script&gt;</pre>
+<p>输出：</p>
+<pre>true</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=jseg_tostring_boolean">toString()</a></dt>
+<dd>如何使用 toString() 来把一个布尔值转换成字符串。</dd>
+</dl>
+</div>
+
+
+<div class="backtoreference">
+<p><a href="/js/jsref_obj_boolean.asp" title="JavaScript Boolean 对象参考手册">JavaScript Boolean 对象参考手册</a></p>
+</div>
+
+
+<div id="toc">
+<h2>课外书</h2>
+
+<p>如需更多有关类型转换的知识，请阅读 JavaScript 高级教程中的相关内容：</p>
+
+<dl>
+<dt><a href="/js/pro_js_typeconversion.asp" title="ECMAScript 类型转换">ECMAScript 类型转换</a></dt>
+<dd>本节讲解了 ECMAScript 提供的类型转换方法，以及如何进行强制类型转换。</dd>
+</dl>
+</div>
+
+</div>

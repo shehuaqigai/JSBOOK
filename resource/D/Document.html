@@ -1,0 +1,127 @@
+<section id="contentContainer">
+            <article class="scrollLayout" style="-webkit-transition: 0ms cubic-bezier(0.1, 0.57, 0.1, 1); transition: 0ms cubic-bezier(0.1, 0.57, 0.1, 1); -webkit-transform: translate(0px, 0px) translateZ(0px);"><div class="twelve columns">
+<div class="chapter"><h2>document对象</h2></div>
+ <h3>document是HTMLDocument的一个实例</h3>
+ <h3>HTMLDocument继承Document</h3>
+<h3>Document继承Node</h3>
+<p>document对象是文档的根节点，window.document属性就指向这个对象。也就是说，只要浏览器开始载入HTML文档，这个对象就开始存在了，可以直接调用。</p>
+
+<p>一般来说，document对象有两个子节点。第一个子节点是文档类型节点（DocumentType），对于HTML5文档来说，该节点就代表\&lt;!DOCTYPE html&gt;，document.doctype属性指向该节点。第二个子节点是元素节点（Element），代表\，document.documentElement 属性指向该节点。这两个子节点肯定包括在document.childNodes之中。</p>
+
+<span id="toc5"></span><h3>document对象的属性</h3>
+
+<p>document对象有很多属性，用得比较多的是下面这样。</p>
+
+<p>（1）提供文档信息的属性。</p>
+
+<ul>
+<li>title：文档的标题。</li>
+<li>lastModified：文档文件的上一次修改时间。</li>
+<li>referrer：文档的访问来源。</li>
+<li>URL：文档的URL。</li>
+<li>compatMode：浏览器处理文档的模式，可能的值为BackCompat（向后兼容模式）和 CSS1Compat（严格模式）。</li>
+</ul>
+
+
+<p>（2）指向其他节点或对象的属性</p>
+
+<ul>
+<li>doctype：指向文档类型节点。</li>
+<li>documentElement：指向html元素节点。</li>
+<li>head：指向文档的head元素节点。</li>
+<li>body：指向文档的body元素节点。</li>
+<li>activeElement：指向文档中被激活（focused/active）的元素。</li>
+<li>defaultView：指向当前文档的JavaScript顶层对象，即window对象。</li>
+</ul>
+
+
+<div class="highlight"><pre><code class="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">doctype</span> <span class="c1">// &lt;!DOCTYPE html&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span> <span class="c1">// &lt;html&gt;...&lt;/html&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">head</span> <span class="c1">// &lt;head&gt;...&lt;/head&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span> <span class="c1">// &lt;body&gt;...&lt;/body&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">defaultView</span> <span class="c1">// window</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'textarea'</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">activeElement</span> <span class="c1">// &lt;textarea&gt;</span>
+</code></pre></div>
+
+
+<p>（3）implementation属性</p>
+
+<p>该属性指向一个对象，提供浏览器支持的模块信息，它的hasFeature方法返回一个布尔值，表示是否支持某个模块。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">implementation</span><span class="p">.</span><span class="nx">hasFeature</span><span class="p">(</span><span class="s1">'MutationEvents'</span><span class="p">,</span><span class="s1">'2.0'</span><span class="p">)</span>
+<span class="c1">// true</span>
+</code></pre></div>
+
+
+<p>上面代码表示，当前浏览器支持MutationEvents模块的2.0版本。</p>
+
+<span id="toc6"></span><h3>特定元素的集合属性</h3>
+
+<p>document对象有一些属性，指向特定元素的集合。</p>
+
+<ul>
+<li>document.all ：文档中所有的元素，Firefox不支持该属性。</li>
+<li>document.forms ：所有的form元素。</li>
+<li>document.images：所有的img元素。</li>
+<li>document.links：所有的a元素。</li>
+<li>document.scripts：所有的script元素。</li>
+<li>document.styleSheets：所有的link或者style元素。</li>
+</ul>
+
+
+<p>上面所有的元素集合都是动态的，原节点有任何变化，立刻会反映在这些集合中。</p>
+
+<span id="toc7"></span><h3>document对象的方法</h3>
+
+<p><strong>（1）querySelector方法和getElementById方法</strong></p>
+
+<p>这两个方法用于获取一个Element节点。它们的不同之处是，querySelector方法的参数使用CSS选择器语法，getElementById方法的参数是HTML标签元素的id属性。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'li'</span><span class="p">)</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'last'</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>如果有多个节点满足querySelector方法的条件，则返回第一个匹配的节点。</p>
+
+<p><strong>（2）querySelectorAll方法、getElementsByTagName方法和getElementsByClassName方法</strong></p>
+
+<p>这三个方法都返回一个NodeList对象，也就是返回一组符合条件的节点对象。它们的不同之处在于，querySelectorAll方法的参数使用CSS选择器，getElementsByTagName方法的参数是HTML元素名，getElementsByClassName方法的参数是HTML标签元素的class属性。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">'li'</span><span class="p">)</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'li'</span><span class="p">)</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s1">'liClass'</span><span class="p">)</span>
+</code></pre></div>
+
+
+<p>getElementsByTagName方法和getElementsByClassName方法返回的是对象的指针，当对象发生变化时，返回的结果集会跟着变化，querySelectorAll方法返回的结果集没有这种特性。</p>
+
+<p>如果querySelectorAll方法和getElementsByTagName方法的参数是字符串“*”，则会返回文档中的所有HTML元素节点。</p>
+
+<p><strong>（3）getElementsByName方法</strong></p>
+
+<p>getElementsByName方法用于选择拥有name属性的HTML元素，比如form、img、frame、embed和object。</p>
+
+<p><strong>（4）createElement方法和createTextNode方法</strong></p>
+
+<p>createElement() 方法接受一个字符串参数，表示要创造哪一种HTML元素。传入的字符串应该等同于元素节点的tagName属性。</p>
+
+<p>createTextNode()方法的参数，就是所要生成的文本节点的内容。</p>
+
+<div class="highlight"><pre><code class="javascript"><span class="kd">var</span> <span class="nx">elementNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'div'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">textNode</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">'Hi'</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p><strong>（5）hasFocus方法</strong></p>
+
+<p>hasFocus()方法返回一个布尔值，表示当前文档之中是否有元素被激活或获得焦点。</p>
+
+
+
+
+</div></article>
+        </section>

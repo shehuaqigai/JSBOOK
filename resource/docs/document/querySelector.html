@@ -1,0 +1,41 @@
+<p>
+	摘要
+回傳 document 第一個符合特定選擇器群組的元素（採用深度優先，前序追蹤 document 節點）。
+
+語法
+element = document.querySelector(selectors);
+其中
+
+element 是元素物件。
+selectors 是以逗號分隔，包含一個或多個 CSS 選擇器的字串。
+範例
+這個範例會回傳 document 選到的第一個 "myclass" class：
+
+var el = document.querySelector(".myclass");
+注意事項
+若找不到相應元素就會回傳 null，否則回傳第一個符合的元素。
+
+若選擇器符合某 ID，且該 ID 在 document 中誤用數次，就會回傳第一個符合的元素。
+
+當特定選擇器群組無效，會擲回 SYNTAX_ERR 例外狀況。
+
+querySelector() 是由 Selectors API 引入的選擇器。
+
+傳入 querySelector 的字串參數必須遵循 CSS 語法。若要選取未遵循 CSS 語法的 ID 或選擇器（例如不當使用冒號或空格），必須強制加上兩個反斜線來跳脫錯誤的字元：
+
+&ltdiv id="foo\bar">&lt/div>
+&ltdiv id="foo:bar">&lt/div>
+
+&ltscript>
+document.querySelector('#foo\bar')    // 甚麼都沒選到
+document.querySelector('#foo\\\\bar') // 選到第一個 div
+document.querySelector('#foo:bar')     // 甚麼都沒選到
+document.querySelector('#foo\\:bar')   // 選到第二個 div
+&lt/script>
+瀏覽器相容性
+Desktop Mobile
+功能特色	Chrome	Firefox (Gecko)	Internet Explorer	Opera	Safari (WebKit)
+基本支援	1	3.5 (1.9.1)
+bug 416317	8	10	3.2 (525.3)
+WebKit bug 16587
+</p>

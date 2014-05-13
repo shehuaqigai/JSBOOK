@@ -1,0 +1,219 @@
+MediaStream 接口, 定义在 [GETUSERMEDIA] 规格中, 一般情况下表示一段音频和（或者）视频流数据. 一个 MediaStream 对象可以被扩展为表示 一段或者是向远端节点发送的数据流或者是从远端节点接受的数据量。(比方说，不仅仅是本地摄像头). 在 MediaStream 对象上开启这个功能的扩展将在本文档中描述。
+
+一个MediaStream 定义在 [GETUSERMEDIA]的对象可以包含零个或者多个MediaStreamTrack 对象. 对于接受者来说一个发送到对端的MediaStreamTrack 对象会表现为一个且只有一个MediaStreamTrack . Peer是定义为一个支持这个规格的用户代理(User Agent可以理解为浏览器或者支持webrtc的设备）
+
+通道(Channels) 是 MediaStream 规格中最小的单位. 为了传输的目的，比如作为RTP的负载类型，所有的通道（Channels）预期在一起编码.由一个编解码器共同编码的通道 一定 要在同一个MediaStreamTrack对象中 而且 编解码器 应该（should） 可以编码, 或者丢弃, 所有track中的通道(Channels).
+
+The concepts of an input and output to 一个给定的的 MediaStream对象的输入输出的概念同样应用到了在网络上传输的 MediaStream 对象上. 一个 MediaStream 由RTCPeerConnection  (稍后描述)创建的对象会作为输入接收远端传过来的数据. 类似的, 一个  从本地源创建的MediaStream对象, 比如一个 [GETUSERMEDIA]描述的摄像头，如果它正在被RTCPeerConnection对象使用的话，就会有一个表示传输到远端节点的输出.
+
+在 [GETUSERMEDIA]中描述的复制 MediaStream 对象的概念在这里也适用。 举例子来说，这个功能能够在这样的场景使用：这个一个视频会议中，在本地的监视器显示本地的视频和以及播放麦克风的声音，但是只传输声音到远端。(e.g. 对应用户所用的 “视频静音”的功能). 将不同的MediaStream对象上tracks 合并到一个新的MediaStream在某些特定的场景中也是非常有用的。
+<h4>MediaStream</h4>
+媒体流，一个媒体流包含 0 个到多个的媒体数据源，媒体流里面的数据源在呈现（render）必须同步。
+MediaStream 通过 getUserMedia 获得。
+<h2>navigator.webGetUserMedia成功回调后返回一个MediaStream的实例对象参数继承EventTarget</h2>
+<ul>
+	<li>id
+
+		<p>是DOMString包含36个字符的对象表示一个唯一标识符（GUID）。</p></li>
+	<li>label</li>
+	<li>onaddtrack</li>
+	<li>onended</li>
+	<li>ended</li>
+	<li>onremovetrack</li>
+	<li>addTrack</li>
+	<li>getAudioTracks
+<p>
+	音频媒体数据源返回MediaStreamTrack实例对象继承EventTarget
+	有以下属性方法
+	enabled:true是否开启
+	id:32位
+	kind:"audio"
+	onended,onmute,onunmute,readyState:"Live"
+	addEventListener,dispatchEvent,removeEventListener
+
+</p>
+
+	</li>
+	<li>getTrackById</li>
+	<li>getVideoTracks
+<p>视频
+	媒体数据源，一个媒体数据源构成一个 MediaStreamTrack，比如音频数据源和视频数据源，多个相互之间有关联的媒体数据源（比如有同步关系的音频视频媒体数据源）构成一个媒体流（MediaStream）
+
+	数据源返回MediaStreamTrack实例对象继承EventTarget
+	有以下属性方法
+	enabled:true是否开启
+	id:32位
+	kind:"audio"
+	onended,onmute,onunmute,readyState:"Live"
+	addEventListener,dispatchEvent,removeEventListener
+</p>
+	</li>
+	<li>removeTrack</li>
+	<li>stop</li>
+	<li>addEventListener</li>
+	<li>dispatchEvent</li>
+	<li>removeEventListener</li>
+</ul>
+
+
+<table width="100%" cellspacing="1" cellpadding="0" border="1" style="border:1px solid #AAA;">
+	<tbody>
+         <tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td width="20%" align="center">WebRTC</td>
+		<td>WebRTC 是 Web Real-Time Communication 的缩写，它是一项在浏览器内部进行实时数据、视频和音频通信的技术，是 Google 2010年以6820万美元收购Global IP Solutions公司而获得一项技术。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">MediaStreamTrack</td>
+		<td>媒体数据源，一个媒体数据源构成一个 MediaStreamTrack，比如音频数据源和视频数据源，多个相互之间有关联的媒体数据源（比如有同步关系的音频视频媒体数据源）构成一个媒体流（MediaStream）。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">MediaStream</td>
+		<td>	媒体流，一个媒体流包含 0 个到多个的媒体数据源，媒体流里面的数据源在呈现（render）必须同步。<br>MediaStream 通过 getUserMedia 获得。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">DataChannel</td>
+		<td>数据通道，两个 WebRTC 终端的连接建立后，它们可以通过这个数据通道传输任意类型的数据。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">Peer</td>
+		<td>通过 WebRTC 进行数据交互的节点或用户或终端，它通常是一个 Web App，它们之间的发现，连接的建立和断开通过 signalling（信令）控制。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">PeerConnection</td>
+		<td>表示一个 WebRTC 通讯连接对象，它维护与这个通讯连接相关的 MediaStream，处理通讯双方信令事件，完成通讯数据的传输。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">Signalling</td>
+		<td>信令，WebRTC 网络通过 Signalling 来发现各个 Peer，通过 Signalling 来控制各个 Peer 之间连接的建立和断开。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">STUN</td>
+		<td>STUN（Session Traversal Utilities for NAT，NAT会话传输应用程序）是一种网络协议，它允许位于NAT（或多重NAT）后的客户端找出自己的公网地址，查出自己位于哪种类型的NAT之后以及NAT为某一个本地端口所绑定的Internet端端口。这些信息被用来在两个同时处于NAT 路由器之后的主机之间建立UDP通信。该协议由RFC 5389定义。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">ICE</td>
+		<td>	交互式连接建立（Interactive Connectivity Establishment），一种综合性的NAT穿越的技术。<br>ICE 是由IETF的MMUSIC工作组开发出来的一种framework，可整合各种NAT穿透技术，如STUN、TURN、RSIP（Realm Specific IP，特定域IP）等。该framework可以让SIP的客户端利用各种NAT穿透方式打穿远程的防火墙。</td>
+	</tr>
+	<tr style="background-color:#EFEFEF;vertical-align:top;">
+		<td align="center">TURN</td>
+		<td>TURN（Traversal Using Relay NAT），是一种资料传输协议（data-transfer protocol）。通过中继服务器，穿透 NAT 或防火墙使两个 TCP 或 UPD 客户端建立连接。</td>
+	</tr>
+</tbody></table>
+
+<p>
+	
+<pre style="background:pink;color:gray">
+用getUserMedia采集音频直接给audio标签
+getUserMedia can also be used as an input node for the Web Audio API:
+
+function gotStream(stream) {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var audioContext = new AudioContext();
+
+    // Create an AudioNode from the stream
+    var mediaStreamSource = audioContext.createMediaStreamSource(stream);
+
+    // Connect it to destination to hear yourself
+    // or any other node for processing!
+    mediaStreamSource.connect(audioContext.destination);
+}
+
+navigator.getUserMedia({audio:true}, gotStream);
+</pre>
+</p>
+
+
+
+
+
+
+
+<div class="_page _mdn"><h1>navigator.getUserMedia</h1><p>Prompts the user for permission to use a media device such as a camera or microphone. If the user provides permission, the successCallback is invoked on the calling application with a <a href="https://developer.mozilla.org/en-US/docs/WebRTC/MediaStream_API#LocalMediaStream" title="WebRTC/MediaStream_API#LocalMediaStream">LocalMediaStream</a> object as its argument.</p> <h2 id="Syntax">Syntax</h2> <pre class="syntaxbox">navigator.getUserMedia ( constraints, successCallback, errorCallback );</pre> <p><strong>Example</strong></p> <p>Here's an example of using getUserMedia() with browser prefixes.</p> <pre class=" language-javascript">navigator<span class="token punctuation">.</span>getMedia <span class="token operator">=</span> <span class="token punctuation">(</span> navigator<span class="token punctuation">.</span>getUserMedia <span class="token operator">||</span>
+                       navigator<span class="token punctuation">.</span>webkitGetUserMedia <span class="token operator">||</span>
+                       navigator<span class="token punctuation">.</span>mozGetUserMedia <span class="token operator">||</span>
+                       navigator<span class="token punctuation">.</span>msGetUserMedia<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+navigator<span class="token punctuation">.</span>getMedia <span class="token punctuation">(</span>
+
+  <span class="token comment" spellcheck="true"> // constraints
+</span>   <span class="token punctuation">{</span>
+      video<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      audio<span class="token punctuation">:</span> <span class="token boolean">true</span>
+   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true"> // successCallback
+</span>   <span class="token keyword">function</span><span class="token punctuation">(</span>localMediaStream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> video <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector<span class="token punctuation">(</span></span><span class="token string">'video'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      video<span class="token punctuation">.</span>src <span class="token operator">=</span> window<span class="token punctuation">.</span>URL<span class="token punctuation">.</span><span class="token function">createObjectURL<span class="token punctuation">(</span></span>localMediaStream<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      video<span class="token punctuation">.</span>onloadedmetadata <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true"> // Do something with the video here.
+</span>      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true"> // errorCallback
+</span>   <span class="token keyword">function</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span><span class="token string">"The following error occured: "</span> <span class="token operator">+</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+<span class="token punctuation">)</span><span class="token punctuation">;</span></pre> <h2 id="Parameters">Parameters</h2> <table>
+<thead><tr>
+<th scope="col">parameter </th> <th scope="col">Required/ <br> Optional </th> <th scope="col">Description </th> </tr></thead>
+<tbody>
+<tr>
+<td>constraints</td> <td>Required</td> <td>The media types that support the LocalMediaStream object returned in the successCallback.</td> </tr>
+<tr>
+<td>successCallback </td> <td>Required</td> <td>The function on the calling application to invoke when passing the LocalMediaStream object.</td> </tr>
+<tr>
+<td>errorCallback</td> <td>Optional (Required in FF)</td> <td>The function on the calling application to invoke if the call fails. Please note, this argument is required in recent versions of Firefox. Not providing this argument will throw a <span style="color: rgb(0, 0, 0); font-family: Verdana, 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: normal;">NS_ERROR_XPC_NOT_ENOUGH_ARGS error.</span>
+</td> </tr>
+</tbody>
+</table><h3 id="constraints">constraints</h3> <p>The constraints parameter is a MediaStreamConstraints object with two Boolean members: <code>video</code> and <code>audio</code>. These describe the media types supporting the <a href="https://developer.mozilla.org/en-US/docs/WebRTC/MediaStream_API#LocalMediaStream" title="WebRTC/MediaStream_API#LocalMediaStream">LocalMediaStream</a> object. Either or both must be specified to validate the constraint argument. If a specified constraint is not supported by the browser, getUserMedia invokes the errorCallback with the NOT_SUPPORTED_ERROR. If the browser cannot find any media track with the specified type, getUserMedia invokes the errorCallback with the MANDATORY_UNSATISFIED_ERR.</p> <p>If the value or the member is not specified in the object, the value for the member defaults to false. The following demonstrates how to set the constraints for both audio and video:</p> <pre>{ video: true, audio: true }</pre> <h3 id="successCallback">successCallback</h3> <p>The getUserMedia function will call the function specified in the successCallback with the <a href="https://developer.mozilla.org/en-US/docs/WebRTC/MediaStream_API#LocalMediaStream" title="WebRTC/MediaStream_API#LocalMediaStream">LocalMediaStream</a> object that contains the media stream. You may assign that object to the appropriate element and work with it, as shown in the following example:</p> <pre>function(localMediaStream) {
+   var video = document.querySelector('video');
+   video.src = window.URL.createObjectURL(localMediaStream);
+   video.onloadedmetadata = function(e) {
+      // Do something with the video here.
+   };
+},</pre> <h3 id="errorCallback">errorCallback</h3> <p>The getUserMedia function will call the function specified in the errorCallback with a <code>code</code> argument. The error codes are described as follows:</p> <table>
+<thead><tr>
+<th scope="col">Error </th> <th scope="col">Description </th> </tr></thead>
+<tbody>
+<tr>
+<td>PERMISSION_DENIED </td> <td>The user denied permission to use a media device required for the operation. </td> </tr>
+<tr>
+<td>NOT_SUPPORTED_ERROR </td> <td>A constraint specified is not supported by the browser.</td> </tr>
+<tr>
+<td>MANDATORY_UNSATISFIED_ERROR </td> <td>No media tracks of the type specified in the constraints are found.</td> </tr>
+</tbody>
+</table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Stream API </td> <td>21<span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span> </td> <td>20<span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span> </td> <td>
+<span style="color: #f00;">Not supported</span> </td> <td>12</td> <td>
+<span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span> </td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Stream API </td> <td>
+<span style="color: #f00;">Not supported</span> </td> <td><span style="color: #f00;">Not supported</span></td> <td>
+<span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span> </td> <td>12</td> <td>
+<span style="color: #f00;">Not supported</span> </td> </tr>
+</tbody></table>
+</div> <p><span style="line-height: 1.5em;">Currently using WebRTC for accessing the camera is supported in Chrome, Opera and Firefox 20.</span></p> <h2 id="See_also">See also</h2> <ul>
+<li>
+<a href="https://developer.mozilla.org/en-US/docs/WebRTC" title="WebRTC">WebRTC</a> - the introductory page to the API</li> <li>
+<a href="https://developer.mozilla.org/en-US/docs/WebRTC/MediaStream_API" title="WebRTC/MediaStream_API">MediaStream API</a> - the API for the media stream objects</li> <li>
+<a href="https://developer.mozilla.org/en-US/docs/WebRTC/taking_webcam_photos" title="WebRTC/taking_webcam_photos">Taking webcam photos</a> - a tutorial on using getUserMedia()</li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/navigator.getUserMedia$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/navigator.getUserMedia" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/navigator.getUserMedia</a>
+  </p>
+</div>
+</div>

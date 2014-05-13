@@ -1,0 +1,133 @@
+<div id="maincontent">
+
+<h1>Location 对象</h1>
+
+
+<div>
+<h2>Location 对象</h2>
+
+<p>Location 对象包含有关当前 URL 的信息。</p>
+<p>Location 对象是 Window 对象的一个部分，可通过 window.location 属性来访问。</p>
+
+<h3>例子</h3>
+<p><a href="/tiy/t.asp?f=hdom_location">把用户带到一个新的地址</a></p>
+<p><em>IE:</em> Internet Explorer, <em>F:</em> Firefox, <em>O:</em> Opera.</p>
+</div>
+
+
+<div>
+<h2>Location 对象属性</h2>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:21%">属性</th>
+    <th style="width:58%">描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_hash.asp">hash</a></td>
+    <td>设置或返回从井号 (#) 开始的 URL（锚）。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_host.asp">host</a></td>
+    <td>设置或返回主机名和当前 URL 的端口号。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_hostname.asp">hostname</a></td>
+    <td>设置或返回当前 URL 的主机名。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_href.asp">href</a></td>
+    <td>设置或返回完整的 URL。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_pathname.asp">pathname</a></td>
+    <td>设置或返回当前 URL 的路径部分。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_port.asp">port</a></td>
+    <td>设置或返回当前 URL 的端口号。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_protocol.asp">protocol</a></td>
+    <td>设置或返回当前 URL 的协议。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="prop_loc_search.asp">search</a></td>
+    <td>设置或返回从问号 (?) 开始的 URL（查询部分）。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  </tbody></table>
+</div>
+
+
+<div>
+<h2>Location 对象方法</h2>
+<table class="dataintable">
+  <tbody><tr>
+    <th style="width:21%">属性</th>
+    <th style="width:58%">描述</th>
+    <th style="width:7%">IE</th>
+    <th style="width:7%">F</th>
+    <th style="width:7%">O</th>
+  </tr>
+  <tr>
+    <td><a href="met_loc_assign.asp">assign()</a></td>
+    <td>加载新的文档。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+  </tr>
+  <tr>
+    <td><a href="met_loc_reload.asp">reload()</a></td>
+    <td>重新加载当前文档。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    </tr>
+  <tr>
+    <td><a href="met_loc_replace.asp">replace()</a></td>
+    <td>用新的文档替换当前文档。</td>
+    <td>4</td>
+    <td>1</td>
+    <td>9</td>
+    </tr>
+  </tbody></table>
+</div>
+
+
+<div>
+<h2>Location 对象描述</h2>
+<p>Location 对象存储在 Window 对象的 Location 属性中，表示那个窗口中当前显示的文档的 Web 地址。它的 <a href="/htmldom/prop_loc_href.asp">href 属性</a>存放的是文档的完整 URL，其他属性则分别描述了 URL 的各个部分。这些属性与 Anchor 对象（或 Area 对象）的 URL 属性非常相似。当一个 Location 对象被转换成字符串，href 属性的值被返回。这意味着你可以使用表达式 location 来替代 location.href。</p>
+<p>不过 Anchor 对象表示的是文档中的超链接，Location 对象表示的却是浏览器当前显示的文档的 URL（或位置）。但是 Location 对象所能做的远远不止这些，它还能控制浏览器显示的文档的位置。如果把一个含有 URL 的字符串赋予 Location 对象或它的 href 属性，浏览器就会把新的 URL 所指的文档装载进来，并显示出来。</p>
+<p>除了设置 location 或 location.href 用完整的 URL 替换当前的 URL 之外，还可以修改部分 URL，只需要给 Location 对象的其他属性赋值即可。这样做就会创建新的 URL，其中的一部分与原来的 URL 不同，浏览器会将它装载并显示出来。例如，假设设置了Location对象的 <a href="/htmldom/prop_loc_hash.asp">hash 属性</a>，那么浏览器就会转移到当前文档中的一个指定的位置。同样，如果设置了 <a href="/htmldom/prop_loc_search.asp">search 属性</a>，那么浏览器就会重新装载附加了新的查询字符串的 URL。</p>
+<p>除了 URL 属性外，Location 对象的 <a href="/htmldom/met_loc_reload.asp">reload() 方法</a>可以重新装载当前文档，<a href="/htmldom/met_loc_replace.asp">replace()</a> 可以装载一个新文档而无须为它创建一个新的历史记录，也就是说，在浏览器的历史列表中，新文档将替换当前文档。</p>
+<p></p>
+<p></p>
+</div>
+
+</div>

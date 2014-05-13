@@ -1,0 +1,41 @@
+<div class="nbw-bitm bdwb bds2 bdc0 ">
+    <div class="multicntwrap">
+        <div class="multicnt">
+            <div>
+                <h3 class="title pre fs1"><span class="tcnt">js访问系统剪贴板</span>&nbsp;&nbsp;<span class="bgc0 fc07 fw0 fs0"></span></h3>
+                <p class="tdep clearfix nbw-act fc06" style="line-height:20px;">
+		        <span class="pleft">
+
+		          <span class="blogsep">2010-10-22 16:56:42</span><span class="blogsep">|&nbsp;&nbsp;分类：</span>
+		          <a class="fc03 m2a" href="http://scork520.blog.163.com/blog/#m=0&amp;t=1&amp;c=fks_087071093081089065086085081095080095081074093084086065" title="JS文档">JS文档</a>
+		          <span class="blogsep phide" id="$_blogTagTitle">|&nbsp;&nbsp;标签：</span><span class="fc03 phide" id="$_blogTagInfo"></span>
+		        </span>
+                    <span class="pright fc07 ztag"><span class="blogsep">|</span><span id="$_spanReport" class="fc03 m2a">举报</span></span>
+                    <span class="pright fc07 ztag"><span class="blogsep">|</span><span class="zihao fc03" id="$_fontswitch">字号<span class="zihaoshow  phide" id="$_fontsTypes"><span class="zihaoc bdc0"><span class="stag"></span><span class="fc04 stag">大</span><span class="fc04 stag">中</span><span class="fc04 stag">小</span></span></span></span></span><span class="pright pnt fc03" id="$_blog_subscribe"><span class="iblock icn0 icn0-919">&nbsp;</span><a class="m2a">订阅</a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+
+    </div>
+
+    <div class="nbw-blog-start"></div>
+    <div class="bct fc05 fc11 nbw-blog ztag"><h2 id="description">问题描述</h2>    <p>IE 支持使用 window.clipboardData 对象内的一系列方法访问系统剪贴板；<br>    Chrome 和 Safari 中存在类似的 Clipboard 对象，且有与 IE 中类似的方法，但其功能尚未实现；<br>    Firefox 和 Opera 不支持这类对象。</p>     <h2 id="influence">造成的影响</h2>    <p>若作者在需要访问剪贴板时仅仅考虑 IE 浏览器而使用了其专有的 clipboardData 对象，则在其他浏览器中可能导致功能无效且代码报错。</p>     <h2 id="impacted_browsers">受影响的浏览器</h2>    <table>     <tbody><tr>      <th>非 IE 浏览器</th>      <td>&nbsp;</td>     </tr>    </tbody></table>     <h2 id="analysis_of_issues">问题分析</h2>    <p>现代操作系统中均提供了系统剪贴板（clipboard），它允许用户在不同的运行中的应用程序之间传递不同类型的数据。如：复制、粘贴等等。剪贴板已经成为最常用的一种不同进程间交换数据的方式。</p>    <p>有时候页面作者在 HTML 页面中也希望可以通过某种方式能否有权访问系统剪贴板，但处于安全的考虑，不是所有浏览器都提供实现访问剪贴板的接口。<br>    如以下代码：</p> <pre>&lt;script&gt;<br> window.<span>clipboardData.setData</span>("Text", "Hello");<br>&lt;/script&gt;<br></pre>    <p>上面的代码只有在 IE 中可以将“hello”这个字符串复制到操作系统的剪贴板中，“Text”表明作为文本，在其他浏览器中则产生如下报错：</p>    <table>     <tbody><tr>      <th>Firefox</th>      <td>window.clipboardData is undefined</td>     </tr>     <tr>      <th>Chrome</th>      <td>Uncaught TypeError: Cannot call method 'setData' of undefined</td>     </tr>     <tr>      <th>Safari</th>      <td>TypeError: Result of expression 'window.clipboardData' [undefined] is not an object.</td>     </tr>     <tr>      <th>Opera</th>      <td>Statement on line 2: Cannot convert undefined or null to Object stacktrace</td>     </tr>    </tbody></table>    <p>出现此错误是因为 window.clipboardData 为 IE 专有，其他浏览器均没有此对象。更多关于 clipboardData 对象，参见 MSDN：<a rel="nofollow" href="http://msdn.microsoft.com/en-us/library/ms535220%28VS.85%29.aspx">clipboardData Object</a>。    </p><p>在 IE7 及更高版本的 IE 浏览器中，默认情况下会出现访问剪贴板的提示，通过浏览器菜单“工具 -&gt; internet 选项 -&gt; 安全 -&gt; 自定义级别” 步骤可以设置剪贴板访问提示。<br>    <img src="http://www.w3help.org/zh-cn/causes/B/X/2/001/IE7_safety.gif" alt="IE7, IE8"></p>    <br>    <p>下表列出了其他非 IE 的主流浏览器对访问剪贴板的支持情况：</p>    <table>     <tbody><tr>      <td style="vertical-align: top;"><br></td><th>Chrome Safari</th>      <td><strong>Clipboard 对象</strong>：<br>虽能看到存在此接口，但其内的方法并未实现其功能，所以在 JavaScript 中无法调用。</td><td style="vertical-align: top;"><br></td><td style="vertical-align: top;"><br></td>     </tr>     <tr>      <td style="vertical-align: top;"><br></td><th>Opera</th>      <td>无操作剪贴板的对象。</td><td style="vertical-align: top;"><br></td><td style="vertical-align: top;"><br></td>     </tr>     <tr>      <td style="vertical-align: top;"><br></td><th>Firefox</th>      <td>       Firefox 中由于对用户权限设置较高，需要修改 Firefox 的配置文件以允许浏览器支持剪贴板操作。较通用的做法是： <pre>try {<br> netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");<br>} catch (e) {<br> alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将 '<br>signed.applets.codebase_principal_support'设置为'true'");<br>}</pre>       在访问剪贴板上，首先修改 Firefox 的配置文件，若无法修改，则通知用户自行进入管理界面修改配置文件参数。然后才有权限对剪贴板进行操作。 <pre>var clip = Components.classes['@mozilla.org/widget/clipboard;1']<br> .createInstance(Components.interfaces.nsIClipboard);<br>if (!clip)<br> return;<br>var trans = Components.classes['@mozilla.org/widget/transferable;1']<br> .createInstance(Components.interfaces.nsITransferable);<br>if (!trans)<br> return;<br>trans.addDataFlavor('text/unicode');<br>var str = new Object();<br>var len = new Object();<br>var str = Components.classes["@mozilla.org/supports-string;1"]<br> .createInstance(Components.interfaces.nsISupportsString);<br>var copytext = txt;<br>str.data = copytext;<br>trans.setTransferData("text/unicode",str,copytext.length*2);<br>var clipid = Components.interfaces.nsIClipboard;<br>if (!clip)<br> return false;<br>clip.setData(trans,null,clipid.kGlobalClipboard);<br>alert(" 复制成功！")</pre>           </td><td style="vertical-align: top;"><br></td><td style="vertical-align: top;"><br></td></tr>    </tbody></table>     <h2 id="solutions">解决方案</h2>    <ul><li>判断浏览器类型，若不是 IE 则弹出提示，告诉用户当前浏览器不能访问剪贴板。如：<br> <pre>if (navigator.userAgent.indexOf("MSIE") == -1)<br>{<br> alert("您的浏览器不支持此功能,请手工复制文本框中内容");<br> return false;<br>}</pre>     </li><li>如果必须要实现跨浏览器的剪贴板访问，可考虑调使用 Flash 与 JS 通信方式来解决。如：<br>     <a rel="nofollow" href="http://code.google.com/p/zeroclipboard/">Zero Clipboard</a> </li></ul></div>
+    <div class="nbw-blog-end"></div>
+
+    <div>
+    </div>
+
+    <div>
+    </div>
+
+    <div>
+        <div>
+            <div class="wumii-hook"></div><script type="text/javascript" id="wumiiRelatedItems"></script>
+        </div>
+    </div>
+
+
+</div>

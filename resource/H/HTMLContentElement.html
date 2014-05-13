@@ -1,0 +1,181 @@
+<article id="content" class="c4">
+<header>
+<input type="button" value="收藏本文" id="btnAddFavorite" class="btn btnArticle" style="display: none;">
+<h1>Shadom DOM第三篇-高级概念与DOM API</h1>
+</header>
+<section>
+    <h2><a name="1">本文概述</a></h2>
+    <p>本文讨论与制作Web组件时使用的Shadow DOM相关的一些更高级的知识，本文建立在<a style="color:blue;" href="2013012601.html">“使用Shadow DOM创建Web组件”</a>与<a style="color:blue;" href="2013032501.html">“Web组件第二篇-CSS与样式”</a>这两篇文章的基础之上，如果您对Web组件还没有任何基础知识的话，请先阅读这两篇文章。</p>
+ </section>
+<section>
+    <h2><a name="2">使用多个shadow root节点</a></h2>
+    <p>如果你举办一个派对，如果所有人都站立在同一个房间中，这个房间将变得非常拥挤。所以你需要将这些人安排在多个房间中。你也可以对Shadow DOM中的元素做同样的事情，即将所有元素安排在多个shadow root节点中。一个典型示例如下所示：</p>
+    <pre class="code">&lt;div id="example1"&gt;Host node&lt;/div&gt;
+&lt;script&gt;
+var container = document.querySelector('#example1');
+var root1 = container.webkitCreateShadowRoot();
+var root2 = container.webkitCreateShadowRoot();
+root1.innerHTML = '&lt;div&gt;Root 1 FTW&lt;/div&gt;';
+root2.innerHTML = '&lt;div&gt;Root 2 FTW&lt;/div&gt;';
+&lt;/script&gt;</pre>
+    <figure>
+        <img src="../images/stacking.png" style="max-width:50%;"><br>
+        <figcaption>DEVTOOLS(开发者工具）中的元素节点视图</figcaption>
+    </figure>
+    <p>实际运行示例</p>
+    <div id="example1">Host node</div>
+    
+    <p>从运行结果中我们可以看出(在支持Shadow DOM的浏览器中），页面上最后的渲染结果是“Root 2 FTW”，尽管我们已经在Shadow DOM中追加了一颗shadow树。这是因为被渲染在页面上的总是最后一个shadow树中的内容。</p>
+    <p>请注意：被追加到宿主元素中的多个Shadow树总是按照代码中的书写顺序以堆栈的形式存放，位于栈顶的是最后一个被追加的shadow树。</p>
+    <section>
+        <h3><a name="3">Shadow插入点</a></h3>
+        <p>与标准插入点（&lt;content&gt;元素）相同，Shadow插入点(&lt;shadow&gt;元素)也是一个占位符。但是，Shadow插入点不是宿主元素中内容的插入点，而是其他shadow树的宿主元素，即Shadow DOM中的起点。</p>
+        <p>关于同时使用多个&lt;shadow&gt;元素，标准中具有如下描述：如果一个shadow树中存在多个&lt;shadow&gt;插入点，只有第一个&lt;shadow&gt;插入点能被识别，其他的将被忽略。</p>
+        <p>回过头来看我们刚才的示例，添加一个&lt;shadow&gt;插入点可以将第一个shadow树插入到页面中：</p>
+        <pre class="code">&lt;div id="example2"&gt;Host node&lt;/div&gt;
+&lt;script&gt;
+var container = document.querySelector('#example2');
+var root1 = container.webkitCreateShadowRoot();
+var root2 = container.webkitCreateShadowRoot();
+root1.innerHTML = '&lt;div&gt;Root 1 FTW&lt;/div&gt;&lt;content&gt;&lt;/content&gt;';
+root2.innerHTML = '&lt;div&gt;Root 2 FTW&lt;/div&gt;&lt;shadow&gt;&lt;/shadow&gt;';
+&lt;/script&gt;</pre>
+        <figure>
+            <img src="../images/shadow-insertion-point.png" style="max-width:50%;"><br>
+            <figcaption>DEVTOOLS(开发者工具）中的元素节点视图</figcaption>
+        </figure>
+        <p>实际运行示例</p>
+        <div id="example2" style="text-indent:0px;">Host node</div>
+        
+        <p>在这个示例中，有两个有趣的知识点：</p>
+        <ol class="trueul">
+            <li>“Root 2 FTW”文字仍然被渲染在“Root 1 FTW”文字上面。这是因为&lt;shadow&gt;元素被书写在“Root 2 FTW”文字之后。如果你想让“Root 2 FTW”文字被渲染在“Root 1 FTW”文字下面，你需要移动&lt;shadow&gt;元素的书写位置：
+            <pre class="code">root2.innerHTML = '&lt;shadow&gt;&lt;/shadow&gt;&lt;div&gt;Root 2 FTW&lt;/div&gt;';</pre></li>
+            <li>请注意此处我们在root1节点中追加了一个&lt;content&gt;插入点，这使得“Host node”文字被渲染在页面上。</li>
+        </ol>
+        <p>在&lt;shadow&gt;元素中，实质上也是渲染了一颗shadow树,你可以通过该元素的olderShadowRoot属性来获取该shadow树（在shadow树堆栈中，将栈中的两颗树进行比较时，位于下部的shadow树被称为older tree，位于上部的shadow树被称为younger tree)。</p>
+        <pre class="code">root2.querySelector('shadow').olderShadowRoot === root1 //true</pre>
+    </section>
+</section>
+<section>
+    <h2><a name="4">获取一个宿主元素内的shadow root节点</a></h2>
+    <p>如果一个元素是一个Shadow DOM的宿主元素，你可以通过该元素的webkitShadowRoot属性值来获取该元素中的Shadow树堆栈中位于栈顶的Shadow树：</p>
+    <pre class="code">var root = host.webkitCreateShadowRoot();
+console.log(host.webkitShadowRoot === root); // true
+console.log(document.body.webkitShadowRoot); // null</pre>
+    <p>如果你担心你的Web组件内的shadow root节点因为该机制而被破坏（从Shadow DOM外部），你可以将该属性值设置为null:</p>
+    <pre class="code">Object.defineProperty(host, 'webkitShadowRoot', {
+  get: function() { return null; },
+  set: function(value) { }
+});</pre>
+    <p>这使得shadow root节点成为了Web组件内的一种私有节点。</p>
+    <p>最后，一个非常重要的注意点是：Shadow DOM不是一种非常安全的特性，不要指望它做到百分之一百的封闭。</p>
+</section>
+<section>
+    <h2><a name="5">在JavaScript脚本内构建Shadow DOM</a></h2>
+    <p>如果你想在JavaScript脚本内构建Shadow DOM，你可以使用HTMLContentElement元素与HTMLShadowElement元素。</p>
+    <pre class="code">&lt;div id="example3"&gt;
+    &lt;span&gt;Host node&lt;/span&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var container = document.querySelector('#example3');
+var root1 = container.webkitCreateShadowRoot();
+var root2 = container.webkitCreateShadowRoot();
+var div = document.createElement('div');
+div.textContent = 'Root 1 FTW';
+root1.appendChild(div);
+// HTMLContentElement
+var content = document.createElement('content');
+content.select = 'span'; //选取宿主元素内的所有span元素
+root1.appendChild(content);
+
+var div = document.createElement('div');
+div.textContent = 'Root 2 FTW';
+root2.appendChild(div);
+
+// HTMLShadowElement
+var shadow = document.createElement('shadow');
+root2.appendChild(shadow);
+&lt;/script&gt;</pre>
+    <p>实际运行示例</p>
+    <div id="example3" style="text-indent:0px;">
+        <span>Host node</span>
+    </div>
+    
+    <p>这个示例的运行结果与上一个示例的运行结果几乎是完全一致的，唯一区别是我们在宿主元素内添加使用了一个&lt;span&gt;元素。</p>   
+</section>
+<section>
+    <h2><a name="6">获取分布式节点</a></h2>
+    <p>分布式节点是指宿主元素内的一些节点，它不属于Shadow DOM内部，但是可以被“分布”到shadow树中。</p>
+    <p>请注意，分布式节点并不被移动到shadow树中，它仅仅被渲染到shadow树中。</p>
+    <p>你不能将这些节点传入到&lt;content&gt;元素中。</p>
+    <pre class="code">&lt;div&gt;&lt;h4&gt;Host node&lt;/h4&gt;&lt;/div&gt;
+&lt;script&gt;
+var shadowRoot = document.querySelector('div').webkitCreateShadowRoot();
+shadowRoot.innerHTML = '&lt;content select="h4"&gt;&lt;/content&gt;';
+
+var h4 = document.querySelector('h4');
+console.log(shadowRoot.querySelector('content[select="h4"] h4')); // null;
+console.log(shadowRoot.querySelector('content').contains(h4)); // false
+&lt;/script&gt;</pre>
+    <p>实际运行示例</p>
+    <div id="div2"><h4>Host node</h4></div>
+    
+    <p>请注意，在这个示例中，h4元素不是Shadow DOM中的一个子元素，这引出另一个知识点：Shadow插入点的作用是非常强大的。一个宿主元素中可以包含任何元素，但是除非使用Shadow插入点将它们插入到Web组件中，否则这些元素将不属于Web组件中的一部分。</p>
+    <section>
+        <h3><a name="7">&lt;content&gt;元素的getDistributedNodes()方法</a></h3>
+        <p>我们不能将分布式节点传入到&lt;content&gt;元素中,但是我们可以使用&lt;content&gt;元素的getDistributedNodes()方法获取其宿主元素的所有分布式节点。</p>
+        <pre class="code">&lt;div id="example4" style="display:none;"&gt;
+    &lt;h2&gt;h2元素1&lt;/h2&gt;
+    &lt;h2&gt;h2元素2&lt;/h2&gt;
+    &lt;div&gt;div元素&lt;/div&gt;
+    &lt;h4&gt;脚注元素&lt;/h4&gt;
+&lt;/div&gt;
+&lt;template id="sdom"&gt;
+    &lt;header&gt;
+        &lt;content select="h2"&gt;&lt;/content&gt;
+    &lt;/header&gt;
+    &lt;section&gt;
+        &lt;content select="div"&gt;&lt;/content&gt;
+    &lt;/section&gt;
+    &lt;footer&gt;
+        &lt;content select="h4:first-of-type"&gt;&lt;/content&gt;
+    &lt;/footer&gt;
+&lt;/template&gt;
+&lt;script&gt;
+    var container = document.querySelector('#example4');
+    var root = container.webkitCreateShadowRoot();
+    root.appendChild(document.querySelector('#sdom').content.cloneNode(true));
+    var html = [];
+    [].forEach.call(root.querySelectorAll('content'), function(el) {
+        html.push(el.outerHTML + ': ');
+        var nodes = el.getDistributedNodes();
+        [].forEach.call(nodes, function(node) {
+            html.push(node.outerHTML);
+        });
+        html.push('\n');
+    });
+&lt;/script&gt;</pre>
+        <p>输出结果：</p>
+        <textarea id="textarea" readonly="" style="width:100%;border:none;" rows="4"></textarea>
+        <div id="example4" style="display:none;">
+            <h2>h2元素1</h2>
+            <h2>h2元素2</h2>
+            <div>div元素</div>
+            <h4>脚注元素</h4>
+        </div>
+        <template id="sdom">
+            <header>
+                <content select="h2"></content>
+            </header>
+            <section>
+                <content select="div"></content>
+            </section>
+            <footer>
+                <content select="h4:first-of-type"></content>
+            </footer>
+        </template>
+        
+    </section>
+</section>
+</article>

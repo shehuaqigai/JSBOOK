@@ -1,0 +1,34 @@
+<p>
+	Node.prefix
+
+prefix returns the namespace prefix of the specified node, or null if no prefix is specified. This property is read only.
+
+Syntax
+
+string = element.prefix
+Examples
+
+The following alerts "x".
+
+&ltx:div onclick="alert(this.prefix)"/>
+Notes
+
+This will only work when a namespace-aware parser is used, i.e. when a document is served with an XML mime-type. This will not work for HTML documents.
+
+Specification
+
+Node.prefix (introduced in DOM2)
+Browser compatibility
+
+Feature	Chrome	Firefox (Gecko)	Internet Explorer	Opera	Safari
+Basic support	?	
+(Yes)
+
+Prior to Gecko 5.0 (Firefox 5.0 / Thunderbird 5.0 / SeaMonkey 2.2), this property was read-write; the specification says it should be read only, and now it is.
+?	?	?
+Feature	Android	Firefox Mobile (Gecko)	IE Mobile	Opera Mobile	Safari Mobile
+Basic support	?	
+(Yes)
+
+Prior to Gecko 5.0 (Firefox 5.0 / Thunderbird 5.0 / SeaMonkey 2.2), this property was read-write; the specification says it should be read only, and now it is.
+</p>

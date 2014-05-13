@@ -1,0 +1,75 @@
+<div class="_content"><div class="_page _mdn"><h1>Object.hasOwnProperty</h1>  <p>The <code><strong>hasOwnProperty()</strong></code> method returns a boolean indicating whether the object has the specified property.</p> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="syntaxbox"><code><em>obj</em>.hasOwnProperty(<em>prop</em>)</code></pre> <h3 id="Parameters" name="Parameters">Parameters</h3> <dl>
+<dt> <code>prop</code>
+</dt> <dd> The name of the property to test.</dd> </dl><h2 id="Description" name="Description">Description</h2> <p>Every object descended from <code>Object</code> inherits the <code>hasOwnProperty</code> method. This method can be used to determine whether an object has the specified property as a direct property of that object; unlike the <a href="../../operators/in" title="The in operator returns true if the specified property is in the specified object."><code>in</code></a> operator, this method does not check down the object's prototype chain.</p> <h2 id="Examples" name="Examples">Examples</h2> <h3 id="Example:_Using_hasOwnProperty_to_test_for_a_property.27s_existence" name="Example:_Using_hasOwnProperty_to_test_for_a_property.27s_existence">Example: Using <code>hasOwnProperty</code> to test for a property's existence</h3> <p>The following example determines whether the <code>o</code> object contains a property named <code>prop</code>:</p> <pre class=" language-javascript">o <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+o<span class="token punctuation">.</span>prop <span class="token operator">=</span> <span class="token string">'exists'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">function</span> <span class="token function">changeO<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  o<span class="token punctuation">.</span>newprop <span class="token operator">=</span> o<span class="token punctuation">.</span>prop<span class="token punctuation">;</span>
+  delete o<span class="token punctuation">.</span>prop<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+o<span class="token punctuation">.</span><span class="token function">hasOwnProperty<span class="token punctuation">(</span></span><span class="token string">'prop'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // returns true
+</span><span class="token function">changeO<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+o<span class="token punctuation">.</span><span class="token function">hasOwnProperty<span class="token punctuation">(</span></span><span class="token string">'prop'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // returns false</span></pre> <h3 id="Example:_Direct_versus_inherited_properties" name="Example:_Direct_versus_inherited_properties">Example: Direct versus inherited properties</h3> <p>The following example differentiates between direct properties and properties inherited through the prototype chain:</p> <pre class=" language-javascript">o <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+o<span class="token punctuation">.</span>prop <span class="token operator">=</span> <span class="token string">'exists'</span><span class="token punctuation">;</span>
+o<span class="token punctuation">.</span><span class="token function">hasOwnProperty<span class="token punctuation">(</span></span><span class="token string">'prop'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true"> // returns true
+</span>o<span class="token punctuation">.</span><span class="token function">hasOwnProperty<span class="token punctuation">(</span></span><span class="token string">'toString'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true"> // returns false
+</span>o<span class="token punctuation">.</span><span class="token function">hasOwnProperty<span class="token punctuation">(</span></span><span class="token string">'hasOwnProperty'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true"> // returns false</span></pre> <h3 id="Example:_Itarate_over_properties_not_considering_inherited_properties" name="Example:_Itarate_over_properties_not_considering_inherited_properties">Example: Iterating over the properties of an object</h3> <p>The following example shows how to iterate over the properties of an object without executing on inherit properties. Note that the for..in loop is already only iterating enumerable items, so one should not assume based on the lack of non-enumerable properties shown in the loop that hasOwnProperty itself is confined strictly to enumerable items (as with <a href="getownpropertynames" title="The Object.getOwnPropertyNames() method returns an array of all properties (enumerable or not) found directly upon a given object."><code>Object.getOwnPropertyNames()</code></a>).</p> <pre class=" language-javascript"><span class="token keyword">var</span> buz <span class="token operator">=</span> <span class="token punctuation">{</span>
+    fog<span class="token punctuation">:</span> <span class="token string">'stack'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> name <span class="token keyword">in</span> buz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>buz<span class="token punctuation">.</span><span class="token function">hasOwnProperty<span class="token punctuation">(</span></span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"this is fog ("</span> <span class="token operator">+</span> name <span class="token operator">+</span> <span class="token string">") for sure. Value: "</span> <span class="token operator">+</span> buz<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">alert<span class="token punctuation">(</span></span>name<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // toString or something else
+</span>    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></pre> <h3 id="Example.3A_hasOwnProperty_as_a_property">Example: <code>hasOwnProperty</code> as a property</h3> <p>JavaScript does not protect the property name <code>hasOwnProperty</code>; thus, if the possibility exists that an object might have a property with this name, it is necessary to use an <em>external</em> <code>hasOwnProperty</code> to get correct results:</p> <pre class=" language-javascript"><span class="token keyword">var</span> foo <span class="token operator">=</span> <span class="token punctuation">{</span>
+    hasOwnProperty<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    bar<span class="token punctuation">:</span> <span class="token string">'Here be dragons'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+foo<span class="token punctuation">.</span><span class="token function">hasOwnProperty<span class="token punctuation">(</span></span><span class="token string">'bar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // always returns false
+</span><span class="token comment" spellcheck="true">
+// Use another Object's hasOwnProperty and call it with 'this' set to foo
+</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>hasOwnProperty<span class="token punctuation">.</span><span class="token function">call<span class="token punctuation">(</span></span>foo<span class="token punctuation">,</span> <span class="token string">'bar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // true
+</span><span class="token comment" spellcheck="true">
+// It's also possible to use the hasOwnProperty property from the Object property for this purpose
+</span>Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>hasOwnProperty<span class="token punctuation">.</span><span class="token function">call<span class="token punctuation">(</span></span>foo<span class="token punctuation">,</span> <span class="token string">'bar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // true
+</span></pre> <p>Note that in the last case there are no newly created objects.</p> <h2 id="Specifications">Specifications</h2> <table class="standard-table"><tbody>
+<tr>
+<th scope="col">Specification</th> <th scope="col">Status</th> <th scope="col">Comment</th> </tr>
+<tr>
+<td>ECMAScript 3rd Edition. Implemented in JavaScript 1.5</td> <td>Standard</td> <td>Initial definition.</td> </tr>
+<tr>
+<td><a class="external" href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.4.5" lang="en" title="The definition of 'Object.prototype.hasOwnProperty' in that specification.">ECMAScript Language Specification 5.1th Edition (ECMA-262)</a></td> <td><span class="spec-Standard">Standard</span></td> <td> </td> </tr>
+<tr>
+<td><a class="external" href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.hasownproperty" lang="en" title="The definition of 'Object.prototype.hasOwnProperty' in that specification.">ECMAScript Language Specification 6th Edition (ECMA-262)</a></td> <td><span class="spec-Draft">Draft</span></td> <td> </td> </tr>
+</tbody></table><h2 id="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Chrome for Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td> </tr>
+</tbody></table>
+</div> <h2 id="See_Also" name="See_Also">See also</h2> <ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Enumerability_and_ownership_of_properties" title="/en-US/docs/Enumerability_and_ownership_of_properties">Enumerability and ownership of properties</a></li> <li><a href="getownpropertynames" title="The Object.getOwnPropertyNames() method returns an array of all properties (enumerable or not) found directly upon a given object."><code>Object.getOwnPropertyNames()</code></a></li> <li><a href="../../statements/for...in">for...in</a></li> <li><a href="../../operators/in" title="The in operator returns true if the specified property is in the specified object."><code>in</code></a></li> <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_Revisited">JavaScript Guide: Inheritance revisted</a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty</a>
+  </p>
+</div>
+</div></div>

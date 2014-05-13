@@ -1,0 +1,11 @@
+定义：locationbar属性允许你引用的地址栏（或地址栏）中的浏览器，以测试它是否是可见或不可见。 与大多数浏览器，这是一个只读字段。 这不是一个保留字，因此您可以声明自己的变量或函数调用locationbar但如果这样做，那么你将不能够访问浏览器的一部分。
+
+<div id="page_data" len="1209"><p len="164" lang="zh-CHS" style="">窗口对象的<strong len="11">locationbar</strong>、<strong len="7">菜单栏</strong>和<strong len="10">滚动条</strong>属性返回"BarInfo"对象的引用。</p>
+<fieldset class="syntaxExampleBox" len="86">
+<legend len="6" lang="zh-CHS">语法</legend><font lang="zh-CHS">window.locationbar</font><br len="0"><font lang="zh-CHS">window.menubar</font><br len="0"><font lang="zh-CHS">window.scrollbars</font></fieldset>
+<p len="87" lang="zh-CHS">此代码示例显示如何评价栏在浏览器窗口中的存在。</p>
+<div class="codeDivTop" len="23" lang="zh-CHS" style="">Javascript 的代码示例</div><div contenteditable="true" onclick="document.execCommand('selectAll',false,null)" class="codeDiv" len="523"><font lang="zh-CHS">&lt; 脚本类型 ="文本/javascript"&gt;</font><br len="0"><font lang="zh-CHS">if(window.locationbar) {</font><br len="0"><font lang="zh-CHS">if(window.locationbar.visible) {</font><br len="0"><font lang="zh-CHS">alert ("此窗口中有一个地址栏")。</font><br len="0"><font lang="zh-CHS">} 其他 {</font><br len="0"><font lang="zh-CHS">alert ("此窗口没有地址栏.")。</font><br len="0">
+&nbsp;&nbsp;&nbsp;&nbsp;}<br len="0"><font lang="zh-CHS">} 其他 {</font><br len="0"><font lang="zh-CHS">alert ("此浏览器不支持的 locationbar 属性.")。</font><br len="0">
+}<br len="0"><font lang="zh-CHS">&lt;/脚本 &gt;</font></div>
+<p len="119"><font lang="zh-CHS"><strong len="4">提示:</strong></font><font lang="zh-CHS" style="">通过上面插入"菜单栏"或"滚动条"代替"locationbar"，可以使用相同的代码。</font></p>
+</div>

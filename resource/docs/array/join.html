@@ -1,0 +1,40 @@
+<p>
+	定义和用法
+join() 方法用于把数组中的所有元素放入一个字符串。
+元素是通过指定的分隔符进行分隔的。
+语法
+arrayObject.join(separator)
+参数	描述
+separator	可选。指定要使用的分隔符。如果省略该参数，则使用逗号作为分隔符。
+返回值
+返回一个字符串。该字符串是通过把 arrayObject 的每个元素转换为字符串，然后把这些字符串连接起来，在两个元素之间插入 separator 字符串而生成的。
+实例
+例子 1
+在本例中，我们将创建一个数组，然后把它的所有元素放入一个字符串：
+<pre>
+&ltscript type="text/javascript">
+
+var arr = new Array(3)
+arr[0] = "George"
+arr[1] = "John"
+arr[2] = "Thomas"
+
+document.write(arr.join())
+
+&lt/script>
+输出：
+George,John,Thomas
+例子 2
+在本例中，我们将使用分隔符来分隔数组中的元素：
+&ltscript type="text/javascript">
+
+var arr = new Array(3)
+arr[0] = "George"
+arr[1] = "John"
+arr[2] = "Thomas"
+document.write(arr.join("."))
+&lt/script>
+输出：
+George.John.Thomas
+</pre>
+</p>

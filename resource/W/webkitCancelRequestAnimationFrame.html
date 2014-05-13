@@ -1,0 +1,227 @@
+<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="http://www.2cto.com">首页</a><span> &gt; </span><a href="http://www.2cto.com/kf/">程序开发</a> &gt; <a href="http://www.2cto.com/kf/qianduan/">web前端</a> &gt; <a href="http://www.2cto.com/kf/qianduan/JS/">JavaScript</a> &gt;  正文</dd>
+			<div id="BAIDU_DUP_wrapper_703722_0"></div>
+
+
+			<form action="http://so.2cto.com/cse/search" target="_blank">
+<dd class="pRSearch">
+<input name="s" type="hidden" value="11831876334997631217">
+<input type="submit" value=" "></dd>
+<dd class="pRKeyWork"><input id="Keyword" name="q" type="text"></dd>
+</form>
+			</dl>
+		<dl class="box_t"><dd>JavaScript动画漫谈</dd></dl>
+																										<dl class="box_INFO">
+			<dd class="frinfo line_blue">2012-11-30 10:01:27  &nbsp;&nbsp;&nbsp;&nbsp;<a style="font-weight:bold;padding:5px 0px 5px 20px;background:url('http://www.2cto.com/statics/images/icon/user_comment.png') left center no-repeat" href="#comment_iframe">我来说两句&nbsp;</a>&nbsp;&nbsp;  &nbsp;&nbsp;  </dd>
+			<dd class="frsize line_blue">
+			<span id="favorite">
+				<a href="javascript:;" onclick="add_favorite('JavaScript动画漫谈');" class="t6">收藏</a>
+			</span>&nbsp;&nbsp;
+				<a target="_blank" href="http://www.2cto.com/index.php?m=member&amp;c=content&amp;a=publish&amp;modid=1&amp;siteid=1"><img border="0" src="http://www.2cto.com/statics/images/dl.jpg">我要投稿</a>
+			</dd>
+			
+		</dl>
+		<dl class="box_body" id="fontzoom"><dd id="Article">
+		<p>动画现在基本是web站点必备项，各大JS框架都封装了相应的代码。QWrap也内置了一个实现，支持常见的动画效果和算子及队列播放，这里有示例。JS动画的实现有多种方式，各自有哪些区别，QWrap使用的哪一种？本文闲聊这个话题。</p>
+<p>一、使用<a href="http://www.2cto.com/os/liulanqi/" target="_blank" class="keylink">浏览器</a>的定时器（setInterval/setTimeout）。这种动画实现方式很早就被大家广泛使用，原理简单，兼容性好。最核心的原理就是利用定时器，在一定时间内（duration），以一定的间隔（frameTime）执行动画函数（callback）。在动画函数里可以改变元素大小、位置（css属性值）；可以改变元素滚动条位置（scrollTop/scrollLeft）；甚至用来改变文本内容（倒计时）。</p>
+<p>动画间隔决定了动画的每秒帧数（FPS），一般的，FPS越高，动画就表现得越流畅，FPS偏低，动画就会不流畅、卡顿。JQuery中，动画间隔默认为13ms，也就是说理想状态下，动画的每秒帧数是70多。实际上，由于JS定时器精度问题，间隔不可能太小；在计算机资源占用比较大时，这个间隔也没办法得到保证；更为严重的是，新一点的浏览器在页面不可见时（例如切换到其他tab，浏览器被最小化），会自动提高定时器执行间隔，firefox5开始，setInterval的间隔在浏览器最小化之后至少被提高到1000ms。</p>
+<p>动画时长 = 播放总帧数 * 帧间隔平均值。由于帧间隔不可控，可能被提高到1000ms甚至更高，那么实现动画时面临两个选择：要保证播放总帧数，动画时长就会增加；要保证动画时长，就必须牺牲掉总帧数。实际上我们一般采用第二种方式，也就是丢帧保时的策略来实现动画，来看一个简单的例子：</p>
+<p>&lt;script&gt;<br>
+var timerId, startTime, frameTime = 13, dur = 3 * 1000;</p>
+<p>function animFun(time) {<br>
+&nbsp;&nbsp;&nbsp; var per = Math.min(1.0, (new Date - startTime) / dur);<br>
+&nbsp;&nbsp;&nbsp; if(per &gt;= 1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clearTimeout(timerId);<br>
+&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; document.getElementById("animated").style.left = Math.round(500 * per) + "px";<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</p>
+<p>function start() {<br>
+&nbsp;&nbsp;&nbsp; startTime = new Date;<br>
+&nbsp;&nbsp;&nbsp; timerId = setInterval(animFun, frameTime);<br>
+}<br>
+&lt;/script&gt;<br>
+&lt;div id="animated" onclick="start()" style="position: absolute; left: 0px; padding: 50px;background: crimson; color: white"&gt;Click Me&lt;/div&gt;<br>
+在动画开始时记录一个初始时间，动画函数里用当前时间减去初始时间，得到的时间差除以总时长，可以得到动画执行进度（per）。再根据per去改变元素的css属性值，就实现了一个最简单的动画。</p>
+<p>上面例子中，方块运动是匀速的，平淡无奇。想要运动轨迹更有趣，就需要引入动画算子。动画算子是一个函数，把动画进度per转换为另外一个值，在上面例子基础上改进下：</p>
+<p>&lt;script&gt;<br>
+var timerId, startTime, frameTime = 13, dur = 3 * 1000;</p>
+<p>function bounceOut(p) {<br>
+&nbsp;&nbsp;&nbsp; if (p &lt; (1 / 2.75)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (7.5625 * p * p);<br>
+&nbsp;&nbsp;&nbsp; } else if (p &lt; (2 / 2.75)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (7.5625 * (p -= (1.5 / 2.75)) * p + 0.75);<br>
+&nbsp;&nbsp;&nbsp; } else if (p &lt; (2.5 / 2.75)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (7.5625 * (p -= (2.25 / 2.75)) * p + 0.9375);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; return (7.5625 * (p -= (2.625 / 2.75)) * p + 0.984375);<br>
+}</p>
+<p>function animFun(time) {<br>
+&nbsp;&nbsp;&nbsp; var per = Math.min(1.0, (new Date - startTime) / dur);<br>
+&nbsp;&nbsp;&nbsp; if(per &gt;= 1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clearTimeout(timerId);<br>
+&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; document.getElementById("animated").style.left = Math.round(500 * bounceOut(per)) + "px";<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</p>
+<p>function start() {<br>
+&nbsp;&nbsp;&nbsp; startTime = new Date;<br>
+&nbsp;&nbsp;&nbsp; timerId = setInterval(animFun, frameTime);<br>
+}<br>
+&lt;/script&gt;<br>
+&lt;div id="animated" onclick="start()" style="position: absolute; left: 0px; padding: 50px;background: crimson; color: white"&gt;Click Me&lt;/div&gt;<br>
+这下方块运动就有趣多了，上面例子中的bounceOut就是一个算子。有些动画组件算子可能会接受更多参数（运动距离、时间等），但是QWrap中，算子都只需要传per。这里有QWrap内置算子的演示。</p>
+<p>二、W3C有一份WindowAnimationTiming interface规范，也可以用来实现动画。它的核心方法是requestAnimactionFrame和cancelRequestAnimationFrame。各大浏览器新版都有实现，这部分内容我之前介绍过，不了解的同学可以点过去看，看完记得再回来。</p>
+<p>可以看到，W3C这份规范提供的动画没有帧间隔时间这个概念，也就是何时触发下一帧完全由浏览器控制。其它方面跟setInterval动画几乎一样，上面的算子也可以直接拿来用。下面说下我遇到的几个坑：</p>
+<p>首先是firefox：在11之前的某个版本开始，firefox实现了mozRequestAnimationFrame，却没有提供对应的mozCancelRequestAnimationFrame，那时网上有文章会提到通过“注册、移除moz私有的beforepaint事件”来模拟这个事件。坑爹的是，firefox11开始有了mozCancelRequestAnimationFrame，但老方案直接抛异常。</p>
+<p>webkit下也有坑：某个诡异的webKit版本下，webkitRequestAnimationFrame没有给回调函数传time参数，更神奇的是一些webkit居然传递错误格式的time。为此，在webkit下我们通常不用参数里的time，改为自己new Date。</p>
+<p>综上，由于各浏览器对标准实现的不一致和bug，最终我们在QWrap中并没有使用基于原生动画函数的版本。不过也可以像下面这样变通使用，来绕过那些坑：</p>
+<p>&lt;script&gt;<br>
+var timerId, startTime, dur = 3 * 1000,<br>
+&nbsp;&nbsp;&nbsp; requestAnimationFrame = window.webkitRequestAnimationFrame ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; window.mozRequestAnimationFrame ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; window.msRequestAnimationFrame ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; window.oRequestAnimationFrame;</p>
+<p>if(!requestAnimationFrame) { alert('你的浏览器不支持requestAnimationFrame！'); }</p>
+<p>function animFun(time) {<br>
+&nbsp;&nbsp;&nbsp; if(!timerId) return false;<br>
+&nbsp;&nbsp;&nbsp; var per = Math.min(1.0, (new Date - startTime) / dur);<br>
+&nbsp;&nbsp;&nbsp; if(per &gt;= 1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; timerId = null;<br>
+&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; document.getElementById("animated").style.left = Math.round(500 * per) + "px";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; requestAnimationFrame(animFun);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}</p>
+<p>function start() {<br>
+&nbsp;&nbsp;&nbsp; startTime = new Date;<br>
+&nbsp;&nbsp;&nbsp; timerId = 1;<br>
+&nbsp;&nbsp;&nbsp; requestAnimationFrame(animFun);<br>
+}<br>
+&lt;/script&gt;<br>
+&lt;div id="animated" onclick="start()" style="position: absolute; left: 0px; padding: 50px;background: crimson; color: white"&gt;Click Me&lt;/div&gt;<br>
+三、<a href="http://www.2cto.com/kf/qianduan/css/" target="_blank" class="keylink">CSS</a>3动画。css3中的Transition可以用来平滑改变css属性值。简而言之，给元素设置下面这样的css样式后，再改变transition-property指定属性的值，浏览器会自动处理剩下的事情：</p>
+<p>transition-property :* //需要动画的css属性，如height，all表示全部属性<br>
+transition-duration:*//持续时间，duration，单位s<br>
+transition-delay:* //延迟时间，单位s<br>
+transition-timing-function:*//动画算子，有ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier<br>
+通常，我们在css里写好transition规则，再改变元素class就可以拥有css3动画了。但是为了使用更方便，我们也可以把这个过程封装成为js<a href="http://www.2cto.com/kf/all/zujian/" target="_blank" class="keylink">组件</a>。监听动画执行结束，也需要依赖js。</p>
+<p>具体的代码就不贴了，后面例子里都有，这里说一些需要关注的地方。本来，检测浏览器是否支持css3动画可以通过创建临时元素，判断'transitionProperty' in el.style是否为true就可以了；但是，万恶的浏览器厂商前缀（就是那些-webkit-、 -moz-、-o-、-ms-），使这个过程变得复杂多了。最坑爹的是IE，css里可以用“-ms-transition-property”，js中对应的style，却是“el.style.msTransitionProperty”。QWrap在设置css的函数中，会先调用StringH.camelize函数处理属性名，会把“-ms-xxx-ooo”变成“MsXxxOoo”，IE不认！其他浏览器则无论首字母是否大小都支持。</p>
+<p>要监听动画结束，webkit需要给动画元素绑定webkitTransitionEnd事件，firefox是transitionend，opera是oTransitionEnd，IE是MSTransitionEnd。firefox支持标准事件名，其他浏览器都是“小写前缀+TransitionEnd”，唯独IE的ms全都要大写！</p>
+<p>好在，随着浏览器的发展，大家逐渐开始支持标准写法，慢慢不再需要写前缀了。我这边测试，最新的IE10 for Win7 Pre Release版也支持了标准写法，所以js需要优先尝试无前缀的用法。详细的情况可以去CanIUse看。</p>
+<p>--- 分割线 ---</p>
+<p>几种动画实现都大概介绍了下，都可以封装成JS组件，有一致的接口方便调用。那么实际项目中该如何选择呢？</p>
+<p>从浏览器支持度来看，除了第一种方案，其余方案都是没办法在低版本IE使用的。如果需要支持更多浏览器，可以采用方案一（QWrap）；或者优先使用方案二，方案一作为降级（JQuery）。如果是面向移动平台，可以使用方案三（Zepto）。</p>
+<p>移动平台上能用css3动画就不要用requestAnimationFrame，因为iOS6才开始支持它。使用css3的transition+transform，渲染效率比动画callback里改变css属性值高很多。另外，iOS上移动或缩放页面时，操作的是touch开始时的截屏，页面是静止不动的。那么松开手指，只有css3动画能连续播放，其他两种方案因为都是根据时间差计算进度，会明显的跳跃到某帧。</p>
+<p>css3动画有一些功能上的缺失，它不支持在播放每一帧时触发callback，也就是没办法监控播放进度，也没办法暂停和恢复动画。但是css3动画组件可以把Transform封装进去，提供一些很赞的新功能：DEMO。更复杂的动画，或者有暂停播放的需求，通过CSS3 Animation可以实现，不过我们暂时很少用到，所以没做封装。</p>
+<p>而setInterval和requestAnimationFrame实现的动画，在改变css属性时需要额外做更多事情，例如backgroundColor需要转化为R、G、B三个数值来分别变换；其它有单位的属性值，如height:100px，也需要转化为{value:100, unit:'px'}这样的形式，再对value进行变换。但是，由于每个属性都可以应用不同的算子，可以组合出独特的运动轨迹，DEMO。</p>
+<p>前面说到在页面不可见时，浏览器会自动提高setInterval的间隔。那对于requestAnimationFrame和css3动画，浏览器会怎么处理呢？</p>
+<p>&nbsp;<img src="http://up.2cto.com/2012/1130/20121130102503306.png" style="width: 500px; height: 179px;"><br>
+（chrome23）</p>
+<p>&nbsp;<img src="http://up.2cto.com/2012/1130/20121130102505855.png" style="width: 500px; height: 183px;"><br>
+（firefox16）</p>
+<p>这个测试页面引入了三个iframe，对应本文三种动画实现，duration都是2s。16s的时间内，动画应该执行8个周期。页面处于不可见时：chrome下，用requestAnimationFrame实现的动画完全被停止播放；其他动画执行周期都有一定程度下降。测试地址在这里，大家可以自己试试~</p>
+						</dd></dl>
+		
+	<div id="pages" class="box_body">	</div>
+	<dl style="width:650px;height:100px;padding-top:10px;float:left;padding-left:10px">
+		<dd>
+
+		<div id="BAIDU_DUP_wrapper_771048_0"><div style="display:none">-</div><iframe id="cproIframe1" src="http://cpro.baidu.com/cpro/ui/uijs.php?rs=401&amp;tu=771048&amp;tn=baiduCustSTagLinkUnit&amp;n=cnrhucpr&amp;adn=1&amp;rsi1=90&amp;rsi0=640&amp;rad=&amp;rss0=&amp;rss1=&amp;conOP=0&amp;rss2=&amp;rss3=&amp;rss4=&amp;rss5=&amp;rss6=&amp;rsi5=4&amp;ts=1&amp;at=103&amp;ch=0&amp;cad=1&amp;aurl=&amp;rss7=&amp;cpa=1&amp;fv=11&amp;cn=1&amp;if=16&amp;word=http%3A%2F%2Fwww.2cto.com%2Fkf%2F201211%2F172351.html&amp;refer=http%3A%2F%2Fwww.baidu.com%2Fs%3Fie%3Dutf-8%26bs%3DConvertPointFromNodeToPage%26f%3D8%26rsv_bp%3D1%26wd%3DCancelRequestAnimationFrame%26rsv_sug3%3D1%26rsv_sug4%3D235%26rsv_sug2%3D0%26inputT%3D2&amp;ready=1&amp;jk=c718395ff1817612&amp;jn=3&amp;lmt=1384023020&amp;csp=1280,800&amp;csn=1280,689&amp;ccd=24&amp;chi=1&amp;cja=true&amp;cpl=18&amp;cmi=76&amp;cce=true&amp;csl=en-US&amp;did=1&amp;rt=15&amp;dt=1391427734&amp;ev=16777216&amp;c01=0&amp;prt=1391427734328&amp;i3=f&amp;anatp=0&amp;stid=5&amp;distp=1001&amp;lunum=6&amp;scale=&amp;skin=tabcloud_skin_1" width="640" height="90" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
+
+
+
+	</dl>
+	<dl class="box_Nsc">
+		<dd class="lcopy"><a class="ckcopy" onclick="copyToClipBoard()">点击复制链接 与好友分享!</a><a class="ckhome" href="http://www.2cto.com/">回本站首页</a></dd>
+		
+		<div class="Article-Tool">
+                               	  <!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <span style="float:left">分享到：</span>
+
+<a class="bds_qzone" title="分享到QQ空间" href="#"></a>
+<a class="bds_tsina" title="分享到新浪微博" href="#"></a>
+<a class="bds_tqq" title="分享到腾讯微博" href="#"></a>
+<a class="bds_baidu" title="分享到百度搜藏" href="#"></a>
+<a class="bds_renren" title="分享到人人网" href="#"></a>
+<a class="bds_kaixin001" title="分享到开心网" href="#"></a>
+<a class="bds_tieba" title="分享到百度贴吧" href="#"></a>
+<span class="bds_more">更多</span>
+</div>
+
+
+<!-- Baidu Button END -->
+                                
+	  </div>
+
+		
+		
+		<dd class="bbstt">您对本文章有什么意见或着疑问吗？请到<a href="http://bbs.2cto.com/">论坛讨论</a>您的关注和建议是我们前行的参考和动力&nbsp;&nbsp; </dd>
+	</dl>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="http://www.2cto.com/kf/201211/172344.html">jQuery学习 之 控制列表宽度</a></dd>
+		<dd><strong>下一篇：</strong><a href="http://www.2cto.com/kf/201211/172375.html">JsonCpp使用优化</a></dd>
+	</dl>
+	<dl class="linetb"></dl>
+	<dl class="about"><dd>相关文章</dd></dl>
+				<div class="alistline"><a href="http://www.2cto.com/kf/200410/134.html" target="blank">用JavaScript实现网页上的浮动广告</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200410/1602.html" target="blank">javascript事件列表解说</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200412/3028.html" target="blank">值得收藏的一些HTML,JavaScript,ASP代</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200501/3576.html" target="blank">JAVASCRIPT表但间参数传递</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200501/3764.html" target="blank">如何在ASP.NET中使用JavaScript脚本</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200505/5111.html" target="blank">Javascript(IE快捷键操作)ASP技巧</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200605/8493.html" target="blank">几个有用的javascript验证脚本</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200606/10326.html" target="blank">jsp+javascript打造级连菜单</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200611/15445.html" target="blank">XSS攻击Cookie欺骗中隐藏JavaScript执</a></div>
+			<div class="alistline"><a href="http://www.2cto.com/kf/200706/17788.html" target="blank">利用Javascript进行注入</a></div>
+			<dl class="linetb"></dl>
+	<dl style="width:650px;height:70px;padding-top:10px;float:left;padding-left:10px">
+		<dd>
+
+		<div id="BAIDU_DUP_wrapper_182716_0"><div style="display:none">-</div><iframe id="cproIframe2" src="http://cpro.baidu.com/cpro/ui/uijs.php?rs=400&amp;tu=182716&amp;tn=text_default_640_60&amp;n=cnrhucpr&amp;adn=3&amp;rsi1=60&amp;rsi0=640&amp;rad=&amp;rss0=%23FFFFFF&amp;rss1=%23FFFFFF&amp;conOP=0&amp;rss2=%230000FF&amp;rss3=%23444444&amp;rss4=%23008000&amp;rss5=&amp;rss6=%23e10900&amp;rsi5=4&amp;ts=1&amp;at=6&amp;ch=0&amp;cad=1&amp;aurl=&amp;rss7=&amp;cpa=1&amp;fv=11&amp;cn=0&amp;if=16&amp;word=http%3A%2F%2Fwww.2cto.com%2Fkf%2F201211%2F172351.html&amp;refer=http%3A%2F%2Fwww.baidu.com%2Fs%3Fie%3Dutf-8%26bs%3DConvertPointFromNodeToPage%26f%3D8%26rsv_bp%3D1%26wd%3DCancelRequestAnimationFrame%26rsv_sug3%3D1%26rsv_sug4%3D235%26rsv_sug2%3D0%26inputT%3D2&amp;ready=1&amp;jk=b1f7e649bf5e6859&amp;jn=3&amp;lmt=1384023020&amp;csp=1280,800&amp;csn=1280,689&amp;ccd=24&amp;chi=1&amp;cja=true&amp;cpl=18&amp;cmi=76&amp;cce=true&amp;csl=en-US&amp;did=2&amp;rt=6&amp;dt=1391427734&amp;pn=1|baiduCustSTagLinkUnit|103&amp;ev=50331648&amp;c01=0&amp;prt=1391427734328&amp;i3=f&amp;anatp=0&amp;stid=0&amp;distp=1001&amp;lunum=6&amp;scale=&amp;skin=" width="640" height="60" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
+		</dd>
+	</dl>
+
+	<dl style="width:650px;float:left;padding-left:10px">
+		<dd>
+		<div id="BAIDU_DUP_wrapper_517916_0"></div>
+
+
+
+<ins style="display:inline-block;padding:0;margin:0;width:640px;height:90px;*zoom:1;*display:inline" id="tanxssp-outer-conmm_36626130_4378362_14630880"><div id="tanxssp_con_mm_36626130_4378362_14630880" style="display:inline-block;position:relative;width:640px;height:90px;*display:inline;*zoom:1"><iframe id="tanxssp-outer-iframemm_36626130_4378362_14630880" width="640" height="90" style="" border="0" frameborder="0" scrolling="no" marginwidth="0" allowtransparency="true" marginheight="0"></iframe><a style="display:none !important;" id="tanx_frameanchor_mm_36626130_4378362_14630880"></a><a id="iconmm_36626130_4378362_14630880" title="我也要申请橱窗推广" target="_blank" href="http://c.alimama.com" style="width:26px;height:17px;right:0px;bottom:0px;display:block;position:absolute;cursor:pointer;z-index:250;">   <span id="icon_smallmm_36626130_4378362_14630880" style="float:none;width:26px;display:block;height:17px;background-repeat:no-repeat;background-image: url('http://gtms02.alicdn.com/tps/i2/T1xfOxFnVfXXaAQWDc-26-17.png');*background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img02.taobaocdn.com/tps/i2/T1oY3VXmNbXXXb8qDc-26-18.png');"></span>   <span id="icon_bigmm_36626130_4378362_14630880" style="float:none;width:110px;height:17px;display: none;background-repeat:no-repeat;background-image: url('http://img03.taobaocdn.com/tps/i3/T1dt7VXiRaXXbd25o5-110-18.png');*background-image:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://img03.taobaocdn.com/tps/i3/T1dt7VXiRaXXbd25o5-110-18.png');"></span></a></div></ins><a style="display:none!important" id="tanx-a-mm_36626130_4378362_14630880"></a></dd>
+	</dl>
+	<dl class="linetb"></dl>
+	<dl class="about"><dd>图文推荐</dd></dl>
+	<div class="picbox">
+						<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/kf/201311/256186.html"><img src="http://www.2cto.com/uploadfile/2013/1108/thumb_126_90_20131108010718361.jpg" width="126" height="90" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201311/256186.html">jquery图片切换插件制</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/kf/201311/256155.html"><img src="http://www.2cto.com/uploadfile/2013/1108/thumb_126_90_20131108095431957.jpg" width="126" height="90" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201311/256155.html">jetty总体设计框架图</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/kf/201311/255281.html"><img src="http://www.2cto.com/uploadfile/2013/1105/thumb_126_90_20131105101856635.jpg" width="126" height="90" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201311/255281.html">在一定区域内向上滚动</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/kf/201311/255132.html"><img src="http://www.2cto.com/uploadfile/2013/1104/thumb_126_90_20131104045250425.jpg" width="126" height="90" border="0"></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/kf/201311/255132.html">div模拟选择框</a></dd>
+		</dl>
+					</div>
+		<dl class="linetb"></dl>
+		<div id="pl" style="float:left;width:650px;padding:10px 10px 0px 10px;overflow:hidden;background-color:white">
+		<iframe src="http://www.2cto.com/uapi.php?tid=172351&amp;catid=79&amp;title=SmF2YVNjcmlwdLavu63C/sy4&amp;forward=http://www.2cto.com/kf/201211/172351.html" width="100%" height="309" id="comment_iframe" name="comment_iframe" frameborder="0" scrolling="no"></iframe>
+	</div>
+			<dl style="width:650px;float:left;padding-left:10px">
+		<dd>
+
+
+		<div id="BAIDU_DUP_wrapper_771057_0"></div>
+
+		<div style="display:none">-</div><iframe id="cproIframe3" src="http://cpro.baidu.com/cpro/ui/uijs.php?rs=401&amp;tu=771057&amp;tn=baiduCustSTagLinkUnit&amp;n=cnrhucpr&amp;adn=1&amp;rsi1=60&amp;rsi0=640&amp;rad=&amp;rss0=&amp;rss1=&amp;conOP=0&amp;rss2=&amp;rss3=&amp;rss4=&amp;rss5=&amp;rss6=&amp;rsi5=4&amp;ts=1&amp;at=103&amp;ch=0&amp;cad=1&amp;aurl=&amp;rss7=&amp;cpa=1&amp;fv=11&amp;cn=0&amp;if=16&amp;word=http%3A%2F%2Fwww.2cto.com%2Fkf%2F201211%2F172351.html&amp;refer=http%3A%2F%2Fwww.baidu.com%2Fs%3Fie%3Dutf-8%26bs%3DConvertPointFromNodeToPage%26f%3D8%26rsv_bp%3D1%26wd%3DCancelRequestAnimationFrame%26rsv_sug3%3D1%26rsv_sug4%3D235%26rsv_sug2%3D0%26inputT%3D2&amp;ready=1&amp;jk=9acde07155495d2c&amp;jn=3&amp;lmt=1384023020&amp;csp=1280,800&amp;csn=1280,689&amp;ccd=24&amp;chi=1&amp;cja=true&amp;cpl=18&amp;cmi=76&amp;cce=true&amp;csl=en-US&amp;did=3&amp;rt=5&amp;dt=1391427734&amp;pn=1:3|baiduCustSTagLinkUnit:text_default_640_60|103:6&amp;ev=16777216&amp;c01=0&amp;prt=1391427734328&amp;i3=f&amp;anatp=0&amp;stid=5&amp;distp=1001&amp;lunum=6&amp;scale=&amp;skin=tabcloud_skin_1" width="640" height="60" align="center,center" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" allowtransparency="true"></iframe></dd>
+	</dl>
+	</div>

@@ -1,0 +1,17 @@
+<p>
+	一.
+ document.all是页面内所有元素的一个集合。例如：      
+ document.all(0)表示页面内第一个元素
+二.
+document.all可以判断浏览器是否是IE  
+  if(document.all){  
+    alert("is   IE!");  
+  }
+三.
+也可以通过给某个元素设置id属性（id=aaaa）,然后用document.all.aaaa调用该元素
+</p>
+<p>
+	三方浏览器只支持W3C的DOM，如果你的网站用户使用其他的浏览器，那么你最好避免使用IE的私有属性。而且IE6也开始支持W3C　DOM。 
+
+　　毕竟大多数人还不了解标准，在使用标准前，你还可以在你的网页中用document.all[]访问文档对象前面写到WEB标准，今天继续WEB标准下可以通过getElementById(), getElementsByName(), and getElementsByTagName()访问DOCUMENT中的任一个标签： 
+</p>

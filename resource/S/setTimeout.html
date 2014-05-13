@@ -1,0 +1,75 @@
+<div id="maincontent">
+
+<h1>HTML DOM setTimeout() 方法</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>setTimeout() 方法用于在指定的毫秒数后调用函数或计算表达式。</p>
+
+<h3>语法</h3>
+<pre>setTimeout(code,millisec)</pre>
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>code</td>
+    <td>必需。要调用的函数后要执行的 JavaScript 代码串。</td>
+  </tr>
+  <tr>
+    <td>millisec</td>
+    <td>必需。在执行代码前需等待的毫秒数。</td>
+  </tr>
+</tbody></table>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="tip"><span>提示：</span>setTimeout() 只执行 code 一次。如果要多次调用，请使用 setInterval() 或者让 code 自身再次调用 setTimeout()。</p>
+</div>
+
+<div>
+<h2>实例</h2>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function timedMsg()
+{
+var t=setTimeout("alert('5 seconds!')",5000)
+}
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;form&gt;
+&lt;input type="button" value="Display timed alertbox!"
+onClick="timedMsg()"&gt;
+&lt;/form&gt;
+&lt;p&gt;Click on the button above. An alert box will be
+displayed after 5 seconds.&lt;/p&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_timing1">简单的计时</a></dt>
+<dt><a href="/tiy/t.asp?f=hdom_timing2">另一个简单的计时</a></dt>
+<dt><a href="/tiy/t.asp?f=hdom_timing_infinite">无穷循环中的计时</a></dt>
+<dt><a href="/tiy/t.asp?f=hdom_timing_stop">无穷循环中的计时 - 带有一个停止按钮</a></dt>
+<dt><a href="/tiy/t.asp?f=hdom_timing_clock">一个时钟</a></dt>
+</dl>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+</div>

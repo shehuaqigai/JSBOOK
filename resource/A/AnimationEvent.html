@@ -1,0 +1,24 @@
+<p>
+	这是一个实验性的技术 
+因为这种技术的规格还没有稳定下来，检查兼容性表的正确前缀在各种浏览器中使用。 另外请注意，实验技术的语法和行为有可能在浏览器的规格改变未来的版本中改变。
+总结
+该AnimationEvent接口代表提供相关信息的事件动画 。
+
+属性
+还继承其父性能Event 。
+
+AnimationEvent.animationName 只读
+是DOMString包含的价值animation-name与转型相关的CSS属性。
+AnimationEvent.elapsedTime 只读
+是一个float奉献时间动画已经运行量，以秒为单位，当该事件解雇，但不包括动画暂停任何时候。 对于一个"animationstart"事件， elapsedTime是0.0 ，除非有一个负值animation-delay ，在这种情况下，事件将被烧成elapsedTime含有(-1 * 延迟 ) 。
+AnimationEvent.pseudoElement 只读
+是DOMString ，从'::'包含名称伪元素的动画运行。 ：如果动画无法在伪元素，但该元素上，一个空字符串运行'' .
+构造函数
+AnimationEvent()
+创建一个AnimationEvent事件与给定的参数。
+方法
+还继承其父方法Event 。
+
+AnimationEvent.initAnimationEvent()  
+初始化AnimationEvent使用过时的创建Document.createEvent("AnimationEvent")的方法。
+</p>

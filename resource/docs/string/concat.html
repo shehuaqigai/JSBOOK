@@ -1,0 +1,26 @@
+<pre>
+	定义和用法
+concat() 方法用于连接两个或多个字符串。
+语法
+stringObject.concat(stringX,stringX,...,stringX)
+参数	描述
+stringX	必需。将被连接为一个字符串的一个或多个字符串对象。
+concat() 方法将把它的所有参数转换成字符串，
+然后按顺序连接到字符串 stringObject 的尾部，
+并返回连接后的字符串。
+请注意，stringObject 本身并没有被更改。
+stringObject.concat() 与 Array.concat() 很相似。
+提示和注释
+提示：请注意，使用 " + " 运算符来进行字符串的连接运算通常会更简便一些。
+实例
+在本例中，我们将创建两个字符串，然后使用 concat() 把它们显示为一个字符串：
+&ltscript type="text/javascript">
+
+var str1="Hello "
+var str2="world!"
+document.write(str1.concat(str2))
+
+&lt/script>
+以上代码的输出是：
+Hello world!
+</pre>

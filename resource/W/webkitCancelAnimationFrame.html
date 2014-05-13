@@ -1,0 +1,49 @@
+<div class="_content"><div class="_page _mdn"><h1>window.cancelAnimationFrame</h1><div>  <div class="notice experimental"> <p><strong>This is an experimental technology</strong><br>Because this technology's specification has not stabilized, check the <a href="#Browser_compatibility">compatibility table</a> for the proper prefixes to use in various browsers. Also note that the syntax and behavior of an experimental technology is subject to change in future versions of browsers as the spec changes.</p> </div>
+</div>  <p>Cancels an animation frame request previously scheduled through a call to <a href="window.requestanimationframe" title="The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint."><code>window.requestAnimationFrame()</code></a>.</p> <h2 id="Syntax" name="Syntax">Syntax</h2> <pre class="syntaxbox">window.cancelAnimationFrame(<em>requestID</em>);
+</pre> <div class="note"> <p><strong>Note:</strong> Prior to Firefox 23, the function is vendor-prefixed <code>window.mozCancelAnimationFrame()</code>. See the compatibility table, below, for other browser implementations.</p> </div> <h3 id="Parameters" name="Parameters">Parameters</h3> <dl>
+<dt> <code>requestID</code>
+</dt> <dd> The ID value returned by the call to <a href="window.requestanimationframe" title="The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint."><code>window.requestAnimationFrame()</code></a> that requested the callback.</dd> </dl><h2 id="Examples" name="Examples">Examples</h2> <pre class=" language-javascript"><span class="token keyword">var</span> requestAnimationFrame <span class="token operator">=</span> window<span class="token punctuation">.</span>requestAnimationFrame <span class="token operator">||</span> window<span class="token punctuation">.</span>mozRequestAnimationFrame <span class="token operator">||</span>
+                            window<span class="token punctuation">.</span>webkitRequestAnimationFrame <span class="token operator">||</span> window<span class="token punctuation">.</span>msRequestAnimationFrame<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> cancelAnimationFrame <span class="token operator">=</span> window<span class="token punctuation">.</span>cancelAnimationFrame <span class="token operator">||</span> window<span class="token punctuation">.</span>mozCancelAnimationFrame<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> start <span class="token operator">=</span> window<span class="token punctuation">.</span>mozAnimationStartTime<span class="token punctuation">;</span> <span class="token comment" spellcheck="true"> // Only supported in FF. Other browsers can use something like Date.now().
+</span>
+<span class="token keyword">function</span> <span class="token function">step<span class="token punctuation">(</span></span>timestamp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> progress <span class="token operator">=</span> timestamp <span class="token operator">-</span> start<span class="token punctuation">;</span>
+  d<span class="token punctuation">.</span>style<span class="token punctuation">.</span>left <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min<span class="token punctuation">(</span></span>progress<span class="token operator">/</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">200</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"px"</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>progress <span class="token operator">&lt;</span> <span class="token number">2000</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">requestAnimationFrame<span class="token punctuation">(</span></span>step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">var</span> myReq <span class="token operator">=</span> <span class="token function">requestAnimationFrame<span class="token punctuation">(</span></span>step<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+window<span class="token punctuation">.</span><span class="token function">cancelAnimationFrame<span class="token punctuation">(</span></span>myReq<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre> <h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td>21.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span><br> 24.0</td> <td>11.0 (11.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span><br> 23.0</td> <td>10</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>6.0 <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span><br> unprefixed in nightlies</td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Chrome for Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Phone</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>11.0 (11.0) <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span><br> 23.0</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <h2 id="Specification" name="Specification">Specification</h2> <ul>
+<li>
+<a href="http://www.w3.org/TR/animation-timing/#cancelAnimationFrame">Timing control for script-based animations: cancelAnimationFrame</a><span style="color: #fff; background: #e66e33; display: inline-block; font-size: x-small; margin-left: 6px; white-space: nowrap; padding: 2px 5px;" title="Working Draft">WD</span>
+</li> </ul><h2 id="See_also">See also</h2> <ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/window.mozAnimationStartTime" title="Returns the time, in milliseconds since the epoch, at which animations started now should be considered to have started. This value should be used instead of, for example, Date.now(), because this value will be the same for all animations started in this window during this refresh interval, allowing them to remain in sync with one another."><code>window.mozAnimationStartTime</code></a></li> <li><a href="window.requestanimationframe" title="The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint."><code>window.requestAnimationFrame()</code></a></li> </ul><div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.cancelAnimationFrame$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/window.cancelAnimationFrame" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/window.cancelAnimationFrame</a>
+  </p>
+</div>
+</div></div>

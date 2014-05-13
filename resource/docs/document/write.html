@@ -1,0 +1,36 @@
+<p>
+	在载人页面后，浏览器输出流自动关闭；在此之后，任何一个对当前页面进行操作的document.write()方法将打开—个新的输出流。它将清除当前页面内容(包括源文档的任何变量或值)、因此．假如希望用脚本生成的HTML替换当前页面，就必须把HTML内容连接起来赋给一个变量、使用一个document.write()方法完成写操作，不必清除文档并打开一个新数据流，一个document.write()调用就可完成所有的操作。 
+       关于document.write()方法还有一点要说明的是它的相关方法document.close()。脚本向窗口(不管是本窗口或其他窗口)写完内容后．必须关闭输出流。在延时脚本的最后一个document.write()方法后面．必须确保含有document.close()方法，不这样做就不能显示图片和表单。并且，任何后面调用的document.write()方法只会把内容追加到页面后，而不会清除现有内容来写入新值。
+
+document.write方法
+一个最基本的JavaScript命令是document.write。这个命令简单地打印指定的文本内容到页面上。为了逐字打印文本，在打印的文本字符串加上单引号。 
+Js代码
+document.write('Hello World!');  
+document.write('Hello World!');
+
+
+上面的js代码将会在页面上显示出"Hello World!" 
+你可以使用document.write 打印变量。输入变量名称不加上引号，如下： 
+
+Js代码
+var mytext = "Hello again";   
+document.write(mytext);  
+var mytext = "Hello again";
+document.write(mytext);
+
+
+注意：如果变量名称加上引号，将会打印出变量名称（不会打印变量值）。你可以使用“+”符号来连接变量值和文本字符串。 
+Js代码
+var colour1 = "purple";   
+var colour2 = "pink";   
+document.write('&ltp>colour1: ' + colour1 + '&ltbr>colour2: ' + colour2 + '&lt/p>');  
+var colour1 = "purple";
+var colour2 = "pink";
+document.write('&ltp>colour1: ' + colour1 + '&ltbr>colour2: ' + colour2 + '&lt/p>');
+
+
+打印结果如下： 
+引用
+colour1: purple 
+colour2: pink
+</p>

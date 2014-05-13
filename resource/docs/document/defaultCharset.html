@@ -1,0 +1,8 @@
+<p>
+	另一个属性是defaultCharset，表示根据默认浏览器及操作系统的设置，当前文档默认的字符集应该是什么。如果文档没有使用默认的字符集，那charset和defaultCharset属性的值可能会不一样，例如：
+if(document.charset != document.defaultCharset) {
+    alert("Custom character set being used.");
+}
+通过这两个属性可以可以得到文档使用的字符编码具体信息，也能对字符编码进行准确的控制。运行适当的情况下，可以保证用户正常查看页面或使用应用。
+支持document.charset属性的浏览器有IE、Firefox、Safari、Opera和chrome。支持document.defaultCharset属性的浏览器有IE、Safari和Chrome。
+</p>

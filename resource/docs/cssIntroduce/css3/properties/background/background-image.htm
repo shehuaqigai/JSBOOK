@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS background-image</title>
+<meta name="Description" content="" />
+<meta name="Keywords" content="" />
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+
+<!--[if lte IE 8]>
+<script src="../../js/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../../skin/article.css" />
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+<div style='BORDER: 1px solid #DCE6F4; MARGIN-TOP: 20px; MARGIN-BOTTOM: 20px; MARGIN-LEFT: 5px; MARGIN-RIGHT: 5px; PADDING: 5px; BACKGROUND-COLOR: #eef8ff;line-height:180%; COLOR: #000000; font-family: Arial; font-size: 8pt; width=100%; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr="#FFFFFFFF", EndColorStr="#F2F5FAFF");'>
+This page was saved using <a class="applink" href="http://www.spidersoft.com"><b>WebZIP 7.0.3.1030</b></a> <a class="applink" href="http://www.spidersoft.com"><b>offline browser</b></a>  on  06/26/12 10:01:14.<br>
+<b>Address:</b> <a class="info" href="http://www.phpstudy.net/css3/properties/background/background-image.htm">http://www.phpstudy.net/css3/properties/background/background-image.htm</a><br>
+<b>Title:</b> CSS background-image &nbsp;&bull;&nbsp; <b>Size:</b> 9019 &nbsp;&bull;&nbsp; <b>Last Modified:</b> Sun, 05 Feb 2012 09:20:16 GMT<br></div>
+<!-- /Copyright � 2005. Spidersoft Ltd -->
+
+
+<nav id="guide">
+	<div class="from">
+		<a href="../../css3.html" target="_blank">CSS参考手册</a>
+		<span>&#187;</span>
+		<a href="../index.htm">属性列表</a>
+		<span>&#187;</span>
+		<a href="index.htm">背景属性</a>
+		<span>&#187;</span>
+	</div>
+	<div class="to">
+		<span class="label">相关内容：</span>
+		<div id="topages" class="gcombobox">
+			<a href="http://www.phpstudy.net/css3/properties/background/?" class="target">
+				<strong>其它背景属性参考</strong>
+				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
+			</a>
+			<div class="list ghide">
+				<ul>
+					<li><a href="background.htm">background</a></li>
+					<li><a href="background-color.htm">background-color</a></li>
+					<li><a href="background-image.htm">background-image</a></li>
+					<li><a href="background-repeat.htm">background-repeat</a></li>
+					<li><a href="background-attachment.htm">background-attachment</a></li>
+					<li><a href="background-position.htm">background-position</a></li>
+					<li><a href="background-origin.htm">background-origin</a></li>
+					<li><a href="background-clip.htm">background-clip</a></li>
+					<li><a href="background-size.htm">background-size</a></li>
+					<li><a href="multiple-background.htm">Multiple background</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<header id="hd">
+	<h1 class="tit">background-image</h1>
+	<ul class="info">
+		<li><strong>版本：CSS1/CSS3</strong></li>
+		<li>继承性：无</li>
+	</ul>
+	<div id="browser" class="browser"><iframe id="top-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+</header>
+<section id="bd">
+	<section id="syntax" class="gmodule gattr">
+		<h2 class="tit">语法：</h2>
+		<div class="cont">
+			<p><strong>background-image</strong>：<a href="#dfn-syntax">&lt;bg-image&gt;</a> [ , <a href="#dfn-syntax">&lt;bg-image&gt;</a> ]*</p>
+			<p id="dfn-syntax"><strong>&lt;bg-image&gt;</strong> = none | <a href="../../values/textual/url.htm">&lt;url&gt;</a> | <a href="../../values/image/linear-gradient().htm">&lt;linear-gradient&gt;</a> | <a href="../../values/image/radial-gradient().htm">&lt;radial-gradient&gt;</a> | <a href="../../values/image/repeating-linear-gradient().htm">&lt;repeating-linear-gradient&gt;</a> | <a href="../../values/image/repeating-radial-gradient().htm">&lt;repeating-radial-gradient&gt;</a></p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">none</mark></p>
+		</div>
+	</section>
+	<section id="value" class="gmodule gattr">
+		<h2 class="tit">取值：</h2>
+		<div class="cont">
+			<dl>
+				<dt>none：</dt>
+				<dd>无背景图。</dd>
+				<dt><a href="../../values/textual/url.htm">&lt;url&gt;</a>：</dt>
+				<dd>使用绝对或相对地址指定背景图像。</dd>
+				<dt><a href="../../values/image/linear-gradient().htm">&lt;linear-gradient&gt;</a>：</dt>
+				<dd>使用线性渐变创建背景图像。（CSS3）</dd>
+				<dt><a href="../../values/image/radial-gradient().htm">&lt;radial-gradient&gt;</a>：</dt>
+				<dd>使用径向(放射性)渐变创建背景图像。（CSS3）</dd>
+				<dt><a href="../../values/image/repeating-linear-gradient().htm">&lt;repeating-linear-gradient&gt;</a>：</dt>
+				<dd>使用重复的线性渐变创建背景图像。（CSS3）</dd>
+				<dt><a href="../../values/image/repeating-radial-gradient().htm">&lt;repeating-radial-gradient&gt;</a>：</dt>
+				<dd>使用重复的径向(放射性)渐变创建背景图像。（CSS3）</dd>
+			</dl>
+		</div>
+	</section>
+	<section id="intro" class="gmodule gattr">
+		<h2 class="tit">说明：</h2>
+		<div class="cont">
+			<strong>设置或检索对象的背景图像。</strong>
+			<ul>
+				<li>如果设置了background-image，同时也建议作者设置<a href="background-color.htm">background-color</a>用于当背景图像不可见时保持与文本一定的对比。</li>
+				<li>对应的脚本特性为<strong>backgroundImage</strong>。</li>
+			</ul>
+		</div>
+	</section>
+	<section id="compatible" class="gmodule gattr">
+		<h2 class="tit">兼容性：</h2>
+		<div class="cont">
+			<ul class="support-type">
+				<li><span class="support">浅绿</span> = 支持</li>
+				<li><span class="unsupport">红色</span> = 不支持</li>
+				<li><span class="partsupport">墨绿</span> = 部分支持</li>
+				<li><span class="experimentsupport">橙色</span> = 实验性质</li>
+			</ul>
+			<table class="gdataform">
+				<thead>
+					<tr>
+						<th><a href="#browser" title="查看本文档测试时所用浏览器版本">支持版本</a>\类型</th>
+						<th><span class="browser-ie">IE</span></th>
+						<th><span class="browser-firefox">Firefox</span></th>
+						<th><span class="browser-safari">Safari</span></th>
+						<th><span class="browser-chrome">Chrome</span></th>
+						<th><span class="browser-opera">Opera</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>版本</th>
+						<td class="partsupport">6.0-8.0 <sup><a href="#support1">#1</a></sup></td>
+						<td rowspan="3" class="support">4.0</td>
+						<td rowspan="3" class="support">5.1</td>
+						<td rowspan="3" class="support">13.0</td>
+						<td rowspan="2" class="partsupport">11.50-11.51 <sup><a href="#support3">#3</a></sup></td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="partsupport">9.0 <sup><a href="#support2">#2</a></sup></td>
+					</tr>
+					<tr>
+						<th>版本</th>
+						<td class="support">10.0</td>
+						<td class="support">11.60</td>
+					</tr>
+				</tbody>
+			</table>
+			<ol class="support-info">
+				<li id="support1">IE8及更早浏览器不支持CSS3 background-image，即不支持多背景和使用渐变作为背景图像。</li>
+				<li id="support2">IE9不支持CSS3新增参数值：<a href="../../values/image/linear-gradient().htm">&lt;linear-gradient&gt;</a> | <a href="../../values/image/radial-gradient().htm">&lt;radial-gradient&gt;</a> | <a href="../../values/image/repeating-linear-gradient().htm">&lt;repeating-linear-gradient&gt;</a> | <a href="../../values/image/repeating-radial-gradient().htm">&lt;repeating-radial-gradient&gt;</a>作为背景图像。</li>
+				<li id="support3">Opera11.50-11.51不支持CSS3新增参数值：<a href="../../values/image/radial-gradient().htm">&lt;radial-gradient&gt;</a> | <a href="../../values/image/repeating-radial-gradient().htm">&lt;repeating-radial-gradient&gt;</a>作为背景图像。</li>
+			</ol>
+		</div>
+	</section>
+	<section id="example" class="gmodule gattr">
+		<h2 class="tit">示例：</h2>
+		<div class="cont">
+			<textarea cols="90" rows="10">
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>CSS background-image_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="phpstudy.net" />
+<meta name="copyright" content="www.phpstudy.net" />
+<style>
+.test strong{font-size:16px;}
+.test .url p{padding-top:200px;background-image:url(skin/p_103x196_1.jpg);background-repeat:no-repeat;}
+.test .gradient p{height:100px;background-image:-moz-linear-gradient(top , #45B5DA, #0382AD);background-image:-webkit-gradient(linear, 50% 0%, 50% 100%, from(#45B5DA), to(#0382AD));background-image:-o-linear-gradient(top , #45B5DA, #0382AD);}
+.test .multiple p{padding-top:200px;background-image:url(skin/p_103x196_1.jpg),url(skin/p_103x196_2.jpg),url(skin/p_103x196_3.jpg);background-repeat:no-repeat;background-position:0 0,100px 0,200px 0;}
+</style>
+</head>
+<body>
+<ul class="test">
+	<li class="url">
+		<strong>使用url()引入背景图像</strong>
+		<p>使用url()可以是绝对或相对路径</p>
+	</li>
+	<li class="gradient">
+		<strong>使用渐变绘制背景图像</strong>
+		<p>渐变种类有: linear-gradient, radial-gradient, repeating-linear-gradient, repeating-radial-gradient</p>
+	</li>
+	<li class="multiple">
+		<strong>多重背景图</strong>
+		<p>多重背景图可以是url()或gradient的混合方式</p>
+	</li>
+</ul>
+</body>
+</html>
+			</textarea>
+			<p><input type="button" value="运行" class="gbtn btn-sure" /></p>
+		</div>
+	</section>
+</section>
+<aside id="ft">
+	<div class="browser"><iframe id="bot-browser" frameborder="0" allowtransparency="true" src="../../global-browser.htm"></iframe></div>
+	<p class="copyright">Copyright (c) 2006-2012 <a href="http://www.phpstudy.net/" rel="external" target="_blank">phpstudy</a>. All Rights Reserved</p>
+</aside>
+<script src="../../js/phpstudy.js"></script>
+<script src="../../js/style.js"></script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+请求文件系统
+<p>
+网络应用可通过调用 window.requestFileSystem() 请求对沙盒文件系统的访问权限：
+
+// Note: The file system has been prefixed as of Google Chrome 12:
+window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+
+window.requestFileSystem(type, size, successCallback, opt_errorCallback)
+type
+文件存储是否应该是持久的。可能的值包括 window.TEMPORARY 和 window.PERSISTENT。通过 TEMPORARY 存储的数据可由浏览器自行决定删除（例如在需要更多空间的情况下）。要清除 PERSISTENT 存储，必须获得用户或应用的明确授权，并且需要用户向您的应用授予配额。请参阅请求配额。
+size
+应用需要用于存储的大小（以字节为单位）。
+successCallback
+文件系统请求成功时调用的回调。其参数为 FileSystem 对象。
+opt_errorCallback
+用于处理错误或获取文件系统的请求遭到拒绝时可选的回调。其参数为 FileError 对象。
+如果您是首次调用 requestFileSystem()，系统会为您的应用创建新的存储。请注意，这是沙箱文件系统，也就是说，一个网络应用无法访问另一个应用的文件。这也意味着您无法在用户硬盘上的任意文件夹（例如“我的图片”、“我的文档”等）中读/写文件。
+
+用法示例：
+
+function onInitFs(fs) {
+  console.log('Opened file system: ' + fs.name);
+}
+
+window.requestFileSystem(window.TEMPORARY, 5*1024*1024 /*5MB*/, onInitFs, errorHandler);
+
+</p>
+
+<p style="color:red;">requestFileSystem请求成功后会返回一个DomFileSystem实例</p>
+<h4>DomFileSystem中有俩个属性name与root
+<p style="color:red;">
+name: "file__0:Temporary"<br/>
+root: DirectoryEntry<br/>
+
+
+</p>
+
+
+
+</h4>
+<h5>root是一个DirectorEntry实例对象</h5>
+<p>DirectoryEntry继承Entry</p>
+
+<h2>DirectoryEntry对象有以下属性和方法</h2>
+
+filesystem: DOMFileSystem<br/>
+fullPath: "/"<br/>
+isDirectory: true<br/>
+isFile: false <br/>
+name: "" <br/>
+<b style="background:gray;color:red;height:30px;">createReader() 返回一个DirectoryReader实例对象
+DirectoryReader有一个readEntries方法该方法传入一个回调函数，成功回调返回一个数组
+</b>//读取目录内容<br/>
+
+<div style="background:black;color:white;">
+<pre>
+要读取目录的内容，可先创建 DirectoryReader，然后调用 readEntries() 方法。我们不能保证所有目录条目都能在仅调用一次 readEntries() 的情况下同时返回。也就是说，您需要一直调用 DirectoryReader.readEntries()，直到系统不再返回结果为止。以下代码对此作了说明：
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
+
+function onInitFs(fs) {
+
+  var dirReader = fs.root.createReader();
+  var entries = [];
+
+  // Call the reader.readEntries() until no more results are returned.
+  var readEntries = function() {
+     dirReader.readEntries (function(results) {
+      if (!results.length) {
+        listResults(entries.sort());
+      } else {
+        entries = entries.concat(toArray(results));
+        readEntries();
+      }
+    }, errorHandler);
+  };
+
+  readEntries(); // Start reading dirs.
+
+}
+
+
+&ltul id="filelist"&gt&lt/ul&gt
+function toArray(list) {
+  return Array.prototype.slice.call(list || [], 0);
+}
+
+function listResults(entries) {
+  // Document fragments can improve performance since they're only appended
+  // to the DOM once. Only one browser reflow occurs.
+  var fragment = document.createDocumentFragment();
+
+  entries.forEach(function(entry, i) {
+    var img = entry.isDirectory ? '&ltimg src="folder-icon.gif"&gt' :
+                                  '&ltimg src="file-icon.gif"&gt';
+    var li = document.createElement('li');
+    li.innerHTML = [img, '&ltspan&gt', entry.name, '&lt/span&gt'].join('');
+    fragment.appendChild(li);
+  });
+
+  document.querySelector('#filelist').appendChild(fragment);
+}
+
+
+
+
+</pre>
+
+
+</div>
+
+
+
+
+
+
+
+<p style="background:gray;color:red;height:30px;">getDirectory()//方法读取或创建目录。您可以递交名称或路径作为查找或创建所用的目录</p>
+
+<p>
+	<pre>
+		
+例如，以下代码会在根目录中创建名为“MyPictures”的目录：
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  fs.root.getDirectory('MyPictures', {create: true}, function(dirEntry) {
+    ...
+  }, errorHandler);
+}, errorHandler);
+
+子目录
+
+创建子目录的方法与创建其他任何目录的方法完全相同。
+不过，如果您尝试创建其直接父目录不存在的目录，API 将引发错误。
+相应的解决方法是，依次创建各级目录，而这对异步 API 而言非常麻烦。
+
+以下代码会在系统创建父文件夹后以递归方式添加各个子文件夹，
+从而在应用相应 FileSystem 的根中创建新的层次结构 (music/genres/jazz)。
+
+var path = 'music/genres/jazz/';
+
+function createDir(rootDirEntry, folders) {
+  // Throw out './' or '/' and move on to prevent something like '/foo/.//bar'.
+  if (folders[0] == '.' || folders[0] == '') {
+    folders = folders.slice(1);
+  }
+  rootDirEntry.getDirectory(folders[0], {create: true}, function(dirEntry) {
+    // Recursively add the new subfolder (if we still have another to create).
+    if (folders.length) {
+      createDir(dirEntry, folders.slice(1));
+    }
+  }, errorHandler);
+};
+
+function onInitFs(fs) {
+  createDir(fs.root, path.split('/')); // fs.root is a DirectoryEntry.
+}
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
+在“music/genres/jazz”处于合适的位置后，
+我们就可以将完整路径传递到 getDirectory()，然后在其下方创建新的子文件夹。例如：
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  fs.root.getFile('/music/genres/jazz/song.mp3', {create: true}, 
+  function(fileEntry) {
+    ...
+  }, errorHandler);
+}, errorHandler);
+
+
+	</pre>
+	
+  
+
+</p>
+
+
+<h2 style="color:red;">
+	getFile()//创建和获取文件<br/>
+		成功回调后返回fileEntry的一个实例对象<br/>
+	DirectoryEntry中没有这俩个方法fileEntry中有createWriter()<br/>
+	createWriter()方法传入回调，成功回调返回FileWrite的实例对象<br/>
+	FileWrite有以下属性和方法!<br/>
+	<pre>
+	error: null
+length: 0
+onabort: null
+onerror: null
+onprogress: null
+onwrite: null
+onwriteend: null
+onwritestart: null
+position: 0
+readyState: 0
+__proto__: FileWriter
+DONE: 2
+INIT: 0
+WRITING: 1
+abort
+seek
+truncate
+write
+addEventListener
+dispatchEvent
+removeEventListener
+
+</pre>
+file方法读取文件
+</h2>
+
+
+
+<p>
+	
+	以下代码展示了如何使用getFile方法创建一个新文件：
+<pre>
+1
+window.requestFileSystem(TEMPORARY, 1024 * 1024, function(fs) {
+2
+fs.root.getFile('myfile.txt', {create: true}, function(fileEntry) {
+3
+// do something with the fileEntry
+4
+});
+5
+});
+</pre>
+getFile方法可以用来创建或者获取文件，第一个参数是文件名，可以包含绝对或相对的路径，第二个参数是一个JS对象，用来决定当文件不存在时函数的行为，在本例中create:true表示，当文件不存在时，函数会创建此文件，反之会抛异常，
+<h3 style="color:gray;background:pink;">
+	得到了fileEntry对象后，你可以调用它的file方法配合FileReader API来获取文件内容了，代码如下：
+
+<pre>
+	
+
+01
+requestFileSystem(TEMPORARY, 1024*1024, function(fs) {
+02
+fs.root.getFile('myfile.txt', {}, function(fileEntry) {
+03
+fileEntry.file(function(file) {
+04
+var reader = new FileReader();
+05
+reader.onload = function(e) {
+06
+alert(reader.result);
+07
+};
+08
+reader.readAsText(file); // 把文件作为纯文本读取（其他格式亦可）
+09
+});
+10
+});
+11
+});
+
+写文件
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3 style="color:red">下面的代码创建了一个新文件，并向其中写入内容：</h3>
+
+01
+
+02
+requestFileSystem(TEMPORARY, 1024*1024, function(fs) {
+03
+fs.root.getFile('temp.txt', {create: true}, function(fileEntry) {
+04
+fileEntry.createWriter(function(fileWriter) {
+05
+fileWriter.onwrite = function(e) {
+06
+console.log('写入完毕');
+07
+};
+08
+ 
+09
+fileWriter.onerror = function(e) {
+10
+console.log('写入失败')
+11
+};
+12
+ 
+13
+var bb = new Blob(['my file contents']);
+14
+15
+fileWriter.write(bb.getBlob('text/plain'));
+16
+});
+17
+});
+18
+});
+我们可以看到，写文件的步骤大致如下，先使用BlobBuilder API创建一个二进制对象，传给fileWriter对象的write方法，
+然后在fileWriter对象的onwrite/onerror事件里面响应写入的成功或失败。
+</pre>
+</h3>
+</p>
+
+
+<h2 style="color:red;">
+	remove()
+removeRecursively()//	删除目录
+</h2>
+<p>
+	
+
+
+
+DirectoryEntry.remove() 方法的行为与 FileEntry 相应方法的行为非常相似。差别在于：尝试删除非空目录时会引发错误。
+
+以下代码会从“/music/genres/”删除空的“jazz”目录：
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  fs.root.getDirectory('music/genres/jazz', {}, function(dirEntry) {
+
+    dirEntry.remove(function() {
+      console.log('Directory removed.');
+    }, errorHandler);
+
+  }, errorHandler);
+}, errorHandler);
+以递归方式删除目录
+
+如果您不需要某个包含条目的目录，不妨使用 removeRecursively()。该方法将以递归方式删除目录及其内容。
+
+以下代码会以递归方式删除“music”目录及其包含的所有文件和目录：
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  fs.root.getDirectory('/misc/../music', {}, function(dirEntry) {
+
+    dirEntry.removeRecursively(function() {
+      console.log('Directory removed.');
+    }, errorHandler);
+
+  }, errorHandler);
+}, errorHandler);
+
+</p>
+
+
+<h2 style="color:red;">
+	copyTo()	复制目录
+</h2>
+
+
+<p>
+	
+复制条目
+
+FileEntry 和 DirectoryEntry 均可使用 copyTo() 复制现有条目。该方法会自动以递归方式复制文件夹。
+
+以下代码示例会将“me.png”文件从一个目录复制到另一个目录：
+<pre>
+function copy(cwd, src, dest) {
+  cwd.getFile(src, {}, function(fileEntry) {
+
+    cwd.getDirectory(dest, {}, function(dirEntry) {
+      fileEntry.copyTo(dirEntry);
+    }, errorHandler);
+
+  }, errorHandler);
+}
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  copy(fs.root, '/folder1/me.png', 'folder2/mypics/');
+}, errorHandler);
+</pre>
+
+</p>
+<h2 style="color:red;">
+	
+getMetadata()	目录或文件的创建时间，修改时间等//方法获取文件的元数据
+俩个回调成功与失败，成功就返回Metadata的实例对象
+
+</h2>
+
+<p>
+就俩个属性
+modificationTime: Sun Feb 16 2014 16:40:18 GMT+0800 (CST)
+size: 0
+
+</p>
+
+
+<h2 style="color:red;">
+	
+getParent()	//获取父目录，传入俩个回调，成功返回父目录对象	
+
+
+</h2>
+
+
+
+
+
+
+
+
+
+<h2 style="color:red;">
+	moveTo()	//移动或重命名条目
+</h2>
+<p>
+	FileEntry 和 DirectoryEntry 的 moveTo() 方法可让您移动或重命名文件或目录。其第一个参数是文件要移动到的目标父目录，其第二个参数是文件可选的新名称。如未提供新名称，系统将使用文件的原名称。
+
+<pre>
+移动或重命名条目
+
+
+以下示例将“me.png”重命名为“you.png”，但并不移动该文件：
+
+function rename(cwd, src, newName) {
+  cwd.getFile(src, {}, function(fileEntry) {
+    fileEntry.moveTo(cwd, newName);
+  }, errorHandler);
+}
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  rename(fs.root, 'me.png', 'you.png');
+}, errorHandler);
+以下示例将“me.png”（位于根目录中）移动到名为“newfolder”的文件夹。
+
+function move(src, dirName) {
+  fs.root.getFile(src, {}, function(fileEntry) {
+
+    fs.root.getDirectory(dirName, {}, function(dirEntry) {
+      fileEntry.moveTo(dirEntry);
+    }, errorHandler);
+
+  }, errorHandler);
+}
+
+window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs) {
+  move('/me.png', 'newfolder/');
+}, errorHandler);
+	
+
+
+
+
+</pre>
+
+</p>
+
+
+<h2 style="color:red;">
+	toURL()	//toURL() 获取该文件的 filesystem: 网址：
+</h2>
+
+
+
+<p>
+	
+	filesystem: 网址
+
+FileSystem API 使用新的网址机制，（即 filesystem:），可用于填充 src 或 href 属性。例如，如果您要显示某幅图片且拥有相应的 fileEntry，您可以调用 toURL() 获取该文件的 filesystem: 网址：
+<pre>
+var img = document.createElement('img');
+img.src = fileEntry.toURL(); // filesystem:http://example.com/temporary/myfile.png
+document.body.appendChild(img);
+另外，如果您已具备 filesystem: 网址，可使用 resolveLocalFileSystemURL() 找回 fileEntry：
+
+window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL ||
+                                   window.webkitResolveLocalFileSystemURL;
+
+var url = 'filesystem:http://example.com/temporary/myfile.png';
+window.resolveLocalFileSystemURL(url, function(fileEntry) {
+  ...
+});
+</pre>
+</p>

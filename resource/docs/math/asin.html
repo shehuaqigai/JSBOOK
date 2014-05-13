@@ -1,0 +1,34 @@
+<p>
+	定义和用法
+asin() 方法可返回一个数的反正弦值。
+语法
+Math.asin(x)
+参数	描述
+x	必需。必须是一个数值，该值介于 -1.0 ~ 1.0 之间。
+返回值
+x 的反正弦值。返回的值是 -PI/2 到 PI/2 之间的弧度值。
+提示和注释
+注释：如果参数 x 超过了 -1.0 ~ 1.0 的范围，那么浏览器将返回 NaN。
+注释：如果参数 x 取值 1，那么将返回 PI/2。
+实例
+在本例中，我们将取得不同数字的反正弦值：
+<pre>
+	
+
+&ltscript type="text/javascript">
+
+document.write(Math.asin(0.64) + "<br />")
+document.write(Math.asin(0) + "<br />")
+document.write(Math.asin(-1) + "<br />")
+document.write(Math.asin(1) + "<br />")
+document.write(Math.asin(2))
+
+&lt/script>
+输出：
+0.6944982656265559
+0
+-1.5707963267948965
+1.5707963267948965
+NaN
+</pre>
+</p>

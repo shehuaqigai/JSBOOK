@@ -1,0 +1,129 @@
+<section class="posts">
+                <h1 class="single-title">
+                    进度事件(Progress Events)                </h1>
+                <section class="entry-meta">
+                    <span class="meta-prep meta-prep-author">发表于</span> <a href="http://www.w3cmm.com/ajax/progress-events.html" title="16:52" rel="bookmark"><time class="entry-date">2012-08-11</time></a> <span class="meta-sep">由</span> <span class="author"><a class="url fn n" href="http://www.w3cmm.com/author/admin" title="View all posts by admin">admin</a></span>                </section>
+                <section class="single-content" id="single-content">
+                    <p>Progress Events规范是W3C的一个工作草案，定义了与客户端服务器通信有关的事件。这些事件最早其实值针对XHR操作，但目前也被其它API借鉴。有以下6个进度事件。</p>
+<ul>
+<li>loadstart：在接收到相应数据的第一个字节时触发。</li>
+<li>progress：在接收相应期间持续不断触发。</li>
+<li>error：在请求发生错误时触发。</li>
+<li>abort：在因为调用abort()方法而终止链接时触发。</li>
+<li>load：在接收到完整的相应数据时触发。</li>
+<li>loadend：在通信完成或者触发error、abort或load事件后触发。</li>
+</ul>
+<p>每个请求不对触发Loadstart事件开始，接下来是一或多个progress事件，然后触发error、abort或load事件中的一个，最后以触发loadend事件结束。</p>
+<p>支持前5个事件的浏览器有Firefox 3.5+、Safari 4+、Chrome、iOS版Safari和Android版WebKit。Opera、IE8+只支持load事件。目前还没有浏览器支持loadend事件。</p>
+<p>这些事件大都很直观，但其两个事件有些一些细节需要注意。</p>
+<h2>1.load事件</h2>
+<p>Firefox在实现XHR对象的某个版本时，曾致力于简化异步交互模型。最终，Firefox实现中引入了load事件，用以替代readystatechange事件。相应接收完毕后将触发Load事件，因此也就没有必要去检查readyState属性了。而onload事件处理程序会接收到一个event对象，其target属性就指向XHR对象实例，因而可以访问到XHR对象的所有方法和属性。然而，并非所有浏览器都为这个事件实现了适当的事件对象。结果，开发人员还是要像下面这样被迫使用XHR对象变量。</p>
+<pre class="prettyprint"><span class="kwd">var</span><span class="pln"> xhr </span><span class="pun">=</span><span class="pln"> createXHR</span><span class="pun">();</span><span class="pln">
+xhr</span><span class="pun">.</span><span class="pln">onload </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">((</span><span class="pln">xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">&gt;=</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">300</span><span class="pun">)</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">==</span><span class="pln"> </span><span class="lit">304</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="pln">xhr</span><span class="pun">.</span><span class="pln">responseText</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="str">"Request was unsuccessful: "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+xhr</span><span class="pun">.</span><span class="pln">open</span><span class="pun">(</span><span class="str">"get"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"altevents.php"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+xhr</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="kwd">null</span><span class="pun">);</span></pre>
+<p>只要浏览器接收到服务器的相应，不管其状态如何，都会触发load事件。而这意味着你必须要检查status属性，才能确定数据是否真的已经可用了。Firefox、Operan、Chrome和Safari都支持load事件。</p>
+<h2>2.progress事件</h2>
+<p>Mozilla对XHR的另一个革新是添加了progress事件，这个事件会在浏览器接收新数据期间周期性地触发。而onprogress事件处理程序会接收到一个event对象，其target属性是XHR对象，但包含着三个额外的属性：lengthComputable、position和totalSize。其中，lengthComputable是一个表示进度信息是否可用的布尔值，position表示已经接收的字节数，totalSize表示根据Content-Length相应头部确定的预期字节数。有了这些信息，我们就可以为用户创建一个进度指示器了。下面展示了为用户创建进度指示器的一个示例。</p>
+<pre class="prettyprint"><span class="kwd">var</span><span class="pln"> xhr </span><span class="pun">=</span><span class="pln"> createXHR</span><span class="pun">();</span><span class="pln">
+xhr</span><span class="pun">.</span><span class="pln">onload </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">((</span><span class="pln">xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">&gt;=</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">300</span><span class="pun">)</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">==</span><span class="pln"> </span><span class="lit">304</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="pln">xhr</span><span class="pun">.</span><span class="pln">responseText</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="str">"Request was unsuccessful: "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">};</span><span class="pln">
+xhr</span><span class="pun">.</span><span class="pln">onprogress </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">event</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> divStatus </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">getElementById</span><span class="pun">(</span><span class="str">"status"</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">event</span><span class="pun">.</span><span class="pln">lengthComputable</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; divStatus</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Recived"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">position </span><span class="pun">+</span><span class="pln"> </span><span class="str">" of "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">event</span><span class="pun">.</span><span class="pln">totalSize </span><span class="pun">+</span><span class="pln"> </span><span class="str">" bytes"</span><span class="pun">;</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+xhr</span><span class="pun">.</span><span class="pln">open</span><span class="pun">(</span><span class="str">"get"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"altevents.php"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+xhr</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="kwd">null</span><span class="pun">);</span></pre>
+<p>为确保正常执行，必须在调用open()方法之前添加onprogress事件处理程序。在前面的例子中，每次触发progress事件，都会以新的状态信息更新HTML元素的内容。如果相应头部中包含Content-Length字段，那么也可以利用次信息来计算从相应中已经接收到的数据的百分比。</p>
+<p>下面是一个综合示例：</p>
+<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"status"</span><span class="tag">&gt;&lt;/div&gt;</span><span class="pln">
+</span><span class="tag">&lt;script</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text/javascript"</span><span class="tag">&gt;</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="kwd">function</span><span class="pln"> createXHR</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">typeof</span><span class="pln"> </span><span class="typ">XMLHttpRequest</span><span class="pln"> </span><span class="pun">!=</span><span class="pln"> </span><span class="str">"undefined"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">XMLHttpRequest</span><span class="pun">();</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">typeof</span><span class="pln"> </span><span class="typ">ActiveXObject</span><span class="pln"> </span><span class="pun">!=</span><span class="pln"> </span><span class="str">"undefined"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">typeof</span><span class="pln"> arguments</span><span class="pun">.</span><span class="pln">callee</span><span class="pun">.</span><span class="pln">activeXString </span><span class="pun">!=</span><span class="pln"> </span><span class="str">"string"</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> versions </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="str">"MSXML2.XMLHttp.6.0"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"MSXML2.XMLHttp.3.0"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"MSXML2.XMLHttp"</span><span class="pun">],</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i</span><span class="pun">,</span><span class="pln"> len</span><span class="pun">;</span><span class="pln">
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="pln">i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> len </span><span class="pun">=</span><span class="pln"> versions</span><span class="pun">.</span><span class="pln">length</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&lt;</span><span class="pln"> len</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> xhr </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ActiveXObject</span><span class="pun">(</span><span class="pln">versions</span><span class="pun">[</span><span class="pln">i</span><span class="pun">]);</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; arguments</span><span class="pun">.</span><span class="pln">callee</span><span class="pun">.</span><span class="pln">activeXString </span><span class="pun">=</span><span class="pln"> versions</span><span class="pun">[</span><span class="pln">i</span><span class="pun">];</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">return</span><span class="pln"> xhr</span><span class="pun">;</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="pln">ex</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="com">//跳过</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ActiveXObject</span><span class="pun">(</span><span class="pln">arguments</span><span class="pun">.</span><span class="pln">callee</span><span class="pun">.</span><span class="pln">activeXString</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">throw</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Error</span><span class="pun">(</span><span class="str">"No XHR object available."</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+
+&nbsp;&nbsp;&nbsp; window</span><span class="pun">.</span><span class="pln">onload </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> xhr </span><span class="pun">=</span><span class="pln"> createXHR</span><span class="pun">();</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xhr</span><span class="pun">.</span><span class="pln">onload </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">((</span><span class="pln">xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">&gt;=</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">&lt;</span><span class="pln"> </span><span class="lit">300</span><span class="pun">)</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status </span><span class="pun">==</span><span class="pln"> </span><span class="lit">304</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="pln">xhr</span><span class="pun">.</span><span class="pln">responseText</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alert</span><span class="pun">(</span><span class="str">"Request was unsuccessful: "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> xhr</span><span class="pun">.</span><span class="pln">status</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">};</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xhr</span><span class="pun">.</span><span class="pln">onprogress </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">event</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">var</span><span class="pln"> divStatus </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">getElementById</span><span class="pun">(</span><span class="str">"status"</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">event</span><span class="pun">.</span><span class="pln">lengthComputable</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; divStatus</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">"接收到 "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> event</span><span class="pun">.</span><span class="pln">position </span><span class="pun">+</span><span class="pln"> </span><span class="str">" of "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> event</span><span class="pun">.</span><span class="pln">totalSize </span><span class="pun">+</span><span class="pln"> </span><span class="str">" bytes"</span><span class="pun">;</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">}</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="pun">};</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xhr</span><span class="pun">.</span><span class="pln">open</span><span class="pun">(</span><span class="str">"get"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"altevents.php"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xhr</span><span class="pun">.</span><span class="pln">send</span><span class="pun">(</span><span class="kwd">null</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; </span><span class="pun">};</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+<p>altevents.php文件示例代码：</p>
+<pre class="prettyprint"><span class="pun">&lt;?</span><span class="pln">php
+&nbsp;&nbsp;&nbsp; header</span><span class="pun">(</span><span class="str">"Content-Type: text/plain"</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; header</span><span class="pun">(</span><span class="str">"Content-Length: 27"</span><span class="pun">);</span><span class="pln">
+&nbsp;&nbsp;&nbsp; echo </span><span class="str">"Some data"</span><span class="pun">;</span><span class="pln">
+&nbsp;&nbsp;&nbsp; flush</span><span class="pun">();</span><span class="pln">
+&nbsp;&nbsp;&nbsp; echo </span><span class="str">"Some data"</span><span class="pun">;</span><span class="pln">
+&nbsp;&nbsp;&nbsp; flush</span><span class="pun">();</span><span class="pln">
+&nbsp;&nbsp;&nbsp; echo </span><span class="str">"Some data"</span><span class="pun">;</span><span class="pln">
+&nbsp;&nbsp;&nbsp; flush</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">?&gt;</span></pre>
+<div class="yarpp-related">
+<p>Related posts:</p><ol>
+<li><a href="http://www.w3cmm.com/javascript/recursive.html" rel="bookmark" title="递归">递归</a></li>
+<li><a href="http://www.w3cmm.com/ajax/xhr-object.html" rel="bookmark" title="XMLHttpRequest(XHR)对象">XMLHttpRequest(XHR)对象</a></li>
+<li><a href="http://www.w3cmm.com/ajax/xhr-usage.html" rel="bookmark" title="XMLHttpRequest(XHR)的用法">XMLHttpRequest(XHR)的用法</a></li>
+<li><a href="http://www.w3cmm.com/javascript/arguments-callee.html" rel="bookmark" title="arguments对象的callee的属性">arguments对象的callee的属性</a></li>
+<li><a href="http://www.w3cmm.com/javascript/inert-load.html" rel="bookmark" title="JavaScript惰性载入函数">JavaScript惰性载入函数</a></li>
+<li><a href="http://www.w3cmm.com/xml/ie8-xml.html" rel="bookmark" title="IE8及之前版本中的XML">IE8及之前版本中的XML</a></li>
+<li><a href="http://www.w3cmm.com/ajax/http-header.html" rel="bookmark" title="HTTP头部信息">HTTP头部信息</a></li>
+</ol>
+</div>
+                                    </section>
+                <div class="adsense"> 
+                   
+                    <!-- 300x250-12-5-12 --> 
+                    <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-4227083092070610" data-ad-slot="3813735881" data-adsbygoogle-status="done"><ins style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins> 
+                    
+                </div>
+                <section class="entry-utility">
+                    此文章发表在 <a href="http://www.w3cmm.com/category/ajax" title="查看Ajax中的全部文章" rel="category tag">Ajax</a>. 将 <a href="http://www.w3cmm.com/ajax/progress-events.html" title="Permalink to 进度事件(Progress Events)" rel="bookmark">固定链接</a> 加入收藏.                                    </section>
+            </section>

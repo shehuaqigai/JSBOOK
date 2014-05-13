@@ -1,0 +1,46 @@
+<p>
+	<pre>
+Removes whitespace from both ends of the string.
+Method of String
+Implemented in	JavaScript 1.8.1
+ECMAScript Edition	ECMAScript 5th Edition
+Syntax
+
+string.trim()
+Parameters
+
+None.
+
+Description
+
+The trim method returns the string stripped
+ of whitespace from both ends. trim does not affect the value of the string itself.
+
+Examples
+
+Example: Using trim
+
+The following example displays the lowercase string "foo":
+
+var orig = "   foo  ";
+
+alert( orig.trim() );
+Compatibility
+Running the following code before any other code will create 
+	String.trim if it's not natively available.
+
+if (!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(/^\s+|\s+$/gm, '');
+  };
+}
+Browser compatibility
+
+Based on Kangax's compat tables
+
+Feature	Firefox (Gecko)	Chrome	Internet Explorer	Opera	Safari
+Basic support	3.5	(Yes)	9	10.5	5
+Feature	Firefox Mobile (Gecko)	Android	IE Mobile	Opera Mobile	Safari Mobile
+Basic support	?	?	?	?	?
+</pre>
+</p>

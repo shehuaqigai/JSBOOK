@@ -1,0 +1,163 @@
+<div id="maincontent">
+
+<h1>HTML DOM open() 方法</h1>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+<div>
+<h2>定义和用法</h2>
+<p>open() 方法用于打开一个新的浏览器窗口或查找一个已命名的窗口。</p>
+
+<h3>语法</h3>
+<pre>window.open(URL,name,features,replace)</pre>
+
+<table class="dataintable"> 
+  <tbody><tr>
+    <th>参数</th>
+    <th>描述</th>
+  </tr>  
+  <tr>
+    <td>URL</td>
+    <td>一个可选的字符串，声明了要在新窗口中显示的文档的 URL。如果省略了这个参数，或者它的值是空字符串，那么新窗口就不会显示任何文档。</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td>一个可选的字符串，该字符串是一个由逗号分隔的特征列表，其中包括数字、字母和下划线，该字符声明了新窗口的名称。这个名称可以用作标记 &lt;a&gt; 和 &lt;form&gt; 的属性 target 的值。如果该参数指定了一个已经存在的窗口，那么 open() 方法就不再创建一个新窗口，而只是返回对指定窗口的引用。在这种情况下，features 将被忽略。</td>
+  </tr>
+  <tr>
+    <td>features</td>
+    <td>一个可选的字符串，声明了新窗口要显示的标准浏览器的特征。如果省略该参数，新窗口将具有所有标准特征。在<a href="#windowfeatures">窗口特征</a>这个表格中，我们对该字符串的格式进行了详细的说明。</td>
+  </tr>
+    <tr>
+    <td>replace<p></p></td>
+    <td>
+    <p>一个可选的布尔值。规定了装载到窗口的 URL 是在窗口的浏览历史中创建一个新条目，还是替换浏览历史中的当前条目。支持下面的值：</p>
+	<ul>
+		<li>true - URL 替换浏览历史中的当前条目。</li>
+		<li>false - URL 在浏览历史中创建新的条目。</li>
+	</ul>
+	</td>
+  </tr>
+</tbody></table>
+</div>
+
+<div>
+<h2>提示和注释</h2>
+<p class="important"><span>重要事项：</span>请不要混淆方法 Window.open() 与方法 Document.open()，这两者的功能完全不同。为了使您的代码清楚明白，请使用 Window.open()，而不要使用 open()。</p>
+</div>
+
+<div>
+<h2>实例 1</h2>
+<p>下面的例子讲在新浏览器窗口中打开 www.w3school.com.cn ：</p>
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function open_win() 
+{
+<code>window.open("http://www.w3school.com.cn")</code>
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;input type=button value="Open Window" onclick="open_win()" /&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<div>
+<h2>实例 2</h2>
+<p>下面的例子讲在新浏览器窗口中打开 about:blank 页：</p>
+<pre>&lt;html&gt;
+&lt;body&gt;
+
+&lt;script type="text/javascript"&gt;
+<code>myWindow=window.open('','','width=200,height=100')</code>
+myWindow.document.write("This is 'myWindow'")
+myWindow.focus()
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+
+<div class="example">
+<h2>TIY</h2>
+<dl>
+<dt><a href="/tiy/t.asp?f=hdom_openwindow">通过点击按钮来打开一个窗口</a></dt>
+<dt><a href="/tiy/t.asp?f=hdom_openallwindow">打开一个新窗口，并控制其外观</a></dt>
+<dt><a href="/tiy/t.asp?f=hdom_multiwindows">通过一次点击打开多个窗口</a></dt>
+<dt><a href="/tiy/t.asp?f=hdom_win_focus">打开一个新窗口</a></dt>
+</dl>
+</div>
+
+<div>
+<h2 id="windowfeatures">窗口特征（Window Features）</h2>
+<table class="dataintable">
+    <tbody><tr>
+    <td>channelmode=yes|no|1|0</td>
+    <td>是否使用剧院模式显示窗口。默认为 no。</td>
+    </tr>
+    <tr>
+    <td>directories=yes|no|1|0</td>
+    <td>是否添加目录按钮。默认为 yes。</td>
+    </tr>
+    <tr>
+    <td>fullscreen=yes|no|1|0</td>
+    <td>是否使用全屏模式显示浏览器。默认是 no。处于全屏模式的窗口必须同时处于剧院模式。</td>
+    </tr>
+    <tr>
+    <td>height=pixels</td>
+    <td>窗口文档显示区的高度。以像素计。</td>
+    </tr>
+    <tr>
+    <td>left=pixels</td>
+    <td>窗口的 x 坐标。以像素计。</td>
+    </tr>
+    <tr>
+    <td>location=yes|no|1|0</td>
+    <td>是否显示地址字段。默认是 yes。</td>
+    </tr>
+    <tr>
+    <td>menubar=yes|no|1|0</td>
+    <td>是否显示菜单栏。默认是 yes。</td>
+    </tr>
+    <tr>
+    <td>resizable=yes|no|1|0</td>
+    <td>窗口是否可调节尺寸。默认是 yes。</td>
+    </tr>
+    <tr>
+    <td>scrollbars=yes|no|1|0</td>
+    <td>是否显示滚动条。默认是 yes。</td>
+    </tr>
+    <tr>
+    <td>status=yes|no|1|0</td>
+    <td>是否添加状态栏。默认是 yes。</td>
+    </tr>
+    <tr>
+    <td>titlebar=yes|no|1|0</td>
+    <td>是否显示标题栏。默认是 yes。</td>
+    </tr>
+    <tr>
+    <td>toolbar=yes|no|1|0</td>
+    <td>是否显示浏览器的工具栏。默认是 yes。</td>
+    </tr>
+    <tr>
+    <td>top=pixels</td>
+    <td>窗口的 y 坐标。</td>
+    </tr>
+    <tr>
+    <td>width=pixels</td>
+    <td>窗口的文档显示区的宽度。以像素计。</td>
+    </tr>
+</tbody></table>
+</div>
+
+<div class="backtoreference">
+<p><a href="/htmldom/dom_obj_window.asp">HTML DOM Window 对象参考手册</a></p>
+</div>
+
+</div>

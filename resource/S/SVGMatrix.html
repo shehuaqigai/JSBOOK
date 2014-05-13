@@ -1,0 +1,117 @@
+<div class="_page _mdn"><h1>SVGMatrix</h1> <p>Many of SVG's graphics operations utilize 2x3 matrices of the form:</p> <pre>[a c e]
+[b d f]</pre> <p>which, when expanded into a 3x3 matrix for the purposes of matrix arithmetic, become:</p> <pre>[a c e]
+[b d f]
+[0 0 1]
+</pre> <p>An <code>SVGMatrix</code> object can be designated as read only, which means that attempts to modify the object will result in an exception being thrown.</p> <h3 id="Interface_overview">Interface overview</h3> <table class="standard-table"><tbody>
+<tr>
+<th scope="row">Also implement</th> <td><em>None</em></td> </tr>
+<tr>
+<th scope="row">Methods</th> <td> <ul>
+<li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>multiply(in <a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <em>secondMatrix</em>)</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>inverse()</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>translate(in float <em>x</em>, in float <em>y</em>)</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>scale(in float <em>scaleFactor</em>)</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>scaleNonUniform(in float <span style="font-style: italic;">scaleFactorX</span>, in float <em>scaleFactorY</em>)</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>rotate(in float<code> <em>angle</em>)</code></code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>rotateFromVector(in float <em>x</em>, in float <em>y</em>)</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>flipX()</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>flipY()</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>skewX(in float <em>angle</em>)</code>
+</li> <li>
+<a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <code>skewY(in float <em>angle</em>)</code>
+</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Properties</th> <td> <ul>
+<li>float <code>a</code>
+</li> <li>float <code>b</code>
+</li> <li>float <code>c</code>
+</li> <li>float <code>d</code>
+</li> <li>float <code>e</code>
+</li> <li>float <code>f</code>
+</li> </ul>
+</td> </tr>
+<tr>
+<th scope="row">Normative document</th> <td><a class="external" href="http://www.w3.org/TR/SVG/coords.html#InterfaceSVGMatrix" title="http://www.w3.org/TR/SVG/coords.html#InterfaceSVGMatrix">SVG 1.1 (2nd Edition)</a></td> </tr>
+</tbody></table><h2 id="Properties">Properties</h2> <table class="standard-table">
+<thead><tr>
+<th>Name</th> <th>Type</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code>a</code></td> <td>float</td> <td>The <em>a</em> component of the matrix.</td> </tr>
+<tr>
+<td><code>b</code></td> <td>float</td> <td>The <em>b</em> component of the matrix.</td> </tr>
+<tr>
+<td><code>c</code></td> <td>float</td> <td>The <span style="font-style: italic;">c</span> component of the matrix.</td> </tr>
+<tr>
+<td><code>d</code></td> <td>float</td> <td>The <em>d</em> component of the matrix.</td> </tr>
+<tr>
+<td><code>e</code></td> <td>float</td> <td>The <em>e</em> component of the matrix.</td> </tr>
+<tr>
+<td><code>f</code></td> <td>float</td> <td>The <em>f</em> component of the matrix.</td> </tr>
+</tbody>
+</table><p>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>NO_MODIFICATION_ALLOWED_ERR</code> is raised when attempting updating a read only attribute or when the object itself is read only.</p> <h2 id="Methods">Methods</h2> <table class="standard-table">
+<thead><tr>
+<th>Name &amp; Arguments</th> <th>Return</th> <th>Description</th> </tr></thead>
+<tbody>
+<tr>
+<td><code><strong>multiply</strong>(in <a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a> <em>secondMatrix</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td>Performs matrix multiplication. This matrix is post-multiplied by another matrix, returning the resulting new matrix.</td> </tr>
+<tr>
+<td><code><strong>inverse</strong>()</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <p>Return the inverse matrix</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>SVG_MATRIX_NOT_INVERTABLE</code> is raised if the matrix is not invertable.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>translate</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies a translation transformation on the current matrix and returns the resulting matrix.</div> </td> </tr>
+<tr>
+<td><code><strong>scale</strong>(in float <em>scaleFactor</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies a uniform scale transformation on the current matrix and returns the resulting matrix.</div> </td> </tr>
+<tr>
+<td><code><strong>scaleNonUniform</strong>(in float <em>scaleFactorX</em>, in float <em>scaleFactorY</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies a non-uniform scale transformation on the current matrix and returns the resulting matrix.</div> </td> </tr>
+<tr>
+<td><code><strong>rotate</strong>(in float <em>angle</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies a rotation transformation on the current matrix and returns the resulting matrix.</div> </td> </tr>
+<tr>
+<td><code><strong>rotateFromVector</strong>(in float <em>x</em>, in float <em>y</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <p>Post-multiplies a rotation transformation on the current matrix and returns the resulting matrix. The rotation angle is determined by taking (+/-) atan(y/x). The direction of the vector (x, y) determines whether the positive or negative angle value is used.</p> <p><strong>Exceptions:</strong></p> <ul>
+<li>a <a href="domexception" title="The DOMException interface represents an anormal event happening when a method or a property is used."><code>DOMException</code></a> with code <code>SVG_INVALID_VALUE_ERR</code> is raised if one of the parameters has an invalid value.</li> </ul>
+</td> </tr>
+<tr>
+<td><code><strong>flipX</strong>()</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies the transformation [-1 0 0 1 0 0] and returns the resulting matrix.</div> </td> </tr>
+<tr>
+<td><code><strong>flipY</strong>()</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies the transformation [1 0 0 -1 0 0] and returns the resulting matrix.</div> </td> </tr>
+<tr>
+<td><code><strong>skewX</strong>(in float <em>angle</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies a skewX transformation on the current matrix and returns the resulting matrix.</div> </td> </tr>
+<tr>
+<td><code><strong>skewY</strong>(in float <em>angle</em>)</code></td> <td><a href="svgmatrix" title="Many of SVG's graphics operations utilize 2x3 matrices of the form:"><code>SVGMatrix</code></a></td> <td> <div> Post-multiplies a skewY transformation on the current matrix and returns the resulting matrix.</div> </td> </tr>
+</tbody>
+</table><h2 id="Browser_compatibility" name="Browser_compatibility">Browser compatibility</h2>  <div id="compat-desktop"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Chrome</th> <th>Firefox (Gecko)</th> <th>Internet Explorer</th> <th>Opera</th> <th>Safari (WebKit)</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td>9</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div id="compat-mobile"> <table class="compat-table"><tbody>
+<tr>
+<th>Feature</th> <th>Android</th> <th>Firefox Mobile (Gecko)</th> <th>IE Mobile</th> <th>Opera Mobile</th> <th>Safari Mobile</th> </tr>
+<tr>
+<td>Basic support</td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td> </tr>
+</tbody></table>
+</div> <div class="_attribution">
+  <p class="_attribution-p">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGMatrix$edit" class="_attribution-link">Edit this page on MDN</a>
+  </p>
+</div>
+<div class="_attribution">
+  <p class="_attribution-p">
+    © 2013 Mozilla Contributors<br>Licensed under the Creative Commons Attribution-ShareAlike License v2.5 or later.<br>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/SVGMatrix" class="_attribution-link">https://developer.mozilla.org/en-US/docs/Web/API/SVGMatrix</a>
+  </p>
+</div>
+</div>
