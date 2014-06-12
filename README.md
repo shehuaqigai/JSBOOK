@@ -13,4 +13,5 @@ js参考手册
 用chrome浏览器打开因为用indexDB知识
 最好在服务器环境下打开，因为涉及到跨域问题
 如果不用服务器环境在window下点击chrome右键加入下面代码
-
+对应你的安装路径
+"C:\Program Files\Google\Chrome\Application\chrome.exe" -disable-web-security
